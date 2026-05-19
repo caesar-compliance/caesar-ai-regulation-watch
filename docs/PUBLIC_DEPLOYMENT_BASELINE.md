@@ -1,6 +1,6 @@
 # Public Deployment Baseline
 
-**Phase:** v0.8.5 — first public GitHub Pages deploy  
+**Phase:** v0.8.6 — content review batch + candidate refresh redeploy  
 **Deployment date:** 20 May 2026  
 **Status:** Live (manual-gated pilot)
 
@@ -11,11 +11,12 @@
 | Field | Value |
 |---|---|
 | **Repository** | [caesar-compliance/caesar-ai-regulation-watch](https://github.com/caesar-compliance/caesar-ai-regulation-watch) |
-| **Deployed commit (current)** | `0bd0e76` (`merge: v0.8.5 first public deployment baseline`) |
+| **Deployed commit (current)** | `44fca63` (`merge: v0.8.6 human review candidate refresh`) |
 | **First deploy commit** | `57acfcf` (`merge: v0.8.4 static deployment readiness`) |
+| **Prior deploy commit** | `6f28ade` (v0.8.5 merge; superseded by v0.8.6) |
 | **Workflow** | [Deploy static site](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/workflows/deploy-static-site.yml) |
 | **First workflow run ID** | [26130431228](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26130431228) |
-| **Latest workflow run ID** | [26130535955](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26130535955) |
+| **Latest workflow run ID** | [26130906806](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26130906806) |
 | **Trigger** | `workflow_dispatch` with `confirm_disclaimers=DEPLOY` |
 | **Result** | Success |
 | **Public URL** | https://caesar-compliance.github.io/caesar-ai-regulation-watch/ |
@@ -39,6 +40,7 @@
 | Search | …/search/ | 200 |
 | Snapshot JSON | …/data/regulation-watch-snapshot.json | 200 |
 | Evidence candidates JSON | …/data/evidence-export-candidates.json | 200 |
+| Content reviews JSON | …/data/content-reviews.json | 200 |
 | Changes RSS | …/feeds/changes.xml | 200 |
 | Pagefind | …/pagefind/pagefind.js | 200 |
 
@@ -70,7 +72,7 @@ Full checklist: [POST_DEPLOY_SMOKE_TESTS.md](POST_DEPLOY_SMOKE_TESTS.md).
 | Deploy secrets | **No** |
 | Auto-deploy on push to `main` | **No** |
 
-**Candidate counts at deploy:** 5 total; 2 blocked (content review); 3 blocked (simulation); 0 ready for human review; `client_use_allowed: 0`.
+**Candidate counts at deploy (v0.8.6):** 5 total; 2 `ready_for_human_review`; 3 `blocked_simulation_only`; 0 `blocked_pending_content_review`; `client_use_allowed: 0`.
 
 ---
 
@@ -81,7 +83,7 @@ Full checklist: [POST_DEPLOY_SMOKE_TESTS.md](POST_DEPLOY_SMOKE_TESTS.md).
 - No custom domain (`regulations.caesar.no`) or DNS in this baseline.
 - No Cloudflare, Coolify, or production host beyond GitHub Pages.
 - Monitoring cycle does not deploy; redeploy only via manual workflow.
-- Content review batch largely `not_checked` — browser review pending.
+- v0.8.6 reviewed 9/9 pilot content-review entries; EUR-Lex deep read still limited (bot protection); Datatilsynet uses homepage pointer only.
 
 ---
 
