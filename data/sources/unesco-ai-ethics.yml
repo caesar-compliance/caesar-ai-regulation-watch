@@ -1,0 +1,23 @@
+# Official source — UNESCO Recommendation on the Ethics of AI
+# Last curated: 19 May 2026
+
+source_id: unesco-ai-ethics
+title: UNESCO — Recommendation on the Ethics of Artificial Intelligence
+jurisdiction_id: unesco
+source_type: international_body
+credibility_level: official_primary
+official_url: https://www.unesco.org/en/artificial-intelligence/recommendation-ethics
+monitoring_scope: >
+  UNESCO official pages on the 2021 Recommendation on the Ethics of AI, including
+  updates, implementation resources, and related publications on unesco.org.
+expected_update_types:
+  - recommendation_resources
+  - implementation_guidance
+  - monitoring_reports
+related_topics:
+  - ai_ethics
+  - human_rights
+  - soft_law
+review_status: pending_review
+notes: >
+  Official UNESCO soft-law instrument page. Not a substitute for national legislation.

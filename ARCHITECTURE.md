@@ -1,7 +1,7 @@
 # Architecture — Caesar AI Regulation Watch
 
 **Last updated:** 19 May 2026  
-**Status:** Planned architecture (documentation only; no runtime code)
+**Status:** v0.8.2 — static registry + content review workflow + monitoring cycle; scheduled monitoring artifacts-only; push/PR CI validate/build; read-only Astro site; no backend API/database/auth/deploy/auto-merge/write UI
 
 ---
 
@@ -121,26 +121,36 @@
                               [Site build | RSS | JSON | Evidence export]
 ```
 
-**Blueprint phase:** layers B–C deferred; manual `ChangeRecord` samples only.
+**v0.8.1 phase:** Layer B — `run-monitoring-cycle.mjs` + `summarize-monitoring-changes.mjs`. GitHub `monitoring-cycle.yml`: scheduled = artifacts only; manual `create_pr=true` opens `monitoring/results-YYYY-MM-DD` when meaningful changes exist (human merge). Push/PR CI remains fetch-free. **v0.6.x:** verifications, URL checks, 15 curated records. **v0.5.x:** static SVG map and review queue. Site build does not run watchers. **Deferred:** production scheduling, broad watcher fleet, Layers B–C full ingestion.
 
 ---
 
-## 5. Repository layout (planned)
+## 5. Repository layout
 
 ```text
 caesar-ai-regulation-watch/
-├── data/                    # future: curated JSON/YAML
-│   ├── jurisdictions/
-│   ├── sources/
-│   ├── laws/
-│   ├── guidance/
-│   ├── changes/
-│   └── timelines/
-├── mappings/                # future: control & evidence links
-├── docs/                    # blueprint & research
-├── site/                    # future: static site source
-└── (no package manager yet)
+├── data/                    # curated YAML registry (v0.2.0+)
+│   ├── jurisdictions/       # eu.yml, norway.yml
+│   ├── sources/             # seven pilot official sources
+│   ├── laws/                # v0.3.0 sample (eu-ai-act.yml)
+│   ├── guidance/            # v0.3.0 samples
+│   ├── changes/             # v0.3.0 manual change samples
+│   └── timelines/           # v0.5.0 sample timelines
+├── schemas/                 # entity + taxonomy + evidence-export-record
+├── data/taxonomies/         # v0.3.1 canonical values
+├── mappings/                # v0.3.0 sample control & evidence links
+├── exports/samples/         # v0.3.1 export contract samples (no runtime export)
+├── docs/                    # blueprint, policies, PILOT_SOURCE_REGISTRY
+├── research/                # acceleration audit + VerifyWise study
+├── src/                     # v0.4.0 Astro pages, components, lib
+├── scripts/validate-data.mjs
+├── package.json             # astro, js-yaml, ajv
+├── astro.config.mjs
+├── dist/                    # build output (gitignored)
+└── scripts/run-official-source-watchers.mjs  # manual CLI only (v0.7.0 pilot)
 ```
+
+The registry and sample records form the **static data foundation**: human-curated YAML in git only. Change samples are **not** watcher output. Future ingestion layers read from `data/sources/` definitions but are **not implemented**.
 
 ---
 
@@ -171,8 +181,8 @@ Import mechanism: file drop, git submodule, or API — **TBD** at OS spec time.
 
 ## 8. Public site architecture
 
-- **Static generation** from data (Eleventy, Astro, or plain HTML — decision deferred).
-- **Globe/map** as client-side module; fallback list for accessibility.
+- **Static generation** from data — **Astro** recommended ([research/OPEN_SOURCE_COMPONENT_SHORTLIST.md](research/OPEN_SOURCE_COMPONENT_SHORTLIST.md)).
+- **Map** — **Leaflet** (2D) recommended; 3D globe deferred; fallback list for accessibility.
 - **CDN/GitHub Pages** hosting until `regulations.caesar.no` routed.
 - No server-side legal logic in v1.
 
@@ -181,7 +191,7 @@ Import mechanism: file drop, git submodule, or API — **TBD** at OS spec time.
 ## 9. Security and compliance posture
 
 - No storage of user PII in public data repo.
-- Secrets only in future CI (not in blueprint phase).
+- Secrets only in future CI (not in v0.2.0).
 - Source fetch from CI with pinned URLs.
 - Audit log of review actions (future, OS or repo).
 

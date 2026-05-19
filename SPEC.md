@@ -1,7 +1,7 @@
 # Specification — Caesar AI Regulation Watch
 
 **Last updated:** 19 May 2026  
-**Status:** Full-scale product specification (documentation only)
+**Status:** v0.8.2 — content review workflow (schema, YAML batches, `/content-review/`); monitoring cycle + optional review PR; five watchers; metadata-only snapshots; push/PR CI validate/build without live fetches; review queue; read-only Astro site (no backend APIs, database, auth, deploy, auto-merge; `client_use_allowed` remains false)
 
 ---
 
@@ -140,20 +140,134 @@ Additional jurisdictions added via registry entries, not marketing claims of tot
 
 ---
 
-## 6. MVP scope (first implementation phase after blueprint)
+## 6. Pilot registry data (v0.2.0 — delivered)
 
-Documentation-complete blueprint is **not** MVP. First implementation MVP:
+Machine-readable pilot registry for **EU and Norway only** (curated subset; not exhaustive):
 
-1. **Source registry** (YAML/JSON) for pilot jurisdictions.
-2. **Regulatory change schema** aligned with evidence format draft.
-3. **Sample change records** (manually curated).
-4. **Timeline file** per pilot jurisdiction.
-5. **Affected controls / evidence mapping** samples.
-6. **Static site skeleton** (no watcher automation required for MVP).
+| Path | Contents |
+|---|---|
+| `data/jurisdictions/eu.yml` | EU jurisdiction profile |
+| `data/jurisdictions/norway.yml` | Norway jurisdiction profile |
+| `data/sources/*.yml` | Seven official source entries (AI Act, AI Office, EUR-Lex, EDPB, EDPS, Norway implementation, Datatilsynet) |
+| `schemas/jurisdiction.schema.json` | Jurisdiction record validation |
+| `schemas/source.schema.json` | Source record validation |
+| [docs/PILOT_SOURCE_REGISTRY.md](docs/PILOT_SOURCE_REGISTRY.md) | Registry index and review workflow |
+
+Static YAML only: no crawlers, watchers, APIs, schedulers, or automated monitoring in v0.2.0.
 
 ---
 
-## 7. Future scope (post-MVP)
+## 7. Sample records (v0.3.0 — delivered)
+
+Manual sample data for data-model testing (not watcher output):
+
+| Path | Contents |
+|---|---|
+| `data/laws/eu-ai-act.yml` | Sample EU AI Act law record |
+| `data/guidance/*.yml` | EU AI Office GPAI pointer; Datatilsynet AI/privacy pointer |
+| `data/changes/*.yml` | Two illustrative change records |
+| `mappings/*.sample.yml` | Control and evidence mapping samples |
+| `schemas/law.schema.json`, etc. | Validation for sample entity types |
+| [docs/SAMPLE_RECORDS_GUIDE.md](docs/SAMPLE_RECORDS_GUIDE.md) | Guide and review workflow |
+
+All samples use `review_status: pending_review` unless Control Tower updates them. Sample law/guidance/change records include `record_origin: manual_sample`.
+
+---
+
+## 8. Taxonomy and evidence export contract (v0.3.1 — delivered)
+
+| Path | Contents |
+|---|---|
+| `data/taxonomies/*.yml` | Canonical values: statuses, topics, change types, draft control/evidence refs |
+| `schemas/taxonomy.schema.json` | Taxonomy file validation |
+| `schemas/evidence-export-record.schema.json` | Future `regulation_change` export shape |
+| `exports/samples/regulation-change-export.sample.yml` | Sample exports (no client evidence created) |
+| [docs/TAXONOMY_AND_REVIEW_WORKFLOW.md](docs/TAXONOMY_AND_REVIEW_WORKFLOW.md) | Review workflow and data boundaries |
+| [docs/EVIDENCE_EXPORT_CONTRACT.md](docs/EVIDENCE_EXPORT_CONTRACT.md) | Export contract for Evidence / Governance OS |
+
+Draft references use `regulation_watch.control.*` and `regulation_watch.evidence.*` with `reference_alignment: draft_pending_caesar_ai_evidence`. No export runtime implemented.
+
+---
+
+## 8.1 Third-party acceleration plan (v0.3.2 — delivered)
+
+Documentation-only adoption plan; **no third-party code or package managers** in this release:
+
+| Path | Contents |
+|---|---|
+| [docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md](docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md) | Allowed/prohibited reuse, clean-room, attribution |
+| [docs/ACCELERATION_DECISION_MATRIX.md](docs/ACCELERATION_DECISION_MATRIX.md) | Prioritised candidates and phases |
+| [research/THIRD_PARTY_ACCELERATION_AUDIT.md](research/THIRD_PARTY_ACCELERATION_AUDIT.md) | Per-source classification |
+| [research/OPEN_SOURCE_COMPONENT_SHORTLIST.md](research/OPEN_SOURCE_COMPONENT_SHORTLIST.md) | Map, site, search, validation shortlist |
+| [research/COMPETITOR_FEATURE_REPLICATION_PLAN.md](research/COMPETITOR_FEATURE_REPLICATION_PLAN.md) | Clean-room feature replication |
+| [research/OFFICIAL_SOURCE_INGESTION_CANDIDATES.md](research/OFFICIAL_SOURCE_INGESTION_CANDIDATES.md) | Future watcher planning |
+
+Competitor products are benchmark inputs only. Future phases may use approved open-source dependencies and official-source ingestion.
+
+---
+
+## 8.2 VerifyWise clean-room study (v0.3.3 — delivered)
+
+Documentation-only architecture study; **no VerifyWise code, UI, schemas, or proprietary data imported**:
+
+| Path | Contents |
+|---|---|
+| [research/VERIFYWISE_ARCHITECTURE_STUDY.md](research/VERIFYWISE_ARCHITECTURE_STUDY.md) | VerifyWise repo structure, stack, patterns (reference only) |
+| [research/CLEAN_ROOM_FEATURE_BACKLOG.md](research/CLEAN_ROOM_FEATURE_BACKLOG.md) | Prioritized Caesar-original feature backlog |
+| [docs/NEXT_IMPLEMENTATION_ARCHITECTURE_OPTIONS.md](docs/NEXT_IMPLEMENTATION_ARCHITECTURE_OPTIONS.md) | Astro vs Next vs plain generator comparison |
+| [docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md](docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md) | v0.4.0 static site Definition of Done (plan only) |
+
+VerifyWise Global AI Regulations Tracker is a **benchmark** for status/timeline/card UX. Caesar implements clean-room via existing YAML, taxonomies, and Astro static site.
+
+---
+
+## 8.3 Static site skeleton (v0.4.0 — delivered)
+
+Read-only Astro static site at repository root (`src/`, `package.json`):
+
+| Command | Purpose |
+|---|---|
+| `npm run validate:data` | ajv validation of all `data/` YAML |
+| `npm run watch:official` | Manual metadata watcher (not CI) |
+| `npm run dev` | Local preview |
+| `npm run build` | Static output to `dist/` |
+
+**Pages:** home, jurisdictions, sources, records, changes, watchers, detected changes, timelines, map, review queue, verification.
+
+**Not in CI:** watchers, live URL checks. **Not included:** API, database, auth, production scheduling.
+
+---
+
+## 8.4 Site UX and static exports (v0.4.1 — delivered)
+
+| Feature | Implementation |
+|---|---|
+| Search | Pagefind on `dist/` — `/search/` |
+| Browse filters | Client-side on records, sources, changes |
+| Methodology / disclaimer | `/methodology/`, `/disclaimer/` |
+| JSON exports | `npm run generate:exports` → `public/data/*.json` |
+| RSS | `public/feeds/changes.xml` (sample changes) |
+
+---
+
+## 9. MVP scope (next implementation phases)
+
+1. ~~**Source registry** (YAML) for pilot jurisdictions.~~ **Done (v0.2.0).**
+2. ~~**Sample law/guidance/change records** and mapping samples.~~ **Done (v0.3.0 manual).**
+3. ~~**Export contract draft** for regulation-change.~~ **Done (v0.3.1 contract + sample).** Align with `caesar-ai-evidence` validator (cross-repo).
+4. ~~**Third-party acceleration policy and plan.**~~ **Done (v0.3.2).**
+5. ~~**VerifyWise clean-room architecture study and v0.4 plan.**~~ **Done (v0.3.3).**
+6. ~~**Static public site skeleton** reading `data/` (Astro).~~ **Done (v0.4.0).**
+7. ~~**Schema validation** (ajv).~~ **Done (v0.4.0).**
+8. ~~**Pagefind search, filters, JSON/RSS exports.**~~ **Done (v0.4.1).**
+9. ~~**Global jurisdiction/source expansion, timelines, CI.**~~ **Done (v0.5.0).**
+9. **Timeline file** per pilot jurisdiction (v0.5).
+10. **Leaflet map** (v0.5).
+11. **GitHub Actions CI** (optional follow-up).
+
+---
+
+## 10. Future scope (post-MVP)
 
 - Automated fetchers for RSS/HTML pilot sources.
 - Diff engine and snapshot store.
@@ -164,7 +278,7 @@ Documentation-complete blueprint is **not** MVP. First implementation MVP:
 
 ---
 
-## 8. Non-goals
+## 11. Non-goals
 
 | Non-goal | Reason |
 |---|---|
@@ -178,7 +292,7 @@ Documentation-complete blueprint is **not** MVP. First implementation MVP:
 
 ---
 
-## 9. Inputs and outputs
+## 12. Inputs and outputs
 
 ### Inputs
 
@@ -199,7 +313,7 @@ Documentation-complete blueprint is **not** MVP. First implementation MVP:
 
 ---
 
-## 10. Quality and legal-safe language
+## 13. Quality and legal-safe language
 
 All user-facing text must:
 
@@ -210,7 +324,7 @@ All user-facing text must:
 
 ---
 
-## 11. Hub alignment
+## 14. Hub alignment
 
 | Hub document | Relevance |
 |---|---|
@@ -222,11 +336,16 @@ All user-facing text must:
 
 ---
 
-## 12. Related repository docs
+## 15. Related repository docs
 
 - [docs/FULL_SCALE_PRODUCT_BLUEPRINT.md](docs/FULL_SCALE_PRODUCT_BLUEPRINT.md)
 - [docs/COMPETITOR_BENCHMARKS.md](docs/COMPETITOR_BENCHMARKS.md)
 - [docs/DATA_MODEL_DRAFT.md](docs/DATA_MODEL_DRAFT.md)
 - [docs/UI_UX_VISION.md](docs/UI_UX_VISION.md)
 - [ARCHITECTURE.md](ARCHITECTURE.md)
+- [docs/SAMPLE_RECORDS_GUIDE.md](docs/SAMPLE_RECORDS_GUIDE.md)
+- [docs/TAXONOMY_AND_REVIEW_WORKFLOW.md](docs/TAXONOMY_AND_REVIEW_WORKFLOW.md)
+- [docs/EVIDENCE_EXPORT_CONTRACT.md](docs/EVIDENCE_EXPORT_CONTRACT.md)
+- [docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md](docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md)
+- [docs/ACCELERATION_DECISION_MATRIX.md](docs/ACCELERATION_DECISION_MATRIX.md)
 - [ROADMAP.md](ROADMAP.md)

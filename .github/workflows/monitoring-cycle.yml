@@ -1,0 +1,250 @@
+# Manual / scheduled monitoring cycle — fetches official sources, validates, builds.
+# v0.8.1: optional human-reviewed PR for monitoring outputs (workflow_dispatch only).
+# Does NOT deploy. Does NOT auto-merge. No secrets required.
+name: Monitoring cycle
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Monitoring mode
+        required: true
+        default: write
+        type: choice
+        options:
+          - write
+          - dry_run
+          - report_only
+      create_pr:
+        description: Create/update monitoring review PR when meaningful changes exist
+        type: boolean
+        default: false
+      commit_snapshots:
+        description: Include generated snapshots/watcher data in monitoring PR
+        type: boolean
+        default: true
+      commit_exports:
+        description: Include regenerated public/data exports in monitoring PR
+        type: boolean
+        default: true
+  # Scheduled: artifacts only (create_pr not available — defaults false).
+  schedule:
+    - cron: "0 6 * * *"
+
+concurrency:
+  group: monitoring-cycle-${{ github.repository }}
+  cancel-in-progress: true
+
+jobs:
+  monitoring-cycle:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run monitoring cycle
+        run: |
+          export MONITORING_RUN_DATE="$(date -u +%Y-%m-%d)"
+          MODE="${{ github.event.inputs.mode || 'write' }}"
+          node scripts/run-monitoring-cycle.mjs --mode="$MODE" --skip-lock
+
+      - name: Summarize monitoring changes
+        if: always()
+        run: |
+          export MONITORING_RUN_DATE="$(date -u +%Y-%m-%d)"
+          npm run monitoring:summary
+
+      - name: Validate data (post-cycle)
+        if: always()
+        run: npm run validate:data
+
+      - name: Read diff summary flags
+        id: summary
+        if: always()
+        run: |
+          SUMMARY="data/monitoring-runs/latest-monitoring-diff-summary.json"
+          if [ ! -f "$SUMMARY" ]; then
+            echo "has_meaningful_changes=false" >> "$GITHUB_OUTPUT"
+            echo "recommended_action=summary_missing" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          node -e "
+            const s = require('./data/monitoring-runs/latest-monitoring-diff-summary.json');
+            const fs = require('fs');
+            const out = process.env.GITHUB_OUTPUT;
+            const lines = [
+              'has_meaningful_changes=' + Boolean(s.has_meaningful_changes),
+              'has_detected_changes=' + Boolean(s.has_detected_changes),
+              'has_watcher_errors=' + Boolean(s.has_watcher_errors),
+              'recommended_action=' + (s.recommended_action || 'unknown'),
+              'new_snapshot_count=' + (s.new_snapshot_count || 0),
+              'new_real_detected_change_count=' + (s.new_real_detected_change_count || 0),
+            ];
+            fs.appendFileSync(out, lines.join('\n') + '\n');
+          "
+
+      - name: Create or update monitoring review PR
+        if: >-
+          always() &&
+          github.event_name == 'workflow_dispatch' &&
+          github.event.inputs.create_pr == 'true' &&
+          steps.summary.outputs.has_meaningful_changes == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          RUN_DATE="$(date -u +%Y-%m-%d)"
+          DISPLAY_DATE="$(date -u '+%d %b %Y')"
+          BRANCH="monitoring/results-${RUN_DATE}"
+          SUMMARY="data/monitoring-runs/latest-monitoring-diff-summary.json"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git checkout -B "$BRANCH"
+
+          git add data/monitoring-runs/latest-monitoring-diff-summary.json
+
+          if [ "${{ github.event.inputs.commit_snapshots }}" = "true" ]; then
+            git add data/snapshots data/watcher-runs data/detected-changes
+            git add data/monitoring-runs/*.yml 2>/dev/null || true
+          else
+            git add data/watcher-runs data/detected-changes
+            git add data/monitoring-runs/monitoring-cycle-*.yml 2>/dev/null || true
+          fi
+
+          if [ "${{ github.event.inputs.commit_exports }}" = "true" ]; then
+            git add public/data public/feeds
+          fi
+
+          if git diff --staged --quiet; then
+            echo "No staged monitoring outputs to commit."
+            exit 0
+          fi
+
+          git commit -m "chore: monitoring results for ${DISPLAY_DATE}"
+
+          git push origin "$BRANCH" --force-with-lease
+
+          MODE="${{ github.event.inputs.mode || 'write' }}"
+          NEW_SNAPS="${{ steps.summary.outputs.new_snapshot_count }}"
+          NEW_REAL_DC="${{ steps.summary.outputs.new_real_detected_change_count }}"
+          REC_ACTION="${{ steps.summary.outputs.recommended_action }}"
+
+          REPORT_FILE="data/monitoring-runs/monitoring-cycle-${RUN_DATE}.yml"
+          WATCHERS_CHECKED="—"
+          WATCHER_SUCCESS="—"
+          WATCHER_ERRORS="—"
+          REVIEW_QUEUE="—"
+          OVERALL="—"
+          if [ -f "$REPORT_FILE" ]; then
+            WATCHERS_CHECKED="$(grep '^watchers_checked:' "$REPORT_FILE" | awk '{print $2}' || echo —)"
+            WATCHER_SUCCESS="$(grep '^watcher_success_count:' "$REPORT_FILE" | awk '{print $2}' || echo —)"
+            WATCHER_ERRORS="$(grep '^watcher_soft_error_count:' "$REPORT_FILE" | awk '{print $2}' || echo —)"
+            REVIEW_QUEUE="$(grep '^review_queue_count:' "$REPORT_FILE" | awk '{print $2}' || echo —)"
+            OVERALL="$(grep '^overall_status:' "$REPORT_FILE" | awk '{print $2}' || echo —)"
+          fi
+
+          BODY_FILE="$(mktemp)"
+          cat > "$BODY_FILE" <<EOF
+          ## Monitoring review PR (${DISPLAY_DATE})
+
+          **Mode:** \`${MODE}\` · **Branch:** \`${BRANCH}\`
+
+          | Signal | Value |
+          |---|---|
+          | Overall status | ${OVERALL} |
+          | Watchers checked | ${WATCHERS_CHECKED} |
+          | Watcher successes | ${WATCHER_SUCCESS} |
+          | Watcher soft errors | ${WATCHER_ERRORS} |
+          | Real detected changes (this diff) | ${NEW_REAL_DC} |
+          | New snapshots | ${NEW_SNAPS} |
+          | Review queue count | ${REVIEW_QUEUE} |
+          | Recommended action | \`${REC_ACTION}\` |
+
+          ### Human review checklist
+
+          - [ ] Read watcher run summary and \`data/monitoring-runs/monitoring-cycle-${RUN_DATE}.yml\`
+          - [ ] Inspect detected changes (ignore \`simulation: true\` unless pipeline testing)
+          - [ ] Confirm official source identity on the live official URL
+          - [ ] Decide relevance before any curated record update
+          - [ ] Do **not** approve legal summaries from watcher output alone
+          - [ ] Do **not** set \`verified_on_source: true\` or \`client_use_allowed: true\`
+
+          See \`docs/MONITORING_PR_REVIEW_CHECKLIST.md\`.
+
+          ### Warnings
+
+          - **Not legal advice.** Not a compliance guarantee. Not complete coverage.
+          - **Do not merge until reviewed** by Control Tower / governance reviewer.
+          - **No auto-merge** — this workflow never merges itself.
+          - Metadata-only snapshots; no full page/feed/API bodies stored.
+
+          ### Diff summary artifact
+
+          \`data/monitoring-runs/latest-monitoring-diff-summary.json\` is included in this branch.
+          EOF
+
+          PR_TITLE="chore: review monitoring results for ${DISPLAY_DATE}"
+          EXISTING="$(gh pr list --head "$BRANCH" --json number --jq '.[0].number' 2>/dev/null || true)"
+
+          if [ -n "$EXISTING" ] && [ "$EXISTING" != "null" ]; then
+            gh pr edit "$EXISTING" --title "$PR_TITLE" --body-file "$BODY_FILE"
+            echo "Updated PR #${EXISTING}"
+          else
+            gh pr create \
+              --base main \
+              --head "$BRANCH" \
+              --title "$PR_TITLE" \
+              --body-file "$BODY_FILE" \
+              --label "monitoring-review" 2>/dev/null || \
+            gh pr create \
+              --base main \
+              --head "$BRANCH" \
+              --title "$PR_TITLE" \
+              --body-file "$BODY_FILE"
+            echo "Created monitoring review PR"
+          fi
+
+          rm -f "$BODY_FILE"
+
+      - name: Note skipped PR (no meaningful changes)
+        if: >-
+          always() &&
+          github.event_name == 'workflow_dispatch' &&
+          github.event.inputs.create_pr == 'true' &&
+          steps.summary.outputs.has_meaningful_changes != 'true'
+        run: |
+          echo "create_pr=true but has_meaningful_changes=false — no PR opened."
+          echo "recommended_action=${{ steps.summary.outputs.recommended_action }}"
+
+      - name: Upload monitoring artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: monitoring-cycle-${{ github.run_id }}
+          path: |
+            data/monitoring-runs/
+            data/watcher-runs/
+            data/snapshots/
+            data/detected-changes/
+            public/data/monitoring-runs.json
+            public/data/watcher-runs.json
+            public/data/regulation-watch-snapshot.json
+          retention-days: 14
+          if-no-files-found: ignore

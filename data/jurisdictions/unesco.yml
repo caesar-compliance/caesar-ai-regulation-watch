@@ -1,0 +1,26 @@
+# Global expansion jurisdiction record — UNESCO (AI ethics)
+# Last curated: 19 May 2026
+
+jurisdiction_id: unesco
+name: UNESCO
+type: other
+region: International
+parent_jurisdiction: null
+related_frameworks:
+  - unesco_ai_ethics_recommendation
+regulatory_focus:
+  - ai_ethics_recommendation
+  - international_soft_law
+monitoring_priority: low
+notes: >
+  International body entry for UNESCO AI ethics recommendation and related official
+  pages. Soft-law orientation; not binding national regulation. Human review required.
+map:
+  display_name: Paris (UNESCO headquarters)
+  latitude: 48.8606
+  longitude: 2.3376
+  marker_type: international_framework
+  coverage_status: international
+  map_note: >
+    Institutional display marker for UNESCO AI ethics materials. Soft-law reference only; not national law.
+review_status: pending_review

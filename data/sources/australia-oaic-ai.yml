@@ -1,0 +1,23 @@
+# Official source — OAIC artificial intelligence guidance
+# Last curated: 19 May 2026
+
+source_id: australia-oaic-ai
+title: Office of the Australian Information Commissioner — Artificial intelligence
+jurisdiction_id: australia
+source_type: regulator
+credibility_level: official_primary
+official_url: https://www.oaic.gov.au/privacy/guidance-and-advice
+monitoring_scope: >
+  OAIC privacy guidance hub on oaic.gov.au, including AI-related guidance (e.g. generative AI
+  model development and commercial AI products) linked from this section.
+expected_update_types:
+  - guidance_updates
+  - enforcement_communications
+  - consultation_documents
+related_topics:
+  - privacy
+  - ai_and_personal_information
+review_status: pending_review
+notes: >
+  Official privacy regulator source. URL remediated v0.6.2: prior deep-linked AI path returned 404;
+  hub page is the maintained entry point. Does not capture all Australian AI legislation or state laws.

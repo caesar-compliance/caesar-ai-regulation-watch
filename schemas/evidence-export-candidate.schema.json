@@ -1,0 +1,225 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caesar.no/schemas/caesar-ai-regulation-watch/evidence-export-candidate.schema.json",
+  "title": "Caesar AI Regulation Watch — Evidence export candidate batch",
+  "description": "Gated evidence export candidates (not final evidence). Human review required. client_use_allowed must remain false in v0.8.3.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "evidence_export_candidate_batch_id",
+    "generated_at",
+    "pipeline_version",
+    "legal_safe_note",
+    "candidates"
+  ],
+  "properties": {
+    "evidence_export_candidate_batch_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "pipeline_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "legal_safe_note": {
+      "type": "string",
+      "minLength": 1
+    },
+    "candidates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "candidate_id",
+          "source_item_type",
+          "source_item_id",
+          "jurisdiction_id",
+          "source_id",
+          "export_type",
+          "candidate_status",
+          "eligibility_reasons",
+          "blocking_reasons",
+          "summary_for_review",
+          "may_affect_controls",
+          "may_affect_evidence",
+          "suggested_review_actions",
+          "human_review_required",
+          "client_use_allowed",
+          "verified_on_source_required",
+          "created_from",
+          "provenance",
+          "legal_safe_note"
+        ],
+        "properties": {
+          "candidate_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "source_item_type": {
+            "type": "string",
+            "enum": ["change_record", "detected_change"]
+          },
+          "source_item_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "jurisdiction_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "source_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "related_record_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "export_type": {
+            "type": "string",
+            "enum": ["regulation_change_candidate"]
+          },
+          "candidate_status": {
+            "type": "string",
+            "enum": [
+              "blocked_pending_content_review",
+              "blocked_simulation_only",
+              "ready_for_human_review",
+              "rejected_for_client_use"
+            ]
+          },
+          "eligibility_reasons": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "blocking_reasons": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "summary_for_review": {
+            "type": "string",
+            "minLength": 1
+          },
+          "may_affect_controls": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["control_ref", "rationale", "reference_alignment"],
+              "properties": {
+                "control_ref": {
+                  "type": "string",
+                  "pattern": "^regulation_watch\\.control\\.[a-z][a-z0-9_]*$"
+                },
+                "rationale": { "type": "string", "minLength": 1 },
+                "reference_alignment": {
+                  "type": "string",
+                  "enum": ["draft_pending_caesar_ai_evidence", "aligned", "deprecated"]
+                }
+              }
+            }
+          },
+          "may_affect_evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["evidence_ref", "rationale", "reference_alignment"],
+              "properties": {
+                "evidence_ref": {
+                  "type": "string",
+                  "pattern": "^regulation_watch\\.evidence\\.[a-z][a-z0-9_]*$"
+                },
+                "rationale": { "type": "string", "minLength": 1 },
+                "reference_alignment": {
+                  "type": "string",
+                  "enum": ["draft_pending_caesar_ai_evidence", "aligned", "deprecated"]
+                }
+              }
+            }
+          },
+          "suggested_review_actions": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["action_type", "rationale"],
+              "properties": {
+                "action_type": {
+                  "type": "string",
+                  "enum": [
+                    "review_control",
+                    "review_evidence",
+                    "verify_on_official_source",
+                    "update_internal_register",
+                    "consult_qualified_advisor",
+                    "complete_content_review",
+                    "reject_for_client_use"
+                  ]
+                },
+                "target_ref": { "type": "string" },
+                "rationale": { "type": "string", "minLength": 1 }
+              }
+            }
+          },
+          "human_review_required": {
+            "type": "boolean",
+            "const": true
+          },
+          "client_use_allowed": {
+            "type": "boolean",
+            "const": false
+          },
+          "verified_on_source_required": {
+            "type": "boolean",
+            "const": true
+          },
+          "created_from": {
+            "type": "string",
+            "enum": [
+              "manual_sample",
+              "watcher_detected_change",
+              "simulated_detected_change"
+            ]
+          },
+          "content_review_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "provenance": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["generated_by", "generated_at", "source_data_paths"],
+            "properties": {
+              "generated_by": { "type": "string", "minLength": 1 },
+              "generated_at": { "type": "string", "format": "date" },
+              "source_data_paths": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "type": "string", "minLength": 1 }
+              },
+              "mapping_ids": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "export_sample_record_id": {
+                "type": "string"
+              }
+            }
+          },
+          "legal_safe_note": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

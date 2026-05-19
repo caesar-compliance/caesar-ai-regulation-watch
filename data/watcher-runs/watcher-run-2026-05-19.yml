@@ -1,0 +1,90 @@
+# Watcher run log — 2026-05-19
+# Manual CLI only; not CI.
+
+run_id: watcher-run-2026-05-19
+run_date: '2026-05-19'
+run_mode: live_manual
+mode: live_manual
+safe_mode: true
+fixture_only: false
+network_disabled: false
+preserves_latest_snapshots: true
+watcher_count: 5
+checked_count: 5
+page_checked_count: 2
+feed_checked_count: 2
+api_checked_count: 1
+changed_count: 0
+error_count: 0
+errors_by_category: {}
+detected_change_ids: []
+error_summaries: []
+results:
+  - watcher_id: watcher-eu-ai-office
+    source_id: eu-ai-office
+    adapter_id: official_page_metadata
+    status: unchanged
+    snapshot_id: snap-eu-ai-office-2026-05-19t215013795
+    previous_snapshot_id: snap-eu-ai-office-2026-05-19t214948347
+    last_successful_snapshot_id: snap-eu-ai-office-2026-05-19t214948347
+    detected_change_id: null
+    detected_change_ids: []
+    error_message: null
+    error_category: null
+    retry_attempts: 1
+    soft_fail: true
+  - watcher_id: watcher-datatilsynet
+    source_id: datatilsynet
+    adapter_id: official_page_metadata
+    status: unchanged
+    snapshot_id: snap-datatilsynet-2026-05-19t215013962
+    previous_snapshot_id: snap-datatilsynet-2026-05-19t214948615
+    last_successful_snapshot_id: snap-datatilsynet-2026-05-19t214948615
+    detected_change_id: null
+    detected_change_ids: []
+    error_message: null
+    error_category: null
+    retry_attempts: 1
+    soft_fail: true
+  - watcher_id: watcher-edpb-feed
+    source_id: edpb
+    adapter_id: official_rss_or_feed
+    status: unchanged
+    snapshot_id: snap-feed-edpb-2026-05-19t215014055
+    previous_snapshot_id: snap-feed-edpb-2026-05-19t214948734
+    last_successful_snapshot_id: snap-feed-edpb-2026-05-19t214948734
+    detected_change_id: null
+    detected_change_ids: []
+    error_message: null
+    error_category: null
+    retry_attempts: 1
+    soft_fail: true
+  - watcher_id: watcher-edps-feed
+    source_id: edps
+    adapter_id: official_rss_or_feed
+    status: unchanged
+    snapshot_id: snap-feed-edps-2026-05-19t215014930
+    previous_snapshot_id: snap-feed-edps-2026-05-19t214949841
+    last_successful_snapshot_id: snap-feed-edps-2026-05-19t214949841
+    detected_change_id: null
+    detected_change_ids: []
+    error_message: null
+    error_category: null
+    retry_attempts: 1
+    soft_fail: true
+  - watcher_id: watcher-us-federal-register-api
+    source_id: us-federal-register
+    adapter_id: official_api_metadata
+    status: unchanged
+    snapshot_id: snap-api-us-federal-register-2026-05-19t215015351
+    previous_snapshot_id: snap-api-us-federal-register-2026-05-19t214950029
+    last_successful_snapshot_id: snap-api-us-federal-register-2026-05-19t214950029
+    detected_change_id: null
+    detected_change_ids: []
+    error_message: null
+    error_category: null
+    retry_attempts: 1
+    soft_fail: true
+legal_safe_note: >-
+  Metadata-only watcher output for governance review support. Not legal advice. Not a compliance guarantee. Human review
+  required before any record update. Does not set verified_on_source or client_use_allowed.

@@ -1,0 +1,183 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ReviewStatusBadge from "../components/ReviewStatusBadge.astro";
+import { getJurisdictions, getTaxonomies, taxonomyLabel } from "../lib/data";
+import { buildReviewQueue, getReviewQueueSummary } from "../lib/review-queue";
+import { humanizeId, urlCheckResultLabel, contentReviewStatusLabel } from "../lib/format";
+
+const items = buildReviewQueue();
+const summary = getReviewQueueSummary();
+const jurisdictions = getJurisdictions();
+const taxonomies = getTaxonomies();
+
+const itemTypes = [...new Set(items.map((i) => i.item_type))].sort();
+const reviewStatuses = [...new Set(items.map((i) => i.review_status))].sort();
+const technicalStatuses = [
+  ...new Set(items.map((i) => i.technical_url_status).filter(Boolean)),
+].sort() as string[];
+const contentStatuses = [
+  ...new Set(items.map((i) => i.content_review_status).filter(Boolean)),
+].sort() as string[];
+const jMap = Object.fromEntries(jurisdictions.map((j) => [j.jurisdiction_id, j.name]));
+---
+
+<BaseLayout title="Human review queue" currentPath="/review-queue/">
+  <div data-filter-page>
+    <h1>Human review queue</h1>
+    <p class="lead">
+      Read-only list of registry items needing human verification. Technical URL reachability is
+      separate from legal/content review. This page does not update data.
+    </p>
+
+    <div class="banner banner--review" role="note">
+      <strong>{summary.total} items</strong> in queue · {summary.pending_review} pending_review ·{" "}
+      {summary.technical_url_unreachable} unreachable URLs · {summary.redirected_url_needs_review}{" "}
+      redirected · {summary.content_not_reviewed} content not reviewed · See{" "}
+      <a href="/verification/">verification</a>
+    </div>
+
+    <div class="filter-bar">
+      <label>
+        Item type
+        <select data-filter-key="type">
+          <option value="">All</option>
+          {itemTypes.map((t) => (
+            <option value={t}>{humanizeId(t)}</option>
+          ))}
+        </select>
+      </label>
+      <label>
+        Jurisdiction
+        <select data-filter-key="jurisdiction">
+          <option value="">All</option>
+          {jurisdictions.map((j) => (
+            <option value={j.jurisdiction_id}>{j.name}</option>
+          ))}
+        </select>
+      </label>
+      <label>
+        Review status
+        <select data-filter-key="review">
+          <option value="">All</option>
+          {reviewStatuses.map((s) => (
+            <option value={s}>
+              {taxonomyLabel(taxonomies, "review-statuses", s)}
+            </option>
+          ))}
+        </select>
+      </label>
+      <label>
+        Technical URL
+        <select data-filter-key="technical">
+          <option value="">All</option>
+          {technicalStatuses.map((s) => (
+            <option value={s}>{urlCheckResultLabel(s)}</option>
+          ))}
+        </select>
+      </label>
+      <label>
+        Content review
+        <select data-filter-key="content">
+          <option value="">All</option>
+          {contentStatuses.map((s) => (
+            <option value={s}>{contentReviewStatusLabel(s)}</option>
+          ))}
+        </select>
+      </label>
+      <label class="filter-bar__checkbox">
+        <input type="checkbox" data-filter-flag="missingUrl" />
+        Missing official URL only
+      </label>
+      <label class="filter-bar__checkbox">
+        <input type="checkbox" data-filter-flag="unverified" />
+        Not verified on source
+      </label>
+      <label class="filter-bar__checkbox">
+        <input type="checkbox" data-filter-flag="unreachable" />
+        Unreachable URLs
+      </label>
+      <label class="filter-bar__checkbox">
+        <input type="checkbox" data-filter-flag="redirected" />
+        Redirected URLs
+      </label>
+      <label class="filter-bar__checkbox">
+        <input type="checkbox" data-filter-flag="notChecked" />
+        URL not checked
+      </label>
+      <p class="filter-bar__count" data-filter-count />
+    </div>
+
+    <ul class="card-list" data-review-queue-list>
+      {
+        items.map((item) => (
+          <li
+            class="card filter-item"
+            data-filter-item
+            data-type={item.item_type}
+            data-jurisdiction={item.jurisdiction_id}
+            data-review={item.review_status}
+            data-technical={item.technical_url_status ?? ""}
+            data-content={item.content_review_status ?? ""}
+            data-missing-url={item.missing_official_url ? "true" : "false"}
+            data-unverified={item.verified_on_source_false ? "true" : "false"}
+            data-unreachable={
+              item.review_reasons.includes("technical_url_unreachable") ? "true" : "false"
+            }
+            data-redirected={
+              item.review_reasons.includes("redirected_url_needs_review") ? "true" : "false"
+            }
+            data-not-checked={
+              item.review_reasons.includes("technical_url_unchecked") ? "true" : "false"
+            }
+          >
+            <div class="card__meta">
+              <span class="badge badge--type">{humanizeId(item.item_type)}</span>
+              <ReviewStatusBadge status={item.review_status} />
+              {item.technical_url_status && (
+                <span class="badge">{urlCheckResultLabel(item.technical_url_status)}</span>
+              )}
+              {item.content_review_status && (
+                <span class="badge">{contentReviewStatusLabel(item.content_review_status)}</span>
+              )}
+              {item.verified_on_source_false && (
+                <span class="badge badge--warn">Not verified on source</span>
+              )}
+              {item.missing_official_url && (
+                <span class="badge badge--warn">Missing URL</span>
+              )}
+              {item.client_use_allowed === false && (
+                <span class="badge badge--warn">Client use not allowed</span>
+              )}
+            </div>
+            <h2 class="card__title-sm">
+              <a href={item.page_href}>{item.title}</a>
+            </h2>
+            <p class="card__excerpt">
+              <small>
+                {jMap[item.jurisdiction_id] ?? item.jurisdiction_id} ·{" "}
+                <span class="mono">{item.item_id}</span>
+              </small>
+            </p>
+            <p>{item.reason_for_review}</p>
+            {
+              item.official_url && (
+                <p class="card__excerpt">
+                  <a href={item.official_url} target="_blank" rel="noopener noreferrer">
+                    Official source ↗
+                  </a>
+                </p>
+              )
+            }
+            <p class="card__excerpt">
+              <small>
+                <strong>Suggested action:</strong> {item.suggested_action}
+              </small>
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <script is:inline src="/scripts/review-queue-filter.js"></script>
+</BaseLayout>

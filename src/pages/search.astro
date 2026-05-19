@@ -1,0 +1,47 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Search"
+  currentPath="/search/"
+  description="Search pilot jurisdictions, sources, records, and changes on the Caesar AI Regulation Watch preview site."
+>
+  <h1>Search</h1>
+  <p class="lead">
+    Search indexed static pages from the pilot registry. Results link to official-source-first summaries
+    only — not legal advice.
+  </p>
+
+  <div class="banner banner--review" role="note">
+    <strong>Build note.</strong> Search requires a full production build (<code>npm run build</code>). It is
+    not available in dev-only mode until Pagefind indexes <code>dist/</code>.
+  </div>
+
+  <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+  <div id="pagefind-search" class="pagefind-container"></div>
+
+  <script src="/pagefind/pagefind-ui.js" is:inline></script>
+  <script is:inline>
+    function initPagefind() {
+      if (typeof PagefindUI !== "undefined") {
+        new PagefindUI({
+          element: "#pagefind-search",
+          showSubResults: true,
+          resetStyles: false,
+        });
+      } else {
+        const el = document.getElementById("pagefind-search");
+        if (el) {
+          el.innerHTML =
+            '<p class="banner banner--review">Search index not found. Run <code>npm run build</code> to generate the Pagefind index.</p>';
+        }
+      }
+    }
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initPagefind);
+    } else {
+      initPagefind();
+    }
+  </script>
+</BaseLayout>

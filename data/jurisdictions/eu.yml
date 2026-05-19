@@ -1,0 +1,32 @@
+# Pilot jurisdiction record — European Union
+# Last curated: 19 May 2026
+# This file is not legal advice and does not describe complete EU legal coverage.
+
+jurisdiction_id: eu
+name: European Union
+type: supranational_bloc
+region: Europe
+parent_jurisdiction: null
+regulatory_focus:
+  - eu_ai_act
+  - ai_office_guidance
+  - official_legislation_and_implementing_acts
+  - cross_border_gdpr_intersection_where_published_by_edpb_edps
+monitoring_priority: high
+notes: >
+  Pilot jurisdiction for Caesar AI Regulation Watch. Tracks a curated subset of
+  official and authoritative EU sources that helps identify regulatory changes
+  relevant to AI governance review. Does not include all EU institutions,
+  member-state implementations, or sector-specific rules unless added later.
+  Changes surfaced here may affect controls or evidence only after human review;
+  requires human review before client use.
+map:
+  display_name: Brussels (EU institutions)
+  latitude: 50.8503
+  longitude: 4.3517
+  marker_type: institutional
+  coverage_status: high_priority
+  map_note: >
+    Display marker for EU institutional and regulatory coverage. Not a territorial boundary claim
+    and not complete EU legal coverage.
+review_status: pending_review

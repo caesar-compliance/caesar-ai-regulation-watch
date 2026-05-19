@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caesar.no/schemas/caesar-ai-regulation-watch/url-verification.schema.json",
+  "title": "Caesar AI Regulation Watch — Technical URL verification batch",
+  "description": "Technical HTTP reachability checks for official URLs in local YAML. Not legal or content review.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["url_check_batch_id", "checked_date", "checker_type", "url_checks", "legal_safe_note"],
+  "properties": {
+    "url_check_batch_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "checked_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "checker_type": {
+      "type": "string",
+      "enum": ["human_reviewer", "automated_head_get", "curator_batch", "automated_check_pending"]
+    },
+    "url_checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "url_check_id",
+          "checked_date",
+          "checker_type",
+          "item_type",
+          "item_id",
+          "original_url",
+          "final_url",
+          "http_status",
+          "check_result",
+          "redirect_detected",
+          "domain_matches_expected",
+          "content_review_status",
+          "client_use_allowed",
+          "legal_safe_note"
+        ],
+        "properties": {
+          "url_check_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "checked_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "checker_type": {
+            "type": "string",
+            "enum": ["human_reviewer", "automated_head_get", "curator_batch", "automated_check_pending"]
+          },
+          "item_type": {
+            "type": "string",
+            "enum": ["source", "record", "law", "guidance"]
+          },
+          "item_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "source_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "original_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "final_url": {
+            "type": "string"
+          },
+          "http_status": {
+            "type": ["integer", "null"]
+          },
+          "check_result": {
+            "type": "string",
+            "enum": [
+              "reachable",
+              "reachable_redirected",
+              "unreachable",
+              "timeout",
+              "dns_error",
+              "network_error",
+              "not_checked",
+              "uncertain"
+            ]
+          },
+          "redirect_detected": {
+            "type": "boolean"
+          },
+          "domain_matches_expected": {
+            "type": ["boolean", "null"]
+          },
+          "title_or_reference": {
+            "type": "string"
+          },
+          "technical_note": {
+            "type": "string"
+          },
+          "content_review_status": {
+            "type": "string",
+            "enum": [
+              "not_reviewed",
+              "needs_human_review",
+              "reviewed_source_identity_only",
+              "reviewed_content_summary",
+              "rejected_for_client_use"
+            ]
+          },
+          "client_use_allowed": {
+            "type": "boolean"
+          },
+          "legal_safe_note": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "legal_safe_note": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

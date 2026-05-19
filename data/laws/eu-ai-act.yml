@@ -1,0 +1,41 @@
+# Manual sample record — for data-model testing only
+# Last curated: 19 May 2026
+
+record_id: law-eu-ai-act-2024-1689
+record_type: law
+record_origin: manual_sample
+verified_on_source: false
+content_review_status: not_reviewed
+last_content_review_id: content-review-law-eu-ai-act-2024-1689
+title: Regulation (EU) 2024/1689 — Artificial Intelligence Act
+jurisdiction_id: eu
+source_id: eu-ai-act
+legal_status: in_force
+official_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689
+summary_for_review: >
+  Manual sample record linking to the EU AI Act instrument on EUR-Lex. Supports
+  governance review of whether AI system registers, risk processes, and vendor
+  documentation may need alignment with tracked EU requirements. Dates below are
+  illustrative samples for schema testing—verify all dates on the official source
+  before client use.
+key_dates:
+  - label: Regulation published in Official Journal (sample — verify on EUR-Lex)
+    date: "2024-07-12"
+    verified_on_source: false
+    notes: Tracked date for data-model testing; confirm on official source.
+  - label: General application start (sample — verify phased obligations on source)
+    date: "2025-08-02"
+    verified_on_source: false
+    notes: Many obligations phase in over time; do not treat this single date as complete guidance.
+affected_topics:
+  - eu_ai_act
+  - risk_management
+  - transparency
+  - gpai
+  - prohibited_practices
+  - conformity_assessment
+review_status: pending_review
+legal_safe_note: >
+  Manual sample record for data-model testing only. Not legal advice. Does not
+  describe complete EU AI Act obligations or national implementations. Requires
+  human review before client use.

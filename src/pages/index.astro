@@ -1,0 +1,124 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import JurisdictionCard from "../components/JurisdictionCard.astro";
+import DevelopersPanel from "../components/DevelopersPanel.astro";
+import { getJurisdictions, getChanges, getPilotSummary } from "../lib/data";
+import { getReviewQueueSummary } from "../lib/review-queue";
+import { formatDate, truncate } from "../lib/format";
+
+const summary = getPilotSummary();
+const reviewSummary = getReviewQueueSummary();
+const jurisdictions = getJurisdictions();
+const recentChanges = getChanges().slice(0, 3);
+---
+
+<BaseLayout title="Home" currentPath="/">
+  <h1>Caesar AI Regulation Watch</h1>
+  <p class="lead">
+    Official-source-first monitoring of AI-related laws and guidance for governance teams. Helps identify
+    tracked regulatory changes that may require internal review.
+  </p>
+
+  <div class="banner banner--review" role="note">
+    <strong>Product preview (v0.5.1).</strong> Global map, review queue, timelines, and CI validation.
+    Not legal advice. All sample and expanded entries require human review before client use. See{" "}
+    <a href="/methodology/">methodology</a> and <a href="/disclaimer/">disclaimer</a>.
+  </div>
+
+  <section class="stats" aria-label="Coverage summary">
+    <div class="stat">
+      <strong>{summary.jurisdictionCount}</strong>
+      <span>Jurisdictions</span>
+    </div>
+    <div class="stat">
+      <strong>{summary.sourceCount}</strong>
+      <span>Official sources</span>
+    </div>
+    <div class="stat">
+      <strong>{summary.recordCount}</strong>
+      <span>Law &amp; guidance</span>
+    </div>
+    <div class="stat">
+      <strong>{summary.changeCount}</strong>
+      <span>Sample changes</span>
+    </div>
+    <div class="stat">
+      <strong>{summary.timelineCount}</strong>
+      <span>Timelines</span>
+    </div>
+  </section>
+
+  <h2>Explore the registry</h2>
+  <div class="nav-cards">
+    <div class="nav-card">
+      <a href="/jurisdictions/">Jurisdictions</a>
+      <p>13 jurisdictions grouped by region — incremental global coverage</p>
+    </div>
+    <div class="nav-card">
+      <a href="/sources/">Official sources</a>
+      <p>{summary.sourceCount} tracked authority URLs with credibility tiers</p>
+    </div>
+    <div class="nav-card">
+      <a href="/map/">Global coverage map</a>
+      <p>{summary.mapMarkerCount} display markers — static SVG, no remote tiles</p>
+    </div>
+    <div class="nav-card">
+      <a href="/review-queue/">Human review queue</a>
+      <p>{reviewSummary.total} items pending human verification (read-only)</p>
+    </div>
+    <div class="nav-card">
+      <a href="/timelines/">Timelines</a>
+      <p>Milestone views linked to official sources (sample events)</p>
+    </div>
+    <div class="nav-card">
+      <a href="/records/">Laws &amp; guidance</a>
+      <p>Filterable sample instrument records</p>
+    </div>
+    <div class="nav-card">
+      <a href="/changes/">Changes</a>
+      <p>Manual sample change feed + RSS</p>
+    </div>
+    <div class="nav-card">
+      <a href="/exports/">Export samples</a>
+      <p>Regulation-change contract examples (not client evidence)</p>
+    </div>
+    <div class="nav-card nav-card--accent">
+      <a href="/search/">Search</a>
+      <p>Search all static pages (after full build)</p>
+    </div>
+  </div>
+
+  <h2>Jurisdictions</h2>
+  <ul class="card-list">
+    {jurisdictions.map((j) => (
+      <JurisdictionCard jurisdiction={j} />
+    ))}
+  </ul>
+
+  {
+    recentChanges.length > 0 && (
+      <section>
+        <h2>Recent sample changes</h2>
+        <ul class="card-list">
+          {recentChanges.map((c) => (
+            <li class="card">
+              <h3>
+                <a href={`/changes/${c.change_id}/`}>{c.change_id}</a>
+              </h3>
+              <p class="card__excerpt">{truncate(c.change_summary_for_review, 120)}</p>
+              <p class="card__excerpt">
+                <small>
+                  {formatDate(c.detected_date)} · {c.jurisdiction_id}
+                  {c.requires_human_review ? " · Human review required" : ""}
+                </small>
+              </p>
+            </li>
+          ))}
+        </ul>
+        <p><a href="/changes/">View all changes →</a></p>
+      </section>
+    )
+  }
+
+  <DevelopersPanel />
+</BaseLayout>

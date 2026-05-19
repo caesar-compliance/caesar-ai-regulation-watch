@@ -1,95 +1,51 @@
 # Next Actions — Caesar AI Regulation Watch
 
-**Last updated:** 19 May 2026
+**Last updated:** 20 May 2026
 
-Prioritized work after completion of the **full-scale product blueprint** (v0.1). Still **no product code**, **no dependencies**, **no watchers** until v0.2 is approved.
-
----
-
-## Immediate priority (v0.2)
-
-### 1. Approve pilot jurisdiction set
-
-**Owner:** Control tower (Artem)
-
-Proposed pilot:
-
-- `eu` — EU AI Act, EU AI Office, EUR-Lex references
-- `no` — Norway implementation, Datatilsynet
-- Optional wave: `gb`, `us` (federal selected sources only)
-
-Document coverage limits on each profile.
-
-### 2. Create official source registry files
-
-**Owner:** Agent after approval
-
-- Add `data/sources/` YAML or JSON per [docs/DATA_MODEL_DRAFT.md](docs/DATA_MODEL_DRAFT.md)
-- Each entry: URL, credibility tier, fetch method, attribution, license notes
-- Minimum 5 sources for EU/Norway pilot
-
-### 3. Freeze entity schemas for pilot
-
-**Owner:** Agent + hub coordination
-
-- JSON Schema for: Jurisdiction, OfficialSource, ChangeRecord, SummaryRecord
-- Confirm field alignment with `caesar-ai-evidence` regulation-change (cross-repo issue or hub spec update)
-
-### 4. Draft control & evidence mapping v0.1
-
-**Owner:** Agent with review
-
-- `mappings/controls/` and `mappings/evidence/` sample tables
-- Relationship types: `may_affect`, `suggested_review` only
-- Example: EU AI Office GPAI guidance → vendor review + model documentation evidence
+**Current version:** v0.8.3 · **Phase:** evidence export candidate pipeline.
 
 ---
 
-## Safe autonomous tasks (after v0.2 approval)
+## Immediate priority — content review then candidate triage
 
-- Add validated sample JSON under `data/` (no fetchers)
-- JSON Schema validation script (language TBD — prefer zero new deps or hub-standard tool)
-- Static HTML mock pages from samples (no framework lock-in yet)
-- Update REPO_INVENTORY and CHANGELOG per change
-
----
-
-## Requires control tower approval
-
-- Any live HTTP fetch or crawler
-- Changing review policy (e.g. publishing AI drafts without review)
-- Importing third-party datasets (AI Legislation Tracker, OECD bulk)
-- Package manager or CI workflow introduction
-- Public domain DNS (`regulations.caesar.no`)
+1. Complete browser content review for `data/verifications/content-review-2026-05-19.yml` entries marked `not_checked`.
+2. Update batch with honest outcomes; set record `verified_on_source: true` only with documented high-level source support.
+3. Regenerate: `npm run generate:evidence-candidates` then `npm run build`.
+4. Review `/evidence-export-candidates/` — treat as **candidates only**, not client evidence.
+5. Follow `docs/CONTENT_REVIEW_CHECKLIST.md` — keep `client_use_allowed: false`.
 
 ---
 
-## Blocked until dependency clears
+## Control Tower — monitoring (unchanged)
 
-| Task | Blocked by |
-|---|---|
-| Evidence export validator test | `caesar-ai-evidence` regulation-change schema stability |
-| Governance OS inbox implementation | OS repo and API spec |
-| Automated AI summaries | Review workflow tooling decision |
-
----
-
-## Cross-repository coordination
-
-1. **caesar-ai-evidence** — regulation-change schema review
-2. **caesar-ai-governance-hub** — control taxonomy reference in standards or specs
-3. **caesar-ai-governance-os** — regulatory inbox module spec (documentation only for now)
+1. Add GitHub label `monitoring-review` (optional; workflow falls back without it).
+2. Trial `workflow_dispatch` with `create_pr=true` after a cycle with meaningful changes.
+3. Follow `docs/MONITORING_PR_REVIEW_CHECKLIST.md` before merging any monitoring PR.
+4. Scheduled runs remain artifact-only — triage via download or manual PR workflow.
 
 ---
 
-## Suggested implementation order (first code)
+## Commands
 
-When v0.2 is approved, implement in this order:
+```bash
+npm run generate:evidence-candidates
+npm run validate:data
+npm run generate:exports
+npm run build
+npm run monitoring:report      # no network
+npm run monitoring:summary       # diff vs HEAD
+npm run monitoring:cycle:dry-run
+npm run monitoring:cycle         # full cycle
+```
 
-1. `data/` registry files + JSON Schema
-2. Sample change records + mappings (manual)
-3. Static site generator reading `data/` (minimal)
-4. RSS/JSON export from same build
-5. Only then: pilot watcher for one RSS source
+---
 
-This matches [ROADMAP.md](ROADMAP.md) v0.2 → v0.5.
+## Not in scope (v0.8.3)
+
+- Final evidence export to caesar-ai-evidence
+- Production deploy / Coolify
+- Auto-merge monitoring output to main
+- Backend API, database, auth
+- `client_use_allowed: true` on candidates
+
+See [ROADMAP.md](ROADMAP.md) and [docs/EVIDENCE_EXPORT_CANDIDATE_PIPELINE.md](docs/EVIDENCE_EXPORT_CANDIDATE_PIPELINE.md).

@@ -1,0 +1,31 @@
+# Pilot official source — European Data Protection Supervisor
+# Last curated: 19 May 2026
+
+source_id: edps
+title: European Data Protection Supervisor (EDPS)
+jurisdiction_id: eu
+source_type: regulator
+credibility_level: official_primary
+official_url: https://www.edps.europa.eu/_en
+monitoring_scope: >
+  EDPS opinions, guidance, investigations summaries, and policy documents on AI,
+  EU institutions' use of AI, and digital rights as published on edps.europa.eu.
+  Scope limited to publicly listed official publications; not all EDPS activity
+  is AI-related.
+expected_update_types:
+  - opinions_on_proposed_legislation
+  - guidance_documents
+  - technology_monitoring_or_strategy_papers
+  - annual_reports_sections_on_ai
+  - news_or_press_updates_on_ai_topics
+related_topics:
+  - eu_institutions
+  - ai_and_privacy
+  - fundamental_rights
+  - supervision_of_eu_bodies
+review_status: pending_review
+notes: >
+  Tracked official primary source complementary to EDPB. Supports governance review
+  where EU institutional AI or cross-cutting privacy-AI topics matter. May affect
+  controls or evidence for organizations interacting with EU bodies or benchmarking
+  against EDPS positions. Requires human review before client use.

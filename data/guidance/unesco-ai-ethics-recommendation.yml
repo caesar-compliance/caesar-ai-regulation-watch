@@ -1,0 +1,27 @@
+# Curated record — UNESCO Recommendation on AI Ethics
+# Last curated: 19 May 2026
+
+record_id: policy-unesco-ai-ethics-recommendation
+record_type: policy_framework
+record_origin: official_source_registry
+verified_on_source: false
+title: UNESCO — Recommendation on the Ethics of Artificial Intelligence
+jurisdiction_id: unesco
+source_id: unesco-ai-ethics
+guidance_status: adopted
+official_url: https://www.unesco.org/en/artificial-intelligence/recommendation-ethics
+summary_for_review: >
+  Curated pointer to UNESCO’s Recommendation on the Ethics of Artificial Intelligence
+  and related implementation resources. Supports governance review of whether ethics
+  policy statements, human-rights due diligence, or development-partnership materials
+  should reference updated UNESCO guidance. UNESCO recommendations are not domestic law.
+affected_topics:
+  - ai_ethics
+  - human_rights
+  - international_standards
+  - capacity_building
+review_status: pending_review
+legal_safe_note: >
+  Curated registry record for governance review support only. Not legal advice. Does
+  not create binding obligations in member states without domestic implementation.
+  Requires human verification on unesco.org before client use.

@@ -1,0 +1,167 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ReviewBanner from "../../components/ReviewBanner.astro";
+import ReviewStatusBadge from "../../components/ReviewStatusBadge.astro";
+import SourceCard from "../../components/SourceCard.astro";
+import RecordCard from "../../components/RecordCard.astro";
+import {
+  getJurisdictions,
+  getJurisdiction,
+  sourcesForJurisdiction,
+  recordsForJurisdiction,
+  changesForJurisdiction,
+  timelinesForJurisdiction,
+  jurisdictionCoverage,
+} from "../../lib/data";
+import { formatDate, truncate, humanizeId } from "../../lib/format";
+
+export function getStaticPaths() {
+  return getJurisdictions().map((j) => ({
+    params: { id: j.jurisdiction_id },
+  }));
+}
+
+const { id } = Astro.params;
+const jurisdiction = getJurisdiction(id!);
+
+if (!jurisdiction) {
+  return Astro.redirect("/jurisdictions/");
+}
+
+const sources = sourcesForJurisdiction(jurisdiction.jurisdiction_id);
+const records = recordsForJurisdiction(jurisdiction.jurisdiction_id);
+const changes = changesForJurisdiction(jurisdiction.jurisdiction_id);
+const timelines = timelinesForJurisdiction(jurisdiction.jurisdiction_id);
+const coverage = jurisdictionCoverage(jurisdiction.jurisdiction_id);
+---
+
+<BaseLayout title={jurisdiction.name} currentPath="/jurisdictions/">
+  <p><a href="/jurisdictions/">← Jurisdictions</a></p>
+  <h1>{jurisdiction.name}</h1>
+  <div class="card__meta" style="margin-bottom: 1rem;">
+    <span class="badge badge--type">{jurisdiction.type.replace(/_/g, " ")}</span>
+    <span class="badge badge--type">Priority: {jurisdiction.monitoring_priority}</span>
+    <ReviewStatusBadge status={jurisdiction.review_status} />
+  </div>
+
+  <ReviewBanner reviewStatus={jurisdiction.review_status} />
+
+  <section>
+    <h2>Coverage summary</h2>
+    <dl class="meta-grid">
+      <div><dt>Official sources</dt><dd>{coverage.sources}</dd></div>
+      <div><dt>Records</dt><dd>{coverage.records}</dd></div>
+      <div><dt>Sample changes</dt><dd>{coverage.changes}</dd></div>
+      <div><dt>Timelines</dt><dd>{coverage.timelines}</dd></div>
+      <div><dt>Pending review (records)</dt><dd>{coverage.pending_review}</dd></div>
+      <div><dt>Unverified on source</dt><dd>{coverage.unverified_on_source}</dd></div>
+    </dl>
+    <p><a href="/review-queue/">Review queue for this jurisdiction →</a></p>
+  </section>
+
+  <dl class="meta-grid">
+    <div><dt>Region</dt><dd>{jurisdiction.region}</dd></div>
+    <div><dt>Jurisdiction ID</dt><dd class="mono">{jurisdiction.jurisdiction_id}</dd></div>
+    {
+      jurisdiction.related_frameworks && jurisdiction.related_frameworks.length > 0 && (
+        <div>
+          <dt>Related frameworks</dt>
+          <dd>{jurisdiction.related_frameworks.join(", ")}</dd>
+        </div>
+      )
+    }
+  </dl>
+
+  {
+    jurisdiction.map && (
+      <section>
+        <h2>Map display marker</h2>
+        <dl class="meta-grid">
+          <div>
+            <dt>Display location</dt>
+            <dd>{jurisdiction.map.display_name}</dd>
+          </div>
+          <div>
+            <dt>Coordinates</dt>
+            <dd class="mono">
+              {jurisdiction.map.latitude}°, {jurisdiction.map.longitude}°
+            </dd>
+          </div>
+          <div>
+            <dt>Marker type</dt>
+            <dd>{humanizeId(jurisdiction.map.marker_type)}</dd>
+          </div>
+        </dl>
+        <p class="card__excerpt">
+          <small>{jurisdiction.map.map_note}</small>
+        </p>
+        <p>
+          <a href="/map/">View on global coverage map →</a>
+        </p>
+      </section>
+    )
+  }
+
+  <div class="prose">
+    <p>{jurisdiction.notes}</p>
+  </div>
+
+  <h2>Regulatory focus</h2>
+  <ul>
+    {jurisdiction.regulatory_focus.map((f) => (
+      <li>{humanizeId(f)}</li>
+    ))}
+  </ul>
+
+  <h2>Official sources ({sources.length})</h2>
+  {sources.length > 0 ? (
+    <ul class="card-list">
+      {sources.map((s) => (
+        <SourceCard source={s} />
+      ))}
+    </ul>
+  ) : (
+    <p>No sources registered.</p>
+  )}
+
+  <h2>Laws & guidance ({records.length})</h2>
+  {records.length > 0 ? (
+    <ul class="card-list">
+      {records.map((r) => (
+        <RecordCard record={r} />
+      ))}
+    </ul>
+  ) : (
+    <p>No records yet.</p>
+  )}
+
+  <h2>Timelines ({timelines.length})</h2>
+  {
+    timelines.length > 0 ? (
+      <ul>
+        {timelines.map((t) => (
+          <li>
+            <a href={`/timelines/${t.timeline_id}/`}>{t.title}</a>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p>No timelines for this jurisdiction.</p>
+    )
+  }
+
+  <h2>Sample changes ({changes.length})</h2>
+  {changes.length > 0 ? (
+    <ul class="card-list">
+      {changes.map((c) => (
+        <li class="card">
+          <h3><a href={`/changes/${c.change_id}/`}>{c.change_id}</a></h3>
+          <p class="card__excerpt">{truncate(c.change_summary_for_review, 120)}</p>
+          <p class="card__excerpt"><small>{formatDate(c.detected_date)}</small></p>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p>No change samples for this jurisdiction.</p>
+  )}
+</BaseLayout>

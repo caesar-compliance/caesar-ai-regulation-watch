@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caesar.no/schemas/caesar-ai-regulation-watch/feed-snapshot.schema.json",
+  "title": "Caesar AI Regulation Watch — Feed metadata snapshot",
+  "description": "Metadata-only RSS/Atom feed snapshot. No article body stored.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "snapshot_id",
+    "watcher_id",
+    "source_id",
+    "jurisdiction_id",
+    "adapter_id",
+    "checked_at",
+    "feed_url",
+    "final_url",
+    "http_status",
+    "feed_title",
+    "feed_entry_count",
+    "entries",
+    "entries_aggregate_hash",
+    "snapshot_kind",
+    "storage_policy",
+    "legal_safe_note"
+  ],
+  "properties": {
+    "snapshot_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "watcher_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "source_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "jurisdiction_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "adapter_id": {
+      "type": "string",
+      "const": "official_rss_or_feed"
+    },
+    "checked_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "feed_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "final_url": {
+      "type": "string"
+    },
+    "http_status": {
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "maximum": 599
+    },
+    "content_type": {
+      "type": ["string", "null"]
+    },
+    "feed_title": {
+      "type": ["string", "null"]
+    },
+    "feed_format_detected": {
+      "type": "string",
+      "enum": ["rss", "atom"]
+    },
+    "feed_entry_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["entry_id", "entry_hash"],
+        "properties": {
+          "entry_id": { "type": "string", "minLength": 1 },
+          "guid": { "type": ["string", "null"] },
+          "link": { "type": ["string", "null"] },
+          "title": { "type": ["string", "null"] },
+          "published_at": { "type": ["string", "null"] },
+          "updated_at": { "type": ["string", "null"] },
+          "entry_hash": {
+            "type": "string",
+            "pattern": "^sha256:[a-f0-9]{64}$"
+          }
+        }
+      }
+    },
+    "entries_aggregate_hash": {
+      "type": ["string", "null"],
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "content_hash": {
+      "type": ["string", "null"],
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "content_length": {
+      "type": ["integer", "null"],
+      "minimum": 0
+    },
+    "snapshot_kind": {
+      "type": "string",
+      "enum": ["baseline", "periodic_check", "error_placeholder", "feed_metadata"]
+    },
+    "storage_policy": {
+      "type": "string",
+      "enum": ["metadata_only_no_body_storage"]
+    },
+    "retry_attempts": {
+      "type": ["integer", "null"],
+      "minimum": 0
+    },
+    "error_category": {
+      "type": ["string", "null"]
+    },
+    "fetch_error": {
+      "type": "string"
+    },
+    "legal_safe_note": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

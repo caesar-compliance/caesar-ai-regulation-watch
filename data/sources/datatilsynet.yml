@@ -1,0 +1,31 @@
+# Pilot official source — Datatilsynet (Norwegian DPA)
+# Last curated: 19 May 2026
+
+source_id: datatilsynet
+title: Datatilsynet — Norwegian Data Protection Authority
+jurisdiction_id: norway
+source_type: regulator
+credibility_level: official_primary
+official_url: https://www.datatilsynet.no/
+monitoring_scope: >
+  Official guidance, news, decisions summaries, and thematic pages on AI, automated
+  decisions, and privacy published by Datatilsynet. Norwegian-language content is
+  primary; English summaries where published should also be tracked when listed.
+expected_update_types:
+  - new_guidance_or_theme_pages
+  - updated_guidance
+  - enforcement_or_decision_summaries
+  - consultation_responses_on_ai
+  - news_articles_on_ai_and_automation
+related_topics:
+  - gdpr
+  - norwegian_privacy_law
+  - automated_decision_making
+  - ai_governance
+  - dpia
+review_status: pending_review
+notes: >
+  Tracked official primary source for Norway-specific privacy and AI-adjacent
+  regulatory communication. Supports governance review and may affect controls
+  or evidence (e.g. DPIA, transparency to data subjects). Does not cover all
+  Norwegian regulators (e.g. Finanstilsynet) unless added in future registry waves.

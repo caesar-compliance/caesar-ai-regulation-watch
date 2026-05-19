@@ -1,0 +1,24 @@
+# Official source — OECD.AI Policy Observatory
+# Last curated: 19 May 2026
+
+source_id: oecd-ai-policy-navigator
+title: OECD.AI — Policy Observatory and AI Policy Navigator
+jurisdiction_id: oecd
+source_type: international_body
+credibility_level: official_primary
+official_url: https://oecd.ai/en/
+monitoring_scope: >
+  OECD.AI platform including policy observatory dashboards, national policy profiles,
+  and OECD AI publications hosted on oecd.ai and linked official OECD domains.
+expected_update_types:
+  - policy_database_updates
+  - reports_and_papers
+  - national_profile_changes
+related_topics:
+  - international_ai_policy
+  - oecd_ai_principles
+  - comparative_policy
+review_status: pending_review
+notes: >
+  Official OECD resource. Informational and comparative; does not create binding
+  obligations in member countries. National law remains authoritative.

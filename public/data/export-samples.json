@@ -1,0 +1,115 @@
+{
+  "generated_at": "2026-05-20",
+  "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
+  "sample_only": true,
+  "not_client_evidence": true,
+  "items": [
+    {
+      "export_record_id": "export-sample-eu-ai-act-status-001",
+      "source_change_id": "sample-eu-ai-act-status-change",
+      "jurisdiction_id": "eu",
+      "related_record_id": "law-eu-ai-act-2024-1689",
+      "export_type": "regulation_change",
+      "summary_for_review": "Sample regulation-change export derived from manual change record sample-eu-ai-act-status-change. Supports governance review of whether AI system registers and governance memos may need refresh if EUR-Lex metadata change is confirmed on the official source. Not legal advice.\n",
+      "may_affect_controls": [
+        {
+          "control_ref": "regulation_watch.control.regulatory_tracking",
+          "rationale": "May affect how regulatory applicability is tracked internally.",
+          "reference_alignment": "draft_pending_caesar_ai_evidence"
+        },
+        {
+          "control_ref": "regulation_watch.control.ai_act_inventory_review",
+          "rationale": "May affect AI Act inventory fields if status display changed on EUR-Lex.",
+          "reference_alignment": "draft_pending_caesar_ai_evidence"
+        }
+      ],
+      "may_affect_evidence": [
+        {
+          "evidence_ref": "regulation_watch.evidence.ai_system_register",
+          "rationale": "May affect AI system register entries citing EU AI Act status.",
+          "reference_alignment": "draft_pending_caesar_ai_evidence"
+        },
+        {
+          "evidence_ref": "regulation_watch.evidence.ai_act_source_snapshot",
+          "rationale": "Suggested capture of official source state after verification.",
+          "reference_alignment": "draft_pending_caesar_ai_evidence"
+        }
+      ],
+      "suggested_review_actions": [
+        {
+          "action_type": "verify_on_official_source",
+          "rationale": "Confirm whether EUR-Lex metadata actually changed."
+        },
+        {
+          "action_type": "review_evidence",
+          "target_ref": "regulation_watch.evidence.ai_system_register",
+          "rationale": "Suggested evidence review if change is material to registered systems."
+        },
+        {
+          "action_type": "review_control",
+          "target_ref": "regulation_watch.control.ai_act_inventory_review",
+          "rationale": "Suggested control review for inventory accuracy."
+        }
+      ],
+      "human_review_required": true,
+      "legal_safe_note": "Manual sample export for contract testing only. No client evidence was created. Draft control and evidence refs are not confirmed in caesar-ai-evidence. Requires human review before client use.\n",
+      "created_from": "manual_sample",
+      "review_status": "pending_review",
+      "sample_only": true,
+      "not_client_evidence": true
+    },
+    {
+      "export_record_id": "export-sample-datatilsynet-guidance-001",
+      "source_change_id": "sample-datatilsynet-guidance-change",
+      "jurisdiction_id": "norway",
+      "related_record_id": "guidance-datatilsynet-ai-privacy",
+      "export_type": "regulation_change",
+      "summary_for_review": "Sample regulation-change export for illustrative Datatilsynet guidance update. Supports governance review of privacy documentation and DPIAs for AI in Norway. Not an automated detection.\n",
+      "may_affect_controls": [
+        {
+          "control_ref": "regulation_watch.control.privacy_and_data_protection",
+          "rationale": "May affect privacy controls for Norwegian personal-data processing.",
+          "reference_alignment": "draft_pending_caesar_ai_evidence"
+        },
+        {
+          "control_ref": "regulation_watch.control.transparency_and_notices",
+          "rationale": "May affect transparency controls for AI features.",
+          "reference_alignment": "draft_pending_caesar_ai_evidence"
+        }
+      ],
+      "may_affect_evidence": [
+        {
+          "evidence_ref": "regulation_watch.evidence.dpia",
+          "rationale": "May affect DPIA content if guidance changes materially.",
+          "reference_alignment": "draft_pending_caesar_ai_evidence"
+        },
+        {
+          "evidence_ref": "regulation_watch.evidence.guidance_review_note",
+          "rationale": "Suggested internal note documenting guidance review outcome.",
+          "reference_alignment": "draft_pending_caesar_ai_evidence"
+        }
+      ],
+      "suggested_review_actions": [
+        {
+          "action_type": "verify_on_official_source",
+          "rationale": "Read current Datatilsynet pages on the official site."
+        },
+        {
+          "action_type": "review_evidence",
+          "target_ref": "regulation_watch.evidence.dpia",
+          "rationale": "Suggested DPIA review if guidance applies to active systems."
+        },
+        {
+          "action_type": "consult_qualified_advisor",
+          "rationale": "Escalate if change affects lawful basis or automated decisions."
+        }
+      ],
+      "human_review_required": true,
+      "legal_safe_note": "Manual sample export only. May affect evidence in review workflows; does not guarantee compliance. Requires human review before client use.\n",
+      "created_from": "manual_sample",
+      "review_status": "pending_review",
+      "sample_only": true,
+      "not_client_evidence": true
+    }
+  ]
+}

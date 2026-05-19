@@ -1,0 +1,101 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+  currentPath?: string;
+}
+
+const {
+  title,
+  description = "Official-source-first AI regulation monitoring for governance review.",
+  currentPath = "",
+} = Astro.props;
+const fullTitle =
+  title === "Home" ? "Caesar AI Regulation Watch" : `${title} · Caesar AI Regulation Watch`;
+
+const nav = [
+  { href: "/", label: "Home" },
+  { href: "/jurisdictions/", label: "Jurisdictions" },
+  { href: "/sources/", label: "Sources" },
+  { href: "/records/", label: "Records" },
+  { href: "/changes/", label: "Changes" },
+  { href: "/watchers/", label: "Watchers" },
+  { href: "/monitoring/", label: "Monitoring" },
+  { href: "/detected-changes/", label: "Detected changes" },
+  { href: "/timelines/", label: "Timelines" },
+  { href: "/map/", label: "Map" },
+  { href: "/review-queue/", label: "Review queue" },
+  { href: "/verification/", label: "Verification" },
+  { href: "/content-review/", label: "Content Review" },
+  { href: "/exports/", label: "Exports" },
+  { href: "/evidence-export-candidates/", label: "Export candidates" },
+  { href: "/search/", label: "Search" },
+];
+
+const footerLinks = [
+  { href: "/content-review/", label: "Content Review" },
+  { href: "/methodology/", label: "Methodology" },
+  { href: "/disclaimer/", label: "Disclaimer" },
+  { href: "/data/regulation-watch-snapshot.json", label: "JSON snapshot" },
+  { href: "/feeds/changes.xml", label: "RSS (samples)" },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{fullTitle}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <p class="site-title"><a href="/">Caesar AI Regulation Watch</a></p>
+        <nav class="site-nav" aria-label="Main">
+          {nav.map((item) => (
+            <a
+              href={item.href}
+              aria-current={
+                currentPath === item.href ||
+                (item.href !== "/" && currentPath.startsWith(item.href))
+                  ? "page"
+                  : undefined
+              }
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <p>
+          <strong>Not legal advice.</strong> Supports governance review only — not a compliance guarantee or
+          complete global coverage.
+        </p>
+        <p class="site-footer__links">
+          {footerLinks.map((link, i) => (
+            <>
+              {i > 0 && " · "}
+              <a href={link.href}>{link.label}</a>
+            </>
+          ))}
+        </p>
+        <p>
+          v0.8.2 · Manual YAML · CI validate/build · Content review workflow · 19 May 2026 · Caesar AI
+          Governance Hub
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,43 @@
+# Change detection / sample change types — v0.3.1
+# Last updated: 19 May 2026
+
+taxonomy_id: change-types
+title: Change types
+version: "0.3.1"
+last_updated: "2026-05-19"
+description: >
+  Categories for detected or manual sample changes. Future watcher output should
+  use these values where possible.
+
+values:
+  - value_id: content
+    label: Content change
+    description: Substantive text or document body change on a tracked source.
+
+  - value_id: metadata
+    label: Metadata change
+    description: Status labels, links, dates display, or catalogue metadata change.
+
+  - value_id: status_change
+    label: Status change
+    description: Tracked legal or regulatory status label change.
+
+  - value_id: new_document
+    label: New document
+    description: New official document appeared on a tracked source.
+
+  - value_id: guidance_update
+    label: Guidance update
+    description: New or updated official guidance material.
+
+  - value_id: implementation_update
+    label: Implementation update
+    description: National or EEA implementation announcement or measure.
+
+  - value_id: removed
+    label: Removed
+    description: Document or page removed or substantially deprecated on source.
+
+  - value_id: unknown
+    label: Unknown
+    description: Change detected but type not classified; requires human review.

@@ -1,0 +1,794 @@
+# Technical URL verification batch — v0.6.1
+# Generated: 2026-05-19
+# Reachability is not legal/content review. client_use_allowed defaults false.
+
+url_check_batch_id: url-check-2026-05-19
+checked_date: '2026-05-19'
+checker_type: automated_head_get
+legal_safe_note: >-
+  Technical HTTP reachability check only. Not legal advice. Not source identity or content review. client_use_allowed
+  remains false unless separately approved by human reviewer.
+url_checks:
+  - url_check_id: urlcheck-australia-industry-ai
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: source
+    item_id: australia-industry-ai
+    source_id: australia-industry-ai
+    original_url: https://www.industry.gov.au/publications/australias-ai-ethics-principles
+    final_url: https://www.industry.gov.au/publications/australias-ai-ethics-principles
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: Department of Industry — Australia's AI Ethics Framework
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-australia-oaic-ai
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: source
+    item_id: australia-oaic-ai
+    source_id: australia-oaic-ai
+    original_url: https://www.oaic.gov.au/privacy/guidance-and-advice
+    final_url: https://www.oaic.gov.au/privacy/privacy-guidance-for-organisations-and-government-agencies
+    http_status: 200
+    check_result: reachable_redirected
+    redirect_detected: true
+    domain_matches_expected: true
+    title_or_reference: Office of the Australian Information Commissioner — Artificial intelligence
+    technical_note: Redirect to https://www.oaic.gov.au/privacy/privacy-guidance-for-organisations-and-government-agencies
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-canada-opc-ai
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: source
+    item_id: canada-opc-ai
+    source_id: canada-opc-ai
+    original_url: https://www.priv.gc.ca/en/privacy-topics/technology/artificial-intelligence/
+    final_url: https://www.priv.gc.ca/en/privacy-topics/technology/artificial-intelligence/
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: Office of the Privacy Commissioner of Canada — Artificial intelligence
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-canada-responsible-ai
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: source
+    item_id: canada-responsible-ai
+    source_id: canada-responsible-ai
+    original_url: >-
+      https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai.html
+    final_url: >-
+      https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai.html
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: Government of Canada — Responsible use of AI in government
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-china-cac-generative-ai
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: source
+    item_id: china-cac-generative-ai
+    source_id: china-cac-generative-ai
+    original_url: https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm
+    final_url: https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: Cyberspace Administration of China — Interim Measures for Generative AI Services
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-china-cac
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: source
+    item_id: china-cac
+    source_id: china-cac
+    original_url: https://www.cac.gov.cn/
+    final_url: https://www.cac.gov.cn/
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: Cyberspace Administration of China (CAC) — official site
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-datatilsynet
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: source
+    item_id: datatilsynet
+    source_id: datatilsynet
+    original_url: https://www.datatilsynet.no/
+    final_url: https://www.datatilsynet.no/
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: Datatilsynet — Norwegian Data Protection Authority
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-edpb
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: source
+    item_id: edpb
+    source_id: edpb
+    original_url: https://www.edpb.europa.eu/edpb_en
+    final_url: https://www.edpb.europa.eu/edpb_en
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: European Data Protection Board (EDPB)
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-edps
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: source
+    item_id: edps
+    source_id: edps
+    original_url: https://www.edps.europa.eu/_en
+    final_url: https://www.edps.europa.eu/_en
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: European Data Protection Supervisor (EDPS)
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-eu-ai-act
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: source
+    item_id: eu-ai-act
+    source_id: eu-ai-act
+    original_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689
+    final_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689
+    http_status: 202
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: EU Artificial Intelligence Act — EUR-Lex
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-eu-ai-office
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: source
+    item_id: eu-ai-office
+    source_id: eu-ai-office
+    original_url: https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai
+    final_url: https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: European Commission — AI Office and AI Act policy pages
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-eur-lex
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: source
+    item_id: eur-lex
+    source_id: eur-lex
+    original_url: https://eur-lex.europa.eu/
+    final_url: https://eur-lex.europa.eu/
+    http_status: 202
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: EUR-Lex — EU law portal (AI Act cluster monitoring entry point)
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-g7-hiroshima-ai-process
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: source
+    item_id: g7-hiroshima-ai-process
+    source_id: g7-hiroshima-ai-process
+    original_url: https://www.soumu.go.jp/hiroshimaaiprocess/en/index.html
+    final_url: https://www.soumu.go.jp/hiroshimaaiprocess/en/index.html
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: G7 Hiroshima AI Process — MIC official portal (English)
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-japan-meti-ai
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: source
+    item_id: japan-meti-ai
+    source_id: japan-meti-ai
+    original_url: https://www.meti.go.jp/english/policy/index.html
+    final_url: https://www.meti.go.jp/english/policy/index.html
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: METI — AI policy (English pages)
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-norway-ai-act-implementation
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: source
+    item_id: norway-ai-act-implementation
+    source_id: norway-ai-act-implementation
+    original_url: https://www.regjeringen.no/en/whats-new/gjor-norge-klar-for-trygg-og-innovativ-ki-bruk/id3093081/
+    final_url: https://www.regjeringen.no/en/whats-new/gjor-norge-klar-for-trygg-og-innovativ-ki-bruk/id3093081/
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: Norwegian Government — AI Act / EEA implementation information
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-oecd-ai-policy-navigator
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: source
+    item_id: oecd-ai-policy-navigator
+    source_id: oecd-ai-policy-navigator
+    original_url: https://oecd.ai/en/
+    final_url: https://oecd.ai/en/
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: OECD.AI — Policy Observatory and AI Policy Navigator
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-singapore-imda-ai
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: source
+    item_id: singapore-imda-ai
+    source_id: singapore-imda-ai
+    original_url: https://www.imda.gov.sg/resources/blog/blog-listing/blog-details/building-a-trusted-ai-ecosystem
+    final_url: https://www.imda.gov.sg/resources/blog/blog-listing/blog-details/building-a-trusted-ai-ecosystem
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: IMDA — AI and trusted digital ecosystem
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-singapore-pdpc-ai
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: source
+    item_id: singapore-pdpc-ai
+    source_id: singapore-pdpc-ai
+    original_url: https://www.pdpc.gov.sg/help-and-resources/2020/01/model-ai-governance-framework
+    final_url: https://www.pdpc.gov.sg/help-and-resources/2020/01/model-ai-governance-framework
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: PDPC — Model AI Governance Framework
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-south-korea-pipc
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: source
+    item_id: south-korea-pipc
+    source_id: south-korea-pipc
+    original_url: https://www.pipc.go.kr/eng/
+    final_url: https://www.pipc.go.kr/eng/
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: Personal Information Protection Commission — official site (English)
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-uk-gov-ai-regulation
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: source
+    item_id: uk-gov-ai-regulation
+    source_id: uk-gov-ai-regulation
+    original_url: https://www.gov.uk/government/publications/ai-regulation-a-pro-innovation-approach
+    final_url: https://www.gov.uk/government/publications/ai-regulation-a-pro-innovation-approach
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: UK Government — AI regulation (pro-innovation approach)
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-uk-ico-ai-guidance
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: source
+    item_id: uk-ico-ai-guidance
+    source_id: uk-ico-ai-guidance
+    original_url: https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/
+    final_url: https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: ICO — Artificial intelligence guidance
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-unesco-ai-ethics
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: source
+    item_id: unesco-ai-ethics
+    source_id: unesco-ai-ethics
+    original_url: https://www.unesco.org/en/artificial-intelligence/recommendation-ethics
+    final_url: https://www.unesco.org/en/artificial-intelligence/recommendation-ethics
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: UNESCO — Recommendation on the Ethics of Artificial Intelligence
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-us-ai-gov
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: source
+    item_id: us-ai-gov
+    source_id: us-ai-gov
+    original_url: https://www.ai.gov/
+    final_url: https://www.ai.gov/
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: National AI Initiative — AI.gov
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-us-congress-gov
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: source
+    item_id: us-congress-gov
+    source_id: us-congress-gov
+    original_url: https://www.congress.gov/
+    final_url: https://www.congress.gov/
+    http_status: 403
+    check_result: unreachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: Congress.gov — federal legislative information
+    technical_note: HTTP 403
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-us-federal-register
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: source
+    item_id: us-federal-register
+    source_id: us-federal-register
+    original_url: https://www.federalregister.gov/
+    final_url: https://unblock.federalregister.gov/
+    http_status: 200
+    check_result: reachable_redirected
+    redirect_detected: true
+    domain_matches_expected: true
+    title_or_reference: Federal Register — official journal of federal rulemaking
+    technical_note: Redirect to https://unblock.federalregister.gov/
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-us-nist-ai-rmf
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: source
+    item_id: us-nist-ai-rmf
+    source_id: us-nist-ai-rmf
+    original_url: https://www.nist.gov/itl/ai-risk-management-framework
+    final_url: https://www.nist.gov/itl/ai-risk-management-framework
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: NIST — AI Risk Management Framework
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-law-china-generative-ai-interim-measures
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: law
+    item_id: law-china-generative-ai-interim-measures
+    source_id: china-cac-generative-ai
+    original_url: https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm
+    final_url: https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: Interim Measures for the Management of Generative Artificial Intelligence Services
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-law-eu-ai-act-2024-1689
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: law
+    item_id: law-eu-ai-act-2024-1689
+    source_id: eu-ai-act
+    original_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689
+    final_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689
+    http_status: 202
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: Regulation (EU) 2024/1689 — Artificial Intelligence Act
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-policy-australia-ai-ethics-framework
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: guidance
+    item_id: policy-australia-ai-ethics-framework
+    source_id: australia-industry-ai
+    original_url: https://www.industry.gov.au/publications/australias-ai-ethics-principles
+    final_url: https://www.industry.gov.au/publications/australias-ai-ethics-principles
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: Australia's Artificial Intelligence (AI) Ethics Framework
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-policy-canada-responsible-use-ai
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: guidance
+    item_id: policy-canada-responsible-use-ai
+    source_id: canada-responsible-ai
+    original_url: >-
+      https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai.html
+    final_url: >-
+      https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai.html
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: Government of Canada — Responsible use of artificial intelligence
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-guidance-datatilsynet-ai-privacy
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: guidance
+    item_id: guidance-datatilsynet-ai-privacy
+    source_id: datatilsynet
+    original_url: https://www.datatilsynet.no/
+    final_url: https://www.datatilsynet.no/
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: Datatilsynet — AI and privacy theme (sample pointer)
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-guidance-eu-ai-office-gpai
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: guidance
+    item_id: guidance-eu-ai-office-gpai
+    source_id: eu-ai-office
+    original_url: https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai
+    final_url: https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: EU AI Office — General-purpose AI (GPAI) framework pages (sample pointer)
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-policy-g7-hiroshima-ai-process
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: guidance
+    item_id: policy-g7-hiroshima-ai-process
+    source_id: g7-hiroshima-ai-process
+    original_url: https://www.soumu.go.jp/hiroshimaaiprocess/en/index.html
+    final_url: https://www.soumu.go.jp/hiroshimaaiprocess/en/index.html
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: G7 — Hiroshima AI Process (summit policy framework)
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-policy-japan-meti-ai
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: guidance
+    item_id: policy-japan-meti-ai
+    source_id: japan-meti-ai
+    original_url: https://www.meti.go.jp/english/policy/index.html
+    final_url: https://www.meti.go.jp/english/policy/index.html
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: Japan METI — AI policy and connected industries materials
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-implementation-norway-ai-act
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: guidance
+    item_id: implementation-norway-ai-act
+    source_id: norway-ai-act-implementation
+    original_url: https://www.regjeringen.no/en/whats-new/gjor-norge-klar-for-trygg-og-innovativ-ki-bruk/id3093081/
+    final_url: https://www.regjeringen.no/en/whats-new/gjor-norge-klar-for-trygg-og-innovativ-ki-bruk/id3093081/
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: Norway — EU AI Act implementation (government tracking)
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-policy-oecd-ai-policy-navigator
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: guidance
+    item_id: policy-oecd-ai-policy-navigator
+    source_id: oecd-ai-policy-navigator
+    original_url: https://oecd.ai/en/
+    final_url: https://oecd.ai/en/
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: OECD.AI — Policy observatory and AI principles resources
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-policy-singapore-model-ai-governance
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: guidance
+    item_id: policy-singapore-model-ai-governance
+    source_id: singapore-pdpc-ai
+    original_url: https://www.pdpc.gov.sg/help-and-resources/2020/01/model-ai-governance-framework
+    final_url: https://www.pdpc.gov.sg/help-and-resources/2020/01/model-ai-governance-framework
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: Singapore — Model AI Governance Framework
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-guidance-south-korea-pipc-ai
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: guidance
+    item_id: guidance-south-korea-pipc-ai
+    source_id: south-korea-pipc
+    original_url: https://www.pipc.go.kr/eng/
+    final_url: https://www.pipc.go.kr/eng/
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: South Korea PIPC — AI and personal information protection (official portal)
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-policy-uk-ai-regulation-pro-innovation
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: guidance
+    item_id: policy-uk-ai-regulation-pro-innovation
+    source_id: uk-gov-ai-regulation
+    original_url: https://www.gov.uk/government/publications/ai-regulation-a-pro-innovation-approach
+    final_url: https://www.gov.uk/government/publications/ai-regulation-a-pro-innovation-approach
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: UK — AI regulation pro-innovation approach (government policy framework)
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-policy-unesco-ai-ethics-recommendation
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: guidance
+    item_id: policy-unesco-ai-ethics-recommendation
+    source_id: unesco-ai-ethics
+    original_url: https://www.unesco.org/en/artificial-intelligence/recommendation-ethics
+    final_url: https://www.unesco.org/en/artificial-intelligence/recommendation-ethics
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: UNESCO — Recommendation on the Ethics of Artificial Intelligence
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.
+  - url_check_id: urlcheck-policy-us-nist-ai-rmf
+    checked_date: '2026-05-19'
+    checker_type: automated_head_get
+    item_type: guidance
+    item_id: policy-us-nist-ai-rmf
+    source_id: us-nist-ai-rmf
+    original_url: https://www.nist.gov/itl/ai-risk-management-framework
+    final_url: https://www.nist.gov/itl/ai-risk-management-framework
+    http_status: 200
+    check_result: reachable
+    redirect_detected: false
+    domain_matches_expected: true
+    title_or_reference: NIST — AI Risk Management Framework (AI RMF 1.0)
+    technical_note: HTTP check completed.
+    content_review_status: not_reviewed
+    client_use_allowed: false
+    legal_safe_note: >-
+      Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
+      client_use_allowed remains false unless separately approved by human reviewer.

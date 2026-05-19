@@ -2,8 +2,8 @@
 
 **Global AI regulation monitoring for governance teams** — part of the [Caesar AI Governance Hub](https://github.com/caesar-compliance/caesar-ai-governance-hub) ecosystem.
 
-**Last updated:** 19 May 2026  
-**Status:** Documentation and product blueprint (no product code yet)
+**Last updated:** 20 May 2026  
+**Status:** v0.8.3 — evidence export **candidates** (`/evidence-export-candidates/`, gated local pipeline; not final evidence, no caesar-ai-evidence writes); plus v0.8.2 content review, monitoring cycle + optional review PR; 5 watchers; CI validate/build (no live fetches in CI); review queue, map, timelines, search, JSON exports (no backend APIs, database, auth, deploy, auto-merge, no `client_use_allowed: true`)
 
 ---
 
@@ -79,9 +79,9 @@ Global map / globe
 
 ```text
 caesar-ai-regulation-watch
-  → detects / records regulatory & guidance changes
-  → maps to controls & evidence suggestions
-  → exports regulation-change records (caesar-ai-evidence)
+  → tracks official sources (future: helps identify regulatory changes)
+  → maps to controls & evidence suggestions (curated; human review)
+  → exports regulation-change records (caesar-ai-evidence; planned)
   → future import into caesar-ai-governance-os (regulatory inbox)
 ```
 
@@ -102,8 +102,82 @@ We study product patterns from these resources; we do **not** copy their code, U
 | IAPP Global AI Law and Policy Tracker | https://iapp.org/resources/article/global-ai-legislation-tracker |
 | AI Legislation Tracker (open dataset) | https://github.com/delschlangen/ai-legislation-tracker |
 | artificialintelligenceact.eu | https://artificialintelligenceact.eu/ |
+| Fairly Regulation and Policy Tracker | https://github.com/fairlyAI/fairly-regulation-policy-tracker |
 
-Details: [docs/COMPETITOR_BENCHMARKS.md](docs/COMPETITOR_BENCHMARKS.md)
+Details: [docs/COMPETITOR_BENCHMARKS.md](docs/COMPETITOR_BENCHMARKS.md). Competitor features are **benchmark inputs only** — see [docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md](docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md).
+
+---
+
+## Pilot registry (v0.2.0)
+
+Curated **global static** official source registry starting from EU/Norway pilot plus 11 jurisdictions (not complete legal coverage):
+
+- [docs/PILOT_SOURCE_REGISTRY.md](docs/PILOT_SOURCE_REGISTRY.md) — index and review workflow
+- `data/jurisdictions/` — `eu.yml`, `norway.yml`
+- `data/sources/` — seven pilot official sources
+- `schemas/` — JSON Schema for jurisdiction and source records
+
+## Sample records (v0.3.0)
+
+Manual **law, guidance, change, and mapping** samples for data-model testing only:
+
+- [docs/SAMPLE_RECORDS_GUIDE.md](docs/SAMPLE_RECORDS_GUIDE.md) — index and field reference
+- `data/laws/`, `data/guidance/`, `data/changes/`
+- `mappings/` — control and evidence mapping samples
+- `schemas/law.schema.json`, `guidance.schema.json`, `change.schema.json`, and mapping schemas
+
+## VerifyWise clean-room study (v0.3.3)
+
+Architecture reference study and implementation planning — **no VerifyWise code imported**:
+
+- [research/VERIFYWISE_ARCHITECTURE_STUDY.md](research/VERIFYWISE_ARCHITECTURE_STUDY.md) — structure and patterns (reference only)
+- [research/CLEAN_ROOM_FEATURE_BACKLOG.md](research/CLEAN_ROOM_FEATURE_BACKLOG.md) — prioritized Caesar-original features
+- [docs/NEXT_IMPLEMENTATION_ARCHITECTURE_OPTIONS.md](docs/NEXT_IMPLEMENTATION_ARCHITECTURE_OPTIONS.md) — Astro vs Next vs plain generator
+- [docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md](docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md) — next implementation plan (not built yet)
+
+## Static site preview (v0.5.0)
+
+Read-only Astro site generated from `data/` at build time:
+
+```bash
+npm install
+npm run validate:data      # ajv — all YAML vs schemas/
+npm run generate:evidence-candidates  # local gated export candidates (no network)
+npm run watch:official     # single watcher pass
+npm run monitoring:cycle   # watchers + validate + exports + build + report
+npm run monitoring:report  # report from existing state (no network)
+npm run generate:exports   # public/data/*.json + public/feeds/changes.xml
+npm run dev                # local preview (search needs full build)
+npm run build              # dist/ + Pagefind search index
+npm run preview            # serve dist/
+```
+
+**Pages:** home, search, jurisdictions, sources, records, changes, exports, methodology, disclaimer.  
+**Data:** `/data/*.json`, `/feeds/changes.xml` (generated; sample-only).  
+**Product preview only** — supports governance review, not legal advice.
+
+## Third-party acceleration plan (v0.3.2)
+
+Policy and research for faster delivery using **permissive open source**, **official sources**, and **licensed APIs** — without importing competitor code or data:
+
+- [docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md](docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md)
+- [docs/ACCELERATION_DECISION_MATRIX.md](docs/ACCELERATION_DECISION_MATRIX.md)
+- [research/THIRD_PARTY_ACCELERATION_AUDIT.md](research/THIRD_PARTY_ACCELERATION_AUDIT.md)
+- [research/OPEN_SOURCE_COMPONENT_SHORTLIST.md](research/OPEN_SOURCE_COMPONENT_SHORTLIST.md)
+- [research/COMPETITOR_FEATURE_REPLICATION_PLAN.md](research/COMPETITOR_FEATURE_REPLICATION_PLAN.md)
+- [research/OFFICIAL_SOURCE_INGESTION_CANDIDATES.md](research/OFFICIAL_SOURCE_INGESTION_CANDIDATES.md)
+
+Future implementation may adopt approved open-source dependencies and official-source ingestion per the matrix. **No package managers or third-party source trees in v0.3.2.**
+
+## Taxonomy and export contract (v0.3.1)
+
+Canonical values, review workflow, and future evidence export shape:
+
+- [docs/TAXONOMY_AND_REVIEW_WORKFLOW.md](docs/TAXONOMY_AND_REVIEW_WORKFLOW.md)
+- [docs/EVIDENCE_EXPORT_CONTRACT.md](docs/EVIDENCE_EXPORT_CONTRACT.md)
+- `data/taxonomies/` — allowed values (statuses, topics, draft refs)
+- `exports/samples/regulation-change-export.sample.yml` — sample export only (no client evidence created)
+- `schemas/taxonomy.schema.json`, `schemas/evidence-export-record.schema.json`
 
 ---
 
@@ -111,6 +185,14 @@ Details: [docs/COMPETITOR_BENCHMARKS.md](docs/COMPETITOR_BENCHMARKS.md)
 
 | Document | Purpose |
 |---|---|
+| [docs/PILOT_SOURCE_REGISTRY.md](docs/PILOT_SOURCE_REGISTRY.md) | Pilot EU/Norway registry guide |
+| [docs/SAMPLE_RECORDS_GUIDE.md](docs/SAMPLE_RECORDS_GUIDE.md) | Manual sample law/guidance/change records |
+| [docs/TAXONOMY_AND_REVIEW_WORKFLOW.md](docs/TAXONOMY_AND_REVIEW_WORKFLOW.md) | Taxonomies and review statuses |
+| [docs/EVIDENCE_EXPORT_CONTRACT.md](docs/EVIDENCE_EXPORT_CONTRACT.md) | Future regulation-change export contract |
+| [docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md](docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md) | Reuse, attribution, clean-room rules |
+| [docs/ACCELERATION_DECISION_MATRIX.md](docs/ACCELERATION_DECISION_MATRIX.md) | Prioritised acceleration decisions |
+| [research/VERIFYWISE_ARCHITECTURE_STUDY.md](research/VERIFYWISE_ARCHITECTURE_STUDY.md) | VerifyWise architecture study (v0.3.3) |
+| [docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md](docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md) | v0.4.0 static site plan |
 | [docs/FULL_SCALE_PRODUCT_BLUEPRINT.md](docs/FULL_SCALE_PRODUCT_BLUEPRINT.md) | End-to-end product blueprint |
 | [SPEC.md](SPEC.md) | Requirements, scope, inputs/outputs |
 | [ARCHITECTURE.md](ARCHITECTURE.md) | Layers, data flow, integrations |
@@ -133,6 +215,6 @@ Details: [docs/COMPETITOR_BENCHMARKS.md](docs/COMPETITOR_BENCHMARKS.md)
 
 ## Project status
 
-Repository foundation and **full-scale product blueprint** are in place (19 May 2026). Implementation of watchers, data stores, and UI is intentionally deferred until registry schemas and pilot jurisdictions are approved.
+**v0.5.0** expands global jurisdiction/source YAML, adds regulatory timelines and GitHub Actions CI (validate → generate → build). **v0.4.1** added Pagefind search, filters, methodology/disclaimer, JSON/RSS. Data remains manual YAML; no watchers or backend. Next: Control Tower review of expanded registry; optional Leaflet map.
 
 See [PROJECT_STATE.md](PROJECT_STATE.md) and [NEXT_ACTIONS.md](NEXT_ACTIONS.md).

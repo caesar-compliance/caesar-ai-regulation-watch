@@ -1,0 +1,103 @@
+# Metadata-only feed snapshot — 2026-05-19T21:49:49.841Z
+# No document/article/page body stored.
+
+snapshot_id: snap-feed-edps-2026-05-19t214949841
+watcher_id: watcher-edps-feed
+source_id: edps
+jurisdiction_id: eu
+adapter_id: official_rss_or_feed
+checked_at: '2026-05-19T21:49:49.841Z'
+feed_url: https://www.edps.europa.eu/feed/news_en
+final_url: https://www.edps.europa.eu/feed/news_en
+http_status: 200
+content_type: application/rss+xml; charset=utf-8
+feed_title: News
+feed_entry_count: 10
+entries:
+  - entry_id: 14921 at https://www.edps.europa.eu
+    guid: 14921 at https://www.edps.europa.eu
+    link: https://www.edps.europa.eu/press-publications/press-news/news/2026/safe-and-ethical-ai-big-european-idea-world
+    title: 'Safe and Ethical AI: a big European idea for the world'
+    published_at: Thu, 07 May 2026 14:04:02 +0000
+    updated_at: null
+    entry_hash: sha256:0e39722374a3f8f050f8cd3af0dadd9d8202e29db07ca4a1588e1856a976aeb6
+  - entry_id: 14838 at https://www.edps.europa.eu
+    guid: 14838 at https://www.edps.europa.eu
+    link: >-
+      https://www.edps.europa.eu/press-publications/press-news/news/2026/edps-annual-report-2025-protecting-people-changing-digital-world
+    title: 'EDPS Annual Report 2025: protecting people in a changing digital world'
+    published_at: Wed, 25 Mar 2026 13:29:37 +0000
+    updated_at: null
+    entry_hash: sha256:cfd3c8ea3f0b80b5b90dad4d998965ee878ef47880b23d7487911e1777bbf0fc
+  - entry_id: 14911 at https://www.edps.europa.eu
+    guid: 14911 at https://www.edps.europa.eu
+    link: https://www.edps.europa.eu/press-publications/press-news/news/2026/new-episode-newsletter-digest-out
+    title: New episode of the Newsletter Digest is out
+    published_at: Thu, 30 Apr 2026 14:32:33 +0000
+    updated_at: null
+    entry_hash: sha256:fcc91651605f442da576b5c5a4635908e42ef61036a84e045d02234162f1b8c1
+  - entry_id: 14885 at https://www.edps.europa.eu
+    guid: 14885 at https://www.edps.europa.eu
+    link: https://www.edps.europa.eu/press-publications/press-news/news/2026/latest-edps-newsletter-out-now-0
+    title: Latest EDPS newsletter out now
+    published_at: Fri, 17 Apr 2026 10:12:29 +0000
+    updated_at: null
+    entry_hash: sha256:a2f514440b51b209d618090f5a6499a1e457b089889306b43f8b7f6155477d39
+  - entry_id: 14860 at https://www.edps.europa.eu
+    guid: 14860 at https://www.edps.europa.eu
+    link: >-
+      https://www.edps.europa.eu/press-publications/press-news/news/2026/new-blog-post-prior-consultations-zero-surprises
+    title: 'New blog post: Prior consultations, zero surprises'
+    published_at: Mon, 30 Mar 2026 12:39:50 +0000
+    updated_at: null
+    entry_hash: sha256:32925e53a33110c45156e6e68a494b4485a454eac72190dfda857d7022d8881f
+  - entry_id: 14840 at https://www.edps.europa.eu
+    guid: 14840 at https://www.edps.europa.eu
+    link: https://www.edps.europa.eu/press-publications/press-news/news/2026/new-episode-out
+    title: New episode is out!
+    published_at: Wed, 25 Mar 2026 16:56:23 +0000
+    updated_at: null
+    entry_hash: sha256:03e9c3a0bc42ff4763d344b7f2741f25baed932a8b33308a6e9db5a84a861c72
+  - entry_id: 14830 at https://www.edps.europa.eu
+    guid: 14830 at https://www.edps.europa.eu
+    link: >-
+      https://www.edps.europa.eu/press-publications/press-news/news/2026/high-level-debate-omnibus-opportunity-driving-data-protection-and-innovation_en
+    title: 'High-Level Debate: “From Omnibus to Opportunity: Driving Data Protection and Innovation”'
+    published_at: Thu, 19 Mar 2026 15:54:44 +0000
+    updated_at: null
+    entry_hash: sha256:9e6d25d2d6268ee93ab0a85195422c3dfc64180239633314575cad92e615d733
+  - entry_id: 14829 at https://www.edps.europa.eu
+    guid: 14829 at https://www.edps.europa.eu
+    link: >-
+      https://www.edps.europa.eu/press-publications/press-news/news/2026/edpb-edps-joint-opinion-cybersecurity-act-2-and-amendments-nis-2-directive
+    title: >-
+      EDPB-EDPS Joint Opinion on the Proposal for a Cybersecurity Act 2 and the Proposal on amendments to the NIS 2
+      Directive
+    published_at: Thu, 19 Mar 2026 11:30:03 +0000
+    updated_at: null
+    entry_hash: sha256:43745c1288a37ec1ae96cd5b884609d1c87402da4dc8b0770d4433ee23dacb09
+  - entry_id: 14817 at https://www.edps.europa.eu
+    guid: 14817 at https://www.edps.europa.eu
+    link: >-
+      https://www.edps.europa.eu/press-publications/press-news/news/2026/towards-trustworthy-ai-eu-public-administration-edps-compass-its-new-role-under-ai-act
+    title: 'Towards trustworthy AI in the EU public administration: The EDPS Compass for its new role under the AI Act'
+    published_at: Tue, 17 Mar 2026 08:06:06 +0000
+    updated_at: null
+    entry_hash: sha256:7eeb728593ad47ccf854060c87fbeddbde16af3aea3dba279064439cc0745219
+  - entry_id: 14813 at https://www.edps.europa.eu
+    guid: 14813 at https://www.edps.europa.eu
+    link: https://www.edps.europa.eu/press-publications/press-news/news/2026/latest-edps-newsletter-out-now
+    title: Latest EDPS Newsletter out now
+    published_at: Fri, 13 Mar 2026 09:41:34 +0000
+    updated_at: null
+    entry_hash: sha256:f8ffedb854776fb8a0241199e08b27bb182b24ff4b6af6786d8db02b9f51aecc
+entries_aggregate_hash: sha256:e5b176a06ddf13c70a25e06b951fe62ef0c3a5bd604827b715f89729be1f7884
+snapshot_kind: feed_metadata
+storage_policy: metadata_only_no_body_storage
+legal_safe_note: >
+  Feed metadata only; entry title/link/date for signals. No article body storage. Human review required before any
+  record update.
+feed_format_detected: rss
+content_hash: sha256:2945026394f637301e14a55ebba71487d4375c92502bb40fd4adfd51b0cb3f9c
+content_length: 37503
+retry_attempts: 1

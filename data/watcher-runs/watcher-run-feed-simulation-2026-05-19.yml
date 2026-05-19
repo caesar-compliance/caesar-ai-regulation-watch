@@ -1,0 +1,30 @@
+# Feed watcher simulation run — 2026-05-19
+
+run_id: watcher-run-feed-simulation-2026-05-19
+run_date: '2026-05-19'
+run_mode: simulation
+mode: simulation
+safe_mode: true
+fixture_only: true
+network_disabled: true
+preserves_latest_snapshots: true
+watcher_count: 1
+checked_count: 1
+feed_checked_count: 1
+page_checked_count: 0
+changed_count: 1
+error_count: 0
+detected_change_ids:
+  - simulated-edpb-feed-change-2026-05-19
+error_summaries: []
+results:
+  - watcher_id: watcher-edpb-feed
+    source_id: edpb
+    status: change_detected
+    snapshot_id: snap-fixture-edpb-feed-after-2026-05-19
+    previous_snapshot_id: snap-fixture-edpb-feed-before-2026-05-19
+    detected_change_id: simulated-edpb-feed-change-2026-05-19
+    error_message: null
+legal_safe_note: >-
+  Simulation only; not an official feed update. Feed metadata fixture diff for pipeline validation. Human review
+  required.

@@ -1,0 +1,25 @@
+# Source credibility tiers — v0.3.1
+# Last updated: 19 May 2026
+
+taxonomy_id: source-credibility-levels
+title: Source credibility levels
+version: "0.3.1"
+last_updated: "2026-05-19"
+description: >
+  How official or authoritative a registered source is for monitoring purposes.
+
+values:
+  - value_id: official_primary
+    label: Official primary
+    description: >
+      Legislature, gazette, regulator primary site, or canonical law portal entry.
+
+  - value_id: official_secondary
+    label: Official secondary
+    description: >
+      Coordinated EU institution pages or official mirrors clearly tied to primary law.
+
+  - value_id: authoritative_reference
+    label: Authoritative reference
+    description: >
+      Reputable secondary reference for structure only; not primary monitoring truth.

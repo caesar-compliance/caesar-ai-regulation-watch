@@ -1,0 +1,28 @@
+# Curated record — UK government AI regulation policy
+# Last curated: 19 May 2026
+
+record_id: policy-uk-ai-regulation-pro-innovation
+record_type: policy_framework
+record_origin: official_source_registry
+verified_on_source: false
+title: UK — AI regulation pro-innovation approach (government policy framework)
+jurisdiction_id: uk
+source_id: uk-gov-ai-regulation
+guidance_status: guidance
+official_url: https://www.gov.uk/government/publications/ai-regulation-a-pro-innovation-approach
+summary_for_review: >
+  Curated pointer to the UK government’s pro-innovation approach to AI regulation,
+  including the white paper and related policy materials on gov.uk. Supports governance
+  review of whether UK-facing AI governance memos, risk tiering, and sector-regulator
+  coordination need updates when official policy pages change. Does not state binding
+  legal obligations for any specific deployment.
+affected_topics:
+  - uk_ai_regulation
+  - innovation_policy
+  - sector_regulators
+  - risk_tiering
+review_status: pending_review
+legal_safe_note: >
+  Curated registry record for governance review support only. Not legal advice. UK
+  sector-specific rules may apply separately. Requires human verification on the
+  official gov.uk publication before client use.

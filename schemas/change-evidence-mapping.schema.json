@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caesar.no/schemas/caesar-ai-regulation-watch/change-evidence-mapping.schema.json",
+  "title": "Caesar AI Regulation Watch — Change to evidence mapping (sample)",
+  "description": "Manual sample mapping from a change record to evidence items. Not legal advice.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "mapping_id",
+    "change_id",
+    "may_affect_evidence",
+    "suggested_evidence_review",
+    "human_review_required",
+    "legal_safe_note"
+  ],
+  "properties": {
+    "mapping_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "change_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "may_affect_evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["evidence_ref", "rationale", "reference_alignment"],
+        "properties": {
+          "evidence_ref": {
+            "type": "string",
+            "pattern": "^regulation_watch\\.evidence\\.[a-z][a-z0-9_]*$"
+          },
+          "reference_alignment": {
+            "type": "string",
+            "enum": ["draft_pending_caesar_ai_evidence", "aligned", "deprecated"]
+          },
+          "rationale": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "suggested_evidence_review": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["evidence_ref", "suggested_action", "rationale", "reference_alignment"],
+        "properties": {
+          "evidence_ref": {
+            "type": "string",
+            "pattern": "^regulation_watch\\.evidence\\.[a-z][a-z0-9_]*$"
+          },
+          "reference_alignment": {
+            "type": "string",
+            "enum": ["draft_pending_caesar_ai_evidence", "aligned", "deprecated"]
+          },
+          "suggested_action": {
+            "type": "string",
+            "enum": ["review", "update", "create", "archive"]
+          },
+          "rationale": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "human_review_required": {
+      "type": "boolean"
+    },
+    "legal_safe_note": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caesar.no/schemas/caesar-ai-regulation-watch/law.schema.json",
+  "title": "Caesar AI Regulation Watch — Law record (sample)",
+  "description": "Manual sample law/instrument record for data-model testing. Not legal advice.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_id",
+    "record_type",
+    "title",
+    "jurisdiction_id",
+    "source_id",
+    "legal_status",
+    "official_url",
+    "summary_for_review",
+    "key_dates",
+    "affected_topics",
+    "record_origin",
+    "review_status",
+    "legal_safe_note"
+  ],
+  "properties": {
+    "record_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "record_type": {
+      "type": "string",
+      "const": "law"
+    },
+    "verified_on_source": {
+      "type": "boolean"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "jurisdiction_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "source_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "legal_status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "adopted",
+        "in_force",
+        "guidance",
+        "voluntary",
+        "withdrawn",
+        "monitoring",
+        "implementation_update",
+        "unknown"
+      ]
+    },
+    "record_origin": {
+      "type": "string",
+      "enum": [
+        "official_source_registry",
+        "manual_sample",
+        "future_watcher_output"
+      ]
+    },
+    "official_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "summary_for_review": {
+      "type": "string",
+      "minLength": 1
+    },
+    "key_dates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "date"],
+        "properties": {
+          "label": { "type": "string", "minLength": 1 },
+          "date": { "type": "string", "format": "date" },
+          "verified_on_source": { "type": "boolean" },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "affected_topics": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "review_status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "pending_review",
+        "reviewed",
+        "needs_update",
+        "rejected_for_client_use",
+        "archived"
+      ]
+    },
+    "content_review_status": {
+      "type": "string",
+      "enum": [
+        "not_reviewed",
+        "reviewed_content_summary",
+        "needs_update",
+        "rejected_for_client_use"
+      ]
+    },
+    "last_content_review_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "legal_safe_note": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

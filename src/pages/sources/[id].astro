@@ -1,0 +1,154 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ReviewBanner from "../../components/ReviewBanner.astro";
+import CredibilityBadge from "../../components/CredibilityBadge.astro";
+import ReviewStatusBadge from "../../components/ReviewStatusBadge.astro";
+import {
+  getSources,
+  getSource,
+  getJurisdiction,
+  latestUrlCheckForSource,
+  latestIdentityVerificationForSource,
+} from "../../lib/data";
+import {
+  humanizeId,
+  urlCheckResultLabel,
+  contentReviewStatusLabel,
+  verificationCheckLabel,
+} from "../../lib/format";
+
+export function getStaticPaths() {
+  return getSources().map((s) => ({
+    params: { id: s.source_id },
+  }));
+}
+
+const { id } = Astro.params;
+const source = getSource(id!);
+
+if (!source) {
+  return Astro.redirect("/sources/");
+}
+
+const jurisdiction = getJurisdiction(source.jurisdiction_id);
+const urlCheck = latestUrlCheckForSource(source.source_id);
+const identityReview = latestIdentityVerificationForSource(source.source_id);
+---
+
+<BaseLayout title={source.title} currentPath="/sources/">
+  <p><a href="/sources/">← Sources</a></p>
+  <h1>{source.title}</h1>
+  <div class="card__meta" style="margin-bottom: 1rem;">
+    <CredibilityBadge level={source.credibility_level} />
+    <span class="badge badge--type">{source.source_type.replace(/_/g, " ")}</span>
+    <ReviewStatusBadge status={source.review_status} />
+  </div>
+
+  <ReviewBanner reviewStatus={source.review_status} />
+
+  {
+    identityReview && (
+      <section>
+        <h2>Source identity review</h2>
+        <dl class="meta-grid">
+          <div><dt>Identity check</dt><dd>{verificationCheckLabel(identityReview.check_result)}</dd></div>
+          <div><dt>Review status</dt><dd>{humanizeId(identityReview.review_status_after_check)}</dd></div>
+          <div><dt>Client use allowed</dt><dd>{identityReview.client_use_allowed ? "Yes" : "No"}</dd></div>
+        </dl>
+        <p class="card__excerpt">
+          <small>Identity review only — not content or legal summary review.</small>
+        </p>
+      </section>
+    )
+  }
+
+  {
+    urlCheck && (
+      <section>
+        <h2>Technical URL status</h2>
+        <dl class="meta-grid">
+          <div><dt>Check result</dt><dd>{urlCheckResultLabel(urlCheck.check_result)}</dd></div>
+          <div><dt>HTTP status</dt><dd>{urlCheck.http_status ?? "—"}</dd></div>
+          <div>
+            <dt>Content review</dt>
+            <dd>{contentReviewStatusLabel(urlCheck.content_review_status)}</dd>
+          </div>
+          <div>
+            <dt>Client use allowed</dt>
+            <dd>{urlCheck.client_use_allowed ? "Yes" : "No"}</dd>
+          </div>
+        </dl>
+        {urlCheck.redirect_detected && (
+          <p class="banner banner--review" role="note">
+            URL redirects to <span class="mono">{urlCheck.final_url}</span>. Confirm canonical URL
+            after human review.
+          </p>
+        )}
+        {(urlCheck.check_result === "reachable" ||
+          urlCheck.check_result === "reachable_redirected") && (
+          <p class="card__excerpt">
+            <small>
+              Reachable URL does not mean this source is legally reviewed or approved for client
+              use.
+            </small>
+          </p>
+        )}
+        <p><a href="/verification/">All verification →</a></p>
+      </section>
+    )
+  }
+
+  {
+    source.official_url ? (
+      <p>
+        <a class="btn-primary" href={source.official_url} target="_blank" rel="noopener noreferrer">
+          View official source ↗
+        </a>
+      </p>
+    ) : (
+      <p class="banner banner--review" role="note">
+        Official URL requires human verification before use. See notes below.
+      </p>
+    )
+  }
+
+  <dl class="meta-grid">
+    <div><dt>Source ID</dt><dd class="mono">{source.source_id}</dd></div>
+    <div>
+      <dt>Jurisdiction</dt>
+      <dd>
+        {jurisdiction ? (
+          <a href={`/jurisdictions/${jurisdiction.jurisdiction_id}/`}>{jurisdiction.name}</a>
+        ) : (
+          source.jurisdiction_id
+        )}
+      </dd>
+    </div>
+    <div>
+      <dt>Official URL</dt>
+      <dd class="mono" style="word-break: break-all;">
+        {source.official_url ?? "— pending verification —"}
+      </dd>
+    </div>
+  </dl>
+
+  <h2>Monitoring scope</h2>
+  <div class="prose"><p>{source.monitoring_scope}</p></div>
+
+  <h2>Expected update types</h2>
+  <ul>
+    {source.expected_update_types.map((t) => (
+      <li>{humanizeId(t)}</li>
+    ))}
+  </ul>
+
+  <h2>Related topics</h2>
+  <ul>
+    {source.related_topics.map((t) => (
+      <li>{humanizeId(t)}</li>
+    ))}
+  </ul>
+
+  <h2>Notes</h2>
+  <div class="prose"><p>{source.notes}</p></div>
+</BaseLayout>

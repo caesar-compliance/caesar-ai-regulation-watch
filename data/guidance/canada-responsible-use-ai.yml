@@ -1,0 +1,27 @@
+# Curated record — Canada responsible use of AI
+# Last curated: 19 May 2026
+
+record_id: policy-canada-responsible-use-ai
+record_type: policy_framework
+record_origin: official_source_registry
+verified_on_source: false
+title: Government of Canada — Responsible use of artificial intelligence
+jurisdiction_id: canada
+source_id: canada-responsible-ai
+guidance_status: guidance
+official_url: https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai.html
+summary_for_review: >
+  Curated pointer to the Government of Canada’s responsible-use-of-AI policy hub on
+  canada.ca, including direction for federal institutions and links to related guidance.
+  Supports governance review of whether public-sector or Canada-linked AI governance
+  documentation should reflect updated federal policy statements.
+affected_topics:
+  - public_sector_ai
+  - responsible_ai
+  - transparency
+  - accountability
+review_status: pending_review
+legal_safe_note: >
+  Curated registry record for governance review support only. Not legal advice. Provincial
+  privacy and sector rules may apply separately. Requires human verification on canada.ca
+  before client use.

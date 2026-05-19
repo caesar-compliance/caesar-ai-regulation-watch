@@ -1,0 +1,26 @@
+# Curated record — Japan METI AI policy hub
+# Last curated: 19 May 2026
+
+record_id: policy-japan-meti-ai
+record_type: policy_framework
+record_origin: official_source_registry
+verified_on_source: false
+title: Japan METI — AI policy and connected industries materials
+jurisdiction_id: japan
+source_id: japan-meti-ai
+guidance_status: guidance
+official_url: https://www.meti.go.jp/english/policy/index.html
+summary_for_review: >
+  Curated pointer to METI’s English-language AI policy hub covering government AI
+  initiatives, governance discussion papers, and related official materials. Supports
+  governance review when Japan-linked AI strategy or industry-policy references need
+  updating. Additional instruments may be published on Japanese-only pages.
+affected_topics:
+  - ai_strategy
+  - industry_policy
+  - governance_guidelines
+review_status: pending_review
+legal_safe_note: >
+  Curated registry record for governance review support only. Not legal advice. English
+  hub may not list all binding instruments; verify Japanese official sources where
+  required. Requires human review before client use.

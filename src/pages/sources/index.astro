@@ -1,0 +1,55 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import FilterBar from "../../components/FilterBar.astro";
+import SourceCard from "../../components/SourceCard.astro";
+import { getSources } from "../../lib/data";
+import { sourceFilterOptions, groupSourcesByRegion } from "../../lib/filters";
+
+const sources = getSources();
+const opts = sourceFilterOptions();
+const groupedByRegion = groupSourcesByRegion(sources);
+---
+
+<BaseLayout title="Official sources" currentPath="/sources/">
+  <div data-filter-page>
+    <h1>Official sources</h1>
+    <p class="lead">
+      Official and authoritative source registry (global expansion v0.5.0). Primary truth is always the
+      official source — not this summary.
+    </p>
+
+    <div class="banner banner--review" role="note">
+      New entries require human review. URLs marked pending must be verified before client use.
+    </div>
+
+    <FilterBar
+      filters={[
+        { key: "jurisdiction", label: "Jurisdiction", options: opts.jurisdiction },
+        { key: "credibility", label: "Credibility", options: opts.credibility },
+        { key: "review", label: "Review", options: opts.review },
+      ]}
+    />
+
+    {
+      groupedByRegion.map((regionGroup) => (
+        <section class="group-section">
+          <h2 class="group-section__title">{regionGroup.region}</h2>
+          {regionGroup.jurisdictions.map((group) => (
+            <section>
+              <h3 class="group-section__subtitle">
+                <a href={`/jurisdictions/${group.id}/`}>{group.name}</a>
+              </h3>
+              <ul class="card-list" data-filter-list>
+                {group.items.map((s) => (
+                  <SourceCard source={s} filterable />
+                ))}
+              </ul>
+            </section>
+          ))}
+        </section>
+      ))
+    }
+  </div>
+
+  <script is:inline src="/scripts/filter-list.js"></script>
+</BaseLayout>

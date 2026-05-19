@@ -1,0 +1,25 @@
+# Global expansion jurisdiction record — Singapore
+# Last curated: 19 May 2026
+
+jurisdiction_id: singapore
+name: Singapore
+type: country
+region: Asia-Pacific
+parent_jurisdiction: null
+regulatory_focus:
+  - ai_governance_framework
+  - pdpc_model_framework
+  - imda_digital_policy
+monitoring_priority: medium
+notes: >
+  Curated official sources for Singapore AI governance and related digital policy.
+  Not exhaustive of all statutes, sector rules, or MAS guidance unless added later.
+map:
+  display_name: Singapore
+  latitude: 1.3521
+  longitude: 103.8198
+  marker_type: country_capital
+  coverage_status: expanded
+  map_note: >
+    City-state display marker for curated official AI governance sources.
+review_status: pending_review

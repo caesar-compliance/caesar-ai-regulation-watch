@@ -1,0 +1,30 @@
+# Simulation fixture — invented feed entries only (not live EDPB copy)
+snapshot_id: snap-fixture-edpb-feed-before-2026-05-19
+watcher_id: watcher-edpb-feed
+source_id: edpb
+jurisdiction_id: eu
+adapter_id: official_rss_or_feed
+checked_at: '2026-05-19T10:00:00.000Z'
+feed_url: https://www.edpb.europa.eu/feed/publications_en
+final_url: https://www.edpb.europa.eu/feed/publications_en
+http_status: 200
+content_type: application/rss+xml
+feed_title: 'Fixture: EDPB publications feed (baseline)'
+feed_entry_count: 2
+entries:
+  - entry_id: fixture-entry-001
+    guid: fixture-entry-001
+    link: https://example.invalid/edpb/fixture/001
+    title: 'Fixture: Sample EDPB publication A'
+    published_at: Mon, 01 May 2026 10:00:00 +0200
+    entry_hash: sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  - entry_id: fixture-entry-002
+    guid: fixture-entry-002
+    link: https://example.invalid/edpb/fixture/002
+    title: 'Fixture: Sample EDPB publication B'
+    published_at: Mon, 05 May 2026 10:00:00 +0200
+    entry_hash: sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+entries_aggregate_hash: sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+snapshot_kind: feed_metadata
+storage_policy: metadata_only_no_body_storage
+legal_safe_note: Simulation fixture feed snapshot only.

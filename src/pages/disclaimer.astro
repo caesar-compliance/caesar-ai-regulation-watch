@@ -1,0 +1,76 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Disclaimer" currentPath="/disclaimer/">
+  <h1>Disclaimer</h1>
+  <p class="lead">Please read before using this preview site or exported data files.</p>
+
+  <div class="banner banner--review" role="alert">
+    <strong>Not legal advice.</strong> Caesar AI Regulation Watch does not provide legal advice, regulatory
+    opinions, or compliance guarantees.
+  </div>
+
+  <div class="prose">
+    <h2>No compliance guarantee</h2>
+    <p>
+      This product helps teams <strong>identify</strong> tracked official sources and changes that may warrant
+      internal governance review. It does <strong>not</strong> determine legal obligations, compliance status,
+      or approval by any regulator or authority.
+    </p>
+
+    <h2>Not complete global coverage</h2>
+    <p>
+      The registry is incremental and pilot-scoped. Absence of a jurisdiction, law, or topic does not mean
+      no regulation applies. Do not rely on this site as an exhaustive legal survey.
+    </p>
+
+    <h2>Sample and incomplete data</h2>
+    <p>
+      Many records are manual samples for data-model testing. Summaries, dates, and change detections may be
+      incomplete, fictionalised, or outdated. <strong>Verify all material facts on official sources</strong>{" "}
+      before client use.
+    </p>
+
+    <h2>Human review required</h2>
+    <p>
+      Content with <code>pending_review</code>, <code>draft</code>, or <code>manual_sample</code> origin must
+      not be used in client deliverables without qualified professional review appropriate to your
+      organisation and jurisdiction.
+    </p>
+
+    <h2>Map display markers</h2>
+    <p>
+      Map coordinates identify institutional or capital <strong>display points</strong> for browsing only. They
+      are not legal boundary data and must not be used for territorial, compliance, or geopolitical
+      determinations.
+    </p>
+
+    <h2>Review queue</h2>
+    <p>
+      The review queue highlights items that may need human attention. It does not constitute a workflow system,
+      audit trail, or approval mechanism. Only qualified reviewers may approve content for client use outside
+      this static preview.
+    </p>
+
+    <h2>Official sources control</h2>
+    <p>
+      When this site and an official source disagree, <strong>the official source controls</strong>. Use the
+      “View official source” links on record pages as the primary reference.
+    </p>
+
+    <h2>Export samples</h2>
+    <p>
+      JSON exports and RSS feeds are generated from the same pilot YAML. Export samples are{" "}
+      <strong>not client evidence</strong> and do not create records in Caesar AI Evidence or Governance OS.
+    </p>
+
+    <h2>No warranty</h2>
+    <p>
+      This preview is provided as-is for product development and governance workflow design. Caesar and
+      contributors disclaim warranties to the fullest extent permitted by law.
+    </p>
+  </div>
+
+  <p><a href="/methodology/">Read methodology →</a></p>
+</BaseLayout>

@@ -1,0 +1,57 @@
+# Manual sample mappings — for data-model testing only
+# evidence_ref values are draft (regulation_watch.evidence.*) — pending caesar-ai-evidence alignment
+# Last curated: 19 May 2026
+
+mappings:
+  - mapping_id: map-ev-sample-eu-ai-act-status
+    change_id: sample-eu-ai-act-status-change
+    may_affect_evidence:
+      - evidence_ref: regulation_watch.evidence.ai_system_register
+        reference_alignment: draft_pending_caesar_ai_evidence
+        rationale: >
+          May affect whether system register entries citing EU AI Act status need updating.
+      - evidence_ref: regulation_watch.evidence.governance_memo
+        reference_alignment: draft_pending_caesar_ai_evidence
+        rationale: >
+          May affect high-level governance memos referencing EU legal timelines.
+    suggested_evidence_review:
+      - evidence_ref: regulation_watch.evidence.ai_system_register
+        reference_alignment: draft_pending_caesar_ai_evidence
+        suggested_action: review
+        rationale: >
+          Suggested evidence review if official source confirms a relevant status or timeline change.
+      - evidence_ref: regulation_watch.evidence.compliance_calendar
+        reference_alignment: draft_pending_caesar_ai_evidence
+        suggested_action: update
+        rationale: >
+          Suggested update to internal tracking dates only after verification on EUR-Lex.
+    human_review_required: true
+    legal_safe_note: >
+      Manual sample mapping for data-model testing only. May affect evidence; does not
+      require specific document changes without human review. Draft refs not in caesar-ai-evidence yet.
+
+  - mapping_id: map-ev-sample-datatilsynet-guidance
+    change_id: sample-datatilsynet-guidance-change
+    may_affect_evidence:
+      - evidence_ref: regulation_watch.evidence.dpia
+        reference_alignment: draft_pending_caesar_ai_evidence
+        rationale: >
+          Guidance updates on AI may affect DPIA content for Norwegian personal-data processing.
+      - evidence_ref: regulation_watch.evidence.privacy_notice
+        reference_alignment: draft_pending_caesar_ai_evidence
+        rationale: >
+          May affect privacy notices describing automated decision-making or AI features.
+    suggested_evidence_review:
+      - evidence_ref: regulation_watch.evidence.dpia
+        reference_alignment: draft_pending_caesar_ai_evidence
+        suggested_action: review
+        rationale: >
+          Suggested review of DPIA records if Datatilsynet publishes substantive new guidance.
+      - evidence_ref: regulation_watch.evidence.guidance_review_note
+        reference_alignment: draft_pending_caesar_ai_evidence
+        suggested_action: create
+        rationale: >
+          Suggested internal guidance review note after confirming official content.
+    human_review_required: true
+    legal_safe_note: >
+      Manual sample mapping for data-model testing only. Requires human review before client use.

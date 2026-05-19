@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caesar.no/schemas/caesar-ai-regulation-watch/source.schema.json",
+  "title": "Caesar AI Regulation Watch — Official Source (pilot)",
+  "description": "Pilot official source registry entry. Not legal advice; not an exhaustive source list.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source_id",
+    "title",
+    "jurisdiction_id",
+    "source_type",
+    "credibility_level",
+    "official_url",
+    "monitoring_scope",
+    "expected_update_types",
+    "related_topics",
+    "review_status",
+    "notes"
+  ],
+  "properties": {
+    "source_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "jurisdiction_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "law_portal",
+        "regulator",
+        "gazette",
+        "legislature",
+        "standards_body",
+        "international_body",
+        "other"
+      ]
+    },
+    "credibility_level": {
+      "type": "string",
+      "enum": [
+        "official_primary",
+        "official_secondary",
+        "authoritative_reference"
+      ]
+    },
+    "official_url": {
+      "type": ["string", "null"],
+      "format": "uri"
+    },
+    "monitoring_scope": {
+      "type": "string",
+      "minLength": 1
+    },
+    "expected_update_types": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "related_topics": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "review_status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "pending_review",
+        "reviewed",
+        "needs_update",
+        "rejected_for_client_use",
+        "archived"
+      ]
+    },
+    "notes": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

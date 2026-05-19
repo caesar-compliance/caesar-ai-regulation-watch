@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caesar.no/schemas/caesar-ai-regulation-watch/api-snapshot.schema.json",
+  "title": "Caesar AI Regulation Watch — API metadata snapshot",
+  "description": "Metadata-only official API response snapshot. No document bodies stored.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "snapshot_id",
+    "watcher_id",
+    "source_id",
+    "jurisdiction_id",
+    "adapter_id",
+    "checked_at",
+    "api_url",
+    "final_url",
+    "http_status",
+    "result_count",
+    "results",
+    "results_aggregate_hash",
+    "snapshot_kind",
+    "storage_policy",
+    "legal_safe_note"
+  ],
+  "properties": {
+    "snapshot_id": { "type": "string", "pattern": "^[a-z][a-z0-9_-]*$" },
+    "watcher_id": { "type": "string", "pattern": "^[a-z][a-z0-9_-]*$" },
+    "source_id": { "type": "string", "pattern": "^[a-z][a-z0-9_-]*$" },
+    "jurisdiction_id": { "type": "string", "pattern": "^[a-z][a-z0-9_-]*$" },
+    "adapter_id": { "type": "string", "const": "official_api_metadata" },
+    "checked_at": { "type": "string", "format": "date-time" },
+    "api_url": { "type": "string", "format": "uri" },
+    "final_url": { "type": "string" },
+    "http_status": { "type": ["integer", "null"], "minimum": 0, "maximum": 599 },
+    "content_type": { "type": ["string", "null"] },
+    "query_scope_note": { "type": ["string", "null"] },
+    "result_count": { "type": "integer", "minimum": 0 },
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["result_id", "result_hash"],
+        "properties": {
+          "result_id": { "type": "string", "minLength": 1 },
+          "title": { "type": ["string", "null"] },
+          "link": { "type": ["string", "null"] },
+          "publication_date": { "type": ["string", "null"] },
+          "document_number": { "type": ["string", "null"] },
+          "result_hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+        }
+      }
+    },
+    "results_aggregate_hash": {
+      "type": ["string", "null"],
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "response_hash": {
+      "type": ["string", "null"],
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "content_length": { "type": ["integer", "null"], "minimum": 0 },
+    "retry_attempts": { "type": ["integer", "null"], "minimum": 0 },
+    "error_category": { "type": ["string", "null"] },
+    "snapshot_kind": {
+      "type": "string",
+      "enum": ["api_metadata", "error_placeholder"]
+    },
+    "storage_policy": {
+      "type": "string",
+      "enum": ["metadata_only_no_body_storage"]
+    },
+    "fetch_error": { "type": "string" },
+    "legal_safe_note": { "type": "string", "minLength": 1 }
+  }
+}

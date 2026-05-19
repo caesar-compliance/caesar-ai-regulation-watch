@@ -1,0 +1,254 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ReviewStatusBadge from "../../components/ReviewStatusBadge.astro";
+import {
+  getWatchers,
+  getWatcher,
+  getSource,
+  getJurisdiction,
+  latestSnapshotForSource,
+  snapshotsForSource,
+  detectedChangesForSource,
+  latestWatcherRun,
+} from "../../lib/data";
+import { humanizeId } from "../../lib/format";
+
+export function getStaticPaths() {
+  return getWatchers().map((w) => ({ params: { id: w.watcher_id } }));
+}
+
+const { id } = Astro.params;
+const watcher = getWatcher(id!);
+
+if (!watcher) {
+  return Astro.redirect("/watchers/");
+}
+
+const source = getSource(watcher.source_id);
+const jurisdiction = getJurisdiction(watcher.jurisdiction_id);
+const latestSnap = latestSnapshotForSource(watcher.source_id);
+const snapshots = snapshotsForSource(watcher.source_id);
+const detected = detectedChangesForSource(watcher.source_id);
+const latestRun = latestWatcherRun();
+const runResult = latestRun?.results.find((r) => r.watcher_id === watcher.watcher_id);
+---
+
+<BaseLayout title={source?.title ?? watcher.watcher_id} currentPath="/watchers/">
+  <p><a href="/watchers/">← Watchers</a></p>
+  <h1>{source?.title ?? watcher.watcher_id}</h1>
+
+  <div class="banner banner--review" role="note">
+    <strong>Not legal advice.</strong> Metadata-only watcher for governance review support. Detected
+    changes are not verified regulatory updates. Human review required.
+  </div>
+
+  <div class="card__meta" style="margin-bottom: 1rem;">
+    <ReviewStatusBadge status={watcher.review_status} />
+    <span class="badge badge--type">{humanizeId(watcher.watcher_type)}</span>
+    {watcher.enabled ? <span class="badge">Enabled</span> : <span class="badge">Disabled</span>}
+  </div>
+
+  <dl class="meta-grid">
+    <div><dt>Watcher ID</dt><dd class="mono">{watcher.watcher_id}</dd></div>
+    {watcher.adapter_id && (
+      <div><dt>Adapter</dt><dd>{humanizeId(watcher.adapter_id)}</dd></div>
+    )}
+    <div>
+      <dt>Source</dt>
+      <dd>
+        {source ? (
+          <a href={`/sources/${source.source_id}/`}>{source.title}</a>
+        ) : (
+          watcher.source_id
+        )}
+      </dd>
+    </div>
+    <div>
+      <dt>Jurisdiction</dt>
+      <dd>
+        {jurisdiction ? (
+          <a href={`/jurisdictions/${jurisdiction.jurisdiction_id}/`}>{jurisdiction.name}</a>
+        ) : (
+          watcher.jurisdiction_id
+        )}
+      </dd>
+    </div>
+    <div>
+      <dt>Official URL</dt>
+      <dd class="mono" style="word-break: break-all;">
+        <a href={watcher.official_url} target="_blank" rel="noopener noreferrer">
+          {watcher.official_url}
+        </a>
+      </dd>
+    </div>
+    <div>
+      <dt>Check frequency (recommended)</dt>
+      <dd>{humanizeId(watcher.check_frequency_recommendation)}</dd>
+    </div>
+    <div><dt>Change detection</dt><dd>{humanizeId(watcher.change_detection_mode)}</dd></div>
+    <div><dt>Snapshot policy</dt><dd>{humanizeId(watcher.snapshot_policy)}</dd></div>
+    {
+      watcher.feed_url && (
+        <div>
+          <dt>Feed URL</dt>
+          <dd class="mono" style="word-break: break-all;">
+            <a href={watcher.feed_url} target="_blank" rel="noopener noreferrer">
+              {watcher.feed_url}
+            </a>
+          </dd>
+        </div>
+      )
+    }
+    {
+      watcher.api_url && (
+        <div>
+          <dt>API URL</dt>
+          <dd class="mono" style="word-break: break-all;">{watcher.api_url}</dd>
+        </div>
+      )
+    }
+  </dl>
+
+  <h2>Monitoring scope</h2>
+  <div class="prose"><p>{watcher.monitoring_scope}</p></div>
+
+  {
+    runResult && (
+      <section>
+        <h2>Latest run result</h2>
+        <dl class="meta-grid">
+          {latestRun && (
+            <div><dt>Run mode</dt><dd>{humanizeId(latestRun.run_mode ?? latestRun.mode ?? "—")}</dd></div>
+          )}
+          <div><dt>Status</dt><dd>{humanizeId(runResult.status)}</dd></div>
+          <div><dt>Snapshot</dt><dd class="mono">{runResult.snapshot_id ?? "—"}</dd></div>
+          {
+            runResult.error_category && (
+              <div><dt>Error category</dt><dd>{runResult.error_category}</dd></div>
+            )
+          }
+          {
+            runResult.error_message && (
+              <div>
+                <dt>Error</dt>
+                <dd>{runResult.error_message}</dd>
+              </div>
+            )
+          }
+          {
+            runResult.feed_diagnostics && (
+              <>
+                <div>
+                  <dt>Response status</dt>
+                  <dd>{runResult.feed_diagnostics.response_status ?? "—"}</dd>
+                </div>
+                <div>
+                  <dt>Content-Type</dt>
+                  <dd class="mono">{runResult.feed_diagnostics.response_content_type ?? "—"}</dd>
+                </div>
+                <div>
+                  <dt>Final URL</dt>
+                  <dd class="mono" style="word-break: break-all;">
+                    {runResult.feed_diagnostics.final_url ?? "—"}
+                  </dd>
+                </div>
+                {
+                  runResult.feed_diagnostics.diagnostic_note && (
+                    <div>
+                      <dt>Diagnostic note</dt>
+                      <dd>{runResult.feed_diagnostics.diagnostic_note}</dd>
+                    </div>
+                  )
+                }
+              </>
+            )
+          }
+        </dl>
+      </section>
+    )
+  }
+
+  {
+    latestSnap && (
+      <section>
+        <h2>Latest snapshot (metadata only)</h2>
+        <p class="card__excerpt">
+          <small>No full page body stored. Hashes used for diff signals only.</small>
+        </p>
+        <dl class="meta-grid">
+          <div><dt>Snapshot ID</dt><dd class="mono">{latestSnap.snapshot_id}</dd></div>
+          <div><dt>Checked at</dt><dd>{latestSnap.checked_at}</dd></div>
+          <div><dt>HTTP status</dt><dd>{latestSnap.http_status ?? "—"}</dd></div>
+          <div>
+            <dt>Final URL</dt>
+            <dd class="mono" style="word-break: break-all;">{latestSnap.final_url}</dd>
+          </div>
+          <div><dt>Title</dt><dd>{latestSnap.title ?? latestSnap.feed_title ?? "—"}</dd></div>
+          {
+            latestSnap.feed_entry_count != null && (
+              <div><dt>Feed entries</dt><dd>{latestSnap.feed_entry_count}</dd></div>
+            )
+          }
+          {
+            latestSnap.result_count != null && (
+              <div><dt>API results</dt><dd>{latestSnap.result_count}</dd></div>
+            )
+          }
+          <div><dt>Content hash</dt><dd class="mono">{latestSnap.content_hash ?? latestSnap.response_hash ?? "—"}</dd></div>
+          <div>
+            <dt>Normalized text hash</dt>
+            <dd class="mono">{latestSnap.normalized_text_hash ?? "—"}</dd>
+          </div>
+          <div><dt>Content length</dt><dd>{latestSnap.content_length ?? "—"} bytes</dd></div>
+          <div><dt>ETag</dt><dd class="mono">{latestSnap.etag ?? "—"}</dd></div>
+          <div><dt>Last-Modified</dt><dd>{latestSnap.last_modified ?? "—"}</dd></div>
+        </dl>
+      </section>
+    )
+  }
+
+  {
+    snapshots.length > 1 && (
+      <section>
+        <h2>Snapshot history</h2>
+        <ul>
+          {snapshots.map((s) => (
+            <li class="mono">
+              {s.snapshot_id} — {s.checked_at} ({s.snapshot_kind})
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  <section>
+    <h2>Detected changes</h2>
+    {
+      detected.length === 0 ? (
+        <p>No detected changes recorded for this source.</p>
+      ) : (
+        <ul class="card-list">
+          {detected.map((d) => (
+            <li class="card">
+              <h3>
+                <a href={`/detected-changes/${d.detected_change_id}/`}>{d.detected_change_id}</a>
+              </h3>
+              {d.simulation && <span class="badge badge--warn">Simulation</span>}
+              <p>{d.change_summary_for_review}</p>
+              <span class="badge">Significance: {d.significance_level}</span>
+              <ReviewStatusBadge status={d.review_status} />
+              {d.human_review_required && (
+                <p class="card__excerpt">
+                  <small>Human review required</small>
+                </p>
+              )}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
+
+  <p class="prose"><small>{watcher.legal_safe_note}</small></p>
+</BaseLayout>

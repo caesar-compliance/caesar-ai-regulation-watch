@@ -1,0 +1,113 @@
+---
+import type { MapMarker } from "../lib/jurisdiction-stats";
+import { projectLatLng } from "../lib/map-projection";
+import ReviewStatusBadge from "./ReviewStatusBadge.astro";
+
+interface Props {
+  markers: MapMarker[];
+}
+
+const { markers } = Astro.props;
+const width = 960;
+const height = 480;
+
+const projected = markers.map((m) => ({
+  ...m,
+  pos: projectLatLng(m.map.latitude, m.map.longitude, width, height),
+}));
+---
+
+<div class="coverage-map">
+  <p class="coverage-map__notice" role="note">
+    <strong>Display-only map.</strong> Markers show curated coverage entry points — not legal territorial
+    boundaries. No remote map tiles; static SVG projection at build time.
+  </p>
+
+  <div class="coverage-map__frame">
+    <svg
+      class="coverage-map__svg"
+      viewBox={`0 0 ${width} ${height}`}
+      role="img"
+      aria-label="Global coverage map with jurisdiction display markers"
+    >
+      <title>Global coverage display markers</title>
+      <rect class="coverage-map__ocean" x="0" y="0" width={width} height={height} />
+      {
+        [0, 1, 2, 3].map((i) => (
+          <line
+            class="coverage-map__graticule"
+            x1={(width / 4) * i}
+            y1="0"
+            x2={(width / 4) * i}
+            y2={height}
+          />
+        ))
+      }
+      {
+        [0, 1, 2].map((i) => (
+          <line
+            class="coverage-map__graticule"
+            x1="0"
+            y1={(height / 3) * i}
+            x2={width}
+            y2={(height / 3) * i}
+          />
+        ))
+      }
+      {
+        projected.map((m) => (
+          <a
+            href={`/jurisdictions/${m.jurisdiction_id}/`}
+            class={`coverage-map__marker coverage-map__marker--${m.map.marker_type}`}
+            data-priority={m.monitoring_priority}
+          >
+            <circle cx={m.pos.x} cy={m.pos.y} r="7" />
+            <title>
+              {m.name} — {m.map.display_name}
+            </title>
+          </a>
+        ))
+      }
+    </svg>
+  </div>
+
+  <ul class="coverage-map__legend">
+    <li><span class="coverage-map__swatch coverage-map__swatch--country_capital" /> Country capital</li>
+    <li><span class="coverage-map__swatch coverage-map__swatch--institutional" /> Institutional</li>
+    <li>
+      <span class="coverage-map__swatch coverage-map__swatch--international_framework" /> International
+      framework
+    </li>
+    <li><span class="coverage-map__swatch coverage-map__swatch--display_only" /> Display-only (e.g. G7 process)</li>
+  </ul>
+
+  <h2 class="coverage-map__list-title">Coverage list</h2>
+  <ul class="card-list coverage-map__list">
+    {
+      projected.map((m) => (
+        <li class="card coverage-map__card">
+          <div class="card__meta">
+            <ReviewStatusBadge status={m.review_status} />
+            <span class="badge badge--type">Priority: {m.monitoring_priority}</span>
+            <span class="badge badge--type">{m.map.coverage_status.replace(/_/g, " ")}</span>
+          </div>
+          <h3>
+            <a href={`/jurisdictions/${m.jurisdiction_id}/`}>{m.name}</a>
+          </h3>
+          <p class="card__excerpt">
+            <small>
+              {m.map.display_name} · {m.map.latitude.toFixed(2)}°, {m.map.longitude.toFixed(2)}°
+            </small>
+          </p>
+          <p class="card__excerpt">
+            {m.counts.sources} sources · {m.counts.records} records · {m.counts.changes} changes ·{" "}
+            {m.counts.timelines} timelines
+          </p>
+          <p class="card__excerpt">
+            <small>{m.map.map_note}</small>
+          </p>
+        </li>
+      ))
+    }
+  </ul>
+</div>

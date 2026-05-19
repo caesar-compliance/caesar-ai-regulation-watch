@@ -1,0 +1,164 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import {
+  getWatchers,
+  latestWatcherRun,
+  getDetectedChanges,
+  getMonitoringRuns,
+  latestMonitoringRun,
+  latestMonitoringDiffSummary,
+} from "../../lib/data";
+import { humanizeId } from "../../lib/format";
+
+const monitoringRuns = getMonitoringRuns();
+const latest = latestMonitoringRun();
+const diffSummary = latestMonitoringDiffSummary();
+const latestWatcher = latestWatcherRun();
+const watchers = getWatchers();
+const detected = getDetectedChanges();
+const realDetected = detected.filter((d) => !d.simulation);
+const simulatedDetected = detected.filter((d) => d.simulation);
+const enabledWatchers = watchers.filter((w) => w.enabled);
+---
+
+<BaseLayout title="Monitoring" currentPath="/monitoring/">
+  <h1>Monitoring</h1>
+  <p class="lead">
+    Scheduled monitoring cycle foundation — orchestrates official-source watchers, validation, exports,
+    and site build. Outputs are review-gated; not legal advice.
+  </p>
+
+  <div class="banner banner--review" role="note">
+    <strong>Not legal advice.</strong> Monitoring detects possible metadata changes only. Human review
+    required before any record update. Does not set <code>verified_on_source</code> or{" "}
+    <code>client_use_allowed</code>.
+  </div>
+
+  {
+    diffSummary ? (
+      <section>
+        <h2>Latest diff summary</h2>
+        <dl class="meta-grid">
+          <div><dt>Meaningful changes</dt><dd>{diffSummary.has_meaningful_changes ? "yes" : "no"}</dd></div>
+          <div><dt>Real detected changes (diff)</dt><dd>{diffSummary.new_real_detected_change_count}</dd></div>
+          <div><dt>Watcher errors</dt><dd>{diffSummary.has_watcher_errors ? "yes" : "no"}</dd></div>
+          <div><dt>Recommended action</dt><dd class="mono">{diffSummary.recommended_action}</dd></div>
+        </dl>
+        <p>
+          <small>
+            From <code>data/monitoring-runs/latest-monitoring-diff-summary.json</code> vs last commit.
+            Run <code>npm run monitoring:summary</code> after a cycle.
+          </small>
+        </p>
+      </section>
+    ) : null
+  }
+
+  {
+    latest ? (
+      <section>
+        <h2>Latest monitoring cycle</h2>
+        <dl class="meta-grid">
+          <div><dt>Run ID</dt><dd class="mono">{latest.monitoring_run_id}</dd></div>
+          <div><dt>Date</dt><dd>{latest.run_date}</dd></div>
+          <div><dt>Mode</dt><dd>{humanizeId(latest.mode)}</dd></div>
+          <div><dt>Overall status</dt><dd>{humanizeId(latest.overall_status ?? "—")}</dd></div>
+          <div><dt>Watchers configured</dt><dd>{latest.watchers_configured}</dd></div>
+          <div><dt>Watchers checked</dt><dd>{latest.watchers_checked}</dd></div>
+          <div><dt>Watcher successes</dt><dd>{latest.watcher_success_count}</dd></div>
+          <div><dt>Watcher soft errors</dt><dd>{latest.watcher_soft_error_count}</dd></div>
+          <div><dt>Detected changes created</dt><dd>{latest.detected_changes_created}</dd></div>
+          <div><dt>Real detected changes (repo)</dt><dd>{latest.real_detected_changes}</dd></div>
+          <div><dt>Simulated detected changes</dt><dd>{latest.simulated_detected_changes}</dd></div>
+          <div><dt>Validation</dt><dd>{humanizeId(latest.validation_status)}</dd></div>
+          <div><dt>Exports</dt><dd>{humanizeId(latest.exports_status ?? "—")}</dd></div>
+          <div><dt>Build</dt><dd>{humanizeId(latest.build_status)}</dd></div>
+          <div><dt>Review queue items</dt><dd>{latest.review_queue_count}</dd></div>
+          {
+            latest.watcher_run_id && (
+              <div>
+                <dt>Watcher run</dt>
+                <dd class="mono">{latest.watcher_run_id}</dd>
+              </div>
+            )
+          }
+          {
+            latest.error_message && (
+              <div>
+                <dt>Error</dt>
+                <dd>{latest.error_message}</dd>
+              </div>
+            )
+          }
+        </dl>
+        {
+          latest.phase_notes && latest.phase_notes.length > 0 && (
+            <>
+              <h3>Phase notes</h3>
+              <ul>
+                {latest.phase_notes.map((note) => (
+                  <li>{note}</li>
+                ))}
+              </ul>
+            </>
+          )
+        }
+      </section>
+    ) : (
+      <p>No monitoring cycle reports yet. Run <code>npm run monitoring:cycle</code> locally.</p>
+    )
+  }
+
+  {
+    latestWatcher && (
+      <section>
+        <h2>Latest watcher run</h2>
+        <dl class="meta-grid">
+          <div><dt>Run ID</dt><dd class="mono">{latestWatcher.run_id}</dd></div>
+          <div><dt>Checked</dt><dd>{latestWatcher.checked_count}</dd></div>
+          <div><dt>Errors</dt><dd>{latestWatcher.error_count}</dd></div>
+          <div><dt>Changes</dt><dd>{latestWatcher.changed_count}</dd></div>
+        </dl>
+        <p><a href="/watchers/">View all watchers →</a></p>
+      </section>
+    )
+  }
+
+  <section>
+    <h2>Watcher inventory</h2>
+    <p>
+      {enabledWatchers.length} of {watchers.length} watchers enabled (page, feed, API metadata).
+    </p>
+    <p><a href="/watchers/">Watchers →</a></p>
+  </section>
+
+  <section>
+    <h2>Detected changes</h2>
+    <p>
+      {realDetected.length} real · {simulatedDetected.length} simulated (pipeline validation).
+    </p>
+    <p><a href="/detected-changes/">Detected changes →</a> · <a href="/review-queue/">Review queue →</a></p>
+  </section>
+
+  {
+    monitoringRuns.length > 1 && (
+      <section>
+        <h2>Monitoring history</h2>
+        <ul>
+          {monitoringRuns.map((r) => (
+            <li class="mono">
+              {r.monitoring_run_id} — {r.run_date} ({r.mode}, {r.overall_status ?? "—"})
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  <p class="prose">
+    <small>
+      See <a href="/methodology/">Methodology</a> and repository docs: SCHEDULED_MONITORING_POLICY.md,
+      MONITORING_RUNBOOK.md.
+    </small>
+  </p>
+</BaseLayout>

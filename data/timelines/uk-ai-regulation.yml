@@ -1,0 +1,28 @@
+# Curated timeline — UK AI regulation policy
+# Last curated: 19 May 2026
+
+timeline_id: uk-ai-regulation-policy
+title: UK — AI regulation policy (curated milestones)
+jurisdiction_id: uk
+related_record_id: policy-uk-ai-regulation-pro-innovation
+source_ids:
+  - uk-gov-ai-regulation
+events:
+  - event_id: uk-ai-white-paper-published
+    date: "2023-03-29"
+    event_type: policy_announcement
+    title: Pro-innovation AI regulation white paper published (pending verification)
+    summary_for_review: >
+      Curated milestone aligned with the UK government’s pro-innovation approach publication
+      track on gov.uk. Verify exact publication date and title on the official source
+      before client use.
+    source_id: uk-gov-ai-regulation
+    verified_on_source: false
+    review_status: pending_review
+    legal_safe_note: >
+      Curated timeline event for governance review support only. Not verified on source
+      in this repository.
+review_status: pending_review
+legal_safe_note: >
+  Curated UK policy timeline. Not legal advice. Does not include all UK sector regulator
+  milestones. Human verification required before client use.

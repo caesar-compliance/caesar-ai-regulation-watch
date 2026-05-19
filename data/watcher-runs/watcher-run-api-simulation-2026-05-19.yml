@@ -1,0 +1,29 @@
+# API simulation run — 2026-05-19
+
+run_id: watcher-run-api-simulation-2026-05-19
+run_date: '2026-05-19'
+run_mode: simulation
+mode: simulation
+safe_mode: true
+fixture_only: true
+network_disabled: true
+preserves_latest_snapshots: true
+watcher_count: 1
+checked_count: 1
+api_checked_count: 1
+changed_count: 1
+error_count: 0
+detected_change_ids:
+  - simulated-us-federal-register-api-change-2026-05-19
+error_summaries: []
+results:
+  - watcher_id: watcher-us-federal-register-api
+    source_id: us-federal-register
+    adapter_id: official_api_metadata
+    status: change_detected
+    snapshot_id: snap-fixture-us-fr-api-after-2026-05-19
+    previous_snapshot_id: snap-fixture-us-fr-api-before-2026-05-19
+    detected_change_id: simulated-us-federal-register-api-change-2026-05-19
+    error_message: null
+    error_category: null
+legal_safe_note: Simulation only; not an official API update. Fixture metadata diff for pipeline validation.

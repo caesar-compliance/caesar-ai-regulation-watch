@@ -1,0 +1,23 @@
+# Metadata-only snapshot — 2026-05-19T21:13:08.548Z
+# No full page body stored.
+
+snapshot_id: snap-datatilsynet-2026-05-19t211308548
+watcher_id: watcher-datatilsynet
+source_id: datatilsynet
+jurisdiction_id: norway
+checked_at: '2026-05-19T21:13:08.548Z'
+original_url: https://www.datatilsynet.no/
+final_url: https://www.datatilsynet.no/
+http_status: 200
+content_type: text/html; charset=utf-8
+etag: null
+last_modified: null
+title: Datatilsynet - personvern og informasjonssikkerhet | Datatilsynet
+content_hash: sha256:a53671164fb4546c9314430f374fa642731cbcb471f47b4105fe413e06cb9018
+normalized_text_hash: sha256:6918243efdbcedec67d078e9f87ba02a5d824d17b2ff5876179783e47b9c11f5
+content_length: 43113
+snapshot_kind: periodic_check
+storage_policy: metadata_only_no_body_storage
+legal_safe_note: >
+  Metadata-only snapshot; content hash for diff signal only. No full body stored. Detected changes require human review
+  before any record update.
