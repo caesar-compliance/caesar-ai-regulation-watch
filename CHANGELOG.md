@@ -11,6 +11,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.8.8] - 20 May 2026
+
+### Fixed
+
+- **Public HTML/version consistency** — home banner, footer, and evidence candidates page now always match `package.json` / `src/lib/project-version.ts` after build; `verify:dist` fails on stale labels (v0.5.1 product preview, v0.8.4 footer, v0.8.3 pipeline wording).
+- **Evidence candidates JSON batch note** — generator uses current project version instead of hardcoded v0.8.3 text.
+
+### Changed
+
+- **Build scripts** — `generate-static-exports.mjs` and `generate-evidence-export-candidates.mjs` read version from `package.json` via `scripts/lib/read-project-version.mjs`.
+- **Evidence export candidates page** — dedicated governance review gate section with machine-readable `candidate_review_status` values in static HTML.
+
+### Notes
+
+- Redeploy ensures public HTML and JSON are built from the same commit. Still public pilot; not final/client evidence; `client_use_allowed: 0`.
+
+---
+
 ## [0.8.7] - 20 May 2026
 
 ### Added

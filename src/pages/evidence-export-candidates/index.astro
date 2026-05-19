@@ -102,6 +102,40 @@ function sourceHref(c: (typeof candidates)[0]) {
     <code>docs/EVIDENCE_EXPORT_CANDIDATE_PIPELINE.md</code>.
   </p>
 
+  {
+    candidateReviews.length > 0 && (
+      <section aria-labelledby="candidate-review-gate-heading">
+        <h2 id="candidate-review-gate-heading">Candidate review gate (governance)</h2>
+        <p>
+          Human governance review of export <strong>candidates</strong> only — not final evidence, not
+          client-ready output. <code>client_use_allowed</code> and <code>final_evidence_allowed</code> remain{" "}
+          <strong>false</strong>. Qualified human review on official sources is still required before any
+          client use. Not legal advice.
+        </p>
+        <ul class="card-list">
+          {candidateReviews.map((r) => (
+            <li class="card">
+              <div class="card__meta">
+                <span class="badge badge--sample-only">Governance review</span>
+                <span class="badge badge--sample-only">
+                  {evidenceExportCandidateReviewStatusLabel(r.candidate_review_status)}
+                </span>
+              </div>
+              <h3 class="mono">{r.candidate_id}</h3>
+              <p>
+                Review status:{" "}
+                <code class="mono">{r.candidate_review_status}</code>
+              </p>
+              <p class="card__excerpt card__excerpt--note">
+                <small>{r.legal_safe_note}</small>
+              </p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
   <h2>Candidate list</h2>
   <table class="data-table">
     <thead>
@@ -134,9 +168,13 @@ function sourceHref(c: (typeof candidates)[0]) {
               </td>
               <td>
                 {c.candidate_review_status ? (
-                  <span class="badge badge--sample-only">
-                    {evidenceExportCandidateReviewStatusLabel(c.candidate_review_status)}
-                  </span>
+                  <>
+                    <span class="badge badge--sample-only">
+                      {evidenceExportCandidateReviewStatusLabel(c.candidate_review_status)}
+                    </span>
+                    <br />
+                    <code class="mono muted">{c.candidate_review_status}</code>
+                  </>
                 ) : (
                   <span class="muted">—</span>
                 )}

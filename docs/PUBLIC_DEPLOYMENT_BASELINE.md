@@ -1,6 +1,6 @@
 # Public Deployment Baseline
 
-**Phase:** v0.8.7 — export-candidate governance review gate + public version labels  
+**Phase:** v0.8.8 — public HTML/JSON version consistency + candidate review gate visibility  
 **Deployment date:** 20 May 2026  
 **Status:** Live (manual-gated pilot)
 
@@ -11,9 +11,10 @@
 | Field | Value |
 |---|---|
 | **Repository** | [caesar-compliance/caesar-ai-regulation-watch](https://github.com/caesar-compliance/caesar-ai-regulation-watch) |
-| **Deployed commit (current)** | `a3ded91` (`merge: v0.8.7 export review gate and public consistency`) |
+| **Deployed commit (current)** | _TBD after v0.8.8 deploy_ |
+| **Prior deploy commit** | `a3ded91` (`merge: v0.8.7 export review gate and public consistency`) |
 | **First deploy commit** | `57acfcf` (`merge: v0.8.4 static deployment readiness`) |
-| **Prior deploy commit** | `956730b` (v0.8.6 docs baseline; superseded by v0.8.7) |
+| **v0.8.6 deploy commit** | `956730b` (superseded) |
 | **Workflow** | [Deploy static site](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/workflows/deploy-static-site.yml) |
 | **First workflow run ID** | [26130431228](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26130431228) |
 | **Latest workflow run ID** | [26131283078](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26131283078) |
@@ -49,13 +50,14 @@
 
 **Checks passed:**
 
-- Home/footer show **v0.8.7** (no stale v0.5.1 / v0.8.4 labels).
+- Home/footer show **v0.8.8** (no stale v0.5.1 / v0.8.4 labels).
 - CSS/JS and nav links use `/caesar-ai-regulation-watch/` base path.
 - Footer and banners: not legal advice; pilot/sample disclaimers visible.
 - Evidence export candidates page: candidate-only; governance review gate status for 2 manual samples.
 - Exports page: sample-only; not caesar-ai-evidence output.
 - `summary.client_use_allowed` = **0** in public JSON.
-- `snapshot.version` = **0.8.7**.
+- `snapshot.version` = **0.8.8**.
+- Evidence candidates HTML includes machine-readable review statuses (`reviewed_for_internal_governance_only`, `needs_more_source_review`).
 
 Full checklist: [POST_DEPLOY_SMOKE_TESTS.md](POST_DEPLOY_SMOKE_TESTS.md).
 
@@ -76,7 +78,7 @@ Full checklist: [POST_DEPLOY_SMOKE_TESTS.md](POST_DEPLOY_SMOKE_TESTS.md).
 | Deploy secrets | **No** |
 | Auto-deploy on push to `main` | **No** |
 
-**Candidate counts at deploy (v0.8.7):** 5 total; 2 `ready_for_human_review`; 3 `blocked_simulation_only`; 0 `blocked_pending_content_review`; `client_use_allowed: 0`.
+**Candidate counts at deploy (v0.8.8):** 5 total; 2 `ready_for_human_review`; 3 `blocked_simulation_only`; 0 `blocked_pending_content_review`; `client_use_allowed: 0`.
 
 **Candidate governance reviews:** 2 reviewed — 1 `reviewed_for_internal_governance_only`, 1 `needs_more_source_review`; simulated candidates not reviewed for export readiness.
 

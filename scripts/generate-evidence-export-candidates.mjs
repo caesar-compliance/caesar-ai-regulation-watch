@@ -7,16 +7,18 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import yaml from "js-yaml";
+import { readProjectVersion, readProjectVersionLabel } from "./lib/read-project-version.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const PIPELINE_VERSION = "0.8.3";
+const PIPELINE_VERSION = readProjectVersion();
+const VERSION_LABEL = readProjectVersionLabel();
 const GENERATED_AT = "2026-05-20";
 const BATCH_ID = `evidence-export-candidates-${GENERATED_AT}`;
 const OUT_DIR = path.join(ROOT, "data/evidence-export-candidates");
 const OUT_FILE = path.join(OUT_DIR, `${BATCH_ID}.yml`);
 
 const BATCH_LEGAL_SAFE_NOTE =
-  "v0.8.3 evidence export candidate batch. Candidates are not final evidence exports. " +
+  `${VERSION_LABEL} evidence export candidate batch. Candidates are not final evidence exports. ` +
   "Does not write to caesar-ai-evidence. Not legal advice. No compliance guarantee. " +
   "No complete regulatory coverage claim. Human review required before any client use. " +
   "client_use_allowed remains false for every candidate.";
@@ -340,7 +342,7 @@ const batch = {
 };
 
 fs.mkdirSync(OUT_DIR, { recursive: true });
-const header = `# Evidence export candidates — v0.8.3 (generated)
+const header = `# Evidence export candidates — ${VERSION_LABEL} (generated)
 # Not final evidence. Do not write to caesar-ai-evidence. Regenerate: npm run generate:evidence-candidates
 
 `;
