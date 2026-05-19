@@ -75,17 +75,21 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 
 ---
 
-## data/watchers/ & watcher outputs (v0.7.4)
+## data/watchers/ & monitoring (v0.8.0)
 
 | Path | Role |
 |---|---|
-| **data/watchers/official-source-watchers.yml** | Pilot watcher config (2 sources) |
+| **data/watchers/official-source-watchers.yml** | Watcher config (5 watchers) |
 | **data/snapshots/** | Metadata-only snapshots per source |
-| **data/watcher-runs/** | Manual run logs |
+| **data/watcher-runs/** | Watcher run logs |
+| **data/monitoring-runs/** | Monitoring cycle reports |
 | **data/detected-changes/** | Pending human review diffs |
 | **scripts/run-official-source-watchers.mjs** | `npm run watch:official` |
+| **scripts/run-monitoring-cycle.mjs** | `npm run monitoring:cycle` |
+| **.github/workflows/monitoring-cycle.yml** | Scheduled/manual monitoring (artifacts) |
+| **docs/SCHEDULED_MONITORING_POLICY.md** | Monitoring policy |
+| **docs/MONITORING_RUNBOOK.md** | Operator runbook |
 | **docs/WATCHER_PROTOTYPE.md** | Watcher scope and usage |
-| **docs/SNAPSHOT_AND_DIFF_POLICY.md** | Storage and diff rules |
 
 ---
 

@@ -3,7 +3,7 @@
 **Global AI regulation monitoring for governance teams** — part of the [Caesar AI Governance Hub](https://github.com/caesar-compliance/caesar-ai-governance-hub) ecosystem.
 
 **Last updated:** 19 May 2026  
-**Status:** v0.7.4 — EDPS feed fix + live Federal Register API baseline (5 manual watchers: page/feed/API; metadata-only snapshots; `npm run watch:official`); plus URL remediation, source identity review, technical URL checks, curated records, review queue, map, timelines, CI validate/build, search, and JSON/RSS exports (no backend APIs, database, auth; watchers not in CI)
+**Status:** v0.8.0 — scheduled monitoring runner foundation (`npm run monitoring:cycle`, GitHub Actions artifacts); 5 watchers (page/feed/API); metadata-only snapshots; CI validate/build on push/PR (no live fetches); plus review queue, map, timelines, search, JSON exports (no backend APIs, database, auth, deploy)
 
 ---
 
@@ -142,7 +142,9 @@ Read-only Astro site generated from `data/` at build time:
 ```bash
 npm install
 npm run validate:data      # ajv — all YAML vs schemas/
-npm run watch:official     # manual metadata watcher (not CI)
+npm run watch:official     # single watcher pass
+npm run monitoring:cycle   # watchers + validate + exports + build + report
+npm run monitoring:report  # report from existing state (no network)
 npm run generate:exports   # public/data/*.json + public/feeds/changes.xml
 npm run dev                # local preview (search needs full build)
 npm run build              # dist/ + Pagefind search index

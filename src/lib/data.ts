@@ -693,6 +693,46 @@ export function latestWatcherRun(): WatcherRun | undefined {
   return getWatcherRuns()[0];
 }
 
+export type MonitoringCycleMode = "dry_run" | "write" | "report_only";
+
+export type MonitoringPhaseStatus = "passed" | "failed" | "skipped" | "not_run";
+
+export interface MonitoringRun {
+  monitoring_run_id: string;
+  run_date: string;
+  mode: MonitoringCycleMode;
+  started_at?: string;
+  finished_at?: string | null;
+  watchers_configured: number;
+  watchers_checked: number;
+  watcher_success_count: number;
+  watcher_soft_error_count: number;
+  watcher_run_id?: string | null;
+  detected_changes_created: number;
+  real_detected_changes: number;
+  simulated_detected_changes: number;
+  validation_status: MonitoringPhaseStatus;
+  exports_status?: MonitoringPhaseStatus;
+  build_status: MonitoringPhaseStatus;
+  watchers_status?: MonitoringPhaseStatus;
+  overall_status?: "passed" | "failed" | "partial" | "report_only";
+  review_queue_count: number;
+  errors_by_category?: Record<string, number>;
+  phase_notes?: string[];
+  error_message?: string | null;
+  legal_safe_note: string;
+}
+
+export function getMonitoringRuns(): MonitoringRun[] {
+  return readYamlDir<MonitoringRun>("data/monitoring-runs")
+    .filter((r) => r?.monitoring_run_id)
+    .sort((a, b) => b.run_date.localeCompare(a.run_date));
+}
+
+export function latestMonitoringRun(): MonitoringRun | undefined {
+  return getMonitoringRuns()[0];
+}
+
 export function getDetectedChanges(): DetectedChange[] {
   return readYamlDir<DetectedChange>("data/detected-changes").sort((a, b) =>
     b.detected_at.localeCompare(a.detected_at),

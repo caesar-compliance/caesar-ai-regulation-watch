@@ -2,9 +2,9 @@
 
 **Last updated:** 19 May 2026
 
-## Workflow
+## Workflows
 
-File: `.github/workflows/validate-and-build.yml`
+### `validate-and-build.yml` (merge gate)
 
 Triggers: `push`, `pull_request`
 
@@ -17,13 +17,28 @@ Steps:
 5. `npm run generate:exports` — `public/data/*.json`, RSS
 6. `npm run build` — Astro static site + Pagefind index
 
-## What CI does not do
+**Does not** run live watchers or deploy.
+
+### `monitoring-cycle.yml` (operational)
+
+Triggers: `workflow_dispatch`, schedule (daily 06:00 UTC)
+
+Steps:
+
+1. `npm ci`
+2. `node scripts/run-monitoring-cycle.mjs` (write / dry_run / report_only)
+3. Post-cycle `validate:data`
+4. Upload artifacts (monitoring reports, watcher runs, snapshots, JSON exports)
+
+**Does not** deploy, use secrets, auto-commit, or merge to `main`. See `docs/SCHEDULED_MONITORING_POLICY.md`.
+
+## What CI validation does not do
 
 - No deployment
 - No secrets or external integrations
-- No automated ingestion or scraping
-- **No live URL checks** — run `npm run check:urls` locally; commit `data/verifications/url-check-*.yml` when refreshing technical status
-- **No official-source watchers** — run `npm run watch:official` locally; commit snapshots/runs/detected-changes when refreshing watcher data (see `docs/WATCHER_PROTOTYPE.md`)
+- No automated ingestion or scraping on push/PR
+- **No live URL checks** on push/PR — run `npm run check:urls` locally
+- **No watchers on push/PR** — use `npm run monitoring:cycle` or the monitoring workflow
 
 ## Local parity
 

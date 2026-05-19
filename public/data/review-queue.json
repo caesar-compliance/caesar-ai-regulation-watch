@@ -17,6 +17,8 @@
     "client_use_not_allowed": 64,
     "detected_change_pending_review": 0,
     "watcher_errors": 0,
+    "watcher_soft_errors": 0,
+    "monitoring_run_failed": 0,
     "human_review_required_watcher": 3
   },
   "items": [

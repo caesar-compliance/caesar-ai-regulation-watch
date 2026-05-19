@@ -50,6 +50,12 @@ function readWatcherRuns() {
   );
 }
 
+function readMonitoringRuns() {
+  return readYamlDir("data/monitoring-runs")
+    .filter((r) => r?.monitoring_run_id)
+    .sort((a, b) => b.run_date.localeCompare(a.run_date));
+}
+
 function readDetectedChanges() {
   return readYamlDir("data/detected-changes").sort((a, b) =>
     b.detected_at.localeCompare(a.detected_at),
@@ -118,6 +124,8 @@ const watcherConfig = readYamlFile("data/watchers/official-source-watchers.yml")
 const watchers = watcherConfig?.watchers ?? [];
 const snapshots = readSnapshots();
 const watcherRuns = readWatcherRuns();
+const monitoringRuns = readMonitoringRuns();
+const latestMonitoringRun = monitoringRuns[0] ?? null;
 const detectedChanges = readDetectedChanges();
 const latestWatcherRun = watcherRuns[0] ?? null;
 
@@ -213,6 +221,10 @@ const REASON_LABELS = {
   simulated_api_detected_change_pending_review:
     "Simulated API diff for pipeline validation only; not an official API update.",
   watcher_error: "Latest watcher run reported a fetch or check error for this source.",
+  watcher_soft_error:
+    "Watcher soft-failed; last good snapshot preserved. Human triage required.",
+  monitoring_run_failed:
+    "Latest monitoring cycle did not complete successfully (validate/build or hard failure).",
   snapshot_changed: "New metadata snapshot differs from previous; confirm on official source.",
   human_review_required: "Watcher output requires human review before any record update.",
 };
@@ -468,11 +480,14 @@ function buildReviewQueue() {
     for (const r of latestWatcherRun.results ?? []) {
       if (r.status !== "error") continue;
       const src = sourceById[r.source_id];
-      const review_reasons = ["watcher_error", "technical_url_unchecked", "human_review_required"];
+      const isSoft = r.soft_fail !== false;
+      const review_reasons = isSoft
+        ? ["watcher_soft_error", "technical_url_unchecked", "human_review_required"]
+        : ["watcher_error", "technical_url_unchecked", "human_review_required"];
       items.push({
-        item_type: "watcher_error",
+        item_type: isSoft ? "watcher_soft_error" : "watcher_error",
         item_id: `${latestWatcherRun.run_id}-${r.watcher_id}`,
-        title: `Watcher error: ${r.source_id}`,
+        title: `Watcher ${isSoft ? "soft error" : "error"}: ${r.source_id}`,
         jurisdiction_id: src?.jurisdiction_id ?? "eu",
         review_status: "needs_human_review",
         reason_for_review: `${r.error_message ?? "Watcher check failed."} ${reasonText(review_reasons)}`,
@@ -487,6 +502,29 @@ function buildReviewQueue() {
         client_use_allowed: false,
       });
     }
+  }
+
+  if (latestMonitoringRun && latestMonitoringRun.overall_status === "failed") {
+    items.push({
+      item_type: "monitoring_run",
+      item_id: latestMonitoringRun.monitoring_run_id,
+      title: `Monitoring cycle failed: ${latestMonitoringRun.run_date}`,
+      jurisdiction_id: "eu",
+      review_status: "needs_human_review",
+      reason_for_review: reasonText([
+        "monitoring_run_failed",
+        "human_review_required",
+      ]),
+      review_reasons: ["monitoring_run_failed", "human_review_required"],
+      official_url: null,
+      page_href: "/monitoring/",
+      missing_official_url: false,
+      verified_on_source_false: true,
+      technical_url_status: null,
+      content_review_status: "not_reviewed",
+      redirect_detected: false,
+      client_use_allowed: false,
+    });
   }
 
   for (const v of verifications) {
@@ -545,6 +583,8 @@ const reviewSummary = {
   client_use_not_allowed: countReason("client_use_not_allowed"),
   detected_change_pending_review: countReason("detected_change_pending_review"),
   watcher_errors: countReason("watcher_error"),
+  watcher_soft_errors: countReason("watcher_soft_error"),
+  monitoring_run_failed: countReason("monitoring_run_failed"),
   human_review_required_watcher: countReason("human_review_required"),
 };
 
@@ -625,7 +665,7 @@ const realApiDetectedChanges = apiDetectedChanges.filter((d) => !d.simulation);
 
 const snapshot = {
   generated_at: generatedAt,
-  version: "0.7.4",
+  version: "0.8.0",
   disclaimer: DISCLAIMER,
   pilot_jurisdictions: jurisdictions.map((j) => j.jurisdiction_id),
   counts: {
@@ -685,6 +725,10 @@ const snapshot = {
     watcher_error_count: watcherErrorCount,
     latest_watcher_run: latestWatcherRun?.run_id ?? null,
     latest_watcher_run_mode: latestWatcherRun?.run_mode ?? latestWatcherRun?.mode ?? null,
+    monitoring_run_count: monitoringRuns.length,
+    latest_monitoring_run_id: latestMonitoringRun?.monitoring_run_id ?? null,
+    latest_monitoring_run_mode: latestMonitoringRun?.mode ?? null,
+    latest_monitoring_run_status: latestMonitoringRun?.overall_status ?? null,
     review_queue_items: reviewSummary.total,
     pending_review: reviewSummary.pending_review,
     needs_update: reviewSummary.needs_update,
@@ -710,6 +754,7 @@ const snapshot = {
     watchers: "/data/watchers.json",
     snapshots: "/data/snapshots.json",
     watcher_runs: "/data/watcher-runs.json",
+    monitoring_runs: "/data/monitoring-runs.json",
     detected_changes: "/data/detected-changes.json",
   },
   review_notice:
@@ -860,6 +905,19 @@ writeJson(path.join(PUBLIC_DATA, "watcher-runs.json"), {
   },
 });
 
+writeJson(path.join(PUBLIC_DATA, "monitoring-runs.json"), {
+  generated_at: generatedAt,
+  disclaimer: DISCLAIMER,
+  items: monitoringRuns,
+  latest: latestMonitoringRun,
+  summary: {
+    total: monitoringRuns.length,
+    latest_run_id: latestMonitoringRun?.monitoring_run_id ?? null,
+    latest_mode: latestMonitoringRun?.mode ?? null,
+    latest_status: latestMonitoringRun?.overall_status ?? null,
+  },
+});
+
 writeJson(path.join(PUBLIC_DATA, "detected-changes.json"), {
   generated_at: generatedAt,
   disclaimer: DISCLAIMER,
@@ -936,6 +994,7 @@ console.log("  public/data/url-checks.json");
 console.log("  public/data/watchers.json");
 console.log("  public/data/snapshots.json");
 console.log("  public/data/watcher-runs.json");
+console.log("  public/data/monitoring-runs.json");
 console.log("  public/data/detected-changes.json");
 console.log("  public/data/regulation-watch-snapshot.json");
 console.log(`  ${watchers.length} watcher(s) configured`);

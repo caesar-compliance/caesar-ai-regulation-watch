@@ -9,7 +9,7 @@
 - **No whole-run crash** — one watcher failure does not stop other watchers.
 - **Classified errors** — `error_category` for review queue and run logs (not legal conclusions).
 - **Rate limits** — HTTP 429 logged as `rate_limited`; never treated as content change.
-- **Manual CLI only** — not in CI; not production scheduling.
+- **Review-gated** — push/PR CI does not run live watchers; use `npm run monitoring:cycle` or GitHub `monitoring-cycle.yml` (artifacts only, no auto-merge).
 
 ## Per-watcher fields
 

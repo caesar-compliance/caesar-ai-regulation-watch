@@ -42,6 +42,7 @@ const schemas = {
   apiSnapshot: loadSchema("api-snapshot.schema.json"),
   watcherRun: loadSchema("watcher-run.schema.json"),
   detectedChange: loadSchema("detected-change.schema.json"),
+  monitoringRun: loadSchema("monitoring-run.schema.json"),
 };
 
 function readYaml(filePath) {
@@ -201,6 +202,16 @@ if (fs.existsSync(snapshotsRoot)) {
 for (const file of listYamlFiles(path.join(ROOT, "data/watcher-runs"))) {
   const data = readYaml(file);
   check(validate(file, data, schemas.watcherRun));
+}
+
+// Monitoring runs
+const monitoringDir = path.join(ROOT, "data/monitoring-runs");
+if (fs.existsSync(monitoringDir)) {
+  for (const file of listYamlFiles(monitoringDir)) {
+    if (path.basename(file).startsWith(".")) continue;
+    const data = readYaml(file);
+    check(validate(file, data, schemas.monitoringRun));
+  }
 }
 
 // Detected changes

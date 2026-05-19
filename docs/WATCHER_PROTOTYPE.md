@@ -24,11 +24,17 @@ See `docs/SOURCE_ADAPTERS.md`, `docs/FEED_WATCHER_CANDIDATES.md`, and `docs/API_
 
 Configuration: `data/watchers/official-source-watchers.yml`
 
-## How to run (manual only)
+## How to run
 
 ```bash
+# Single watcher pass
 npm run watch:official
+
+# Full monitoring cycle (watchers + validate + exports + build + report)
+npm run monitoring:cycle
 ```
+
+See `docs/MONITORING_RUNBOOK.md`. Push/PR CI does **not** run watchers; use `monitoring-cycle.yml` or local cycle.
 
 Simulation (fixtures only, no network):
 

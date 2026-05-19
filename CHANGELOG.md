@@ -11,6 +11,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.8.0] - 19 May 2026
+
+### Added
+
+- **Monitoring cycle orchestrator** — `scripts/run-monitoring-cycle.mjs` with `dry_run`, `write`, `report_only` modes and lock file.
+- **Monitoring reports** — `data/monitoring-runs/monitoring-cycle-*.yml`, `schemas/monitoring-run.schema.json`.
+- **npm scripts** — `monitoring:cycle`, `monitoring:cycle:dry-run`, `monitoring:report`.
+- **GitHub Actions** — `.github/workflows/monitoring-cycle.yml` (`workflow_dispatch` + daily schedule; artifacts only).
+- **Docs** — `docs/SCHEDULED_MONITORING_POLICY.md`, `docs/MONITORING_RUNBOOK.md`.
+- **Site** — `/monitoring/` page; nav link.
+
+### Changed
+
+- Static exports include `public/data/monitoring-runs.json` and monitoring fields on `regulation-watch-snapshot.json`.
+- Review queue: `watcher_soft_error`, `monitoring_run_failed` reasons.
+
+### Notes
+
+- No auto-commit/merge to main from monitoring workflow.
+- No deployment workflow added.
+- CI `validate-and-build.yml` unchanged (no live fetches on push/PR).
+
+---
+
 ## [0.7.4] - 19 May 2026
 
 ### Added

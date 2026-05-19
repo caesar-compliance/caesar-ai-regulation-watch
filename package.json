@@ -1,7 +1,7 @@
 {
   "name": "caesar-ai-regulation-watch",
   "type": "module",
-  "version": "0.7.4",
+  "version": "0.8.0",
   "private": true,
   "description": "Read-only static site for Caesar AI Regulation Watch pilot data",
   "scripts": {
@@ -15,6 +15,9 @@
     "watch:simulate-change": "node scripts/simulate-watcher-change.mjs",
     "watch:simulate-feed-change": "node scripts/simulate-feed-change.mjs",
     "watch:simulate-api-change": "node scripts/simulate-api-change.mjs",
+    "monitoring:report": "node scripts/run-monitoring-cycle.mjs --mode=report_only",
+    "monitoring:cycle": "node scripts/run-monitoring-cycle.mjs --mode=write",
+    "monitoring:cycle:dry-run": "node scripts/run-monitoring-cycle.mjs --mode=dry-run",
     "build": "npm run validate:data && npm run generate:exports && npm run build:site && npm run build:search",
     "preview": "astro preview"
   },

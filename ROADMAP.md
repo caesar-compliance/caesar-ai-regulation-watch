@@ -4,7 +4,7 @@
 
 This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
 
-**Current (v0.7.4):** five manual watchers (page/feed/API); EDPS feed parser fix; Federal Register API enabled with live baseline; feed diagnostics. **Next:** Control Tower review of API baseline scope; second live watcher run for real feed/API diffs; production scheduling still deferred.
+**Current (v0.8.0):** monitoring cycle orchestrator + GitHub Actions workflow (artifacts; no auto-merge). **Next:** Control Tower approve/disable daily schedule; optional Hetzner/Coolify worker; deploy remains deferred.
 
 ---
 

@@ -18,8 +18,9 @@ const latestRun = latestWatcherRun();
 <BaseLayout title="Official source watchers" currentPath="/watchers/">
   <h1>Official source watchers</h1>
   <p class="lead">
-    Pilot metadata-only watchers for a small set of official sources. Manually executed via{" "}
-    <code>npm run watch:official</code> — not run in CI or on a production schedule.
+    Pilot metadata-only watchers for a small set of official sources. Run via{" "}
+    <code>npm run watch:official</code> or the <a href="/monitoring/">monitoring cycle</a> (
+    <code>npm run monitoring:cycle</code>). CI validate/build does not run watchers.
   </p>
 
   <div class="banner banner--review" role="note">

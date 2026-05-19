@@ -1,7 +1,7 @@
 # Architecture — Caesar AI Regulation Watch
 
 **Last updated:** 19 May 2026  
-**Status:** v0.7.4 — static registry + manual page/feed/API watcher CLI; live Federal Register API baseline; CI validate/build; read-only Astro site; no backend API/database/auth; production watcher scheduling not implemented
+**Status:** v0.8.0 — static registry + monitoring cycle orchestrator; GitHub Actions monitoring workflow (artifacts); push/PR CI validate/build; read-only Astro site; no backend API/database/auth/deploy
 
 ---
 
@@ -121,7 +121,7 @@
                               [Site build | RSS | JSON | Evidence export]
 ```
 
-**v0.7.4 phase:** Layer B pilot — `scripts/run-official-source-watchers.mjs` + page/feed/API adapters + diff modules write `data/snapshots/`, `data/watcher-runs/`, `data/detected-changes/` (metadata only; manual CLI, not CI). Five watchers enabled; Federal Register API + EDPS feed live baselines. **v0.6.x:** verifications, URL checks, 15 curated records. **v0.5.x:** static SVG map and review queue. Site build does not run watchers. **Deferred:** production scheduling, broad watcher fleet, Layers B–C full ingestion.
+**v0.8.0 phase:** Layer B — `scripts/run-monitoring-cycle.mjs` orchestrates watchers → validate → exports → build → `data/monitoring-runs/`. GitHub `monitoring-cycle.yml` for scheduled/manual runs (artifacts only). Push/PR CI (`validate-and-build.yml`) remains fetch-free. **v0.6.x:** verifications, URL checks, 15 curated records. **v0.5.x:** static SVG map and review queue. Site build does not run watchers. **Deferred:** production scheduling, broad watcher fleet, Layers B–C full ingestion.
 
 ---
 

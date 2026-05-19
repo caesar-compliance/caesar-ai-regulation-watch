@@ -246,3 +246,13 @@
 - **Rationale:** EDPS feed URL and XML are correct; parser default was too strict. Federal Register scope was pre-approved in v0.7.3; enabling completes first controlled official API watcher path.
 - **Boundaries:** No document/feed/API body storage; no CI watcher runs; no production scheduler; first API run = baseline only (no real detected change).
 - **Artifacts:** `feed-adapter.mjs` (`FEED_XML_PARSER_OPTIONS`, `buildFeedDiagnostics`), live snapshots under `data/snapshots/edps/` and `data/snapshots/us-federal-register/`, updated `docs/API_WATCHER_CANDIDATES.md`.
+
+---
+
+## [DEC-027] — 19 May 2026 — Scheduled monitoring runner foundation (v0.8.0)
+
+- **Status:** Approved (implementation complete)
+- **Decision:** Add `run-monitoring-cycle.mjs`, monitoring run schema/reports, GitHub Actions workflow with artifacts only, and `/monitoring/` site page. Separate from push/PR CI validation.
+- **Rationale:** Operational monitoring needs orchestration without conflating merge gates with live fetches; human review remains mandatory.
+- **Boundaries:** No deploy; no auto-merge to main; no secrets; metadata-only storage; dry-run does not persist watcher snapshots.
+- **Artifacts:** `scripts/run-monitoring-cycle.mjs`, `.github/workflows/monitoring-cycle.yml`, `docs/SCHEDULED_MONITORING_POLICY.md`, `docs/MONITORING_RUNBOOK.md`.

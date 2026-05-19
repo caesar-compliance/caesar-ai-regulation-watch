@@ -1,0 +1,68 @@
+# Manual / optional scheduled monitoring cycle — fetches official sources, validates, builds.
+# Does NOT deploy. Does NOT auto-merge to main. No secrets required.
+name: Monitoring cycle
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Monitoring mode
+        required: true
+        default: write
+        type: choice
+        options:
+          - write
+          - dry_run
+          - report_only
+  # Conservative schedule: daily 06:00 UTC. Disable by removing this block if flaky.
+  schedule:
+    - cron: "0 6 * * *"
+
+concurrency:
+  group: monitoring-cycle-${{ github.repository }}
+  cancel-in-progress: true
+
+jobs:
+  monitoring-cycle:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run monitoring cycle
+        run: |
+          export MONITORING_RUN_DATE="$(date -u +%Y-%m-%d)"
+          MODE="${{ github.event.inputs.mode || 'write' }}"
+          node scripts/run-monitoring-cycle.mjs --mode="$MODE" --skip-lock
+
+      - name: Validate data (post-cycle)
+        if: always()
+        run: npm run validate:data
+
+      - name: Upload monitoring artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: monitoring-cycle-${{ github.run_id }}
+          path: |
+            data/monitoring-runs/
+            data/watcher-runs/
+            data/snapshots/
+            data/detected-changes/
+            public/data/monitoring-runs.json
+            public/data/watcher-runs.json
+            public/data/regulation-watch-snapshot.json
+          retention-days: 14
+          if-no-files-found: ignore

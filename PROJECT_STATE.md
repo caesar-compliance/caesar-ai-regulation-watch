@@ -9,16 +9,16 @@
 | Field | Value |
 |---|---|
 | **Repository** | `caesar-ai-regulation-watch` |
-| **Current version** | `v0.7.4` |
-| **Current phase** | Live API watcher + feed reliability |
-| **Status** | Manual page + feed + API watchers; CI validate/build only |
-| **Working branch** | `agent/v0.7.4-edps-federal-register-live-api` |
-| **Latest completed task** | EDPS feed parser fix; Federal Register API enabled; live baselines |
-| **Next recommended step** | Control Tower: review Federal Register API baseline scope; schedule second manual watcher run for real diffs |
+| **Current version** | `v0.8.0` |
+| **Current phase** | Scheduled monitoring runner foundation |
+| **Status** | Monitoring cycle + CI validate/build; no deploy |
+| **Working branch** | `agent/v0.8.0-scheduled-monitoring-runner` |
+| **Latest completed task** | Monitoring orchestrator + GitHub Actions workflow |
+| **Next recommended step** | Control Tower: approve daily schedule; triage first scheduled artifact |
 
 ---
 
-## Watcher inventory (v0.7.4)
+## Watcher inventory (v0.8.0)
 
 | Type | Count | Enabled |
 |---|---|---|
@@ -27,26 +27,22 @@
 | API metadata | 1 | 1 |
 | **Total watchers** | **5** | **5** |
 
-| Detected changes | Real | Simulated |
-|---|---|---|
-| Page | 0 | 1 (v0.7.1 simulation) |
-| Feed | 0 | 1 (v0.7.2 simulation) |
-| API | 0 | 1 (v0.7.3 simulation) |
-
 ---
 
-## Latest live run (2026-05-19)
+## Monitoring (v0.8.0)
 
-- **Run ID:** `watcher-run-2026-05-19`
-- **Checked:** 5 (page=2, feed=2, api=1)
-- **Errors:** 0
-- **New baselines:** EDPS feed, Federal Register API
-- **Real detected changes:** 0
+| Capability | Status |
+|---|---|
+| Local `npm run monitoring:cycle` | Yes |
+| GitHub `monitoring-cycle.yml` | Yes (`workflow_dispatch` + daily 06:00 UTC) |
+| Auto-commit to main | **No** |
+| Deploy | **No** |
+| Secrets | **None** |
 
 ---
 
 ## Boundaries
 
-- `npm run watch:official` — manual only; not CI.
-- Feed/API snapshots: entry/result title, link, date, hash only — no document bodies.
-- No legal conclusions; `client_use_allowed` remains false.
+- Monitoring is review-gated; not legal advice.
+- `client_use_allowed` remains false on watcher outputs.
+- Push/PR CI still does not run live watchers (`validate-and-build.yml`).
