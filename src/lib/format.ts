@@ -119,3 +119,14 @@ export function evidenceExportCandidateStatusLabel(status: string): string {
   };
   return labels[status] ?? humanizeId(status);
 }
+
+export function evidenceExportCandidateReviewStatusLabel(status: string): string {
+  const labels: Record<string, string> = {
+    reviewed_for_internal_governance_only: "Reviewed — internal governance only",
+    needs_more_source_review: "Needs more source review",
+    needs_mapping_review: "Needs mapping review",
+    rejected_for_export_candidate_use: "Rejected for export candidate use",
+    review_not_applicable: "Review not applicable",
+  };
+  return labels[status] ?? humanizeId(status);
+}

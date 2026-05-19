@@ -317,6 +317,42 @@ export interface EvidenceExportCandidateBatch {
 
 export interface EvidenceExportCandidateWithBatch extends EvidenceExportCandidate {
   evidence_export_candidate_batch_id: string;
+  candidate_review_status?: EvidenceExportCandidateReviewStatus | null;
+  candidate_review_id?: string | null;
+}
+
+export type EvidenceExportCandidateReviewStatus =
+  | "reviewed_for_internal_governance_only"
+  | "needs_more_source_review"
+  | "needs_mapping_review"
+  | "rejected_for_export_candidate_use"
+  | "review_not_applicable";
+
+export interface EvidenceExportCandidateReview {
+  candidate_review_id: string;
+  candidate_id: string;
+  review_date: string;
+  reviewer_type: string;
+  review_purpose: "governance_export_readiness_only";
+  candidate_review_status: EvidenceExportCandidateReviewStatus;
+  content_review_id?: string;
+  governance_review_summary: string;
+  checks_performed: string[];
+  governance_findings?: string[];
+  recommended_next_action?: string;
+  human_review_required: true;
+  client_use_allowed: false;
+  final_evidence_allowed: false;
+  qualified_advisor_review_required: true;
+  legal_safe_note: string;
+}
+
+export interface EvidenceExportCandidateReviewBatch {
+  evidence_export_candidate_review_batch_id: string;
+  review_date: string;
+  verifier_type: string;
+  legal_safe_note: string;
+  candidate_reviews: EvidenceExportCandidateReview[];
 }
 
 export interface TaxonomyValue {
@@ -578,6 +614,44 @@ export function getExportSamples(): ExportRecord[] {
   return file?.exports ?? [];
 }
 
+export function getEvidenceExportCandidateReviewBatches(): EvidenceExportCandidateReviewBatch[] {
+  const abs = path.join(ROOT, "data/verifications");
+  if (!fs.existsSync(abs)) return [];
+  return fs
+    .readdirSync(abs)
+    .filter(
+      (f) =>
+        f.startsWith("evidence-export-candidate-review") &&
+        (f.endsWith(".yml") || f.endsWith(".yaml")),
+    )
+    .map((f) =>
+      yaml.load(fs.readFileSync(path.join(abs, f), "utf8")) as EvidenceExportCandidateReviewBatch,
+    )
+    .sort((a, b) => b.review_date.localeCompare(a.review_date));
+}
+
+export function getEvidenceExportCandidateReviews(): (EvidenceExportCandidateReview & {
+  evidence_export_candidate_review_batch_id: string;
+})[] {
+  return getEvidenceExportCandidateReviewBatches().flatMap((b) =>
+    b.candidate_reviews.map((r) => ({
+      ...r,
+      evidence_export_candidate_review_batch_id: b.evidence_export_candidate_review_batch_id,
+    })),
+  );
+}
+
+function latestCandidateReviewByCandidateId(): Map<string, EvidenceExportCandidateReview> {
+  const map = new Map<string, EvidenceExportCandidateReview>();
+  for (const r of getEvidenceExportCandidateReviews()) {
+    const existing = map.get(r.candidate_id);
+    if (!existing || r.review_date >= existing.review_date) {
+      map.set(r.candidate_id, r);
+    }
+  }
+  return map;
+}
+
 export function getEvidenceExportCandidateBatches(): EvidenceExportCandidateBatch[] {
   return readYamlDir<EvidenceExportCandidateBatch>("data/evidence-export-candidates").sort(
     (a, b) => b.generated_at.localeCompare(a.generated_at),
@@ -585,11 +659,17 @@ export function getEvidenceExportCandidateBatches(): EvidenceExportCandidateBatc
 }
 
 export function getEvidenceExportCandidates(): EvidenceExportCandidateWithBatch[] {
+  const reviewByCandidate = latestCandidateReviewByCandidateId();
   return getEvidenceExportCandidateBatches().flatMap((b) =>
-    b.candidates.map((c) => ({
-      ...c,
-      evidence_export_candidate_batch_id: b.evidence_export_candidate_batch_id,
-    })),
+    b.candidates.map((c) => {
+      const review = reviewByCandidate.get(c.candidate_id);
+      return {
+        ...c,
+        evidence_export_candidate_batch_id: b.evidence_export_candidate_batch_id,
+        candidate_review_status: review?.candidate_review_status ?? null,
+        candidate_review_id: review?.candidate_review_id ?? null,
+      };
+    }),
   );
 }
 

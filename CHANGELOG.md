@@ -11,6 +11,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.8.7] - 20 May 2026
+
+### Added
+
+- **Export-candidate governance review gate** — schema, YAML batch (`evidence-export-candidate-review-2026-05-20.yml`), workflow doc, public `evidence-export-candidate-reviews.json`.
+- **Validation policy** for candidate reviews (no `client_use_allowed` / `final_evidence_allowed`; simulated candidates cannot pass governance review).
+
+### Changed
+
+- **Public version labels** — centralized `src/lib/project-version.ts` (`v0.8.7`); home banner and footer no longer show stale v0.5.1 / v0.8.4 strings.
+- **Evidence export candidates page** — shows governance review gate status; links to review JSON export.
+- **Static exports** — candidates JSON includes `candidate_review_status`; snapshot `version` `0.8.7`.
+
+### Notes
+
+- Reviewed 2 `ready_for_human_review` manual sample candidates: 1 `reviewed_for_internal_governance_only`, 1 `needs_more_source_review`.
+- Still not final evidence; still no caesar-ai-evidence writes; `client_use_allowed: 0`.
+
+---
+
 ## [0.8.6] - 20 May 2026
 
 ### Added

@@ -81,6 +81,38 @@ function readEvidenceExportCandidates() {
   return { batch, candidates };
 }
 
+function readEvidenceExportCandidateReviews() {
+  const abs = path.join(ROOT, "data/verifications");
+  if (!fs.existsSync(abs)) return { batch: null, reviews: [] };
+  const files = fs
+    .readdirSync(abs)
+    .filter(
+      (f) =>
+        f.startsWith("evidence-export-candidate-review") &&
+        (f.endsWith(".yml") || f.endsWith(".yaml")),
+    )
+    .sort()
+    .reverse();
+  if (files.length === 0) return { batch: null, reviews: [] };
+  const batch = yaml.load(fs.readFileSync(path.join(abs, files[0]), "utf8"));
+  const reviews = (batch?.candidate_reviews ?? []).map((r) => ({
+    ...r,
+    evidence_export_candidate_review_batch_id: batch.evidence_export_candidate_review_batch_id,
+  }));
+  return { batch, reviews };
+}
+
+function latestReviewByCandidateId(reviews) {
+  const map = new Map();
+  for (const r of reviews) {
+    const existing = map.get(r.candidate_id);
+    if (!existing || r.review_date >= existing.review_date) {
+      map.set(r.candidate_id, r);
+    }
+  }
+  return map;
+}
+
 function writeJson(filePath, data) {
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2) + "\n", "utf8");
@@ -172,8 +204,20 @@ if (fs.existsSync(monitoringDiffSummaryPath)) {
   }
 }
 const detectedChanges = readDetectedChanges();
-const { batch: evidenceCandidateBatch, candidates: evidenceExportCandidates } =
+const { batch: evidenceCandidateBatch, candidates: rawEvidenceExportCandidates } =
   readEvidenceExportCandidates();
+const { batch: evidenceCandidateReviewBatch, reviews: evidenceCandidateReviews } =
+  readEvidenceExportCandidateReviews();
+const reviewByCandidateId = latestReviewByCandidateId(evidenceCandidateReviews);
+const evidenceExportCandidates = rawEvidenceExportCandidates.map((c) => {
+  const review = reviewByCandidateId.get(c.candidate_id);
+  return {
+    ...c,
+    candidate_review_status: review?.candidate_review_status ?? null,
+    candidate_review_id: review?.candidate_review_id ?? null,
+    final_evidence_allowed: false,
+  };
+});
 const latestWatcherRun = watcherRuns[0] ?? null;
 
 const exportFile = readYamlFile("exports/samples/regulation-change-export.sample.yml");
@@ -791,11 +835,30 @@ const evidenceCandidateSummary = {
     (c) => c.candidate_status === "rejected_for_client_use",
   ).length,
   client_use_allowed: evidenceExportCandidates.filter((c) => c.client_use_allowed).length,
+  final_evidence_allowed: 0,
+};
+
+const evidenceCandidateReviewSummary = {
+  total_reviewed_candidates: evidenceCandidateReviews.length,
+  reviewed_for_internal_governance_only: evidenceCandidateReviews.filter(
+    (r) => r.candidate_review_status === "reviewed_for_internal_governance_only",
+  ).length,
+  needs_more_source_review: evidenceCandidateReviews.filter(
+    (r) => r.candidate_review_status === "needs_more_source_review",
+  ).length,
+  needs_mapping_review: evidenceCandidateReviews.filter(
+    (r) => r.candidate_review_status === "needs_mapping_review",
+  ).length,
+  rejected_for_export_candidate_use: evidenceCandidateReviews.filter(
+    (r) => r.candidate_review_status === "rejected_for_export_candidate_use",
+  ).length,
+  client_use_allowed: evidenceCandidateReviews.filter((r) => r.client_use_allowed).length,
+  final_evidence_allowed: evidenceCandidateReviews.filter((r) => r.final_evidence_allowed).length,
 };
 
 const snapshot = {
   generated_at: generatedAt,
-  version: "0.8.3",
+  version: "0.8.7",
   disclaimer: DISCLAIMER,
   pilot_jurisdictions: jurisdictions.map((j) => j.jurisdiction_id),
   counts: {
@@ -876,6 +939,11 @@ const snapshot = {
       evidenceCandidateSummary.blocked_simulation_only,
     evidence_export_candidates_client_use_allowed:
       evidenceCandidateSummary.client_use_allowed,
+    evidence_export_candidate_reviews_count: evidenceCandidateReviewSummary.total_reviewed_candidates,
+    evidence_export_candidate_reviews_governance_only:
+      evidenceCandidateReviewSummary.reviewed_for_internal_governance_only,
+    evidence_export_candidate_reviews_needs_source:
+      evidenceCandidateReviewSummary.needs_more_source_review,
     review_queue_items: reviewSummary.total,
     pending_review: reviewSummary.pending_review,
     needs_update: reviewSummary.needs_update,
@@ -905,6 +973,7 @@ const snapshot = {
     monitoring_runs: "/data/monitoring-runs.json",
     detected_changes: "/data/detected-changes.json",
     evidence_export_candidates: "/data/evidence-export-candidates.json",
+    evidence_export_candidate_reviews: "/data/evidence-export-candidate-reviews.json",
   },
   review_notice:
     "All pilot content is curated manual YAML. Human review required before client use.",
@@ -1113,8 +1182,20 @@ writeJson(path.join(PUBLIC_DATA, "evidence-export-candidates.json"), {
   batch_id: evidenceCandidateBatch?.evidence_export_candidate_batch_id ?? null,
   pipeline_version: evidenceCandidateBatch?.pipeline_version ?? null,
   legal_safe_note: evidenceCandidateBatch?.legal_safe_note ?? DISCLAIMER,
-  summary: evidenceCandidateSummary,
+  summary: { ...evidenceCandidateSummary, candidate_review: evidenceCandidateReviewSummary },
   items: evidenceExportCandidates,
+});
+
+writeJson(path.join(PUBLIC_DATA, "evidence-export-candidate-reviews.json"), {
+  generated_at: generatedAt,
+  disclaimer: DISCLAIMER,
+  governance_review_only: true,
+  not_final_evidence: true,
+  not_client_evidence: true,
+  batch_id: evidenceCandidateReviewBatch?.evidence_export_candidate_review_batch_id ?? null,
+  legal_safe_note: evidenceCandidateReviewBatch?.legal_safe_note ?? DISCLAIMER,
+  summary: evidenceCandidateReviewSummary,
+  items: evidenceCandidateReviews,
 });
 
 writeJson(path.join(PUBLIC_DATA, "regulation-watch-snapshot.json"), snapshot);
@@ -1185,6 +1266,7 @@ console.log("  public/data/watcher-runs.json");
 console.log("  public/data/monitoring-runs.json");
 console.log("  public/data/detected-changes.json");
 console.log("  public/data/evidence-export-candidates.json");
+console.log("  public/data/evidence-export-candidate-reviews.json");
 console.log(`  ${evidenceExportCandidates.length} evidence export candidate(s) exported`);
 console.log("  public/data/regulation-watch-snapshot.json");
 console.log(`  ${watchers.length} watcher(s) configured`);

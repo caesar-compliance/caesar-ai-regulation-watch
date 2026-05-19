@@ -14,7 +14,17 @@
     "blocked_pending_content_review": 0,
     "blocked_simulation_only": 3,
     "rejected_for_client_use": 0,
-    "client_use_allowed": 0
+    "client_use_allowed": 0,
+    "final_evidence_allowed": 0,
+    "candidate_review": {
+      "total_reviewed_candidates": 2,
+      "reviewed_for_internal_governance_only": 1,
+      "needs_more_source_review": 1,
+      "needs_mapping_review": 0,
+      "rejected_for_export_candidate_use": 0,
+      "client_use_allowed": 0,
+      "final_evidence_allowed": 0
+    }
   },
   "items": [
     {
@@ -97,7 +107,10 @@
       "content_review_id": "content-review-guidance-datatilsynet-ai-privacy",
       "evidence_export_candidate_batch_id": "evidence-export-candidates-2026-05-20",
       "is_candidate_not_final_export": true,
-      "not_client_evidence": true
+      "not_client_evidence": true,
+      "candidate_review_status": "reviewed_for_internal_governance_only",
+      "candidate_review_id": "candidate-review-datatilsynet-guidance-change",
+      "final_evidence_allowed": false
     },
     {
       "candidate_id": "candidate-change-sample-eu-ai-act-status-change",
@@ -180,7 +193,10 @@
       "content_review_id": "content-review-law-eu-ai-act-2024-1689",
       "evidence_export_candidate_batch_id": "evidence-export-candidates-2026-05-20",
       "is_candidate_not_final_export": true,
-      "not_client_evidence": true
+      "not_client_evidence": true,
+      "candidate_review_status": "needs_more_source_review",
+      "candidate_review_id": "candidate-review-eu-ai-act-status-change",
+      "final_evidence_allowed": false
     },
     {
       "candidate_id": "candidate-detected-simulated-edpb-feed-change-2026-05-19",
@@ -234,7 +250,10 @@
       "content_review_id": "content-review-simulated-edpb-feed-change-2026-05-19",
       "evidence_export_candidate_batch_id": "evidence-export-candidates-2026-05-20",
       "is_candidate_not_final_export": true,
-      "not_client_evidence": true
+      "not_client_evidence": true,
+      "candidate_review_status": null,
+      "candidate_review_id": null,
+      "final_evidence_allowed": false
     },
     {
       "candidate_id": "candidate-detected-simulated-eu-ai-office-change-2026-05-19",
@@ -288,7 +307,10 @@
       "content_review_id": "content-review-simulated-eu-ai-office-change-2026-05-19",
       "evidence_export_candidate_batch_id": "evidence-export-candidates-2026-05-20",
       "is_candidate_not_final_export": true,
-      "not_client_evidence": true
+      "not_client_evidence": true,
+      "candidate_review_status": null,
+      "candidate_review_id": null,
+      "final_evidence_allowed": false
     },
     {
       "candidate_id": "candidate-detected-simulated-us-federal-register-api-change-2026-05-19",
@@ -342,7 +364,10 @@
       "content_review_id": "content-review-simulated-us-federal-register-api-change-2026-05-19",
       "evidence_export_candidate_batch_id": "evidence-export-candidates-2026-05-20",
       "is_candidate_not_final_export": true,
-      "not_client_evidence": true
+      "not_client_evidence": true,
+      "candidate_review_status": null,
+      "candidate_review_id": null,
+      "final_evidence_allowed": false
     }
   ]
 }

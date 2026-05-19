@@ -5,6 +5,7 @@ import DevelopersPanel from "../components/DevelopersPanel.astro";
 import { getJurisdictions, getChanges, getPilotSummary } from "../lib/data";
 import { getReviewQueueSummary } from "../lib/review-queue";
 import { formatDate, truncate } from "../lib/format";
+import { PROJECT_PHASE_LABEL, PROJECT_VERSION_LABEL } from "../lib/project-version";
 
 const summary = getPilotSummary();
 const reviewSummary = getReviewQueueSummary();
@@ -20,9 +21,12 @@ const recentChanges = getChanges().slice(0, 3);
   </p>
 
   <div class="banner banner--review" role="note">
-    <strong>Product preview (v0.5.1).</strong> Global map, review queue, timelines, and CI validation.
-    Not legal advice. All sample and expanded entries require human review before client use. See{" "}
-    <a href="/methodology/">methodology</a> and <a href="/disclaimer/">disclaimer</a>.
+    <strong>
+      {PROJECT_VERSION_LABEL} {PROJECT_PHASE_LABEL}.
+    </strong>{" "}
+    Official-source-first registry, content review, and evidence export candidates (not client
+    evidence). Not legal advice. No compliance guarantee. Human review required before any client use.
+    See <a href="/methodology/">methodology</a> and <a href="/disclaimer/">disclaimer</a>.
   </div>
 
   <section class="stats" aria-label="Coverage summary">

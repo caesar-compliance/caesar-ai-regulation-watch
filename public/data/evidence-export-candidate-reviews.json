@@ -1,0 +1,84 @@
+{
+  "generated_at": "2026-05-20",
+  "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
+  "governance_review_only": true,
+  "not_final_evidence": true,
+  "not_client_evidence": true,
+  "batch_id": "evidence-export-candidate-review-2026-05-20",
+  "legal_safe_note": "v0.8.7 export-candidate governance review batch. Internal export-readiness review only — not final evidence export, not client evidence, not legal advice, no compliance guarantee, no complete coverage claim. client_use_allowed and final_evidence_allowed remain false for every reviewed candidate. Qualified human review still required before any real client use.",
+  "summary": {
+    "total_reviewed_candidates": 2,
+    "reviewed_for_internal_governance_only": 1,
+    "needs_more_source_review": 1,
+    "needs_mapping_review": 0,
+    "rejected_for_export_candidate_use": 0,
+    "client_use_allowed": 0,
+    "final_evidence_allowed": 0
+  },
+  "items": [
+    {
+      "candidate_review_id": "candidate-review-datatilsynet-guidance-change",
+      "candidate_id": "candidate-change-sample-datatilsynet-guidance-change",
+      "review_date": "2026-05-20",
+      "reviewer_type": "curator_batch",
+      "review_purpose": "governance_export_readiness_only",
+      "candidate_review_status": "reviewed_for_internal_governance_only",
+      "content_review_id": "content-review-guidance-datatilsynet-ai-privacy",
+      "governance_review_summary": "Manual sample change candidate is understandable and links to a reviewed Datatilsynet guidance record. Content review exists (homepage pointer scope). Suggested DPIA and transparency control/evidence prompts are plausible as internal review prompts only. Disclaimers present; blocking_reasons empty is consistent with ready_for_human_review. Still not client evidence; still not final evidence; official guidance text not fully verified in this session.",
+      "checks_performed": [
+        "candidate_understandable",
+        "content_review_present",
+        "disclaimers_present",
+        "blocking_reasons_consistent",
+        "suggested_controls_plausible",
+        "suggested_evidence_plausible",
+        "not_client_evidence_confirmed",
+        "not_final_evidence_confirmed"
+      ],
+      "governance_findings": [
+        "content_review_used_homepage_pointer_only",
+        "verified_on_source_after_check_remains_false_on_related_record",
+        "draft_mapping_refs_pending_caesar_ai_evidence_alignment"
+      ],
+      "recommended_next_action": "no_action_until_qualified_review",
+      "human_review_required": true,
+      "client_use_allowed": false,
+      "final_evidence_allowed": false,
+      "qualified_advisor_review_required": true,
+      "legal_safe_note": "v0.8.7 governance review only. reviewed_for_internal_governance_only — not approval for client use or final evidence export. Not legal advice.",
+      "evidence_export_candidate_review_batch_id": "evidence-export-candidate-review-2026-05-20"
+    },
+    {
+      "candidate_review_id": "candidate-review-eu-ai-act-status-change",
+      "candidate_id": "candidate-change-sample-eu-ai-act-status-change",
+      "review_date": "2026-05-20",
+      "reviewer_type": "curator_batch",
+      "review_purpose": "governance_export_readiness_only",
+      "candidate_review_status": "needs_more_source_review",
+      "content_review_id": "content-review-law-eu-ai-act-2024-1689",
+      "governance_review_summary": "Manual sample EU AI Act status-change candidate is understandable and has content review, but EUR-Lex automated access was limited (bot protection) and verified_on_source_after_check remains false. Suggested inventory/register prompts are plausible for internal review but export-readiness review cannot pass source verification gate yet. Disclaimers present; blocking_reasons empty matches ready_for_human_review pipeline status only — not source verification complete.",
+      "checks_performed": [
+        "candidate_understandable",
+        "content_review_present",
+        "disclaimers_present",
+        "blocking_reasons_consistent",
+        "suggested_controls_plausible",
+        "suggested_evidence_plausible",
+        "not_client_evidence_confirmed",
+        "not_final_evidence_confirmed"
+      ],
+      "governance_findings": [
+        "eur_lex_full_text_not_verified_in_content_review_batch",
+        "verified_on_source_after_check_false",
+        "sample_key_dates_still_unverified_on_official_source"
+      ],
+      "recommended_next_action": "complete_source_verification",
+      "human_review_required": true,
+      "client_use_allowed": false,
+      "final_evidence_allowed": false,
+      "qualified_advisor_review_required": true,
+      "legal_safe_note": "v0.8.7 governance review: needs_more_source_review — not rejection, not client approval, not final evidence. Complete official-source verification before mapping/export promotion. Not legal advice.",
+      "evidence_export_candidate_review_batch_id": "evidence-export-candidate-review-2026-05-20"
+    }
+  ]
+}

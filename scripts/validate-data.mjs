@@ -45,6 +45,7 @@ const schemas = {
   monitoringRun: loadSchema("monitoring-run.schema.json"),
   contentReview: loadSchema("content-review.schema.json"),
   evidenceExportCandidate: loadSchema("evidence-export-candidate.schema.json"),
+  evidenceExportCandidateReview: loadSchema("evidence-export-candidate-review.schema.json"),
 };
 
 const COMPLIANCE_GUARANTEE_LANGUAGE =
@@ -199,10 +200,17 @@ for (const file of listYamlFiles(path.join(ROOT, "data/verifications"))) {
     }
   } else if (base.startsWith("source-verification") || base.startsWith("source-identity-review")) {
     check(validate(file, data, schemas.sourceVerification));
+  } else if (base.startsWith("evidence-export-candidate-review")) {
+    check(validate(file, data, schemas.evidenceExportCandidateReview));
   } else {
     failures.push({
       label: file,
-      errors: [{ message: "unknown verification file prefix; use source-verification-*, source-identity-review-*, content-review-*, or url-check-*" }],
+      errors: [
+        {
+          message:
+            "unknown verification file prefix; use source-verification-*, source-identity-review-*, content-review-*, evidence-export-candidate-review-*, or url-check-*",
+        },
+      ],
     });
   }
 }
@@ -666,9 +674,15 @@ const changeIds = new Set(
   listYamlFiles(path.join(ROOT, "data/changes")).map((f) => readYaml(f).change_id),
 );
 
+const candidateIds = new Set();
+const candidateStatusById = new Map();
 for (const file of listYamlFiles(candidateDir)) {
   const batch = readYaml(file);
   for (const c of batch.candidates ?? []) {
+    if (c.candidate_id) {
+      candidateIds.add(c.candidate_id);
+      candidateStatusById.set(c.candidate_id, c.candidate_status);
+    }
     if (!jurisdictionIds.has(c.jurisdiction_id)) {
       failures.push({
         label: `${file} → ${c.candidate_id} (referential)`,
@@ -697,6 +711,86 @@ for (const file of listYamlFiles(candidateDir)) {
       failures.push({
         label: `${file} → ${c.candidate_id} (referential)`,
         errors: [{ message: `unknown source_item_id (detected_change): ${c.source_item_id}` }],
+      });
+    }
+  }
+}
+
+// Evidence export candidate reviews (v0.8.7)
+for (const file of listYamlFiles(path.join(ROOT, "data/verifications"))) {
+  const base = path.basename(file);
+  if (!base.startsWith("evidence-export-candidate-review")) continue;
+  const batch = readYaml(file);
+  if (batch.legal_safe_note && hasComplianceGuaranteeLanguage(batch.legal_safe_note)) {
+    failures.push({
+      label: `${file} (policy)`,
+      errors: [{ message: "batch legal_safe_note contains compliance-guarantee language" }],
+    });
+  }
+  for (const r of batch.candidate_reviews ?? []) {
+    const label = `${file} → ${r.candidate_review_id ?? "?"}`;
+    if (!candidateIds.has(r.candidate_id)) {
+      failures.push({
+        label: `${label} (referential)`,
+        errors: [{ message: `unknown candidate_id: ${r.candidate_id}` }],
+      });
+    }
+    if (r.client_use_allowed !== false) {
+      failures.push({
+        label: `${label} (policy)`,
+        errors: [{ message: "candidate review must have client_use_allowed: false" }],
+      });
+    }
+    if (r.final_evidence_allowed !== false) {
+      failures.push({
+        label: `${label} (policy)`,
+        errors: [{ message: "candidate review must have final_evidence_allowed: false" }],
+      });
+    }
+    if (r.human_review_required !== true) {
+      failures.push({
+        label: `${label} (policy)`,
+        errors: [{ message: "candidate review must have human_review_required: true" }],
+      });
+    }
+    const pipelineStatus = candidateStatusById.get(r.candidate_id);
+    if (
+      pipelineStatus === "blocked_simulation_only" &&
+      r.candidate_review_status === "reviewed_for_internal_governance_only"
+    ) {
+      failures.push({
+        label: `${label} (policy)`,
+        errors: [
+          {
+            message:
+              "simulated/blocked_simulation_only candidate cannot be reviewed_for_internal_governance_only",
+          },
+        ],
+      });
+    }
+    if (
+      pipelineStatus === "blocked_simulation_only" &&
+      r.candidate_review_status !== "review_not_applicable"
+    ) {
+      failures.push({
+        label: `${label} (policy)`,
+        errors: [
+          {
+            message:
+              "simulated/blocked_simulation_only candidate review must use review_not_applicable or be omitted",
+          },
+        ],
+      });
+    }
+    if (!r.legal_safe_note || hasComplianceGuaranteeLanguage(r.legal_safe_note)) {
+      failures.push({
+        label: `${label} (policy)`,
+        errors: [
+          {
+            message:
+              "legal_safe_note missing or contains compliance-guarantee language",
+          },
+        ],
       });
     }
   }

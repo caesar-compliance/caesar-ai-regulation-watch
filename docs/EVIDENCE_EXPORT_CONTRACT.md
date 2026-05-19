@@ -1,7 +1,7 @@
 # Evidence Export Contract
 
 **Prepared:** 19 May 2026 · **Updated:** 20 May 2026  
-**Phase:** v0.3.1 contract definition · v0.8.3 candidate pipeline (not final export)
+**Phase:** v0.3.1 contract definition · v0.8.3 candidate pipeline · v0.8.7 governance review gate (not final export)
 
 ---
 
@@ -120,5 +120,6 @@ Avoid: *compliant*, *non-compliant*, *guarantees*, *complete coverage*, *definit
 ## Related documents
 
 - [EVIDENCE_EXPORT_CANDIDATE_PIPELINE.md](EVIDENCE_EXPORT_CANDIDATE_PIPELINE.md) — v0.8.3 gated candidates
+- [EVIDENCE_EXPORT_CANDIDATE_REVIEW_WORKFLOW.md](EVIDENCE_EXPORT_CANDIDATE_REVIEW_WORKFLOW.md) — v0.8.7 governance review gate
 - [TAXONOMY_AND_REVIEW_WORKFLOW.md](TAXONOMY_AND_REVIEW_WORKFLOW.md)
 - [SAMPLE_RECORDS_GUIDE.md](SAMPLE_RECORDS_GUIDE.md)

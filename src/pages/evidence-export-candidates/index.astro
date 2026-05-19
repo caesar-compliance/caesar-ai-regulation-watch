@@ -3,17 +3,21 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import {
   getEvidenceExportCandidateBatches,
   getEvidenceExportCandidates,
+  getEvidenceExportCandidateReviews,
   getJurisdiction,
   getSource,
 } from "../../lib/data";
 import {
+  evidenceExportCandidateReviewStatusLabel,
   evidenceExportCandidateStatusLabel,
   humanizeId,
   truncate,
 } from "../../lib/format";
+import { PROJECT_VERSION_LABEL } from "../../lib/project-version";
 
 const batches = getEvidenceExportCandidateBatches();
 const candidates = getEvidenceExportCandidates();
+const candidateReviews = getEvidenceExportCandidateReviews();
 const latestBatch = batches[0];
 
 const byStatus = {
@@ -25,6 +29,20 @@ const byStatus = {
   rejected_for_client_use: candidates.filter((c) => c.candidate_status === "rejected_for_client_use"),
 };
 const clientUseAllowed = candidates.filter((c) => c.client_use_allowed);
+const reviewCounts = {
+  reviewed_for_internal_governance_only: candidateReviews.filter(
+    (r) => r.candidate_review_status === "reviewed_for_internal_governance_only",
+  ).length,
+  needs_more_source_review: candidateReviews.filter(
+    (r) => r.candidate_review_status === "needs_more_source_review",
+  ).length,
+  needs_mapping_review: candidateReviews.filter(
+    (r) => r.candidate_review_status === "needs_mapping_review",
+  ).length,
+  rejected_for_export_candidate_use: candidateReviews.filter(
+    (r) => r.candidate_review_status === "rejected_for_export_candidate_use",
+  ).length,
+};
 
 function sourceHref(c: (typeof candidates)[0]) {
   if (c.source_item_type === "change_record") {
@@ -45,10 +63,11 @@ function sourceHref(c: (typeof candidates)[0]) {
   </p>
 
   <div class="banner banner--sample" role="alert">
-    <strong>Candidate-only — not client evidence.</strong> v0.8.3 local pipeline.{" "}
-    <code>client_use_allowed</code> is false for every candidate. Not legal advice. No compliance
-    guarantee. No complete coverage claim. Download{" "}
-    <a href="/data/evidence-export-candidates.json">evidence-export-candidates.json</a>.
+    <strong>Candidate-only — not client evidence.</strong> {PROJECT_VERSION_LABEL} governance review
+    gate. <code>client_use_allowed</code> is false for every candidate. Not final evidence. Not legal
+    advice. Download{" "}
+    <a href="/data/evidence-export-candidates.json">evidence-export-candidates.json</a> and{" "}
+    <a href="/data/evidence-export-candidate-reviews.json">evidence-export-candidate-reviews.json</a>.
   </div>
 
   <dl class="meta-grid">
@@ -66,10 +85,20 @@ function sourceHref(c: (typeof candidates)[0]) {
     <div>
       <dt>client_use_allowed</dt><dd>{clientUseAllowed.length} (expected 0)</dd>
     </div>
+    <div>
+      <dt>Governance reviews</dt><dd>{candidateReviews.length}</dd>
+    </div>
+    <div>
+      <dt>Internal governance only</dt><dd>{reviewCounts.reviewed_for_internal_governance_only}</dd>
+    </div>
+    <div>
+      <dt>Needs more source review</dt><dd>{reviewCounts.needs_more_source_review}</dd>
+    </div>
   </dl>
 
   <p>
-    Regenerate: <code>npm run generate:evidence-candidates</code>. Docs: repository{" "}
+    Regenerate: <code>npm run generate:evidence-candidates</code> then <code>npm run generate:exports</code>.
+    Docs: <code>docs/EVIDENCE_EXPORT_CANDIDATE_REVIEW_WORKFLOW.md</code>,{" "}
     <code>docs/EVIDENCE_EXPORT_CANDIDATE_PIPELINE.md</code>.
   </p>
 
@@ -79,6 +108,7 @@ function sourceHref(c: (typeof candidates)[0]) {
       <tr>
         <th>Candidate</th>
         <th>Status</th>
+        <th>Review gate</th>
         <th>Source item</th>
         <th>Jurisdiction / source</th>
         <th>Blocking reasons</th>
@@ -101,6 +131,15 @@ function sourceHref(c: (typeof candidates)[0]) {
                 <span class={`badge badge--review-${c.candidate_status}`}>
                   {evidenceExportCandidateStatusLabel(c.candidate_status)}
                 </span>
+              </td>
+              <td>
+                {c.candidate_review_status ? (
+                  <span class="badge badge--sample-only">
+                    {evidenceExportCandidateReviewStatusLabel(c.candidate_review_status)}
+                  </span>
+                ) : (
+                  <span class="muted">—</span>
+                )}
               </td>
               <td>
                 <a href={sourceHref(c)}>{c.source_item_id}</a>
@@ -160,6 +199,11 @@ function sourceHref(c: (typeof candidates)[0]) {
             <span class={`badge badge--review-${c.candidate_status}`}>
               {evidenceExportCandidateStatusLabel(c.candidate_status)}
             </span>
+            {c.candidate_review_status && (
+              <span class="badge badge--sample-only">
+                {evidenceExportCandidateReviewStatusLabel(c.candidate_review_status)}
+              </span>
+            )}
           </div>
           <h3 class="mono">{c.candidate_id}</h3>
           <p class="card__excerpt">{truncate(c.summary_for_review, 240)}</p>
