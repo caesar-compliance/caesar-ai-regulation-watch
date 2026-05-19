@@ -1,0 +1,23 @@
+---
+import type { Source } from "../lib/data";
+import CredibilityBadge from "./CredibilityBadge.astro";
+import ReviewStatusBadge from "./ReviewStatusBadge.astro";
+import { truncate } from "../lib/format";
+
+interface Props {
+  source: Source;
+}
+
+const { source } = Astro.props;
+---
+
+<li class="card">
+  <div class="card__meta">
+    <CredibilityBadge level={source.credibility_level} />
+    <ReviewStatusBadge status={source.review_status} />
+  </div>
+  <h3><a href={`/sources/${source.source_id}/`}>{source.title}</a></h3>
+  <p class="card__excerpt">
+    {truncate(source.monitoring_scope, 140)}
+  </p>
+</li>

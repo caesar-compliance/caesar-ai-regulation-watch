@@ -9,12 +9,24 @@
 | Field | Value |
 |---|---|
 | **Repository** | `caesar-ai-regulation-watch` |
-| **Current version** | `v0.3.3` |
-| **Current phase** | VerifyWise clean-room architecture study and v0.4.0 planning |
-| **Status** | Static manual data only — no VerifyWise or competitor code imported; no watchers, UI, APIs, databases, or automated monitoring |
-| **Working branch** | `agent/v0.3.3-verifywise-cleanroom-architecture` |
-| **Latest completed task** | VerifyWise architecture study; clean-room backlog; v0.4.0 static site plan |
-| **Next recommended step** | Control Tower approval for v0.4.0 Astro static site; cross-repo evidence alignment |
+| **Current version** | `v0.4.0` |
+| **Current phase** | Read-only Astro static site skeleton |
+| **Status** | Static YAML + generated HTML preview — no watchers, APIs, database, auth, or external integrations |
+| **Working branch** | `agent/v0.4.0-static-site-skeleton` |
+| **Latest completed task** | Astro static site from pilot `data/` |
+| **Next recommended step** | Control Tower review of public pages; cross-repo evidence alignment; v0.5 map/search |
+
+---
+
+## Site inventory (v0.4.0)
+
+| Item | Value |
+|---|---|
+| Framework | Astro 5 (static output) |
+| Build output | `dist/` |
+| Pages generated | 20 static routes |
+| Validation | `npm run validate:data` (28 checks passed) |
+| Dependencies | `astro`, `js-yaml`, `ajv`, `ajv-formats` |
 
 ---
 
@@ -26,7 +38,6 @@
 | Law / guidance / change samples | 1 / 2 / 2 | [SAMPLE_RECORDS_GUIDE.md](docs/SAMPLE_RECORDS_GUIDE.md) |
 | Taxonomies | 8 files | [TAXONOMY_AND_REVIEW_WORKFLOW.md](docs/TAXONOMY_AND_REVIEW_WORKFLOW.md) |
 | Export samples | 2 records | [EVIDENCE_EXPORT_CONTRACT.md](docs/EVIDENCE_EXPORT_CONTRACT.md) |
-| Acceleration + architecture research | 6 files + 2 policy docs | [VERIFYWISE_ARCHITECTURE_STUDY.md](research/VERIFYWISE_ARCHITECTURE_STUDY.md) |
 | Schemas | 9 JSON Schema files | `schemas/` |
 
 ---
@@ -41,7 +52,8 @@
 | v0.3.1 Taxonomy & export contract | **Complete** (pending cross-repo alignment) |
 | v0.3.2 Acceleration plan | **Complete** |
 | v0.3.3 VerifyWise clean-room study | **Complete** |
-| v0.4.0 Static public site | Not started (plan approved in docs) |
+| v0.4.0 Static public site skeleton | **Complete** (pending Control Tower page review) |
+| v0.5 Map, search, feeds | Not started |
 | v0.6 Watchers | Not started |
 | v1.0 Pilot release | Not started |
 
@@ -49,12 +61,11 @@
 
 ## Boundaries
 
-- No VerifyWise, competitor source code, or proprietary datasets in the repository.
-- VerifyWise was studied **only** in a temporary local sandbox; findings are summarized in research docs.
-- Competitor features are **benchmark inputs only** ([docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md](docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md)).
-- v0.4.0 will use **clean-room** Astro implementation from existing YAML — not VerifyWise code.
-- Official-source-first data remains the rule for all public content.
-- Watchers, live UI, APIs, schedulers, databases, automated monitoring, and export **runtime** are **not implemented**.
+- No VerifyWise or competitor source code in the repository.
+- Static site is **read-only** — no runtime YAML loading, no remote fetch in app code.
+- All sample content shows review/pending banners where applicable.
+- Watchers, APIs, schedulers, databases, authentication, and export **runtime** are **not implemented**.
+- Official-source-first data remains the rule.
 
 ---
 

@@ -1,0 +1,65 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+  currentPath?: string;
+}
+
+const { title, description = "Official-source-first AI regulation monitoring for governance review.", currentPath = "" } = Astro.props;
+const fullTitle = title === "Home" ? "Caesar AI Regulation Watch" : `${title} · Caesar AI Regulation Watch`;
+
+const nav = [
+  { href: "/", label: "Home" },
+  { href: "/jurisdictions/", label: "Jurisdictions" },
+  { href: "/sources/", label: "Sources" },
+  { href: "/records/", label: "Records" },
+  { href: "/changes/", label: "Changes" },
+  { href: "/exports/", label: "Exports" },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{fullTitle}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <p class="site-title"><a href="/">Caesar AI Regulation Watch</a></p>
+        <nav class="site-nav" aria-label="Main">
+          {nav.map((item) => (
+            <a
+              href={item.href}
+              aria-current={currentPath === item.href || (item.href !== "/" && currentPath.startsWith(item.href)) ? "page" : undefined}
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <p>
+          <strong>Not legal advice.</strong> This preview supports governance review only. It does not
+          guarantee compliance or describe complete global legal coverage.
+        </p>
+        <p>
+          Pilot data: EU and Norway · Manual samples · <a href="/exports/">Export samples</a>
+        </p>
+        <p>Part of the Caesar AI Governance Hub · Last site build: 19 May 2026</p>
+      </div>
+    </footer>
+  </body>
+</html>

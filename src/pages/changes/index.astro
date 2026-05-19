@@ -1,0 +1,49 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ReviewStatusBadge from "../../components/ReviewStatusBadge.astro";
+import { getChanges, getTaxonomies, taxonomyLabel } from "../../lib/data";
+import { formatDate, truncate } from "../../lib/format";
+
+const changes = getChanges();
+const taxonomies = getTaxonomies();
+---
+
+<BaseLayout title="Changes" currentPath="/changes/">
+  <h1>Regulatory changes</h1>
+  <p class="lead">
+    Manual sample change records for governance review. Not automated detections — human verification required.
+  </p>
+
+  <div class="banner banner--sample" role="note">
+    <strong>Sample data only.</strong> Future watcher output will use <code>record_origin: future_watcher_output</code>.
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Change</th>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Confidence</th>
+        <th>Review</th>
+        <th>Human review</th>
+      </tr>
+    </thead>
+    <tbody>
+      {changes.map((c) => (
+        <tr>
+          <td>
+            <a href={`/changes/${c.change_id}/`}>{c.change_id}</a>
+            <br />
+            <small>{truncate(c.change_summary_for_review, 80)}</small>
+          </td>
+          <td>{formatDate(c.detected_date)}</td>
+          <td>{taxonomyLabel(taxonomies, "change-types", c.change_type)}</td>
+          <td><span class="badge badge--confidence">{c.confidence_level}</span></td>
+          <td><ReviewStatusBadge status={c.review_status} /></td>
+          <td>{c.requires_human_review ? "Required" : "—"}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</BaseLayout>

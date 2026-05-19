@@ -1,0 +1,81 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import JurisdictionCard from "../components/JurisdictionCard.astro";
+import { getJurisdictions, getChanges, getPilotSummary } from "../lib/data";
+import { formatDate, truncate } from "../lib/format";
+
+const summary = getPilotSummary();
+const jurisdictions = getJurisdictions();
+const recentChanges = getChanges().slice(0, 3);
+---
+
+<BaseLayout title="Home" currentPath="/">
+  <h1>Caesar AI Regulation Watch</h1>
+  <p class="lead">
+    Official-source-first monitoring of AI-related laws and guidance for governance teams. Helps identify
+    tracked regulatory changes that may require internal review — not legal advice, and not complete
+    global coverage.
+  </p>
+
+  <div class="banner banner--review" role="note">
+    <strong>Pilot preview (v0.4.0).</strong> Static read-only site from curated YAML. No automated watchers,
+    APIs, or authentication. All sample records require human review before client use.
+  </div>
+
+  <section class="stats" aria-label="Coverage summary">
+    <div class="stat">
+      <strong>{summary.jurisdictionCount}</strong>
+      <span>Jurisdictions</span>
+    </div>
+    <div class="stat">
+      <strong>{summary.sourceCount}</strong>
+      <span>Official sources</span>
+    </div>
+    <div class="stat">
+      <strong>{summary.recordCount}</strong>
+      <span>Law & guidance records</span>
+    </div>
+    <div class="stat">
+      <strong>{summary.changeCount}</strong>
+      <span>Sample changes</span>
+    </div>
+  </section>
+
+  <h2>Explore</h2>
+  <div class="nav-cards">
+    <div class="nav-card"><a href="/jurisdictions/">Jurisdictions</a><p>EU and Norway pilot profiles</p></div>
+    <div class="nav-card"><a href="/sources/">Official sources</a><p>Registry of tracked authority URLs</p></div>
+    <div class="nav-card"><a href="/records/">Laws & guidance</a><p>Sample instrument records</p></div>
+    <div class="nav-card"><a href="/changes/">Changes</a><p>Manual sample change feed</p></div>
+    <div class="nav-card"><a href="/exports/">Export samples</a><p>Regulation-change contract examples</p></div>
+  </div>
+
+  <h2>Pilot jurisdictions</h2>
+  <ul class="card-list">
+    {jurisdictions.map((j) => (
+      <JurisdictionCard jurisdiction={j} />
+    ))}
+  </ul>
+
+  {
+    recentChanges.length > 0 && (
+      <>
+        <h2>Recent sample changes</h2>
+        <ul class="card-list">
+          {recentChanges.map((c) => (
+            <li class="card">
+              <h3>
+                <a href={`/changes/${c.change_id}/`}>{c.change_id}</a>
+              </h3>
+              <p class="card__excerpt">{truncate(c.change_summary_for_review, 120)}</p>
+              <p class="card__excerpt">
+                <small>{formatDate(c.detected_date)} · {c.jurisdiction_id}</small>
+              </p>
+            </li>
+          ))}
+        </ul>
+        <p><a href="/changes/">View all changes →</a></p>
+      </>
+    )
+  }
+</BaseLayout>

@@ -135,7 +135,7 @@ Before importing **any** code, dataset, or API integration:
 
 These releases add **policy and research only**:
 
-- no `package.json`, `requirements.txt`, or other package managers (v0.3.3);
+- v0.4.0 adds `package.json` with **astro**, **js-yaml**, **ajv** only (MIT);
 - no vendored third-party source trees;
 - no VerifyWise or competitor source code in the repository;
 - no watcher or API client implementation;

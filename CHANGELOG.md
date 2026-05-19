@@ -11,6 +11,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.4.0] - 19 May 2026
+
+### Added
+
+- Read-only **Astro** static site skeleton generated from `data/` YAML at build time.
+- `package.json` with `astro`, `js-yaml`, `ajv`, `ajv-formats`.
+- `src/` pages: home, jurisdictions, sources, records (laws/guidance), changes, exports.
+- Components: status, credibility, review badges; review/sample banners.
+- `src/lib/data.ts`, `src/lib/format.ts` — local YAML loaders (no remote fetch).
+- `scripts/validate-data.mjs` — validates jurisdictions, sources, laws, guidance, changes, taxonomies, mappings, export samples.
+
+### Changed
+
+- README, SPEC, ARCHITECTURE, ROADMAP, PROJECT_STATE, NEXT_ACTIONS, REPO_INVENTORY, DECISION_LOG, V0_4 plan updated for v0.4.0.
+- `.gitignore` — `node_modules/`, `dist/`, `.astro/`.
+
+### Notes
+
+- Product preview for governance review support only — not legal advice.
+- No VerifyWise or competitor code imported.
+- No watchers, APIs, database, authentication, map, or search yet.
+
+---
+
 ## [0.3.3] - 19 May 2026
 
 ### Added

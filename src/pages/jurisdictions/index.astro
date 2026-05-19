@@ -1,0 +1,20 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import JurisdictionCard from "../../components/JurisdictionCard.astro";
+import { getJurisdictions } from "../../lib/data";
+
+const jurisdictions = getJurisdictions();
+---
+
+<BaseLayout title="Jurisdictions" currentPath="/jurisdictions/">
+  <h1>Jurisdictions</h1>
+  <p class="lead">
+    Curated pilot jurisdictions. Coverage is incremental and not exhaustive — verify scope on each profile.
+  </p>
+
+  <ul class="card-list">
+    {jurisdictions.map((j) => (
+      <JurisdictionCard jurisdiction={j} />
+    ))}
+  </ul>
+</BaseLayout>

@@ -4,7 +4,7 @@
 
 This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
 
-**Current (v0.3.3):** VerifyWise clean-room architecture study and v0.4.0 static site plan — still no watchers, UI, APIs, imported dependencies, or automated monitoring. **Next:** Control Tower approval for v0.4.0 Astro static site; cross-repo evidence alignment.
+**Current (v0.4.0):** read-only Astro static site skeleton from pilot YAML — no watchers, APIs, database, auth, or external integrations. **Next:** Control Tower page review; v0.5 map/search/feeds.
 
 ---
 
@@ -132,15 +132,22 @@ v0.1 Foundation ──> v0.2.0 Registry ──> v0.3.0 Samples ──> v0.3.1 Ta
 
 ---
 
-## v0.4.0 — Static public site (read-only)
+## v0.4.0 — Static public site skeleton (read-only)
 
-**Status:** Planned (implementation not started)
+**Status:** Complete on branch `agent/v0.4.0-static-site-skeleton` (19 May 2026)
 
-**Goal:** Read-only static public site from `data/` using Astro (recommended); ajv validation in CI.
+**Goal:** Read-only static public site from `data/` using Astro; ajv validation script.
 
-**Deliverables:** See [docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md](docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md) — home, jurisdictions, sources, laws/guidance, changes, export sample, methodology/disclaimers.
+**Deliverables:**
 
-**Exit criteria:** Site builds from YAML; all P0 routes live; no backend or watchers.
+- [x] Astro project (`src/`, `package.json`, `astro.config.mjs`)
+- [x] Pages: home, jurisdictions, sources, records, changes, exports
+- [x] `scripts/validate-data.mjs` — 28 YAML validations passing
+- [x] Taxonomy-driven badges; review/sample banners
+- [ ] Control Tower review of generated pages
+- [ ] GitHub Actions CI (optional follow-up)
+
+**Exit criteria:** `npm run build` succeeds; no backend or watchers.
 
 ---
 

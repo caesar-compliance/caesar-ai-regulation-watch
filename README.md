@@ -3,7 +3,7 @@
 **Global AI regulation monitoring for governance teams** — part of the [Caesar AI Governance Hub](https://github.com/caesar-compliance/caesar-ai-governance-hub) ecosystem.
 
 **Last updated:** 19 May 2026  
-**Status:** v0.3.3 — VerifyWise clean-room architecture study and v0.4.0 static site plan (static data only; no third-party code imported; no watchers, UI, APIs, or automated monitoring)
+**Status:** v0.4.0 — read-only Astro static site skeleton from pilot YAML (no watchers, APIs, database, auth, or external integrations)
 
 ---
 
@@ -135,7 +135,18 @@ Architecture reference study and implementation planning — **no VerifyWise cod
 - [docs/NEXT_IMPLEMENTATION_ARCHITECTURE_OPTIONS.md](docs/NEXT_IMPLEMENTATION_ARCHITECTURE_OPTIONS.md) — Astro vs Next vs plain generator
 - [docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md](docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md) — next implementation plan (not built yet)
 
-**Next recommended phase (if approved):** v0.4.0 read-only static public site from existing YAML (Astro). Official-source-first data remains the rule.
+## Static site preview (v0.4.0)
+
+Read-only Astro site generated from `data/` at build time:
+
+```bash
+npm install
+npm run validate:data   # ajv — all YAML vs schemas/
+npm run dev             # local preview
+npm run build           # output in dist/
+```
+
+Pages: home, jurisdictions, sources, laws/guidance records, changes, export samples. **Product preview only** — supports governance review, not legal advice.
 
 ## Third-party acceleration plan (v0.3.2)
 
@@ -196,6 +207,6 @@ Canonical values, review workflow, and future evidence export shape:
 
 ## Project status
 
-**v0.3.3** completes VerifyWise clean-room architecture study and v0.4.0 static site planning (19 May 2026). v0.3.1 taxonomies and export contract remain the data foundation. No VerifyWise or competitor code was imported; implementation will be clean-room. Next recommended step: Control Tower approval for v0.4.0 Astro static site. No automated monitoring or live UI yet.
+**v0.4.0** adds the first read-only Astro static site skeleton (19 May 2026). Data remains manual YAML; no watchers or backend. No VerifyWise or competitor code imported. Official-source-first data remains the rule. Next: Control Tower review of pilot pages; v0.5 map/search.
 
 See [PROJECT_STATE.md](PROJECT_STATE.md) and [NEXT_ACTIONS.md](NEXT_ACTIONS.md).

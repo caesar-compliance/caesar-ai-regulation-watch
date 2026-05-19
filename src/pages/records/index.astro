@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import RecordCard from "../../components/RecordCard.astro";
+import { getRecords } from "../../lib/data";
+
+const records = getRecords();
+---
+
+<BaseLayout title="Laws & guidance" currentPath="/records/">
+  <h1>Laws & guidance records</h1>
+  <p class="lead">
+    Sample law and guidance entries from the pilot registry. Each record links to an official source.
+  </p>
+
+  <div class="banner banner--sample" role="note">
+    <strong>Manual samples.</strong> These records are for data-model testing — not watcher output.
+  </div>
+
+  <ul class="card-list">
+    {records.map((r) => (
+      <RecordCard record={r} />
+    ))}
+  </ul>
+</BaseLayout>

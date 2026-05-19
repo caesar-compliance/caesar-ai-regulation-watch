@@ -1,7 +1,7 @@
 # Specification — Caesar AI Regulation Watch
 
 **Last updated:** 19 May 2026  
-**Status:** v0.3.3 — spec, registry, samples, taxonomies, export contract, acceleration plan, and VerifyWise clean-room architecture study (no watchers, UI, or imported dependencies)
+**Status:** v0.4.0 — spec, registry, samples, taxonomies, export contract, and read-only Astro static site skeleton (no watchers, APIs, database, or auth)
 
 ---
 
@@ -217,7 +217,23 @@ Documentation-only architecture study; **no VerifyWise code, UI, schemas, or pro
 | [docs/NEXT_IMPLEMENTATION_ARCHITECTURE_OPTIONS.md](docs/NEXT_IMPLEMENTATION_ARCHITECTURE_OPTIONS.md) | Astro vs Next vs plain generator comparison |
 | [docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md](docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md) | v0.4.0 static site Definition of Done (plan only) |
 
-VerifyWise Global AI Regulations Tracker is a **benchmark** for status/timeline/card UX. Caesar implements clean-room via existing YAML, taxonomies, and planned Astro static site.
+VerifyWise Global AI Regulations Tracker is a **benchmark** for status/timeline/card UX. Caesar implements clean-room via existing YAML, taxonomies, and Astro static site.
+
+---
+
+## 8.3 Static site skeleton (v0.4.0 — delivered)
+
+Read-only Astro static site at repository root (`src/`, `package.json`):
+
+| Command | Purpose |
+|---|---|
+| `npm run validate:data` | ajv validation of all `data/` YAML |
+| `npm run dev` | Local preview |
+| `npm run build` | Static output to `dist/` |
+
+**Pages:** home, jurisdictions, sources, records (laws/guidance), changes, export samples.
+
+**Not included:** watchers, API, database, auth, map, search, remote data fetch.
 
 ---
 
@@ -228,9 +244,10 @@ VerifyWise Global AI Regulations Tracker is a **benchmark** for status/timeline/
 3. ~~**Export contract draft** for regulation-change.~~ **Done (v0.3.1 contract + sample).** Align with `caesar-ai-evidence` validator (cross-repo).
 4. ~~**Third-party acceleration policy and plan.**~~ **Done (v0.3.2).**
 5. ~~**VerifyWise clean-room architecture study and v0.4 plan.**~~ **Done (v0.3.3).**
-6. **Static public site** reading `data/` (v0.4.0; Astro per plan; no watcher automation).
-7. **CI schema validation** (ajv) with v0.4.0 site when package manager approved.
+6. ~~**Static public site skeleton** reading `data/` (Astro).~~ **Done (v0.4.0).**
+7. ~~**Schema validation** (ajv via `npm run validate:data`).~~ **Done (v0.4.0).**
 8. **Timeline file** per pilot jurisdiction (v0.5).
+9. **GitHub Actions CI** for validate + build (optional follow-up).
 
 ---
 

@@ -1,7 +1,7 @@
 # v0.4.0 Static Site Implementation Plan — Caesar AI Regulation Watch
 
 **Prepared:** 19 May 2026  
-**Status:** Plan only — **no implementation in v0.3.3**  
+**Status:** v0.4.0 skeleton **implemented** (19 May 2026) — Control Tower page review pending  
 **Prerequisite:** v0.3.3 VerifyWise clean-room study complete; Control Tower approval to add `package.json`  
 **Architecture choice:** [NEXT_IMPLEMENTATION_ARCHITECTURE_OPTIONS.md](NEXT_IMPLEMENTATION_ARCHITECTURE_OPTIONS.md) — **Astro (Option A)**
 
@@ -23,8 +23,9 @@ caesar-ai-regulation-watch/
 ├── schemas/                       # unchanged
 ├── mappings/
 ├── exports/samples/
-├── site/                          # NEW — Astro project
-│   ├── package.json               # site-scoped deps only
+├── package.json                   # repo-root Astro deps (implemented)
+├── src/                           # Astro project (implemented)
+│   ├── package.json               # (was planned site-scoped; use repo root)
 │   ├── astro.config.mjs
 │   ├── tsconfig.json
 │   ├── public/
@@ -179,8 +180,8 @@ PR opened
 
 ## Definition of Done
 
-- [ ] Control Tower approves v0.4.0 scope and `site/package.json` dependencies
-- [ ] `site/` builds cleanly with `npm run build` producing `dist/`
+- [x] `package.json` with approved dependencies (astro, js-yaml, ajv)
+- [x] `npm run build` produces `dist/` (20 pages)
 - [ ] All P0 routes listed above render from `data/` without hardcoded record content
 - [ ] `npm run validate` passes for all `data/` and `exports/samples/` against schemas
 - [ ] Every law/guidance/source page has prominent external link to `official_url` or registered source URL

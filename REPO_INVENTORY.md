@@ -8,14 +8,14 @@
 
 | File | Role |
 |---|---|
-| **README.md** | Public entry; v0.3.3 status |
-| **SPEC.md** | Requirements through VerifyWise study |
-| **ARCHITECTURE.md** | Static data layers; v0.4.0 Astro plan |
-| **ROADMAP.md** | Phases through v0.3.3; v0.4.0 static site next |
+| **README.md** | Public entry; v0.4.0 status + npm commands |
+| **SPEC.md** | Requirements through static site |
+| **ARCHITECTURE.md** | Data layers + Astro publishing |
+| **ROADMAP.md** | v0.4.0 static site complete |
 | **CHANGELOG.md** | Semver history |
 | **REPO_INVENTORY.md** | This file |
-| **PROJECT_STATE.md** | v0.3.3 phase |
-| **NEXT_ACTIONS.md** | v0.4.0 approval + evidence alignment |
+| **PROJECT_STATE.md** | v0.4.0 phase |
+| **NEXT_ACTIONS.md** | Control Tower page review + v0.5 |
 
 ---
 
@@ -79,12 +79,23 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 
 ---
 
-## docs/ (v0.3.3 additions)
+## Frontend (v0.4.0)
+
+| Path | Role |
+|---|---|
+| **package.json** | astro, js-yaml, ajv |
+| **astro.config.mjs** | Static site config |
+| **src/pages/** | Generated routes (home, jurisdictions, sources, records, changes, exports) |
+| **src/components/** | Badges, cards, review banners |
+| **src/lib/data.ts** | YAML loaders (build time) |
+| **scripts/validate-data.mjs** | ajv CI validation |
+
+## docs/ (v0.3.3–v0.4.0)
 
 | File | Role |
 |---|---|
 | **docs/NEXT_IMPLEMENTATION_ARCHITECTURE_OPTIONS.md** | SSG option comparison; Astro recommended |
-| **docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md** | v0.4.0 static site plan (not implemented) |
+| **docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md** | v0.4.0 plan (skeleton delivered) |
 
 ## docs/
 

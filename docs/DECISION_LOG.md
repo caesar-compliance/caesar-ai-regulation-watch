@@ -127,3 +127,13 @@
 - **Official-source-first:** Unchanged — registry YAML remains primary truth.
 - **Rationale:** Accelerate v0.4 without license risk; learn enterprise governance patterns (evidence, review, frameworks) while building a simpler public static product than VerifyWise SaaS.
 - **Artifacts:** [research/VERIFYWISE_ARCHITECTURE_STUDY.md](../research/VERIFYWISE_ARCHITECTURE_STUDY.md), [research/CLEAN_ROOM_FEATURE_BACKLOG.md](../research/CLEAN_ROOM_FEATURE_BACKLOG.md).
+
+---
+
+## [DEC-015] — 19 May 2026 — Astro static site skeleton (v0.4.0)
+
+- **Status:** Approved (implementation complete; Control Tower page review pending)
+- **Decision:** Add minimal **Astro** static site at repo root reading `data/` at build time. Dependencies: `astro`, `js-yaml`, `ajv`, `ajv-formats`. No React, map, Pagefind, watchers, API, database, or auth in this release.
+- **Validation:** `npm run validate:data` must pass before `npm run build`.
+- **Rationale:** Delivers read-only product preview from approved YAML; clean-room implementation per DEC-014; official-source-first unchanged.
+- **Artifacts:** `src/`, `package.json`, `scripts/validate-data.mjs`, [docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md](V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md).

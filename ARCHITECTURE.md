@@ -1,7 +1,7 @@
 # Architecture — Caesar AI Regulation Watch
 
 **Last updated:** 19 May 2026  
-**Status:** v0.3.3 — static registry, samples, taxonomies, export contract, acceleration plan, and VerifyWise clean-room study; ingestion/UI not implemented; no third-party code imported
+**Status:** v0.4.0 — static registry, samples, taxonomies, export contract, and read-only Astro static site; watchers/API not implemented
 
 ---
 
@@ -121,7 +121,7 @@
                               [Site build | RSS | JSON | Evidence export]
 ```
 
-**v0.3.3 phase:** Layer A unchanged (static manual data). VerifyWise studied as architecture reference only ([research/VERIFYWISE_ARCHITECTURE_STUDY.md](research/VERIFYWISE_ARCHITECTURE_STUDY.md)); no code imported. **Recommended next build:** v0.4.0 Astro static site per [docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md](docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md). Planned stack: Astro, Leaflet (v0.5), Pagefind (v0.5), ajv — **not installed in v0.3.3**. Layers B–C (watchers) remain deferred until after v0.4.0 public site.
+**v0.4.0 phase:** Layer A (YAML) unchanged. **Layer F (publishing)** — Astro static site reads `data/` at build time → `dist/`. Validation via `scripts/validate-data.mjs` + ajv. No runtime API or remote fetch. VerifyWise studied reference-only; site is clean-room. **Deferred:** Leaflet (v0.5), Pagefind (v0.5), Layers B–C watchers (v0.6+).
 
 ---
 
@@ -141,10 +141,13 @@ caesar-ai-regulation-watch/
 ├── mappings/                # v0.3.0 sample control & evidence links
 ├── exports/samples/         # v0.3.1 export contract samples (no runtime export)
 ├── docs/                    # blueprint, policies, PILOT_SOURCE_REGISTRY
-├── research/                # acceleration audit + VerifyWise study (no vendored code)
-├── docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md  # v0.4.0 plan
-├── site/                    # v0.4.0: Astro static site (not created until implementation)
-└── (no package manager in v0.3.3; no watcher code)
+├── research/                # acceleration audit + VerifyWise study
+├── src/                     # v0.4.0 Astro pages, components, lib
+├── scripts/validate-data.mjs
+├── package.json             # astro, js-yaml, ajv
+├── astro.config.mjs
+├── dist/                    # build output (gitignored)
+└── (no watcher code)
 ```
 
 The registry and sample records form the **static data foundation**: human-curated YAML in git only. Change samples are **not** watcher output. Future ingestion layers read from `data/sources/` definitions but are **not implemented**.
