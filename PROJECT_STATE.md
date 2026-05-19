@@ -9,12 +9,12 @@
 | Field | Value |
 |---|---|
 | **Repository** | `caesar-ai-regulation-watch` |
-| **Current version** | `v0.8.5` |
-| **Current phase** | First public GitHub Pages pilot |
-| **Status** | v0.8.5: **live** at `https://caesar-compliance.github.io/caesar-ai-regulation-watch/` (manual `DEPLOY` gate; not auto-deployed on merge; not production launch) |
+| **Current version** | `v0.8.6` |
+| **Current phase** | First public GitHub Pages pilot + first content review batch |
+| **Status** | v0.8.5 pilot **live** at `https://caesar-compliance.github.io/caesar-ai-regulation-watch/`; v0.8.6 merges content review + candidate refresh (redeploy after merge) |
 | **Working branch** | `main` (after merge) |
-| **Latest completed task** | First public deploy + smoke tests + `docs/PUBLIC_DEPLOYMENT_BASELINE.md` |
-| **Next recommended step** | Human content review; optional redeploy after data/YAML updates; custom domain deferred |
+| **Latest completed task** | v0.8.6 first source/content review batch (9 items) + evidence candidate regeneration |
+| **Next recommended step** | Redeploy public site after merge; second review batch / EUR-Lex deep pass; custom domain deferred |
 
 ---
 

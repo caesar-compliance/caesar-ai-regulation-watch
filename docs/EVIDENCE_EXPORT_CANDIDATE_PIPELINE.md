@@ -108,6 +108,19 @@ Policy failures include `client_use_allowed: true`, missing `legal_safe_note`, c
 
 ---
 
+## v0.8.6 candidate counts (after first content review batch)
+
+| Status | Count |
+|---|---|
+| `ready_for_human_review` | 2 (manual sample changes) |
+| `blocked_simulation_only` | 3 |
+| `blocked_pending_content_review` | 0 |
+| `client_use_allowed: true` | **0** |
+
+Manual sample candidates clear local content-review gate only; they still require human export review and do not write to caesar-ai-evidence.
+
+---
+
 ## Human review workflow (Control Tower)
 
 1. Complete content review on priority records (`docs/CONTENT_REVIEW_WORKFLOW.md`).

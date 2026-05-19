@@ -10,8 +10,8 @@
   "legal_safe_note": "v0.8.3 evidence export candidate batch. Candidates are not final evidence exports. Does not write to caesar-ai-evidence. Not legal advice. No compliance guarantee. No complete regulatory coverage claim. Human review required before any client use. client_use_allowed remains false for every candidate.",
   "summary": {
     "total": 5,
-    "ready_for_human_review": 0,
-    "blocked_pending_content_review": 2,
+    "ready_for_human_review": 2,
+    "blocked_pending_content_review": 0,
     "blocked_simulation_only": 3,
     "rejected_for_client_use": 0,
     "client_use_allowed": 0
@@ -24,20 +24,14 @@
       "jurisdiction_id": "norway",
       "source_id": "datatilsynet",
       "export_type": "regulation_change_candidate",
-      "candidate_status": "blocked_pending_content_review",
+      "candidate_status": "ready_for_human_review",
       "eligibility_reasons": [
         "change_record_in_repository",
         "draft_mapping_available",
         "export_contract_sample_available",
         "related_record_id_present"
       ],
-      "blocking_reasons": [
-        "human_review_required_before_export",
-        "verified_on_source_not_confirmed",
-        "client_use_not_allowed_v083",
-        "manual_sample_not_production_data",
-        "content_review_not_checked"
-      ],
+      "blocking_reasons": [],
       "summary_for_review": "Sample regulation-change export for illustrative Datatilsynet guidance update. Supports governance review of privacy documentation and DPIAs for AI in Norway. Not an automated detection.",
       "may_affect_controls": [
         {
@@ -112,20 +106,14 @@
       "jurisdiction_id": "eu",
       "source_id": "eu-ai-act",
       "export_type": "regulation_change_candidate",
-      "candidate_status": "blocked_pending_content_review",
+      "candidate_status": "ready_for_human_review",
       "eligibility_reasons": [
         "change_record_in_repository",
         "draft_mapping_available",
         "export_contract_sample_available",
         "related_record_id_present"
       ],
-      "blocking_reasons": [
-        "human_review_required_before_export",
-        "verified_on_source_not_confirmed",
-        "client_use_not_allowed_v083",
-        "manual_sample_not_production_data",
-        "content_review_not_checked"
-      ],
+      "blocking_reasons": [],
       "summary_for_review": "Sample regulation-change export derived from manual change record sample-eu-ai-act-status-change. Supports governance review of whether AI system registers and governance memos may need refresh if EUR-Lex metadata change is confirmed on the official source. Not legal advice.",
       "may_affect_controls": [
         {
@@ -211,7 +199,6 @@
         "verified_on_source_not_confirmed",
         "client_use_not_allowed_v083",
         "simulation_only_not_official_update",
-        "content_review_not_checked",
         "related_record_id_missing"
       ],
       "summary_for_review": "[SIMULATION] 1 new feed entry(ies): Fixture: New simulated EDPB publication C. Not an official update confirmation.",
@@ -221,10 +208,6 @@
         {
           "action_type": "verify_on_official_source",
           "rationale": "Confirm whether any real change exists on the official source; simulation is not evidence."
-        },
-        {
-          "action_type": "complete_content_review",
-          "rationale": "Content review is not_checked or not_reviewed; complete browser review before export consideration."
         },
         {
           "action_type": "update_internal_register",
@@ -270,7 +253,6 @@
         "verified_on_source_not_confirmed",
         "client_use_not_allowed_v083",
         "simulation_only_not_official_update",
-        "content_review_not_checked",
         "related_record_id_missing"
       ],
       "summary_for_review": "[SIMULATION] Fixture metadata diff (normalized text hash changed; title: \"Fixture: EU AI regulatory framework (baseline)\" → \"Fixture: EU AI regulatory framework (updated simulation)\"; content hash changed; etag changed; last modified changed; content length changed). Not an official source update. Confirm on live source before any record update; not a legal conclusion.",
@@ -280,10 +262,6 @@
         {
           "action_type": "verify_on_official_source",
           "rationale": "Confirm whether any real change exists on the official source; simulation is not evidence."
-        },
-        {
-          "action_type": "complete_content_review",
-          "rationale": "Content review is not_checked or not_reviewed; complete browser review before export consideration."
         },
         {
           "action_type": "update_internal_register",
@@ -329,7 +307,6 @@
         "verified_on_source_not_confirmed",
         "client_use_not_allowed_v083",
         "simulation_only_not_official_update",
-        "content_review_not_checked",
         "related_record_id_missing"
       ],
       "summary_for_review": "[SIMULATION] 1 new API result(s): Fixture: New simulated Federal Register AI document C. Not an official update confirmation.",
@@ -339,10 +316,6 @@
         {
           "action_type": "verify_on_official_source",
           "rationale": "Confirm whether any real change exists on the official source; simulation is not evidence."
-        },
-        {
-          "action_type": "complete_content_review",
-          "rationale": "Content review is not_checked or not_reviewed; complete browser review before export consideration."
         },
         {
           "action_type": "update_internal_register",

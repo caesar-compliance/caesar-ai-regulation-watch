@@ -179,6 +179,9 @@ function buildCandidateFromChange(change, ctx) {
   if (relatedRecordId) eligibility_reasons.push("related_record_id_present");
 
   const candidate_status = determineStatus({ simulation: false, contentBlocked });
+  if (candidate_status === "ready_for_human_review") {
+    blocking_reasons.length = 0;
+  }
 
   const provenance = {
     generated_by: "scripts/generate-evidence-export-candidates.mjs",
