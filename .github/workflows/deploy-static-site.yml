@@ -1,6 +1,7 @@
-# Manual GitHub Pages deploy — pilot static site (v0.8.4)
-# Does NOT run on push. Does NOT use secrets. Does NOT configure custom domain.
-# Requires: Repository Settings → Pages → Build and deployment → GitHub Actions.
+# Manual GitHub Pages deploy — custom domain (v0.9.0+)
+# Does NOT run on push. Does NOT use secrets.
+# Requires: Repository Settings → Pages → custom domain regulation-watch.caesar.no
+#           Build and deployment → GitHub Actions.
 
 name: Deploy static site
 
@@ -50,16 +51,15 @@ jobs:
 
       - name: Generate static exports
         run: npm run generate:exports
-
-      - name: Build site for GitHub Pages
         env:
-          ASTRO_BASE_PATH: /caesar-ai-regulation-watch/
-          ASTRO_SITE: https://caesar-compliance.github.io
-        run: npm run build:pages
+          ASTRO_SITE: https://regulation-watch.caesar.no
+
+      - name: Build site for custom domain
+        env:
+          ASTRO_SITE: https://regulation-watch.caesar.no
+        run: npm run build:custom-domain
 
       - name: Verify dist output
-        env:
-          ASTRO_BASE_PATH: /caesar-ai-regulation-watch/
         run: npm run verify:dist
 
       - name: Configure GitHub Pages

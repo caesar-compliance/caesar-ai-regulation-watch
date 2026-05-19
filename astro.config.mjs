@@ -2,13 +2,12 @@ import { defineConfig } from "astro/config";
 
 /**
  * Default: local dev + merge-gate CI (site root at /).
- * GitHub Pages project site: set in deploy workflow only:
- *   ASTRO_BASE_PATH=/caesar-ai-regulation-watch/
- *   ASTRO_SITE=https://caesar-compliance.github.io
- * Custom domain (regulations.caesar.no) is deferred — no DNS in v0.8.4.
+ * Custom domain (production): ASTRO_SITE=https://regulation-watch.caesar.no
+ * Legacy GitHub Pages project path: ASTRO_BASE_PATH=/caesar-ai-regulation-watch/
+ *   ASTRO_SITE=https://caesar-compliance.github.io (build:pages only)
  */
 const basePath = process.env.ASTRO_BASE_PATH?.replace(/\/?$/, "/") || undefined;
-const site = process.env.ASTRO_SITE || "https://regulations.caesar.no";
+const site = process.env.ASTRO_SITE || "https://regulation-watch.caesar.no";
 
 export default defineConfig({
   site,
