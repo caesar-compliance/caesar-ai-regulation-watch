@@ -11,6 +11,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.3.0] - 19 May 2026
+
+### Added
+
+- Added manual sample law, guidance, change, and mapping records.
+- `data/laws/eu-ai-act.yml`; `data/guidance/` (EU AI Office GPAI, Datatilsynet); `data/changes/` (two manual samples).
+- `mappings/change-to-controls.sample.yml`, `mappings/change-to-evidence.sample.yml`.
+- Schemas: `law`, `guidance`, `change`, `change-control-mapping`, `change-evidence-mapping`.
+- [docs/SAMPLE_RECORDS_GUIDE.md](docs/SAMPLE_RECORDS_GUIDE.md).
+
+### Changed
+
+- README, SPEC, ARCHITECTURE, ROADMAP, PROJECT_STATE, NEXT_ACTIONS, REPO_INVENTORY, DECISION_LOG updated for v0.3.0.
+
+### Notes
+
+- Change records are fictionalised manual samples, not watcher output. All entries default to `pending_review`.
+
+---
+
 ### Changed (v0.2.0 cleanup — 19 May 2026)
 
 - Aligned README, SPEC, ARCHITECTURE, ROADMAP, PROJECT_STATE, and NEXT_ACTIONS on v0.2.0 static-registry state (removed “in progress” / blueprint-only wording where contradictory).

@@ -3,7 +3,7 @@
 **Global AI regulation monitoring for governance teams** — part of the [Caesar AI Governance Hub](https://github.com/caesar-compliance/caesar-ai-governance-hub) ecosystem.
 
 **Last updated:** 19 May 2026  
-**Status:** v0.2.0 — static EU/Norway pilot registry (data foundation only; no watchers, UI, APIs, or automated monitoring)
+**Status:** v0.3.0 — static registry plus manual sample law/guidance/change records (no watchers, UI, APIs, or automated monitoring)
 
 ---
 
@@ -116,6 +116,15 @@ Curated **EU and Norway** official source registry (not complete legal coverage)
 - `data/sources/` — seven pilot official sources
 - `schemas/` — JSON Schema for jurisdiction and source records
 
+## Sample records (v0.3.0)
+
+Manual **law, guidance, change, and mapping** samples for data-model testing only:
+
+- [docs/SAMPLE_RECORDS_GUIDE.md](docs/SAMPLE_RECORDS_GUIDE.md) — index and field reference
+- `data/laws/`, `data/guidance/`, `data/changes/`
+- `mappings/` — control and evidence mapping samples
+- `schemas/law.schema.json`, `guidance.schema.json`, `change.schema.json`, and mapping schemas
+
 ---
 
 ## Documentation map
@@ -123,6 +132,7 @@ Curated **EU and Norway** official source registry (not complete legal coverage)
 | Document | Purpose |
 |---|---|
 | [docs/PILOT_SOURCE_REGISTRY.md](docs/PILOT_SOURCE_REGISTRY.md) | Pilot EU/Norway registry guide |
+| [docs/SAMPLE_RECORDS_GUIDE.md](docs/SAMPLE_RECORDS_GUIDE.md) | Manual sample law/guidance/change records |
 | [docs/FULL_SCALE_PRODUCT_BLUEPRINT.md](docs/FULL_SCALE_PRODUCT_BLUEPRINT.md) | End-to-end product blueprint |
 | [SPEC.md](SPEC.md) | Requirements, scope, inputs/outputs |
 | [ARCHITECTURE.md](ARCHITECTURE.md) | Layers, data flow, integrations |
@@ -145,6 +155,6 @@ Curated **EU and Norway** official source registry (not complete legal coverage)
 
 ## Project status
 
-**v0.2.0** static pilot registry for EU and Norway is in place (19 May 2026). No automated monitoring yet. Control Tower registry review is the gate before v0.3 sample data.
+**v0.3.0** adds manual sample law, guidance, change, and mapping records (19 May 2026). v0.2.0 source registry is approved. No automated monitoring or UI yet.
 
 See [PROJECT_STATE.md](PROJECT_STATE.md) and [NEXT_ACTIONS.md](NEXT_ACTIONS.md).

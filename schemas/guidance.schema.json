@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caesar.no/schemas/caesar-ai-regulation-watch/guidance.schema.json",
+  "title": "Caesar AI Regulation Watch — Guidance record (sample)",
+  "description": "Manual sample guidance record for data-model testing. Not legal advice.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_id",
+    "record_type",
+    "title",
+    "jurisdiction_id",
+    "source_id",
+    "guidance_status",
+    "official_url",
+    "summary_for_review",
+    "affected_topics",
+    "review_status",
+    "legal_safe_note"
+  ],
+  "properties": {
+    "record_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "record_type": {
+      "type": "string",
+      "const": "guidance"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "jurisdiction_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "source_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "guidance_status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "adopted",
+        "in_force",
+        "guidance",
+        "voluntary",
+        "withdrawn",
+        "monitoring"
+      ]
+    },
+    "official_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "summary_for_review": {
+      "type": "string",
+      "minLength": 1
+    },
+    "affected_topics": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "review_status": {
+      "type": "string",
+      "enum": ["pending_review", "reviewed", "archived"]
+    },
+    "legal_safe_note": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

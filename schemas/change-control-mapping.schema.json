@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caesar.no/schemas/caesar-ai-regulation-watch/change-control-mapping.schema.json",
+  "title": "Caesar AI Regulation Watch — Change to controls mapping (sample)",
+  "description": "Manual sample mapping from a change record to governance controls. Not legal advice.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "mapping_id",
+    "change_id",
+    "may_affect_controls",
+    "suggested_control_review",
+    "human_review_required",
+    "legal_safe_note"
+  ],
+  "properties": {
+    "mapping_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "change_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "may_affect_controls": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["control_ref", "rationale"],
+        "properties": {
+          "control_ref": { "type": "string", "minLength": 1 },
+          "rationale": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "suggested_control_review": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["control_ref", "rationale"],
+        "properties": {
+          "control_ref": { "type": "string", "minLength": 1 },
+          "rationale": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "human_review_required": {
+      "type": "boolean"
+    },
+    "legal_safe_note": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

@@ -10,30 +10,45 @@ Living registry of tracked files and their roles.
 
 | File | Role |
 |---|---|
-| **README.md** | Public entry: vision, pilot registry link, doc map |
-| **SPEC.md** | Requirements; v0.2.0 pilot data paths |
-| **ARCHITECTURE.md** | Layers; static registry as data foundation |
-| **ROADMAP.md** | Phases; v0.2.0 marked complete (pending review) |
+| **README.md** | Public entry; v0.3.0 status; registry and sample record links |
+| **SPEC.md** | Requirements; v0.2.0 registry + v0.3.0 samples |
+| **ARCHITECTURE.md** | Static data layers; sample records as manual YAML |
+| **ROADMAP.md** | Phases through v0.3.0 sample records |
 | **CHANGELOG.md** | Semver history |
 | **REPO_INVENTORY.md** | This file |
-| **PROJECT_STATE.md** | Phase v0.2.0, registry counts |
-| **NEXT_ACTIONS.md** | Control Tower review → v0.3 |
+| **PROJECT_STATE.md** | v0.3.0 phase and data counts |
+| **NEXT_ACTIONS.md** | Control Tower sample review priorities |
 
 ---
 
-## data/ (v0.2.0 pilot)
+## data/
+
+### jurisdictions/ & sources/ (v0.2.0)
 
 | File | Role |
 |---|---|
-| **data/jurisdictions/eu.yml** | EU supranational jurisdiction profile |
-| **data/jurisdictions/norway.yml** | Norway jurisdiction profile (`related_frameworks`: eu, eea) |
-| **data/sources/eu-ai-act.yml** | EUR-Lex AI Act instrument entry |
-| **data/sources/eu-ai-office.yml** | Commission AI Office / framework pages |
-| **data/sources/eur-lex.yml** | EUR-Lex portal monitoring entry point |
-| **data/sources/edpb.yml** | European Data Protection Board |
-| **data/sources/edps.yml** | European Data Protection Supervisor |
-| **data/sources/norway-ai-act-implementation.yml** | regjeringen.no AI / implementation pages |
-| **data/sources/datatilsynet.yml** | Datatilsynet (Norwegian DPA) |
+| **data/jurisdictions/eu.yml** | EU jurisdiction profile |
+| **data/jurisdictions/norway.yml** | Norway (`related_frameworks`: eu, eea) |
+| **data/sources/*.yml** | Seven pilot official sources |
+
+### laws/, guidance/, changes/ (v0.3.0 samples)
+
+| File | Role |
+|---|---|
+| **data/laws/eu-ai-act.yml** | Manual sample EU AI Act law record |
+| **data/guidance/eu-ai-office-general-purpose-ai.yml** | Manual sample EU AI Office GPAI guidance pointer |
+| **data/guidance/datatilsynet-ai-privacy.yml** | Manual sample Datatilsynet AI/privacy guidance pointer |
+| **data/changes/sample-eu-ai-act-status-change.yml** | Manual sample EUR-Lex metadata change (illustrative) |
+| **data/changes/sample-datatilsynet-guidance-change.yml** | Manual sample Datatilsynet guidance change (illustrative) |
+
+---
+
+## mappings/ (v0.3.0 samples)
+
+| File | Role |
+|---|---|
+| **mappings/change-to-controls.sample.yml** | Sample `may_affect_controls` / `suggested_control_review` mappings |
+| **mappings/change-to-evidence.sample.yml** | Sample `may_affect_evidence` / `suggested_evidence_review` mappings |
 
 ---
 
@@ -41,8 +56,13 @@ Living registry of tracked files and their roles.
 
 | File | Role |
 |---|---|
-| **schemas/jurisdiction.schema.json** | JSON Schema for jurisdiction YAML (`parent_jurisdiction`, `related_frameworks`) |
-| **schemas/source.schema.json** | JSON Schema for source YAML |
+| **schemas/jurisdiction.schema.json** | Jurisdiction YAML |
+| **schemas/source.schema.json** | Source YAML |
+| **schemas/law.schema.json** | Law sample records |
+| **schemas/guidance.schema.json** | Guidance sample records |
+| **schemas/change.schema.json** | Change sample records |
+| **schemas/change-control-mapping.schema.json** | Per-item control mapping |
+| **schemas/change-evidence-mapping.schema.json** | Per-item evidence mapping |
 
 ---
 
@@ -50,12 +70,13 @@ Living registry of tracked files and their roles.
 
 | File | Role |
 |---|---|
-| **docs/PILOT_SOURCE_REGISTRY.md** | Pilot registry guide, gaps, review workflow |
+| **docs/PILOT_SOURCE_REGISTRY.md** | v0.2.0 EU/Norway source registry guide |
+| **docs/SAMPLE_RECORDS_GUIDE.md** | v0.3.0 sample records guide |
 | **docs/FULL_SCALE_PRODUCT_BLUEPRINT.md** | Master product blueprint |
 | **docs/COMPETITOR_BENCHMARKS.md** | Benchmark study notes |
 | **docs/DATA_MODEL_DRAFT.md** | Full entity model draft |
 | **docs/UI_UX_VISION.md** | Public site UX direction |
-| **docs/DECISION_LOG.md** | Decisions DEC-001–009 |
+| **docs/DECISION_LOG.md** | Decisions DEC-001–011 |
 | **docs/RESEARCH_CONTEXT.md** | Domain research (preserve) |
 
 ---
@@ -72,18 +93,13 @@ Living registry of tracked files and their roles.
 
 | Path | Role |
 |---|---|
-| `data/laws/` | Law/instrument records (v0.3) |
-| `data/guidance/` | Guidance records (v0.3) |
-| `data/changes/` | Change records (v0.3) |
-| `data/timelines/` | Timeline events (v0.3) |
-| `mappings/controls/` | Control links |
-| `mappings/evidence/` | Evidence suggestions |
+| `data/timelines/` | Timeline events |
 | `site/` | Static site source |
 
 ---
 
 ## Update guidelines
 
-1. Add new registry files to the tables above.
-2. Bump [CHANGELOG.md](CHANGELOG.md) on registry changes.
-3. Keep `review_status` accurate after Control Tower review.
+1. Register new `data/` or `mappings/` files in this inventory.
+2. Bump [CHANGELOG.md](CHANGELOG.md) on substantive data changes.
+3. Keep manual vs automated origin clear in change records.

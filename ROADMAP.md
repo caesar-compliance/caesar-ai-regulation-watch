@@ -4,14 +4,14 @@
 
 This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
 
-**Current (v0.2.0):** static EU/Norway pilot registry only — no watchers, UI, APIs, or automated monitoring. **Next:** Control Tower registry review, then v0.3 curated sample data.
+**Current (v0.3.0):** static registry plus manual sample law/guidance/change/mapping records — no watchers, UI, APIs, or automated monitoring. **Next:** Control Tower sample review; evidence schema alignment; optional static site skeleton.
 
 ---
 
 ## Phase overview
 
 ```text
-v0.1 Foundation ──> v0.2.0 Pilot registry ──> v0.3 Pilot data ──> v0.4 Watchers ──> v0.5 Public site & feeds ──> v1.0 Pilot release
+v0.1 Foundation ──> v0.2.0 Pilot registry ──> v0.3.0 Sample records ──> v0.4 Watchers ──> v0.4 Watchers ──> v0.5 Public site & feeds ──> v1.0 Pilot release
 ```
 
 ---
@@ -53,21 +53,35 @@ v0.1 Foundation ──> v0.2.0 Pilot registry ──> v0.3 Pilot data ──> v0
 
 ---
 
-## v0.3 — Pilot curated data & static skeleton
+## v0.3.0 — Sample records (data-model validation)
 
-**Status:** Planned
+**Status:** Complete on branch `agent/v0.3.0-sample-regulation-records` (19 May 2026) — pending Control Tower content review
 
-**Goal:** Manually curated sample content proving the model.
+**Goal:** Manual sample law, guidance, change, and mapping YAML proving the entity model **without** watchers or UI.
 
 **Deliverables:**
 
-- Sample law/guidance records for EU AI Act cluster and Norway
-- Sample change records with affected controls/evidence
-- Timeline files for pilot jurisdictions
-- Static site skeleton (globe placeholder + jurisdiction page template)
-- No automated fetching
+- [x] `data/laws/eu-ai-act.yml`
+- [x] `data/guidance/` — EU AI Office GPAI, Datatilsynet AI/privacy samples
+- [x] `data/changes/` — two manual change samples
+- [x] `mappings/` — control and evidence mapping samples
+- [x] JSON Schemas for law, guidance, change, mappings
+- [x] [docs/SAMPLE_RECORDS_GUIDE.md](docs/SAMPLE_RECORDS_GUIDE.md)
+- [ ] Control Tower review of sample content and placeholder control/evidence refs
+- [ ] Timeline files (optional follow-up)
+- [ ] Static site skeleton (deferred — separate approval)
 
-**Exit criteria:** Static pages render from data; every page has source links and disclaimers.
+**Exit criteria:** Schemas validate sample YAML; hub/evidence taxonomy alignment documented.
+
+---
+
+## v0.3.1 — Static site skeleton (optional)
+
+**Status:** Planned
+
+**Goal:** Read-only static pages from `data/` (no automated fetching).
+
+**Deliverables:** Jurisdiction and record listing templates; source links and disclaimers on every page.
 
 ---
 

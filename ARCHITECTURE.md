@@ -1,7 +1,7 @@
 # Architecture — Caesar AI Regulation Watch
 
 **Last updated:** 19 May 2026  
-**Status:** v0.2.0 — static registry data foundation documented; ingestion/UI not implemented
+**Status:** v0.3.0 — static registry plus manual sample records; ingestion/UI not implemented
 
 ---
 
@@ -121,7 +121,7 @@
                               [Site build | RSS | JSON | Evidence export]
 ```
 
-**v0.2.0 phase:** Layer A populated with static YAML registry (EU/Norway pilot). Layers B–C (watchers) remain deferred.
+**v0.3.0 phase:** Layer A includes registry plus manual law/guidance/change YAML and mapping samples (static only). Layers B–C (watchers) remain deferred.
 
 ---
 
@@ -132,18 +132,18 @@ caesar-ai-regulation-watch/
 ├── data/                    # curated YAML registry (v0.2.0+)
 │   ├── jurisdictions/       # eu.yml, norway.yml
 │   ├── sources/             # seven pilot official sources
-│   ├── laws/                # planned v0.3
-│   ├── guidance/            # planned v0.3
-│   ├── changes/             # planned v0.3
-│   └── timelines/           # planned v0.3
-├── schemas/                 # JSON Schema (jurisdiction, source)
-├── mappings/                # future: control & evidence links
+│   ├── laws/                # v0.3.0 sample (eu-ai-act.yml)
+│   ├── guidance/            # v0.3.0 samples
+│   ├── changes/             # v0.3.0 manual change samples
+│   └── timelines/           # planned
+├── schemas/                 # jurisdiction, source, law, guidance, change, mappings
+├── mappings/                # v0.3.0 sample control & evidence links
 ├── docs/                    # blueprint, PILOT_SOURCE_REGISTRY
 ├── site/                    # future: static site source
 └── (no package manager; no watcher code)
 ```
 
-The registry is the **static data foundation**: human-curated files versioned in git. Future ingestion layers read from `data/sources/` definitions but are **not implemented** in v0.2.0.
+The registry and sample records form the **static data foundation**: human-curated YAML in git only. Change samples are **not** watcher output. Future ingestion layers read from `data/sources/` definitions but are **not implemented**.
 
 ---
 

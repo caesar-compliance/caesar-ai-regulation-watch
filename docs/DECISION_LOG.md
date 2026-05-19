@@ -87,3 +87,12 @@
 - **Decision:** Norway is **not** modelled with `parent_jurisdiction: eu`. Use `parent_jurisdiction: null` and `related_frameworks: [eu, eea]` to document EEA/EØS monitoring context without implying EU membership.
 - **Schema:** Optional `related_frameworks` array added to `schemas/jurisdiction.schema.json`.
 - **Rationale:** Avoid misleading jurisdiction hierarchy; preserve legal-safe wording (Norway is not part of the EU).
+
+---
+
+## [DEC-011] — 19 May 2026 — Manual sample records before automated watchers
+
+- **Status:** Approved (data committed; content pending Control Tower review)
+- **Decision:** v0.3.0 adds **manual sample** law, guidance, and change YAML plus control/evidence mapping files to validate the data model **before** any watcher, UI, or API implementation. Change samples are explicitly **not** automated detections.
+- **Taxonomy:** Pilot `ctrl_*` and `ev_*` refs are placeholders until aligned with hub standards and `caesar-ai-evidence`.
+- **Rationale:** Reduces risk of building ingestion/UI on an unproven schema; supports governance-review wording (`may_affect`, `suggested_*_review`, `human_review_required`).

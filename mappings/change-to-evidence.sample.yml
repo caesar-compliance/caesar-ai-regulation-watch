@@ -1,0 +1,48 @@
+# Manual sample mappings — for data-model testing only
+# Last curated: 19 May 2026
+
+mappings:
+  - mapping_id: map-ev-sample-eu-ai-act-status
+    change_id: sample-eu-ai-act-status-change
+    may_affect_evidence:
+      - evidence_ref: ev_ai_system_register
+        rationale: >
+          May affect whether system register entries citing EU AI Act status need updating.
+      - evidence_ref: ev_governance_memo
+        rationale: >
+          May affect high-level governance memos referencing EU legal timelines.
+    suggested_evidence_review:
+      - evidence_ref: ev_ai_system_register
+        suggested_action: review
+        rationale: >
+          Suggested evidence review if official source confirms a relevant status or timeline change.
+      - evidence_ref: ev_compliance_calendar
+        suggested_action: update
+        rationale: >
+          Suggested update to internal tracking dates only after verification on EUR-Lex.
+    human_review_required: true
+    legal_safe_note: >
+      Manual sample mapping for data-model testing only. May affect evidence; does not
+      require specific document changes without human review.
+
+  - mapping_id: map-ev-sample-datatilsynet-guidance
+    change_id: sample-datatilsynet-guidance-change
+    may_affect_evidence:
+      - evidence_ref: ev_dpia
+        rationale: >
+          Guidance updates on AI may affect DPIA content for Norwegian personal-data processing.
+      - evidence_ref: ev_privacy_notice
+        rationale: >
+          May affect privacy notices describing automated decision-making or AI features.
+    suggested_evidence_review:
+      - evidence_ref: ev_dpia
+        suggested_action: review
+        rationale: >
+          Suggested review of DPIA records if Datatilsynet publishes substantive new guidance.
+      - evidence_ref: ev_transparency_documentation
+        suggested_action: update
+        rationale: >
+          Suggested update only after confirming official guidance content and applicability.
+    human_review_required: true
+    legal_safe_note: >
+      Manual sample mapping for data-model testing only. Requires human review before client use.

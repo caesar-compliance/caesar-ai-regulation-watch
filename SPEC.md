@@ -1,7 +1,7 @@
 # Specification — Caesar AI Regulation Watch
 
 **Last updated:** 19 May 2026  
-**Status:** v0.2.0 — full-scale spec plus static EU/Norway pilot registry (no watchers or UI)
+**Status:** v0.3.0 — full-scale spec, static registry, and manual sample records (no watchers or UI)
 
 ---
 
@@ -157,20 +157,34 @@ Static YAML only: no crawlers, watchers, APIs, schedulers, or automated monitori
 
 ---
 
-## 7. MVP scope (next implementation phases)
+## 7. Sample records (v0.3.0 — delivered)
 
-First implementation MVP after registry review:
+Manual sample data for data-model testing (not watcher output):
 
-1. ~~**Source registry** (YAML) for pilot jurisdictions.~~ **Done (v0.2.0 pilot).**
-2. **Regulatory change schema** aligned with evidence format draft.
-3. **Sample change records** (manually curated).
-4. **Timeline file** per pilot jurisdiction.
-5. **Affected controls / evidence mapping** samples.
-6. **Static site skeleton** (no watcher automation required for MVP).
+| Path | Contents |
+|---|---|
+| `data/laws/eu-ai-act.yml` | Sample EU AI Act law record |
+| `data/guidance/*.yml` | EU AI Office GPAI pointer; Datatilsynet AI/privacy pointer |
+| `data/changes/*.yml` | Two illustrative change records |
+| `mappings/*.sample.yml` | Control and evidence mapping samples |
+| `schemas/law.schema.json`, etc. | Validation for sample entity types |
+| [docs/SAMPLE_RECORDS_GUIDE.md](docs/SAMPLE_RECORDS_GUIDE.md) | Guide and review workflow |
+
+All samples use `review_status: pending_review` unless Control Tower updates them.
 
 ---
 
-## 8. Future scope (post-MVP)
+## 8. MVP scope (next implementation phases)
+
+1. ~~**Source registry** (YAML) for pilot jurisdictions.~~ **Done (v0.2.0).**
+2. ~~**Sample law/guidance/change records** and mapping samples.~~ **Done (v0.3.0 manual).**
+3. **Regulatory change schema** alignment with `caesar-ai-evidence` export shape.
+4. **Timeline file** per pilot jurisdiction.
+5. **Static site skeleton** reading `data/` (no watcher automation).
+
+---
+
+## 9. Future scope (post-MVP)
 
 - Automated fetchers for RSS/HTML pilot sources.
 - Diff engine and snapshot store.
@@ -181,7 +195,7 @@ First implementation MVP after registry review:
 
 ---
 
-## 9. Non-goals
+## 10. Non-goals
 
 | Non-goal | Reason |
 |---|---|
@@ -195,7 +209,7 @@ First implementation MVP after registry review:
 
 ---
 
-## 10. Inputs and outputs
+## 11. Inputs and outputs
 
 ### Inputs
 
@@ -216,7 +230,7 @@ First implementation MVP after registry review:
 
 ---
 
-## 11. Quality and legal-safe language
+## 12. Quality and legal-safe language
 
 All user-facing text must:
 
@@ -227,7 +241,7 @@ All user-facing text must:
 
 ---
 
-## 12. Hub alignment
+## 13. Hub alignment
 
 | Hub document | Relevance |
 |---|---|
@@ -239,11 +253,12 @@ All user-facing text must:
 
 ---
 
-## 13. Related repository docs
+## 14. Related repository docs
 
 - [docs/FULL_SCALE_PRODUCT_BLUEPRINT.md](docs/FULL_SCALE_PRODUCT_BLUEPRINT.md)
 - [docs/COMPETITOR_BENCHMARKS.md](docs/COMPETITOR_BENCHMARKS.md)
 - [docs/DATA_MODEL_DRAFT.md](docs/DATA_MODEL_DRAFT.md)
 - [docs/UI_UX_VISION.md](docs/UI_UX_VISION.md)
 - [ARCHITECTURE.md](ARCHITECTURE.md)
+- [docs/SAMPLE_RECORDS_GUIDE.md](docs/SAMPLE_RECORDS_GUIDE.md)
 - [ROADMAP.md](ROADMAP.md)
