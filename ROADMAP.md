@@ -4,14 +4,14 @@
 
 This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
 
-**Current (v0.3.0):** static registry plus manual sample law/guidance/change/mapping records — no watchers, UI, APIs, or automated monitoring. **Next:** Control Tower sample review; evidence schema alignment; optional static site skeleton.
+**Current (v0.3.1):** taxonomies, review workflow, and evidence-export contract — still no watchers, UI, APIs, or automated monitoring. **Next:** Cross-repo alignment with `caesar-ai-evidence`; optional static site skeleton.
 
 ---
 
 ## Phase overview
 
 ```text
-v0.1 Foundation ──> v0.2.0 Pilot registry ──> v0.3.0 Sample records ──> v0.4 Watchers ──> v0.4 Watchers ──> v0.5 Public site & feeds ──> v1.0 Pilot release
+v0.1 Foundation ──> v0.2.0 Registry ──> v0.3.0 Samples ──> v0.3.1 Taxonomy/export ──> v0.4 Watchers ──> v0.4 Watchers ──> v0.5 Public site & feeds ──> v1.0 Pilot release
 ```
 
 ---
@@ -75,7 +75,26 @@ v0.1 Foundation ──> v0.2.0 Pilot registry ──> v0.3.0 Sample records ─�
 
 ---
 
-## v0.3.1 — Static site skeleton (optional)
+## v0.3.1 — Taxonomy, review workflow, and export contract
+
+**Status:** Complete on branch `agent/v0.3.1-taxonomy-export-contract` (19 May 2026)
+
+**Goal:** Stabilise allowed values, review states, draft control/evidence refs, and export record shape before watchers or UI.
+
+**Deliverables:**
+
+- [x] `data/taxonomies/` (8 taxonomy files)
+- [x] `schemas/taxonomy.schema.json`, `schemas/evidence-export-record.schema.json`
+- [x] `exports/samples/regulation-change-export.sample.yml`
+- [x] [docs/TAXONOMY_AND_REVIEW_WORKFLOW.md](docs/TAXONOMY_AND_REVIEW_WORKFLOW.md), [docs/EVIDENCE_EXPORT_CONTRACT.md](docs/EVIDENCE_EXPORT_CONTRACT.md)
+- [x] Updated mappings with `regulation_watch.control.*` / `regulation_watch.evidence.*` draft refs
+- [ ] Cross-repo confirmation with `caesar-ai-evidence` regulation-change schema
+
+**Exit criteria:** Taxonomies and export samples validate; Control Tower accepts draft ref convention.
+
+---
+
+## v0.3.2 — Static site skeleton (optional)
 
 **Status:** Planned
 

@@ -1,7 +1,7 @@
 # Architecture — Caesar AI Regulation Watch
 
 **Last updated:** 19 May 2026  
-**Status:** v0.3.0 — static registry plus manual sample records; ingestion/UI not implemented
+**Status:** v0.3.1 — static registry, samples, taxonomies, and export contract; ingestion/UI not implemented
 
 ---
 
@@ -121,7 +121,7 @@
                               [Site build | RSS | JSON | Evidence export]
 ```
 
-**v0.3.0 phase:** Layer A includes registry plus manual law/guidance/change YAML and mapping samples (static only). Layers B–C (watchers) remain deferred.
+**v0.3.1 phase:** Layer A adds `data/taxonomies/`, export contract schema, and sample export YAML. All data remains **static and manual** — no watcher pipeline. Layers B–C remain deferred.
 
 ---
 
@@ -136,8 +136,10 @@ caesar-ai-regulation-watch/
 │   ├── guidance/            # v0.3.0 samples
 │   ├── changes/             # v0.3.0 manual change samples
 │   └── timelines/           # planned
-├── schemas/                 # jurisdiction, source, law, guidance, change, mappings
+├── schemas/                 # entity + taxonomy + evidence-export-record
+├── data/taxonomies/         # v0.3.1 canonical values
 ├── mappings/                # v0.3.0 sample control & evidence links
+├── exports/samples/         # v0.3.1 export contract samples (no runtime export)
 ├── docs/                    # blueprint, PILOT_SOURCE_REGISTRY
 ├── site/                    # future: static site source
 └── (no package manager; no watcher code)

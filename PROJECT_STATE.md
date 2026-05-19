@@ -9,14 +9,12 @@
 | Field | Value |
 |---|---|
 | **Repository** | `caesar-ai-regulation-watch` |
-| **Product name** | Caesar AI Regulation Watch |
-| **Current version** | `v0.3.0` |
-| **Current phase** | Sample law / guidance / change records (data-model validation) |
-| **Status** | Static manual data only — no watchers, UI, APIs, or automated monitoring |
-| **Working branch** | `agent/v0.3.0-sample-regulation-records` |
-| **Latest completed task** | Added manual sample law, guidance, change, and mapping records |
-| **Active work item** | Control Tower review of sample record content |
-| **Next recommended step** | Align control/evidence refs with hub taxonomy; approve static site skeleton or v0.4 watchers |
+| **Current version** | `v0.3.1` |
+| **Current phase** | Taxonomy, review workflow, and evidence-export contract foundation |
+| **Status** | Static manual data only — no watchers, UI, APIs, databases, or automated monitoring |
+| **Working branch** | `agent/v0.3.1-taxonomy-export-contract` |
+| **Latest completed task** | Defined regulation taxonomy and export contract |
+| **Next recommended step** | Cross-repo alignment with `caesar-ai-evidence`; approve static site or v0.4 watchers |
 
 ---
 
@@ -24,13 +22,11 @@
 
 | Layer | Count | Guide |
 |---|---|---|
-| Jurisdictions | 2 | [PILOT_SOURCE_REGISTRY.md](docs/PILOT_SOURCE_REGISTRY.md) |
-| Sources | 7 | [PILOT_SOURCE_REGISTRY.md](docs/PILOT_SOURCE_REGISTRY.md) |
-| Laws | 1 sample | [SAMPLE_RECORDS_GUIDE.md](docs/SAMPLE_RECORDS_GUIDE.md) |
-| Guidance | 2 samples | [SAMPLE_RECORDS_GUIDE.md](docs/SAMPLE_RECORDS_GUIDE.md) |
-| Changes | 2 manual samples | [SAMPLE_RECORDS_GUIDE.md](docs/SAMPLE_RECORDS_GUIDE.md) |
-| Mappings | 2 files (4 entries) | [SAMPLE_RECORDS_GUIDE.md](docs/SAMPLE_RECORDS_GUIDE.md) |
-| Schemas | 7 JSON Schema files | `schemas/` |
+| Jurisdictions / sources | 2 / 7 | [PILOT_SOURCE_REGISTRY.md](docs/PILOT_SOURCE_REGISTRY.md) |
+| Law / guidance / change samples | 1 / 2 / 2 | [SAMPLE_RECORDS_GUIDE.md](docs/SAMPLE_RECORDS_GUIDE.md) |
+| Taxonomies | 8 files | [TAXONOMY_AND_REVIEW_WORKFLOW.md](docs/TAXONOMY_AND_REVIEW_WORKFLOW.md) |
+| Export samples | 2 records | [EVIDENCE_EXPORT_CONTRACT.md](docs/EVIDENCE_EXPORT_CONTRACT.md) |
+| Schemas | 9 JSON Schema files | `schemas/` |
 
 ---
 
@@ -39,29 +35,22 @@
 | Phase | Status |
 |---|---|
 | v0.1 Foundation & blueprint | **Complete** |
-| v0.2.0 Pilot registry (EU/Norway) | **Complete** (approved) |
-| v0.3.0 Sample records | **Complete** (pending content review) |
-| v0.3.1 Static site skeleton | Not started |
+| v0.2.0 Pilot registry | **Complete** (approved) |
+| v0.3.0 Sample records | **Complete** (approved) |
+| v0.3.1 Taxonomy & export contract | **Complete** (pending cross-repo alignment) |
+| v0.3.2 Static site skeleton | Not started |
 | v0.4 Watchers | Not started |
-| v0.5 Public site & feeds | Not started |
 | v1.0 Pilot release | Not started |
 
 ---
 
-## Boundaries (no-touch / deferred)
+## Boundaries
 
-| Item | Rule |
-|---|---|
-| Watchers / crawlers / schedulers | **Not implemented** |
-| UI / static site build | **Not implemented** (v0.3.1 optional) |
-| Package managers | **Do not add** |
-| APIs and external integrations | **Not implemented** |
-| Automated change detection | **Not implemented** — change YAML is manual sample only |
+Watchers, UI, APIs, schedulers, databases, automated monitoring, and export **runtime** are **not implemented**.
 
 ---
 
 ## Ecosystem links
 
-- **Hub:** [caesar-ai-governance-hub](https://github.com/caesar-compliance/caesar-ai-governance-hub)
-- **Evidence format:** [caesar-ai-evidence](https://github.com/caesar-compliance/caesar-ai-evidence)
-- **Target public URL:** `regulations.caesar.no` (planned)
+- [caesar-ai-governance-hub](https://github.com/caesar-compliance/caesar-ai-governance-hub)
+- [caesar-ai-evidence](https://github.com/caesar-compliance/caesar-ai-evidence) — export alignment pending

@@ -2,53 +2,51 @@
 
 **Last updated:** 19 May 2026
 
-Living registry of tracked files and their roles.
-
 ---
 
 ## Root documentation
 
 | File | Role |
 |---|---|
-| **README.md** | Public entry; v0.3.0 status; registry and sample record links |
-| **SPEC.md** | Requirements; v0.2.0 registry + v0.3.0 samples |
-| **ARCHITECTURE.md** | Static data layers; sample records as manual YAML |
-| **ROADMAP.md** | Phases through v0.3.0 sample records |
+| **README.md** | Public entry; v0.3.1 status |
+| **SPEC.md** | Requirements through taxonomy and export contract |
+| **ARCHITECTURE.md** | Static data layers including taxonomies and exports |
+| **ROADMAP.md** | Phases through v0.3.1 |
 | **CHANGELOG.md** | Semver history |
 | **REPO_INVENTORY.md** | This file |
-| **PROJECT_STATE.md** | v0.3.0 phase and data counts |
-| **NEXT_ACTIONS.md** | Control Tower sample review priorities |
+| **PROJECT_STATE.md** | v0.3.1 phase |
+| **NEXT_ACTIONS.md** | Cross-repo evidence alignment |
 
 ---
 
-## data/
-
-### jurisdictions/ & sources/ (v0.2.0)
+## data/taxonomies/ (v0.3.1)
 
 | File | Role |
 |---|---|
-| **data/jurisdictions/eu.yml** | EU jurisdiction profile |
-| **data/jurisdictions/norway.yml** | Norway (`related_frameworks`: eu, eea) |
-| **data/sources/*.yml** | Seven pilot official sources |
-
-### laws/, guidance/, changes/ (v0.3.0 samples)
-
-| File | Role |
-|---|---|
-| **data/laws/eu-ai-act.yml** | Manual sample EU AI Act law record |
-| **data/guidance/eu-ai-office-general-purpose-ai.yml** | Manual sample EU AI Office GPAI guidance pointer |
-| **data/guidance/datatilsynet-ai-privacy.yml** | Manual sample Datatilsynet AI/privacy guidance pointer |
-| **data/changes/sample-eu-ai-act-status-change.yml** | Manual sample EUR-Lex metadata change (illustrative) |
-| **data/changes/sample-datatilsynet-guidance-change.yml** | Manual sample Datatilsynet guidance change (illustrative) |
+| **regulatory-statuses.yml** | Law/guidance operational status labels |
+| **source-credibility-levels.yml** | Source credibility tiers |
+| **review-statuses.yml** | Review workflow states |
+| **change-types.yml** | Change classification |
+| **confidence-levels.yml** | Change confidence |
+| **affected-topics.yml** | Topic tags (pilot subset) |
+| **control-reference-types.yml** | Draft `regulation_watch.control.*` refs |
+| **evidence-reference-types.yml** | Draft `regulation_watch.evidence.*` refs |
 
 ---
 
-## mappings/ (v0.3.0 samples)
+## data/ (registry and samples)
+
+See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inventory sections. Sample entities include `record_origin: manual_sample`.
+
+---
+
+## mappings/ & exports/
 
 | File | Role |
 |---|---|
-| **mappings/change-to-controls.sample.yml** | Sample `may_affect_controls` / `suggested_control_review` mappings |
-| **mappings/change-to-evidence.sample.yml** | Sample `may_affect_evidence` / `suggested_evidence_review` mappings |
+| **mappings/change-to-controls.sample.yml** | Draft control mappings |
+| **mappings/change-to-evidence.sample.yml** | Draft evidence mappings |
+| **exports/samples/regulation-change-export.sample.yml** | Sample export contract payloads |
 
 ---
 
@@ -56,13 +54,15 @@ Living registry of tracked files and their roles.
 
 | File | Role |
 |---|---|
-| **schemas/jurisdiction.schema.json** | Jurisdiction YAML |
-| **schemas/source.schema.json** | Source YAML |
-| **schemas/law.schema.json** | Law sample records |
-| **schemas/guidance.schema.json** | Guidance sample records |
-| **schemas/change.schema.json** | Change sample records |
-| **schemas/change-control-mapping.schema.json** | Per-item control mapping |
-| **schemas/change-evidence-mapping.schema.json** | Per-item evidence mapping |
+| **jurisdiction.schema.json** | Jurisdiction YAML |
+| **source.schema.json** | Source YAML |
+| **law.schema.json** | Law samples (+ `record_origin`) |
+| **guidance.schema.json** | Guidance samples |
+| **change.schema.json** | Change samples |
+| **change-control-mapping.schema.json** | Control mapping items |
+| **change-evidence-mapping.schema.json** | Evidence mapping items |
+| **taxonomy.schema.json** | Taxonomy files |
+| **evidence-export-record.schema.json** | Export contract record |
 
 ---
 
@@ -70,36 +70,10 @@ Living registry of tracked files and their roles.
 
 | File | Role |
 |---|---|
-| **docs/PILOT_SOURCE_REGISTRY.md** | v0.2.0 EU/Norway source registry guide |
-| **docs/SAMPLE_RECORDS_GUIDE.md** | v0.3.0 sample records guide |
-| **docs/FULL_SCALE_PRODUCT_BLUEPRINT.md** | Master product blueprint |
-| **docs/COMPETITOR_BENCHMARKS.md** | Benchmark study notes |
-| **docs/DATA_MODEL_DRAFT.md** | Full entity model draft |
-| **docs/UI_UX_VISION.md** | Public site UX direction |
-| **docs/DECISION_LOG.md** | Decisions DEC-001–011 |
+| **docs/PILOT_SOURCE_REGISTRY.md** | v0.2.0 registry |
+| **docs/SAMPLE_RECORDS_GUIDE.md** | v0.3.0 samples |
+| **docs/TAXONOMY_AND_REVIEW_WORKFLOW.md** | v0.3.1 taxonomies and review |
+| **docs/EVIDENCE_EXPORT_CONTRACT.md** | v0.3.1 export contract |
+| **docs/DECISION_LOG.md** | Decisions through DEC-012 |
+| **docs/FULL_SCALE_PRODUCT_BLUEPRINT.md** | Master blueprint |
 | **docs/RESEARCH_CONTEXT.md** | Domain research (preserve) |
-
----
-
-## Work areas
-
-| Path | Role |
-|---|---|
-| **work-items/.gitkeep** | Task sandbox placeholder |
-
----
-
-## Planned (not yet created)
-
-| Path | Role |
-|---|---|
-| `data/timelines/` | Timeline events |
-| `site/` | Static site source |
-
----
-
-## Update guidelines
-
-1. Register new `data/` or `mappings/` files in this inventory.
-2. Bump [CHANGELOG.md](CHANGELOG.md) on substantive data changes.
-3. Keep manual vs automated origin clear in change records.

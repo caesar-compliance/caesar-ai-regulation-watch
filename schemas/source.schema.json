@@ -79,7 +79,14 @@
     },
     "review_status": {
       "type": "string",
-      "enum": ["pending_review", "reviewed", "archived"]
+      "enum": [
+        "draft",
+        "pending_review",
+        "reviewed",
+        "needs_update",
+        "rejected_for_client_use",
+        "archived"
+      ]
     },
     "notes": {
       "type": "string",

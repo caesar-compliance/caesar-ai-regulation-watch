@@ -110,28 +110,32 @@ Jurisdiction (eu | norway)
 
 ---
 
-## Control and evidence refs (sample taxonomy)
+## Record origin
 
-Pilot refs are **placeholders** until aligned with `caesar-ai-evidence` and hub control taxonomy:
+Sample entity records include `record_origin: manual_sample`. Registry files in `data/jurisdictions/` and `data/sources/` are **official source registry** definitions (not watcher output). See [TAXONOMY_AND_REVIEW_WORKFLOW.md](TAXONOMY_AND_REVIEW_WORKFLOW.md).
 
-| Ref | Meaning (operational) |
-|---|---|
-| `ctrl_regulatory_tracking` | Process for tracking applicable regulation |
-| `ctrl_ai_system_inventory` | AI system register control |
-| `ctrl_risk_management_lifecycle` | Risk management for AI systems |
-| `ctrl_privacy_and_data_protection` | Privacy / GDPR-aligned controls |
-| `ctrl_transparency_and_notices` | Transparency to users/data subjects |
-| `ctrl_human_oversight_documentation` | Human oversight evidence |
-| `ev_ai_system_register` | AI system register evidence |
-| `ev_governance_memo` | Governance memo / policy summary |
-| `ev_compliance_calendar` | Internal regulatory date tracking |
-| `ev_dpia` | Data protection impact assessment |
-| `ev_privacy_notice` | Privacy notice / policy |
-| `ev_transparency_documentation` | AI transparency artefacts |
+---
+
+## Control and evidence refs (v0.3.1 draft convention)
+
+Mappings and exports use **draft** refs pending `caesar-ai-evidence` alignment:
+
+```text
+regulation_watch.control.<slug>
+regulation_watch.evidence.<slug>
+```
+
+Each item should include `reference_alignment: draft_pending_caesar_ai_evidence`.
+
+Canonical list: [control-reference-types.yml](../data/taxonomies/control-reference-types.yml), [evidence-reference-types.yml](../data/taxonomies/evidence-reference-types.yml).
+
+Export samples: [EVIDENCE_EXPORT_CONTRACT.md](EVIDENCE_EXPORT_CONTRACT.md).
 
 ---
 
 ## Review workflow
+
+Canonical statuses: [review-statuses.yml](../data/taxonomies/review-statuses.yml). Flow: `draft` → `pending_review` → `reviewed` / `needs_update` / `rejected_for_client_use` / `archived`.
 
 1. Control Tower confirms sample content is acceptable for internal testing.
 2. Verify `official_url` and dates on live sources where samples reference real instruments.

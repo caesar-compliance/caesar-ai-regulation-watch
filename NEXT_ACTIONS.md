@@ -2,55 +2,43 @@
 
 **Last updated:** 19 May 2026
 
-**Current version:** v0.3.0 · **Phase:** sample records (data-model validation) · **Mode:** static manual data only.
+**Current version:** v0.3.1 · **Phase:** taxonomy, review workflow, and evidence-export contract · **Mode:** static manual data only.
 
 ---
 
-## Immediate priority — Control Tower review (v0.3.0)
+## Immediate priority — Cross-repo alignment
 
-**Owner:** Artem (Control Tower)
+**Owner:** Control Tower + `caesar-ai-evidence` maintainers
 
-1. Review [docs/SAMPLE_RECORDS_GUIDE.md](docs/SAMPLE_RECORDS_GUIDE.md) and all files under `data/laws/`, `data/guidance/`, `data/changes/`, `mappings/`.
-2. Confirm sample summaries and dates are acceptable for internal testing (verify `key_dates` on EUR-Lex where used).
-3. Approve or revise placeholder `ctrl_*` and `ev_*` refs vs hub / `caesar-ai-evidence` taxonomy.
-4. Set `review_status: reviewed` on records when appropriate.
-5. Decide: proceed to **v0.3.1 static site skeleton** or pause until evidence export shape is agreed.
+1. Review [docs/EVIDENCE_EXPORT_CONTRACT.md](docs/EVIDENCE_EXPORT_CONTRACT.md) and [exports/samples/regulation-change-export.sample.yml](exports/samples/regulation-change-export.sample.yml).
+2. Confirm or revise draft refs: `regulation_watch.control.*`, `regulation_watch.evidence.*`.
+3. Map export fields to `caesar-ai-evidence` **regulation-change** schema (or document gaps).
+4. Set `reference_alignment: aligned` only when confirmed in evidence repo.
+5. Approve review-status taxonomy for production workflows.
 
 ---
 
-## Next safe steps (after sample review)
+## Control Tower — optional content review
+
+- Spot-check sample export summaries and mapping rationales.
+- Confirm `record_origin` boundaries in [TAXONOMY_AND_REVIEW_WORKFLOW.md](docs/TAXONOMY_AND_REVIEW_WORKFLOW.md) are sufficient.
+
+---
+
+## Next safe steps (after alignment)
 
 | Step | Description |
 |---|---|
-| Evidence alignment | Document `regulation-change` export mapping from `change_id` + mappings |
-| Timeline YAML | Optional `data/timelines/` for EU and Norway pilot |
-| Static site | Read-only HTML from `data/` (v0.3.1 — no framework lock-in without approval) |
-| Registry expansion | Additional sources (Lovdata, ENISA) as separate registry wave |
-
----
-
-## Still blocked / requires approval
-
-| Task | Gate |
-|---|---|
-| Live HTTP fetch / watcher | v0.4 + explicit Control Tower approval |
-| AI-generated summaries on records | Review workflow policy |
-| Package manager / CI validation | Control Tower decision |
-| Client-facing export | All records `reviewed` |
+| v0.3.2 static site | Read-only HTML from `data/` + taxonomies |
+| Timeline YAML | `data/timelines/` for EU/Norway |
+| v0.4 watchers | Only after explicit approval and fetch policy |
 
 ---
 
 ## Completed
 
-### v0.2.0
-
-- [x] EU/Norway jurisdiction and source registry
-- [x] Registry schemas and [PILOT_SOURCE_REGISTRY.md](docs/PILOT_SOURCE_REGISTRY.md)
-
-### v0.3.0
-
-- [x] Sample law, guidance, change YAML
-- [x] Control and evidence mapping samples
-- [x] Entity schemas and [SAMPLE_RECORDS_GUIDE.md](docs/SAMPLE_RECORDS_GUIDE.md)
+- v0.2.0 — EU/Norway source registry
+- v0.3.0 — sample law/guidance/change/mappings
+- v0.3.1 — taxonomies, export contract, draft ref convention
 
 See [ROADMAP.md](ROADMAP.md).

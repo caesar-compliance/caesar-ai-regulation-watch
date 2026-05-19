@@ -11,6 +11,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.3.1] - 19 May 2026
+
+### Added
+
+- Defined regulation taxonomy and export contract foundation.
+- Eight taxonomy files under `data/taxonomies/`.
+- `schemas/taxonomy.schema.json`, `schemas/evidence-export-record.schema.json`.
+- `exports/samples/regulation-change-export.sample.yml` (sample only; no client evidence created).
+- [docs/TAXONOMY_AND_REVIEW_WORKFLOW.md](docs/TAXONOMY_AND_REVIEW_WORKFLOW.md), [docs/EVIDENCE_EXPORT_CONTRACT.md](docs/EVIDENCE_EXPORT_CONTRACT.md).
+
+### Changed
+
+- Mappings use draft `regulation_watch.control.*` and `regulation_watch.evidence.*` refs with `reference_alignment`.
+- Sample law/guidance/change records include `record_origin: manual_sample`.
+- Entity schemas: expanded `review_status` enum; `record_origin` on law/guidance/change; `implementation_update` on change types and regulatory statuses.
+
+---
+
 ## [0.3.0] - 19 May 2026
 
 ### Added

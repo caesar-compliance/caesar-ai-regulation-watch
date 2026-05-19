@@ -16,6 +16,7 @@
     "summary_for_review",
     "key_dates",
     "affected_topics",
+    "record_origin",
     "review_status",
     "legal_safe_note"
   ],
@@ -49,7 +50,17 @@
         "guidance",
         "voluntary",
         "withdrawn",
-        "monitoring"
+        "monitoring",
+        "implementation_update",
+        "unknown"
+      ]
+    },
+    "record_origin": {
+      "type": "string",
+      "enum": [
+        "official_source_registry",
+        "manual_sample",
+        "future_watcher_output"
       ]
     },
     "official_url": {
@@ -83,7 +94,14 @@
     },
     "review_status": {
       "type": "string",
-      "enum": ["pending_review", "reviewed", "archived"]
+      "enum": [
+        "draft",
+        "pending_review",
+        "reviewed",
+        "needs_update",
+        "rejected_for_client_use",
+        "archived"
+      ]
     },
     "legal_safe_note": {
       "type": "string",

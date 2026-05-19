@@ -1,7 +1,7 @@
 # Specification — Caesar AI Regulation Watch
 
 **Last updated:** 19 May 2026  
-**Status:** v0.3.0 — full-scale spec, static registry, and manual sample records (no watchers or UI)
+**Status:** v0.3.1 — spec, registry, samples, taxonomies, and export contract (no watchers or UI)
 
 ---
 
@@ -170,21 +170,36 @@ Manual sample data for data-model testing (not watcher output):
 | `schemas/law.schema.json`, etc. | Validation for sample entity types |
 | [docs/SAMPLE_RECORDS_GUIDE.md](docs/SAMPLE_RECORDS_GUIDE.md) | Guide and review workflow |
 
-All samples use `review_status: pending_review` unless Control Tower updates them.
+All samples use `review_status: pending_review` unless Control Tower updates them. Sample law/guidance/change records include `record_origin: manual_sample`.
 
 ---
 
-## 8. MVP scope (next implementation phases)
+## 8. Taxonomy and evidence export contract (v0.3.1 — delivered)
+
+| Path | Contents |
+|---|---|
+| `data/taxonomies/*.yml` | Canonical values: statuses, topics, change types, draft control/evidence refs |
+| `schemas/taxonomy.schema.json` | Taxonomy file validation |
+| `schemas/evidence-export-record.schema.json` | Future `regulation_change` export shape |
+| `exports/samples/regulation-change-export.sample.yml` | Sample exports (no client evidence created) |
+| [docs/TAXONOMY_AND_REVIEW_WORKFLOW.md](docs/TAXONOMY_AND_REVIEW_WORKFLOW.md) | Review workflow and data boundaries |
+| [docs/EVIDENCE_EXPORT_CONTRACT.md](docs/EVIDENCE_EXPORT_CONTRACT.md) | Export contract for Evidence / Governance OS |
+
+Draft references use `regulation_watch.control.*` and `regulation_watch.evidence.*` with `reference_alignment: draft_pending_caesar_ai_evidence`. No export runtime implemented.
+
+---
+
+## 9. MVP scope (next implementation phases)
 
 1. ~~**Source registry** (YAML) for pilot jurisdictions.~~ **Done (v0.2.0).**
 2. ~~**Sample law/guidance/change records** and mapping samples.~~ **Done (v0.3.0 manual).**
-3. **Regulatory change schema** alignment with `caesar-ai-evidence` export shape.
+3. ~~**Export contract draft** for regulation-change.~~ **Done (v0.3.1 contract + sample).** Align with `caesar-ai-evidence` validator (cross-repo).
 4. **Timeline file** per pilot jurisdiction.
 5. **Static site skeleton** reading `data/` (no watcher automation).
 
 ---
 
-## 9. Future scope (post-MVP)
+## 10. Future scope (post-MVP)
 
 - Automated fetchers for RSS/HTML pilot sources.
 - Diff engine and snapshot store.
@@ -195,7 +210,7 @@ All samples use `review_status: pending_review` unless Control Tower updates the
 
 ---
 
-## 10. Non-goals
+## 11. Non-goals
 
 | Non-goal | Reason |
 |---|---|
@@ -209,7 +224,7 @@ All samples use `review_status: pending_review` unless Control Tower updates the
 
 ---
 
-## 11. Inputs and outputs
+## 12. Inputs and outputs
 
 ### Inputs
 
@@ -230,7 +245,7 @@ All samples use `review_status: pending_review` unless Control Tower updates the
 
 ---
 
-## 12. Quality and legal-safe language
+## 13. Quality and legal-safe language
 
 All user-facing text must:
 
@@ -241,7 +256,7 @@ All user-facing text must:
 
 ---
 
-## 13. Hub alignment
+## 14. Hub alignment
 
 | Hub document | Relevance |
 |---|---|
@@ -253,7 +268,7 @@ All user-facing text must:
 
 ---
 
-## 14. Related repository docs
+## 15. Related repository docs
 
 - [docs/FULL_SCALE_PRODUCT_BLUEPRINT.md](docs/FULL_SCALE_PRODUCT_BLUEPRINT.md)
 - [docs/COMPETITOR_BENCHMARKS.md](docs/COMPETITOR_BENCHMARKS.md)
@@ -261,4 +276,6 @@ All user-facing text must:
 - [docs/UI_UX_VISION.md](docs/UI_UX_VISION.md)
 - [ARCHITECTURE.md](ARCHITECTURE.md)
 - [docs/SAMPLE_RECORDS_GUIDE.md](docs/SAMPLE_RECORDS_GUIDE.md)
+- [docs/TAXONOMY_AND_REVIEW_WORKFLOW.md](docs/TAXONOMY_AND_REVIEW_WORKFLOW.md)
+- [docs/EVIDENCE_EXPORT_CONTRACT.md](docs/EVIDENCE_EXPORT_CONTRACT.md)
 - [ROADMAP.md](ROADMAP.md)

@@ -3,7 +3,7 @@
 **Global AI regulation monitoring for governance teams** — part of the [Caesar AI Governance Hub](https://github.com/caesar-compliance/caesar-ai-governance-hub) ecosystem.
 
 **Last updated:** 19 May 2026  
-**Status:** v0.3.0 — static registry plus manual sample law/guidance/change records (no watchers, UI, APIs, or automated monitoring)
+**Status:** v0.3.1 — taxonomy, review workflow, and evidence-export contract (static data only; no watchers, UI, APIs, or automated monitoring)
 
 ---
 
@@ -125,6 +125,16 @@ Manual **law, guidance, change, and mapping** samples for data-model testing onl
 - `mappings/` — control and evidence mapping samples
 - `schemas/law.schema.json`, `guidance.schema.json`, `change.schema.json`, and mapping schemas
 
+## Taxonomy and export contract (v0.3.1)
+
+Canonical values, review workflow, and future evidence export shape:
+
+- [docs/TAXONOMY_AND_REVIEW_WORKFLOW.md](docs/TAXONOMY_AND_REVIEW_WORKFLOW.md)
+- [docs/EVIDENCE_EXPORT_CONTRACT.md](docs/EVIDENCE_EXPORT_CONTRACT.md)
+- `data/taxonomies/` — allowed values (statuses, topics, draft refs)
+- `exports/samples/regulation-change-export.sample.yml` — sample export only (no client evidence created)
+- `schemas/taxonomy.schema.json`, `schemas/evidence-export-record.schema.json`
+
 ---
 
 ## Documentation map
@@ -133,6 +143,8 @@ Manual **law, guidance, change, and mapping** samples for data-model testing onl
 |---|---|
 | [docs/PILOT_SOURCE_REGISTRY.md](docs/PILOT_SOURCE_REGISTRY.md) | Pilot EU/Norway registry guide |
 | [docs/SAMPLE_RECORDS_GUIDE.md](docs/SAMPLE_RECORDS_GUIDE.md) | Manual sample law/guidance/change records |
+| [docs/TAXONOMY_AND_REVIEW_WORKFLOW.md](docs/TAXONOMY_AND_REVIEW_WORKFLOW.md) | Taxonomies and review statuses |
+| [docs/EVIDENCE_EXPORT_CONTRACT.md](docs/EVIDENCE_EXPORT_CONTRACT.md) | Future regulation-change export contract |
 | [docs/FULL_SCALE_PRODUCT_BLUEPRINT.md](docs/FULL_SCALE_PRODUCT_BLUEPRINT.md) | End-to-end product blueprint |
 | [SPEC.md](SPEC.md) | Requirements, scope, inputs/outputs |
 | [ARCHITECTURE.md](ARCHITECTURE.md) | Layers, data flow, integrations |
@@ -155,6 +167,6 @@ Manual **law, guidance, change, and mapping** samples for data-model testing onl
 
 ## Project status
 
-**v0.3.0** adds manual sample law, guidance, change, and mapping records (19 May 2026). v0.2.0 source registry is approved. No automated monitoring or UI yet.
+**v0.3.1** stabilises taxonomies, review workflow, and the evidence-export contract (19 May 2026). v0.2.0 registry and v0.3.0 samples are approved with draft `regulation_watch.*` refs. No automated monitoring or UI yet.
 
 See [PROJECT_STATE.md](PROJECT_STATE.md) and [NEXT_ACTIONS.md](NEXT_ACTIONS.md).

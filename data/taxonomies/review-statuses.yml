@@ -1,0 +1,43 @@
+# Canonical review workflow values — v0.3.1
+# Last updated: 19 May 2026
+
+taxonomy_id: review-statuses
+title: Review statuses
+version: "0.3.1"
+last_updated: "2026-05-19"
+description: >
+  Workflow states for registry entries, sample records, mappings, and export
+  contract records. Supports governance review; does not imply approval for
+  client use until explicitly reviewed.
+
+values:
+  - value_id: draft
+    label: Draft
+    description: >
+      Work in progress; not ready for internal or client review.
+
+  - value_id: pending_review
+    label: Pending review
+    description: >
+      Ready for human review; default for new manual samples and registry entries.
+
+  - value_id: reviewed
+    label: Reviewed
+    description: >
+      A qualified reviewer has checked the record for internal use; still not
+      legal advice and may require client-specific judgment.
+
+  - value_id: needs_update
+    label: Needs update
+    description: >
+      Source, scope, or mapping content should be refreshed before further use.
+
+  - value_id: rejected_for_client_use
+    label: Rejected for client use
+    description: >
+      Must not be used in client deliverables until replaced or corrected.
+
+  - value_id: archived
+    label: Archived
+    description: >
+      Retained for history only; no longer active for monitoring or export.

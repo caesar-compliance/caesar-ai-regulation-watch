@@ -96,3 +96,12 @@
 - **Decision:** v0.3.0 adds **manual sample** law, guidance, and change YAML plus control/evidence mapping files to validate the data model **before** any watcher, UI, or API implementation. Change samples are explicitly **not** automated detections.
 - **Taxonomy:** Pilot `ctrl_*` and `ev_*` refs are placeholders until aligned with hub standards and `caesar-ai-evidence`.
 - **Rationale:** Reduces risk of building ingestion/UI on an unproven schema; supports governance-review wording (`may_affect`, `suggested_*_review`, `human_review_required`).
+
+---
+
+## [DEC-012] — 19 May 2026 — Taxonomy and export contract before automation
+
+- **Status:** Approved (pending `caesar-ai-evidence` alignment)
+- **Decision:** v0.3.1 adds canonical taxonomies, expanded review workflow (`draft` through `rejected_for_client_use`), draft `regulation_watch.control.*` / `regulation_watch.evidence.*` references with `reference_alignment: draft_pending_caesar_ai_evidence`, and `evidence-export-record` schema plus sample YAML. No export runtime, watchers, or UI.
+- **Data boundaries:** `record_origin` distinguishes `official_source_registry`, `manual_sample`, and `future_watcher_output` on entity records.
+- **Rationale:** Resolves v0.3.0 caveats (placeholder refs, undefined export shape, unstable review statuses) before v0.4 watchers or static site.

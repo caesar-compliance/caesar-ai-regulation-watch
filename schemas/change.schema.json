@@ -16,6 +16,7 @@
     "confidence_level",
     "requires_human_review",
     "possible_impact",
+    "record_origin",
     "review_status",
     "legal_safe_note"
   ],
@@ -48,8 +49,17 @@
         "status_change",
         "new_document",
         "guidance_update",
+        "implementation_update",
         "removed",
         "unknown"
+      ]
+    },
+    "record_origin": {
+      "type": "string",
+      "enum": [
+        "official_source_registry",
+        "manual_sample",
+        "future_watcher_output"
       ]
     },
     "change_summary_for_review": {
@@ -69,7 +79,14 @@
     },
     "review_status": {
       "type": "string",
-      "enum": ["pending_review", "reviewed", "archived"]
+      "enum": [
+        "draft",
+        "pending_review",
+        "reviewed",
+        "needs_update",
+        "rejected_for_client_use",
+        "archived"
+      ]
     },
     "legal_safe_note": {
       "type": "string",
