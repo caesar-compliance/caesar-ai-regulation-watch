@@ -6,8 +6,10 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import yaml from "js-yaml";
+import { readProjectVersion } from "./lib/read-project-version.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const PROJECT_VERSION = readProjectVersion();
 const PUBLIC_DATA = path.join(ROOT, "public/data");
 const PUBLIC_FEEDS = path.join(ROOT, "public/feeds");
 
@@ -858,7 +860,7 @@ const evidenceCandidateReviewSummary = {
 
 const snapshot = {
   generated_at: generatedAt,
-  version: "0.8.7",
+  version: PROJECT_VERSION,
   disclaimer: DISCLAIMER,
   pilot_jurisdictions: jurisdictions.map((j) => j.jurisdiction_id),
   counts: {

@@ -1,6 +1,6 @@
 # Evidence Export Candidate Review Workflow
 
-**Phase:** v0.8.7 — governance/export-readiness gate (not final evidence export)
+**Phase:** v0.8.8 — governance/export-readiness gate (not final evidence export); public static page shows review statuses in HTML
 
 ---
 
