@@ -1,7 +1,7 @@
 # Architecture — Caesar AI Regulation Watch
 
-**Last updated:** 19 May 2026  
-**Status:** v0.8.2 — static registry + content review workflow + monitoring cycle; scheduled monitoring artifacts-only; push/PR CI validate/build; read-only Astro site; no backend API/database/auth/deploy/auto-merge/write UI
+**Last updated:** 20 May 2026  
+**Status:** v0.8.4 — static deploy readiness (manual GitHub Pages workflow); v0.8.3 candidates; v0.8.2 content review; monitoring artifacts-only; push/PR CI validate/build only; read-only Astro site; no backend API/database/auth/secrets/custom domain/auto-deploy on merge
 
 ---
 
@@ -183,7 +183,9 @@ Import mechanism: file drop, git submodule, or API — **TBD** at OS spec time.
 
 - **Static generation** from data — **Astro** recommended ([research/OPEN_SOURCE_COMPONENT_SHORTLIST.md](research/OPEN_SOURCE_COMPONENT_SHORTLIST.md)).
 - **Map** — **Leaflet** (2D) recommended; 3D globe deferred; fallback list for accessibility.
-- **CDN/GitHub Pages** hosting until `regulations.caesar.no` routed.
+- **GitHub Pages** manual deploy (`deploy-static-site.yml`, v0.8.4) at `https://caesar-compliance.github.io/caesar-ai-regulation-watch/` until `regulations.caesar.no` routed (DNS deferred).
+- Merge-gate CI builds at site root; deploy build uses `ASTRO_BASE_PATH=/caesar-ai-regulation-watch/`.
+- See `docs/STATIC_DEPLOYMENT_ARCHITECTURE.md`.
 - No server-side legal logic in v1.
 
 ---

@@ -3,7 +3,7 @@
 **Global AI regulation monitoring for governance teams** — part of the [Caesar AI Governance Hub](https://github.com/caesar-compliance/caesar-ai-governance-hub) ecosystem.
 
 **Last updated:** 20 May 2026  
-**Status:** v0.8.3 on **`main`** — evidence export **candidates** (`/evidence-export-candidates/`, gated local pipeline; not final evidence, no caesar-ai-evidence writes); plus v0.8.2 content review, monitoring cycle + optional review PR; 5 watchers; CI validate/build (no live fetches in CI); review queue, map, timelines, search, JSON exports (no backend APIs, database, auth, deploy, auto-merge, no `client_use_allowed: true`)
+**Status:** v0.8.4 on **`main`** — **static deploy readiness** (manual GitHub Pages workflow `deploy-static-site.yml`, docs, `build:pages` / `verify:dist`; not auto-deployed); plus v0.8.3 evidence export **candidates**; v0.8.2 content review; monitoring cycle; 5 watchers; CI validate/build; review queue, map, timelines, search, JSON exports (no backend APIs, database, auth, secrets, custom domain, or `client_use_allowed: true`)
 
 ---
 
@@ -143,6 +143,8 @@ Read-only Astro site generated from `data/` at build time:
 npm install
 npm run validate:data      # ajv — all YAML vs schemas/
 npm run generate:evidence-candidates  # local gated export candidates (no network)
+npm run build:pages          # build with GitHub Pages base path (deploy parity)
+npm run verify:dist          # after build:pages — required paths in dist/
 npm run watch:official     # single watcher pass
 npm run monitoring:cycle   # watchers + validate + exports + build + report
 npm run monitoring:report  # report from existing state (no network)

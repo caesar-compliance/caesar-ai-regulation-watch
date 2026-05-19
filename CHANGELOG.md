@@ -11,6 +11,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.8.4] - 20 May 2026
+
+### Added
+
+- **Static deployment readiness** — `docs/STATIC_DEPLOYMENT_ARCHITECTURE.md`, `docs/PUBLIC_RELEASE_CHECKLIST.md`, `docs/POST_DEPLOY_SMOKE_TESTS.md`.
+- **Deploy workflow** — `.github/workflows/deploy-static-site.yml` (`workflow_dispatch` only; `confirm_disclaimers: DEPLOY`; official GitHub Pages actions; no secrets).
+- **Build helpers** — `npm run build:pages`, `npm run verify:dist`; `scripts/verify-dist-output.mjs`.
+- **Astro base path** — optional `ASTRO_BASE_PATH` / `ASTRO_SITE` for GitHub Pages project site.
+
+### Changed
+
+- `astro.config.mjs` — supports GitHub Pages base `/caesar-ai-regulation-watch/` when env set; default local/CI unchanged.
+- Project docs updated for v0.8.4 deployment phase.
+
+### Notes
+
+- **No automatic production deploy** on merge to `main`.
+- **No** custom domain, DNS, Cloudflare, Coolify, or secrets.
+- Expected preview URL after manual deploy: `https://caesar-compliance.github.io/caesar-ai-regulation-watch/`
+- Control Tower must enable Pages → GitHub Actions source once.
+
+---
+
 ## [0.8.3] - 20 May 2026
 
 ### Added

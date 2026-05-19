@@ -2,50 +2,54 @@
 
 **Last updated:** 20 May 2026
 
-**Current version:** v0.8.3 · **Phase:** evidence export candidate pipeline · **Branch:** `main` (merged 20 May 2026).
+**Current version:** v0.8.4 · **Phase:** static deployment readiness · **Branch:** `main`
 
 ---
 
-## Immediate priority — content review then candidate triage
+## Immediate priority — enable and optionally deploy preview
 
-1. Complete browser content review for `data/verifications/content-review-2026-05-19.yml` entries marked `not_checked`.
-2. Update batch with honest outcomes; set record `verified_on_source: true` only with documented high-level source support.
-3. Regenerate: `npm run generate:evidence-candidates` then `npm run build`.
-4. Review `/evidence-export-candidates/` — treat as **candidates only**, not client evidence.
-5. Follow `docs/CONTENT_REVIEW_CHECKLIST.md` — keep `client_use_allowed: false`.
+1. **One-time:** GitHub → Settings → Pages → Source: **GitHub Actions** (see `docs/STATIC_DEPLOYMENT_ARCHITECTURE.md`).
+2. Complete `docs/PUBLIC_RELEASE_CHECKLIST.md` before any public deploy.
+3. Run **Deploy static site** workflow (`workflow_dispatch`) with `confirm_disclaimers: DEPLOY`.
+4. Run `docs/POST_DEPLOY_SMOKE_TESTS.md` against the GitHub Pages URL.
+5. Continue human content review (`content-review-2026-05-19.yml`) — deploy does not replace review.
 
 ---
 
-## Control Tower — monitoring (unchanged)
+## Content review and candidates (ongoing)
 
-1. Add GitHub label `monitoring-review` (optional; workflow falls back without it).
-2. Trial `workflow_dispatch` with `create_pr=true` after a cycle with meaningful changes.
-3. Follow `docs/MONITORING_PR_REVIEW_CHECKLIST.md` before merging any monitoring PR.
-4. Scheduled runs remain artifact-only — triage via download or manual PR workflow.
+1. Complete browser content review for priority records.
+2. `npm run generate:evidence-candidates && npm run build` after YAML updates.
+3. Treat `/evidence-export-candidates/` as **candidates only** — not client evidence.
+
+---
+
+## Monitoring (unchanged)
+
+1. Scheduled monitoring remains artifact-only.
+2. Optional `create_pr=true` trial after meaningful changes.
+3. Follow `docs/MONITORING_PR_REVIEW_CHECKLIST.md` before merging monitoring PRs.
 
 ---
 
 ## Commands
 
 ```bash
-npm run generate:evidence-candidates
+npm run build                    # local / CI (root base path)
+npm run build:pages              # GitHub Pages base path (parity with deploy workflow)
+ASTRO_BASE_PATH=/caesar-ai-regulation-watch/ npm run verify:dist  # after build:pages
 npm run validate:data
-npm run generate:exports
-npm run build
-npm run monitoring:report      # no network
-npm run monitoring:summary       # diff vs HEAD
-npm run monitoring:cycle:dry-run
-npm run monitoring:cycle         # full cycle
+npm run generate:evidence-candidates
 ```
 
 ---
 
-## Not in scope (v0.8.3 on main)
+## Not in scope (v0.8.4)
 
-- Final evidence export to caesar-ai-evidence (candidates only)
-- Production deploy / Coolify (no documented deploy path — see deployment architecture task)
-- Auto-merge monitoring output to main
-- Backend API, database, auth
+- Custom domain (`regulations.caesar.no`) / DNS / Cloudflare
+- Auto-deploy on every merge to `main`
+- Coolify (no documented path in repo)
+- Final evidence export to caesar-ai-evidence
 - `client_use_allowed: true` on candidates
 
-See [ROADMAP.md](ROADMAP.md) and [docs/EVIDENCE_EXPORT_CANDIDATE_PIPELINE.md](docs/EVIDENCE_EXPORT_CANDIDATE_PIPELINE.md).
+See [ROADMAP.md](ROADMAP.md) and [docs/STATIC_DEPLOYMENT_ARCHITECTURE.md](docs/STATIC_DEPLOYMENT_ARCHITECTURE.md).

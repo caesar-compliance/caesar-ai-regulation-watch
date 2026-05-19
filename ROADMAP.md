@@ -4,7 +4,7 @@
 
 This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
 
-**Current (v0.8.3):** evidence export candidate pipeline (gated local YAML + page + JSON; no caesar-ai-evidence). **Next:** human content review; Control Tower candidate triage; final export contract implementation remains deferred.
+**Current (v0.8.4):** static deployment readiness (GitHub Pages manual workflow, docs, dist verification). **Next:** enable Pages + optional preview deploy; human content review; custom domain deferred; final export / caesar-ai-evidence deferred.
 
 ---
 
