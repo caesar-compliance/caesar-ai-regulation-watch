@@ -1,6 +1,6 @@
 # Public Deployment Baseline
 
-**Phase:** v0.8.6 — content review batch + candidate refresh redeploy  
+**Phase:** v0.8.7 — export-candidate governance review gate + public version labels  
 **Deployment date:** 20 May 2026  
 **Status:** Live (manual-gated pilot)
 
@@ -11,12 +11,12 @@
 | Field | Value |
 |---|---|
 | **Repository** | [caesar-compliance/caesar-ai-regulation-watch](https://github.com/caesar-compliance/caesar-ai-regulation-watch) |
-| **Deployed commit (current)** | `44fca63` (`merge: v0.8.6 human review candidate refresh`) |
+| **Deployed commit (current)** | `a3ded91` (`merge: v0.8.7 export review gate and public consistency`) |
 | **First deploy commit** | `57acfcf` (`merge: v0.8.4 static deployment readiness`) |
-| **Prior deploy commit** | `6f28ade` (v0.8.5 merge; superseded by v0.8.6) |
+| **Prior deploy commit** | `956730b` (v0.8.6 docs baseline; superseded by v0.8.7) |
 | **Workflow** | [Deploy static site](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/workflows/deploy-static-site.yml) |
 | **First workflow run ID** | [26130431228](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26130431228) |
-| **Latest workflow run ID** | [26130906806](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26130906806) |
+| **Latest workflow run ID** | [26131283078](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26131283078) |
 | **Trigger** | `workflow_dispatch` with `confirm_disclaimers=DEPLOY` |
 | **Result** | Success |
 | **Public URL** | https://caesar-compliance.github.io/caesar-ai-regulation-watch/ |
@@ -40,6 +40,7 @@
 | Search | …/search/ | 200 |
 | Snapshot JSON | …/data/regulation-watch-snapshot.json | 200 |
 | Evidence candidates JSON | …/data/evidence-export-candidates.json | 200 |
+| Candidate reviews JSON | …/data/evidence-export-candidate-reviews.json | 200 |
 | Content reviews JSON | …/data/content-reviews.json | 200 |
 | Changes RSS | …/feeds/changes.xml | 200 |
 | Pagefind | …/pagefind/pagefind.js | 200 |
@@ -48,11 +49,13 @@
 
 **Checks passed:**
 
+- Home/footer show **v0.8.7** (no stale v0.5.1 / v0.8.4 labels).
 - CSS/JS and nav links use `/caesar-ai-regulation-watch/` base path.
 - Footer and banners: not legal advice; pilot/sample disclaimers visible.
-- Evidence export candidates page: candidate-only / not client evidence.
+- Evidence export candidates page: candidate-only; governance review gate status for 2 manual samples.
 - Exports page: sample-only; not caesar-ai-evidence output.
 - `summary.client_use_allowed` = **0** in public JSON.
+- `snapshot.version` = **0.8.7**.
 
 Full checklist: [POST_DEPLOY_SMOKE_TESTS.md](POST_DEPLOY_SMOKE_TESTS.md).
 
@@ -64,7 +67,8 @@ Full checklist: [POST_DEPLOY_SMOKE_TESTS.md](POST_DEPLOY_SMOKE_TESTS.md).
 |---|---|
 | Not legal advice / no compliance guarantee | Required on site |
 | Evidence export **candidates** only | Yes — not final evidence |
-| `client_use_allowed: true` | **0** candidates |
+| `client_use_allowed: true` | **0** candidates and reviews |
+| `final_evidence_allowed: true` | **0** reviews |
 | `verified_on_source: true` (records) | Not set without human review |
 | caesar-ai-evidence integration | **No** |
 | Final evidence export | **No** |
@@ -72,7 +76,9 @@ Full checklist: [POST_DEPLOY_SMOKE_TESTS.md](POST_DEPLOY_SMOKE_TESTS.md).
 | Deploy secrets | **No** |
 | Auto-deploy on push to `main` | **No** |
 
-**Candidate counts at deploy (v0.8.6):** 5 total; 2 `ready_for_human_review`; 3 `blocked_simulation_only`; 0 `blocked_pending_content_review`; `client_use_allowed: 0`.
+**Candidate counts at deploy (v0.8.7):** 5 total; 2 `ready_for_human_review`; 3 `blocked_simulation_only`; 0 `blocked_pending_content_review`; `client_use_allowed: 0`.
+
+**Candidate governance reviews:** 2 reviewed — 1 `reviewed_for_internal_governance_only`, 1 `needs_more_source_review`; simulated candidates not reviewed for export readiness.
 
 ---
 
@@ -83,7 +89,7 @@ Full checklist: [POST_DEPLOY_SMOKE_TESTS.md](POST_DEPLOY_SMOKE_TESTS.md).
 - No custom domain (`regulations.caesar.no`) or DNS in this baseline.
 - No Cloudflare, Coolify, or production host beyond GitHub Pages.
 - Monitoring cycle does not deploy; redeploy only via manual workflow.
-- v0.8.6 reviewed 9/9 pilot content-review entries; EUR-Lex deep read still limited (bot protection); Datatilsynet uses homepage pointer only.
+- EUR-Lex deep read still limited (bot protection); EU AI Act candidate remains `needs_more_source_review`.
 
 ---
 
@@ -102,4 +108,5 @@ Document rollback date and reason in Control Tower notes.
 - [STATIC_DEPLOYMENT_ARCHITECTURE.md](STATIC_DEPLOYMENT_ARCHITECTURE.md)
 - [PUBLIC_RELEASE_CHECKLIST.md](PUBLIC_RELEASE_CHECKLIST.md)
 - [POST_DEPLOY_SMOKE_TESTS.md](POST_DEPLOY_SMOKE_TESTS.md)
+- [EVIDENCE_EXPORT_CANDIDATE_REVIEW_WORKFLOW.md](EVIDENCE_EXPORT_CANDIDATE_REVIEW_WORKFLOW.md)
 - [PROJECT_STATE.md](../PROJECT_STATE.md)
