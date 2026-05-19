@@ -11,14 +11,14 @@
 | Field | Value |
 |---|---|
 | **Repository** | [caesar-compliance/caesar-ai-regulation-watch](https://github.com/caesar-compliance/caesar-ai-regulation-watch) |
-| **Deployed commit (current)** | _TBD after v0.8.9 deploy_ |
+| **Deployed commit (current)** | `4e987c0` (`merge: v0.8.9 source verification candidate refresh`) |
 | **Prior deploy commit** | `52ac0c1` (`merge: v0.8.8 public html consistency redeploy`) |
 | **v0.8.7 deploy commit** | `a3ded91` (superseded) |
 | **First deploy commit** | `57acfcf` (`merge: v0.8.4 static deployment readiness`) |
 | **v0.8.6 deploy commit** | `956730b` (superseded) |
 | **Workflow** | [Deploy static site](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/workflows/deploy-static-site.yml) |
 | **First workflow run ID** | [26130431228](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26130431228) |
-| **Latest workflow run ID** | [26131537159](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26131537159) |
+| **Latest workflow run ID** | [26131903261](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26131903261) |
 | **Trigger** | `workflow_dispatch` with `confirm_disclaimers=DEPLOY` |
 | **Result** | Success |
 | **Public URL** | https://caesar-compliance.github.io/caesar-ai-regulation-watch/ |

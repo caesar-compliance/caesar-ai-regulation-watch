@@ -116,6 +116,7 @@ First human source-access pass on all 9 entries in `data/verifications/content-r
 - 3 simulated detected changes: `reviewed_content_summary` with `source_support_unclear` — simulations not confirmed on live sources.
 - `verified_on_source_after_check` remains **false** on every entry; `client_use_allowed` remains **false**.
 - EUR-Lex CELEX page for EU AI Act: bot-protection limited automated read — see `content-review-law-eu-ai-act-2024-1689` notes.
+- **v0.8.9 (20 May 2026):** EU AI Act — EUR-Lex HTTP 202; EC AI Act overview corroborates CELEX 32024R1689 at high level. Datatilsynet — official AI theme hub URL linked on `guidance-datatilsynet-ai-privacy`.
 
 After this batch, regenerate candidates (`npm run generate:evidence-candidates`) and exports before deploy.
 
