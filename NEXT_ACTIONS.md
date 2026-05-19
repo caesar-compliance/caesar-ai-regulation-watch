@@ -2,7 +2,7 @@
 
 **Last updated:** 20 May 2026
 
-**Current version:** v0.8.3 · **Phase:** evidence export candidate pipeline.
+**Current version:** v0.8.3 · **Phase:** evidence export candidate pipeline · **Branch:** `main` (merged 20 May 2026).
 
 ---
 
@@ -40,10 +40,10 @@ npm run monitoring:cycle         # full cycle
 
 ---
 
-## Not in scope (v0.8.3)
+## Not in scope (v0.8.3 on main)
 
-- Final evidence export to caesar-ai-evidence
-- Production deploy / Coolify
+- Final evidence export to caesar-ai-evidence (candidates only)
+- Production deploy / Coolify (no documented deploy path — see deployment architecture task)
 - Auto-merge monitoring output to main
 - Backend API, database, auth
 - `client_use_allowed: true` on candidates

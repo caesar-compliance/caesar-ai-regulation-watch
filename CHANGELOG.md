@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - All candidates: `client_use_allowed: false`, `human_review_required: true`.
 - Counts: 2 blocked (content review), 3 blocked (simulation), 0 ready for human review.
 - No backend, database, auth, or write UI.
+- **Merged to `main`:** 20 May 2026 (`merge: v0.8.3 evidence export candidate pipeline`, `3e4fc97`).
 
 ---
 

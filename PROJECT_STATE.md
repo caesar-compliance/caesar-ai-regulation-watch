@@ -11,10 +11,10 @@
 | **Repository** | `caesar-ai-regulation-watch` |
 | **Current version** | `v0.8.3` |
 | **Current phase** | Evidence export candidate pipeline |
-| **Status** | Gated local candidates + page + JSON export; no caesar-ai-evidence writes; no deploy |
-| **Working branch** | `agent/v0.8.3-evidence-export-candidates` |
-| **Latest completed task** | Candidate schema, generator, validation policy, `/evidence-export-candidates/` page |
-| **Next recommended step** | Control Tower human review of candidates after content review progress |
+| **Status** | v0.8.3 **merged to `main`**; gated candidates + page + JSON export; no caesar-ai-evidence writes; no deploy |
+| **Working branch** | `main` |
+| **Latest completed task** | v0.8.3 evidence export candidate pipeline merged (`3e4fc97`) |
+| **Next recommended step** | Human content review; candidate triage; deployment architecture (deferred) |
 
 ---
 
