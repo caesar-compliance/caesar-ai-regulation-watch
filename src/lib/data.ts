@@ -35,7 +35,7 @@ export interface Source {
   jurisdiction_id: string;
   source_type: string;
   credibility_level: string;
-  official_url: string;
+  official_url: string | null;
   monitoring_scope: string;
   expected_update_types: string[];
   related_topics: string[];
@@ -127,6 +127,29 @@ export interface Taxonomy {
   taxonomy_id: string;
   title: string;
   values: TaxonomyValue[];
+}
+
+export interface TimelineEvent {
+  event_id: string;
+  date: string;
+  event_type: string;
+  title: string;
+  summary_for_review: string;
+  source_id: string;
+  verified_on_source: boolean;
+  review_status: ReviewStatus;
+  legal_safe_note: string;
+}
+
+export interface Timeline {
+  timeline_id: string;
+  title: string;
+  jurisdiction_id: string;
+  related_record_id?: string | null;
+  source_ids: string[];
+  events: TimelineEvent[];
+  review_status: ReviewStatus;
+  legal_safe_note: string;
 }
 
 function readYamlDir<T>(dir: string): T[] {
@@ -231,12 +254,27 @@ export function changesForRecord(recordId: string): ChangeRecord[] {
   return getChanges().filter((c) => c.related_record_id === recordId);
 }
 
+export function getTimelines(): Timeline[] {
+  return readYamlDir<Timeline>("data/timelines").sort((a, b) =>
+    a.title.localeCompare(b.title),
+  );
+}
+
+export function getTimeline(id: string): Timeline | undefined {
+  return getTimelines().find((t) => t.timeline_id === id);
+}
+
+export function timelinesForJurisdiction(jurisdictionId: string): Timeline[] {
+  return getTimelines().filter((t) => t.jurisdiction_id === jurisdictionId);
+}
+
 export function getPilotSummary() {
   return {
     jurisdictionCount: getJurisdictions().length,
     sourceCount: getSources().length,
     recordCount: getRecords().length,
     changeCount: getChanges().length,
+    timelineCount: getTimelines().length,
     exportSampleCount: getExportSamples().length,
   };
 }

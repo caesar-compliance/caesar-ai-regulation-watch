@@ -8,14 +8,14 @@
 
 | File | Role |
 |---|---|
-| **README.md** | Public entry; v0.4.1 status + npm commands |
+| **README.md** | Public entry; v0.5.0 status + npm commands |
 | **SPEC.md** | Requirements through static site |
 | **ARCHITECTURE.md** | Data layers + Astro publishing |
-| **ROADMAP.md** | v0.4.0 static site complete |
+| **ROADMAP.md** | v0.5.0 global data + timelines + CI |
 | **CHANGELOG.md** | Semver history |
 | **REPO_INVENTORY.md** | This file |
-| **PROJECT_STATE.md** | v0.4.0 phase |
-| **NEXT_ACTIONS.md** | Control Tower page review + v0.5 |
+| **PROJECT_STATE.md** | v0.5.0 phase |
+| **NEXT_ACTIONS.md** | Control Tower review + map deferral |
 
 ---
 
@@ -63,6 +63,34 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **change-evidence-mapping.schema.json** | Evidence mapping items |
 | **taxonomy.schema.json** | Taxonomy files |
 | **evidence-export-record.schema.json** | Export contract record |
+| **timeline.schema.json** | Timeline YAML (v0.5.0) |
+
+---
+
+## data/timelines/ (v0.5.0)
+
+| File | Role |
+|---|---|
+| **eu-ai-act.yml** | Sample EU AI Act milestone timeline |
+| **global-ai-regulation-watch.sample.yml** | Sample cross-jurisdiction timeline |
+
+---
+
+## docs/ (v0.5.0 additions)
+
+| File | Role |
+|---|---|
+| **docs/TIMELINE_MODEL.md** | Timeline data model and review workflow |
+| **docs/GLOBAL_COVERAGE_EXPANSION.md** | v0.5.0 global expansion scope |
+| **docs/CI_VALIDATION.md** | GitHub Actions CI description |
+
+---
+
+## .github/workflows/
+
+| File | Role |
+|---|---|
+| **validate-and-build.yml** | PR/push: validate:data → generate:exports → build |
 
 ---
 

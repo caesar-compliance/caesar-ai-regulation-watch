@@ -2,15 +2,16 @@
 
 **Last updated:** 19 May 2026
 
-**Current version:** v0.4.1 · **Phase:** static site UX complete · **Mode:** read-only preview.
+**Current version:** v0.5.0 · **Phase:** global static foundation + timelines + CI · **Mode:** read-only preview.
 
 ---
 
 ## Immediate priority — Control Tower
 
-1. Review `/search/`, filters, methodology, disclaimer, and export JSON/RSS.
-2. Run `npm run build && npm run preview` and sign off legal-safe language.
-3. Approve v0.5 scope (Leaflet map vs timelines first).
+1. Review expanded jurisdictions, sources, and `/timelines/` pages.
+2. Verify official URLs and timeline dates on primary sources; update `review_status` where appropriate.
+3. Review CI workflow output on PRs; sign off legal-safe language on methodology/disclaimer.
+4. Approve v0.5 map scope (Leaflet) vs further data curation.
 
 ---
 
@@ -18,9 +19,8 @@
 
 | Step | Description |
 |---|---|
-| v0.5 map | Leaflet pilot map with list fallback |
-| v0.5 timelines | `data/timelines/` + milestone pages |
-| CI | GitHub Actions: validate + generate + build |
+| Human review | Mark reviewed entries; add law/guidance records for new jurisdictions |
+| v0.5 map | Leaflet pilot map with list fallback (deferred from v0.5.0) |
 | v0.6 watchers | After Control Tower approves fetch targets |
 
 ---
@@ -29,5 +29,6 @@
 
 - v0.4.0 — Astro static site skeleton
 - v0.4.1 — Pagefind search, filters, methodology/disclaimer, JSON/RSS exports
+- v0.5.0 — Global jurisdiction/source expansion, timelines, CI validate/build
 
 See [ROADMAP.md](ROADMAP.md).

@@ -33,11 +33,19 @@ const jurisdiction = getJurisdiction(source.jurisdiction_id);
 
   <ReviewBanner reviewStatus={source.review_status} />
 
-  <p>
-    <a class="btn-primary" href={source.official_url} target="_blank" rel="noopener noreferrer">
-      View official source ↗
-    </a>
-  </p>
+  {
+    source.official_url ? (
+      <p>
+        <a class="btn-primary" href={source.official_url} target="_blank" rel="noopener noreferrer">
+          View official source ↗
+        </a>
+      </p>
+    ) : (
+      <p class="banner banner--review" role="note">
+        Official URL requires human verification before use. See notes below.
+      </p>
+    )
+  }
 
   <dl class="meta-grid">
     <div><dt>Source ID</dt><dd class="mono">{source.source_id}</dd></div>
@@ -51,7 +59,12 @@ const jurisdiction = getJurisdiction(source.jurisdiction_id);
         )}
       </dd>
     </div>
-    <div><dt>Official URL</dt><dd class="mono" style="word-break: break-all;">{source.official_url}</dd></div>
+    <div>
+      <dt>Official URL</dt>
+      <dd class="mono" style="word-break: break-all;">
+        {source.official_url ?? "— pending verification —"}
+      </dd>
+    </div>
   </dl>
 
   <h2>Monitoring scope</h2>

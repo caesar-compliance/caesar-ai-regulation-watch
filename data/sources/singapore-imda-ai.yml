@@ -1,0 +1,25 @@
+# Official source — IMDA AI and digital economy
+# Last curated: 19 May 2026
+
+source_id: singapore-imda-ai
+title: IMDA — AI and trusted digital ecosystem
+jurisdiction_id: singapore
+source_type: regulator
+credibility_level: official_primary
+official_url: https://www.imda.gov.sg/resources/blog/blog-listing/blog-details/building-a-trusted-ai-ecosystem
+monitoring_scope: >
+  Infocomm Media Development Authority official pages on AI governance, trusted AI
+  ecosystem initiatives, and related policy communications on imda.gov.sg. Scope may
+  expand with additional curated URLs.
+expected_update_types:
+  - policy_announcements
+  - initiative_updates
+  - blog_and_guidance_posts
+related_topics:
+  - trusted_ai
+  - digital_economy
+  - ai_governance
+review_status: pending_review
+notes: >
+  Official IMDA policy communications entry. Verify whether primary legal instruments
+  are published elsewhere (e.g. statutes, PDPC frameworks).

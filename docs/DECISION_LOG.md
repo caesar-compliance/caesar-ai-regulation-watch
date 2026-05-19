@@ -146,3 +146,13 @@
 - **Decision:** Add **Pagefind** (MIT) for static search; `scripts/generate-static-exports.mjs` for JSON/RSS in `public/`; client-side filters without React; methodology and disclaimer pages.
 - **Rationale:** Improves product preview usability while staying static-first and official-source-first.
 - **Boundaries:** No remote fetch; RSS/JSON marked sample-only; search indexes Caesar HTML only.
+
+---
+
+## [DEC-017] — 19 May 2026 — Global data foundation, timelines, CI (v0.5.0)
+
+- **Status:** Approved (implementation complete; human review of new data pending)
+- **Decision:** Expand static YAML to 13 jurisdictions and ~27 official sources; add `data/timelines/` with schema validation; add `/timelines/` Astro pages; add GitHub Actions `validate-and-build.yml` (no deploy/secrets). Defer Leaflet map to a follow-on slice.
+- **Rationale:** Broader global monitoring foundation with automated data/build guardrails while remaining static and official-source-first.
+- **Boundaries:** No crawlers, watchers, APIs, database, auth, runtime remote fetch, or competitor code/data import.
+- **Artifacts:** `data/jurisdictions/*.yml` (global), `data/sources/*.yml`, `data/timelines/`, `schemas/timeline.schema.json`, `docs/TIMELINE_MODEL.md`, `docs/GLOBAL_COVERAGE_EXPANSION.md`, `docs/CI_VALIDATION.md`.

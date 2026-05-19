@@ -1,0 +1,18 @@
+# Global expansion jurisdiction record — China
+# Last curated: 19 May 2026
+
+jurisdiction_id: china
+name: China
+type: country
+region: Asia-Pacific
+parent_jurisdiction: null
+regulatory_focus:
+  - cyberspace_and_data_governance
+  - algorithmic_recommendation
+  - generative_ai_governance
+monitoring_priority: medium
+notes: >
+  Curated entry for official cyber/data/AI governance sources where listed. Does not
+  claim complete coverage of PRC law, provincial rules, or all CAC publications.
+  Many materials are in Chinese; human review and language expertise required.
+review_status: pending_review

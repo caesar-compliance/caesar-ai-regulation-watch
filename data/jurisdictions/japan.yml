@@ -1,0 +1,17 @@
+# Global expansion jurisdiction record — Japan
+# Last curated: 19 May 2026
+
+jurisdiction_id: japan
+name: Japan
+type: country
+region: Asia-Pacific
+parent_jurisdiction: null
+regulatory_focus:
+  - meti_ai_policy
+  - government_ai_governance
+  - data_and_telecom_policy_intersection
+monitoring_priority: medium
+notes: >
+  Entry for identifiable official government and METI AI governance sources. Does not
+  include all ministries, standards bodies, or local rules unless added later.
+review_status: pending_review

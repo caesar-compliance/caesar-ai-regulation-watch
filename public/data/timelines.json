@@ -1,0 +1,103 @@
+{
+  "generated_at": "2026-05-19",
+  "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
+  "items": [
+    {
+      "timeline_id": "eu-ai-act-milestones",
+      "title": "EU AI Act — sample milestone timeline",
+      "jurisdiction_id": "eu",
+      "related_record_id": "law-eu-ai-act-2024-1689",
+      "source_ids": [
+        "eu-ai-act",
+        "eur-lex",
+        "eu-ai-office"
+      ],
+      "events": [
+        {
+          "event_id": "eu-ai-act-published-oj",
+          "date": "2024-07-12",
+          "event_type": "publication",
+          "title": "Regulation published in Official Journal (sample)",
+          "summary_for_review": "Sample timeline event aligned with the manual law record sample date for Regulation (EU) 2024/1689 publication. Verify exact publication details and citations on EUR-Lex before any client use.\n",
+          "source_id": "eur-lex",
+          "verified_on_source": false,
+          "review_status": "pending_review",
+          "legal_safe_note": "Sample milestone for data-model testing. Not verified on source in this repository. Phased obligations apply over multiple dates; do not treat as complete legal timeline.\n"
+        },
+        {
+          "event_id": "eu-ai-act-general-application-sample",
+          "date": "2025-08-02",
+          "event_type": "implementation",
+          "title": "General application start (sample — phased obligations apply)",
+          "summary_for_review": "Sample date reflecting commonly cited general application timing in public summaries. Many obligations phase in at different dates; confirm all deadlines on official sources.\n",
+          "source_id": "eu-ai-act",
+          "verified_on_source": false,
+          "review_status": "pending_review",
+          "legal_safe_note": "Illustrative sample only. Official EUR-Lex and Commission implementation materials control. Human legal review required.\n"
+        },
+        {
+          "event_id": "eu-ai-office-implementation-tracking",
+          "date": "2026-05-19",
+          "event_type": "monitoring",
+          "title": "Commission AI Office implementation communications (ongoing)",
+          "summary_for_review": "Placeholder monitoring event for tracking Commission AI Office and AI Act framework page updates. Not a legal deadline.\n",
+          "source_id": "eu-ai-office",
+          "verified_on_source": false,
+          "review_status": "pending_review",
+          "legal_safe_note": "Monitoring-oriented sample event for static site timeline UX. Not a statutory date.\n"
+        }
+      ],
+      "review_status": "pending_review",
+      "legal_safe_note": "Sample EU AI Act timeline for Caesar AI Regulation Watch v0.5.0. All events require human verification on official sources before client use. Not legal advice.\n",
+      "event_count": 3
+    },
+    {
+      "timeline_id": "global-ai-regulation-watch-sample",
+      "title": "Global AI regulation watch — sample cross-jurisdiction timeline",
+      "jurisdiction_id": "eu",
+      "source_ids": [
+        "oecd-ai-policy-navigator",
+        "unesco-ai-ethics",
+        "g7-hiroshima-ai-process"
+      ],
+      "events": [
+        {
+          "event_id": "unesco-ai-ethics-adopted-sample",
+          "date": "2021-11-23",
+          "event_type": "publication",
+          "title": "UNESCO AI Ethics Recommendation adopted (sample reference date)",
+          "summary_for_review": "Sample reference to UNESCO adoption of the Recommendation on the Ethics of AI. Verify date and status on the official UNESCO page before client use.\n",
+          "source_id": "unesco-ai-ethics",
+          "verified_on_source": false,
+          "review_status": "pending_review",
+          "legal_safe_note": "Soft-law international instrument. Not binding national law. Sample date for timeline UX.\n"
+        },
+        {
+          "event_id": "g7-hiroshima-ai-process-launch-sample",
+          "date": "2023-05-19",
+          "event_type": "policy_announcement",
+          "title": "G7 Hiroshima AI Process announced (sample reference date)",
+          "summary_for_review": "Sample reference to launch of the G7 Hiroshima AI Process. Confirm communiqué dates and documents on the official G7 portal before client use.\n",
+          "source_id": "g7-hiroshima-ai-process",
+          "verified_on_source": false,
+          "review_status": "pending_review",
+          "legal_safe_note": "Intergovernmental coordination only. National implementation varies. Not legal advice.\n"
+        },
+        {
+          "event_id": "oecd-ai-observatory-monitoring-sample",
+          "date": "2026-05-19",
+          "event_type": "monitoring",
+          "title": "OECD.AI policy database — ongoing monitoring entry",
+          "summary_for_review": "Placeholder for tracking updates to OECD.AI national profiles and policy publications. Not a legal milestone.\n",
+          "source_id": "oecd-ai-policy-navigator",
+          "verified_on_source": false,
+          "review_status": "pending_review",
+          "legal_safe_note": "Informational international resource. Does not create client compliance obligations.\n"
+        }
+      ],
+      "review_status": "pending_review",
+      "legal_safe_note": "Sample global timeline illustrating cross-jurisdiction events linked to international official sources. All entries pending human review. Not complete global coverage.\n",
+      "event_count": 3
+    }
+  ]
+}

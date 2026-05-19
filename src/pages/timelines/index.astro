@@ -1,0 +1,52 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ReviewStatusBadge from "../../components/ReviewStatusBadge.astro";
+import { getTimelines, getJurisdiction } from "../../lib/data";
+
+const timelines = getTimelines();
+---
+
+<BaseLayout title="Timelines" currentPath="/timelines/">
+  <h1>Regulatory timelines</h1>
+  <p class="lead">
+    Chronological milestone views linked to official sources. Sample and pending-review events are not
+    verified legal deadlines.
+  </p>
+
+  <div class="banner banner--review" role="note">
+    <strong>v0.5.0 timeline layer.</strong> Manual YAML only. Verify all dates on official sources before
+    client use. See <a href="/methodology/">methodology</a>.
+  </div>
+
+  <ul class="card-list">
+    {
+      timelines.map((t) => {
+        const jurisdiction = getJurisdiction(t.jurisdiction_id);
+        const sortedEvents = [...t.events].sort((a, b) => a.date.localeCompare(b.date));
+        const unverified = sortedEvents.filter((e) => !e.verified_on_source).length;
+        return (
+          <li class="card">
+            <div class="card__meta">
+              <ReviewStatusBadge status={t.review_status} />
+              {unverified > 0 && <span class="badge badge--warn">Unverified dates: {unverified}</span>}
+            </div>
+            <h2>
+              <a href={`/timelines/${t.timeline_id}/`}>{t.title}</a>
+            </h2>
+            <p class="card__excerpt">
+              <small>
+                {jurisdiction ? (
+                  <a href={`/jurisdictions/${jurisdiction.jurisdiction_id}/`}>{jurisdiction.name}</a>
+                ) : (
+                  t.jurisdiction_id
+                )}
+                {" · "}
+                {sortedEvents.length} event{sortedEvents.length === 1 ? "" : "s"}
+              </small>
+            </p>
+          </li>
+        );
+      })
+    }
+  </ul>
+</BaseLayout>

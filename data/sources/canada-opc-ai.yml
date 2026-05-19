@@ -1,0 +1,24 @@
+# Official source — Office of the Privacy Commissioner of Canada (AI)
+# Last curated: 19 May 2026
+
+source_id: canada-opc-ai
+title: Office of the Privacy Commissioner of Canada — Artificial intelligence
+jurisdiction_id: canada
+source_type: regulator
+credibility_level: official_primary
+official_url: https://www.priv.gc.ca/en/privacy-topics/technology/artificial-intelligence/
+monitoring_scope: >
+  OPC guidance and resources on artificial intelligence and privacy on priv.gc.ca,
+  including updates to guidance and consultation materials linked from this section.
+expected_update_types:
+  - guidance_updates
+  - consultation_documents
+  - position_papers
+related_topics:
+  - privacy
+  - ai_governance
+  - pipeda_intersection
+review_status: pending_review
+notes: >
+  Official privacy regulator guidance. Does not replace federal AI legislation or
+  provincial privacy regimes.

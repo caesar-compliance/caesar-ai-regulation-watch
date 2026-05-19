@@ -1,0 +1,25 @@
+# Official source — Personal Information Protection Commission (PIPC)
+# Last curated: 19 May 2026
+
+source_id: south-korea-pipc
+title: Personal Information Protection Commission — official site (English)
+jurisdiction_id: south-korea
+source_type: regulator
+credibility_level: official_primary
+official_url: https://www.pipc.go.kr/np/eng/main/main.do
+monitoring_scope: >
+  PIPC English portal for privacy and data protection policy that may intersect with
+  AI governance, plus links to official announcements. Korean-language site may contain
+  additional AI-specific materials requiring separate review.
+expected_update_types:
+  - guidance_updates
+  - enforcement_announcements
+  - policy_documents
+related_topics:
+  - privacy
+  - personal_information
+  - ai_intersection
+review_status: pending_review
+notes: >
+  Official privacy regulator portal. Dedicated ROK AI framework pages should be added
+  when URLs are verified by human reviewers.

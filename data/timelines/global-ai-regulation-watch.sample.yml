@@ -1,0 +1,51 @@
+# Sample global timeline — cross-jurisdiction policy signals (not exhaustive)
+# Last curated: 19 May 2026
+
+timeline_id: global-ai-regulation-watch-sample
+title: Global AI regulation watch — sample cross-jurisdiction timeline
+jurisdiction_id: eu
+source_ids:
+  - oecd-ai-policy-navigator
+  - unesco-ai-ethics
+  - g7-hiroshima-ai-process
+events:
+  - event_id: unesco-ai-ethics-adopted-sample
+    date: "2021-11-23"
+    event_type: publication
+    title: UNESCO AI Ethics Recommendation adopted (sample reference date)
+    summary_for_review: >
+      Sample reference to UNESCO adoption of the Recommendation on the Ethics of AI.
+      Verify date and status on the official UNESCO page before client use.
+    source_id: unesco-ai-ethics
+    verified_on_source: false
+    review_status: pending_review
+    legal_safe_note: >
+      Soft-law international instrument. Not binding national law. Sample date for timeline UX.
+  - event_id: g7-hiroshima-ai-process-launch-sample
+    date: "2023-05-19"
+    event_type: policy_announcement
+    title: G7 Hiroshima AI Process announced (sample reference date)
+    summary_for_review: >
+      Sample reference to launch of the G7 Hiroshima AI Process. Confirm communiqué dates
+      and documents on the official G7 portal before client use.
+    source_id: g7-hiroshima-ai-process
+    verified_on_source: false
+    review_status: pending_review
+    legal_safe_note: >
+      Intergovernmental coordination only. National implementation varies. Not legal advice.
+  - event_id: oecd-ai-observatory-monitoring-sample
+    date: "2026-05-19"
+    event_type: monitoring
+    title: OECD.AI policy database — ongoing monitoring entry
+    summary_for_review: >
+      Placeholder for tracking updates to OECD.AI national profiles and policy publications.
+      Not a legal milestone.
+    source_id: oecd-ai-policy-navigator
+    verified_on_source: false
+    review_status: pending_review
+    legal_safe_note: >
+      Informational international resource. Does not create client compliance obligations.
+review_status: pending_review
+legal_safe_note: >
+  Sample global timeline illustrating cross-jurisdiction events linked to international
+  official sources. All entries pending human review. Not complete global coverage.

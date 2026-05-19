@@ -60,6 +60,7 @@ const guidance = readYamlDir("data/guidance");
 const changes = readYamlDir("data/changes").sort((a, b) =>
   b.detected_date.localeCompare(a.detected_date),
 );
+const timelines = readYamlDir("data/timelines");
 const exportFile = readYamlFile("exports/samples/regulation-change-export.sample.yml");
 const exportSamples = (exportFile?.exports ?? []).map((e) => ({
   ...e,
@@ -80,7 +81,7 @@ const generatedAt = "2026-05-19";
 
 const snapshot = {
   generated_at: generatedAt,
-  version: "0.4.1",
+  version: "0.5.0",
   disclaimer: DISCLAIMER,
   pilot_jurisdictions: jurisdictions.map((j) => j.jurisdiction_id),
   counts: {
@@ -90,7 +91,9 @@ const snapshot = {
     laws: laws.length,
     guidance: guidance.length,
     changes: changes.length,
+    timelines: timelines.length,
     export_samples: exportSamples.length,
+    exports: 6,
   },
   feeds: {
     changes_rss: "/feeds/changes.xml",
@@ -101,6 +104,7 @@ const snapshot = {
     records: "/data/records.json",
     changes: "/data/changes.json",
     export_samples: "/data/export-samples.json",
+    timelines: "/data/timelines.json",
   },
   review_notice:
     "All pilot content is curated manual YAML. Human review required before client use.",
@@ -132,6 +136,15 @@ writeJson(path.join(PUBLIC_DATA, "changes.json"), {
     ...c,
     sample_only: c.record_origin === "manual_sample",
     human_review_required: c.requires_human_review !== false,
+  })),
+});
+
+writeJson(path.join(PUBLIC_DATA, "timelines.json"), {
+  generated_at: generatedAt,
+  disclaimer: DISCLAIMER,
+  items: timelines.map((t) => ({
+    ...t,
+    event_count: t.events?.length ?? 0,
   })),
 });
 
@@ -199,6 +212,7 @@ console.log("  public/data/sources.json");
 console.log("  public/data/records.json");
 console.log("  public/data/changes.json");
 console.log("  public/data/export-samples.json");
+console.log("  public/data/timelines.json");
 console.log("  public/data/regulation-watch-snapshot.json");
 console.log("  public/feeds/changes.xml");
 console.log(`  ${changes.length} change(s) in RSS feed`);

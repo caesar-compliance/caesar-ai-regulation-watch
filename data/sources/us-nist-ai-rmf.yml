@@ -1,0 +1,24 @@
+# Official source — NIST AI Risk Management Framework
+# Last curated: 19 May 2026
+
+source_id: us-nist-ai-rmf
+title: NIST — AI Risk Management Framework
+jurisdiction_id: us-federal
+source_type: standards_body
+credibility_level: official_primary
+official_url: https://www.nist.gov/itl/ai-risk-management-framework
+monitoring_scope: >
+  NIST AI RMF core resources, profiles, and related publications on nist.gov under
+  the AI Risk Management Framework program. Voluntary framework, not federal statute.
+expected_update_types:
+  - framework_updates
+  - profiles_and_playbooks
+  - guidance_documents
+related_topics:
+  - ai_risk_management
+  - nist_ai_rmf
+  - voluntary_standards
+review_status: pending_review
+notes: >
+  Official US standards body resource widely referenced in federal AI policy. Not a
+  substitute for binding federal rules or agency-specific requirements.

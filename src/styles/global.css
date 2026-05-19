@@ -446,6 +446,16 @@ table.data-table tr:last-child td {
   border-bottom: 1px solid var(--color-border);
 }
 
+.group-section__subtitle {
+  font-size: 1.05rem;
+  margin: 1rem 0 0.5rem;
+  font-weight: 600;
+}
+
+.group-section__subtitle a {
+  color: var(--color-link);
+}
+
 .group-section__title a {
   color: inherit;
 }

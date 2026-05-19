@@ -1,0 +1,24 @@
+# Official source — METI AI policy (English)
+# Last curated: 19 May 2026
+
+source_id: japan-meti-ai
+title: METI — AI policy (English pages)
+jurisdiction_id: japan
+source_type: regulator
+credibility_level: official_primary
+official_url: https://www.meti.go.jp/english/policy/mono_info_service/connected_industries/ai/index.html
+monitoring_scope: >
+  Ministry of Economy, Trade and Industry English-language AI policy pages on meti.go.jp,
+  including government AI governance initiatives linked from this section.
+expected_update_types:
+  - policy_updates
+  - guideline_announcements
+  - linked_official_documents
+related_topics:
+  - ai_governance
+  - industrial_policy
+  - connected_industries
+review_status: pending_review
+notes: >
+  English METI entry point only. Authoritative legal text may appear on Japanese-language
+  government sites (e.g. MIC, Cabinet) requiring separate curated entries.

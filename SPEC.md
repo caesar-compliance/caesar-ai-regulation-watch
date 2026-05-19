@@ -1,7 +1,7 @@
 # Specification — Caesar AI Regulation Watch
 
 **Last updated:** 19 May 2026  
-**Status:** v0.4.1 — spec, registry, samples, taxonomies, export contract, and read-only Astro site with search and static exports (no watchers, APIs, database, or auth)
+**Status:** v0.5.0 — global static registry expansion, timelines, CI validate/build, read-only Astro site with search and static exports (no watchers, APIs, database, or auth)
 
 ---
 
@@ -259,6 +259,7 @@ Read-only Astro static site at repository root (`src/`, `package.json`):
 6. ~~**Static public site skeleton** reading `data/` (Astro).~~ **Done (v0.4.0).**
 7. ~~**Schema validation** (ajv).~~ **Done (v0.4.0).**
 8. ~~**Pagefind search, filters, JSON/RSS exports.**~~ **Done (v0.4.1).**
+9. ~~**Global jurisdiction/source expansion, timelines, CI.**~~ **Done (v0.5.0).**
 9. **Timeline file** per pilot jurisdiction (v0.5).
 10. **Leaflet map** (v0.5).
 11. **GitHub Actions CI** (optional follow-up).

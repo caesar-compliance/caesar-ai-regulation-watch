@@ -1,0 +1,17 @@
+# Global expansion jurisdiction record — Canada
+# Last curated: 19 May 2026
+
+jurisdiction_id: canada
+name: Canada
+type: country
+region: Americas
+parent_jurisdiction: null
+regulatory_focus:
+  - responsible_ai_policy
+  - federal_digital_government
+  - privacy_commissioner_guidance
+monitoring_priority: medium
+notes: >
+  Federal and national-authority sources only. Does not include all provincial or
+  territorial AI or privacy regimes unless added later. Requires human review.
+review_status: pending_review

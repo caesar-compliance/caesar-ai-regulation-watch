@@ -1,7 +1,7 @@
 # Architecture — Caesar AI Regulation Watch
 
 **Last updated:** 19 May 2026  
-**Status:** v0.4.1 — static registry, read-only Astro site with Pagefind search and generated JSON/RSS; watchers/API not implemented
+**Status:** v0.5.0 — expanded static global registry, timelines, CI validate/build, read-only Astro site with Pagefind and JSON/RSS; watchers/API not implemented
 
 ---
 
@@ -121,7 +121,7 @@
                               [Site build | RSS | JSON | Evidence export]
 ```
 
-**v0.4.1 phase:** Layer F extended — `generate:exports` → `public/data/` + RSS; Astro build → `dist/`; Pagefind indexes HTML. Search, filters, methodology/disclaimer pages. No runtime API or remote fetch. **Deferred:** Leaflet (v0.5), Layers B–C watchers (v0.6+).
+**v0.5.0 phase:** Layer A expanded (13 jurisdictions, ~27 sources); `data/timelines/` + `/timelines/` pages; GitHub Actions CI. Layer F unchanged pattern — `generate:exports` includes `timelines.json`; snapshot counts timelines. No runtime API or remote fetch. **Deferred:** Leaflet map (v0.5.1), Layers B–C watchers (v0.6+).
 
 ---
 
@@ -135,7 +135,7 @@ caesar-ai-regulation-watch/
 │   ├── laws/                # v0.3.0 sample (eu-ai-act.yml)
 │   ├── guidance/            # v0.3.0 samples
 │   ├── changes/             # v0.3.0 manual change samples
-│   └── timelines/           # planned
+│   └── timelines/           # v0.5.0 sample timelines
 ├── schemas/                 # entity + taxonomy + evidence-export-record
 ├── data/taxonomies/         # v0.3.1 canonical values
 ├── mappings/                # v0.3.0 sample control & evidence links

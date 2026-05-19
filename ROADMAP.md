@@ -4,7 +4,7 @@
 
 This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
 
-**Current (v0.4.1):** search, browse UX, static JSON/RSS exports — no watchers, APIs, database, auth. **Next:** Control Tower review; v0.5 map/timelines.
+**Current (v0.5.0):** global static data, timelines, CI validate/build — no watchers, APIs, database, auth. **Next:** Control Tower review; human URL verification; optional Leaflet map.
 
 ---
 
@@ -165,11 +165,24 @@ v0.1 Foundation ──> v0.2.0 Registry ──> v0.3.0 Samples ──> v0.3.1 Ta
 
 ---
 
-## v0.5 — Map and timelines
+## v0.5.0 — Global data foundation, timelines, CI
+
+**Status:** Complete on branch `agent/v0.5.0-global-data-timeline-ci` (19 May 2026)
+
+**Deliverables:**
+
+- [x] 11 new jurisdiction profiles + ~20 official sources
+- [x] `data/timelines/` + schema + `/timelines/` pages
+- [x] GitHub Actions validate → generate → build
+- [ ] Leaflet map (deferred)
+
+---
+
+## v0.5.1 — Map (planned)
 
 **Status:** Planned
 
-**Goal:** Leaflet map, `data/timelines/`, optional GitHub Actions CI.
+**Goal:** Leaflet pilot map with list fallback.
 
 ---
 

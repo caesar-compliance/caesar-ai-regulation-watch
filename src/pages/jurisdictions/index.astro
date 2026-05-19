@@ -2,17 +2,24 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import JurisdictionCard from "../../components/JurisdictionCard.astro";
 import { getJurisdictions } from "../../lib/data";
+import { groupJurisdictionsByRegion } from "../../lib/filters";
 
 const jurisdictions = getJurisdictions();
+const byRegion = groupJurisdictionsByRegion();
 const high = jurisdictions.filter((j) => j.monitoring_priority === "high");
-const other = jurisdictions.filter((j) => j.monitoring_priority !== "high");
 ---
 
 <BaseLayout title="Jurisdictions" currentPath="/jurisdictions/">
   <h1>Jurisdictions</h1>
   <p class="lead">
-    Curated pilot jurisdictions. Coverage is incremental and not exhaustive — verify scope on each profile.
+    Curated global monitoring entries (v0.5.0). Coverage is incremental and not exhaustive — verify scope on
+    each profile.
   </p>
+
+  <div class="banner banner--review" role="note">
+    <strong>Expanded static foundation.</strong> New jurisdictions and sources are{" "}
+    <code>pending_review</code> unless marked otherwise. Not complete legal coverage.
+  </div>
 
   {
     high.length > 0 && (
@@ -28,15 +35,17 @@ const other = jurisdictions.filter((j) => j.monitoring_priority !== "high");
   }
 
   {
-    other.length > 0 && (
-      <section>
-        <h2>Other pilot jurisdictions</h2>
+    byRegion.map((group) => (
+      <section class="group-section">
+        <h2 class="group-section__title">{group.region}</h2>
         <ul class="card-list">
-          {other.map((j) => (
-            <JurisdictionCard jurisdiction={j} />
-          ))}
+          {group.items
+            .filter((j) => j.monitoring_priority !== "high")
+            .map((j) => (
+              <JurisdictionCard jurisdiction={j} />
+            ))}
         </ul>
       </section>
-    )
+    ))
   }
 </BaseLayout>

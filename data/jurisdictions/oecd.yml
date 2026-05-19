@@ -1,0 +1,18 @@
+# Global expansion jurisdiction record — OECD (AI policy)
+# Last curated: 19 May 2026
+
+jurisdiction_id: oecd
+name: OECD
+type: other
+region: International
+parent_jurisdiction: null
+related_frameworks:
+  - oecd_ai_principles
+regulatory_focus:
+  - oecd_ai_policy_observatory
+  - international_ai_principles
+monitoring_priority: medium
+notes: >
+  International organisation entry for OECD AI Policy Observatory and related official
+  publications. Does not substitute for national law in member countries.
+review_status: pending_review

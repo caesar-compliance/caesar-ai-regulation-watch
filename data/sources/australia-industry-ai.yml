@@ -1,0 +1,22 @@
+# Official source — Australia's AI Ethics Framework (Industry)
+# Last curated: 19 May 2026
+
+source_id: australia-industry-ai
+title: Department of Industry — Australia's AI Ethics Framework
+jurisdiction_id: australia
+source_type: regulator
+credibility_level: official_primary
+official_url: https://www.industry.gov.au/publications/australias-artificial-intelligence-ai-ethics-framework
+monitoring_scope: >
+  Australian Government Department of Industry publications on the AI Ethics Framework
+  and related responsible AI policy pages on industry.gov.au linked from this entry.
+expected_update_types:
+  - framework_updates
+  - policy_papers
+  - consultation_documents
+related_topics:
+  - ai_ethics
+  - responsible_ai
+review_status: pending_review
+notes: >
+  Official federal policy publication. National privacy guidance tracked separately via OAIC entry.

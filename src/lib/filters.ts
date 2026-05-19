@@ -98,6 +98,57 @@ export function changeFilterOptions() {
   };
 }
 
+export function groupJurisdictionsByRegion() {
+  const jurisdictions = getJurisdictions();
+  const groups = new Map<string, typeof jurisdictions>();
+
+  for (const j of jurisdictions) {
+    const region = j.region;
+    if (!groups.has(region)) groups.set(region, []);
+    groups.get(region)!.push(j);
+  }
+
+  return [...groups.entries()]
+    .map(([region, items]) => ({
+      region,
+      items: items.sort((a, b) => a.name.localeCompare(b.name)),
+    }))
+    .sort((a, b) => a.region.localeCompare(b.region));
+}
+
+export function groupSourcesByRegion<T extends { jurisdiction_id: string }>(
+  items: T[],
+): { region: string; jurisdictions: { id: string; name: string; items: T[] }[] }[] {
+  const jurisdictions = getJurisdictions();
+  const jMap = Object.fromEntries(
+    jurisdictions.map((j) => [j.jurisdiction_id, { name: j.name, region: j.region }]),
+  );
+  const byRegion = new Map<string, Map<string, T[]>>();
+
+  for (const item of items) {
+    const meta = jMap[item.jurisdiction_id];
+    const region = meta?.region ?? "Other";
+    const jid = item.jurisdiction_id;
+    if (!byRegion.has(region)) byRegion.set(region, new Map());
+    const regionMap = byRegion.get(region)!;
+    if (!regionMap.has(jid)) regionMap.set(jid, []);
+    regionMap.get(jid)!.push(item);
+  }
+
+  return [...byRegion.entries()]
+    .map(([region, jGroups]) => ({
+      region,
+      jurisdictions: [...jGroups.entries()]
+        .map(([id, groupItems]) => ({
+          id,
+          name: jMap[id]?.name ?? id,
+          items: groupItems,
+        }))
+        .sort((a, b) => a.name.localeCompare(b.name)),
+    }))
+    .sort((a, b) => a.region.localeCompare(b.region));
+}
+
 export function groupByJurisdiction<T extends { jurisdiction_id: string }>(
   items: T[],
 ): { id: string; name: string; items: T[] }[] {

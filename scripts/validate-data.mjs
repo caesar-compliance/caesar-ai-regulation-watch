@@ -33,6 +33,7 @@ const schemas = {
   exportRecord: loadSchema("evidence-export-record.schema.json"),
   controlMapping: loadSchema("change-control-mapping.schema.json"),
   evidenceMapping: loadSchema("change-evidence-mapping.schema.json"),
+  timeline: loadSchema("timeline.schema.json"),
 };
 
 function readYaml(filePath) {
@@ -120,6 +121,13 @@ for (const file of listYamlFiles(path.join(ROOT, "mappings"))) {
   }
 }
 
+// Timelines
+const timelineDir = path.join(ROOT, "data/timelines");
+for (const file of listYamlFiles(timelineDir)) {
+  const data = readYaml(file);
+  check(validate(file, data, schemas.timeline));
+}
+
 // Export samples
 for (const file of listYamlFiles(path.join(ROOT, "exports/samples"))) {
   const data = readYaml(file);
@@ -130,6 +138,51 @@ for (const file of listYamlFiles(path.join(ROOT, "exports/samples"))) {
   }
   for (const item of items) {
     check(validate(`${file} → ${item.export_record_id ?? "?"}`, item, schemas.exportRecord));
+  }
+}
+
+// Referential integrity (timelines)
+const jurisdictionIds = new Set(
+  listYamlFiles(path.join(ROOT, "data/jurisdictions")).map((f) => readYaml(f).jurisdiction_id),
+);
+const sourceIds = new Set(
+  listYamlFiles(path.join(ROOT, "data/sources")).map((f) => readYaml(f).source_id),
+);
+const recordIds = new Set([
+  ...listYamlFiles(path.join(ROOT, "data/laws")).map((f) => readYaml(f).record_id),
+  ...listYamlFiles(path.join(ROOT, "data/guidance")).map((f) => readYaml(f).record_id),
+]);
+
+for (const file of listYamlFiles(timelineDir)) {
+  const t = readYaml(file);
+  const label = path.basename(file);
+  if (!jurisdictionIds.has(t.jurisdiction_id)) {
+    failures.push({
+      label: `${file} (referential)`,
+      errors: [{ message: `unknown jurisdiction_id: ${t.jurisdiction_id}` }],
+    });
+  }
+  if (t.related_record_id && !recordIds.has(t.related_record_id)) {
+    failures.push({
+      label: `${file} (referential)`,
+      errors: [{ message: `unknown related_record_id: ${t.related_record_id}` }],
+    });
+  }
+  for (const sid of t.source_ids ?? []) {
+    if (!sourceIds.has(sid)) {
+      failures.push({
+        label: `${file} (referential)`,
+        errors: [{ message: `unknown source_id in source_ids: ${sid}` }],
+      });
+    }
+  }
+  for (const ev of t.events ?? []) {
+    if (!sourceIds.has(ev.source_id)) {
+      failures.push({
+        label: `${file} → ${ev.event_id} (referential)`,
+        errors: [{ message: `unknown source_id on event: ${ev.source_id}` }],
+      });
+    }
   }
 }
 

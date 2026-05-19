@@ -11,6 +11,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.5.0] - 19 May 2026
+
+### Added
+
+- **11 global jurisdiction profiles** (UK, US federal, China, Canada, Australia, Singapore, Japan, South Korea, OECD, UNESCO, G7).
+- **~20 official source registry entries** for expanded jurisdictions and international bodies.
+- **Timeline layer**: `data/timelines/`, `schemas/timeline.schema.json`, `/timelines/` pages, `public/data/timelines.json`.
+- **GitHub Actions CI** (`.github/workflows/validate-and-build.yml`) — validate, generate exports, build on push/PR.
+- Docs: `docs/TIMELINE_MODEL.md`, `docs/GLOBAL_COVERAGE_EXPANSION.md`, `docs/CI_VALIDATION.md`.
+
+### Changed
+
+- Jurisdiction index grouped by **region**; sources index grouped by **region and jurisdiction**.
+- Snapshot JSON v0.5.0 counts include timelines; homepage stats and navigation updated.
+- Source schema allows `official_url: null` with `needs_update` workflow.
+
+### Notes
+
+- Still static manual YAML — no watchers, APIs, database, auth, or runtime remote fetch.
+- All new data `pending_review` unless explicitly reviewed; not complete global coverage.
+
+---
+
 ## [0.4.1] - 19 May 2026
 
 ### Added

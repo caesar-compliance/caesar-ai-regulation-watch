@@ -1,0 +1,17 @@
+# Global expansion jurisdiction record — South Korea
+# Last curated: 19 May 2026
+
+jurisdiction_id: south-korea
+name: South Korea
+type: country
+region: Asia-Pacific
+parent_jurisdiction: null
+regulatory_focus:
+  - pipc_privacy_and_ai
+  - government_ai_framework
+  - digital_policy
+monitoring_priority: medium
+notes: >
+  Curated official government and PIPC-related sources where listed. Not complete
+  coverage of ROK legislation or all regulators. Requires human review.
+review_status: pending_review

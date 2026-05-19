@@ -3,7 +3,7 @@
 **Global AI regulation monitoring for governance teams** — part of the [Caesar AI Governance Hub](https://github.com/caesar-compliance/caesar-ai-governance-hub) ecosystem.
 
 **Last updated:** 19 May 2026  
-**Status:** v0.4.1 — read-only Astro site with search, filters, static JSON/RSS exports (no watchers, APIs, database, auth, or external integrations)
+**Status:** v0.5.0 — global static data foundation with timelines, CI validate/build, search, and JSON/RSS exports (no watchers, APIs, database, auth, or runtime remote fetch)
 
 ---
 
@@ -110,7 +110,7 @@ Details: [docs/COMPETITOR_BENCHMARKS.md](docs/COMPETITOR_BENCHMARKS.md). Competi
 
 ## Pilot registry (v0.2.0)
 
-Curated **EU and Norway** official source registry (not complete legal coverage):
+Curated **global static** official source registry starting from EU/Norway pilot plus 11 jurisdictions (not complete legal coverage):
 
 - [docs/PILOT_SOURCE_REGISTRY.md](docs/PILOT_SOURCE_REGISTRY.md) — index and review workflow
 - `data/jurisdictions/` — `eu.yml`, `norway.yml`
@@ -135,7 +135,7 @@ Architecture reference study and implementation planning — **no VerifyWise cod
 - [docs/NEXT_IMPLEMENTATION_ARCHITECTURE_OPTIONS.md](docs/NEXT_IMPLEMENTATION_ARCHITECTURE_OPTIONS.md) — Astro vs Next vs plain generator
 - [docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md](docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md) — next implementation plan (not built yet)
 
-## Static site preview (v0.4.1)
+## Static site preview (v0.5.0)
 
 Read-only Astro site generated from `data/` at build time:
 
@@ -211,6 +211,6 @@ Canonical values, review workflow, and future evidence export shape:
 
 ## Project status
 
-**v0.4.1** adds Pagefind search, browse filters, methodology/disclaimer pages, and static JSON/RSS exports (19 May 2026). Data remains manual YAML; no watchers or backend. Next: Control Tower review; v0.5 map.
+**v0.5.0** expands global jurisdiction/source YAML, adds regulatory timelines and GitHub Actions CI (validate → generate → build). **v0.4.1** added Pagefind search, filters, methodology/disclaimer, JSON/RSS. Data remains manual YAML; no watchers or backend. Next: Control Tower review of expanded registry; optional Leaflet map.
 
 See [PROJECT_STATE.md](PROJECT_STATE.md) and [NEXT_ACTIONS.md](NEXT_ACTIONS.md).

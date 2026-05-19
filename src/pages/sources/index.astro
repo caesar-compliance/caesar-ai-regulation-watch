@@ -3,19 +3,24 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import FilterBar from "../../components/FilterBar.astro";
 import SourceCard from "../../components/SourceCard.astro";
 import { getSources } from "../../lib/data";
-import { sourceFilterOptions, groupByJurisdiction } from "../../lib/filters";
+import { sourceFilterOptions, groupSourcesByRegion } from "../../lib/filters";
 
 const sources = getSources();
 const opts = sourceFilterOptions();
-const grouped = groupByJurisdiction(sources);
+const groupedByRegion = groupSourcesByRegion(sources);
 ---
 
 <BaseLayout title="Official sources" currentPath="/sources/">
   <div data-filter-page>
     <h1>Official sources</h1>
     <p class="lead">
-      Canonical URLs in the pilot registry. Primary truth is always the official source — not this summary.
+      Official and authoritative source registry (global expansion v0.5.0). Primary truth is always the
+      official source — not this summary.
     </p>
+
+    <div class="banner banner--review" role="note">
+      New entries require human review. URLs marked pending must be verified before client use.
+    </div>
 
     <FilterBar
       filters={[
@@ -26,16 +31,21 @@ const grouped = groupByJurisdiction(sources);
     />
 
     {
-      grouped.map((group) => (
+      groupedByRegion.map((regionGroup) => (
         <section class="group-section">
-          <h2 class="group-section__title">
-            <a href={`/jurisdictions/${group.id}/`}>{group.name}</a>
-          </h2>
-          <ul class="card-list" data-filter-list>
-            {group.items.map((s) => (
-              <SourceCard source={s} filterable />
-            ))}
-          </ul>
+          <h2 class="group-section__title">{regionGroup.region}</h2>
+          {regionGroup.jurisdictions.map((group) => (
+            <section>
+              <h3 class="group-section__subtitle">
+                <a href={`/jurisdictions/${group.id}/`}>{group.name}</a>
+              </h3>
+              <ul class="card-list" data-filter-list>
+                {group.items.map((s) => (
+                  <SourceCard source={s} filterable />
+                ))}
+              </ul>
+            </section>
+          ))}
         </section>
       ))
     }
