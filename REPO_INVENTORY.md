@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 20 May 2026
+**Last updated:** 20 May 2026 (v0.8.4 deploy readiness)
 
 ---
 
@@ -8,13 +8,13 @@
 
 | File | Role |
 |---|---|
-| **README.md** | Public entry; v0.8.3 status + npm commands |
+| **README.md** | Public entry; v0.8.4 status + npm commands |
 | **SPEC.md** | Requirements through static site |
 | **ARCHITECTURE.md** | Data layers + Astro publishing |
 | **ROADMAP.md** | v0.6.1 URL verification + review queue |
 | **CHANGELOG.md** | Semver history |
 | **REPO_INVENTORY.md** | This file |
-| **PROJECT_STATE.md** | v0.8.3 phase |
+| **PROJECT_STATE.md** | v0.8.4 phase |
 | **NEXT_ACTIONS.md** | Control Tower URL verification |
 | **docs/SOURCE_VERIFICATION_WORKFLOW.md** | Verification process |
 | **docs/RECORD_EXPANSION_GAPS.md** | Deferred records log |
@@ -141,11 +141,32 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 
 ---
 
+## docs/ (v0.8.4 deployment)
+
+| File | Role |
+|---|---|
+| **STATIC_DEPLOYMENT_ARCHITECTURE.md** | GitHub Pages architecture, boundaries, rollback |
+| **PUBLIC_RELEASE_CHECKLIST.md** | Pre-deploy human gate |
+| **POST_DEPLOY_SMOKE_TESTS.md** | URL/path checks after deploy |
+
+---
+
 ## .github/workflows/
 
 | File | Role |
 |---|---|
 | **validate-and-build.yml** | PR/push: generate:evidence-candidates → validate:data → build |
+| **deploy-static-site.yml** | Manual GitHub Pages deploy (`workflow_dispatch`, `DEPLOY` confirm) |
+| **monitoring-cycle.yml** | Scheduled/watchers (no deploy) |
+
+---
+
+## scripts/ (v0.8.4)
+
+| File | Role |
+|---|---|
+| **verify-dist-output.mjs** | `npm run verify:dist` — post-build path checks |
+| **rewrite-dist-base-path.mjs** | Prefix `href`/`src` in HTML for GitHub Pages base path |
 
 ---
 

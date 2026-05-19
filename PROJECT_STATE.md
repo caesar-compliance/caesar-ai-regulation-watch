@@ -9,23 +9,31 @@
 | Field | Value |
 |---|---|
 | **Repository** | `caesar-ai-regulation-watch` |
-| **Current version** | `v0.8.3` |
-| **Current phase** | Evidence export candidate pipeline |
-| **Status** | v0.8.3 **merged to `main`**; gated candidates + page + JSON export; no caesar-ai-evidence writes; no deploy |
-| **Working branch** | `main` |
-| **Latest completed task** | v0.8.3 evidence export candidate pipeline merged (`3e4fc97`) |
-| **Next recommended step** | Human content review; candidate triage; deployment architecture (deferred) |
+| **Current version** | `v0.8.4` |
+| **Current phase** | Static deployment readiness |
+| **Status** | v0.8.4 on `main`: GitHub Pages deploy workflow (manual `DEPLOY` gate); **not** auto-deployed on merge; production launch not claimed |
+| **Working branch** | `main` (after merge) |
+| **Latest completed task** | Deployment architecture docs + `deploy-static-site.yml` + `verify:dist` |
+| **Next recommended step** | Enable GitHub Pages (Actions source); run public release checklist; optional first manual deploy |
 
 ---
 
-## Watcher inventory (v0.8.0)
+## Static deployment (v0.8.4)
 
-| Type | Count | Enabled |
-|---|---|---|
-| Page metadata | 2 | 2 |
-| RSS/feed | 2 | 2 |
-| API metadata | 1 | 1 |
-| **Total watchers** | **5** | **5** |
+| Capability | Status |
+|---|---|
+| `docs/STATIC_DEPLOYMENT_ARCHITECTURE.md` | Yes |
+| `docs/PUBLIC_RELEASE_CHECKLIST.md` | Yes |
+| `docs/POST_DEPLOY_SMOKE_TESTS.md` | Yes |
+| `.github/workflows/deploy-static-site.yml` | Yes (`workflow_dispatch` only) |
+| `npm run build:pages` | Yes (GitHub Pages base path) |
+| `npm run verify:dist` | Yes |
+| Auto-deploy on push to `main` | **No** |
+| Custom domain / DNS | **No** (deferred) |
+| Secrets for deploy | **No** |
+| Actual production deploy executed | **Not by default** — manual workflow only |
+
+**Expected preview URL (after manual deploy):** `https://caesar-compliance.github.io/caesar-ai-regulation-watch/`
 
 ---
 
@@ -33,11 +41,7 @@
 
 | Capability | Status |
 |---|---|
-| `schemas/evidence-export-candidate.schema.json` | Yes |
-| `scripts/generate-evidence-export-candidates.mjs` | Yes |
-| `data/evidence-export-candidates/evidence-export-candidates-2026-05-20.yml` | Yes (5 candidates) |
-| `/evidence-export-candidates/` page | Yes |
-| `public/data/evidence-export-candidates.json` | Yes |
+| Gated candidate pipeline | Yes |
 | Final evidence export / caesar-ai-evidence ingest | **No** |
 | `client_use_allowed: true` on candidates | **No** (policy) |
 
@@ -47,12 +51,8 @@
 
 | Capability | Status |
 |---|---|
-| `schemas/content-review.schema.json` | Yes |
-| `data/verifications/content-review-*.yml` | Yes (9-item pilot batch) |
-| `/content-review/` page | Yes |
-| `public/data/content-reviews.json` | Yes |
+| Content review batch + `/content-review/` | Yes |
 | `client_use_allowed: true` | **No** (policy) |
-| Auto-update records from watchers | **No** |
 
 ---
 
@@ -60,20 +60,15 @@
 
 | Capability | Status |
 |---|---|
-| Local `npm run monitoring:cycle` | Yes |
-| Local `npm run monitoring:summary` | Yes |
-| GitHub `monitoring-cycle.yml` | Yes (`workflow_dispatch` + daily 06:00 UTC) |
-| Scheduled PR | **No** (artifacts only) |
-| Manual review PR | Optional (`create_pr=true`) |
-| Auto-merge | **No** |
-| Deploy | **No** |
-| Secrets | **None** |
+| `monitoring-cycle.yml` | Yes (unchanged semantics) |
+| Scheduled PR / auto-merge | **No** |
+| Deploy from monitoring | **No** |
 
 ---
 
 ## Boundaries
 
+- Public deploy is manual-gated; pilot disclaimers required.
 - Candidates are not final evidence; not legal advice; no compliance guarantee.
-- Monitoring is review-gated; not legal advice.
 - `client_use_allowed` remains false on watcher outputs and export candidates.
-- Push/PR CI still does not run live watchers (`validate-and-build.yml`).
+- Push/PR CI: `validate-and-build.yml` only (no deploy).
