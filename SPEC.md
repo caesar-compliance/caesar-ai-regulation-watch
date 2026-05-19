@@ -1,51 +1,232 @@
-# Specification — caesar-ai-regulation-watch
+# Specification — Caesar AI Regulation Watch
 
-This document outlines the technical specification, legislative sources, and data interfaces for `caesar-ai-regulation-watch`.
-
----
-
-## 📖 Product Specification
-
-### 1. Purpose
-`caesar-ai-regulation-watch` is a scheduled parsing system and database feed that tracks updates to global AI legislation (e.g., EU AI Act, NIST AI RMF) and translates abstract legal clauses into technical checklists.
-
-### 2. Target Users
-*   **Compliance Officers:** Tracking regulatory shifts that alter auditing frameworks.
-*   **AI Policy Advisors:** Mapping statutory standards to technical evidence.
-
-### 3. Problem Solved
-AI legislation is complex and evolving rapidly. Finding statutory amendments (e.g., EU AI Act implementations in Norway) and understanding how they map to specific codebase dependencies is difficult. `caesar-ai-regulation-watch` automates this mapping, translating law texts into actionable compliance checklists.
-
-### 4. MVP Scope
-*   **Target Sources Catalog:** Registry tracking:
-    *   Official EU EUR-Lex portal (AI Act articles).
-    *   Norway digital governance guidelines.
-*   **Structured Mapping Schema:** Map statutory clauses to specific control lists (e.g., Article 9 -> Risk Assessment Control).
-*   **CLI Feed Exporter:** Standalone tool to print chronological legal changelogs.
-
-### 5. Future Scope
-*   **Automated Legislative Crawler:** Cron scraper parsing RSS and HTML feeds for statutory additions.
-*   **Static Regulation Portal:** Public database of mapped AI compliance clauses.
-*   **OS Feed Connector:** Live webhook syncing checklist modifications directly to client dashboards on `caesar-ai-governance-os`.
-
-### 6. Non-Goals
-*   Active legal representation (does not substitute for a corporate compliance lawyer).
-*   Automatic filing of regulatory disclosures (does not submit filings to regulatory bodies).
-*   Code modification.
+**Last updated:** 19 May 2026  
+**Status:** Full-scale product specification (documentation only)
 
 ---
 
-## ⚙️ Expected Inputs & Outputs
+## 1. Product summary
 
-### Expected Inputs
-*   **Statutory Database Registry:** YAML mappings connecting clauses to control codes.
-*   **Target Scrape Feeds:** RSS/API endpoints for official portals.
+**Caesar AI Regulation Watch** is a global AI regulation monitoring product that tracks **official and authoritative sources**, helps **identify regulatory changes**, and **supports governance review** by mapping updates to **controls** and **evidence** in the Caesar AI Governance Hub ecosystem.
 
-### Expected Outputs
-*   **Ecosystem Control Mappings:** Standardized JSON checklists validating against `caesar-ai-evidence` schemas.
-*   **Regulatory Changelog:** Plain-text summaries detailing statutory amendments.
+**Public phrasing:** AI regulatory changes mapped to controls and evidence.
+
+**Future URL:** `regulations.caesar.no`
 
 ---
 
-## 🔗 Relation to Caesar AI Governance Hub
-`caesar-ai-regulation-watch` acts as the ecosystem's compliance cartographer. By compiling and mapping legislative updates, it feeds up-to-date checklist registries back to the parent Caesar AI Governance Hub, ensuring all downstream tools scan against current legal criteria.
+## 2. Purpose
+
+Organizations need a structured way to:
+
+1. See which AI-related laws and official guidance exist in jurisdictions they care about.
+2. Notice when **tracked sources** change.
+3. Understand **what may need internal review** (not what is legally required — that requires professional judgment).
+4. Connect changes to **governance controls** and **evidence items**.
+5. Export records for consulting workflows and future **Caesar AI Governance OS** integration.
+
+---
+
+## 3. Target users
+
+| User | Goals |
+|---|---|
+| Legal / compliance | Monitor developments; source-linked briefings |
+| AI governance leads | Control and evidence impact awareness |
+| Consultants | Client memos and evidence pack updates |
+| SMEs | Affordable jurisdiction visibility |
+| Integrators | RSS/JSON and evidence-format exports |
+
+---
+
+## 4. Full-scale functional requirements
+
+### 4.1 Global monitoring
+
+- Curated registry of jurisdictions (not claimed exhaustive).
+- Incremental expansion of tracked countries and regions.
+- Topic tags: risk, transparency, GPAI, enforcement, implementation, etc.
+
+### 4.2 Global map / globe
+
+- Primary navigation surface on public site.
+- Jurisdiction markers with status-derived styling.
+- Search and regional filters.
+
+### 4.3 Jurisdiction profiles
+
+- Country/region metadata, regulators, coverage notes.
+- Linked laws, guidance, timelines, and sources.
+- `last_reviewed` curation metadata.
+
+### 4.4 Official source registry
+
+- Canonical URLs, fetch method, cadence, credibility tier.
+- Attribution and license notes per source.
+
+### 4.5 Law and guidance records
+
+- Structured records with citations, status, dates, summaries (reviewed where published).
+- Links to official sources (primary truth).
+
+### 4.6 Regulatory timelines
+
+- Curated milestones plus detected change events.
+- Deadline markers labeled as tracked dates requiring verification.
+
+### 4.7 Change history
+
+- Snapshots, diffs where permitted, change types, detection timestamps.
+- Review workflow: pending → reviewed.
+
+### 4.8 Status labels
+
+Controlled vocabulary: `proposed`, `adopted`, `in_force`, `guidance`, `voluntary`, `withdrawn`, `monitoring`.
+
+### 4.9 Source credibility
+
+Tiers: `official_primary`, `official_secondary`, `authoritative_reference` (see [docs/DATA_MODEL_DRAFT.md](docs/DATA_MODEL_DRAFT.md)).
+
+### 4.10 AI summary layer
+
+- Draft summaries for changes and records.
+- Public publish requires human review (default policy).
+- Disclaimers on all AI-assisted content.
+
+### 4.11 Affected controls
+
+- Map `ChangeRecord` → control taxonomy refs with `may_affect` / `suggested_review`.
+- No automated “must implement” legal obligations.
+
+### 4.12 Affected evidence
+
+- Suggest evidence types to review or update (system register, vendor review, memos, etc.).
+- Exportable with regulation-change bundles.
+
+### 4.13 RSS / API / export
+
+| Output | v1 target |
+|---|---|
+| RSS feed | Global and per-jurisdiction |
+| JSON export | Static files in repo or CDN |
+| Evidence export | `regulation-change` compatible JSON |
+| Authenticated API | Future (Governance OS) |
+
+### 4.14 Public website
+
+- Static or static-first site: globe, profiles, feeds, methodology, disclaimers.
+- GitHub link and Caesar ecosystem CTAs.
+
+### 4.15 Caesar AI Governance OS (future)
+
+- Regulatory inbox module.
+- Client-specific jurisdiction sets and tasks.
+- Import regulation-change exports.
+
+---
+
+## 5. Initial jurisdiction focus (pilot)
+
+Not exclusive — first depth priority:
+
+| Area | Examples |
+|---|---|
+| **EU** | AI Act, EUR-Lex, EU AI Office |
+| **Norway** | Implementation, Datatilsynet |
+| **EEA context** | Where relevant to Norway clients |
+| **UK / US** | Selected official sources (phased) |
+
+Additional jurisdictions added via registry entries, not marketing claims of total coverage.
+
+---
+
+## 6. MVP scope (first implementation phase after blueprint)
+
+Documentation-complete blueprint is **not** MVP. First implementation MVP:
+
+1. **Source registry** (YAML/JSON) for pilot jurisdictions.
+2. **Regulatory change schema** aligned with evidence format draft.
+3. **Sample change records** (manually curated).
+4. **Timeline file** per pilot jurisdiction.
+5. **Affected controls / evidence mapping** samples.
+6. **Static site skeleton** (no watcher automation required for MVP).
+
+---
+
+## 7. Future scope (post-MVP)
+
+- Automated fetchers for RSS/HTML pilot sources.
+- Diff engine and snapshot store.
+- AI summary generation with review queue.
+- Full public site at `regulations.caesar.no`.
+- Client-specific alerts (paid / OS).
+- Comparison views and enforcement date calendars.
+
+---
+
+## 8. Non-goals
+
+| Non-goal | Reason |
+|---|---|
+| Legal advice | Requires qualified professionals |
+| Compliance guarantees | Tool supports review only |
+| Complete global coverage claim | Dishonest and unmaintainable |
+| Automatic statutory interpretation as binding | Requires legal review |
+| Regulatory filing submission | Out of scope |
+| Codebase scanning | belongs to `caesar-ai-scan` |
+| Copying competitor code or UI | License and originality policy |
+
+---
+
+## 9. Inputs and outputs
+
+### Inputs
+
+- Curated **source registry** definitions.
+- Official RSS/HTML/API endpoints (pilot).
+- Human curation and review decisions.
+- Control/evidence taxonomy references from hub standards.
+- Optional licensed open datasets (e.g. AI Legislation Tracker) with attribution.
+
+### Outputs
+
+- Public HTML pages (static site).
+- **RSS** feeds.
+- **JSON** export files.
+- **regulation-change** evidence exports.
+- Consultant-ready **change summaries** (reviewed).
+- Future: Governance OS inbox payloads.
+
+---
+
+## 10. Quality and legal-safe language
+
+All user-facing text must:
+
+- Link primary sources.
+- Avoid “compliant”, “non-compliant”, “approved by regulator”.
+- Use “helps identify”, “supports governance review”, “may affect”, “suggested update”.
+- State coverage limits on jurisdiction pages.
+
+---
+
+## 11. Hub alignment
+
+| Hub document | Relevance |
+|---|---|
+| `specs/caesar-ai-regulation-watch.md` | Ecosystem role |
+| `docs/FULL_SCALE_COMPETITOR_FEATURE_MAP.md` | Section 8 — regulation watch |
+| `docs/PRODUCT_VISION_MAP.md` | Product 6 |
+| `docs/QUALITY_GATES.md` | Review and language gates |
+| `docs/DEFINITION_OF_DONE.md` | Phase completion criteria |
+
+---
+
+## 12. Related repository docs
+
+- [docs/FULL_SCALE_PRODUCT_BLUEPRINT.md](docs/FULL_SCALE_PRODUCT_BLUEPRINT.md)
+- [docs/COMPETITOR_BENCHMARKS.md](docs/COMPETITOR_BENCHMARKS.md)
+- [docs/DATA_MODEL_DRAFT.md](docs/DATA_MODEL_DRAFT.md)
+- [docs/UI_UX_VISION.md](docs/UI_UX_VISION.md)
+- [ARCHITECTURE.md](ARCHITECTURE.md)
+- [ROADMAP.md](ROADMAP.md)

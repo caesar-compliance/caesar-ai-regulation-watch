@@ -1,27 +1,95 @@
-# Next Actions — caesar-ai-regulation-watch
+# Next Actions — Caesar AI Regulation Watch
 
-This document prioritizes upcoming development tasks and establishes execution boundaries for autonomous agents in the `caesar-ai-regulation-watch` repository.
+**Last updated:** 19 May 2026
+
+Prioritized work after completion of the **full-scale product blueprint** (v0.1). Still **no product code**, **no dependencies**, **no watchers** until v0.2 is approved.
 
 ---
 
-## 🚦 Execution Boundaries
+## Immediate priority (v0.2)
 
-### 1. Prioritized Next Steps
-*   **Define Regulatory Source Registry:** Map the official RSS/API endpoints and portals for tracking AI legislation changes.
-*   **Define Affected-Controls Mapping:** Build the relational structure that maps statutory clauses (e.g. Article 9) directly to control lists.
+### 1. Approve pilot jurisdiction set
 
-### 2. Safe Autonomous Tasks
-*   Scaffolding comments and documentation files inside the planned legislative parser structure.
-*   Improving code formatting and compliance with the `standards/` style guides.
-*   Preparing test dataset mocks for local validation routines.
+**Owner:** Control tower (Artem)
 
-### 3. Tasks Requiring Control Tower (Artem / ChatGPT) Approval
-*   Implementing live scrapers or crawler code targeting external digital portals.
-*   Modifying YAML schemas, control registries, or mapping metrics.
-*   Refactoring code execution folders or configuration formats.
+Proposed pilot:
 
-### 4. Blocked Tasks
-*   None.
+- `eu` — EU AI Act, EU AI Office, EUR-Lex references
+- `no` — Norway implementation, Datatilsynet
+- Optional wave: `gb`, `us` (federal selected sources only)
 
-### 5. Cross-Repository Coordination Notes
-*   Ensure that any checklists or regulation changes map perfectly to Draft 2020-12 schemas in `caesar-ai-evidence`.
+Document coverage limits on each profile.
+
+### 2. Create official source registry files
+
+**Owner:** Agent after approval
+
+- Add `data/sources/` YAML or JSON per [docs/DATA_MODEL_DRAFT.md](docs/DATA_MODEL_DRAFT.md)
+- Each entry: URL, credibility tier, fetch method, attribution, license notes
+- Minimum 5 sources for EU/Norway pilot
+
+### 3. Freeze entity schemas for pilot
+
+**Owner:** Agent + hub coordination
+
+- JSON Schema for: Jurisdiction, OfficialSource, ChangeRecord, SummaryRecord
+- Confirm field alignment with `caesar-ai-evidence` regulation-change (cross-repo issue or hub spec update)
+
+### 4. Draft control & evidence mapping v0.1
+
+**Owner:** Agent with review
+
+- `mappings/controls/` and `mappings/evidence/` sample tables
+- Relationship types: `may_affect`, `suggested_review` only
+- Example: EU AI Office GPAI guidance → vendor review + model documentation evidence
+
+---
+
+## Safe autonomous tasks (after v0.2 approval)
+
+- Add validated sample JSON under `data/` (no fetchers)
+- JSON Schema validation script (language TBD — prefer zero new deps or hub-standard tool)
+- Static HTML mock pages from samples (no framework lock-in yet)
+- Update REPO_INVENTORY and CHANGELOG per change
+
+---
+
+## Requires control tower approval
+
+- Any live HTTP fetch or crawler
+- Changing review policy (e.g. publishing AI drafts without review)
+- Importing third-party datasets (AI Legislation Tracker, OECD bulk)
+- Package manager or CI workflow introduction
+- Public domain DNS (`regulations.caesar.no`)
+
+---
+
+## Blocked until dependency clears
+
+| Task | Blocked by |
+|---|---|
+| Evidence export validator test | `caesar-ai-evidence` regulation-change schema stability |
+| Governance OS inbox implementation | OS repo and API spec |
+| Automated AI summaries | Review workflow tooling decision |
+
+---
+
+## Cross-repository coordination
+
+1. **caesar-ai-evidence** — regulation-change schema review
+2. **caesar-ai-governance-hub** — control taxonomy reference in standards or specs
+3. **caesar-ai-governance-os** — regulatory inbox module spec (documentation only for now)
+
+---
+
+## Suggested implementation order (first code)
+
+When v0.2 is approved, implement in this order:
+
+1. `data/` registry files + JSON Schema
+2. Sample change records + mappings (manual)
+3. Static site generator reading `data/` (minimal)
+4. RSS/JSON export from same build
+5. Only then: pilot watcher for one RSS source
+
+This matches [ROADMAP.md](ROADMAP.md) v0.2 → v0.5.

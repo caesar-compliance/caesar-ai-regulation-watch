@@ -1,72 +1,209 @@
-# Architecture — caesar-ai-regulation-watch
+# Architecture — Caesar AI Regulation Watch
 
-This document outlines the high-level architecture, module layers, and mapping engines for `caesar-ai-regulation-watch`.
-
----
-
-## 🏗️ Planned Structure
-
-The mapping service is structured into four decoupled layers:
-
-```
-┌────────────────────────────────────────────────────────┐
-│                   Legislative Parser                   │
-│   (Crawlers and text normalizers for EUR-Lex portals)  │
-└──────────────────────────┬─────────────────────────────┘
-                           ▼
-┌────────────────────────────────────────────────────────┐
-│                    Mapping Database                    │
-│   (Relational database connecting clauses to controls) │
-└──────────────────────────┬─────────────────────────────┘
-                           ▼
-┌────────────────────────────────────────────────────────┐
-│                     Checklist Compiler                 │
-│   (Translates statutory mappings into technical rules) │
-└──────────────────────────┬─────────────────────────────┘
-                           ▼
-┌────────────────────────────────────────────────────────┐
-│                     Ecosystem Gateway                  │
-│   (Saves local control libraries and emits payloads)   │
-└────────────────────────────────────────────────────────┘
-```
-
-1.  **Legislative Parser Layer:** Scheduled crawlers designed to pull statutory text, extract HTML structures, and parse raw legal articles into structured plain markdown.
-2.  **Mapping Database Layer:** A curated relational catalog overlaying legal requirements with engineering control IDs.
-3.  **Checklist Compiler Layer:** Translates abstract legal text changes into concrete compliance parameters.
-4.  **Ecosystem Gateway Layer:** Formats output data structures, manages baseline text archives, and emits changes.
+**Last updated:** 19 May 2026  
+**Status:** Planned architecture (documentation only; no runtime code)
 
 ---
 
-## 🔄 Data Flow
+## 1. Architectural goals
 
-The regulatory tracking and mapping sequence proceeds as follows:
-
-```
-[Statutory Feed] ──> (Scraper Parser) ──> [Structured Clauses]
-                                                 │
-                                                 ▼
-[Ecosystem Checklists] <── (Gateway Exporter) <── (Mapping Database)
-                                                 │
-                                                 ▼
-                                     [Regulatory Changelogs]
-```
-
-1.  **Ingestion:** The scraper scans official RSS feeds or legislative APIs, pulling new articles.
-2.  **Parsing:** Raw text is divided into structured articles, section numbers, and provisions.
-3.  **Mapping:** The database engine queries these clauses to identify affected engineering controls (e.g. Risk, Vendor, Security limits).
-4.  **Serialization:** Updated checklists are compiled and written locally, exporting a `regulation-change` payload.
+1. **Official-source-first** — registry defines what we monitor; pages link out to authority.
+2. **Separation of concerns** — ingestion, storage, mapping, publishing, and review are distinct.
+3. **Static-first public site** — low cost, fast, auditable; dynamic features added deliberately.
+4. **Evidence-oriented exports** — same pipeline pattern as vendor-watch and hub standards.
+5. **Safe language by design** — review gates before public publish of AI text.
 
 ---
 
-## 🔗 Integration with `caesar-ai-evidence`
+## 2. System context
 
-`caesar-ai-regulation-watch` maps all output payloads to ecosystem schemas. Specifically:
-- **`control` schema:** Mapped statutory requirements flow directly into control libraries.
-- **`regulation-change` schema:** Tracks statutory adjustments over time, preserving historic legal baselines.
+```text
+                    ┌─────────────────────────────┐
+                    │  Official sources (web/RSS) │
+                    └──────────────┬──────────────┘
+                                   │
+                    ┌──────────────▼──────────────┐
+                    │   Ingestion & snapshots     │
+                    │   (future watchers)         │
+                    └──────────────┬──────────────┘
+                                   │
+         ┌─────────────────────────┼─────────────────────────┐
+         │                         │                         │
+         ▼                         ▼                         ▼
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│  Core data      │    │  Change & diff   │    │  Review queue   │
+│  (jurisdictions,│    │  detection       │    │  (human + AI)   │
+│   laws, sources)│    │                  │    │                 │
+└────────┬────────┘    └────────┬────────┘    └────────┬────────┘
+         │                         │                         │
+         └─────────────────────────┼─────────────────────────┘
+                                   │
+                    ┌──────────────▼──────────────┐
+                    │  Governance mapping layer │
+                    │  controls + evidence links  │
+                    └──────────────┬──────────────┘
+                                   │
+         ┌─────────────────────────┼─────────────────────────┐
+         │                         │                         │
+         ▼                         ▼                         ▼
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│  Static site    │    │  RSS / JSON     │    │ caesar-ai-      │
+│  generator      │    │  feeds          │    │ evidence export │
+└─────────────────┘    └─────────────────┘    └────────┬────────┘
+                                                            │
+                                              ┌─────────────▼─────────────┐
+                                              │ caesar-ai-governance-os   │
+                                              │ (future regulatory inbox) │
+                                              └───────────────────────────┘
+```
 
 ---
 
-## 📊 Future UI, Reporting & API Expectations
+## 3. Layered modules (planned)
 
-*   **Public Regulation Timelines:** Self-contained static site engines will allow hosting community dashboards displaying AI regulatory changes.
-*   **OS Checklist Ingestion:** Webhook endpoints will stream compiled checklists to `caesar-ai-governance-os`, enabling corporate compliance platforms to adjust their audit parameters in response to legal updates.
+### Layer A — Source registry & catalog
+
+- Maintains `OfficialSource`, `Jurisdiction`, `LawRecord`, `GuidanceRecord`.
+- Human-edited YAML/JSON in repo (phase 1).
+- Validates required fields: URL, credibility tier, attribution.
+
+### Layer B — Ingestion (future)
+
+- Scheduled jobs per `fetch_method`.
+- Produces `SourceSnapshot` with content hash.
+- Respects robots.txt and rate limits; no aggressive scraping without approval.
+
+### Layer C — Change detection (future)
+
+- Compares snapshots → `ChangeRecord`.
+- Optional diff artifacts stored with license-aware excerpt rules.
+
+### Layer D — Summary & review
+
+- AI draft → `SummaryRecord` with `review_status`.
+- Human approval required for public site (default).
+- Disclaimers injected at render time.
+
+### Layer E — Governance mapping
+
+- Rules or curated tables: change topics → `AffectedControlLink`, `AffectedEvidenceLink`.
+- Versioned mapping files under `mappings/`.
+- Relationship strength: `may_affect`, `suggested_review` only.
+
+### Layer F — Publishing
+
+- **Static site builder** reads data → HTML (globe, profiles, feeds).
+- **RSS builder** from approved changes.
+- **JSON export** full or filtered dumps.
+- **Evidence exporter** emits regulation-change bundles.
+
+### Layer G — Integration gateway (future)
+
+- Webhook or pull API for Governance OS.
+- Idempotent change IDs for inbox deduplication.
+
+---
+
+## 4. Data flow (steady state)
+
+```text
+[Registry update] ──> validate schema ──> commit to data/
+                                              │
+[Scheduler tick] ──> fetch source ──> snapshot ──> diff? ──> change record
+                                              │                    │
+                                              │                    ▼
+                                              │            [Review queue]
+                                              │                    │
+                                              ▼                    ▼
+                                    [Mapping engine] <── approved summary
+                                              │
+                                              ▼
+                              [Site build | RSS | JSON | Evidence export]
+```
+
+**Blueprint phase:** layers B–C deferred; manual `ChangeRecord` samples only.
+
+---
+
+## 5. Repository layout (planned)
+
+```text
+caesar-ai-regulation-watch/
+├── data/                    # future: curated JSON/YAML
+│   ├── jurisdictions/
+│   ├── sources/
+│   ├── laws/
+│   ├── guidance/
+│   ├── changes/
+│   └── timelines/
+├── mappings/                # future: control & evidence links
+├── docs/                    # blueprint & research
+├── site/                    # future: static site source
+└── (no package manager yet)
+```
+
+---
+
+## 6. Integration with caesar-ai-evidence
+
+| Export type | Use |
+|---|---|
+| `regulation-change` | Point-in-time regulatory change event |
+| Control refs | Align with shared control taxonomy when defined |
+| Evidence suggestions | Populate evidence gap / update hints |
+
+Coordination required before field names are frozen. This repo documents intent; evidence repo owns schema authority.
+
+---
+
+## 7. Integration with caesar-ai-governance-os (future)
+
+| OS module | Data from regulation-watch |
+|---|---|
+| Regulatory Inbox | Approved `ChangeRecord` stream |
+| Client workspace | Filtered jurisdictions |
+| Tasks | From affected evidence suggestions |
+| Reports | Selected changes + sources appendix |
+
+Import mechanism: file drop, git submodule, or API — **TBD** at OS spec time.
+
+---
+
+## 8. Public site architecture
+
+- **Static generation** from data (Eleventy, Astro, or plain HTML — decision deferred).
+- **Globe/map** as client-side module; fallback list for accessibility.
+- **CDN/GitHub Pages** hosting until `regulations.caesar.no` routed.
+- No server-side legal logic in v1.
+
+---
+
+## 9. Security and compliance posture
+
+- No storage of user PII in public data repo.
+- Secrets only in future CI (not in blueprint phase).
+- Source fetch from CI with pinned URLs.
+- Audit log of review actions (future, OS or repo).
+
+---
+
+## 10. Observability (future)
+
+- Fetch success/failure per source.
+- Stale source alerts (no successful fetch in N days).
+- Review queue depth metrics.
+
+---
+
+## 11. Architecture decisions
+
+See [docs/DECISION_LOG.md](docs/DECISION_LOG.md) for ADRs including official-source-first and static-first publishing.
+
+---
+
+## 12. Related documents
+
+- [docs/FULL_SCALE_PRODUCT_BLUEPRINT.md](docs/FULL_SCALE_PRODUCT_BLUEPRINT.md)
+- [docs/DATA_MODEL_DRAFT.md](docs/DATA_MODEL_DRAFT.md)
+- [docs/UI_UX_VISION.md](docs/UI_UX_VISION.md)
+- [SPEC.md](SPEC.md)
