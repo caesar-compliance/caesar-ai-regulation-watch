@@ -17,7 +17,7 @@ Authoritative log of **public deployment events**. Product version (`vX.Y.Z`) is
 | DEPLOY-20260520-003 | v0.8.7 | 20 May 2026 | `a3ded91` | *see baseline* | github-pages | …/caesar-ai-regulation-watch/ | project-path | pass | Export review gate. *Historical.* |
 | DEPLOY-20260520-004 | v0.8.8 | 20 May 2026 | `52ac0c1` | *see baseline* | github-pages | …/caesar-ai-regulation-watch/ | project-path | pass | Public HTML version consistency. *Historical.* |
 | DEPLOY-20260520-005 | v0.8.9 | 20 May 2026 | `4e987c0` | [26131903261](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26131903261) | github-pages | …/caesar-ai-regulation-watch/ | project-path | pass | Source verification refresh; superseded by custom domain. |
-| DEPLOY-20260520-006 | v0.9.0 | 20 May 2026 | _pending deploy_ | _pending_ | github-pages | https://regulation-watch.caesar.no/ | custom-domain-root | _pending_ | Ecosystem versioning standard; site root `/`; tag `regulation-watch-v0.9.0` after smoke pass. |
+| DEPLOY-20260520-006 | v0.9.0 | 20 May 2026 | `6aedd49` | [26132437149](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26132437149) | github-pages | https://regulation-watch.caesar.no/ | custom-domain-root | pass | Ecosystem versioning standard; legacy project URL redirects here; tag `regulation-watch-v0.9.0`. |
 
 ---
 

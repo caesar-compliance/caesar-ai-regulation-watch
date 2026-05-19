@@ -2,7 +2,7 @@
 
 **Phase:** v0.9.0 — custom domain + ecosystem versioning/deployment standard  
 **Deployment date:** 20 May 2026  
-**Status:** Deploy pending (merge + manual workflow); DNS and Pages custom domain configured
+**Status:** Live — custom domain deploy run [26132437149](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26132437149)
 
 ---
 
@@ -13,13 +13,16 @@
 | **Repository** | [caesar-compliance/caesar-ai-regulation-watch](https://github.com/caesar-compliance/caesar-ai-regulation-watch) |
 | **Product version** | `v0.9.0` |
 | **Deployment ID** | `DEPLOY-20260520-006` (see [DEPLOYMENTS.md](../DEPLOYMENTS.md)) |
-| **Deployed commit** | _pending v0.9.0 deploy_ |
+| **Deployed commit** | `6aedd49` (`merge: v0.9.0 release tracking and custom domain deployment`) |
+| **Latest workflow run ID** | [26132437149](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26132437149) |
 | **Prior deploy (v0.8.9)** | `4e987c0` — run [26131903261](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26131903261) |
 | **Workflow** | [Deploy static site](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/workflows/deploy-static-site.yml) |
 | **Trigger** | `workflow_dispatch` with `confirm_disclaimers=DEPLOY` |
 | **Canonical public URL** | https://regulation-watch.caesar.no/ |
 | **Domain mode** | custom-domain-root (`/`) |
-| **Legacy project URL** | https://caesar-compliance.github.io/caesar-ai-regulation-watch/ — verify after deploy |
+| **Legacy project URL** | https://caesar-compliance.github.io/caesar-ai-regulation-watch/ — **redirects** to custom domain (20 May 2026 smoke) |
+| **HTTPS certificate** | Approved for `regulation-watch.caesar.no` (expires 18 August 2026) |
+| **Enforce HTTPS** | **Not enabled** — enable manually in Pages settings when ready |
 | **Hosting** | GitHub Pages (`build_type: workflow`) |
 | **Custom domain** | `regulation-watch.caesar.no` (CNAME → `caesar-compliance.github.io`) |
 
