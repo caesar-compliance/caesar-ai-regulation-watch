@@ -10,9 +10,10 @@
 |---|---|
 | **Repository** | `caesar-ai-regulation-watch` |
 | **Product name** | Caesar AI Regulation Watch |
-| **Current version** | `0.2.0` (pilot registry) |
-| **Current phase** | `v0.2.0 pilot EU/Norway source registry` |
-| **Status** | `active — registry data committed; pending Control Tower review` |
+| **Current version** | `v0.2.0` |
+| **Current phase** | Pilot EU/Norway official source registry |
+| **Status** | Static registry / data foundation only — no watchers, UI, APIs, or automated monitoring |
+| **Gate** | Pending Control Tower URL and scope review before v0.3 |
 | **Working branch** | `agent/v0.2.0-pilot-source-registry` |
 | **Latest completed task** | Added pilot EU/Norway official source registry foundation |
 | **Active work item** | Control Tower URL and scope review |

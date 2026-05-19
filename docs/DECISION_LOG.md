@@ -78,3 +78,12 @@
 - **Fields:** Jurisdiction and source schemas use pilot field sets documented in [PILOT_SOURCE_REGISTRY.md](PILOT_SOURCE_REGISTRY.md) (`credibility_level`, `monitoring_scope`, etc.).
 - **Explicit non-decisions:** No watchers, crawlers, APIs, UI, schedulers, or databases in this phase.
 - **Rationale:** Matches ROADMAP v0.2, hub pilot focus (EU AI Act + Norway), and evidence-first incremental coverage without claiming legal completeness.
+
+---
+
+## [DEC-010] — 19 May 2026 — Norway EEA linkage via related_frameworks
+
+- **Status:** Approved
+- **Decision:** Norway is **not** modelled with `parent_jurisdiction: eu`. Use `parent_jurisdiction: null` and `related_frameworks: [eu, eea]` to document EEA/EØS monitoring context without implying EU membership.
+- **Schema:** Optional `related_frameworks` array added to `schemas/jurisdiction.schema.json`.
+- **Rationale:** Avoid misleading jurisdiction hierarchy; preserve legal-safe wording (Norway is not part of the EU).

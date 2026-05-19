@@ -2,14 +2,16 @@
 
 **Last updated:** 19 May 2026
 
-This roadmap reflects the **full-scale product vision**, delivered in disciplined phases. No product code, package managers, or watchers until registry and pilot data are approved.
+This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
+
+**Current (v0.2.0):** static EU/Norway pilot registry only — no watchers, UI, APIs, or automated monitoring. **Next:** Control Tower registry review, then v0.3 curated sample data.
 
 ---
 
 ## Phase overview
 
 ```text
-v0.1 Foundation ──> v0.2 Registry & model ──> v0.3 Pilot data ──> v0.4 Watchers ──> v0.5 Public site & feeds ──> v1.0 Pilot release
+v0.1 Foundation ──> v0.2.0 Pilot registry ──> v0.3 Pilot data ──> v0.4 Watchers ──> v0.5 Public site & feeds ──> v1.0 Pilot release
 ```
 
 ---

@@ -1,7 +1,7 @@
 # Architecture — Caesar AI Regulation Watch
 
 **Last updated:** 19 May 2026  
-**Status:** Planned architecture (documentation only; no runtime code)
+**Status:** v0.2.0 — static registry data foundation documented; ingestion/UI not implemented
 
 ---
 
@@ -184,7 +184,7 @@ Import mechanism: file drop, git submodule, or API — **TBD** at OS spec time.
 ## 9. Security and compliance posture
 
 - No storage of user PII in public data repo.
-- Secrets only in future CI (not in blueprint phase).
+- Secrets only in future CI (not in v0.2.0).
 - Source fetch from CI with pinned URLs.
 - Audit log of review actions (future, OS or repo).
 

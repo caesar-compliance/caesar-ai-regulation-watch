@@ -26,7 +26,7 @@ Living registry of tracked files and their roles.
 | File | Role |
 |---|---|
 | **data/jurisdictions/eu.yml** | EU supranational jurisdiction profile |
-| **data/jurisdictions/norway.yml** | Norway jurisdiction profile (EEA monitoring linkage) |
+| **data/jurisdictions/norway.yml** | Norway jurisdiction profile (`related_frameworks`: eu, eea) |
 | **data/sources/eu-ai-act.yml** | EUR-Lex AI Act instrument entry |
 | **data/sources/eu-ai-office.yml** | Commission AI Office / framework pages |
 | **data/sources/eur-lex.yml** | EUR-Lex portal monitoring entry point |
@@ -41,7 +41,7 @@ Living registry of tracked files and their roles.
 
 | File | Role |
 |---|---|
-| **schemas/jurisdiction.schema.json** | JSON Schema for jurisdiction YAML |
+| **schemas/jurisdiction.schema.json** | JSON Schema for jurisdiction YAML (`parent_jurisdiction`, `related_frameworks`) |
 | **schemas/source.schema.json** | JSON Schema for source YAML |
 
 ---

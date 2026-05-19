@@ -34,7 +34,7 @@ It does **not**:
 | [eu.yml](../data/jurisdictions/eu.yml) | `eu` | EU supranational bloc — AI Act, Commission/AI Office, EUR-Lex cluster |
 | [norway.yml](../data/jurisdictions/norway.yml) | `norway` | Norway — EEA-linked implementation, government pages, Datatilsynet |
 
-Norway lists `parent_jurisdiction: eu` to reflect **monitoring linkage** (EEA AI Act relevance), not a legal conclusion about sovereignty.
+Norway uses `parent_jurisdiction: null` and `related_frameworks: [eu, eea]` to reflect **EEA/EØS monitoring linkage** to EU rules where relevant. Norway is **not** modelled as part of the EU.
 
 ### Official sources (`data/sources/`)
 
@@ -67,7 +67,7 @@ YAML files should be convertible to JSON and validated against these schemas whe
 
 ### Jurisdiction
 
-`jurisdiction_id`, `name`, `type`, `region`, `parent_jurisdiction`, `regulatory_focus`, `monitoring_priority`, `notes`, `review_status`
+`jurisdiction_id`, `name`, `type`, `region`, `parent_jurisdiction`, `related_frameworks` (optional), `regulatory_focus`, `monitoring_priority`, `notes`, `review_status`
 
 ### Source
 

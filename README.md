@@ -3,7 +3,7 @@
 **Global AI regulation monitoring for governance teams** — part of the [Caesar AI Governance Hub](https://github.com/caesar-compliance/caesar-ai-governance-hub) ecosystem.
 
 **Last updated:** 19 May 2026  
-**Status:** v0.2.0 pilot registry (EU/Norway data foundation; no watchers or UI)
+**Status:** v0.2.0 — static EU/Norway pilot registry (data foundation only; no watchers, UI, APIs, or automated monitoring)
 
 ---
 
@@ -79,9 +79,9 @@ Global map / globe
 
 ```text
 caesar-ai-regulation-watch
-  → detects / records regulatory & guidance changes
-  → maps to controls & evidence suggestions
-  → exports regulation-change records (caesar-ai-evidence)
+  → tracks official sources (future: helps identify regulatory changes)
+  → maps to controls & evidence suggestions (curated; human review)
+  → exports regulation-change records (caesar-ai-evidence; planned)
   → future import into caesar-ai-governance-os (regulatory inbox)
 ```
 
@@ -145,6 +145,6 @@ Curated **EU and Norway** official source registry (not complete legal coverage)
 
 ## Project status
 
-**v0.2.0 pilot registry** for EU and Norway is in place (19 May 2026). Watchers, UI, and automated change detection remain deferred until Control Tower reviews registry entries.
+**v0.2.0** static pilot registry for EU and Norway is in place (19 May 2026). No automated monitoring yet. Control Tower registry review is the gate before v0.3 sample data.
 
 See [PROJECT_STATE.md](PROJECT_STATE.md) and [NEXT_ACTIONS.md](NEXT_ACTIONS.md).

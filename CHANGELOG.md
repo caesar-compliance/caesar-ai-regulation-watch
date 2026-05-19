@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+### Changed (v0.2.0 cleanup — 19 May 2026)
+
+- Aligned README, SPEC, ARCHITECTURE, ROADMAP, PROJECT_STATE, and NEXT_ACTIONS on v0.2.0 static-registry state (removed “in progress” / blueprint-only wording where contradictory).
+- Norway jurisdiction: `parent_jurisdiction: null` with `related_frameworks: [eu, eea]` instead of EU parent linkage.
+- Extended `schemas/jurisdiction.schema.json` with optional `related_frameworks` field.
+
+---
+
 ## [0.2.0] - 19 May 2026
 
 ### Added

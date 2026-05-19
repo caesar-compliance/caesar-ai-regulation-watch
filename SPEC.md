@@ -1,7 +1,7 @@
 # Specification — Caesar AI Regulation Watch
 
 **Last updated:** 19 May 2026  
-**Status:** Full-scale product specification (documentation only)
+**Status:** v0.2.0 — full-scale spec plus static EU/Norway pilot registry (no watchers or UI)
 
 ---
 
@@ -140,7 +140,7 @@ Additional jurisdictions added via registry entries, not marketing claims of tot
 
 ---
 
-## 6. Pilot registry data (v0.2.0 — in progress)
+## 6. Pilot registry data (v0.2.0 — delivered)
 
 Machine-readable pilot registry for **EU and Norway only** (curated subset; not exhaustive):
 
@@ -153,7 +153,7 @@ Machine-readable pilot registry for **EU and Norway only** (curated subset; not 
 | `schemas/source.schema.json` | Source record validation |
 | [docs/PILOT_SOURCE_REGISTRY.md](docs/PILOT_SOURCE_REGISTRY.md) | Registry index and review workflow |
 
-No crawlers, watchers, or schedulers are attached to these files in v0.2.0.
+Static YAML only: no crawlers, watchers, APIs, schedulers, or automated monitoring in v0.2.0.
 
 ---
 

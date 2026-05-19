@@ -2,7 +2,9 @@
 
 **Last updated:** 19 May 2026
 
-Prioritized work after **v0.2.0 pilot registry** (EU/Norway YAML + schemas). Still **no watchers**, **no UI**, **no package managers**.
+**Current version:** v0.2.0 · **Phase:** pilot EU/Norway official source registry · **Mode:** static data only (no watchers, UI, APIs, or automated monitoring).
+
+Prioritized work after v0.2.0 registry delivery. Still **no package managers**.
 
 ---
 

@@ -41,7 +41,17 @@
     },
     "parent_jurisdiction": {
       "type": ["string", "null"],
-      "pattern": "^[a-z][a-z0-9_-]*$"
+      "pattern": "^[a-z][a-z0-9_-]*$",
+      "description": "Optional legal/geographic parent jurisdiction slug; null for sovereign countries and top-level blocs"
+    },
+    "related_frameworks": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_-]*$"
+      },
+      "uniqueItems": true,
+      "description": "Linked frameworks for monitoring context (e.g. eu, eea); does not imply membership in the EU"
     },
     "regulatory_focus": {
       "type": "array",

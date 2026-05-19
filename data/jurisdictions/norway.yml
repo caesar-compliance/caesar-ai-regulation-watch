@@ -6,7 +6,10 @@ jurisdiction_id: norway
 name: Norway
 type: country
 region: Europe
-parent_jurisdiction: eu
+parent_jurisdiction: null
+related_frameworks:
+  - eu
+  - eea
 regulatory_focus:
   - eea_relevant_eu_ai_act_implementation
   - national_implementation_and_government_updates
@@ -17,8 +20,9 @@ notes: >
   Pilot jurisdiction for Caesar AI Regulation Watch. Norway is an EEA country;
   EU AI Act-related obligations may apply via EEA incorporation on a different
   timeline than EU member states. This registry tracks selected official Norwegian
-  sources only—not all ministries, agencies, or sector regulators. Listing EU as
-  parent_jurisdiction reflects monitoring linkage, not a legal determination.
+  sources only—not all ministries, agencies, or sector regulators. Norway is not
+  part of the EU; related_frameworks (eu, eea) indicate where EEA/EØS incorporation
+  of EU rules may be relevant for monitoring context only—not a legal determination.
   Supports governance review; may affect controls or evidence after human review.
   Requires human review before client use.
 review_status: pending_review
