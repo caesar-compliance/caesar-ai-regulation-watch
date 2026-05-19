@@ -28,6 +28,7 @@ const required = [
   "disclaimer/index.html",
   "data/regulation-watch-snapshot.json",
   "data/evidence-export-candidates.json",
+  "data/evidence-export-candidate-reviews.json",
   "data/review-queue.json",
   "data/content-reviews.json",
   "data/jurisdictions.json",

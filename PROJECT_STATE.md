@@ -9,12 +9,12 @@
 | Field | Value |
 |---|---|
 | **Repository** | `caesar-ai-regulation-watch` |
-| **Current version** | `v0.8.6` |
-| **Current phase** | First public GitHub Pages pilot + first content review batch |
-| **Status** | v0.8.5 pilot **live** at `https://caesar-compliance.github.io/caesar-ai-regulation-watch/`; v0.8.6 merges content review + candidate refresh (redeploy after merge) |
+| **Current version** | `v0.8.7` |
+| **Current phase** | Public GitHub Pages pilot + export-candidate governance review gate |
+| **Status** | Pilot **live** at `https://caesar-compliance.github.io/caesar-ai-regulation-watch/`; v0.8.7 adds human export-candidate review gate + consistent public version labels |
 | **Working branch** | `main` (after merge) |
-| **Latest completed task** | v0.8.6 first source/content review batch (9 items) + evidence candidate regeneration |
-| **Next recommended step** | Redeploy public site after merge; second review batch / EUR-Lex deep pass; custom domain deferred |
+| **Latest completed task** | v0.8.7 export-candidate governance review (2 ready manual samples) + public version consistency |
+| **Next recommended step** | EUR-Lex deep pass; mapping review design; final export contract — no caesar-ai-evidence writes without approval |
 
 ---
 
@@ -39,11 +39,12 @@
 
 ---
 
-## Evidence export candidates (v0.8.3)
+## Evidence export candidates (v0.8.3+)
 
 | Capability | Status |
 |---|---|
 | Gated candidate pipeline | Yes |
+| Export-candidate governance review gate (v0.8.7) | Yes — 2 reviewed; 0 `client_use_allowed` |
 | Final evidence export / caesar-ai-evidence ingest | **No** |
 | `client_use_allowed: true` on candidates | **No** (policy) |
 

@@ -108,6 +108,21 @@ Policy failures include `client_use_allowed: true`, missing `legal_safe_note`, c
 
 ---
 
+## v0.8.7 candidate review gate
+
+After governance review (`docs/EVIDENCE_EXPORT_CANDIDATE_REVIEW_WORKFLOW.md`):
+
+| Review status | Count |
+|---|---|
+| `reviewed_for_internal_governance_only` | 1 |
+| `needs_more_source_review` | 1 |
+| `client_use_allowed` (reviews) | **0** |
+| `final_evidence_allowed` | **0** |
+
+Public JSON: `public/data/evidence-export-candidate-reviews.json`. Candidates JSON includes `candidate_review_status` per item when reviewed.
+
+---
+
 ## v0.8.6 candidate counts (after first content review batch)
 
 | Status | Count |

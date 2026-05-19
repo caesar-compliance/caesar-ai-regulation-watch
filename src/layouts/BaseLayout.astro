@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { PROJECT_PHASE_LABEL, PROJECT_VERSION_LABEL } from "../lib/project-version";
 
 interface Props {
   title: string;
@@ -92,8 +93,8 @@ const footerLinks = [
           ))}
         </p>
         <p>
-          v0.8.4 · Manual YAML · CI validate/build · Static deploy readiness · 20 May 2026 · Caesar AI
-          Governance Hub
+          {PROJECT_VERSION_LABEL} · {PROJECT_PHASE_LABEL} · Manual YAML · Human-review gated · Not legal
+          advice · 20 May 2026 · Caesar AI Governance Hub
         </p>
       </div>
     </footer>
