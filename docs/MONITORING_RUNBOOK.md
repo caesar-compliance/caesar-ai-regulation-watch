@@ -1,4 +1,4 @@
-# Monitoring runbook (v0.8.0)
+# Monitoring runbook (v0.8.1)
 
 **Last updated:** 19 May 2026
 
@@ -13,18 +13,40 @@ npm run monitoring:cycle:dry-run
 
 # Report from existing state (no network)
 npm run monitoring:report
+
+# Diff summary vs last commit (for PR gating / local triage)
+npm run monitoring:summary
 ```
 
-Reports: `data/monitoring-runs/monitoring-cycle-YYYY-MM-DD.yml`
+Reports: `data/monitoring-runs/monitoring-cycle-YYYY-MM-DD.yml`  
+Diff summary: `data/monitoring-runs/latest-monitoring-diff-summary.json`
 
 ## GitHub Actions (manual)
 
 1. Open **Actions** → **Monitoring cycle**.
 2. **Run workflow** → choose mode: `write`, `dry_run`, or `report_only`.
-3. Download artifacts after completion (monitoring + watcher outputs).
-4. **Do not** expect auto-updates on `main` — triage artifacts locally.
+3. Optional: set `create_pr=true` to open/update a review PR when meaningful changes exist.
+4. Optional: `commit_snapshots` / `commit_exports` (default `true`) control PR file scope.
+5. Download artifacts after completion (monitoring + watcher outputs).
+6. **Do not** expect auto-updates on `main` unless you merge a review PR yourself.
 
-Scheduled runs: daily 06:00 UTC (see `docs/SCHEDULED_MONITORING_POLICY.md` to disable).
+**Scheduled runs:** daily 06:00 UTC — **artifacts only**, no PR (see `docs/SCHEDULED_MONITORING_POLICY.md`).
+
+## Monitoring review PRs (v0.8.1)
+
+| Trigger | PR created? |
+|---|---|
+| Schedule | No |
+| `workflow_dispatch`, `create_pr=false` | No |
+| `workflow_dispatch`, `create_pr=true`, meaningful changes | Yes → `monitoring/results-YYYY-MM-DD` |
+| `workflow_dispatch`, `create_pr=true`, no meaningful changes | No (artifact + summary only) |
+
+After a PR is opened:
+
+1. Follow `docs/MONITORING_PR_REVIEW_CHECKLIST.md`.
+2. Merge only after human review — **never** auto-merge.
+3. Close without merge if changes are noise (baselines, timestamps, simulations).
+4. Open a **separate** PR for curated content updates (`data/laws`, `data/guidance`, etc.).
 
 ## Reading a monitoring report
 

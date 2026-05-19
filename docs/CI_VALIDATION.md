@@ -23,14 +23,20 @@ Steps:
 
 Triggers: `workflow_dispatch`, schedule (daily 06:00 UTC)
 
+Inputs (`workflow_dispatch`): `mode`, `create_pr`, `commit_snapshots`, `commit_exports`
+
 Steps:
 
 1. `npm ci`
 2. `node scripts/run-monitoring-cycle.mjs` (write / dry_run / report_only)
-3. Post-cycle `validate:data`
-4. Upload artifacts (monitoring reports, watcher runs, snapshots, JSON exports)
+3. `npm run monitoring:summary`
+4. Post-cycle `validate:data`
+5. Optional: create/update PR on `monitoring/results-YYYY-MM-DD` when `create_pr=true` and meaningful changes
+6. Upload artifacts (monitoring reports, watcher runs, snapshots, JSON exports)
 
-**Does not** deploy, use secrets, auto-commit, or merge to `main`. See `docs/SCHEDULED_MONITORING_POLICY.md`.
+**Scheduled runs:** artifacts only — no PR.
+
+**Does not** deploy, use secrets, auto-merge, or commit to `main` without a human-reviewed PR merge. See `docs/SCHEDULED_MONITORING_POLICY.md`.
 
 ## What CI validation does not do
 

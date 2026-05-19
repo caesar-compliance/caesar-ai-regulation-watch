@@ -1,7 +1,7 @@
 # Architecture — Caesar AI Regulation Watch
 
 **Last updated:** 19 May 2026  
-**Status:** v0.8.0 — static registry + monitoring cycle orchestrator; GitHub Actions monitoring workflow (artifacts); push/PR CI validate/build; read-only Astro site; no backend API/database/auth/deploy
+**Status:** v0.8.1 — static registry + monitoring cycle + optional review PR branch; scheduled monitoring artifacts-only; push/PR CI validate/build; read-only Astro site; no backend API/database/auth/deploy/auto-merge
 
 ---
 
@@ -121,7 +121,7 @@
                               [Site build | RSS | JSON | Evidence export]
 ```
 
-**v0.8.0 phase:** Layer B — `scripts/run-monitoring-cycle.mjs` orchestrates watchers → validate → exports → build → `data/monitoring-runs/`. GitHub `monitoring-cycle.yml` for scheduled/manual runs (artifacts only). Push/PR CI (`validate-and-build.yml`) remains fetch-free. **v0.6.x:** verifications, URL checks, 15 curated records. **v0.5.x:** static SVG map and review queue. Site build does not run watchers. **Deferred:** production scheduling, broad watcher fleet, Layers B–C full ingestion.
+**v0.8.1 phase:** Layer B — `run-monitoring-cycle.mjs` + `summarize-monitoring-changes.mjs`. GitHub `monitoring-cycle.yml`: scheduled = artifacts only; manual `create_pr=true` opens `monitoring/results-YYYY-MM-DD` when meaningful changes exist (human merge). Push/PR CI remains fetch-free. **v0.6.x:** verifications, URL checks, 15 curated records. **v0.5.x:** static SVG map and review queue. Site build does not run watchers. **Deferred:** production scheduling, broad watcher fleet, Layers B–C full ingestion.
 
 ---
 

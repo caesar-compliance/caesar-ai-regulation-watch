@@ -126,6 +126,20 @@ const snapshots = readSnapshots();
 const watcherRuns = readWatcherRuns();
 const monitoringRuns = readMonitoringRuns();
 const latestMonitoringRun = monitoringRuns[0] ?? null;
+const monitoringDiffSummaryPath = path.join(
+  ROOT,
+  "data/monitoring-runs/latest-monitoring-diff-summary.json",
+);
+let latestMonitoringDiffSummary = null;
+if (fs.existsSync(monitoringDiffSummaryPath)) {
+  try {
+    latestMonitoringDiffSummary = JSON.parse(
+      fs.readFileSync(monitoringDiffSummaryPath, "utf8"),
+    );
+  } catch {
+    latestMonitoringDiffSummary = null;
+  }
+}
 const detectedChanges = readDetectedChanges();
 const latestWatcherRun = watcherRuns[0] ?? null;
 
@@ -665,7 +679,7 @@ const realApiDetectedChanges = apiDetectedChanges.filter((d) => !d.simulation);
 
 const snapshot = {
   generated_at: generatedAt,
-  version: "0.8.0",
+  version: "0.8.1",
   disclaimer: DISCLAIMER,
   pilot_jurisdictions: jurisdictions.map((j) => j.jurisdiction_id),
   counts: {
@@ -729,6 +743,9 @@ const snapshot = {
     latest_monitoring_run_id: latestMonitoringRun?.monitoring_run_id ?? null,
     latest_monitoring_run_mode: latestMonitoringRun?.mode ?? null,
     latest_monitoring_run_status: latestMonitoringRun?.overall_status ?? null,
+    monitoring_diff_has_meaningful_changes:
+      latestMonitoringDiffSummary?.has_meaningful_changes ?? null,
+    monitoring_diff_recommended_action: latestMonitoringDiffSummary?.recommended_action ?? null,
     review_queue_items: reviewSummary.total,
     pending_review: reviewSummary.pending_review,
     needs_update: reviewSummary.needs_update,
@@ -910,11 +927,22 @@ writeJson(path.join(PUBLIC_DATA, "monitoring-runs.json"), {
   disclaimer: DISCLAIMER,
   items: monitoringRuns,
   latest: latestMonitoringRun,
+  latest_diff_summary: latestMonitoringDiffSummary
+    ? {
+        generated_at: latestMonitoringDiffSummary.generated_at,
+        has_meaningful_changes: latestMonitoringDiffSummary.has_meaningful_changes,
+        has_detected_changes: latestMonitoringDiffSummary.has_detected_changes,
+        has_watcher_errors: latestMonitoringDiffSummary.has_watcher_errors,
+        recommended_action: latestMonitoringDiffSummary.recommended_action,
+        new_real_detected_change_count: latestMonitoringDiffSummary.new_real_detected_change_count,
+      }
+    : null,
   summary: {
     total: monitoringRuns.length,
     latest_run_id: latestMonitoringRun?.monitoring_run_id ?? null,
     latest_mode: latestMonitoringRun?.mode ?? null,
     latest_status: latestMonitoringRun?.overall_status ?? null,
+    has_meaningful_changes: latestMonitoringDiffSummary?.has_meaningful_changes ?? null,
   },
 });
 

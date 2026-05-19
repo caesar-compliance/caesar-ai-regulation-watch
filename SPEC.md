@@ -1,7 +1,7 @@
 # Specification — Caesar AI Regulation Watch
 
 **Last updated:** 19 May 2026  
-**Status:** v0.8.0 — monitoring cycle orchestrator + GitHub Actions (artifacts only); five watchers (page, feed, API); metadata-only snapshots; push/PR CI validate/build without live fetches; review queue; read-only Astro site (no backend APIs, database, auth, deploy)
+**Status:** v0.8.1 — monitoring cycle + optional review PR (`create_pr` manual dispatch); scheduled GitHub runs artifact-only; five watchers (page, feed, API); metadata-only snapshots; push/PR CI validate/build without live fetches; review queue; read-only Astro site (no backend APIs, database, auth, deploy, auto-merge)
 
 ---
 

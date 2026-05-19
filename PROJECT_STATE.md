@@ -9,12 +9,12 @@
 | Field | Value |
 |---|---|
 | **Repository** | `caesar-ai-regulation-watch` |
-| **Current version** | `v0.8.0` |
-| **Current phase** | Scheduled monitoring runner foundation |
-| **Status** | Monitoring cycle + CI validate/build; no deploy |
-| **Working branch** | `agent/v0.8.0-scheduled-monitoring-runner` |
-| **Latest completed task** | Monitoring orchestrator + GitHub Actions workflow |
-| **Next recommended step** | Control Tower: approve daily schedule; triage first scheduled artifact |
+| **Current version** | `v0.8.1` |
+| **Current phase** | Monitoring review PR workflow |
+| **Status** | Monitoring cycle + optional review PR + CI validate/build; no deploy |
+| **Working branch** | `agent/v0.8.1-monitoring-pr-workflow` |
+| **Latest completed task** | Diff summary script + optional GitHub review PR |
+| **Next recommended step** | Control Tower: create `monitoring-review` label; trial manual `create_pr=true` run |
 
 ---
 
@@ -29,13 +29,16 @@
 
 ---
 
-## Monitoring (v0.8.0)
+## Monitoring (v0.8.1)
 
 | Capability | Status |
 |---|---|
 | Local `npm run monitoring:cycle` | Yes |
+| Local `npm run monitoring:summary` | Yes |
 | GitHub `monitoring-cycle.yml` | Yes (`workflow_dispatch` + daily 06:00 UTC) |
-| Auto-commit to main | **No** |
+| Scheduled PR | **No** (artifacts only) |
+| Manual review PR | Optional (`create_pr=true`) |
+| Auto-merge | **No** |
 | Deploy | **No** |
 | Secrets | **None** |
 

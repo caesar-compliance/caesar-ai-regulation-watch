@@ -75,7 +75,7 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 
 ---
 
-## data/watchers/ & monitoring (v0.8.0)
+## data/watchers/ & monitoring (v0.8.1)
 
 | Path | Role |
 |---|---|
@@ -86,7 +86,10 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **data/detected-changes/** | Pending human review diffs |
 | **scripts/run-official-source-watchers.mjs** | `npm run watch:official` |
 | **scripts/run-monitoring-cycle.mjs** | `npm run monitoring:cycle` |
-| **.github/workflows/monitoring-cycle.yml** | Scheduled/manual monitoring (artifacts) |
+| **scripts/summarize-monitoring-changes.mjs** | `npm run monitoring:summary` |
+| **data/monitoring-runs/latest-monitoring-diff-summary.json** | PR gating / triage summary |
+| **.github/workflows/monitoring-cycle.yml** | Scheduled artifacts; optional manual review PR |
+| **docs/MONITORING_PR_REVIEW_CHECKLIST.md** | Human review checklist for monitoring PRs |
 | **docs/SCHEDULED_MONITORING_POLICY.md** | Monitoring policy |
 | **docs/MONITORING_RUNBOOK.md** | Operator runbook |
 | **docs/WATCHER_PROTOTYPE.md** | Watcher scope and usage |

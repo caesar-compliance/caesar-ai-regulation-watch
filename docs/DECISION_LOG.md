@@ -256,3 +256,13 @@
 - **Rationale:** Operational monitoring needs orchestration without conflating merge gates with live fetches; human review remains mandatory.
 - **Boundaries:** No deploy; no auto-merge to main; no secrets; metadata-only storage; dry-run does not persist watcher snapshots.
 - **Artifacts:** `scripts/run-monitoring-cycle.mjs`, `.github/workflows/monitoring-cycle.yml`, `docs/SCHEDULED_MONITORING_POLICY.md`, `docs/MONITORING_RUNBOOK.md`.
+
+---
+
+## [DEC-028] — 19 May 2026 — Monitoring review PR workflow (v0.8.1)
+
+- **Status:** Approved (implementation complete)
+- **Decision:** Add diff summary script and optional GitHub review PR on manual `workflow_dispatch` only. Scheduled cron remains artifact-only. PR opens only when `has_meaningful_changes` is true.
+- **Rationale:** Watcher output needs a reviewable branch without noisy daily PRs or auto-merge risk.
+- **Boundaries:** No auto-merge; no deploy; no secrets; commit only monitoring-generated paths; no legal conclusions; human checklist required.
+- **Artifacts:** `scripts/summarize-monitoring-changes.mjs`, updated `monitoring-cycle.yml`, `docs/MONITORING_PR_REVIEW_CHECKLIST.md`.

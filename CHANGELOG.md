@@ -11,6 +11,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.8.1] - 19 May 2026
+
+### Added
+
+- **Monitoring diff summary** — `scripts/summarize-monitoring-changes.mjs`, `npm run monitoring:summary`, `data/monitoring-runs/latest-monitoring-diff-summary.json`.
+- **Optional monitoring review PR** — `workflow_dispatch` inputs `create_pr`, `commit_snapshots`, `commit_exports`; branch `monitoring/results-YYYY-MM-DD`; uses `GITHUB_TOKEN` + `gh` CLI.
+- **Docs** — `docs/MONITORING_PR_REVIEW_CHECKLIST.md`; updated `SCHEDULED_MONITORING_POLICY.md`, `MONITORING_RUNBOOK.md`.
+
+### Changed
+
+- Scheduled monitoring remains **artifact-only** (no PR on cron).
+- Static exports and `/monitoring/` show latest diff summary when present.
+
+### Notes
+
+- No auto-merge. No deploy. No secrets.
+- PR created only when `has_meaningful_changes` is true.
+
+---
+
 ## [0.8.0] - 19 May 2026
 
 ### Added

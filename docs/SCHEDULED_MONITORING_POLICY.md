@@ -1,4 +1,4 @@
-# Scheduled monitoring policy (v0.8.0)
+# Scheduled monitoring policy (v0.8.1)
 
 **Last updated:** 19 May 2026
 
@@ -13,7 +13,9 @@ Provide a **controlled, review-gated** monitoring cycle for official-source watc
 | Local write | `npm run monitoring:cycle` | Yes |
 | Local dry-run | `npm run monitoring:cycle:dry-run` | No (watchers use `--dry-run`) |
 | Local report | `npm run monitoring:report` | No network |
-| GitHub Actions | `workflow_dispatch` or daily schedule | Artifacts only — **no auto-commit to main** |
+| GitHub Actions (scheduled) | Daily 06:00 UTC schedule | **Artifacts only** — no PR |
+| GitHub Actions (manual PR) | `workflow_dispatch` with `create_pr=true` | Optional review PR branch — **human merge only** |
+| GitHub Actions (manual, no PR) | `workflow_dispatch` default | Artifacts only |
 
 ## Separation from CI validation
 
@@ -33,10 +35,14 @@ CI validation remains the merge gate. Monitoring is operational signal collectio
 
 ## Artifact / branch / PR policy
 
-- GitHub Actions uploads `data/monitoring-runs/`, watcher runs, snapshots, and JSON exports as **artifacts** (14-day retention).
+- **Scheduled runs (default):** upload artifacts only (`data/monitoring-runs/`, watcher runs, snapshots, JSON exports; 14-day retention). **No PR.**
+- **Manual runs:** `workflow_dispatch` with `create_pr=false` (default) — same artifact-only behavior.
+- **Manual review PR:** `workflow_dispatch` with `create_pr=true` opens or updates `monitoring/results-YYYY-MM-DD` **only when** `latest-monitoring-diff-summary.json` reports `has_meaningful_changes: true`.
+- Committed paths on review PRs (configurable): `data/snapshots/**`, `data/watcher-runs/**`, `data/detected-changes/**`, `data/monitoring-runs/**`, `public/data/**`, `public/feeds/**` — never curated law/guidance YAML unless separately authored.
 - **No automatic commits** to `main`.
-- **No auto-merge** of monitoring branches.
-- Optional future: PR from a bot branch — not implemented in v0.8.0.
+- **No auto-merge** — reviewers merge or close PRs explicitly.
+- **No deployment** from monitoring workflow.
+- See `docs/MONITORING_PR_REVIEW_CHECKLIST.md`.
 
 ## Retry and soft-fail
 
@@ -56,7 +62,7 @@ Metadata-only snapshots: titles, links, dates, hashes. **No** full page, feed, o
 
 ## Future: Hetzner / Coolify worker
 
-A dedicated worker VM could run `npm run monitoring:cycle` on a schedule and push artifacts or open PRs. v0.8.0 establishes the orchestration script and GitHub workflow foundation; hosting choice remains a Control Tower decision.
+A dedicated worker VM could run `npm run monitoring:cycle` on a schedule and push artifacts or open PRs. v0.8.1 adds optional GitHub review PRs; hosting choice remains a Control Tower decision.
 
 ## Related docs
 

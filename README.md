@@ -3,7 +3,7 @@
 **Global AI regulation monitoring for governance teams** — part of the [Caesar AI Governance Hub](https://github.com/caesar-compliance/caesar-ai-governance-hub) ecosystem.
 
 **Last updated:** 19 May 2026  
-**Status:** v0.8.0 — scheduled monitoring runner foundation (`npm run monitoring:cycle`, GitHub Actions artifacts); 5 watchers (page/feed/API); metadata-only snapshots; CI validate/build on push/PR (no live fetches); plus review queue, map, timelines, search, JSON exports (no backend APIs, database, auth, deploy)
+**Status:** v0.8.1 — monitoring cycle + optional human-reviewed PR workflow (`npm run monitoring:summary`, `create_pr` on manual GitHub Actions); scheduled runs artifact-only; 5 watchers (page/feed/API); metadata-only snapshots; CI validate/build on push/PR (no live fetches); plus review queue, map, timelines, search, JSON exports (no backend APIs, database, auth, deploy, auto-merge)
 
 ---
 

@@ -4,7 +4,7 @@
 
 This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
 
-**Current (v0.8.0):** monitoring cycle orchestrator + GitHub Actions workflow (artifacts; no auto-merge). **Next:** Control Tower approve/disable daily schedule; optional Hetzner/Coolify worker; deploy remains deferred.
+**Current (v0.8.1):** monitoring cycle + optional review PR workflow (scheduled artifact-only; manual `create_pr`; no auto-merge). **Next:** Control Tower trial review PR; `monitoring-review` label; optional Hetzner worker; deploy remains deferred.
 
 ---
 

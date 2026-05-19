@@ -53,10 +53,19 @@
     "error_message": null,
     "legal_safe_note": "Monitoring cycle output for governance review support only. Not legal advice. Not a compliance guarantee. Watcher and detected-change signals require human review. Does not set verified_on_source or client_use_allowed."
   },
+  "latest_diff_summary": {
+    "generated_at": "2026-05-19T21:57:27.464Z",
+    "has_meaningful_changes": false,
+    "has_detected_changes": false,
+    "has_watcher_errors": false,
+    "recommended_action": "no_pr_needed_artifact_only",
+    "new_real_detected_change_count": 0
+  },
   "summary": {
     "total": 1,
     "latest_run_id": "monitoring-cycle-2026-05-19",
     "latest_mode": "write",
-    "latest_status": "passed"
+    "latest_status": "passed",
+    "has_meaningful_changes": false
   }
 }

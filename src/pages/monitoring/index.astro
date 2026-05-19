@@ -6,11 +6,13 @@ import {
   getDetectedChanges,
   getMonitoringRuns,
   latestMonitoringRun,
+  latestMonitoringDiffSummary,
 } from "../../lib/data";
 import { humanizeId } from "../../lib/format";
 
 const monitoringRuns = getMonitoringRuns();
 const latest = latestMonitoringRun();
+const diffSummary = latestMonitoringDiffSummary();
 const latestWatcher = latestWatcherRun();
 const watchers = getWatchers();
 const detected = getDetectedChanges();
@@ -31,6 +33,26 @@ const enabledWatchers = watchers.filter((w) => w.enabled);
     required before any record update. Does not set <code>verified_on_source</code> or{" "}
     <code>client_use_allowed</code>.
   </div>
+
+  {
+    diffSummary ? (
+      <section>
+        <h2>Latest diff summary</h2>
+        <dl class="meta-grid">
+          <div><dt>Meaningful changes</dt><dd>{diffSummary.has_meaningful_changes ? "yes" : "no"}</dd></div>
+          <div><dt>Real detected changes (diff)</dt><dd>{diffSummary.new_real_detected_change_count}</dd></div>
+          <div><dt>Watcher errors</dt><dd>{diffSummary.has_watcher_errors ? "yes" : "no"}</dd></div>
+          <div><dt>Recommended action</dt><dd class="mono">{diffSummary.recommended_action}</dd></div>
+        </dl>
+        <p>
+          <small>
+            From <code>data/monitoring-runs/latest-monitoring-diff-summary.json</code> vs last commit.
+            Run <code>npm run monitoring:summary</code> after a cycle.
+          </small>
+        </p>
+      </section>
+    ) : null
+  }
 
   {
     latest ? (

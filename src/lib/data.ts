@@ -733,6 +733,27 @@ export function latestMonitoringRun(): MonitoringRun | undefined {
   return getMonitoringRuns()[0];
 }
 
+export interface MonitoringDiffSummary {
+  generated_at: string;
+  run_date: string;
+  has_meaningful_changes: boolean;
+  has_detected_changes: boolean;
+  has_watcher_errors: boolean;
+  recommended_action: string;
+  new_real_detected_change_count: number;
+  legal_safe_note: string;
+}
+
+export function latestMonitoringDiffSummary(): MonitoringDiffSummary | undefined {
+  const abs = path.join(ROOT, "data/monitoring-runs/latest-monitoring-diff-summary.json");
+  if (!fs.existsSync(abs)) return undefined;
+  try {
+    return JSON.parse(fs.readFileSync(abs, "utf8")) as MonitoringDiffSummary;
+  } catch {
+    return undefined;
+  }
+}
+
 export function getDetectedChanges(): DetectedChange[] {
   return readYamlDir<DetectedChange>("data/detected-changes").sort((a, b) =>
     b.detected_at.localeCompare(a.detected_at),
