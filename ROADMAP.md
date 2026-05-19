@@ -31,21 +31,23 @@ v0.1 Foundation ──> v0.2 Registry & model ──> v0.3 Pilot data ──> v0
 
 ---
 
-## v0.2 — Source registry & data model (documentation → files)
+## v0.2.0 — Pilot source registry (EU & Norway)
 
-**Status:** Next
+**Status:** Complete on branch `agent/v0.2.0-pilot-source-registry` (19 May 2026) — pending Control Tower URL review
 
-**Goal:** Approve and commit machine-readable registry **without** automated watchers.
+**Goal:** Machine-readable registry **without** automated watchers.
 
 **Deliverables:**
 
-- Jurisdiction YAML/JSON for pilot set (EU, Norway minimum)
-- Official source registry entries with credibility tiers
-- JSON Schema or JSON Schema draft for core entities
-- Control/evidence mapping taxonomy v0.1 (with hub)
-- Alignment check with `caesar-ai-evidence` regulation-change draft
+- [x] Jurisdiction YAML: `data/jurisdictions/eu.yml`, `norway.yml`
+- [x] Seven official source YAML files under `data/sources/`
+- [x] JSON Schema: `schemas/jurisdiction.schema.json`, `schemas/source.schema.json`
+- [x] [docs/PILOT_SOURCE_REGISTRY.md](docs/PILOT_SOURCE_REGISTRY.md)
+- [ ] Control Tower review (`review_status: reviewed`)
+- [ ] Control/evidence mapping taxonomy v0.1 (deferred to post-review)
+- [ ] Alignment check with `caesar-ai-evidence` regulation-change draft
 
-**Exit criteria:** Schema validates sample files; hub quality gate language review passed.
+**Exit criteria:** Control Tower approves URLs and scope text; optional schema validation in CI (future).
 
 ---
 

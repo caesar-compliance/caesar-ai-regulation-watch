@@ -1,0 +1,31 @@
+# Pilot official source — Norway government AI Act / EEA implementation updates
+# Last curated: 19 May 2026
+
+source_id: norway-ai-act-implementation
+title: Norwegian Government — AI Act / EEA implementation information
+jurisdiction_id: norway
+source_type: regulator
+credibility_level: official_primary
+official_url: https://www.regjeringen.no/en/topics/business-and-industry/ai/id3015480/
+monitoring_scope: >
+  Official Norwegian government pages on AI policy and EEA/EU AI Act implementation,
+  including press releases, hearing documents, and links to proposed regulations
+  published via regjeringen.no. Does not include full Lovdata statute text unless
+  cross-linked; Lovdata may be added as a separate source later.
+expected_update_types:
+  - implementation_roadmap_updates
+  - public_consultations
+  - proposed_regulations_announced
+  - government_press_releases
+  - links_to_official_hearing_documents
+related_topics:
+  - eea_implementation
+  - eu_ai_act
+  - national_ai_policy
+  - sector_coordination
+review_status: pending_review
+notes: >
+  Tracked official primary source for Norway's public-facing implementation narrative.
+  Helps identify regulatory changes that may require governance review for Norwegian
+  and EEA-operating organizations. Timelines may differ from EU member states.
+  Not a complete register of all Norwegian ministries or agencies working on AI.

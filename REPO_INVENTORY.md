@@ -2,7 +2,7 @@
 
 **Last updated:** 19 May 2026
 
-Living registry of tracked files and their roles. Update when adding `data/`, `mappings/`, or `site/` in future phases.
+Living registry of tracked files and their roles.
 
 ---
 
@@ -10,14 +10,39 @@ Living registry of tracked files and their roles. Update when adding `data/`, `m
 
 | File | Role |
 |---|---|
-| **README.md** | Public entry: vision, capabilities, benchmarks, disclaimers, doc map |
-| **SPEC.md** | Full-scale functional requirements, MVP vs future, non-goals |
-| **ARCHITECTURE.md** | Layers, data flow, integrations, planned repo layout |
-| **ROADMAP.md** | Phased delivery v0.1–v1.0 and backlog |
+| **README.md** | Public entry: vision, pilot registry link, doc map |
+| **SPEC.md** | Requirements; v0.2.0 pilot data paths |
+| **ARCHITECTURE.md** | Layers; static registry as data foundation |
+| **ROADMAP.md** | Phases; v0.2.0 marked complete (pending review) |
 | **CHANGELOG.md** | Semver history |
 | **REPO_INVENTORY.md** | This file |
-| **PROJECT_STATE.md** | Phase, boundaries, ecosystem links |
-| **NEXT_ACTIONS.md** | Prioritized tasks and execution boundaries |
+| **PROJECT_STATE.md** | Phase v0.2.0, registry counts |
+| **NEXT_ACTIONS.md** | Control Tower review → v0.3 |
+
+---
+
+## data/ (v0.2.0 pilot)
+
+| File | Role |
+|---|---|
+| **data/jurisdictions/eu.yml** | EU supranational jurisdiction profile |
+| **data/jurisdictions/norway.yml** | Norway jurisdiction profile (EEA monitoring linkage) |
+| **data/sources/eu-ai-act.yml** | EUR-Lex AI Act instrument entry |
+| **data/sources/eu-ai-office.yml** | Commission AI Office / framework pages |
+| **data/sources/eur-lex.yml** | EUR-Lex portal monitoring entry point |
+| **data/sources/edpb.yml** | European Data Protection Board |
+| **data/sources/edps.yml** | European Data Protection Supervisor |
+| **data/sources/norway-ai-act-implementation.yml** | regjeringen.no AI / implementation pages |
+| **data/sources/datatilsynet.yml** | Datatilsynet (Norwegian DPA) |
+
+---
+
+## schemas/
+
+| File | Role |
+|---|---|
+| **schemas/jurisdiction.schema.json** | JSON Schema for jurisdiction YAML |
+| **schemas/source.schema.json** | JSON Schema for source YAML |
 
 ---
 
@@ -25,12 +50,13 @@ Living registry of tracked files and their roles. Update when adding `data/`, `m
 
 | File | Role |
 |---|---|
-| **docs/FULL_SCALE_PRODUCT_BLUEPRINT.md** | End-to-end product blueprint and user journeys |
-| **docs/COMPETITOR_BENCHMARKS.md** | Benchmark study notes and parity targets |
-| **docs/DATA_MODEL_DRAFT.md** | Entity/field draft and export shapes |
-| **docs/UI_UX_VISION.md** | Public site IA, screens, components |
-| **docs/DECISION_LOG.md** | Architecture and product decisions (DEC-001–008) |
-| **docs/RESEARCH_CONTEXT.md** | Domain research (preserve; hub-aligned) |
+| **docs/PILOT_SOURCE_REGISTRY.md** | Pilot registry guide, gaps, review workflow |
+| **docs/FULL_SCALE_PRODUCT_BLUEPRINT.md** | Master product blueprint |
+| **docs/COMPETITOR_BENCHMARKS.md** | Benchmark study notes |
+| **docs/DATA_MODEL_DRAFT.md** | Full entity model draft |
+| **docs/UI_UX_VISION.md** | Public site UX direction |
+| **docs/DECISION_LOG.md** | Decisions DEC-001–009 |
+| **docs/RESEARCH_CONTEXT.md** | Domain research (preserve) |
 
 ---
 
@@ -38,7 +64,7 @@ Living registry of tracked files and their roles. Update when adding `data/`, `m
 
 | Path | Role |
 |---|---|
-| **work-items/.gitkeep** | Sandbox placeholder for active tasks |
+| **work-items/.gitkeep** | Task sandbox placeholder |
 
 ---
 
@@ -46,21 +72,18 @@ Living registry of tracked files and their roles. Update when adding `data/`, `m
 
 | Path | Role |
 |---|---|
-| `data/jurisdictions/` | Curated jurisdiction records |
-| `data/sources/` | Official source registry |
-| `data/laws/` | Law/instrument records |
-| `data/guidance/` | Guidance records |
-| `data/changes/` | Change records |
-| `data/timelines/` | Timeline events |
-| `mappings/controls/` | Change → control links |
-| `mappings/evidence/` | Change → evidence suggestions |
-| `site/` | Static site generator source |
+| `data/laws/` | Law/instrument records (v0.3) |
+| `data/guidance/` | Guidance records (v0.3) |
+| `data/changes/` | Change records (v0.3) |
+| `data/timelines/` | Timeline events (v0.3) |
+| `mappings/controls/` | Control links |
+| `mappings/evidence/` | Evidence suggestions |
+| `site/` | Static site source |
 
 ---
 
 ## Update guidelines
 
-1. Add new core files to the tables above.
-2. Bump [CHANGELOG.md](CHANGELOG.md) appropriately.
-3. Update [PROJECT_STATE.md](PROJECT_STATE.md) phase when milestones complete.
-4. Keep language aligned with hub quality gates (no compliance guarantees).
+1. Add new registry files to the tables above.
+2. Bump [CHANGELOG.md](CHANGELOG.md) on registry changes.
+3. Keep `review_status` accurate after Control Tower review.

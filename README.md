@@ -3,7 +3,7 @@
 **Global AI regulation monitoring for governance teams** — part of the [Caesar AI Governance Hub](https://github.com/caesar-compliance/caesar-ai-governance-hub) ecosystem.
 
 **Last updated:** 19 May 2026  
-**Status:** Documentation and product blueprint (no product code yet)
+**Status:** v0.2.0 pilot registry (EU/Norway data foundation; no watchers or UI)
 
 ---
 
@@ -107,10 +107,22 @@ Details: [docs/COMPETITOR_BENCHMARKS.md](docs/COMPETITOR_BENCHMARKS.md)
 
 ---
 
+## Pilot registry (v0.2.0)
+
+Curated **EU and Norway** official source registry (not complete legal coverage):
+
+- [docs/PILOT_SOURCE_REGISTRY.md](docs/PILOT_SOURCE_REGISTRY.md) — index and review workflow
+- `data/jurisdictions/` — `eu.yml`, `norway.yml`
+- `data/sources/` — seven pilot official sources
+- `schemas/` — JSON Schema for jurisdiction and source records
+
+---
+
 ## Documentation map
 
 | Document | Purpose |
 |---|---|
+| [docs/PILOT_SOURCE_REGISTRY.md](docs/PILOT_SOURCE_REGISTRY.md) | Pilot EU/Norway registry guide |
 | [docs/FULL_SCALE_PRODUCT_BLUEPRINT.md](docs/FULL_SCALE_PRODUCT_BLUEPRINT.md) | End-to-end product blueprint |
 | [SPEC.md](SPEC.md) | Requirements, scope, inputs/outputs |
 | [ARCHITECTURE.md](ARCHITECTURE.md) | Layers, data flow, integrations |
@@ -133,6 +145,6 @@ Details: [docs/COMPETITOR_BENCHMARKS.md](docs/COMPETITOR_BENCHMARKS.md)
 
 ## Project status
 
-Repository foundation and **full-scale product blueprint** are in place (19 May 2026). Implementation of watchers, data stores, and UI is intentionally deferred until registry schemas and pilot jurisdictions are approved.
+**v0.2.0 pilot registry** for EU and Norway is in place (19 May 2026). Watchers, UI, and automated change detection remain deferred until Control Tower reviews registry entries.
 
 See [PROJECT_STATE.md](PROJECT_STATE.md) and [NEXT_ACTIONS.md](NEXT_ACTIONS.md).

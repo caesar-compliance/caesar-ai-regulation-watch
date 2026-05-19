@@ -1,0 +1,31 @@
+# Pilot official source — EUR-Lex (AI-related legislative discovery)
+# Last curated: 19 May 2026
+
+source_id: eur-lex
+title: EUR-Lex — EU law portal (AI Act cluster monitoring entry point)
+jurisdiction_id: eu
+source_type: law_portal
+credibility_level: official_primary
+official_url: https://eur-lex.europa.eu/
+monitoring_scope: >
+  Official EU law portal entry point for discovering new or amended EU legal acts,
+  preparatory documents, and OJ publications relevant to AI when identified through
+  curated search parameters (e.g. AI Act CELEX, implementing regulations). This
+  registry entry does not claim exhaustive monitoring of all EUR-Lex content.
+expected_update_types:
+  - new_legal_acts
+  - amendments_to_existing_acts
+  - implementing_or_delegated_acts
+  - official_journal_publications
+  - document_availability_changes
+related_topics:
+  - eu_legislation
+  - eu_ai_act
+  - digital_regulation
+  - implementing_acts
+review_status: pending_review
+notes: >
+  Broader official primary portal than the single-instrument eu-ai-act entry.
+  Supports governance review by helping identify new EU legal publications that
+  may relate to AI governance programs. Future watchers should use narrow queries
+  to avoid noise. Not a substitute for legal research across all EU law.

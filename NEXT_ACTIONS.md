@@ -2,94 +2,58 @@
 
 **Last updated:** 19 May 2026
 
-Prioritized work after completion of the **full-scale product blueprint** (v0.1). Still **no product code**, **no dependencies**, **no watchers** until v0.2 is approved.
+Prioritized work after **v0.2.0 pilot registry** (EU/Norway YAML + schemas). Still **no watchers**, **no UI**, **no package managers**.
 
 ---
 
-## Immediate priority (v0.2)
+## Immediate priority — Control Tower review
 
-### 1. Approve pilot jurisdiction set
+**Owner:** Artem (Control Tower)
 
-**Owner:** Control tower (Artem)
-
-Proposed pilot:
-
-- `eu` — EU AI Act, EU AI Office, EUR-Lex references
-- `no` — Norway implementation, Datatilsynet
-- Optional wave: `gb`, `us` (federal selected sources only)
-
-Document coverage limits on each profile.
-
-### 2. Create official source registry files
-
-**Owner:** Agent after approval
-
-- Add `data/sources/` YAML or JSON per [docs/DATA_MODEL_DRAFT.md](docs/DATA_MODEL_DRAFT.md)
-- Each entry: URL, credibility tier, fetch method, attribution, license notes
-- Minimum 5 sources for EU/Norway pilot
-
-### 3. Freeze entity schemas for pilot
-
-**Owner:** Agent + hub coordination
-
-- JSON Schema for: Jurisdiction, OfficialSource, ChangeRecord, SummaryRecord
-- Confirm field alignment with `caesar-ai-evidence` regulation-change (cross-repo issue or hub spec update)
-
-### 4. Draft control & evidence mapping v0.1
-
-**Owner:** Agent with review
-
-- `mappings/controls/` and `mappings/evidence/` sample tables
-- Relationship types: `may_affect`, `suggested_review` only
-- Example: EU AI Office GPAI guidance → vendor review + model documentation evidence
+1. Open [docs/PILOT_SOURCE_REGISTRY.md](docs/PILOT_SOURCE_REGISTRY.md) and each file under `data/`.
+2. Verify every `official_url` resolves and matches intended monitoring scope.
+3. Confirm wording does not overclaim coverage or imply legal advice.
+4. Set `review_status: reviewed` on approved entries (or archive incorrect entries).
+5. Note gaps to add in a future registry wave (e.g. Lovdata, ENISA).
 
 ---
 
-## Safe autonomous tasks (after v0.2 approval)
+## Next safe implementation steps (after review)
 
-- Add validated sample JSON under `data/` (no fetchers)
-- JSON Schema validation script (language TBD — prefer zero new deps or hub-standard tool)
-- Static HTML mock pages from samples (no framework lock-in yet)
-- Update REPO_INVENTORY and CHANGELOG per change
+### v0.3 — Sample curated records
+
+- Add `data/laws/` and `data/guidance/` samples for EU AI Act and Norway implementation (manual, no fetchers).
+- Add `data/changes/` sample change records with `pending_review` summaries.
+- Add `mappings/controls/` and `mappings/evidence/` v0.1 samples (`may_affect`, `suggested_review` only).
+
+### Validation (optional, no new deps without approval)
+
+- Shell or Python one-off to YAML→JSON + JSON Schema validate against `schemas/`.
+- Do not add npm/pip packages without Control Tower approval.
+
+### Cross-repo
+
+- Confirm `regulation-change` field alignment with `caesar-ai-evidence`.
 
 ---
 
-## Requires control tower approval
+## Still blocked / requires approval
 
-- Any live HTTP fetch or crawler
-- Changing review policy (e.g. publishing AI drafts without review)
-- Importing third-party datasets (AI Legislation Tracker, OECD bulk)
-- Package manager or CI workflow introduction
-- Public domain DNS (`regulations.caesar.no`)
-
----
-
-## Blocked until dependency clears
-
-| Task | Blocked by |
+| Task | Gate |
 |---|---|
-| Evidence export validator test | `caesar-ai-evidence` regulation-change schema stability |
-| Governance OS inbox implementation | OS repo and API spec |
-| Automated AI summaries | Review workflow tooling decision |
+| Live HTTP fetch / watcher | Control Tower + v0.4 phase |
+| Static site generator | v0.3 skeleton approval |
+| AI summary automation | Review workflow decision |
+| Third-party dataset import | License review |
+| CI with schema validation | Package manager decision |
 
 ---
 
-## Cross-repository coordination
+## Completed (v0.2.0)
 
-1. **caesar-ai-evidence** — regulation-change schema review
-2. **caesar-ai-governance-hub** — control taxonomy reference in standards or specs
-3. **caesar-ai-governance-os** — regulatory inbox module spec (documentation only for now)
+- [x] `data/jurisdictions/eu.yml`, `norway.yml`
+- [x] Seven `data/sources/*.yml` pilot entries
+- [x] `schemas/jurisdiction.schema.json`, `schemas/source.schema.json`
+- [x] `docs/PILOT_SOURCE_REGISTRY.md`
 
----
-
-## Suggested implementation order (first code)
-
-When v0.2 is approved, implement in this order:
-
-1. `data/` registry files + JSON Schema
-2. Sample change records + mappings (manual)
-3. Static site generator reading `data/` (minimal)
-4. RSS/JSON export from same build
-5. Only then: pilot watcher for one RSS source
-
-This matches [ROADMAP.md](ROADMAP.md) v0.2 → v0.5.
+See [ROADMAP.md](ROADMAP.md).

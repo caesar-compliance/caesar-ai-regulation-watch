@@ -121,26 +121,29 @@
                               [Site build | RSS | JSON | Evidence export]
 ```
 
-**Blueprint phase:** layers B–C deferred; manual `ChangeRecord` samples only.
+**v0.2.0 phase:** Layer A populated with static YAML registry (EU/Norway pilot). Layers B–C (watchers) remain deferred.
 
 ---
 
-## 5. Repository layout (planned)
+## 5. Repository layout
 
 ```text
 caesar-ai-regulation-watch/
-├── data/                    # future: curated JSON/YAML
-│   ├── jurisdictions/
-│   ├── sources/
-│   ├── laws/
-│   ├── guidance/
-│   ├── changes/
-│   └── timelines/
+├── data/                    # curated YAML registry (v0.2.0+)
+│   ├── jurisdictions/       # eu.yml, norway.yml
+│   ├── sources/             # seven pilot official sources
+│   ├── laws/                # planned v0.3
+│   ├── guidance/            # planned v0.3
+│   ├── changes/             # planned v0.3
+│   └── timelines/           # planned v0.3
+├── schemas/                 # JSON Schema (jurisdiction, source)
 ├── mappings/                # future: control & evidence links
-├── docs/                    # blueprint & research
+├── docs/                    # blueprint, PILOT_SOURCE_REGISTRY
 ├── site/                    # future: static site source
-└── (no package manager yet)
+└── (no package manager; no watcher code)
 ```
+
+The registry is the **static data foundation**: human-curated files versioned in git. Future ingestion layers read from `data/sources/` definitions but are **not implemented** in v0.2.0.
 
 ---
 

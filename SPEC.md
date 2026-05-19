@@ -140,11 +140,28 @@ Additional jurisdictions added via registry entries, not marketing claims of tot
 
 ---
 
-## 6. MVP scope (first implementation phase after blueprint)
+## 6. Pilot registry data (v0.2.0 — in progress)
 
-Documentation-complete blueprint is **not** MVP. First implementation MVP:
+Machine-readable pilot registry for **EU and Norway only** (curated subset; not exhaustive):
 
-1. **Source registry** (YAML/JSON) for pilot jurisdictions.
+| Path | Contents |
+|---|---|
+| `data/jurisdictions/eu.yml` | EU jurisdiction profile |
+| `data/jurisdictions/norway.yml` | Norway jurisdiction profile |
+| `data/sources/*.yml` | Seven official source entries (AI Act, AI Office, EUR-Lex, EDPB, EDPS, Norway implementation, Datatilsynet) |
+| `schemas/jurisdiction.schema.json` | Jurisdiction record validation |
+| `schemas/source.schema.json` | Source record validation |
+| [docs/PILOT_SOURCE_REGISTRY.md](docs/PILOT_SOURCE_REGISTRY.md) | Registry index and review workflow |
+
+No crawlers, watchers, or schedulers are attached to these files in v0.2.0.
+
+---
+
+## 7. MVP scope (next implementation phases)
+
+First implementation MVP after registry review:
+
+1. ~~**Source registry** (YAML) for pilot jurisdictions.~~ **Done (v0.2.0 pilot).**
 2. **Regulatory change schema** aligned with evidence format draft.
 3. **Sample change records** (manually curated).
 4. **Timeline file** per pilot jurisdiction.
@@ -153,7 +170,7 @@ Documentation-complete blueprint is **not** MVP. First implementation MVP:
 
 ---
 
-## 7. Future scope (post-MVP)
+## 8. Future scope (post-MVP)
 
 - Automated fetchers for RSS/HTML pilot sources.
 - Diff engine and snapshot store.
@@ -164,7 +181,7 @@ Documentation-complete blueprint is **not** MVP. First implementation MVP:
 
 ---
 
-## 8. Non-goals
+## 9. Non-goals
 
 | Non-goal | Reason |
 |---|---|
@@ -178,7 +195,7 @@ Documentation-complete blueprint is **not** MVP. First implementation MVP:
 
 ---
 
-## 9. Inputs and outputs
+## 10. Inputs and outputs
 
 ### Inputs
 
@@ -199,7 +216,7 @@ Documentation-complete blueprint is **not** MVP. First implementation MVP:
 
 ---
 
-## 10. Quality and legal-safe language
+## 11. Quality and legal-safe language
 
 All user-facing text must:
 
@@ -210,7 +227,7 @@ All user-facing text must:
 
 ---
 
-## 11. Hub alignment
+## 12. Hub alignment
 
 | Hub document | Relevance |
 |---|---|
@@ -222,7 +239,7 @@ All user-facing text must:
 
 ---
 
-## 12. Related repository docs
+## 13. Related repository docs
 
 - [docs/FULL_SCALE_PRODUCT_BLUEPRINT.md](docs/FULL_SCALE_PRODUCT_BLUEPRINT.md)
 - [docs/COMPETITOR_BENCHMARKS.md](docs/COMPETITOR_BENCHMARKS.md)

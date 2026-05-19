@@ -68,3 +68,13 @@
 - **Status:** Approved
 - **Decision:** v0.1 delivers documentation only — no package managers, watchers, or UI code.
 - **Rationale:** User-directed execution mode; reduce half-built repo risk.
+
+---
+
+## [DEC-009] — 19 May 2026 — EU/Norway pilot registry as v0.2.0 starting point
+
+- **Status:** Approved (data committed; entries pending review)
+- **Decision:** First machine-readable registry covers **EU** and **Norway** only, with seven `official_primary` sources and two jurisdiction files. All entries use `review_status: pending_review` until Control Tower approves URLs and scope text.
+- **Fields:** Jurisdiction and source schemas use pilot field sets documented in [PILOT_SOURCE_REGISTRY.md](PILOT_SOURCE_REGISTRY.md) (`credibility_level`, `monitoring_scope`, etc.).
+- **Explicit non-decisions:** No watchers, crawlers, APIs, UI, schedulers, or databases in this phase.
+- **Rationale:** Matches ROADMAP v0.2, hub pilot focus (EU AI Act + Norway), and evidence-first incremental coverage without claiming legal completeness.

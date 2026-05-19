@@ -1,0 +1,31 @@
+# Pilot official source — European Data Protection Board
+# Last curated: 19 May 2026
+
+source_id: edpb
+title: European Data Protection Board (EDPB)
+jurisdiction_id: eu
+source_type: regulator
+credibility_level: official_primary
+official_url: https://www.edpb.europa.eu/
+monitoring_scope: >
+  EDPB guidelines, opinions, statements, and public documents where AI intersects
+  with GDPR and law enforcement directives, as published on edpb.europa.eu.
+  Not all EDPB work is AI-specific; monitoring should filter for AI-relevant items.
+expected_update_types:
+  - new_guidelines_or_opinions
+  - revised_guidelines
+  - public_consultation_documents
+  - press_releases_on_ai_relevant_topics
+  - meeting_outcomes_where_published
+related_topics:
+  - gdpr
+  - ai_and_personal_data
+  - automated_decision_making
+  - dpia
+  - law_enforcement_ai
+review_status: pending_review
+notes: >
+  Tracked official primary source for EU-level data protection guidance that may
+  affect AI governance controls and evidence (e.g. DPIA, lawful basis documentation).
+  Helps identify regulatory changes; does not provide legal advice. EDPB documents
+  often require careful reading to determine applicability to a specific AI system.
