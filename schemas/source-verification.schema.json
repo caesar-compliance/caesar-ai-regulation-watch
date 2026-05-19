@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caesar.no/schemas/caesar-ai-regulation-watch/source-verification.schema.json",
+  "title": "Caesar AI Regulation Watch — Source verification batch",
+  "description": "Manual source verification log for governance review. Not legal advice.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["verification_batch_id", "verified_date", "verifier_type", "verifications", "legal_safe_note"],
+  "properties": {
+    "verification_batch_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "verified_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "verifier_type": {
+      "type": "string",
+      "enum": ["human_reviewer", "automated_check_pending", "curator_batch"]
+    },
+    "verifications": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "verification_id",
+          "verified_date",
+          "verifier_type",
+          "item_type",
+          "item_id",
+          "source_id",
+          "official_url_checked",
+          "check_result",
+          "review_status_after_check",
+          "client_use_allowed",
+          "legal_safe_note"
+        ],
+        "properties": {
+          "verification_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "verified_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "verifier_type": {
+            "type": "string",
+            "enum": ["human_reviewer", "automated_check_pending", "curator_batch"]
+          },
+          "item_type": {
+            "type": "string",
+            "enum": ["source", "record", "timeline_event", "change"]
+          },
+          "item_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "source_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "official_url_checked": {
+            "type": "string",
+            "format": "uri"
+          },
+          "check_result": {
+            "type": "string",
+            "enum": [
+              "reachable_matches_expected_source",
+              "reachable_needs_human_review",
+              "unreachable",
+              "redirected",
+              "not_checked",
+              "uncertain"
+            ]
+          },
+          "page_title_or_reference": {
+            "type": "string"
+          },
+          "notes": {
+            "type": "string"
+          },
+          "review_status_after_check": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "pending_review",
+              "reviewed",
+              "needs_update",
+              "rejected_for_client_use",
+              "archived"
+            ]
+          },
+          "client_use_allowed": {
+            "type": "boolean"
+          },
+          "legal_safe_note": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "legal_safe_note": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

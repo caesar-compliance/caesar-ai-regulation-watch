@@ -3,6 +3,35 @@
   "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
   "items": [
     {
+      "record_id": "law-china-generative-ai-interim-measures",
+      "record_type": "law",
+      "record_origin": "official_source_registry",
+      "verified_on_source": false,
+      "title": "Interim Measures for the Management of Generative Artificial Intelligence Services",
+      "jurisdiction_id": "china",
+      "source_id": "china-cac-generative-ai",
+      "legal_status": "in_force",
+      "official_url": "https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm",
+      "summary_for_review": "Curated pointer to the CAC publication of interim measures governing generative AI services in China. Supports governance review of whether China-facing product, content moderation, and provider obligations may need tracking against official CAC text. Primary authoritative text is in Chinese; verify scope and dates on the source.\n",
+      "key_dates": [
+        {
+          "label": "Measures effective date (pending verification on CAC source)",
+          "date": "2023-08-15",
+          "verified_on_source": false,
+          "notes": "Commonly cited effective date; confirm on official CAC publication before client use."
+        }
+      ],
+      "affected_topics": [
+        "generative_ai",
+        "content_regulation",
+        "provider_obligations",
+        "data_security"
+      ],
+      "review_status": "pending_review",
+      "legal_safe_note": "Curated registry record for governance review support only. Not legal advice. Does not cover all PRC AI-related rules. Requires human review of official Chinese text and any subsequent amendments before client use.\n",
+      "status": "in_force"
+    },
+    {
       "record_id": "law-eu-ai-act-2024-1689",
       "record_type": "law",
       "record_origin": "manual_sample",
@@ -37,6 +66,49 @@
       "review_status": "pending_review",
       "legal_safe_note": "Manual sample record for data-model testing only. Not legal advice. Does not describe complete EU AI Act obligations or national implementations. Requires human review before client use.\n",
       "status": "in_force"
+    },
+    {
+      "record_id": "policy-australia-ai-ethics-framework",
+      "record_type": "guidance",
+      "record_origin": "official_source_registry",
+      "verified_on_source": false,
+      "title": "Australia's Artificial Intelligence (AI) Ethics Framework",
+      "jurisdiction_id": "australia",
+      "source_id": "australia-industry-ai",
+      "guidance_status": "voluntary",
+      "official_url": "https://www.industry.gov.au/publications/australias-artificial-intelligence-ai-ethics-framework",
+      "summary_for_review": "Curated pointer to the Australian Government’s AI Ethics Framework publication on industry.gov.au. Supports governance review of whether voluntary ethics principles referenced in internal policies or vendor questionnaires need refresh when official materials are updated.\n",
+      "affected_topics": [
+        "ai_ethics",
+        "human_centred_ai",
+        "fairness",
+        "transparency",
+        "accountability"
+      ],
+      "review_status": "pending_review",
+      "legal_safe_note": "Curated registry record for governance review support only. Not legal advice. Voluntary framework; binding obligations may arise under other Australian laws. Requires human verification on industry.gov.au before client use.\n",
+      "status": "voluntary"
+    },
+    {
+      "record_id": "policy-canada-responsible-use-ai",
+      "record_type": "guidance",
+      "record_origin": "official_source_registry",
+      "verified_on_source": false,
+      "title": "Government of Canada — Responsible use of artificial intelligence",
+      "jurisdiction_id": "canada",
+      "source_id": "canada-responsible-ai",
+      "guidance_status": "guidance",
+      "official_url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai.html",
+      "summary_for_review": "Curated pointer to the Government of Canada’s responsible-use-of-AI policy hub on canada.ca, including direction for federal institutions and links to related guidance. Supports governance review of whether public-sector or Canada-linked AI governance documentation should reflect updated federal policy statements.\n",
+      "affected_topics": [
+        "public_sector_ai",
+        "responsible_ai",
+        "transparency",
+        "accountability"
+      ],
+      "review_status": "pending_review",
+      "legal_safe_note": "Curated registry record for governance review support only. Not legal advice. Provincial privacy and sector rules may apply separately. Requires human verification on canada.ca before client use.\n",
+      "status": "guidance"
     },
     {
       "record_id": "guidance-datatilsynet-ai-privacy",
@@ -79,6 +151,193 @@
       "review_status": "pending_review",
       "legal_safe_note": "Manual sample record for data-model testing only. Not legal advice. Requires human review before client use. Does not automatically determine which GPAI obligations apply to a specific system.\n",
       "status": "guidance"
+    },
+    {
+      "record_id": "policy-g7-hiroshima-ai-process",
+      "record_type": "guidance",
+      "record_origin": "official_source_registry",
+      "verified_on_source": false,
+      "title": "G7 — Hiroshima AI Process (summit policy framework)",
+      "jurisdiction_id": "g7",
+      "source_id": "g7-hiroshima-ai-process",
+      "guidance_status": "guidance",
+      "official_url": "https://www.g7hiroshima.go.jp/en/",
+      "summary_for_review": "Curated pointer to official G7 Hiroshima summit materials on the Hiroshima AI Process, including communiqué and code-of-conduct related publications hosted on the summit domain. Supports governance review when tracking voluntary international commitments on advanced AI systems; successor G7 hosts may publish follow-on materials elsewhere.\n",
+      "affected_topics": [
+        "international_cooperation",
+        "advanced_ai_systems",
+        "voluntary_commitments",
+        "risk_management"
+      ],
+      "review_status": "pending_review",
+      "legal_safe_note": "Curated registry record for governance review support only. Not legal advice. G7 declarations are political commitments, not directly enforceable law. Summit site may be archived; verify current G7 publications before client use.\n",
+      "status": "guidance"
+    },
+    {
+      "record_id": "policy-japan-meti-ai",
+      "record_type": "guidance",
+      "record_origin": "official_source_registry",
+      "verified_on_source": false,
+      "title": "Japan METI — AI policy and connected industries materials",
+      "jurisdiction_id": "japan",
+      "source_id": "japan-meti-ai",
+      "guidance_status": "guidance",
+      "official_url": "https://www.meti.go.jp/english/policy/mono_info_service/connected_industries/ai/index.html",
+      "summary_for_review": "Curated pointer to METI’s English-language AI policy hub covering government AI initiatives, governance discussion papers, and related official materials. Supports governance review when Japan-linked AI strategy or industry-policy references need updating. Additional instruments may be published on Japanese-only pages.\n",
+      "affected_topics": [
+        "ai_strategy",
+        "industry_policy",
+        "governance_guidelines"
+      ],
+      "review_status": "pending_review",
+      "legal_safe_note": "Curated registry record for governance review support only. Not legal advice. English hub may not list all binding instruments; verify Japanese official sources where required. Requires human review before client use.\n",
+      "status": "guidance"
+    },
+    {
+      "record_id": "implementation-norway-ai-act",
+      "record_type": "guidance",
+      "record_origin": "official_source_registry",
+      "verified_on_source": false,
+      "title": "Norway — EU AI Act implementation (government tracking)",
+      "jurisdiction_id": "norway",
+      "source_id": "norway-ai-act-implementation",
+      "guidance_status": "implementation_update",
+      "official_url": "https://www.regjeringen.no/en/topics/business-and-industry/ai/id3015480/",
+      "summary_for_review": "Curated pointer to the Norwegian Government’s official pages on AI and EU AI Act implementation planning on regjeringen.no. Supports governance review of EEA-linked implementation timelines, consultation documents, and national transposition work. Does not state final Norwegian statute text.\n",
+      "affected_topics": [
+        "eu_ai_act",
+        "eea_implementation",
+        "national_transposition",
+        "consultation"
+      ],
+      "review_status": "pending_review",
+      "legal_safe_note": "Curated registry record for governance review support only. Not legal advice. Norway’s EEA relationship means EU AI Act applicability is subject to EEA processes; verify official regjeringen.no and Lovdata materials before client use.\n",
+      "status": "implementation_update"
+    },
+    {
+      "record_id": "policy-oecd-ai-policy-navigator",
+      "record_type": "guidance",
+      "record_origin": "official_source_registry",
+      "verified_on_source": false,
+      "title": "OECD.AI — Policy observatory and AI principles resources",
+      "jurisdiction_id": "oecd",
+      "source_id": "oecd-ai-policy-navigator",
+      "guidance_status": "guidance",
+      "official_url": "https://oecd.ai/en/",
+      "summary_for_review": "Curated pointer to the OECD’s AI policy observatory and related materials on oecd.ai, including references to OECD AI Principles and member policy developments. Supports governance review when multinational policy benchmarking or voluntary principle alignment is tracked; OECD materials are not binding national law.\n",
+      "affected_topics": [
+        "ai_principles",
+        "policy_benchmarking",
+        "international_cooperation"
+      ],
+      "review_status": "pending_review",
+      "legal_safe_note": "Curated registry record for governance review support only. Not legal advice. OECD instruments do not replace national legal obligations. Requires human verification on oecd.ai before client use.\n",
+      "status": "guidance"
+    },
+    {
+      "record_id": "policy-singapore-model-ai-governance",
+      "record_type": "guidance",
+      "record_origin": "official_source_registry",
+      "verified_on_source": false,
+      "title": "Singapore — Model AI Governance Framework",
+      "jurisdiction_id": "singapore",
+      "source_id": "singapore-pdpc-ai",
+      "guidance_status": "guidance",
+      "official_url": "https://www.pdpc.gov.sg/help-and-resources/2020/01/model-ai-governance-framework",
+      "summary_for_review": "Curated pointer to the Personal Data Protection Commission’s Model AI Governance Framework on pdpc.gov.sg. Supports governance review of whether deployment governance, internal policies, and PDPA-aligned documentation should reflect updated Singapore model-governance guidance.\n",
+      "affected_topics": [
+        "model_governance",
+        "accountability",
+        "transparency",
+        "data_protection"
+      ],
+      "review_status": "pending_review",
+      "legal_safe_note": "Curated registry record for governance review support only. Not legal advice. Does not state all PDPA obligations. Requires human verification on pdpc.gov.sg before client use.\n",
+      "status": "guidance"
+    },
+    {
+      "record_id": "guidance-south-korea-pipc-ai",
+      "record_type": "guidance",
+      "record_origin": "official_source_registry",
+      "verified_on_source": false,
+      "title": "South Korea PIPC — AI and personal information protection (official portal)",
+      "jurisdiction_id": "south-korea",
+      "source_id": "south-korea-pipc",
+      "guidance_status": "guidance",
+      "official_url": "https://www.pipc.go.kr/np/eng/main/main.do",
+      "summary_for_review": "Curated pointer to the Personal Information Protection Commission English portal for AI-related privacy guidance and enforcement context in South Korea. Supports governance review of cross-border processing, automated decision-making, and consent documentation where Korean personal data is involved.\n",
+      "affected_topics": [
+        "personal_information_protection",
+        "automated_decision_making",
+        "ai_governance",
+        "cross_border_transfers"
+      ],
+      "review_status": "pending_review",
+      "legal_safe_note": "Curated registry record for governance review support only. Not legal advice. Authoritative guidance may appear on Korean-language pages; verify specific instruments on pipc.go.kr before client use.\n",
+      "status": "guidance"
+    },
+    {
+      "record_id": "policy-uk-ai-regulation-pro-innovation",
+      "record_type": "guidance",
+      "record_origin": "official_source_registry",
+      "verified_on_source": false,
+      "title": "UK — AI regulation pro-innovation approach (government policy framework)",
+      "jurisdiction_id": "uk",
+      "source_id": "uk-gov-ai-regulation",
+      "guidance_status": "guidance",
+      "official_url": "https://www.gov.uk/government/publications/ai-regulation-a-pro-innovation-approach",
+      "summary_for_review": "Curated pointer to the UK government’s pro-innovation approach to AI regulation, including the white paper and related policy materials on gov.uk. Supports governance review of whether UK-facing AI governance memos, risk tiering, and sector-regulator coordination need updates when official policy pages change. Does not state binding legal obligations for any specific deployment.\n",
+      "affected_topics": [
+        "uk_ai_regulation",
+        "innovation_policy",
+        "sector_regulators",
+        "risk_tiering"
+      ],
+      "review_status": "pending_review",
+      "legal_safe_note": "Curated registry record for governance review support only. Not legal advice. UK sector-specific rules may apply separately. Requires human verification on the official gov.uk publication before client use.\n",
+      "status": "guidance"
+    },
+    {
+      "record_id": "policy-unesco-ai-ethics-recommendation",
+      "record_type": "guidance",
+      "record_origin": "official_source_registry",
+      "verified_on_source": false,
+      "title": "UNESCO — Recommendation on the Ethics of Artificial Intelligence",
+      "jurisdiction_id": "unesco",
+      "source_id": "unesco-ai-ethics",
+      "guidance_status": "adopted",
+      "official_url": "https://www.unesco.org/en/artificial-intelligence/recommendation-ethics",
+      "summary_for_review": "Curated pointer to UNESCO’s Recommendation on the Ethics of Artificial Intelligence and related implementation resources. Supports governance review of whether ethics policy statements, human-rights due diligence, or development-partnership materials should reference updated UNESCO guidance. UNESCO recommendations are not domestic law.\n",
+      "affected_topics": [
+        "ai_ethics",
+        "human_rights",
+        "international_standards",
+        "capacity_building"
+      ],
+      "review_status": "pending_review",
+      "legal_safe_note": "Curated registry record for governance review support only. Not legal advice. Does not create binding obligations in member states without domestic implementation. Requires human verification on unesco.org before client use.\n",
+      "status": "adopted"
+    },
+    {
+      "record_id": "policy-us-nist-ai-rmf",
+      "record_type": "guidance",
+      "record_origin": "official_source_registry",
+      "verified_on_source": false,
+      "title": "NIST — AI Risk Management Framework (AI RMF 1.0)",
+      "jurisdiction_id": "us-federal",
+      "source_id": "us-nist-ai-rmf",
+      "guidance_status": "voluntary",
+      "official_url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "summary_for_review": "Curated pointer to NIST’s AI Risk Management Framework and related publications on nist.gov. Supports governance review of whether internal risk management, documentation, and vendor assessment practices should be aligned with widely referenced federal voluntary framework materials. NIST guidance is not itself statute or regulation.\n",
+      "affected_topics": [
+        "risk_management",
+        "ai_governance",
+        "documentation",
+        "vendor_assessment"
+      ],
+      "review_status": "pending_review",
+      "legal_safe_note": "Curated registry record for governance review support only. Not legal advice. Does not determine applicability of sector-specific US federal or state rules. Requires human verification on nist.gov before client use.\n",
+      "status": "voluntary"
     }
   ]
 }

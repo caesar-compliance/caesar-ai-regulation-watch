@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-05-19",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
   "pilot_jurisdictions": [
     "australia",
@@ -19,19 +19,22 @@
   ],
   "counts": {
     "jurisdictions": 13,
-    "sources": 25,
-    "records": 3,
-    "laws": 1,
-    "guidance": 2,
+    "sources": 26,
+    "records": 15,
+    "laws": 2,
+    "guidance": 13,
     "changes": 2,
-    "timelines": 2,
+    "timelines": 5,
+    "verifications": 12,
     "export_samples": 2,
     "map_markers": 13,
-    "review_queue_items": 53,
-    "pending_review": 53,
+    "review_queue_items": 85,
+    "pending_review": 85,
     "needs_update": 0,
-    "unverified_timeline_events": 6,
-    "exports": 8
+    "unverified_timeline_events": 10,
+    "unverified_records": 12,
+    "pending_source_verifications": 12,
+    "exports": 9
   },
   "feeds": {
     "changes_rss": "/feeds/changes.xml"
@@ -44,7 +47,8 @@
     "export_samples": "/data/export-samples.json",
     "timelines": "/data/timelines.json",
     "map_coverage": "/data/map-coverage.json",
-    "review_queue": "/data/review-queue.json"
+    "review_queue": "/data/review-queue.json",
+    "verifications": "/data/verifications.json"
   },
   "review_notice": "All pilot content is curated manual YAML. Human review required before client use."
 }

@@ -33,13 +33,25 @@ They do **not**:
 | File | `record_id` | Links |
 |---|---|---|
 | [eu-ai-act.yml](../data/laws/eu-ai-act.yml) | `law-eu-ai-act-2024-1689` | `source_id: eu-ai-act`, `jurisdiction_id: eu` |
+| [china-generative-ai-interim-measures.yml](../data/laws/china-generative-ai-interim-measures.yml) | `law-china-generative-ai-interim-measures` | `source_id: china-cac-generative-ai` |
 
-### Guidance (`data/guidance/`)
+### Guidance / policy frameworks (`data/guidance/`)
 
-| File | `record_id` | Links |
+| File | `record_id` | Type |
 |---|---|---|
-| [eu-ai-office-general-purpose-ai.yml](../data/guidance/eu-ai-office-general-purpose-ai.yml) | `guidance-eu-ai-office-gpai` | `source_id: eu-ai-office` |
-| [datatilsynet-ai-privacy.yml](../data/guidance/datatilsynet-ai-privacy.yml) | `guidance-datatilsynet-ai-privacy` | `source_id: datatilsynet` |
+| [eu-ai-office-general-purpose-ai.yml](../data/guidance/eu-ai-office-general-purpose-ai.yml) | `guidance-eu-ai-office-gpai` | guidance (sample) |
+| [datatilsynet-ai-privacy.yml](../data/guidance/datatilsynet-ai-privacy.yml) | `guidance-datatilsynet-ai-privacy` | guidance (sample) |
+| [uk-ai-regulation-pro-innovation.yml](../data/guidance/uk-ai-regulation-pro-innovation.yml) | `policy-uk-ai-regulation-pro-innovation` | policy_framework |
+| [us-nist-ai-risk-management-framework.yml](../data/guidance/us-nist-ai-risk-management-framework.yml) | `policy-us-nist-ai-rmf` | policy_framework |
+| [canada-responsible-use-ai.yml](../data/guidance/canada-responsible-use-ai.yml) | `policy-canada-responsible-use-ai` | policy_framework |
+| [australia-ai-ethics-framework.yml](../data/guidance/australia-ai-ethics-framework.yml) | `policy-australia-ai-ethics-framework` | policy_framework |
+| [singapore-model-ai-governance-framework.yml](../data/guidance/singapore-model-ai-governance-framework.yml) | `policy-singapore-model-ai-governance` | policy_framework |
+| [japan-meti-ai-policy.yml](../data/guidance/japan-meti-ai-policy.yml) | `policy-japan-meti-ai` | policy_framework |
+| [south-korea-pipc-ai-privacy.yml](../data/guidance/south-korea-pipc-ai-privacy.yml) | `guidance-south-korea-pipc-ai` | guidance |
+| [oecd-ai-policy-framework.yml](../data/guidance/oecd-ai-policy-framework.yml) | `policy-oecd-ai-policy-navigator` | policy_framework |
+| [unesco-ai-ethics-recommendation.yml](../data/guidance/unesco-ai-ethics-recommendation.yml) | `policy-unesco-ai-ethics-recommendation` | policy_framework |
+| [g7-hiroshima-ai-process.yml](../data/guidance/g7-hiroshima-ai-process.yml) | `policy-g7-hiroshima-ai-process` | policy_framework |
+| [norway-ai-act-implementation.yml](../data/guidance/norway-ai-act-implementation.yml) | `implementation-norway-ai-act` | implementation_update |
 
 ### Changes (`data/changes/`)
 

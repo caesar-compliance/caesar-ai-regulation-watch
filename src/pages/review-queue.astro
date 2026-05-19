@@ -25,8 +25,9 @@ const jMap = Object.fromEntries(jurisdictions.map((j) => [j.jurisdiction_id, j.n
 
     <div class="banner banner--review" role="note">
       <strong>{summary.total} items</strong> in queue · {summary.pending_review} pending_review ·{" "}
-      {summary.needs_update} needs_update · {summary.unverified_timeline_events} unverified timeline
-      events · {summary.missing_official_url} missing official URL
+      {summary.needs_update} needs_update ·       {summary.unverified_timeline_events} unverified timeline events ·{" "}
+      {summary.missing_official_url} missing official URL · See also{" "}
+      <a href="/verification/">source verification</a>
     </div>
 
     <div class="filter-bar">

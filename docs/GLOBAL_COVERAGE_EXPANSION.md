@@ -1,8 +1,16 @@
-# Global coverage expansion — v0.5.0
+# Global coverage expansion — v0.6.0
 
 **Last updated:** 19 May 2026
 
-## What changed
+## v0.6.0 — curated records
+
+- **12 curated law/guidance/policy records** for global pilot jurisdictions (plus existing EU/Norway samples)
+- **Source verification workflow** — `data/verifications/`, `/verification/`, `verifications.json`
+- **Record expansion gaps log** — `docs/RECORD_EXPANSION_GAPS.md`
+- Record types: `law`, `guidance`, `policy_framework`, `implementation_update`
+- All new records: `verified_on_source: false`, `review_status: pending_review`
+
+## What changed (v0.5.0)
 
 v0.5.0 expands Caesar AI Regulation Watch from the EU/Norway pilot into a **broader static global monitoring foundation**:
 

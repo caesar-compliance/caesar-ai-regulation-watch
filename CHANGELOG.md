@@ -11,6 +11,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.6.0] - 19 May 2026
+
+### Added
+
+- **12 curated law/guidance/policy records** across UK, US federal, China, Canada, Australia, Singapore, Japan, South Korea, OECD, UNESCO, G7, and Norway implementation tracking.
+- **Source verification workflow** — `docs/SOURCE_VERIFICATION_WORKFLOW.md`, `schemas/source-verification.schema.json`, `data/verifications/source-verification-2026-05-19.yml` (12 entries, `not_checked`).
+- **Record expansion gaps log** — `docs/RECORD_EXPANSION_GAPS.md`.
+- **3 timelines** — UK AI regulation, US federal AI policy, international AI frameworks.
+- **Official source** — `china-cac-generative-ai` for CAC generative AI interim measures.
+- **Site page** `/verification/` — read-only verification summary.
+- Export: `public/data/verifications.json`.
+
+### Changed
+
+- Guidance schema supports `policy_framework` and `implementation_update` record types; optional `verified_on_source` on records.
+- Review queue includes unverified records and pending source verifications (85 items in export).
+- Jurisdiction pages show coverage summary (sources, records, timelines, pending review).
+- Record pages show verification status, related timelines, and record type labels.
+- Snapshot version `0.6.0`; 74 static routes.
+
+### Notes
+
+- No live URL verification performed in this release; all new records `verified_on_source: false`.
+- No `client_use_allowed: true` in verification batch.
+- Watchers, APIs, database, and auth remain not implemented.
+
+---
+
 ## [0.5.1] - 19 May 2026
 
 ### Added

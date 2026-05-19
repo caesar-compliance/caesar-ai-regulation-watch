@@ -34,6 +34,7 @@ const schemas = {
   controlMapping: loadSchema("change-control-mapping.schema.json"),
   evidenceMapping: loadSchema("change-evidence-mapping.schema.json"),
   timeline: loadSchema("timeline.schema.json"),
+  sourceVerification: loadSchema("source-verification.schema.json"),
 };
 
 function readYaml(filePath) {
@@ -128,6 +129,12 @@ for (const file of listYamlFiles(timelineDir)) {
   check(validate(file, data, schemas.timeline));
 }
 
+// Source verifications
+for (const file of listYamlFiles(path.join(ROOT, "data/verifications"))) {
+  const data = readYaml(file);
+  check(validate(file, data, schemas.sourceVerification));
+}
+
 // Export samples
 for (const file of listYamlFiles(path.join(ROOT, "exports/samples"))) {
   const data = readYaml(file);
@@ -181,6 +188,57 @@ for (const file of listYamlFiles(timelineDir)) {
       failures.push({
         label: `${file} → ${ev.event_id} (referential)`,
         errors: [{ message: `unknown source_id on event: ${ev.source_id}` }],
+      });
+    }
+  }
+}
+
+// Referential integrity (records → jurisdiction, source)
+for (const file of listYamlFiles(path.join(ROOT, "data/laws"))) {
+  const r = readYaml(file);
+  if (!jurisdictionIds.has(r.jurisdiction_id)) {
+    failures.push({
+      label: `${file} (referential)`,
+      errors: [{ message: `unknown jurisdiction_id: ${r.jurisdiction_id}` }],
+    });
+  }
+  if (!sourceIds.has(r.source_id)) {
+    failures.push({
+      label: `${file} (referential)`,
+      errors: [{ message: `unknown source_id: ${r.source_id}` }],
+    });
+  }
+}
+for (const file of listYamlFiles(path.join(ROOT, "data/guidance"))) {
+  const r = readYaml(file);
+  if (!jurisdictionIds.has(r.jurisdiction_id)) {
+    failures.push({
+      label: `${file} (referential)`,
+      errors: [{ message: `unknown jurisdiction_id: ${r.jurisdiction_id}` }],
+    });
+  }
+  if (!sourceIds.has(r.source_id)) {
+    failures.push({
+      label: `${file} (referential)`,
+      errors: [{ message: `unknown source_id: ${r.source_id}` }],
+    });
+  }
+}
+
+// Referential integrity (verifications)
+for (const file of listYamlFiles(path.join(ROOT, "data/verifications"))) {
+  const batch = readYaml(file);
+  for (const v of batch.verifications ?? []) {
+    if (!sourceIds.has(v.source_id)) {
+      failures.push({
+        label: `${file} → ${v.verification_id} (referential)`,
+        errors: [{ message: `unknown source_id: ${v.source_id}` }],
+      });
+    }
+    if (v.item_type === "record" && !recordIds.has(v.item_id)) {
+      failures.push({
+        label: `${file} → ${v.verification_id} (referential)`,
+        errors: [{ message: `unknown item_id (record): ${v.item_id}` }],
       });
     }
   }

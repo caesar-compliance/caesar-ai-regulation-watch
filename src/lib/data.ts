@@ -60,6 +60,16 @@ export interface KeyDate {
   notes?: string;
 }
 
+export type RecordType = "law" | "guidance" | "policy_framework" | "implementation_update";
+
+export type VerificationCheckResult =
+  | "reachable_matches_expected_source"
+  | "reachable_needs_human_review"
+  | "unreachable"
+  | "redirected"
+  | "not_checked"
+  | "uncertain";
+
 export interface LawRecord {
   record_id: string;
   record_type: "law";
@@ -72,13 +82,14 @@ export interface LawRecord {
   summary_for_review: string;
   key_dates: KeyDate[];
   affected_topics: string[];
+  verified_on_source?: boolean;
   review_status: ReviewStatus;
   legal_safe_note: string;
 }
 
 export interface GuidanceRecord {
   record_id: string;
-  record_type: "guidance";
+  record_type: "guidance" | "policy_framework" | "implementation_update";
   record_origin: string;
   title: string;
   jurisdiction_id: string;
@@ -87,7 +98,32 @@ export interface GuidanceRecord {
   official_url: string;
   summary_for_review: string;
   affected_topics: string[];
+  verified_on_source?: boolean;
   review_status: ReviewStatus;
+  legal_safe_note: string;
+}
+
+export interface SourceVerificationEntry {
+  verification_id: string;
+  verified_date: string;
+  verifier_type: string;
+  item_type: "source" | "record" | "timeline_event" | "change";
+  item_id: string;
+  source_id: string;
+  official_url_checked: string;
+  check_result: VerificationCheckResult;
+  page_title_or_reference?: string;
+  notes?: string;
+  review_status_after_check: ReviewStatus;
+  client_use_allowed: boolean;
+  legal_safe_note: string;
+}
+
+export interface SourceVerificationBatch {
+  verification_batch_id: string;
+  verified_date: string;
+  verifier_type: string;
+  verifications: SourceVerificationEntry[];
   legal_safe_note: string;
 }
 
@@ -278,6 +314,44 @@ export function timelinesForJurisdiction(jurisdictionId: string): Timeline[] {
   return getTimelines().filter((t) => t.jurisdiction_id === jurisdictionId);
 }
 
+export function timelinesForRecord(recordId: string): Timeline[] {
+  return getTimelines().filter((t) => t.related_record_id === recordId);
+}
+
+export function getVerificationBatches(): SourceVerificationBatch[] {
+  return readYamlDir<SourceVerificationBatch>("data/verifications");
+}
+
+export function getVerifications(): SourceVerificationEntry[] {
+  return getVerificationBatches().flatMap((b) => b.verifications);
+}
+
+export function verificationsForItem(itemId: string): SourceVerificationEntry[] {
+  return getVerifications().filter((v) => v.item_id === itemId);
+}
+
+export function latestVerificationForItem(
+  itemId: string,
+): SourceVerificationEntry | undefined {
+  const entries = verificationsForItem(itemId);
+  if (entries.length === 0) return undefined;
+  return [...entries].sort((a, b) => b.verified_date.localeCompare(a.verified_date))[0];
+}
+
+export function jurisdictionCoverage(jurisdictionId: string) {
+  const records = recordsForJurisdiction(jurisdictionId);
+  const pendingRecords = records.filter((r) => r.review_status !== "reviewed").length;
+  const unverifiedRecords = records.filter((r) => r.verified_on_source === false).length;
+  return {
+    sources: sourcesForJurisdiction(jurisdictionId).length,
+    records: records.length,
+    changes: changesForJurisdiction(jurisdictionId).length,
+    timelines: timelinesForJurisdiction(jurisdictionId).length,
+    pending_review: pendingRecords,
+    unverified_on_source: unverifiedRecords,
+  };
+}
+
 export function getPilotSummary() {
   return {
     jurisdictionCount: getJurisdictions().length,
@@ -285,6 +359,7 @@ export function getPilotSummary() {
     recordCount: getRecords().length,
     changeCount: getChanges().length,
     timelineCount: getTimelines().length,
+    verificationCount: getVerifications().length,
     exportSampleCount: getExportSamples().length,
     mapMarkerCount: getJurisdictions().filter((j) => j.map).length,
   };

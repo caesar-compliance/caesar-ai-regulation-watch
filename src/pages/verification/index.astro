@@ -1,0 +1,119 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ReviewStatusBadge from "../../components/ReviewStatusBadge.astro";
+import {
+  getVerifications,
+  getVerificationBatches,
+  getSources,
+} from "../../lib/data";
+import { formatDate, verificationCheckLabel, humanizeId } from "../../lib/format";
+
+const verifications = getVerifications();
+const batches = getVerificationBatches();
+const sources = getSources();
+const sourceMap = Object.fromEntries(sources.map((s) => [s.source_id, s]));
+
+const notChecked = verifications.filter((v) => v.check_result === "not_checked");
+const uncertain = verifications.filter((v) => v.check_result === "uncertain");
+const checked = verifications.filter(
+  (v) => v.check_result !== "not_checked" && v.check_result !== "uncertain",
+);
+---
+
+<BaseLayout title="Source verification" currentPath="/verification/">
+  <h1>Source verification</h1>
+  <p class="lead">
+    Read-only log of official URL checks for curated records. This page does not perform live checks or
+    update verification status.
+  </p>
+
+  <div class="banner banner--review" role="note">
+    <strong>Legal-safe notice.</strong> Verification entries support governance review only. Not legal
+    advice. Client use is not allowed in the v0.6.0 batch. See <a href="/methodology/">methodology</a>.
+  </div>
+
+  <dl class="meta-grid">
+    <div><dt>Total checks</dt><dd>{verifications.length}</dd></div>
+    <div><dt>Not checked</dt><dd>{notChecked.length}</dd></div>
+    <div><dt>Uncertain</dt><dd>{uncertain.length}</dd></div>
+    <div><dt>Completed checks</dt><dd>{checked.length}</dd></div>
+    <div><dt>Batches</dt><dd>{batches.length}</dd></div>
+  </dl>
+
+  <p>
+    <a href="/review-queue/">Human review queue →</a> ·{" "}
+    <a href="/data/verifications.json">verifications.json</a>
+  </p>
+
+  {
+    notChecked.length > 0 && (
+      <section>
+        <h2>Not yet checked ({notChecked.length})</h2>
+        <ul class="card-list">
+          {notChecked.map((v) => (
+            <li class="card">
+              <div class="card__meta">
+                <span class="badge badge--warn">{verificationCheckLabel(v.check_result)}</span>
+                <ReviewStatusBadge status={v.review_status_after_check} />
+              </div>
+              <h3>
+                <a href={`/records/${v.item_id}/`}>{v.item_id}</a>
+              </h3>
+              <p class="card__excerpt">
+                <small>
+                  {humanizeId(v.item_type)} · {v.verification_id} · {formatDate(v.verified_date)}
+                </small>
+              </p>
+              <p>
+                <a href={v.official_url_checked} target="_blank" rel="noopener noreferrer">
+                  URL to check ↗
+                </a>
+              </p>
+              {v.notes && <p class="card__excerpt">{v.notes}</p>}
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  <section>
+    <h2>All verification entries</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Source</th>
+          <th>Check result</th>
+          <th>Date</th>
+          <th>Client use</th>
+        </tr>
+      </thead>
+      <tbody>
+        {verifications.map((v) => (
+          <tr>
+            <td>
+              <a href={`/records/${v.item_id}/`}>{v.item_id}</a>
+            </td>
+            <td>{sourceMap[v.source_id]?.title ?? v.source_id}</td>
+            <td>{verificationCheckLabel(v.check_result)}</td>
+            <td>{formatDate(v.verified_date)}</td>
+            <td>{v.client_use_allowed ? "Allowed" : "Not allowed"}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </section>
+
+  {
+    batches.map((b) => (
+      <section>
+        <h2>Batch: {b.verification_batch_id}</h2>
+        <p class="card__excerpt">
+          <small>Verified date: {formatDate(b.verified_date)} · {humanizeId(b.verifier_type)}</small>
+        </p>
+        <div class="prose"><p>{b.legal_safe_note}</p></div>
+      </section>
+    ))
+  }
+</BaseLayout>

@@ -1,0 +1,24 @@
+# Official source — CAC Interim Measures for Generative AI
+# Last curated: 19 May 2026
+
+source_id: china-cac-generative-ai
+title: Cyberspace Administration of China — Interim Measures for Generative AI Services
+jurisdiction_id: china
+source_type: regulator
+credibility_level: official_primary
+official_url: https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm
+monitoring_scope: >
+  Official CAC publication of the Interim Measures for the Management of Generative
+  Artificial Intelligence Services on the cac.gov.cn domain.
+expected_update_types:
+  - regulatory_text
+  - implementation_guidance
+  - related_announcements
+related_topics:
+  - generative_ai
+  - content_regulation
+  - provider_obligations
+review_status: pending_review
+notes: >
+  Canonical instrument page on CAC. Primary language is Chinese; English summaries in
+  this repository require human verification. Human review required.

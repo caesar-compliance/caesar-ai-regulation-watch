@@ -1,7 +1,7 @@
 # Specification — Caesar AI Regulation Watch
 
 **Last updated:** 19 May 2026  
-**Status:** v0.5.0 — global static registry expansion, timelines, CI validate/build, read-only Astro site with search and static exports (no watchers, APIs, database, or auth)
+**Status:** v0.6.0 — curated global law/guidance records, source verification workflow, timelines, CI validate/build, read-only Astro site with search and static exports (no watchers, APIs, database, or auth)
 
 ---
 

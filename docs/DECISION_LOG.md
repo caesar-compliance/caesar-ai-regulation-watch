@@ -166,3 +166,13 @@
 - **Rationale:** Improves browse and verify UX without runtime ingestion or competitor map stacks.
 - **Boundaries:** Display markers only; queue does not write to YAML or mark items reviewed.
 - **Artifacts:** `src/pages/map.astro`, `src/pages/review-queue.astro`, `docs/MAP_AND_REVIEW_QUEUE.md`, `public/data/map-coverage.json`, `public/data/review-queue.json`.
+
+---
+
+## [DEC-019] — 19 May 2026 — Curated records and source verification (v0.6.0)
+
+- **Status:** Approved (implementation complete)
+- **Decision:** Add 12 manually curated law/guidance/policy records for global pilot jurisdictions; introduce source verification YAML batch and `/verification/` page; extend review queue for unverified records and pending verifications. No live URL checks in the initial batch (`not_checked`).
+- **Rationale:** Moves from registry-only coverage to reviewable instrument pointers while keeping data static and official-source-first.
+- **Boundaries:** No auto-mark reviewed; no `client_use_allowed: true` without strong verification; no competitor sources; no legal interpretation beyond `summary_for_review`.
+- **Artifacts:** `data/laws/`, `data/guidance/`, `data/verifications/`, `docs/SOURCE_VERIFICATION_WORKFLOW.md`, `docs/RECORD_EXPANSION_GAPS.md`, `public/data/verifications.json`.

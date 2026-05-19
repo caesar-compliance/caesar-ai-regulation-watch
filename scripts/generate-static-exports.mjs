@@ -61,6 +61,13 @@ const changes = readYamlDir("data/changes").sort((a, b) =>
   b.detected_date.localeCompare(a.detected_date),
 );
 const timelines = readYamlDir("data/timelines");
+const verificationBatches = readYamlDir("data/verifications");
+const verifications = verificationBatches.flatMap((b) =>
+  (b.verifications ?? []).map((v) => ({
+    ...v,
+    verification_batch_id: b.verification_batch_id,
+  })),
+);
 const exportFile = readYamlFile("exports/samples/regulation-change-export.sample.yml");
 const exportSamples = (exportFile?.exports ?? []).map((e) => ({
   ...e,
@@ -119,19 +126,30 @@ function buildReviewQueue() {
       verified_on_source_false: false,
     });
   }
+  const recordById = Object.fromEntries(records.map((r) => [r.record_id, r]));
+
   for (const r of records) {
-    if (!needsReview(r.review_status)) continue;
+    const recordUnverified = r.verified_on_source === false;
+    const recordNeedsReview = needsReview(r.review_status) || recordUnverified;
+    if (!recordNeedsReview) continue;
+    const reasons = [];
+    if (needsReview(r.review_status)) {
+      reasons.push(`Record (${r.record_type}) review_status is ${r.review_status}.`);
+    }
+    if (recordUnverified) {
+      reasons.push("Record not verified on official source in this repository.");
+    }
     items.push({
       item_type: "record",
       item_id: r.record_id,
       title: r.title,
       jurisdiction_id: r.jurisdiction_id,
       review_status: r.review_status,
-      reason_for_review: `Record (${r.record_type}) review_status is ${r.review_status}.`,
+      reason_for_review: reasons.join(" "),
       official_url: r.official_url ?? null,
       page_href: `/records/${r.record_id}/`,
       missing_official_url: !r.official_url,
-      verified_on_source_false: false,
+      verified_on_source_false: recordUnverified,
     });
   }
   for (const c of changes) {
@@ -202,6 +220,25 @@ function buildReviewQueue() {
       verified_on_source_false: false,
     });
   }
+
+  for (const v of verifications) {
+    if (v.check_result !== "not_checked" && v.check_result !== "uncertain") continue;
+    const related = recordById[v.item_id];
+    const src = sourceById[v.source_id];
+    items.push({
+      item_type: "source_verification",
+      item_id: v.verification_id,
+      title: `Verification: ${v.item_id} (${v.check_result})`,
+      jurisdiction_id: related?.jurisdiction_id ?? src?.jurisdiction_id ?? "oecd",
+      review_status: v.review_status_after_check,
+      reason_for_review: `Source verification check_result is ${v.check_result}.`,
+      official_url: v.official_url_checked,
+      page_href: "/verification/",
+      missing_official_url: false,
+      verified_on_source_false: true,
+    });
+  }
+
   return items;
 }
 
@@ -210,7 +247,15 @@ const reviewSummary = {
   total: reviewQueueItems.length,
   pending_review: reviewQueueItems.filter((i) => i.review_status === "pending_review").length,
   needs_update: reviewQueueItems.filter((i) => i.review_status === "needs_update").length,
-  unverified_timeline_events: reviewQueueItems.filter((i) => i.verified_on_source_false).length,
+  unverified_timeline_events: reviewQueueItems.filter(
+    (i) => i.item_type === "timeline_event" && i.verified_on_source_false,
+  ).length,
+  unverified_records: reviewQueueItems.filter(
+    (i) => i.item_type === "record" && i.verified_on_source_false,
+  ).length,
+  pending_source_verifications: reviewQueueItems.filter(
+    (i) => i.item_type === "source_verification",
+  ).length,
   missing_official_url: reviewQueueItems.filter((i) => i.missing_official_url).length,
 };
 
@@ -239,7 +284,7 @@ const mapMarkers = jurisdictions
 
 const snapshot = {
   generated_at: generatedAt,
-  version: "0.5.1",
+  version: "0.6.0",
   disclaimer: DISCLAIMER,
   pilot_jurisdictions: jurisdictions.map((j) => j.jurisdiction_id),
   counts: {
@@ -250,13 +295,16 @@ const snapshot = {
     guidance: guidance.length,
     changes: changes.length,
     timelines: timelines.length,
+    verifications: verifications.length,
     export_samples: exportSamples.length,
     map_markers: mapMarkers.length,
     review_queue_items: reviewSummary.total,
     pending_review: reviewSummary.pending_review,
     needs_update: reviewSummary.needs_update,
     unverified_timeline_events: reviewSummary.unverified_timeline_events,
-    exports: 8,
+    unverified_records: reviewSummary.unverified_records,
+    pending_source_verifications: reviewSummary.pending_source_verifications,
+    exports: 9,
   },
   feeds: {
     changes_rss: "/feeds/changes.xml",
@@ -270,6 +318,7 @@ const snapshot = {
     timelines: "/data/timelines.json",
     map_coverage: "/data/map-coverage.json",
     review_queue: "/data/review-queue.json",
+    verifications: "/data/verifications.json",
   },
   review_notice:
     "All pilot content is curated manual YAML. Human review required before client use.",
@@ -343,6 +392,19 @@ writeJson(path.join(PUBLIC_DATA, "review-queue.json"), {
   items: reviewQueueItems,
 });
 
+writeJson(path.join(PUBLIC_DATA, "verifications.json"), {
+  generated_at: generatedAt,
+  disclaimer: DISCLAIMER,
+  batches: verificationBatches,
+  items: verifications,
+  summary: {
+    total: verifications.length,
+    not_checked: verifications.filter((v) => v.check_result === "not_checked").length,
+    uncertain: verifications.filter((v) => v.check_result === "uncertain").length,
+    client_use_allowed: verifications.filter((v) => v.client_use_allowed).length,
+  },
+});
+
 writeJson(path.join(PUBLIC_DATA, "regulation-watch-snapshot.json"), snapshot);
 
 // RSS feed — sample changes only
@@ -402,7 +464,9 @@ console.log("  public/data/export-samples.json");
 console.log("  public/data/timelines.json");
 console.log("  public/data/map-coverage.json");
 console.log("  public/data/review-queue.json");
+console.log("  public/data/verifications.json");
 console.log("  public/data/regulation-watch-snapshot.json");
 console.log(`  ${reviewQueueItems.length} item(s) in review queue export`);
+console.log(`  ${verifications.length} verification(s) exported`);
 console.log("  public/feeds/changes.xml");
 console.log(`  ${changes.length} change(s) in RSS feed`);

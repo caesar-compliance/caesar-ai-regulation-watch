@@ -8,14 +8,16 @@
 
 | File | Role |
 |---|---|
-| **README.md** | Public entry; v0.5.0 status + npm commands |
+| **README.md** | Public entry; v0.6.0 status + npm commands |
 | **SPEC.md** | Requirements through static site |
 | **ARCHITECTURE.md** | Data layers + Astro publishing |
-| **ROADMAP.md** | v0.5.0 global data + timelines + CI |
+| **ROADMAP.md** | v0.6.0 curated records + verification |
 | **CHANGELOG.md** | Semver history |
 | **REPO_INVENTORY.md** | This file |
-| **PROJECT_STATE.md** | v0.5.0 phase |
-| **NEXT_ACTIONS.md** | Control Tower review + map deferral |
+| **PROJECT_STATE.md** | v0.6.0 phase |
+| **NEXT_ACTIONS.md** | Control Tower URL verification |
+| **docs/SOURCE_VERIFICATION_WORKFLOW.md** | Verification process |
+| **docs/RECORD_EXPANSION_GAPS.md** | Deferred records log |
 
 ---
 

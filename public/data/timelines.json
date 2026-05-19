@@ -98,6 +98,95 @@
       "review_status": "pending_review",
       "legal_safe_note": "Sample global timeline illustrating cross-jurisdiction events linked to international official sources. All entries pending human review. Not complete global coverage.\n",
       "event_count": 3
+    },
+    {
+      "timeline_id": "international-ai-frameworks",
+      "title": "International — AI ethics and cooperation frameworks (curated)",
+      "jurisdiction_id": "oecd",
+      "related_record_id": "policy-unesco-ai-ethics-recommendation",
+      "source_ids": [
+        "unesco-ai-ethics",
+        "oecd-ai-policy-navigator",
+        "g7-hiroshima-ai-process"
+      ],
+      "events": [
+        {
+          "event_id": "unesco-ai-ethics-adopted",
+          "date": "2021-11-23",
+          "event_type": "policy_announcement",
+          "title": "UNESCO AI Ethics Recommendation adopted (pending verification)",
+          "summary_for_review": "Curated milestone for UNESCO General Conference adoption of the Recommendation on the Ethics of Artificial Intelligence. Verify date and status on unesco.org.\n",
+          "source_id": "unesco-ai-ethics",
+          "verified_on_source": false,
+          "review_status": "pending_review",
+          "legal_safe_note": "Curated international milestone. Not verified on source in this repository.\n"
+        },
+        {
+          "event_id": "g7-hiroshima-ai-process-2023",
+          "date": "2023-05-20",
+          "event_type": "policy_announcement",
+          "title": "G7 Hiroshima AI Process announced (pending verification)",
+          "summary_for_review": "Curated milestone for G7 leaders’ Hiroshima AI Process communications. Verify against official G7 summit publications on the Hiroshima host domain or successor archives.\n",
+          "source_id": "g7-hiroshima-ai-process",
+          "verified_on_source": false,
+          "review_status": "pending_review",
+          "legal_safe_note": "Curated international milestone. Political commitment only; not domestic law.\n"
+        }
+      ],
+      "review_status": "pending_review",
+      "legal_safe_note": "Curated international frameworks timeline spanning UNESCO, OECD context, and G7. Not legal advice. Jurisdiction_id uses OECD as display anchor; events cite their own sources. Human verification required before client use.\n",
+      "event_count": 2
+    },
+    {
+      "timeline_id": "uk-ai-regulation-policy",
+      "title": "UK — AI regulation policy (curated milestones)",
+      "jurisdiction_id": "uk",
+      "related_record_id": "policy-uk-ai-regulation-pro-innovation",
+      "source_ids": [
+        "uk-gov-ai-regulation"
+      ],
+      "events": [
+        {
+          "event_id": "uk-ai-white-paper-published",
+          "date": "2023-03-29",
+          "event_type": "policy_announcement",
+          "title": "Pro-innovation AI regulation white paper published (pending verification)",
+          "summary_for_review": "Curated milestone aligned with the UK government’s pro-innovation approach publication track on gov.uk. Verify exact publication date and title on the official source before client use.\n",
+          "source_id": "uk-gov-ai-regulation",
+          "verified_on_source": false,
+          "review_status": "pending_review",
+          "legal_safe_note": "Curated timeline event for governance review support only. Not verified on source in this repository.\n"
+        }
+      ],
+      "review_status": "pending_review",
+      "legal_safe_note": "Curated UK policy timeline. Not legal advice. Does not include all UK sector regulator milestones. Human verification required before client use.\n",
+      "event_count": 1
+    },
+    {
+      "timeline_id": "us-federal-ai-policy",
+      "title": "US federal — AI policy and frameworks (curated milestones)",
+      "jurisdiction_id": "us-federal",
+      "related_record_id": "policy-us-nist-ai-rmf",
+      "source_ids": [
+        "us-nist-ai-rmf",
+        "us-ai-gov"
+      ],
+      "events": [
+        {
+          "event_id": "us-nist-ai-rmf-1-0-released",
+          "date": "2023-01-26",
+          "event_type": "publication",
+          "title": "NIST AI RMF 1.0 released (pending verification)",
+          "summary_for_review": "Curated milestone for the release of NIST AI Risk Management Framework 1.0 materials on nist.gov. Verify release date and current version on the official NIST page.\n",
+          "source_id": "us-nist-ai-rmf",
+          "verified_on_source": false,
+          "review_status": "pending_review",
+          "legal_safe_note": "Curated timeline event for governance review support only. Voluntary framework; not a statute.\n"
+        }
+      ],
+      "review_status": "pending_review",
+      "legal_safe_note": "Curated US federal policy timeline. Not legal advice. Does not list all executive or legislative actions. Human verification required before client use.\n",
+      "event_count": 1
     }
   ]
 }

@@ -1,0 +1,27 @@
+# Curated record — Norway EU AI Act implementation
+# Last curated: 19 May 2026
+
+record_id: implementation-norway-ai-act
+record_type: implementation_update
+record_origin: official_source_registry
+verified_on_source: false
+title: Norway — EU AI Act implementation (government tracking)
+jurisdiction_id: norway
+source_id: norway-ai-act-implementation
+guidance_status: implementation_update
+official_url: https://www.regjeringen.no/en/topics/business-and-industry/ai/id3015480/
+summary_for_review: >
+  Curated pointer to the Norwegian Government’s official pages on AI and EU AI Act
+  implementation planning on regjeringen.no. Supports governance review of EEA-linked
+  implementation timelines, consultation documents, and national transposition work.
+  Does not state final Norwegian statute text.
+affected_topics:
+  - eu_ai_act
+  - eea_implementation
+  - national_transposition
+  - consultation
+review_status: pending_review
+legal_safe_note: >
+  Curated registry record for governance review support only. Not legal advice. Norway’s
+  EEA relationship means EU AI Act applicability is subject to EEA processes; verify
+  official regjeringen.no and Lovdata materials before client use.

@@ -4,7 +4,7 @@
 
 This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
 
-**Current (v0.5.1):** static SVG map, review queue, global data, CI — no watchers, APIs, database, auth. **Next:** Control Tower review; human URL verification via queue.
+**Current (v0.6.0):** curated global records, source verification workflow, static map, review queue, CI — no watchers, APIs, database, auth. **Next:** Control Tower live URL verification; close record expansion gaps.
 
 ---
 

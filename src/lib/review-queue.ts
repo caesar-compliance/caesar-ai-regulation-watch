@@ -7,6 +7,8 @@ import {
   getTimelines,
   getExportSamples,
   getSource,
+  getRecord,
+  getVerifications,
 } from "./data";
 
 export type ReviewQueueItemType =
@@ -16,7 +18,8 @@ export type ReviewQueueItemType =
   | "change"
   | "timeline"
   | "timeline_event"
-  | "export_sample";
+  | "export_sample"
+  | "source_verification";
 
 export interface ReviewQueueItem {
   item_type: ReviewQueueItemType;
@@ -45,6 +48,8 @@ const SUGGESTED: Record<ReviewQueueItemType, string> = {
   timeline: "Review timeline scope and legal_safe_note; confirm linked sources.",
   timeline_event: "Verify event date and summary on the cited official source; set verified_on_source when confirmed.",
   export_sample: "Confirm export sample is not used as client evidence; validate mapping refs.",
+  source_verification:
+    "Perform live URL check; update check_result and client_use_allowed per SOURCE_VERIFICATION_WORKFLOW.md.",
 };
 
 export function buildReviewQueue(): ReviewQueueItem[] {
@@ -87,19 +92,28 @@ export function buildReviewQueue(): ReviewQueueItem[] {
   }
 
   for (const r of getRecords()) {
-    if (!needsReview(r.review_status)) continue;
+    const recordUnverified = r.verified_on_source === false;
+    const recordNeedsReview = needsReview(r.review_status) || recordUnverified;
+    if (!recordNeedsReview) continue;
+    const reasons: string[] = [];
+    if (needsReview(r.review_status)) {
+      reasons.push(`Record (${r.record_type}) review_status is ${r.review_status}.`);
+    }
+    if (recordUnverified) {
+      reasons.push("Record not verified on official source in this repository.");
+    }
     items.push({
       item_type: "record",
       item_id: r.record_id,
       title: r.title,
       jurisdiction_id: r.jurisdiction_id,
       review_status: r.review_status,
-      reason_for_review: `Record (${r.record_type}) review_status is ${r.review_status}.`,
+      reason_for_review: reasons.join(" "),
       official_url: r.official_url,
       page_href: `/records/${r.record_id}/`,
       suggested_action: SUGGESTED.record,
       missing_official_url: !r.official_url,
-      verified_on_source_false: false,
+      verified_on_source_false: recordUnverified,
     });
   }
 
@@ -179,6 +193,27 @@ export function buildReviewQueue(): ReviewQueueItem[] {
       suggested_action: SUGGESTED.export_sample,
       missing_official_url: false,
       verified_on_source_false: false,
+    });
+  }
+
+  for (const v of getVerifications()) {
+    if (v.check_result !== "not_checked" && v.check_result !== "uncertain") continue;
+    const src = getSource(v.source_id);
+    const relatedRecord = v.item_type === "record" ? getRecord(v.item_id) : undefined;
+    const jurisdictionId =
+      relatedRecord?.jurisdiction_id ?? src?.jurisdiction_id ?? "oecd";
+    items.push({
+      item_type: "source_verification",
+      item_id: v.verification_id,
+      title: `Verification: ${v.item_id} (${v.check_result})`,
+      jurisdiction_id: jurisdictionId,
+      review_status: v.review_status_after_check,
+      reason_for_review: `Source verification check_result is ${v.check_result}.`,
+      official_url: v.official_url_checked,
+      page_href: "/verification/",
+      suggested_action: SUGGESTED.source_verification,
+      missing_official_url: false,
+      verified_on_source_false: true,
     });
   }
 

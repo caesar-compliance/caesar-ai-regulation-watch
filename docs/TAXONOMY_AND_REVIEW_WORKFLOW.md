@@ -19,6 +19,8 @@ Machine-readable taxonomies live in `data/taxonomies/`. JSON Schema: `schemas/ta
 |---|---|---|
 | **Official source registry** | `data/jurisdictions/`, `data/sources/` | Registry definitions of what may be monitored later; not law text |
 | **Manual sample records** | `data/laws/`, `data/guidance/`, `data/changes/` | `record_origin: manual_sample` — for data-model testing only |
+| **Curated registry records** | `data/laws/`, `data/guidance/` | `record_origin: official_source_registry` — pointers to official instruments (v0.6.0+) |
+| **Source verifications** | `data/verifications/` | URL check log; see [SOURCE_VERIFICATION_WORKFLOW.md](SOURCE_VERIFICATION_WORKFLOW.md) |
 | **Future watcher output** | (not implemented) | `record_origin: future_watcher_output` — automated detections when approved |
 | **Mappings** | `mappings/*.yml` | Curated links from change → controls/evidence; always review-gated |
 | **Export contract samples** | `exports/samples/` | Illustrative export payloads; **no client evidence created** |

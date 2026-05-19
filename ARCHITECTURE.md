@@ -121,7 +121,7 @@
                               [Site build | RSS | JSON | Evidence export]
 ```
 
-**v0.5.0 phase:** Layer A expanded (13 jurisdictions, ~27 sources); `data/timelines/` + `/timelines/` pages; GitHub Actions CI. Layer F unchanged pattern — `generate:exports` includes `timelines.json`; snapshot counts timelines. No runtime API or remote fetch. **Deferred:** Leaflet map (v0.5.1), Layers B–C watchers (v0.6+).
+**v0.6.0 phase:** Layer A includes 15 curated records and `data/verifications/`; `/verification/` page; review queue covers unverified records and pending verifications; 9 JSON exports including `verifications.json`. **v0.5.x:** static SVG map and review queue. No runtime API or remote fetch. **Deferred:** Layers B–C watchers (post v0.6.0).
 
 ---
 

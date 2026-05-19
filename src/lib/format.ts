@@ -32,8 +32,32 @@ export function needsHumanReview(record: {
   review_status?: string;
   requires_human_review?: boolean;
   record_origin?: string;
+  verified_on_source?: boolean;
 }): boolean {
   if (record.requires_human_review === true) return true;
   if (record.record_origin === "manual_sample") return true;
+  if (record.verified_on_source === false) return true;
   return isPendingReview(record.review_status);
+}
+
+export function recordTypeLabel(recordType: string): string {
+  const labels: Record<string, string> = {
+    law: "Law",
+    guidance: "Guidance",
+    policy_framework: "Policy framework",
+    implementation_update: "Implementation update",
+  };
+  return labels[recordType] ?? humanizeId(recordType);
+}
+
+export function verificationCheckLabel(result: string): string {
+  const labels: Record<string, string> = {
+    reachable_matches_expected_source: "Reachable — matches expected source",
+    reachable_needs_human_review: "Reachable — needs human review",
+    unreachable: "Unreachable",
+    redirected: "Redirected",
+    not_checked: "Not checked",
+    uncertain: "Uncertain",
+  };
+  return labels[result] ?? humanizeId(result);
 }

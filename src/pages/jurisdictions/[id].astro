@@ -11,6 +11,7 @@ import {
   recordsForJurisdiction,
   changesForJurisdiction,
   timelinesForJurisdiction,
+  jurisdictionCoverage,
 } from "../../lib/data";
 import { formatDate, truncate, humanizeId } from "../../lib/format";
 
@@ -31,6 +32,7 @@ const sources = sourcesForJurisdiction(jurisdiction.jurisdiction_id);
 const records = recordsForJurisdiction(jurisdiction.jurisdiction_id);
 const changes = changesForJurisdiction(jurisdiction.jurisdiction_id);
 const timelines = timelinesForJurisdiction(jurisdiction.jurisdiction_id);
+const coverage = jurisdictionCoverage(jurisdiction.jurisdiction_id);
 ---
 
 <BaseLayout title={jurisdiction.name} currentPath="/jurisdictions/">
@@ -43,6 +45,19 @@ const timelines = timelinesForJurisdiction(jurisdiction.jurisdiction_id);
   </div>
 
   <ReviewBanner reviewStatus={jurisdiction.review_status} />
+
+  <section>
+    <h2>Coverage summary</h2>
+    <dl class="meta-grid">
+      <div><dt>Official sources</dt><dd>{coverage.sources}</dd></div>
+      <div><dt>Records</dt><dd>{coverage.records}</dd></div>
+      <div><dt>Sample changes</dt><dd>{coverage.changes}</dd></div>
+      <div><dt>Timelines</dt><dd>{coverage.timelines}</dd></div>
+      <div><dt>Pending review (records)</dt><dd>{coverage.pending_review}</dd></div>
+      <div><dt>Unverified on source</dt><dd>{coverage.unverified_on_source}</dd></div>
+    </dl>
+    <p><a href="/review-queue/">Review queue for this jurisdiction →</a></p>
+  </section>
 
   <dl class="meta-grid">
     <div><dt>Region</dt><dd>{jurisdiction.region}</dd></div>

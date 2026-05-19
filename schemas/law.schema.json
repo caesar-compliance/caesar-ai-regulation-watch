@@ -29,6 +29,9 @@
       "type": "string",
       "const": "law"
     },
+    "verified_on_source": {
+      "type": "boolean"
+    },
     "title": {
       "type": "string",
       "minLength": 1

@@ -9,8 +9,10 @@ import {
   getSource,
   getJurisdiction,
   changesForRecord,
+  timelinesForRecord,
+  latestVerificationForItem,
 } from "../../lib/data";
-import { formatDate, humanizeId } from "../../lib/format";
+import { formatDate, humanizeId, recordTypeLabel, verificationCheckLabel } from "../../lib/format";
 
 export function getStaticPaths() {
   return getRecords().map((r) => ({
@@ -28,6 +30,8 @@ if (!record) {
 const source = getSource(record.source_id);
 const jurisdiction = getJurisdiction(record.jurisdiction_id);
 const relatedChanges = changesForRecord(record.record_id);
+const relatedTimelines = timelinesForRecord(record.record_id);
+const verification = latestVerificationForItem(record.record_id);
 const keyDates = "key_dates" in record ? record.key_dates : [];
 ---
 
@@ -35,7 +39,10 @@ const keyDates = "key_dates" in record ? record.key_dates : [];
   <p><a href="/records/">← Records</a></p>
   <h1>{record.title}</h1>
   <div class="card__meta" style="margin-bottom: 1rem;">
-    <span class="badge badge--type">{record.record_type}</span>
+    <span class="badge badge--type">{recordTypeLabel(record.record_type)}</span>
+    {record.verified_on_source === false && (
+      <span class="badge badge--warn">Not verified on source</span>
+    )}
     <StatusBadge status={record.status} />
     <ReviewStatusBadge status={record.review_status} />
   </div>
@@ -45,6 +52,33 @@ const keyDates = "key_dates" in record ? record.key_dates : [];
     recordOrigin={record.record_origin}
     sample={record.record_origin === "manual_sample"}
   />
+
+  {
+    record.review_status === "pending_review" && (
+      <div class="banner banner--review" role="note">
+        <strong>Pending human review.</strong> Do not use for client deliverables until verified on the
+        official source.
+      </div>
+    )
+  }
+
+  {
+    verification && (
+      <section>
+        <h2>Source verification</h2>
+        <dl class="meta-grid">
+          <div><dt>Check result</dt><dd>{verificationCheckLabel(verification.check_result)}</dd></div>
+          <div><dt>Verified date</dt><dd>{formatDate(verification.verified_date)}</dd></div>
+          <div>
+            <dt>Client use allowed</dt>
+            <dd>{verification.client_use_allowed ? "Yes" : "No"}</dd>
+          </div>
+        </dl>
+        {verification.notes && <p class="card__excerpt">{verification.notes}</p>}
+        <p><a href="/verification/">All verifications →</a></p>
+      </section>
+    )
+  }
 
   <p>
     <a class="btn-primary" href={record.official_url} target="_blank" rel="noopener noreferrer">
@@ -113,6 +147,21 @@ const keyDates = "key_dates" in record ? record.key_dates : [];
       <li>{humanizeId(t)}</li>
     ))}
   </ul>
+
+  {
+    relatedTimelines.length > 0 && (
+      <>
+        <h2>Related timelines</h2>
+        <ul>
+          {relatedTimelines.map((t) => (
+            <li>
+              <a href={`/timelines/${t.timeline_id}/`}>{t.title}</a>
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
 
   {
     relatedChanges.length > 0 && (

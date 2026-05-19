@@ -26,7 +26,10 @@
     },
     "record_type": {
       "type": "string",
-      "const": "guidance"
+      "enum": ["guidance", "policy_framework", "implementation_update"]
+    },
+    "verified_on_source": {
+      "type": "boolean"
     },
     "title": {
       "type": "string",

@@ -34,6 +34,8 @@ export function recordFilterOptions() {
     type: [
       { value: "law", label: "Law" },
       { value: "guidance", label: "Guidance" },
+      { value: "policy_framework", label: "Policy framework" },
+      { value: "implementation_update", label: "Implementation update" },
     ],
     jurisdiction: jurisdictions.map((j) => ({
       value: j.jurisdiction_id,

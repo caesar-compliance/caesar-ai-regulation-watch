@@ -1,0 +1,32 @@
+# Curated record — China generative AI interim measures
+# Last curated: 19 May 2026
+
+record_id: law-china-generative-ai-interim-measures
+record_type: law
+record_origin: official_source_registry
+verified_on_source: false
+title: Interim Measures for the Management of Generative Artificial Intelligence Services
+jurisdiction_id: china
+source_id: china-cac-generative-ai
+legal_status: in_force
+official_url: https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm
+summary_for_review: >
+  Curated pointer to the CAC publication of interim measures governing generative AI
+  services in China. Supports governance review of whether China-facing product,
+  content moderation, and provider obligations may need tracking against official CAC
+  text. Primary authoritative text is in Chinese; verify scope and dates on the source.
+key_dates:
+  - label: Measures effective date (pending verification on CAC source)
+    date: "2023-08-15"
+    verified_on_source: false
+    notes: Commonly cited effective date; confirm on official CAC publication before client use.
+affected_topics:
+  - generative_ai
+  - content_regulation
+  - provider_obligations
+  - data_security
+review_status: pending_review
+legal_safe_note: >
+  Curated registry record for governance review support only. Not legal advice. Does
+  not cover all PRC AI-related rules. Requires human review of official Chinese text
+  and any subsequent amendments before client use.

@@ -1,0 +1,26 @@
+# Curated record — OECD AI policy
+# Last curated: 19 May 2026
+
+record_id: policy-oecd-ai-policy-navigator
+record_type: policy_framework
+record_origin: official_source_registry
+verified_on_source: false
+title: OECD.AI — Policy observatory and AI principles resources
+jurisdiction_id: oecd
+source_id: oecd-ai-policy-navigator
+guidance_status: guidance
+official_url: https://oecd.ai/en/
+summary_for_review: >
+  Curated pointer to the OECD’s AI policy observatory and related materials on oecd.ai,
+  including references to OECD AI Principles and member policy developments. Supports
+  governance review when multinational policy benchmarking or voluntary principle
+  alignment is tracked; OECD materials are not binding national law.
+affected_topics:
+  - ai_principles
+  - policy_benchmarking
+  - international_cooperation
+review_status: pending_review
+legal_safe_note: >
+  Curated registry record for governance review support only. Not legal advice. OECD
+  instruments do not replace national legal obligations. Requires human verification on
+  oecd.ai before client use.

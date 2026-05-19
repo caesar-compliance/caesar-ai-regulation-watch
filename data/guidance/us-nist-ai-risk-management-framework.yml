@@ -1,0 +1,27 @@
+# Curated record — NIST AI Risk Management Framework
+# Last curated: 19 May 2026
+
+record_id: policy-us-nist-ai-rmf
+record_type: policy_framework
+record_origin: official_source_registry
+verified_on_source: false
+title: NIST — AI Risk Management Framework (AI RMF 1.0)
+jurisdiction_id: us-federal
+source_id: us-nist-ai-rmf
+guidance_status: voluntary
+official_url: https://www.nist.gov/itl/ai-risk-management-framework
+summary_for_review: >
+  Curated pointer to NIST’s AI Risk Management Framework and related publications on
+  nist.gov. Supports governance review of whether internal risk management, documentation,
+  and vendor assessment practices should be aligned with widely referenced federal
+  voluntary framework materials. NIST guidance is not itself statute or regulation.
+affected_topics:
+  - risk_management
+  - ai_governance
+  - documentation
+  - vendor_assessment
+review_status: pending_review
+legal_safe_note: >
+  Curated registry record for governance review support only. Not legal advice. Does
+  not determine applicability of sector-specific US federal or state rules. Requires
+  human verification on nist.gov before client use.
