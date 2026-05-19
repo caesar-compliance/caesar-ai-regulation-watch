@@ -116,3 +116,14 @@
 - **Data seed:** AI Legislation Tracker (MIT) may be used as supplementary gap-finding seed only after per-record official verification.
 - **Rationale:** Accelerate delivery legally and technically; align with hub [LICENSE_AND_CODE_POLICY](https://github.com/caesar-compliance/caesar-ai-governance-hub/blob/main/research/LICENSE_AND_CODE_POLICY.md); keep v0.3.x data foundation clean before implementation.
 - **Artifacts:** [docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md](THIRD_PARTY_CODE_AND_DATA_POLICY.md), [research/THIRD_PARTY_ACCELERATION_AUDIT.md](../research/THIRD_PARTY_ACCELERATION_AUDIT.md), [docs/ACCELERATION_DECISION_MATRIX.md](ACCELERATION_DECISION_MATRIX.md).
+
+---
+
+## [DEC-014] — 19 May 2026 — VerifyWise clean-room architecture study (v0.3.3)
+
+- **Status:** Approved (documentation only)
+- **Decision:** Study VerifyWise (GitHub monorepo + Global AI Regulations Tracker benchmark) as **architecture and UX reference only**. Produce clean-room backlog and v0.4.0 static site plan. **No VerifyWise code, schemas, UI, or proprietary data** in Caesar repos.
+- **Implementation direction:** v0.4.0 read-only **Astro** static site from existing `data/` YAML (see [docs/NEXT_IMPLEMENTATION_ARCHITECTURE_OPTIONS.md](NEXT_IMPLEMENTATION_ARCHITECTURE_OPTIONS.md), [docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md](V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md)).
+- **Official-source-first:** Unchanged — registry YAML remains primary truth.
+- **Rationale:** Accelerate v0.4 without license risk; learn enterprise governance patterns (evidence, review, frameworks) while building a simpler public static product than VerifyWise SaaS.
+- **Artifacts:** [research/VERIFYWISE_ARCHITECTURE_STUDY.md](../research/VERIFYWISE_ARCHITECTURE_STUDY.md), [research/CLEAN_ROOM_FEATURE_BACKLOG.md](../research/CLEAN_ROOM_FEATURE_BACKLOG.md).

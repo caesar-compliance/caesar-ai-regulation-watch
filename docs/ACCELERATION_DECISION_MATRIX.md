@@ -1,7 +1,7 @@
 # Acceleration Decision Matrix — Caesar AI Regulation Watch
 
 **Prepared:** 19 May 2026  
-**Version:** v0.3.2
+**Version:** v0.3.3
 
 Use with [docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md](THIRD_PARTY_CODE_AND_DATA_POLICY.md) and [research/THIRD_PARTY_ACCELERATION_AUDIT.md](../research/THIRD_PARTY_ACCELERATION_AUDIT.md).
 
@@ -17,7 +17,7 @@ Use with [docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md](THIRD_PARTY_CODE_AND_DATA_PO
 |---|---|---|---|---|---|---|
 | Techieray Tracker (UX) | Competitor | High — map-first UX | Low if benchmark only | Low | use as benchmark only | v0.5 |
 | Techieray API | Commercial API | Medium — gap detection | Medium — no redistribution | Low | use API only (Commercial tier) or reject for public product | v1.0+ |
-| VerifyWise tracker | Competitor | High — status/timeline UX | High if code copied | — | use as benchmark only | v0.5 |
+| VerifyWise tracker / platform | Competitor | High — status/timeline UX; evidence patterns | High if code copied | — | use as benchmark only; study done v0.3.3 | v0.4+ UX |
 | DLA Piper matrix | Competitor | Medium — IA | Medium — content copyright | — | use as benchmark only | v0.5 |
 | OECD Navigator | Policy data | Medium — taxonomy | Medium — terms | Medium | manual review required | v1.0+ |
 | IAPP tracker | Competitor | Medium — audience framing | Medium | — | use as benchmark only | v0.5 |
@@ -31,16 +31,16 @@ Use with [docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md](THIRD_PARTY_CODE_AND_DATA_PO
 
 | Candidate | Category | Acceleration value | License/legal risk | Technical complexity | Recommended action | Earliest safe phase |
 |---|---|---|---|---|---|---|
-| Astro | SSG | High | Low | Low–Medium | adopt later | v0.3.3 |
+| Astro | SSG | High | Low | Low–Medium | adopt later | v0.4.0 |
 | Leaflet | Map | High | Low | Low | adopt later | v0.5 |
-| Pagefind | Search | High | Low | Low | adopt later | v0.3.3 |
-| ajv | Validation | High | Low | Low | adopt later | v0.3.3 |
+| Pagefind | Search | High | Low | Low | adopt later | v0.5 |
+| ajv | Validation | High | Low | Low | adopt later | v0.4.0 |
 | MapLibre GL JS | Map | Medium | Low | Medium | evaluate dependency | v0.5 |
 | D3 / Observable Plot | Charts | Medium | Low | Medium | adopt later | v0.5 |
 | Lunr / FlexSearch | Search | Medium | Low | Low | evaluate dependency | v0.5 |
 | Next.js | SSG | Medium | Low | Medium–High | evaluate dependency | v0.5 |
 | rss-parser / feedparser | Watcher | High | Low | Low | adopt later | v0.4 |
-| js-yaml / PyYAML | Build | High | Low | Low | adopt later | v0.3.3 |
+| js-yaml / PyYAML | Build | High | Low | Low | adopt later | v0.4.0 |
 
 ---
 
@@ -66,18 +66,19 @@ Use with [docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md](THIRD_PARTY_CODE_AND_DATA_PO
 | Existing YAML + JSON Schema | Internal | **Highest** | Low | Low | adopt later (extend only) | **now** |
 | Evidence export contract | Internal | High | Low | Low | adopt later | v0.3.1 done |
 | Taxonomies + review workflow | Internal | High | Low | Low | adopt later | v0.3.1 done |
-| Static site from `data/` | Internal | High | Low | Medium | adopt later | v0.3.3 |
+| Static site from `data/` | Internal | High | Low | Medium | adopt later | v0.4.0 |
+| VerifyWise clean-room study | Internal | High | Low | Low | **done** (v0.3.3) | v0.3.3 |
 
 ---
 
-## Quick decisions (v0.3.2)
+## Quick decisions (v0.3.3)
 
-| Do now | Do not do in v0.3.2 |
+| Do now | Do not do until v0.4.0 approved |
 |---|---|
-| Document policy and matrix | Import npm/pip packages |
-| Plan clean-room features | Copy competitor datasets |
-| Prioritise official RSS watchers | Embed Techieray widget |
-| Align evidence export with hub | Copy VerifyWise code |
+| Approve v0.4.0 Astro static site plan | Copy VerifyWise code or UI |
+| Implement clean-room site from YAML | Import competitor datasets |
+| Align evidence export with hub | Embed Techieray widget |
+| Study complete — see VERIFYWISE_ARCHITECTURE_STUDY | Add watchers before static site |
 
 ---
 

@@ -1,8 +1,8 @@
 # Third-Party Code and Data Policy — Caesar AI Regulation Watch
 
 **Effective:** 19 May 2026  
-**Version:** v0.3.2  
-**Status:** Approved for planning; no third-party code imported in this release.
+**Version:** v0.3.3  
+**Status:** Approved for planning; no third-party code imported. v0.3.3 VerifyWise study completed in external sandbox only.
 
 This policy applies to **caesar-ai-regulation-watch** and aligns with [Caesar AI Governance Hub — License and Code Policy](https://github.com/caesar-compliance/caesar-ai-governance-hub/blob/main/research/LICENSE_AND_CODE_POLICY.md).
 
@@ -98,7 +98,7 @@ Every record must keep `credibility_level`, `official_url`, and review metadata 
 | **Proprietary SaaS** | No code license | **Reference only**; API only if contract permits |
 | **No LICENSE file** | Unknown | **Blocked** until verified |
 
-**VerifyWise** is source-available (BSL 1.1). Treat as benchmark, not a code base.
+**VerifyWise** is source-available (BSL 1.1). Treat as benchmark, not a code base. v0.3.3 studied the repository in a **temporary external sandbox** only; findings are in [research/VERIFYWISE_ARCHITECTURE_STUDY.md](../research/VERIFYWISE_ARCHITECTURE_STUDY.md). **No VerifyWise files were committed to Caesar.**
 
 ---
 
@@ -131,16 +131,19 @@ Before importing **any** code, dataset, or API integration:
 
 ---
 
-## v0.3.2 boundary
+## v0.3.2–v0.3.3 boundary
 
-This release adds **policy and research only**:
+These releases add **policy and research only**:
 
-- no `package.json`, `requirements.txt`, or other package managers;
+- no `package.json`, `requirements.txt`, or other package managers (v0.3.3);
 - no vendored third-party source trees;
+- no VerifyWise or competitor source code in the repository;
 - no watcher or API client implementation;
 - no competitor data files committed.
 
-Future phases may adopt approved dependencies per this policy and [docs/ACCELERATION_DECISION_MATRIX.md](ACCELERATION_DECISION_MATRIX.md).
+v0.3.3 adds VerifyWise architecture study and v0.4.0 static site **plan** — implementation remains clean-room per [research/CLEAN_ROOM_FEATURE_BACKLOG.md](../research/CLEAN_ROOM_FEATURE_BACKLOG.md).
+
+Future phases may adopt approved dependencies per this policy and [docs/ACCELERATION_DECISION_MATRIX.md](ACCELERATION_DECISION_MATRIX.md). **v0.4.0** may add `site/package.json` (Astro, ajv) after Control Tower approval.
 
 ---
 
@@ -152,4 +155,7 @@ Future phases may adopt approved dependencies per this policy and [docs/ACCELERA
 | [research/OPEN_SOURCE_COMPONENT_SHORTLIST.md](../research/OPEN_SOURCE_COMPONENT_SHORTLIST.md) | Component recommendations |
 | [research/COMPETITOR_FEATURE_REPLICATION_PLAN.md](../research/COMPETITOR_FEATURE_REPLICATION_PLAN.md) | Clean-room feature plan |
 | [research/OFFICIAL_SOURCE_INGESTION_CANDIDATES.md](../research/OFFICIAL_SOURCE_INGESTION_CANDIDATES.md) | Future watcher targets |
+| [research/VERIFYWISE_ARCHITECTURE_STUDY.md](../research/VERIFYWISE_ARCHITECTURE_STUDY.md) | VerifyWise reference study (v0.3.3) |
+| [research/CLEAN_ROOM_FEATURE_BACKLOG.md](../research/CLEAN_ROOM_FEATURE_BACKLOG.md) | Implementation backlog |
+| [docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md](V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md) | v0.4.0 plan |
 | [docs/ACCELERATION_DECISION_MATRIX.md](ACCELERATION_DECISION_MATRIX.md) | Prioritised actions |

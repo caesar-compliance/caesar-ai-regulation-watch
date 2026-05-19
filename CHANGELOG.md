@@ -11,6 +11,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.3.3] - 19 May 2026
+
+### Added
+
+- VerifyWise clean-room architecture study and v0.4.0 implementation planning (documentation only).
+- [research/VERIFYWISE_ARCHITECTURE_STUDY.md](research/VERIFYWISE_ARCHITECTURE_STUDY.md) — repository structure, stack, patterns (reference only; no code copied).
+- [research/CLEAN_ROOM_FEATURE_BACKLOG.md](research/CLEAN_ROOM_FEATURE_BACKLOG.md) — prioritized Caesar-original feature backlog.
+- [docs/NEXT_IMPLEMENTATION_ARCHITECTURE_OPTIONS.md](docs/NEXT_IMPLEMENTATION_ARCHITECTURE_OPTIONS.md) — Astro vs Next.js vs plain generator comparison.
+- [docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md](docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md) — v0.4.0 static site Definition of Done and rollout plan.
+
+### Changed
+
+- README, SPEC, ARCHITECTURE, ROADMAP, PROJECT_STATE, NEXT_ACTIONS, REPO_INVENTORY, COMPETITOR_BENCHMARKS, THIRD_PARTY_CODE_AND_DATA_POLICY, ACCELERATION_DECISION_MATRIX, DECISION_LOG updated for v0.3.3.
+- ROADMAP renumbered: v0.4.0 = static public site; v0.5 = map/search/feeds; v0.6 = watchers.
+
+### Notes
+
+- VerifyWise studied in temporary sandbox only; **no VerifyWise files, code, or package managers committed**.
+- Recommended next phase: v0.4.0 Astro read-only static site from existing YAML (pending Control Tower approval).
+- Official-source-first data policy unchanged.
+
+---
+
 ## [0.3.2] - 19 May 2026
 
 ### Added

@@ -1,7 +1,7 @@
 # Competitor Benchmarks — Caesar AI Regulation Watch
 
 **Prepared:** 19 May 2026  
-**Updated:** v0.3.2 — linked to acceleration policy  
+**Updated:** v0.3.3 — VerifyWise architecture study complete; linked to acceleration policy  
 **Purpose:** Study product patterns and feature categories. **Do not copy** code, UI, database schemas, proprietary text, or restricted implementations.
 
 Policy: [THIRD_PARTY_CODE_AND_DATA_POLICY.md](THIRD_PARTY_CODE_AND_DATA_POLICY.md) · Audit: [../research/THIRD_PARTY_ACCELERATION_AUDIT.md](../research/THIRD_PARTY_ACCELERATION_AUDIT.md) · Replication plan: [../research/COMPETITOR_FEATURE_REPLICATION_PLAN.md](../research/COMPETITOR_FEATURE_REPLICATION_PLAN.md)
@@ -32,10 +32,12 @@ Policy: [THIRD_PARTY_CODE_AND_DATA_POLICY.md](THIRD_PARTY_CODE_AND_DATA_POLICY.m
 ### VerifyWise Global AI Regulations Tracker
 
 - **URL:** https://verifywise.ai/global-ai-regulations
+- **Repository (platform):** https://github.com/bluewave-labs/verifywise — BSL 1.1, internal-use grant
 - **Type:** Proprietary / source-available platform benchmark (BSL-style restrictions on code)
-- **What to study:** Country coverage presentation, status labels, enforcement timelines, summaries, change history, regulation cards
-- **Caesar takeaway:** Status badges and timeline UX; evidence-oriented export instead of platform lock-in
-- **Reuse:** Benchmark only; do not use VerifyWise code in Caesar products without compatible license
+- **v0.3.3 study:** [../research/VERIFYWISE_ARCHITECTURE_STUDY.md](../research/VERIFYWISE_ARCHITECTURE_STUDY.md) — architecture reference only; **no code imported**
+- **What to study:** Country coverage presentation, status labels, enforcement timelines, summaries, change history, regulation cards; platform patterns (evidence hub, frameworks, review workflows)
+- **Caesar takeaway:** Status badges and timeline UX; evidence-oriented export instead of platform lock-in; static YAML/git instead of SaaS lock-in
+- **Reuse:** Benchmark only; clean-room implementation per [CLEAN_ROOM_FEATURE_BACKLOG.md](../research/CLEAN_ROOM_FEATURE_BACKLOG.md)
 
 ### DLA Piper — AI Laws of the World
 

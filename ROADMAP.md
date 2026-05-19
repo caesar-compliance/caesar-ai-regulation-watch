@@ -4,14 +4,14 @@
 
 This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
 
-**Current (v0.3.2):** third-party acceleration policy and adoption plan — still no watchers, UI, APIs, imported dependencies, or automated monitoring. **Next:** Cross-repo evidence alignment; v0.3.3 static site skeleton + CI validation.
+**Current (v0.3.3):** VerifyWise clean-room architecture study and v0.4.0 static site plan — still no watchers, UI, APIs, imported dependencies, or automated monitoring. **Next:** Control Tower approval for v0.4.0 Astro static site; cross-repo evidence alignment.
 
 ---
 
 ## Phase overview
 
 ```text
-v0.1 Foundation ──> v0.2.0 Registry ──> v0.3.0 Samples ──> v0.3.1 Taxonomy/export ──> v0.3.2 Acceleration plan ──> v0.3.3 Static site/CI ──> v0.4 Watchers ──> v0.5 Public site & feeds ──> v1.0 Pilot release
+v0.1 Foundation ──> v0.2.0 Registry ──> v0.3.0 Samples ──> v0.3.1 Taxonomy/export ──> v0.3.2 Acceleration ──> v0.3.3 VerifyWise study ──> v0.4.0 Static site ──> v0.5 Map/search/feeds ──> v0.6 Watchers ──> v1.0 Pilot release
 ```
 
 ---
@@ -114,17 +114,45 @@ v0.1 Foundation ──> v0.2.0 Registry ──> v0.3.0 Samples ──> v0.3.1 Ta
 
 ---
 
-## v0.3.3 — Static site skeleton & schema CI (optional)
+## v0.3.3 — VerifyWise clean-room architecture study
 
-**Status:** Planned
+**Status:** Complete on branch `agent/v0.3.3-verifywise-cleanroom-architecture` (19 May 2026)
 
-**Goal:** Read-only static pages from `data/` plus JSON Schema validation in CI (no automated fetching).
+**Goal:** Study VerifyWise as architecture/UX reference only; produce clean-room backlog and v0.4.0 static site plan without importing code.
 
-**Deliverables:** Astro (or approved SSG) skeleton; ajv validation; jurisdiction listing; source links and disclaimers on every page.
+**Deliverables:**
+
+- [x] [research/VERIFYWISE_ARCHITECTURE_STUDY.md](research/VERIFYWISE_ARCHITECTURE_STUDY.md)
+- [x] [research/CLEAN_ROOM_FEATURE_BACKLOG.md](research/CLEAN_ROOM_FEATURE_BACKLOG.md)
+- [x] [docs/NEXT_IMPLEMENTATION_ARCHITECTURE_OPTIONS.md](docs/NEXT_IMPLEMENTATION_ARCHITECTURE_OPTIONS.md)
+- [x] [docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md](docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md)
+- [x] Updated README, SPEC, ARCHITECTURE, benchmarks, DECISION_LOG
+
+**Exit criteria:** No VerifyWise files committed; Control Tower accepts clean-room plan; Astro recommended for v0.4.0.
 
 ---
 
-## v0.4 — Watchers & change detection (pilot sources only)
+## v0.4.0 — Static public site (read-only)
+
+**Status:** Planned (implementation not started)
+
+**Goal:** Read-only static public site from `data/` using Astro (recommended); ajv validation in CI.
+
+**Deliverables:** See [docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md](docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md) — home, jurisdictions, sources, laws/guidance, changes, export sample, methodology/disclaimers.
+
+**Exit criteria:** Site builds from YAML; all P0 routes live; no backend or watchers.
+
+---
+
+## v0.5 — Map, search, feeds, timelines
+
+**Status:** Planned
+
+**Goal:** Public enhancements — Leaflet map, Pagefind search, RSS/JSON static exports, `data/timelines/`.
+
+---
+
+## v0.6 — Watchers & change detection (pilot sources only)
 
 **Status:** Planned
 
@@ -140,25 +168,6 @@ v0.1 Foundation ──> v0.2.0 Registry ──> v0.3.0 Samples ──> v0.3.1 Ta
 **Exit criteria:** At least one real detected change processed end-to-end in staging.
 
 **Requires:** Control tower approval for live fetch targets and rate limits.
-
----
-
-## v0.5 — Public site, RSS, JSON, evidence export
-
-**Status:** Planned
-
-**Goal:** Public intelligence layer suitable for consultants and ecosystem demos.
-
-**Deliverables:**
-
-- `regulations.caesar.no` or GitHub Pages deployment
-- Global map + jurisdiction profiles (pilot depth)
-- RSS and JSON exports
-- Reviewed summaries for published changes
-- `regulation-change` export samples for caesar-ai-evidence
-- Methodology and disclaimer pages
-
-**Exit criteria:** Definition of done for “public pilot” agreed in hub QUALITY_GATES.
 
 ---
 

@@ -3,7 +3,7 @@
 **Global AI regulation monitoring for governance teams** — part of the [Caesar AI Governance Hub](https://github.com/caesar-compliance/caesar-ai-governance-hub) ecosystem.
 
 **Last updated:** 19 May 2026  
-**Status:** v0.3.2 — third-party acceleration policy and adoption plan (static data only; no third-party code imported; no watchers, UI, APIs, or automated monitoring)
+**Status:** v0.3.3 — VerifyWise clean-room architecture study and v0.4.0 static site plan (static data only; no third-party code imported; no watchers, UI, APIs, or automated monitoring)
 
 ---
 
@@ -126,9 +126,20 @@ Manual **law, guidance, change, and mapping** samples for data-model testing onl
 - `mappings/` — control and evidence mapping samples
 - `schemas/law.schema.json`, `guidance.schema.json`, `change.schema.json`, and mapping schemas
 
+## VerifyWise clean-room study (v0.3.3)
+
+Architecture reference study and implementation planning — **no VerifyWise code imported**:
+
+- [research/VERIFYWISE_ARCHITECTURE_STUDY.md](research/VERIFYWISE_ARCHITECTURE_STUDY.md) — structure and patterns (reference only)
+- [research/CLEAN_ROOM_FEATURE_BACKLOG.md](research/CLEAN_ROOM_FEATURE_BACKLOG.md) — prioritized Caesar-original features
+- [docs/NEXT_IMPLEMENTATION_ARCHITECTURE_OPTIONS.md](docs/NEXT_IMPLEMENTATION_ARCHITECTURE_OPTIONS.md) — Astro vs Next vs plain generator
+- [docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md](docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md) — next implementation plan (not built yet)
+
+**Next recommended phase (if approved):** v0.4.0 read-only static public site from existing YAML (Astro). Official-source-first data remains the rule.
+
 ## Third-party acceleration plan (v0.3.2)
 
-Policy and research for faster delivery using **permissive open source**, **official sources**, and **licensed APIs** — without importing competitor code or data in this release:
+Policy and research for faster delivery using **permissive open source**, **official sources**, and **licensed APIs** — without importing competitor code or data:
 
 - [docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md](docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md)
 - [docs/ACCELERATION_DECISION_MATRIX.md](docs/ACCELERATION_DECISION_MATRIX.md)
@@ -161,6 +172,8 @@ Canonical values, review workflow, and future evidence export shape:
 | [docs/EVIDENCE_EXPORT_CONTRACT.md](docs/EVIDENCE_EXPORT_CONTRACT.md) | Future regulation-change export contract |
 | [docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md](docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md) | Reuse, attribution, clean-room rules |
 | [docs/ACCELERATION_DECISION_MATRIX.md](docs/ACCELERATION_DECISION_MATRIX.md) | Prioritised acceleration decisions |
+| [research/VERIFYWISE_ARCHITECTURE_STUDY.md](research/VERIFYWISE_ARCHITECTURE_STUDY.md) | VerifyWise architecture study (v0.3.3) |
+| [docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md](docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md) | v0.4.0 static site plan |
 | [docs/FULL_SCALE_PRODUCT_BLUEPRINT.md](docs/FULL_SCALE_PRODUCT_BLUEPRINT.md) | End-to-end product blueprint |
 | [SPEC.md](SPEC.md) | Requirements, scope, inputs/outputs |
 | [ARCHITECTURE.md](ARCHITECTURE.md) | Layers, data flow, integrations |
@@ -183,6 +196,6 @@ Canonical values, review workflow, and future evidence export shape:
 
 ## Project status
 
-**v0.3.2** defines third-party acceleration policy and adoption research (19 May 2026). v0.3.1 taxonomies and export contract remain the data foundation. No third-party code imported; competitor features are benchmarks only. No automated monitoring or UI yet.
+**v0.3.3** completes VerifyWise clean-room architecture study and v0.4.0 static site planning (19 May 2026). v0.3.1 taxonomies and export contract remain the data foundation. No VerifyWise or competitor code was imported; implementation will be clean-room. Next recommended step: Control Tower approval for v0.4.0 Astro static site. No automated monitoring or live UI yet.
 
 See [PROJECT_STATE.md](PROJECT_STATE.md) and [NEXT_ACTIONS.md](NEXT_ACTIONS.md).

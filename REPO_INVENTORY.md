@@ -8,14 +8,14 @@
 
 | File | Role |
 |---|---|
-| **README.md** | Public entry; v0.3.2 status |
-| **SPEC.md** | Requirements through acceleration plan |
-| **ARCHITECTURE.md** | Static data layers; planned Astro/Leaflet stack |
-| **ROADMAP.md** | Phases through v0.3.2 |
+| **README.md** | Public entry; v0.3.3 status |
+| **SPEC.md** | Requirements through VerifyWise study |
+| **ARCHITECTURE.md** | Static data layers; v0.4.0 Astro plan |
+| **ROADMAP.md** | Phases through v0.3.3; v0.4.0 static site next |
 | **CHANGELOG.md** | Semver history |
 | **REPO_INVENTORY.md** | This file |
-| **PROJECT_STATE.md** | v0.3.2 phase |
-| **NEXT_ACTIONS.md** | Evidence alignment + v0.3.3 implementation |
+| **PROJECT_STATE.md** | v0.3.3 phase |
+| **NEXT_ACTIONS.md** | v0.4.0 approval + evidence alignment |
 
 ---
 
@@ -66,7 +66,7 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 
 ---
 
-## research/ (v0.3.2)
+## research/ (v0.3.2–v0.3.3)
 
 | File | Role |
 |---|---|
@@ -74,8 +74,17 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **research/OPEN_SOURCE_COMPONENT_SHORTLIST.md** | Map, site, search, validation picks |
 | **research/COMPETITOR_FEATURE_REPLICATION_PLAN.md** | Clean-room feature plan |
 | **research/OFFICIAL_SOURCE_INGESTION_CANDIDATES.md** | Future watcher table |
+| **research/VERIFYWISE_ARCHITECTURE_STUDY.md** | VerifyWise architecture reference (v0.3.3) |
+| **research/CLEAN_ROOM_FEATURE_BACKLOG.md** | Prioritized implementation backlog (v0.3.3) |
 
 ---
+
+## docs/ (v0.3.3 additions)
+
+| File | Role |
+|---|---|
+| **docs/NEXT_IMPLEMENTATION_ARCHITECTURE_OPTIONS.md** | SSG option comparison; Astro recommended |
+| **docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md** | v0.4.0 static site plan (not implemented) |
 
 ## docs/
 

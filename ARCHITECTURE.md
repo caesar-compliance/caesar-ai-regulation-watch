@@ -1,7 +1,7 @@
 # Architecture — Caesar AI Regulation Watch
 
 **Last updated:** 19 May 2026  
-**Status:** v0.3.2 — static registry, samples, taxonomies, export contract, and acceleration plan; ingestion/UI not implemented; no third-party code imported
+**Status:** v0.3.3 — static registry, samples, taxonomies, export contract, acceleration plan, and VerifyWise clean-room study; ingestion/UI not implemented; no third-party code imported
 
 ---
 
@@ -121,7 +121,7 @@
                               [Site build | RSS | JSON | Evidence export]
 ```
 
-**v0.3.2 phase:** Layer A unchanged (static manual data). Added third-party acceleration policy and component shortlist ([docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md](docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md), [research/](../research/)). Planned stack: Astro static site, Leaflet map, Pagefind search, ajv validation — **not installed in v0.3.2**. Layers B–C remain deferred until v0.4.
+**v0.3.3 phase:** Layer A unchanged (static manual data). VerifyWise studied as architecture reference only ([research/VERIFYWISE_ARCHITECTURE_STUDY.md](research/VERIFYWISE_ARCHITECTURE_STUDY.md)); no code imported. **Recommended next build:** v0.4.0 Astro static site per [docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md](docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md). Planned stack: Astro, Leaflet (v0.5), Pagefind (v0.5), ajv — **not installed in v0.3.3**. Layers B–C (watchers) remain deferred until after v0.4.0 public site.
 
 ---
 
@@ -141,9 +141,10 @@ caesar-ai-regulation-watch/
 ├── mappings/                # v0.3.0 sample control & evidence links
 ├── exports/samples/         # v0.3.1 export contract samples (no runtime export)
 ├── docs/                    # blueprint, policies, PILOT_SOURCE_REGISTRY
-├── research/                # v0.3.2 acceleration audit (no vendored code)
-├── site/                    # future: static site source (Astro + Leaflet per plan)
-└── (no package manager in v0.3.2; no watcher code)
+├── research/                # acceleration audit + VerifyWise study (no vendored code)
+├── docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md  # v0.4.0 plan
+├── site/                    # v0.4.0: Astro static site (not created until implementation)
+└── (no package manager in v0.3.3; no watcher code)
 ```
 
 The registry and sample records form the **static data foundation**: human-curated YAML in git only. Change samples are **not** watcher output. Future ingestion layers read from `data/sources/` definitions but are **not implemented**.

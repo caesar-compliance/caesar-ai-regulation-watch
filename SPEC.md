@@ -1,7 +1,7 @@
 # Specification — Caesar AI Regulation Watch
 
 **Last updated:** 19 May 2026  
-**Status:** v0.3.2 — spec, registry, samples, taxonomies, export contract, and third-party acceleration plan (no watchers, UI, or imported dependencies)
+**Status:** v0.3.3 — spec, registry, samples, taxonomies, export contract, acceleration plan, and VerifyWise clean-room architecture study (no watchers, UI, or imported dependencies)
 
 ---
 
@@ -206,15 +206,31 @@ Competitor products are benchmark inputs only. Future phases may use approved op
 
 ---
 
+## 8.2 VerifyWise clean-room study (v0.3.3 — delivered)
+
+Documentation-only architecture study; **no VerifyWise code, UI, schemas, or proprietary data imported**:
+
+| Path | Contents |
+|---|---|
+| [research/VERIFYWISE_ARCHITECTURE_STUDY.md](research/VERIFYWISE_ARCHITECTURE_STUDY.md) | VerifyWise repo structure, stack, patterns (reference only) |
+| [research/CLEAN_ROOM_FEATURE_BACKLOG.md](research/CLEAN_ROOM_FEATURE_BACKLOG.md) | Prioritized Caesar-original feature backlog |
+| [docs/NEXT_IMPLEMENTATION_ARCHITECTURE_OPTIONS.md](docs/NEXT_IMPLEMENTATION_ARCHITECTURE_OPTIONS.md) | Astro vs Next vs plain generator comparison |
+| [docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md](docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md) | v0.4.0 static site Definition of Done (plan only) |
+
+VerifyWise Global AI Regulations Tracker is a **benchmark** for status/timeline/card UX. Caesar implements clean-room via existing YAML, taxonomies, and planned Astro static site.
+
+---
+
 ## 9. MVP scope (next implementation phases)
 
 1. ~~**Source registry** (YAML) for pilot jurisdictions.~~ **Done (v0.2.0).**
 2. ~~**Sample law/guidance/change records** and mapping samples.~~ **Done (v0.3.0 manual).**
 3. ~~**Export contract draft** for regulation-change.~~ **Done (v0.3.1 contract + sample).** Align with `caesar-ai-evidence` validator (cross-repo).
 4. ~~**Third-party acceleration policy and plan.**~~ **Done (v0.3.2).**
-5. **Timeline file** per pilot jurisdiction.
-6. **Static site skeleton** reading `data/` (v0.3.3; no watcher automation).
-7. **CI schema validation** (ajv) when package manager approved.
+5. ~~**VerifyWise clean-room architecture study and v0.4 plan.**~~ **Done (v0.3.3).**
+6. **Static public site** reading `data/` (v0.4.0; Astro per plan; no watcher automation).
+7. **CI schema validation** (ajv) with v0.4.0 site when package manager approved.
+8. **Timeline file** per pilot jurisdiction (v0.5).
 
 ---
 
