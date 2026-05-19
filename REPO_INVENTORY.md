@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 20 May 2026 (v0.8.4 deploy readiness)
+**Last updated:** 20 May 2026 (v0.8.5 first public deploy)
 
 ---
 
@@ -8,13 +8,13 @@
 
 | File | Role |
 |---|---|
-| **README.md** | Public entry; v0.8.4 status + npm commands |
+| **README.md** | Public entry; v0.8.5 live pilot URL + npm commands |
 | **SPEC.md** | Requirements through static site |
 | **ARCHITECTURE.md** | Data layers + Astro publishing |
 | **ROADMAP.md** | v0.6.1 URL verification + review queue |
 | **CHANGELOG.md** | Semver history |
 | **REPO_INVENTORY.md** | This file |
-| **PROJECT_STATE.md** | v0.8.4 phase |
+| **PROJECT_STATE.md** | v0.8.5 phase (public Pages live) |
 | **NEXT_ACTIONS.md** | Control Tower URL verification |
 | **docs/SOURCE_VERIFICATION_WORKFLOW.md** | Verification process |
 | **docs/RECORD_EXPANSION_GAPS.md** | Deferred records log |
@@ -141,13 +141,14 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 
 ---
 
-## docs/ (v0.8.4 deployment)
+## docs/ (v0.8.5 deployment)
 
 | File | Role |
 |---|---|
 | **STATIC_DEPLOYMENT_ARCHITECTURE.md** | GitHub Pages architecture, boundaries, rollback |
 | **PUBLIC_RELEASE_CHECKLIST.md** | Pre-deploy human gate |
 | **POST_DEPLOY_SMOKE_TESTS.md** | URL/path checks after deploy |
+| **PUBLIC_DEPLOYMENT_BASELINE.md** | First public deploy record (URL, run ID, smoke tests) |
 
 ---
 

@@ -9,31 +9,33 @@
 | Field | Value |
 |---|---|
 | **Repository** | `caesar-ai-regulation-watch` |
-| **Current version** | `v0.8.4` |
-| **Current phase** | Static deployment readiness |
-| **Status** | v0.8.4 on `main`: GitHub Pages deploy workflow (manual `DEPLOY` gate); **not** auto-deployed on merge; production launch not claimed |
+| **Current version** | `v0.8.5` |
+| **Current phase** | First public GitHub Pages pilot |
+| **Status** | v0.8.5: **live** at `https://caesar-compliance.github.io/caesar-ai-regulation-watch/` (manual `DEPLOY` gate; not auto-deployed on merge; not production launch) |
 | **Working branch** | `main` (after merge) |
-| **Latest completed task** | Deployment architecture docs + `deploy-static-site.yml` + `verify:dist` |
-| **Next recommended step** | Enable GitHub Pages (Actions source); run public release checklist; optional first manual deploy |
+| **Latest completed task** | First public deploy + smoke tests + `docs/PUBLIC_DEPLOYMENT_BASELINE.md` |
+| **Next recommended step** | Human content review; optional redeploy after data/YAML updates; custom domain deferred |
 
 ---
 
-## Static deployment (v0.8.4)
+## Static deployment (v0.8.5)
 
 | Capability | Status |
 |---|---|
 | `docs/STATIC_DEPLOYMENT_ARCHITECTURE.md` | Yes |
 | `docs/PUBLIC_RELEASE_CHECKLIST.md` | Yes |
 | `docs/POST_DEPLOY_SMOKE_TESTS.md` | Yes |
+| `docs/PUBLIC_DEPLOYMENT_BASELINE.md` | Yes (first deploy record) |
 | `.github/workflows/deploy-static-site.yml` | Yes (`workflow_dispatch` only) |
 | `npm run build:pages` | Yes (GitHub Pages base path) |
 | `npm run verify:dist` | Yes |
+| GitHub Pages source | **GitHub Actions** (enabled 20 May 2026) |
 | Auto-deploy on push to `main` | **No** |
 | Custom domain / DNS | **No** (deferred) |
 | Secrets for deploy | **No** |
-| Actual production deploy executed | **Not by default** — manual workflow only |
+| First public deploy | **Yes** — run [26130431228](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26130431228), commit `57acfcf` |
 
-**Expected preview URL (after manual deploy):** `https://caesar-compliance.github.io/caesar-ai-regulation-watch/`
+**Public URL:** `https://caesar-compliance.github.io/caesar-ai-regulation-watch/`
 
 ---
 

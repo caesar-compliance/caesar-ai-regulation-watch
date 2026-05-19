@@ -11,6 +11,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.8.5] - 20 May 2026
+
+### Added
+
+- **First public GitHub Pages deploy** — live pilot at `https://caesar-compliance.github.io/caesar-ai-regulation-watch/`.
+- **Deployment baseline** — `docs/PUBLIC_DEPLOYMENT_BASELINE.md` (commit, workflow run, smoke test record).
+
+### Changed
+
+- GitHub Pages enabled with **GitHub Actions** source (one-time, 20 May 2026).
+- Project docs updated for v0.8.5 public pilot status (`PROJECT_STATE.md`, `NEXT_ACTIONS.md`, `README.md`, `REPO_INVENTORY.md`, `POST_DEPLOY_SMOKE_TESTS.md`).
+
+### Notes
+
+- First deploy workflow run: [26130431228](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26130431228); deployed commit `57acfcf`.
+- Post-deploy smoke tests passed (pages, JSON, RSS, Pagefind; base path correct).
+- **No** custom domain, DNS, secrets, auto-deploy on push, caesar-ai-evidence integration, or `client_use_allowed: true`.
+- Evidence export candidates: 5 total; `client_use_allowed: 0`.
+
+---
+
 ## [0.8.4] - 20 May 2026
 
 ### Added
