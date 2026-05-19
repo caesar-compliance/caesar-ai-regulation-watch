@@ -1,4 +1,4 @@
-# Official source watcher prototype (v0.7.0)
+# Official source watcher prototype (v0.7.1)
 
 **Last updated:** 19 May 2026
 
@@ -23,6 +23,14 @@ Configuration: `data/watchers/official-source-watchers.yml`
 npm run watch:official
 ```
 
+Simulation (fixtures only, no network):
+
+```bash
+npm run watch:simulate-change
+```
+
+See `docs/WATCHER_DIFF_VALIDATION.md` for the full validation sequence.
+
 Optional flags:
 
 - `--dry-run` — no writes
@@ -40,8 +48,9 @@ Environment:
 3. Computes metadata: HTTP status, final URL, content-type, etag, last-modified, title (simple HTML parse), content length, SHA-256 hashes (raw body and normalized text).
 4. Writes snapshot YAML under `data/snapshots/<source_id>/`.
 5. Updates `latest.yml` pointer on success.
-6. Compares with previous snapshot; if meaningful diff, writes `data/detected-changes/<id>.yml`.
-7. Writes run log to `data/watcher-runs/watcher-run-<date>.yml`.
+6. Compares with previous snapshot using hardened diff classification (`changed_fields`, `significance_level`, noise control).
+7. If meaningful diff, writes `data/detected-changes/<id>.yml` (never sets `client_use_allowed: true`).
+8. Writes run log to `data/watcher-runs/watcher-run-<date>.yml` with `run_mode: live_manual`.
 
 ## What it does not do
 

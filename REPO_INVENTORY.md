@@ -8,13 +8,13 @@
 
 | File | Role |
 |---|---|
-| **README.md** | Public entry; v0.7.0 status + npm commands |
+| **README.md** | Public entry; v0.7.1 status + npm commands |
 | **SPEC.md** | Requirements through static site |
 | **ARCHITECTURE.md** | Data layers + Astro publishing |
 | **ROADMAP.md** | v0.6.1 URL verification + review queue |
 | **CHANGELOG.md** | Semver history |
 | **REPO_INVENTORY.md** | This file |
-| **PROJECT_STATE.md** | v0.7.0 phase |
+| **PROJECT_STATE.md** | v0.7.1 phase |
 | **NEXT_ACTIONS.md** | Control Tower URL verification |
 | **docs/SOURCE_VERIFICATION_WORKFLOW.md** | Verification process |
 | **docs/RECORD_EXPANSION_GAPS.md** | Deferred records log |

@@ -202,6 +202,8 @@ const REASON_LABELS = {
   needs_update: "Marked needs_update.",
   detected_change_pending_review:
     "Watcher detected a possible metadata change; human review required.",
+  simulated_detected_change_pending_review:
+    "Simulated watcher diff for pipeline validation only; not an official source update.",
   watcher_error: "Latest watcher run reported a fetch or check error for this source.",
   snapshot_changed: "New metadata snapshot differs from previous; confirm on official source.",
   human_review_required: "Watcher output requires human review before any record update.",
@@ -414,7 +416,9 @@ function buildReviewQueue() {
     if (!needsReview(dc.review_status)) continue;
     const src = sourceById[dc.source_id];
     const review_reasons = [
-      "detected_change_pending_review",
+      dc.simulation
+        ? "simulated_detected_change_pending_review"
+        : "detected_change_pending_review",
       "human_review_required",
       "content_not_reviewed",
       "legal_review_not_done",
@@ -422,7 +426,9 @@ function buildReviewQueue() {
     items.push({
       item_type: "detected_change",
       item_id: dc.detected_change_id,
-      title: `Detected change: ${dc.source_id}`,
+      title: dc.simulation
+        ? `[Simulation] Detected change: ${dc.source_id}`
+        : `Detected change: ${dc.source_id}`,
       jurisdiction_id: dc.jurisdiction_id,
       review_status: dc.review_status,
       reason_for_review: reasonText(review_reasons),
@@ -569,10 +575,12 @@ const recordVerifications = verifications.filter((v) =>
 );
 
 const watcherErrorCount = latestWatcherRun?.error_count ?? 0;
+const simulatedDetectedChanges = detectedChanges.filter((d) => d.simulation === true);
+const realDetectedChanges = detectedChanges.filter((d) => !d.simulation);
 
 const snapshot = {
   generated_at: generatedAt,
-  version: "0.7.0",
+  version: "0.7.1",
   disclaimer: DISCLAIMER,
   pilot_jurisdictions: jurisdictions.map((j) => j.jurisdiction_id),
   counts: {
@@ -610,11 +618,15 @@ const snapshot = {
     watchers_enabled: watchers.filter((w) => w.enabled).length,
     snapshots: snapshots.length,
     detected_changes: detectedChanges.length,
+    detected_change_count: detectedChanges.length,
+    simulated_detected_change_count: simulatedDetectedChanges.length,
+    real_detected_change_count: realDetectedChanges.length,
     detected_changes_pending_review: detectedChanges.filter((d) =>
       needsReview(d.review_status),
     ).length,
     watcher_error_count: watcherErrorCount,
     latest_watcher_run: latestWatcherRun?.run_id ?? null,
+    latest_watcher_run_mode: latestWatcherRun?.run_mode ?? latestWatcherRun?.mode ?? null,
     review_queue_items: reviewSummary.total,
     pending_review: reviewSummary.pending_review,
     needs_update: reviewSummary.needs_update,
@@ -793,6 +805,8 @@ writeJson(path.join(PUBLIC_DATA, "detected-changes.json"), {
   items: detectedChanges,
   summary: {
     total: detectedChanges.length,
+    real: realDetectedChanges.length,
+    simulated: simulatedDetectedChanges.length,
     pending_review: detectedChanges.filter((d) => needsReview(d.review_status)).length,
   },
 });

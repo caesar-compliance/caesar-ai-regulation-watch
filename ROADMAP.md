@@ -4,7 +4,7 @@
 
 This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
 
-**Current (v0.7.0):** first official-source watcher prototype (2 pilot sources, manual CLI, metadata-only snapshots). **Next:** Control Tower record content review; validate diff detection on second watcher run; expand watchers only after approval.
+**Current (v0.7.1):** watcher diff hardening + `watch:simulate-change` pipeline validation (2 pilot sources, manual CLI, metadata-only snapshots). **Next:** Control Tower record content review; second live watcher run for real diff detection; expand watchers only after approval.
 
 ---
 

@@ -5,58 +5,102 @@
     {
       "run_id": "watcher-run-2026-05-19",
       "run_date": "2026-05-19",
-      "mode": "manual_cli",
+      "run_mode": "live_manual",
+      "mode": "live_manual",
+      "safe_mode": true,
+      "fixture_only": false,
+      "network_disabled": false,
+      "preserves_latest_snapshots": true,
       "watcher_count": 2,
       "checked_count": 2,
       "changed_count": 0,
       "error_count": 0,
+      "detected_change_ids": [],
+      "error_summaries": [],
       "results": [
         {
           "watcher_id": "watcher-eu-ai-office",
           "source_id": "eu-ai-office",
-          "status": "checked",
-          "snapshot_id": "snap-eu-ai-office-2026-05-19t210233248",
-          "previous_snapshot_id": null,
+          "status": "unchanged",
+          "snapshot_id": "snap-eu-ai-office-2026-05-19t211308371",
+          "previous_snapshot_id": "snap-eu-ai-office-2026-05-19t210233248",
           "detected_change_id": null,
           "error_message": null
         },
         {
           "watcher_id": "watcher-datatilsynet",
           "source_id": "datatilsynet",
-          "status": "checked",
-          "snapshot_id": "snap-datatilsynet-2026-05-19t210233429",
-          "previous_snapshot_id": null,
+          "status": "unchanged",
+          "snapshot_id": "snap-datatilsynet-2026-05-19t211308548",
+          "previous_snapshot_id": "snap-datatilsynet-2026-05-19t210233429",
           "detected_change_id": null,
           "error_message": null
         }
       ],
       "legal_safe_note": "Metadata-only watcher output for governance review support. Not legal advice. Not a compliance guarantee. Human review required before any record update. Does not set verified_on_source or client_use_allowed."
+    },
+    {
+      "run_id": "watcher-run-simulation-2026-05-19",
+      "run_date": "2026-05-19",
+      "run_mode": "simulation",
+      "mode": "simulation",
+      "safe_mode": true,
+      "fixture_only": true,
+      "network_disabled": true,
+      "preserves_latest_snapshots": true,
+      "watcher_count": 1,
+      "checked_count": 1,
+      "changed_count": 1,
+      "error_count": 0,
+      "detected_change_ids": [
+        "simulated-eu-ai-office-change-2026-05-19"
+      ],
+      "error_summaries": [],
+      "results": [
+        {
+          "watcher_id": "watcher-eu-ai-office",
+          "source_id": "eu-ai-office",
+          "status": "change_detected",
+          "snapshot_id": "snap-fixture-eu-ai-office-after-2026-05-19",
+          "previous_snapshot_id": "snap-fixture-eu-ai-office-before-2026-05-19",
+          "detected_change_id": "simulated-eu-ai-office-change-2026-05-19",
+          "error_message": null
+        }
+      ],
+      "legal_safe_note": "Simulation only; not an official source update. Metadata-only fixture diff for pipeline validation. Not legal advice. Human review required. Does not set verified_on_source or client_use_allowed."
     }
   ],
   "latest": {
     "run_id": "watcher-run-2026-05-19",
     "run_date": "2026-05-19",
-    "mode": "manual_cli",
+    "run_mode": "live_manual",
+    "mode": "live_manual",
+    "safe_mode": true,
+    "fixture_only": false,
+    "network_disabled": false,
+    "preserves_latest_snapshots": true,
     "watcher_count": 2,
     "checked_count": 2,
     "changed_count": 0,
     "error_count": 0,
+    "detected_change_ids": [],
+    "error_summaries": [],
     "results": [
       {
         "watcher_id": "watcher-eu-ai-office",
         "source_id": "eu-ai-office",
-        "status": "checked",
-        "snapshot_id": "snap-eu-ai-office-2026-05-19t210233248",
-        "previous_snapshot_id": null,
+        "status": "unchanged",
+        "snapshot_id": "snap-eu-ai-office-2026-05-19t211308371",
+        "previous_snapshot_id": "snap-eu-ai-office-2026-05-19t210233248",
         "detected_change_id": null,
         "error_message": null
       },
       {
         "watcher_id": "watcher-datatilsynet",
         "source_id": "datatilsynet",
-        "status": "checked",
-        "snapshot_id": "snap-datatilsynet-2026-05-19t210233429",
-        "previous_snapshot_id": null,
+        "status": "unchanged",
+        "snapshot_id": "snap-datatilsynet-2026-05-19t211308548",
+        "previous_snapshot_id": "snap-datatilsynet-2026-05-19t210233429",
         "detected_change_id": null,
         "error_message": null
       }
@@ -64,7 +108,7 @@
     "legal_safe_note": "Metadata-only watcher output for governance review support. Not legal advice. Not a compliance guarantee. Human review required before any record update. Does not set verified_on_source or client_use_allowed."
   },
   "summary": {
-    "total": 1,
+    "total": 2,
     "latest_run_id": "watcher-run-2026-05-19",
     "latest_error_count": 0
   }

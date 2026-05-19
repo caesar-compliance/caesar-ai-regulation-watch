@@ -41,6 +41,7 @@ export type ReviewQueueReason =
   | "client_use_not_allowed"
   | "needs_update"
   | "detected_change_pending_review"
+  | "simulated_detected_change_pending_review"
   | "watcher_error"
   | "snapshot_changed"
   | "human_review_required";
@@ -161,6 +162,8 @@ function reasonText(reasons: ReviewQueueReason[]): string {
     needs_update: "Marked needs_update.",
     detected_change_pending_review:
       "Watcher detected a possible metadata change; human review required.",
+    simulated_detected_change_pending_review:
+      "Simulated watcher diff for pipeline validation only; not an official source update.",
     watcher_error: "Latest watcher run reported a fetch or check error for this source.",
     snapshot_changed: "New metadata snapshot differs from previous; confirm on official source.",
     human_review_required:
@@ -405,7 +408,9 @@ export function buildReviewQueue(): ReviewQueueItem[] {
     if (!needsReview(dc.review_status)) continue;
     const src = getSource(dc.source_id);
     const reasons: ReviewQueueReason[] = [
-      "detected_change_pending_review",
+      dc.simulation
+        ? "simulated_detected_change_pending_review"
+        : "detected_change_pending_review",
       "human_review_required",
       "content_not_reviewed",
       "legal_review_not_done",
@@ -413,7 +418,9 @@ export function buildReviewQueue(): ReviewQueueItem[] {
     items.push({
       item_type: "detected_change",
       item_id: dc.detected_change_id,
-      title: `Detected change: ${dc.source_id}`,
+      title: dc.simulation
+        ? `[Simulation] Detected change: ${dc.source_id}`
+        : `Detected change: ${dc.source_id}`,
       jurisdiction_id: dc.jurisdiction_id,
       review_status: dc.review_status,
       reason_for_review: reasonText(reasons),

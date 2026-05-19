@@ -35,6 +35,7 @@ const latestRun = latestWatcherRun();
         <dl class="meta-grid">
           <div><dt>Run ID</dt><dd class="mono">{latestRun.run_id}</dd></div>
           <div><dt>Date</dt><dd>{latestRun.run_date}</dd></div>
+          <div><dt>Run mode</dt><dd>{humanizeId(latestRun.run_mode ?? latestRun.mode ?? "—")}</dd></div>
           <div><dt>Checked</dt><dd>{latestRun.checked_count}</dd></div>
           <div><dt>Changes detected</dt><dd>{latestRun.changed_count}</dd></div>
           <div><dt>Errors</dt><dd>{latestRun.error_count}</dd></div>

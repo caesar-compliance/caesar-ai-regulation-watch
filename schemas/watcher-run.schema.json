@@ -8,11 +8,12 @@
   "required": [
     "run_id",
     "run_date",
-    "mode",
+    "run_mode",
     "watcher_count",
     "checked_count",
     "changed_count",
     "error_count",
+    "detected_change_ids",
     "results",
     "legal_safe_note"
   ],
@@ -25,9 +26,25 @@
       "type": "string",
       "format": "date"
     },
+    "run_mode": {
+      "type": "string",
+      "enum": ["live_manual", "simulation", "dry_run"]
+    },
     "mode": {
       "type": "string",
-      "enum": ["manual_cli", "dry_run"]
+      "description": "Deprecated alias; prefer run_mode"
+    },
+    "safe_mode": {
+      "type": "boolean"
+    },
+    "fixture_only": {
+      "type": "boolean"
+    },
+    "network_disabled": {
+      "type": "boolean"
+    },
+    "preserves_latest_snapshots": {
+      "type": "boolean"
     },
     "watcher_count": {
       "type": "integer",
@@ -44,6 +61,35 @@
     "error_count": {
       "type": "integer",
       "minimum": 0
+    },
+    "detected_change_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_-]*$"
+      }
+    },
+    "error_summaries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["watcher_id", "source_id", "message"],
+        "properties": {
+          "watcher_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "source_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
     },
     "results": {
       "type": "array",

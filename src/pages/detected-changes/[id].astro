@@ -36,6 +36,15 @@ const curr = snapshots.find((s) => s.snapshot_id === change.current_snapshot_id)
   <p><a href="/detected-changes/">← Detected changes</a></p>
   <h1>{change.detected_change_id}</h1>
 
+  {
+    change.simulation && (
+      <div class="banner banner--warn" role="alert">
+        <strong>Simulation only.</strong> This detected change was created from local fixtures for
+        pipeline validation. It is not an official source update.
+      </div>
+    )
+  }
+
   <div class="banner banner--review" role="note">
     <strong>Not legal advice.</strong> Pending human review. This entry does not verify regulatory
     content or approve client use.
@@ -44,8 +53,11 @@ const curr = snapshots.find((s) => s.snapshot_id === change.current_snapshot_id)
   <div class="card__meta" style="margin-bottom: 1rem;">
     <ReviewStatusBadge status={change.review_status} />
     <span class="badge badge--type">{humanizeId(change.change_type)}</span>
-    <span class="badge">Confidence: {change.confidence_level}</span>
+    <span class="badge">Significance: {change.significance_level}</span>
     {change.human_review_required && <span class="badge">Human review required</span>}
+    {change.client_use_allowed === false && (
+      <span class="badge badge--warn">Client use not allowed</span>
+    )}
   </div>
 
   <dl class="meta-grid">
@@ -77,10 +89,58 @@ const curr = snapshots.find((s) => s.snapshot_id === change.current_snapshot_id)
         {watcher?.official_url ?? source?.official_url ?? "—"}
       </dd>
     </div>
+    <div>
+      <dt>Changed fields</dt>
+      <dd>{change.changed_fields.map((f) => humanizeId(f)).join(", ")}</dd>
+    </div>
+    <div>
+      <dt>Review queue reason</dt>
+      <dd>{humanizeId(change.review_queue_reason)}</dd>
+    </div>
   </dl>
 
   <h2>Summary for review</h2>
   <div class="prose"><p>{change.change_summary_for_review}</p></div>
+
+  {
+    change.volatile_field_note && (
+      <p class="card__excerpt">
+        <small>{change.volatile_field_note}</small>
+      </p>
+    )
+  }
+
+  <section>
+    <h2>Field value summary (no full page body)</h2>
+    <div class="grid-2">
+      <div>
+        <h3>Previous values</h3>
+        <dl class="meta-grid">
+          {
+            Object.entries(change.previous_value_summary).map(([k, v]) => (
+              <div>
+                <dt>{humanizeId(k)}</dt>
+                <dd class="mono">{v}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+      <div>
+        <h3>Current values</h3>
+        <dl class="meta-grid">
+          {
+            Object.entries(change.current_value_summary).map(([k, v]) => (
+              <div>
+                <dt>{humanizeId(k)}</dt>
+                <dd class="mono">{v}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
+  </section>
 
   <section>
     <h2>Snapshot comparison (metadata only)</h2>
@@ -89,27 +149,43 @@ const curr = snapshots.find((s) => s.snapshot_id === change.current_snapshot_id)
     </p>
     <div class="grid-2">
       {
-        prev && (
+        (prev || change.previous_snapshot_summary) && (
           <div>
             <h3>Previous</h3>
             <dl class="meta-grid">
-              <div><dt>ID</dt><dd class="mono">{prev.snapshot_id}</dd></div>
-              <div><dt>Checked</dt><dd>{prev.checked_at}</dd></div>
-              <div><dt>Title</dt><dd>{prev.title ?? "—"}</dd></div>
-              <div><dt>Content hash</dt><dd class="mono">{prev.content_hash ?? "—"}</dd></div>
+              <div>
+                <dt>ID</dt>
+                <dd class="mono">{change.previous_snapshot_id}</dd>
+              </div>
+              {
+                Object.entries(change.previous_snapshot_summary ?? {}).map(([k, v]) => (
+                  <div>
+                    <dt>{humanizeId(k)}</dt>
+                    <dd class="mono">{String(v ?? "—")}</dd>
+                  </div>
+                ))
+              }
             </dl>
           </div>
         )
       }
       {
-        curr && (
+        (curr || change.current_snapshot_summary) && (
           <div>
             <h3>Current</h3>
             <dl class="meta-grid">
-              <div><dt>ID</dt><dd class="mono">{curr.snapshot_id}</dd></div>
-              <div><dt>Checked</dt><dd>{curr.checked_at}</dd></div>
-              <div><dt>Title</dt><dd>{curr.title ?? "—"}</dd></div>
-              <div><dt>Content hash</dt><dd class="mono">{curr.content_hash ?? "—"}</dd></div>
+              <div>
+                <dt>ID</dt>
+                <dd class="mono">{change.current_snapshot_id}</dd>
+              </div>
+              {
+                Object.entries(change.current_snapshot_summary ?? {}).map(([k, v]) => (
+                  <div>
+                    <dt>{humanizeId(k)}</dt>
+                    <dd class="mono">{String(v ?? "—")}</dd>
+                  </div>
+                ))
+              }
             </dl>
           </div>
         )

@@ -94,6 +94,9 @@ const runResult = latestRun?.results.find((r) => r.watcher_id === watcher.watche
       <section>
         <h2>Latest run result</h2>
         <dl class="meta-grid">
+          {latestRun && (
+            <div><dt>Run mode</dt><dd>{humanizeId(latestRun.run_mode ?? latestRun.mode ?? "—")}</dd></div>
+          )}
           <div><dt>Status</dt><dd>{humanizeId(runResult.status)}</dd></div>
           <div><dt>Snapshot</dt><dd class="mono">{runResult.snapshot_id ?? "—"}</dd></div>
           {
@@ -165,7 +168,9 @@ const runResult = latestRun?.results.find((r) => r.watcher_id === watcher.watche
               <h3>
                 <a href={`/detected-changes/${d.detected_change_id}/`}>{d.detected_change_id}</a>
               </h3>
+              {d.simulation && <span class="badge badge--warn">Simulation</span>}
               <p>{d.change_summary_for_review}</p>
+              <span class="badge">Significance: {d.significance_level}</span>
               <ReviewStatusBadge status={d.review_status} />
               {d.human_review_required && (
                 <p class="card__excerpt">

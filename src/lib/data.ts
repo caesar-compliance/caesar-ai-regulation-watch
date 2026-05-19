@@ -302,17 +302,28 @@ export interface WatcherRunResult {
   error_message: string | null;
 }
 
+export type WatcherRunMode = "live_manual" | "simulation" | "dry_run";
+
 export interface WatcherRun {
   run_id: string;
   run_date: string;
-  mode: string;
+  run_mode: WatcherRunMode;
+  mode?: string;
+  safe_mode?: boolean;
+  fixture_only?: boolean;
+  network_disabled?: boolean;
+  preserves_latest_snapshots?: boolean;
   watcher_count: number;
   checked_count: number;
   changed_count: number;
   error_count: number;
+  detected_change_ids?: string[];
+  error_summaries?: { watcher_id: string; source_id: string; message: string }[];
   results: WatcherRunResult[];
   legal_safe_note: string;
 }
+
+export type SignificanceLevel = "low" | "medium" | "high";
 
 export interface DetectedChange {
   detected_change_id: string;
@@ -320,13 +331,25 @@ export interface DetectedChange {
   source_id: string;
   jurisdiction_id: string;
   detected_at: string;
+  simulation?: boolean;
   change_type: string;
+  changed_fields: string[];
   previous_snapshot_id: string;
   current_snapshot_id: string;
+  previous_value_summary: Record<string, string>;
+  current_value_summary: Record<string, string>;
+  previous_snapshot_summary: Record<string, unknown>;
+  current_snapshot_summary: Record<string, unknown>;
+  ignored_fields?: string[];
+  volatile_field_note?: string | null;
+  minimum_change_policy?: string;
   change_summary_for_review: string;
-  confidence_level: string;
+  significance_level: SignificanceLevel;
+  confidence_level?: SignificanceLevel;
   human_review_required: boolean;
   review_status: ReviewStatus;
+  review_queue_reason: string;
+  client_use_allowed: false;
   legal_safe_note: string;
 }
 

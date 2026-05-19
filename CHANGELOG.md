@@ -11,6 +11,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.7.1] - 19 May 2026
+
+### Added
+
+- **Hardened watcher diff** — `scripts/lib/watcher-diff.mjs` with `changed_fields`, `significance_level`, value summaries, noise control (`ignored_fields`, `volatile_field_note`, `minimum_change_policy`).
+- **Simulation command** — `npm run watch:simulate-change`, fixtures in `test-fixtures/watcher-snapshots/`.
+- **Docs** — `docs/WATCHER_DIFF_VALIDATION.md`.
+
+### Changed
+
+- Detected change and watcher run schemas (`run_mode`, `simulation`, `detected_change_ids`, `error_summaries`).
+- Static pages and exports show run mode, simulation badge, significance, changed fields.
+- Review queue distinguishes simulated vs real detected changes.
+
+### Notes
+
+- Simulation proves end-to-end flow without overwriting live `latest.yml`.
+- Watchers remain manual; not in CI.
+
+---
+
 ## [0.7.0] - 19 May 2026
 
 ### Added

@@ -4,6 +4,46 @@
   "storage_policy": "metadata_only_no_body_storage",
   "items": [
     {
+      "snapshot_id": "snap-datatilsynet-2026-05-19t211308548",
+      "watcher_id": "watcher-datatilsynet",
+      "source_id": "datatilsynet",
+      "jurisdiction_id": "norway",
+      "checked_at": "2026-05-19T21:13:08.548Z",
+      "original_url": "https://www.datatilsynet.no/",
+      "final_url": "https://www.datatilsynet.no/",
+      "http_status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "etag": null,
+      "last_modified": null,
+      "title": "Datatilsynet - personvern og informasjonssikkerhet | Datatilsynet",
+      "content_hash": "sha256:a53671164fb4546c9314430f374fa642731cbcb471f47b4105fe413e06cb9018",
+      "normalized_text_hash": "sha256:6918243efdbcedec67d078e9f87ba02a5d824d17b2ff5876179783e47b9c11f5",
+      "content_length": 43113,
+      "snapshot_kind": "periodic_check",
+      "storage_policy": "metadata_only_no_body_storage",
+      "legal_safe_note": "Metadata-only snapshot; content hash for diff signal only. No full body stored. Detected changes require human review before any record update.\n"
+    },
+    {
+      "snapshot_id": "snap-eu-ai-office-2026-05-19t211308371",
+      "watcher_id": "watcher-eu-ai-office",
+      "source_id": "eu-ai-office",
+      "jurisdiction_id": "eu",
+      "checked_at": "2026-05-19T21:13:08.371Z",
+      "original_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+      "final_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+      "http_status": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "etag": "\"1779224455-gzip\"",
+      "last_modified": "Tue, 19 May 2026 21:00:55 GMT",
+      "title": "AI Act | Shaping Europe’s digital future",
+      "content_hash": "sha256:4520fe0cd8fc00652757ff2fe52b7f99b131f329b40b139026e9abf0dc630a14",
+      "normalized_text_hash": "sha256:fa8cb3477f9d7d8bd78771be6982432f616378642965777ec1832b4cb4ba6bb9",
+      "content_length": 86754,
+      "snapshot_kind": "periodic_check",
+      "storage_policy": "metadata_only_no_body_storage",
+      "legal_safe_note": "Metadata-only snapshot; content hash for diff signal only. No full body stored. Detected changes require human review before any record update.\n"
+    },
+    {
       "snapshot_id": "snap-datatilsynet-2026-05-19t210233429",
       "watcher_id": "watcher-datatilsynet",
       "source_id": "datatilsynet",
@@ -42,13 +82,53 @@
       "snapshot_kind": "baseline",
       "storage_policy": "metadata_only_no_body_storage",
       "legal_safe_note": "Metadata-only snapshot; content hash for diff signal only. No full body stored. Detected changes require human review before any record update.\n"
+    },
+    {
+      "snapshot_id": "snap-fixture-eu-ai-office-after-2026-05-19",
+      "watcher_id": "watcher-eu-ai-office",
+      "source_id": "eu-ai-office",
+      "jurisdiction_id": "eu",
+      "checked_at": "2026-05-19T11:00:00.000Z",
+      "original_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+      "final_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+      "http_status": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "etag": "\"fixture-etag-after\"",
+      "last_modified": "Tue, 19 May 2026 11:00:00 GMT",
+      "title": "Fixture: EU AI regulatory framework (updated simulation)",
+      "content_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000002",
+      "normalized_text_hash": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+      "content_length": 85120,
+      "snapshot_kind": "periodic_check",
+      "storage_policy": "metadata_only_no_body_storage",
+      "legal_safe_note": "Simulation fixture snapshot only. Not copied from live official source."
+    },
+    {
+      "snapshot_id": "snap-fixture-eu-ai-office-before-2026-05-19",
+      "watcher_id": "watcher-eu-ai-office",
+      "source_id": "eu-ai-office",
+      "jurisdiction_id": "eu",
+      "checked_at": "2026-05-19T10:00:00.000Z",
+      "original_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+      "final_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+      "http_status": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "etag": "\"fixture-etag-before\"",
+      "last_modified": "Mon, 18 May 2026 12:00:00 GMT",
+      "title": "Fixture: EU AI regulatory framework (baseline)",
+      "content_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000001",
+      "normalized_text_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "content_length": 85000,
+      "snapshot_kind": "periodic_check",
+      "storage_policy": "metadata_only_no_body_storage",
+      "legal_safe_note": "Simulation fixture snapshot only. Not copied from live official source."
     }
   ],
   "summary": {
-    "total": 2,
+    "total": 6,
     "by_source": {
-      "datatilsynet": 1,
-      "eu-ai-office": 1
+      "datatilsynet": 2,
+      "eu-ai-office": 4
     }
   }
 }

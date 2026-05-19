@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Manual official-source metadata watcher (v0.7.0 pilot).
+ * Manual official-source metadata watcher (v0.7.1).
  * Metadata-only snapshots; no full body storage; no legal conclusions; not in CI.
  */
 import fs from "node:fs";
@@ -8,6 +8,11 @@ import path from "node:path";
 import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
 import yaml from "js-yaml";
+import {
+  classifySnapshotDiff,
+  buildDetectedChangeRecord,
+  LEGAL_SAFE_NOTE,
+} from "./lib/watcher-diff.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const RUN_DATE = process.env.WATCHER_RUN_DATE ?? "2026-05-19";
@@ -20,9 +25,6 @@ const WATCHER_CONFIG = path.join(ROOT, "data/watchers/official-source-watchers.y
 const SNAPSHOTS_ROOT = path.join(ROOT, "data/snapshots");
 const DETECTED_ROOT = path.join(ROOT, "data/detected-changes");
 const RUNS_ROOT = path.join(ROOT, "data/watcher-runs");
-
-const LEGAL_SAFE_NOTE =
-  "Metadata-only watcher output for governance review support. Not legal advice. Not a compliance guarantee. Human review required before any record update. Does not set verified_on_source or client_use_allowed.";
 
 function readYaml(filePath) {
   return yaml.load(fs.readFileSync(filePath, "utf8"));
@@ -103,7 +105,7 @@ async function fetchOfficial(url) {
       signal: controller.signal,
       headers: {
         "User-Agent":
-          "Caesar-AI-Regulation-Watch/0.7.0 official-source-watcher (governance review support)",
+          "Caesar-AI-Regulation-Watch/0.7.1 official-source-watcher (governance review support)",
         Accept: "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8",
       },
     });
@@ -112,77 +114,6 @@ async function fetchOfficial(url) {
   } finally {
     clearTimeout(timer);
   }
-}
-
-function detectChanges(prev, curr) {
-  if (!prev || prev.fetch_error || curr.fetch_error) return null;
-  const signals = [];
-  if (prev.content_hash && curr.content_hash && prev.content_hash !== curr.content_hash) {
-    signals.push("content_hash");
-  }
-  if (
-    prev.normalized_text_hash &&
-    curr.normalized_text_hash &&
-    prev.normalized_text_hash !== curr.normalized_text_hash
-  ) {
-    signals.push("normalized_text_hash");
-  }
-  if (prev.title !== curr.title && (prev.title || curr.title)) {
-    signals.push("title");
-  }
-  if (prev.final_url !== curr.final_url) {
-    signals.push("redirect");
-  }
-  if (prev.http_status !== curr.http_status) {
-    signals.push("http_status");
-  }
-  if (
-    (prev.etag || curr.etag) &&
-    prev.etag !== curr.etag &&
-    prev.etag &&
-    curr.etag
-  ) {
-    signals.push("etag");
-  }
-  if (
-    (prev.last_modified || curr.last_modified) &&
-    prev.last_modified !== curr.last_modified &&
-    prev.last_modified &&
-    curr.last_modified
-  ) {
-    signals.push("last_modified");
-  }
-  if (signals.length === 0) return null;
-
-  let changeType = "combined_metadata_change";
-  if (signals.length === 1) {
-    if (signals[0] === "content_hash") changeType = "content_hash_changed";
-    else if (signals[0] === "normalized_text_hash") changeType = "normalized_text_hash_changed";
-    else if (signals[0] === "title") changeType = "title_changed";
-    else if (signals[0] === "redirect") changeType = "redirect_changed";
-    else if (signals[0] === "http_status") changeType = "http_status_changed";
-    else changeType = "http_metadata_changed";
-  }
-
-  const parts = [];
-  if (signals.includes("content_hash")) parts.push("content hash changed");
-  if (signals.includes("normalized_text_hash")) parts.push("normalized text hash changed");
-  if (signals.includes("title")) parts.push(`title: "${prev.title ?? "—"}" → "${curr.title ?? "—"}"`);
-  if (signals.includes("redirect")) parts.push(`final URL: ${prev.final_url} → ${curr.final_url}`);
-  if (signals.includes("http_status")) parts.push(`HTTP status: ${prev.http_status} → ${curr.http_status}`);
-  if (signals.includes("etag")) parts.push("ETag changed");
-  if (signals.includes("last_modified")) parts.push("Last-Modified changed");
-
-  const confidence =
-    signals.includes("content_hash") || signals.includes("normalized_text_hash")
-      ? "medium"
-      : "low";
-
-  return {
-    change_type: changeType,
-    change_summary_for_review: `Watcher detected possible official page change (${parts.join("; ")}). Confirm on live source; not a legal conclusion.`,
-    confidence_level: confidence,
-  };
 }
 
 async function checkWatcher(watcher, sources, previousSnapshot) {
@@ -290,7 +221,7 @@ function writeDetectedChange(change) {
 }
 
 async function main() {
-  console.log("\nCaesar AI Regulation Watch — official source watchers (v0.7.0)");
+  console.log("\nCaesar AI Regulation Watch — official source watchers (v0.7.1)");
   console.log(`Run date: ${RUN_DATE}`);
   console.log(`Run ID: ${RUN_ID}`);
   if (DRY_RUN) console.log("Mode: dry-run");
@@ -301,6 +232,8 @@ async function main() {
   const sources = loadSources();
 
   const results = [];
+  const detectedChangeIds = [];
+  const errorSummaries = [];
   let changedCount = 0;
   let errorCount = 0;
   let checkedCount = 0;
@@ -340,6 +273,11 @@ async function main() {
 
     if (error && error !== "dry_run" && error !== "skip_network") {
       errorCount += 1;
+      errorSummaries.push({
+        watcher_id: watcher.watcher_id,
+        source_id: watcher.source_id,
+        message: error,
+      });
       results.push({
         watcher_id: watcher.watcher_id,
         source_id: watcher.source_id,
@@ -362,30 +300,26 @@ async function main() {
     let status = previous ? "unchanged" : "checked";
 
     if (previous && !snapshot.fetch_error) {
-      const diff = detectChanges(previous, snapshot);
+      const diff = classifySnapshotDiff(previous, snapshot, { simulation: false });
       if (diff) {
         detectedChangeId = `detected-${watcher.source_id}-${RUN_DATE.replace(/-/g, "")}`;
-        const change = {
-          detected_change_id: detectedChangeId,
-          watcher_id: watcher.watcher_id,
-          source_id: watcher.source_id,
-          jurisdiction_id: watcher.jurisdiction_id,
-          detected_at: snapshot.checked_at,
-          change_type: diff.change_type,
-          previous_snapshot_id: previous.snapshot_id,
-          current_snapshot_id: snapshot.snapshot_id,
-          change_summary_for_review: diff.change_summary_for_review,
-          confidence_level: diff.confidence_level,
-          human_review_required: true,
-          review_status: "pending_review",
-          legal_safe_note: LEGAL_SAFE_NOTE,
-        };
+        const change = buildDetectedChangeRecord({
+          detectedChangeId,
+          watcherId: watcher.watcher_id,
+          sourceId: watcher.source_id,
+          jurisdictionId: watcher.jurisdiction_id,
+          detectedAt: snapshot.checked_at,
+          previousSnapshotId: previous.snapshot_id,
+          currentSnapshotId: snapshot.snapshot_id,
+          diff,
+        });
         if (!DRY_RUN && !SKIP_NETWORK) {
           writeDetectedChange(change);
         }
+        detectedChangeIds.push(detectedChangeId);
         changedCount += 1;
         status = "change_detected";
-        console.log("change detected");
+        console.log(`change detected (${diff.significance_level})`);
       } else {
         console.log("unchanged");
       }
@@ -404,14 +338,22 @@ async function main() {
     });
   }
 
+  const runMode = DRY_RUN ? "dry_run" : "live_manual";
   const runLog = {
     run_id: RUN_ID,
     run_date: RUN_DATE,
-    mode: DRY_RUN ? "dry_run" : "manual_cli",
+    run_mode: runMode,
+    mode: runMode,
+    safe_mode: true,
+    fixture_only: false,
+    network_disabled: SKIP_NETWORK,
+    preserves_latest_snapshots: true,
     watcher_count: (config.watchers ?? []).length,
     checked_count: checkedCount,
     changed_count: changedCount,
     error_count: errorCount,
+    detected_change_ids: detectedChangeIds,
+    error_summaries: errorSummaries,
     results,
     legal_safe_note: LEGAL_SAFE_NOTE,
   };

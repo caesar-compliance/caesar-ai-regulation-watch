@@ -12,13 +12,21 @@
     "jurisdiction_id",
     "detected_at",
     "change_type",
+    "changed_fields",
     "previous_snapshot_id",
     "current_snapshot_id",
+    "previous_value_summary",
+    "current_value_summary",
+    "previous_snapshot_summary",
+    "current_snapshot_summary",
     "change_summary_for_review",
-    "confidence_level",
+    "significance_level",
     "human_review_required",
     "review_status",
-    "legal_safe_note"
+    "review_queue_reason",
+    "client_use_allowed",
+    "legal_safe_note",
+    "minimum_change_policy"
   ],
   "properties": {
     "detected_change_id": {
@@ -41,17 +49,48 @@
       "type": "string",
       "format": "date-time"
     },
+    "simulation": {
+      "type": "boolean",
+      "default": false
+    },
     "change_type": {
       "type": "string",
       "enum": [
+        "metadata_changed",
         "content_hash_changed",
         "normalized_text_hash_changed",
-        "http_metadata_changed",
         "title_changed",
+        "final_url_changed",
         "redirect_changed",
         "http_status_changed",
-        "combined_metadata_change"
+        "http_metadata_changed",
+        "etag_changed",
+        "last_modified_changed",
+        "content_length_changed",
+        "combined_metadata_change",
+        "watcher_error"
       ]
+    },
+    "changed_fields": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": [
+          "metadata_changed",
+          "content_hash_changed",
+          "normalized_text_hash_changed",
+          "title_changed",
+          "final_url_changed",
+          "redirect_changed",
+          "http_status_changed",
+          "http_metadata_changed",
+          "etag_changed",
+          "last_modified_changed",
+          "content_length_changed",
+          "watcher_error"
+        ]
+      }
     },
     "previous_snapshot_id": {
       "type": "string",
@@ -61,9 +100,40 @@
       "type": "string",
       "pattern": "^[a-z][a-z0-9_-]*$"
     },
+    "previous_value_summary": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "current_value_summary": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "previous_snapshot_summary": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "current_snapshot_summary": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "ignored_fields": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "volatile_field_note": {
+      "type": ["string", "null"]
+    },
+    "minimum_change_policy": {
+      "type": "string",
+      "minLength": 1
+    },
     "change_summary_for_review": {
       "type": "string",
       "minLength": 1
+    },
+    "significance_level": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
     },
     "confidence_level": {
       "type": "string",
@@ -83,6 +153,19 @@
         "rejected_for_client_use",
         "archived"
       ]
+    },
+    "review_queue_reason": {
+      "type": "string",
+      "enum": [
+        "detected_change_pending_review",
+        "simulated_detected_change_pending_review",
+        "watcher_error",
+        "human_review_required"
+      ]
+    },
+    "client_use_allowed": {
+      "type": "boolean",
+      "const": false
     },
     "legal_safe_note": {
       "type": "string",

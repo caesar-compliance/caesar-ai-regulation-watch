@@ -206,3 +206,13 @@
 - **Rationale:** First safe step toward automated monitoring while keeping legal/content review human-gated and repo static-first.
 - **Boundaries:** Not in CI; no production schedule; no full body storage; no broad crawl; no competitor code.
 - **Artifacts:** `scripts/run-official-source-watchers.mjs`, `data/watchers/`, `data/snapshots/`, `docs/WATCHER_PROTOTYPE.md`, `docs/SNAPSHOT_AND_DIFF_POLICY.md`.
+
+---
+
+## [DEC-023] — 19 May 2026 — Watcher diff hardening and simulation (v0.7.1)
+
+- **Status:** Approved (implementation complete)
+- **Decision:** Harden metadata diff classification (`changed_fields`, `significance_level`, noise control). Add `npm run watch:simulate-change` using local fixtures to validate detected-change → export → review queue flow without network or overwriting live `latest.yml`.
+- **Rationale:** Baseline watcher run produces no diff; simulation proves pipeline safely before second live run.
+- **Boundaries:** Simulation clearly marked; `client_use_allowed` remains false; not in CI; no full body storage.
+- **Artifacts:** `scripts/lib/watcher-diff.mjs`, `scripts/simulate-watcher-change.mjs`, `test-fixtures/watcher-snapshots/`, `docs/WATCHER_DIFF_VALIDATION.md`.

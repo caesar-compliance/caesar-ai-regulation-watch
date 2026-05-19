@@ -1,4 +1,4 @@
-# Snapshot and diff policy (v0.7.0)
+# Snapshot and diff policy (v0.7.1)
 
 **Last updated:** 19 May 2026
 
@@ -24,24 +24,36 @@ Full HTML or PDF bodies are **never** written to `data/snapshots/`.
 
 On **network failure**, the watcher logs the error in the run log and **does not** replace `latest.yml` or delete prior snapshots.
 
-## Meaningful change detection
+## Meaningful change detection (v0.7.1)
 
 Compared fields (when previous snapshot exists):
 
-- `content_hash` / `normalized_text_hash`
+- `normalized_text_hash` (preferred content signal)
+- `content_hash`
 - `title`
-- `final_url` (redirect)
+- `final_url`
 - `http_status`
-- `etag` / `last_modified` (when both sides present)
+- `etag` / `last_modified` / `content_length`
+
+Each detected change records:
+
+- `changed_fields` — typed change list (e.g. `title_changed`, `normalized_text_hash_changed`)
+- `significance_level` — `low` | `medium` | `high`
+- `previous_value_summary` / `current_value_summary` — short metadata summaries only
+- `ignored_fields` / `volatile_field_note` — noise control for HTTP-only churn
+- `minimum_change_policy` — high significance requires content or URL/status signals
 
 First run after baseline: **no** detected change (nothing to compare).
 
+**Prototype only** — not final semantic diff; human must confirm on official source.
+
 ## Detected change records
 
-- Written only when a previous snapshot exists and diff signals fire.
+- Written only when a previous snapshot exists and diff signals fire (or via `watch:simulate-change` for pipeline tests).
 - `change_summary_for_review` describes technical signals only — **not** legal impact.
-- `confidence_level` is `low` or `medium` (metadata signals, not legal certainty).
-- Always `human_review_required: true`.
+- `significance_level` reflects metadata signals, not legal certainty.
+- Always `human_review_required: true` and `client_use_allowed: false`.
+- Simulated changes: `simulation: true` and separate review queue reason.
 
 ## Review queue integration
 

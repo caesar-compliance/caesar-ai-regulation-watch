@@ -1,7 +1,7 @@
 # Architecture — Caesar AI Regulation Watch
 
 **Last updated:** 19 May 2026  
-**Status:** v0.7.0 — static registry + manual metadata watcher CLI (2 pilot sources); CI validate/build; read-only Astro site; no API/database/auth; production watcher scheduling not implemented
+**Status:** v0.7.1 — static registry + manual metadata watcher CLI + simulation mode; CI validate/build; read-only Astro site; no API/database/auth; production watcher scheduling not implemented
 
 ---
 
@@ -121,7 +121,7 @@
                               [Site build | RSS | JSON | Evidence export]
 ```
 
-**v0.7.0 phase:** Layer B pilot — `scripts/run-official-source-watchers.mjs` writes `data/snapshots/`, `data/watcher-runs/`, `data/detected-changes/` (metadata only; manual CLI, not CI). **v0.6.x:** verifications, URL checks, 15 curated records. **v0.5.x:** static SVG map and review queue. Site build does not run watchers. **Deferred:** production scheduling, broad watcher fleet, Layers B–C full ingestion.
+**v0.7.1 phase:** Layer B pilot — `scripts/run-official-source-watchers.mjs` + `scripts/lib/watcher-diff.mjs` + `scripts/simulate-watcher-change.mjs` write `data/snapshots/`, `data/watcher-runs/`, `data/detected-changes/` (metadata only; manual CLI, not CI). **v0.6.x:** verifications, URL checks, 15 curated records. **v0.5.x:** static SVG map and review queue. Site build does not run watchers. **Deferred:** production scheduling, broad watcher fleet, Layers B–C full ingestion.
 
 ---
 

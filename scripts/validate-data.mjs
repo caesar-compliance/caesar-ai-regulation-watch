@@ -422,6 +422,18 @@ for (const file of listYamlFiles(path.join(ROOT, "data/detected-changes"))) {
       errors: [{ message: `unknown current_snapshot_id: ${dc.current_snapshot_id}` }],
     });
   }
+  if (dc.simulation === true && dc.client_use_allowed !== false) {
+    failures.push({
+      label: `${file} (policy)`,
+      errors: [{ message: "simulated detected change must have client_use_allowed: false" }],
+    });
+  }
+  if (dc.human_review_required !== true) {
+    failures.push({
+      label: `${file} (policy)`,
+      errors: [{ message: "detected change must have human_review_required: true" }],
+    });
+  }
 }
 
 console.log(`\nCaesar AI Regulation Watch — data validation`);
