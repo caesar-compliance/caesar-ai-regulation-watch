@@ -1,24 +1,69 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import RecordCard from "../../components/RecordCard.astro";
-import { getRecords } from "../../lib/data";
+import FilterBar from "../../components/FilterBar.astro";
+import StatusBadge from "../../components/StatusBadge.astro";
+import ReviewStatusBadge from "../../components/ReviewStatusBadge.astro";
+import { getRecords, getJurisdiction, getSource } from "../../lib/data";
+import { recordFilterOptions } from "../../lib/filters";
+import { truncate } from "../../lib/format";
 
 const records = getRecords();
+const opts = recordFilterOptions();
 ---
 
 <BaseLayout title="Laws & guidance" currentPath="/records/">
-  <h1>Laws & guidance records</h1>
-  <p class="lead">
-    Sample law and guidance entries from the pilot registry. Each record links to an official source.
-  </p>
+  <div data-filter-page>
+    <h1>Laws &amp; guidance records</h1>
+    <p class="lead">
+      Sample law and guidance entries from the pilot registry. Each record links to an official source.
+    </p>
 
-  <div class="banner banner--sample" role="note">
-    <strong>Manual samples.</strong> These records are for data-model testing — not watcher output.
+    <div class="banner banner--sample" role="note">
+      <strong>Manual samples.</strong> Not watcher output. Filter below or browse the full list.
+    </div>
+
+    <FilterBar
+      filters={[
+        { key: "type", label: "Type", options: opts.type },
+        { key: "jurisdiction", label: "Jurisdiction", options: opts.jurisdiction },
+        { key: "status", label: "Status", options: opts.status },
+        { key: "review", label: "Review", options: opts.review },
+      ]}
+    />
+
+    <ul class="card-list" data-filter-list>
+      {
+        records.map((r) => {
+          const jurisdiction = getJurisdiction(r.jurisdiction_id);
+          const source = getSource(r.source_id);
+          return (
+            <li
+              class="card filter-item"
+              data-filter-item
+              data-type={r.record_type}
+              data-jurisdiction={r.jurisdiction_id}
+              data-status={r.status}
+              data-review={r.review_status}
+            >
+              <div class="card__meta">
+                <span class="badge badge--type">{r.record_type}</span>
+                <StatusBadge status={r.status} />
+                <ReviewStatusBadge status={r.review_status} />
+              </div>
+              <h3>
+                <a href={`/records/${r.record_id}/`}>{r.title}</a>
+              </h3>
+              <p class="card__meta-text">
+                {jurisdiction?.name ?? r.jurisdiction_id}
+                {source ? ` · ${source.title}` : ""}
+              </p>
+              <p class="card__excerpt">{truncate(r.summary_for_review, 140)}</p>
+            </li>
+          );
+        })
+      }
+    </ul>
   </div>
 
-  <ul class="card-list">
-    {records.map((r) => (
-      <RecordCard record={r} />
-    ))}
-  </ul>
+  <script is:inline src="/scripts/filter-list.js"></script>
 </BaseLayout>

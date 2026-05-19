@@ -1,20 +1,45 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import FilterBar from "../../components/FilterBar.astro";
 import SourceCard from "../../components/SourceCard.astro";
 import { getSources } from "../../lib/data";
+import { sourceFilterOptions, groupByJurisdiction } from "../../lib/filters";
 
 const sources = getSources();
+const opts = sourceFilterOptions();
+const grouped = groupByJurisdiction(sources);
 ---
 
 <BaseLayout title="Official sources" currentPath="/sources/">
-  <h1>Official sources</h1>
-  <p class="lead">
-    Canonical URLs in the pilot registry. Primary truth is always the official source — not this summary.
-  </p>
+  <div data-filter-page>
+    <h1>Official sources</h1>
+    <p class="lead">
+      Canonical URLs in the pilot registry. Primary truth is always the official source — not this summary.
+    </p>
 
-  <ul class="card-list">
-    {sources.map((s) => (
-      <SourceCard source={s} />
-    ))}
-  </ul>
+    <FilterBar
+      filters={[
+        { key: "jurisdiction", label: "Jurisdiction", options: opts.jurisdiction },
+        { key: "credibility", label: "Credibility", options: opts.credibility },
+        { key: "review", label: "Review", options: opts.review },
+      ]}
+    />
+
+    {
+      grouped.map((group) => (
+        <section class="group-section">
+          <h2 class="group-section__title">
+            <a href={`/jurisdictions/${group.id}/`}>{group.name}</a>
+          </h2>
+          <ul class="card-list" data-filter-list>
+            {group.items.map((s) => (
+              <SourceCard source={s} filterable />
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </div>
+
+  <script is:inline src="/scripts/filter-list.js"></script>
 </BaseLayout>

@@ -1,7 +1,7 @@
 # Architecture — Caesar AI Regulation Watch
 
 **Last updated:** 19 May 2026  
-**Status:** v0.4.0 — static registry, samples, taxonomies, export contract, and read-only Astro static site; watchers/API not implemented
+**Status:** v0.4.1 — static registry, read-only Astro site with Pagefind search and generated JSON/RSS; watchers/API not implemented
 
 ---
 
@@ -121,7 +121,7 @@
                               [Site build | RSS | JSON | Evidence export]
 ```
 
-**v0.4.0 phase:** Layer A (YAML) unchanged. **Layer F (publishing)** — Astro static site reads `data/` at build time → `dist/`. Validation via `scripts/validate-data.mjs` + ajv. No runtime API or remote fetch. VerifyWise studied reference-only; site is clean-room. **Deferred:** Leaflet (v0.5), Pagefind (v0.5), Layers B–C watchers (v0.6+).
+**v0.4.1 phase:** Layer F extended — `generate:exports` → `public/data/` + RSS; Astro build → `dist/`; Pagefind indexes HTML. Search, filters, methodology/disclaimer pages. No runtime API or remote fetch. **Deferred:** Leaflet (v0.5), Layers B–C watchers (v0.6+).
 
 ---
 

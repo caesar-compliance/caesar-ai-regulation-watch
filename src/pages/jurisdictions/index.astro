@@ -4,6 +4,8 @@ import JurisdictionCard from "../../components/JurisdictionCard.astro";
 import { getJurisdictions } from "../../lib/data";
 
 const jurisdictions = getJurisdictions();
+const high = jurisdictions.filter((j) => j.monitoring_priority === "high");
+const other = jurisdictions.filter((j) => j.monitoring_priority !== "high");
 ---
 
 <BaseLayout title="Jurisdictions" currentPath="/jurisdictions/">
@@ -12,9 +14,29 @@ const jurisdictions = getJurisdictions();
     Curated pilot jurisdictions. Coverage is incremental and not exhaustive — verify scope on each profile.
   </p>
 
-  <ul class="card-list">
-    {jurisdictions.map((j) => (
-      <JurisdictionCard jurisdiction={j} />
-    ))}
-  </ul>
+  {
+    high.length > 0 && (
+      <section>
+        <h2>High monitoring priority</h2>
+        <ul class="card-list">
+          {high.map((j) => (
+            <JurisdictionCard jurisdiction={j} />
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  {
+    other.length > 0 && (
+      <section>
+        <h2>Other pilot jurisdictions</h2>
+        <ul class="card-list">
+          {other.map((j) => (
+            <JurisdictionCard jurisdiction={j} />
+          ))}
+        </ul>
+      </section>
+    )
+  }
 </BaseLayout>

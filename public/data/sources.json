@@ -1,0 +1,179 @@
+{
+  "generated_at": "2026-05-19",
+  "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
+  "items": [
+    {
+      "source_id": "datatilsynet",
+      "title": "Datatilsynet — Norwegian Data Protection Authority",
+      "jurisdiction_id": "norway",
+      "source_type": "regulator",
+      "credibility_level": "official_primary",
+      "official_url": "https://www.datatilsynet.no/",
+      "monitoring_scope": "Official guidance, news, decisions summaries, and thematic pages on AI, automated decisions, and privacy published by Datatilsynet. Norwegian-language content is primary; English summaries where published should also be tracked when listed.\n",
+      "expected_update_types": [
+        "new_guidance_or_theme_pages",
+        "updated_guidance",
+        "enforcement_or_decision_summaries",
+        "consultation_responses_on_ai",
+        "news_articles_on_ai_and_automation"
+      ],
+      "related_topics": [
+        "gdpr",
+        "norwegian_privacy_law",
+        "automated_decision_making",
+        "ai_governance",
+        "dpia"
+      ],
+      "review_status": "pending_review",
+      "notes": "Tracked official primary source for Norway-specific privacy and AI-adjacent regulatory communication. Supports governance review and may affect controls or evidence (e.g. DPIA, transparency to data subjects). Does not cover all Norwegian regulators (e.g. Finanstilsynet) unless added in future registry waves.\n"
+    },
+    {
+      "source_id": "edpb",
+      "title": "European Data Protection Board (EDPB)",
+      "jurisdiction_id": "eu",
+      "source_type": "regulator",
+      "credibility_level": "official_primary",
+      "official_url": "https://www.edpb.europa.eu/",
+      "monitoring_scope": "EDPB guidelines, opinions, statements, and public documents where AI intersects with GDPR and law enforcement directives, as published on edpb.europa.eu. Not all EDPB work is AI-specific; monitoring should filter for AI-relevant items.\n",
+      "expected_update_types": [
+        "new_guidelines_or_opinions",
+        "revised_guidelines",
+        "public_consultation_documents",
+        "press_releases_on_ai_relevant_topics",
+        "meeting_outcomes_where_published"
+      ],
+      "related_topics": [
+        "gdpr",
+        "ai_and_personal_data",
+        "automated_decision_making",
+        "dpia",
+        "law_enforcement_ai"
+      ],
+      "review_status": "pending_review",
+      "notes": "Tracked official primary source for EU-level data protection guidance that may affect AI governance controls and evidence (e.g. DPIA, lawful basis documentation). Helps identify regulatory changes; does not provide legal advice. EDPB documents often require careful reading to determine applicability to a specific AI system.\n"
+    },
+    {
+      "source_id": "edps",
+      "title": "European Data Protection Supervisor (EDPS)",
+      "jurisdiction_id": "eu",
+      "source_type": "regulator",
+      "credibility_level": "official_primary",
+      "official_url": "https://www.edps.europa.eu/",
+      "monitoring_scope": "EDPS opinions, guidance, investigations summaries, and policy documents on AI, EU institutions' use of AI, and digital rights as published on edps.europa.eu. Scope limited to publicly listed official publications; not all EDPS activity is AI-related.\n",
+      "expected_update_types": [
+        "opinions_on_proposed_legislation",
+        "guidance_documents",
+        "technology_monitoring_or_strategy_papers",
+        "annual_reports_sections_on_ai",
+        "news_or_press_updates_on_ai_topics"
+      ],
+      "related_topics": [
+        "eu_institutions",
+        "ai_and_privacy",
+        "fundamental_rights",
+        "supervision_of_eu_bodies"
+      ],
+      "review_status": "pending_review",
+      "notes": "Tracked official primary source complementary to EDPB. Supports governance review where EU institutional AI or cross-cutting privacy-AI topics matter. May affect controls or evidence for organizations interacting with EU bodies or benchmarking against EDPS positions. Requires human review before client use.\n"
+    },
+    {
+      "source_id": "eu-ai-act",
+      "title": "EU Artificial Intelligence Act — EUR-Lex",
+      "jurisdiction_id": "eu",
+      "source_type": "law_portal",
+      "credibility_level": "official_primary",
+      "official_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689",
+      "monitoring_scope": "Consolidated AI Act regulation text, corrigenda, and linked EUR-Lex metadata for Regulation (EU) 2024/1689. Does not replace monitoring of implementing acts, delegated acts, or member-state measures unless separately registered.\n",
+      "expected_update_types": [
+        "consolidated_text_updates",
+        "corrigenda",
+        "related_acts_linked_from_entry",
+        "metadata_or_status_changes_on_eur_lex"
+      ],
+      "related_topics": [
+        "eu_ai_act",
+        "risk_management",
+        "transparency",
+        "gpai",
+        "prohibited_practices",
+        "conformity_assessment"
+      ],
+      "review_status": "pending_review",
+      "notes": "Tracked official primary source for the AI Act instrument. Helps identify regulatory changes visible on EUR-Lex; supports governance review of whether internal registers or policies may need refresh. Not legal advice. Automated monitoring not active in v0.2 — registry definition only.\n"
+    },
+    {
+      "source_id": "eu-ai-office",
+      "title": "European Commission — AI Office and AI Act policy pages",
+      "jurisdiction_id": "eu",
+      "source_type": "regulator",
+      "credibility_level": "official_primary",
+      "official_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+      "monitoring_scope": "EU AI Office and Commission pages on the AI regulatory framework, including guidance announcements, FAQs, and implementation-related publications hosted on official ec.europa.eu domains. Scope is limited to URLs under this entry; additional Commission sites require separate registry entries.\n",
+      "expected_update_types": [
+        "new_or_updated_guidance",
+        "faq_changes",
+        "implementation_announcements",
+        "links_to_new_official_documents",
+        "page_structure_or_content_updates"
+      ],
+      "related_topics": [
+        "eu_ai_act",
+        "implementation",
+        "gpai",
+        "governance_codes_of_practice",
+        "sandboxes",
+        "market_surveillance"
+      ],
+      "review_status": "pending_review",
+      "notes": "Tracked official primary source for high-level AI Act implementation communications from the Commission. Helps identify regulatory changes that may affect controls or evidence; requires human review before client use. Does not capture all EU agency publications (e.g. ENISA) unless added later.\n"
+    },
+    {
+      "source_id": "eur-lex",
+      "title": "EUR-Lex — EU law portal (AI Act cluster monitoring entry point)",
+      "jurisdiction_id": "eu",
+      "source_type": "law_portal",
+      "credibility_level": "official_primary",
+      "official_url": "https://eur-lex.europa.eu/",
+      "monitoring_scope": "Official EU law portal entry point for discovering new or amended EU legal acts, preparatory documents, and OJ publications relevant to AI when identified through curated search parameters (e.g. AI Act CELEX, implementing regulations). This registry entry does not claim exhaustive monitoring of all EUR-Lex content.\n",
+      "expected_update_types": [
+        "new_legal_acts",
+        "amendments_to_existing_acts",
+        "implementing_or_delegated_acts",
+        "official_journal_publications",
+        "document_availability_changes"
+      ],
+      "related_topics": [
+        "eu_legislation",
+        "eu_ai_act",
+        "digital_regulation",
+        "implementing_acts"
+      ],
+      "review_status": "pending_review",
+      "notes": "Broader official primary portal than the single-instrument eu-ai-act entry. Supports governance review by helping identify new EU legal publications that may relate to AI governance programs. Future watchers should use narrow queries to avoid noise. Not a substitute for legal research across all EU law.\n"
+    },
+    {
+      "source_id": "norway-ai-act-implementation",
+      "title": "Norwegian Government — AI Act / EEA implementation information",
+      "jurisdiction_id": "norway",
+      "source_type": "regulator",
+      "credibility_level": "official_primary",
+      "official_url": "https://www.regjeringen.no/en/topics/business-and-industry/ai/id3015480/",
+      "monitoring_scope": "Official Norwegian government pages on AI policy and EEA/EU AI Act implementation, including press releases, hearing documents, and links to proposed regulations published via regjeringen.no. Does not include full Lovdata statute text unless cross-linked; Lovdata may be added as a separate source later.\n",
+      "expected_update_types": [
+        "implementation_roadmap_updates",
+        "public_consultations",
+        "proposed_regulations_announced",
+        "government_press_releases",
+        "links_to_official_hearing_documents"
+      ],
+      "related_topics": [
+        "eea_implementation",
+        "eu_ai_act",
+        "national_ai_policy",
+        "sector_coordination"
+      ],
+      "review_status": "pending_review",
+      "notes": "Tracked official primary source for Norway's public-facing implementation narrative. Helps identify regulatory changes that may require governance review for Norwegian and EEA-operating organizations. Timelines may differ from EU member states. Not a complete register of all Norwegian ministries or agencies working on AI.\n"
+    }
+  ]
+}

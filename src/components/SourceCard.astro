@@ -6,12 +6,19 @@ import { truncate } from "../lib/format";
 
 interface Props {
   source: Source;
+  filterable?: boolean;
 }
 
-const { source } = Astro.props;
+const { source, filterable = false } = Astro.props;
 ---
 
-<li class="card">
+<li
+  class:list={["card", filterable && "filter-item"]}
+  data-filter-item={filterable ? true : undefined}
+  data-jurisdiction={filterable ? source.jurisdiction_id : undefined}
+  data-credibility={filterable ? source.credibility_level : undefined}
+  data-review={filterable ? source.review_status : undefined}
+>
   <div class="card__meta">
     <CredibilityBadge level={source.credibility_level} />
     <ReviewStatusBadge status={source.review_status} />

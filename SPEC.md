@@ -1,7 +1,7 @@
 # Specification — Caesar AI Regulation Watch
 
 **Last updated:** 19 May 2026  
-**Status:** v0.4.0 — spec, registry, samples, taxonomies, export contract, and read-only Astro static site skeleton (no watchers, APIs, database, or auth)
+**Status:** v0.4.1 — spec, registry, samples, taxonomies, export contract, and read-only Astro site with search and static exports (no watchers, APIs, database, or auth)
 
 ---
 
@@ -233,7 +233,19 @@ Read-only Astro static site at repository root (`src/`, `package.json`):
 
 **Pages:** home, jurisdictions, sources, records (laws/guidance), changes, export samples.
 
-**Not included:** watchers, API, database, auth, map, search, remote data fetch.
+**Not included:** watchers, API, database, auth, map, remote data fetch.
+
+---
+
+## 8.4 Site UX and static exports (v0.4.1 — delivered)
+
+| Feature | Implementation |
+|---|---|
+| Search | Pagefind on `dist/` — `/search/` |
+| Browse filters | Client-side on records, sources, changes |
+| Methodology / disclaimer | `/methodology/`, `/disclaimer/` |
+| JSON exports | `npm run generate:exports` → `public/data/*.json` |
+| RSS | `public/feeds/changes.xml` (sample changes) |
 
 ---
 
@@ -245,9 +257,11 @@ Read-only Astro static site at repository root (`src/`, `package.json`):
 4. ~~**Third-party acceleration policy and plan.**~~ **Done (v0.3.2).**
 5. ~~**VerifyWise clean-room architecture study and v0.4 plan.**~~ **Done (v0.3.3).**
 6. ~~**Static public site skeleton** reading `data/` (Astro).~~ **Done (v0.4.0).**
-7. ~~**Schema validation** (ajv via `npm run validate:data`).~~ **Done (v0.4.0).**
-8. **Timeline file** per pilot jurisdiction (v0.5).
-9. **GitHub Actions CI** for validate + build (optional follow-up).
+7. ~~**Schema validation** (ajv).~~ **Done (v0.4.0).**
+8. ~~**Pagefind search, filters, JSON/RSS exports.**~~ **Done (v0.4.1).**
+9. **Timeline file** per pilot jurisdiction (v0.5).
+10. **Leaflet map** (v0.5).
+11. **GitHub Actions CI** (optional follow-up).
 
 ---
 

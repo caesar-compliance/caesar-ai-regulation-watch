@@ -11,6 +11,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.4.1] - 19 May 2026
+
+### Added
+
+- **Pagefind** static search (`/search/`) indexing built HTML pages.
+- **Methodology** and **disclaimer** pages with Caesar-original legal-safe wording.
+- `scripts/generate-static-exports.mjs` — JSON under `public/data/` and RSS at `public/feeds/changes.xml`.
+- Client-side **filters** on records, sources, and changes index pages.
+- **Developers panel** with links to snapshot JSON and RSS.
+- Grouped sources/changes by jurisdiction.
+
+### Changed
+
+- Improved navigation, footer, homepage, card spacing, mobile styles.
+- Build pipeline: `generate:exports` → `build:site` → `build:search`.
+
+### Notes
+
+- No watchers, APIs, database, auth, or remote fetch.
+- Search requires full `npm run build` (Pagefind indexes `dist/`).
+
+---
+
 ## [0.4.0] - 19 May 2026
 
 ### Added

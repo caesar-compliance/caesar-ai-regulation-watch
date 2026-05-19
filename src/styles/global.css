@@ -1,11 +1,11 @@
 :root {
-  --color-bg: #f8f9fb;
+  --color-bg: #f7f8fa;
   --color-surface: #ffffff;
-  --color-border: #e2e6ed;
-  --color-text: #1a2332;
-  --color-muted: #5c6b7e;
-  --color-accent: #1e4d6b;
-  --color-accent-soft: #e8f1f6;
+  --color-border: #dde2ea;
+  --color-text: #152232;
+  --color-muted: #5a6a7d;
+  --color-accent: #1a4a66;
+  --color-accent-soft: #e6f0f6;
   --color-warn-bg: #fef9ec;
   --color-warn-border: #e8d48a;
   --color-warn-text: #6b5a1e;
@@ -15,7 +15,7 @@
   --font-mono: ui-monospace, "Cascadia Code", monospace;
   --radius: 8px;
   --shadow: 0 1px 3px rgba(26, 35, 50, 0.06);
-  --max-width: 960px;
+  --max-width: 1040px;
 }
 
 *,
@@ -49,7 +49,11 @@ a:hover {
 .site-header {
   background: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
-  padding: 1rem 1.5rem;
+  padding: 0.85rem 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 0 rgba(21, 34, 50, 0.04);
 }
 
 .site-header__inner {
@@ -378,4 +382,193 @@ table.data-table tr:last-child td {
 .mono {
   font-family: var(--font-mono);
   font-size: 0.85em;
+}
+
+/* Filters */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  align-items: flex-end;
+  padding: 1rem 1.25rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  margin-bottom: 1.25rem;
+}
+
+.filter-bar__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 140px;
+}
+
+.filter-bar__label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+  font-weight: 600;
+}
+
+.filter-bar__select {
+  font: inherit;
+  font-size: 0.9rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.filter-bar__count {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  align-self: center;
+  margin-left: auto;
+}
+
+.filter-item[hidden] {
+  display: none !important;
+}
+
+/* Group sections */
+.group-section {
+  margin-bottom: 2rem;
+}
+
+.group-section__title {
+  font-size: 1.1rem;
+  margin: 0 0 0.75rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.group-section__title a {
+  color: inherit;
+}
+
+.card__meta-text {
+  margin: 0 0 0.35rem;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+.nav-card--accent {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+}
+
+.nav-card p {
+  margin: 0.35rem 0 0;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+.badge--sample-only {
+  background: var(--color-sample-bg);
+  color: #4a3d6b;
+  border: 1px solid var(--color-sample-border);
+}
+
+.card--export {
+  border-left: 3px solid var(--color-sample-border);
+}
+
+.card__refs {
+  margin: 0.5rem 0 0;
+  font-size: 0.88rem;
+}
+
+.card__excerpt--note {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--color-border);
+}
+
+.meta-grid--compact {
+  margin: 0.75rem 0;
+}
+
+.site-footer__links {
+  margin: 0.5rem 0;
+}
+
+.site-footer__links a {
+  white-space: nowrap;
+}
+
+/* Developers panel */
+.developers-panel {
+  margin-top: 2.5rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.developers-panel__lead {
+  margin: 0 0 0.75rem;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+.developers-panel__links {
+  margin: 0;
+  padding-left: 1.25rem;
+  font-size: 0.9rem;
+}
+
+.developers-panel__links li {
+  margin-bottom: 0.35rem;
+}
+
+/* Pagefind */
+.pagefind-container {
+  margin-top: 1rem;
+}
+
+.pagefind-ui {
+  --pagefind-ui-scale: 0.95;
+  --pagefind-ui-primary: var(--color-accent);
+  --pagefind-ui-text: var(--color-text);
+  --pagefind-ui-background: var(--color-surface);
+  --pagefind-ui-border: var(--color-border);
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-font: var(--font-sans);
+}
+
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 640px) {
+  .site-header__inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .site-nav {
+    gap: 0.5rem 1rem;
+  }
+
+  main {
+    padding: 1.25rem 1rem 2rem;
+  }
+
+  .filter-bar__count {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 1.45rem;
+  }
+
+  .data-table {
+    font-size: 0.82rem;
+  }
 }

@@ -7,8 +7,13 @@ interface Props {
   currentPath?: string;
 }
 
-const { title, description = "Official-source-first AI regulation monitoring for governance review.", currentPath = "" } = Astro.props;
-const fullTitle = title === "Home" ? "Caesar AI Regulation Watch" : `${title} · Caesar AI Regulation Watch`;
+const {
+  title,
+  description = "Official-source-first AI regulation monitoring for governance review.",
+  currentPath = "",
+} = Astro.props;
+const fullTitle =
+  title === "Home" ? "Caesar AI Regulation Watch" : `${title} · Caesar AI Regulation Watch`;
 
 const nav = [
   { href: "/", label: "Home" },
@@ -17,6 +22,14 @@ const nav = [
   { href: "/records/", label: "Records" },
   { href: "/changes/", label: "Changes" },
   { href: "/exports/", label: "Exports" },
+  { href: "/search/", label: "Search" },
+];
+
+const footerLinks = [
+  { href: "/methodology/", label: "Methodology" },
+  { href: "/disclaimer/", label: "Disclaimer" },
+  { href: "/data/regulation-watch-snapshot.json", label: "JSON snapshot" },
+  { href: "/feeds/changes.xml", label: "RSS (samples)" },
 ];
 ---
 
@@ -36,7 +49,12 @@ const nav = [
           {nav.map((item) => (
             <a
               href={item.href}
-              aria-current={currentPath === item.href || (item.href !== "/" && currentPath.startsWith(item.href)) ? "page" : undefined}
+              aria-current={
+                currentPath === item.href ||
+                (item.href !== "/" && currentPath.startsWith(item.href))
+                  ? "page"
+                  : undefined
+              }
             >
               {item.label}
             </a>
@@ -52,13 +70,18 @@ const nav = [
     <footer class="site-footer">
       <div class="site-footer__inner">
         <p>
-          <strong>Not legal advice.</strong> This preview supports governance review only. It does not
-          guarantee compliance or describe complete global legal coverage.
+          <strong>Not legal advice.</strong> Supports governance review only — not a compliance guarantee or
+          complete global coverage.
         </p>
-        <p>
-          Pilot data: EU and Norway · Manual samples · <a href="/exports/">Export samples</a>
+        <p class="site-footer__links">
+          {footerLinks.map((link, i) => (
+            <>
+              {i > 0 && " · "}
+              <a href={link.href}>{link.label}</a>
+            </>
+          ))}
         </p>
-        <p>Part of the Caesar AI Governance Hub · Last site build: 19 May 2026</p>
+        <p>Pilot: EU &amp; Norway · Manual samples · v0.4.1 · 19 May 2026 · Caesar AI Governance Hub</p>
       </div>
     </footer>
   </body>

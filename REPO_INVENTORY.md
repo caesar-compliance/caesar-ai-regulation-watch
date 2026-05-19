@@ -8,7 +8,7 @@
 
 | File | Role |
 |---|---|
-| **README.md** | Public entry; v0.4.0 status + npm commands |
+| **README.md** | Public entry; v0.4.1 status + npm commands |
 | **SPEC.md** | Requirements through static site |
 | **ARCHITECTURE.md** | Data layers + Astro publishing |
 | **ROADMAP.md** | v0.4.0 static site complete |
@@ -83,7 +83,13 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 
 | Path | Role |
 |---|---|
-| **package.json** | astro, js-yaml, ajv |
+| **package.json** | astro, js-yaml, ajv, pagefind |
+| **scripts/generate-static-exports.mjs** | JSON + RSS generation |
+| **public/data/** | Generated JSON exports |
+| **public/feeds/changes.xml** | Sample changes RSS |
+| **src/pages/search.astro** | Pagefind search UI |
+| **src/pages/methodology.astro** | Methodology |
+| **src/pages/disclaimer.astro** | Disclaimer |
 | **astro.config.mjs** | Static site config |
 | **src/pages/** | Generated routes (home, jurisdictions, sources, records, changes, exports) |
 | **src/components/** | Badges, cards, review banners |

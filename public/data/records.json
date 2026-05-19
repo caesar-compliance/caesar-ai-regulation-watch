@@ -1,0 +1,84 @@
+{
+  "generated_at": "2026-05-19",
+  "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
+  "items": [
+    {
+      "record_id": "law-eu-ai-act-2024-1689",
+      "record_type": "law",
+      "record_origin": "manual_sample",
+      "title": "Regulation (EU) 2024/1689 — Artificial Intelligence Act",
+      "jurisdiction_id": "eu",
+      "source_id": "eu-ai-act",
+      "legal_status": "in_force",
+      "official_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689",
+      "summary_for_review": "Manual sample record linking to the EU AI Act instrument on EUR-Lex. Supports governance review of whether AI system registers, risk processes, and vendor documentation may need alignment with tracked EU requirements. Dates below are illustrative samples for schema testing—verify all dates on the official source before client use.\n",
+      "key_dates": [
+        {
+          "label": "Regulation published in Official Journal (sample — verify on EUR-Lex)",
+          "date": "2024-07-12",
+          "verified_on_source": false,
+          "notes": "Tracked date for data-model testing; confirm on official source."
+        },
+        {
+          "label": "General application start (sample — verify phased obligations on source)",
+          "date": "2025-08-02",
+          "verified_on_source": false,
+          "notes": "Many obligations phase in over time; do not treat this single date as complete guidance."
+        }
+      ],
+      "affected_topics": [
+        "eu_ai_act",
+        "risk_management",
+        "transparency",
+        "gpai",
+        "prohibited_practices",
+        "conformity_assessment"
+      ],
+      "review_status": "pending_review",
+      "legal_safe_note": "Manual sample record for data-model testing only. Not legal advice. Does not describe complete EU AI Act obligations or national implementations. Requires human review before client use.\n",
+      "status": "in_force"
+    },
+    {
+      "record_id": "guidance-datatilsynet-ai-privacy",
+      "record_type": "guidance",
+      "record_origin": "manual_sample",
+      "title": "Datatilsynet — AI and privacy theme (sample pointer)",
+      "jurisdiction_id": "norway",
+      "source_id": "datatilsynet",
+      "guidance_status": "guidance",
+      "official_url": "https://www.datatilsynet.no/",
+      "summary_for_review": "Manual sample record for Norwegian Data Protection Authority material on AI, automated decisions, and privacy. Supports governance review of DPIAs, transparency information, and lawful-basis documentation where AI processes personal data. Primary language on the authority site is Norwegian; verify current theme pages on the official URL before client use.\n",
+      "affected_topics": [
+        "gdpr",
+        "automated_decision_making",
+        "ai_governance",
+        "dpia",
+        "transparency_to_data_subjects"
+      ],
+      "review_status": "pending_review",
+      "legal_safe_note": "Manual sample record for data-model testing only. Not legal advice. Norway is not part of the EU; EEA context may apply to some EU rules separately. Requires human review before client use.\n",
+      "status": "guidance"
+    },
+    {
+      "record_id": "guidance-eu-ai-office-gpai",
+      "record_type": "guidance",
+      "record_origin": "manual_sample",
+      "title": "EU AI Office — General-purpose AI (GPAI) framework pages (sample pointer)",
+      "jurisdiction_id": "eu",
+      "source_id": "eu-ai-office",
+      "guidance_status": "guidance",
+      "official_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+      "summary_for_review": "Manual sample record pointing to Commission / EU AI Office material on the AI regulatory framework, including GPAI-related implementation topics. Helps identify when new or updated official guidance may warrant governance review of model documentation, provider due diligence, or internal policy memos. Content on the live page may change; this summary is not a substitute for reading the source.\n",
+      "affected_topics": [
+        "gpai",
+        "governance_codes_of_practice",
+        "implementation",
+        "provider_obligations",
+        "transparency"
+      ],
+      "review_status": "pending_review",
+      "legal_safe_note": "Manual sample record for data-model testing only. Not legal advice. Requires human review before client use. Does not automatically determine which GPAI obligations apply to a specific system.\n",
+      "status": "guidance"
+    }
+  ]
+}

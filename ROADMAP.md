@@ -4,7 +4,7 @@
 
 This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
 
-**Current (v0.4.0):** read-only Astro static site skeleton from pilot YAML — no watchers, APIs, database, auth, or external integrations. **Next:** Control Tower page review; v0.5 map/search/feeds.
+**Current (v0.4.1):** search, browse UX, static JSON/RSS exports — no watchers, APIs, database, auth. **Next:** Control Tower review; v0.5 map/timelines.
 
 ---
 
@@ -151,11 +151,25 @@ v0.1 Foundation ──> v0.2.0 Registry ──> v0.3.0 Samples ──> v0.3.1 Ta
 
 ---
 
-## v0.5 — Map, search, feeds, timelines
+## v0.4.1 — Search, browse UX, static exports
+
+**Status:** Complete on branch `agent/v0.4.1-search-ux-static-exports` (19 May 2026)
+
+**Deliverables:**
+
+- [x] Pagefind search (`/search/`)
+- [x] Client-side filters (records, sources, changes)
+- [x] Methodology and disclaimer pages
+- [x] `generate:exports` — JSON + RSS
+- [x] UI polish (nav, footer, mobile)
+
+---
+
+## v0.5 — Map and timelines
 
 **Status:** Planned
 
-**Goal:** Public enhancements — Leaflet map, Pagefind search, RSS/JSON static exports, `data/timelines/`.
+**Goal:** Leaflet map, `data/timelines/`, optional GitHub Actions CI.
 
 ---
 

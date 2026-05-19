@@ -137,3 +137,12 @@
 - **Validation:** `npm run validate:data` must pass before `npm run build`.
 - **Rationale:** Delivers read-only product preview from approved YAML; clean-room implementation per DEC-014; official-source-first unchanged.
 - **Artifacts:** `src/`, `package.json`, `scripts/validate-data.mjs`, [docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md](V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md).
+
+---
+
+## [DEC-016] — 19 May 2026 — Pagefind search and static exports (v0.4.1)
+
+- **Status:** Approved (implementation complete)
+- **Decision:** Add **Pagefind** (MIT) for static search; `scripts/generate-static-exports.mjs` for JSON/RSS in `public/`; client-side filters without React; methodology and disclaimer pages.
+- **Rationale:** Improves product preview usability while staying static-first and official-source-first.
+- **Boundaries:** No remote fetch; RSS/JSON marked sample-only; search indexes Caesar HTML only.

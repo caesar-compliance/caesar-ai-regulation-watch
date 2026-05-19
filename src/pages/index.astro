@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import JurisdictionCard from "../components/JurisdictionCard.astro";
+import DevelopersPanel from "../components/DevelopersPanel.astro";
 import { getJurisdictions, getChanges, getPilotSummary } from "../lib/data";
 import { formatDate, truncate } from "../lib/format";
 
@@ -13,13 +14,13 @@ const recentChanges = getChanges().slice(0, 3);
   <h1>Caesar AI Regulation Watch</h1>
   <p class="lead">
     Official-source-first monitoring of AI-related laws and guidance for governance teams. Helps identify
-    tracked regulatory changes that may require internal review — not legal advice, and not complete
-    global coverage.
+    tracked regulatory changes that may require internal review.
   </p>
 
   <div class="banner banner--review" role="note">
-    <strong>Pilot preview (v0.4.0).</strong> Static read-only site from curated YAML. No automated watchers,
-    APIs, or authentication. All sample records require human review before client use.
+    <strong>Product preview (v0.4.1).</strong> Read-only static site from curated YAML. Not legal advice. All
+    sample records require human review before client use. See{" "}
+    <a href="/methodology/">methodology</a> and <a href="/disclaimer/">disclaimer</a>.
   </div>
 
   <section class="stats" aria-label="Coverage summary">
@@ -33,7 +34,7 @@ const recentChanges = getChanges().slice(0, 3);
     </div>
     <div class="stat">
       <strong>{summary.recordCount}</strong>
-      <span>Law & guidance records</span>
+      <span>Law &amp; guidance</span>
     </div>
     <div class="stat">
       <strong>{summary.changeCount}</strong>
@@ -41,13 +42,32 @@ const recentChanges = getChanges().slice(0, 3);
     </div>
   </section>
 
-  <h2>Explore</h2>
+  <h2>Explore the pilot registry</h2>
   <div class="nav-cards">
-    <div class="nav-card"><a href="/jurisdictions/">Jurisdictions</a><p>EU and Norway pilot profiles</p></div>
-    <div class="nav-card"><a href="/sources/">Official sources</a><p>Registry of tracked authority URLs</p></div>
-    <div class="nav-card"><a href="/records/">Laws & guidance</a><p>Sample instrument records</p></div>
-    <div class="nav-card"><a href="/changes/">Changes</a><p>Manual sample change feed</p></div>
-    <div class="nav-card"><a href="/exports/">Export samples</a><p>Regulation-change contract examples</p></div>
+    <div class="nav-card">
+      <a href="/jurisdictions/">Jurisdictions</a>
+      <p>EU and Norway profiles with linked sources and records</p>
+    </div>
+    <div class="nav-card">
+      <a href="/sources/">Official sources</a>
+      <p>Seven tracked authority URLs with credibility tiers</p>
+    </div>
+    <div class="nav-card">
+      <a href="/records/">Laws &amp; guidance</a>
+      <p>Filterable sample instrument records</p>
+    </div>
+    <div class="nav-card">
+      <a href="/changes/">Changes</a>
+      <p>Manual sample change feed + RSS</p>
+    </div>
+    <div class="nav-card">
+      <a href="/exports/">Export samples</a>
+      <p>Regulation-change contract examples (not client evidence)</p>
+    </div>
+    <div class="nav-card nav-card--accent">
+      <a href="/search/">Search</a>
+      <p>Search all static pages (after full build)</p>
+    </div>
   </div>
 
   <h2>Pilot jurisdictions</h2>
@@ -59,7 +79,7 @@ const recentChanges = getChanges().slice(0, 3);
 
   {
     recentChanges.length > 0 && (
-      <>
+      <section>
         <h2>Recent sample changes</h2>
         <ul class="card-list">
           {recentChanges.map((c) => (
@@ -69,13 +89,18 @@ const recentChanges = getChanges().slice(0, 3);
               </h3>
               <p class="card__excerpt">{truncate(c.change_summary_for_review, 120)}</p>
               <p class="card__excerpt">
-                <small>{formatDate(c.detected_date)} · {c.jurisdiction_id}</small>
+                <small>
+                  {formatDate(c.detected_date)} · {c.jurisdiction_id}
+                  {c.requires_human_review ? " · Human review required" : ""}
+                </small>
               </p>
             </li>
           ))}
         </ul>
         <p><a href="/changes/">View all changes →</a></p>
-      </>
+      </section>
     )
   }
+
+  <DevelopersPanel />
 </BaseLayout>
