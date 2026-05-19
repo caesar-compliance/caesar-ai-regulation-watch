@@ -106,7 +106,7 @@
       "create_detected_change_for_new_entries": true,
       "create_detected_change_for_changed_entries": true,
       "review_status": "pending_review",
-      "notes": "EDPS news RSS; prior run had fetch error — conservative retry enabled.",
+      "notes": "EDPS news RSS; v0.7.3 invalid_feed was XML entity expansion limit (valid RSS XML). Parser limit raised to 2048 in v0.7.4; feed diagnostics on soft-fail.\n",
       "legal_safe_note": "Feed metadata only; entry title/link/date for signals. No article body storage. Human review required before any record update.\n"
     },
     {
@@ -117,7 +117,7 @@
       "watcher_type": "official_api_metadata",
       "official_url": "https://www.federalregister.gov/",
       "api_url": "https://www.federalregister.gov/api/v1/documents.json?per_page=10&order=newest&conditions%5Bterm%5D=artificial+intelligence",
-      "enabled": false,
+      "enabled": true,
       "timeout_ms": 25000,
       "retry_count": 1,
       "retry_delay_ms": 4000,
@@ -128,15 +128,15 @@
       "snapshot_policy": "metadata_only_no_body_storage",
       "max_results_per_check": 10,
       "create_detected_change_for_new_results": true,
-      "query_scope_note": "Official api.federalregister.gov documents.json; term=artificial intelligence; per_page=10. Pilot disabled until Control Tower enables; use watch:simulate-api-change for pipeline test.\n",
+      "query_scope_note": "Official Federal Register documents.json API; term=artificial intelligence; per_page=10; order=newest. Metadata-only; no document body fetch; no link crawling. Manual CLI only (v0.7.4).\n",
       "review_status": "pending_review",
-      "notes": "Disabled by default; enable manually after scope approval.",
+      "notes": "Enabled v0.7.4 after Control Tower scope approval. First live run creates API baseline only. Real detected changes require a prior successful API snapshot and metadata diff.\n",
       "legal_safe_note": "API metadata only; result title/link/date for signals. No document body storage. Human review required before any record update.\n"
     }
   ],
   "summary": {
     "total": 5,
-    "enabled": 4,
+    "enabled": 5,
     "official_page_metadata": 2,
     "official_rss_or_feed": 2,
     "feed_watchers_enabled": 2

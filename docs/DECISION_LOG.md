@@ -236,3 +236,13 @@
 - **Rationale:** EDPS feed failures and rate limits require operational clarity without legal false positives.
 - **Boundaries:** Not in CI; no document bodies; no broad API queries.
 - **Artifacts:** `scripts/lib/source-adapters/reliability.mjs`, `api-metadata-adapter.mjs`, `docs/WATCHER_RELIABILITY_POLICY.md`, `docs/API_WATCHER_CANDIDATES.md`.
+
+---
+
+## [DEC-026] — 19 May 2026 — EDPS feed fix and Federal Register API live baseline (v0.7.4)
+
+- **Status:** Approved (implementation complete)
+- **Decision:** Classify EDPS v0.7.3 `invalid_feed` as fast-xml-parser entity expansion limit on valid official RSS; raise `maxTotalExpansions` to 2048; add feed diagnostics without storing bodies. Enable Federal Register API watcher with unchanged narrow scope; create live metadata baselines for EDPS feed and Federal Register API.
+- **Rationale:** EDPS feed URL and XML are correct; parser default was too strict. Federal Register scope was pre-approved in v0.7.3; enabling completes first controlled official API watcher path.
+- **Boundaries:** No document/feed/API body storage; no CI watcher runs; no production scheduler; first API run = baseline only (no real detected change).
+- **Artifacts:** `feed-adapter.mjs` (`FEED_XML_PARSER_OPTIONS`, `buildFeedDiagnostics`), live snapshots under `data/snapshots/edps/` and `data/snapshots/us-federal-register/`, updated `docs/API_WATCHER_CANDIDATES.md`.

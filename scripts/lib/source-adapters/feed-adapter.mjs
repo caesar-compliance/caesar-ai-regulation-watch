@@ -14,6 +14,19 @@ import { classifyFeedSnapshotDiff } from "../feed-diff.mjs";
 
 export const ADAPTER_ID = "official_rss_or_feed";
 
+/** Safe XML parser limits for official RSS/Atom feeds (see docs/WATCHER_RELIABILITY_POLICY.md). */
+export const FEED_XML_PARSER_OPTIONS = {
+  ignoreAttributes: false,
+  attributeNamePrefix: "@_",
+  trimValues: true,
+  processEntities: {
+    enabled: true,
+    // Default fast-xml-parser limit is 1000; EDPS official news feed exceeds it (~1026 DOCTYPE entities).
+    maxTotalExpansions: 2048,
+    maxExpandedLength: 8192,
+  },
+};
+
 const FEED_LEGAL_SAFE_NOTE =
   "Feed metadata snapshot only. Entry title/link/date for diff signals. No article body stored. Feed-detected items require human review before use. Not legal advice.";
 
@@ -96,12 +109,47 @@ function parseAtomEntries(feed, watcher) {
   });
 }
 
+function classifyResponseShape(text) {
+  const sample = text ?? "";
+  return {
+    response_appears_xml: /^\s*</.test(sample),
+    response_appears_html: /<html/i.test(sample.slice(0, 500)),
+  };
+}
+
+/** Metadata-only diagnostics for feed fetch/parse failures (no full body stored). */
+export function buildFeedDiagnostics(fetched, xmlText, parseErr) {
+  const prefix = xmlText ? xmlText.slice(0, 300).replace(/\s+/g, " ").trim() : "";
+  const shape = classifyResponseShape(xmlText ?? "");
+  const parseMessage = parseErr ? String(parseErr?.message ?? parseErr).slice(0, 500) : null;
+  let diagnostic_note = parseMessage;
+  if (!diagnostic_note && shape.response_appears_html) {
+    diagnostic_note = "Response appears HTML, not RSS/Atom XML";
+  } else if (!diagnostic_note && xmlText && !shape.response_appears_xml) {
+    diagnostic_note = "Response does not appear to be XML";
+  }
+  const diagnostics = {
+    response_status: fetched?.res?.status ?? null,
+    response_content_type: fetched?.res?.headers?.get("content-type") ?? null,
+    final_url: fetched?.res?.url ?? null,
+    parse_error_code: parseErr ? "invalid_feed" : null,
+    diagnostic_note,
+    diagnostic_prefix_hash: prefix ? sha256Hex(prefix) : null,
+    ...shape,
+  };
+  if (
+    prefix.length > 0 &&
+    prefix.length <= 300 &&
+    shape.response_appears_xml &&
+    !shape.response_appears_html
+  ) {
+    diagnostics.diagnostic_prefix = prefix;
+  }
+  return diagnostics;
+}
+
 export function parseFeedXml(xmlText, watcher) {
-  const parser = new XMLParser({
-    ignoreAttributes: false,
-    attributeNamePrefix: "@_",
-    trimValues: true,
-  });
+  const parser = new XMLParser(FEED_XML_PARSER_OPTIONS);
   const doc = parser.parse(xmlText);
 
   if (doc?.rss?.channel) {
@@ -197,16 +245,20 @@ export async function runFeedWatcher(watcher, context) {
       const detail = fetched.res
         ? `HTTP ${fetched.res.status} after ${fetched.attempt} attempt(s)`
         : String(fetched.error?.message ?? "fetch failed");
+      const feedDiagnostics = buildFeedDiagnostics(fetched, null, null);
       return {
         snapshot: {
           ...base,
           http_status: fetched.res?.status ?? null,
+          content_type: feedDiagnostics.response_content_type,
+          final_url: feedDiagnostics.final_url ?? watcher.feed_url,
           fetch_error: buildFetchErrorMessage(category, detail),
           snapshot_kind: "error_placeholder",
           error_category: category,
         },
         error: buildFetchErrorMessage(category, detail),
         error_category: category,
+        feed_diagnostics: feedDiagnostics,
         retry_attempts: fetched.attempt,
         last_successful_snapshot_id: lastSuccessfulSnapshotId,
         detectedChanges: [],
@@ -218,6 +270,7 @@ export async function runFeedWatcher(watcher, context) {
     try {
       parsed = parseFeedXml(xml, watcher);
     } catch (parseErr) {
+      const feedDiagnostics = buildFeedDiagnostics(fetched, xml, parseErr);
       const msg = buildFetchErrorMessage(
         "invalid_feed",
         String(parseErr?.message ?? parseErr),
@@ -226,12 +279,15 @@ export async function runFeedWatcher(watcher, context) {
         snapshot: {
           ...base,
           http_status: fetched.res.status,
+          content_type: feedDiagnostics.response_content_type,
+          final_url: feedDiagnostics.final_url ?? watcher.feed_url,
           fetch_error: msg,
           snapshot_kind: "error_placeholder",
           error_category: "invalid_feed",
         },
         error: msg,
         error_category: "invalid_feed",
+        feed_diagnostics: feedDiagnostics,
         retry_attempts: fetched.attempt,
         last_successful_snapshot_id: lastSuccessfulSnapshotId,
         detectedChanges: [],
@@ -268,6 +324,7 @@ export async function runFeedWatcher(watcher, context) {
       snapshot,
       error: null,
       error_category: null,
+      feed_diagnostics: null,
       retry_attempts: fetched.attempt,
       last_successful_snapshot_id: lastSuccessfulSnapshotId,
       detectedChanges,
@@ -284,6 +341,7 @@ export async function runFeedWatcher(watcher, context) {
       },
       error: msg,
       error_category: category,
+      feed_diagnostics: null,
       retry_attempts: 0,
       last_successful_snapshot_id: lastSuccessfulSnapshotId,
       detectedChanges: [],

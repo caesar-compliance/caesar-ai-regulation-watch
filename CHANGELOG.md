@@ -11,6 +11,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.7.4] - 19 May 2026
+
+### Added
+
+- **Feed diagnostics** — `response_status`, `response_content_type`, `final_url`, `parse_error_code`, `diagnostic_note`, `diagnostic_prefix_hash` (and safe prefix when XML) on feed soft-fail; no full body stored.
+- **Live API baseline** — first successful Federal Register API metadata snapshot (`snap-api-us-federal-register-*`).
+- **Live EDPS feed baseline** — EDPS news RSS snapshot after parser fix.
+
+### Changed
+
+- **EDPS feed** — classified v0.7.3 `invalid_feed` as fast-xml-parser entity expansion limit on valid RSS XML (`application/rss+xml`); raised `maxTotalExpansions` to 2048.
+- **Federal Register API watcher** — `enabled: true` with unchanged narrow scope (`per_page=10`, term `artificial intelligence`, metadata-only).
+- **Watcher run log** — `feed_diagnostics` on error results; v0.7.4 run: 5 checked, 0 errors.
+- **Site** — watcher detail pages show feed/API URLs, diagnostics, feed/API snapshot counts.
+
+### Notes
+
+- No real detected changes from live run (baselines only; prior snapshot required for API/feed diff).
+- Watchers remain manual CLI only; not in CI.
+
+---
+
 ## [0.7.3] - 19 May 2026
 
 ### Added

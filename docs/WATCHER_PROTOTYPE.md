@@ -1,4 +1,4 @@
-# Official source watcher prototype (v0.7.2)
+# Official source watcher prototype (v0.7.4)
 
 **Last updated:** 19 May 2026
 
@@ -16,8 +16,11 @@ This is **not** legal advice, **not** a compliance guarantee, and **not** produc
 | `watcher-datatilsynet` | page metadata | `datatilsynet` | Norway |
 | `watcher-edpb-feed` | RSS/feed | `edpb` | EU |
 | `watcher-edps-feed` | RSS/feed | `edps` | EU |
+| `watcher-us-federal-register-api` | API metadata | `us-federal-register` | US Federal |
 
-See `docs/SOURCE_ADAPTERS.md` and `docs/FEED_WATCHER_CANDIDATES.md`.
+See `docs/SOURCE_ADAPTERS.md`, `docs/FEED_WATCHER_CANDIDATES.md`, and `docs/API_WATCHER_CANDIDATES.md`.
+
+**v0.7.4:** Federal Register API watcher enabled (narrow query, metadata-only). EDPS feed parser limit fixed; feed diagnostics on soft-fail. Watchers remain **manual CLI only** — not scheduled, not in CI.
 
 Configuration: `data/watchers/official-source-watchers.yml`
 

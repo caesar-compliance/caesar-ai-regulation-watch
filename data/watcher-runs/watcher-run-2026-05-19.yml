@@ -10,30 +10,23 @@ fixture_only: false
 network_disabled: false
 preserves_latest_snapshots: true
 watcher_count: 5
-checked_count: 3
+checked_count: 5
 page_checked_count: 2
-feed_checked_count: 1
-api_checked_count: 0
+feed_checked_count: 2
+api_checked_count: 1
 changed_count: 0
-error_count: 1
-errors_by_category:
-  invalid_feed: 1
+error_count: 0
+errors_by_category: {}
 detected_change_ids: []
-error_summaries:
-  - watcher_id: watcher-edps-feed
-    source_id: edps
-    message: '[invalid_feed] Entity expansion limit exceeded: 1026 > 1000'
-    error_category: invalid_feed
-    retry_attempts: 1
-    last_successful_snapshot_id: null
+error_summaries: []
 results:
   - watcher_id: watcher-eu-ai-office
     source_id: eu-ai-office
     adapter_id: official_page_metadata
     status: unchanged
-    snapshot_id: snap-eu-ai-office-2026-05-19t213148508
-    previous_snapshot_id: snap-eu-ai-office-2026-05-19t212407931
-    last_successful_snapshot_id: snap-eu-ai-office-2026-05-19t212407931
+    snapshot_id: snap-eu-ai-office-2026-05-19t213808737
+    previous_snapshot_id: snap-eu-ai-office-2026-05-19t213148508
+    last_successful_snapshot_id: snap-eu-ai-office-2026-05-19t213148508
     detected_change_id: null
     detected_change_ids: []
     error_message: null
@@ -44,9 +37,9 @@ results:
     source_id: datatilsynet
     adapter_id: official_page_metadata
     status: unchanged
-    snapshot_id: snap-datatilsynet-2026-05-19t213148695
-    previous_snapshot_id: snap-datatilsynet-2026-05-19t212408174
-    last_successful_snapshot_id: snap-datatilsynet-2026-05-19t212408174
+    snapshot_id: snap-datatilsynet-2026-05-19t213808920
+    previous_snapshot_id: snap-datatilsynet-2026-05-19t213148695
+    last_successful_snapshot_id: snap-datatilsynet-2026-05-19t213148695
     detected_change_id: null
     detected_change_ids: []
     error_message: null
@@ -57,9 +50,9 @@ results:
     source_id: edpb
     adapter_id: official_rss_or_feed
     status: unchanged
-    snapshot_id: snap-feed-edpb-2026-05-19t213148790
-    previous_snapshot_id: snap-feed-edpb-2026-05-19t212408273
-    last_successful_snapshot_id: snap-feed-edpb-2026-05-19t212408273
+    snapshot_id: snap-feed-edpb-2026-05-19t213809026
+    previous_snapshot_id: snap-feed-edpb-2026-05-19t213148790
+    last_successful_snapshot_id: snap-feed-edpb-2026-05-19t213148790
     detected_change_id: null
     detected_change_ids: []
     error_message: null
@@ -69,28 +62,28 @@ results:
   - watcher_id: watcher-edps-feed
     source_id: edps
     adapter_id: official_rss_or_feed
-    status: error
-    snapshot_id: null
-    previous_snapshot_id: null
-    last_successful_snapshot_id: null
-    detected_change_id: null
-    detected_change_ids: []
-    error_message: '[invalid_feed] Entity expansion limit exceeded: 1026 > 1000'
-    error_category: invalid_feed
-    retry_attempts: 1
-    soft_fail: true
-  - watcher_id: watcher-us-federal-register-api
-    source_id: us-federal-register
-    adapter_id: official_api_metadata
-    status: skipped_disabled
-    snapshot_id: null
+    status: checked
+    snapshot_id: snap-feed-edps-2026-05-19t213809433
     previous_snapshot_id: null
     last_successful_snapshot_id: null
     detected_change_id: null
     detected_change_ids: []
     error_message: null
     error_category: null
-    retry_attempts: null
+    retry_attempts: 1
+    soft_fail: true
+  - watcher_id: watcher-us-federal-register-api
+    source_id: us-federal-register
+    adapter_id: official_api_metadata
+    status: checked
+    snapshot_id: snap-api-us-federal-register-2026-05-19t213810301
+    previous_snapshot_id: null
+    last_successful_snapshot_id: null
+    detected_change_id: null
+    detected_change_ids: []
+    error_message: null
+    error_category: null
+    retry_attempts: 1
     soft_fail: true
 legal_safe_note: >-
   Metadata-only watcher output for governance review support. Not legal advice. Not a compliance guarantee. Human review

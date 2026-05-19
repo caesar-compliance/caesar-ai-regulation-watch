@@ -1,7 +1,7 @@
 # Latest snapshot pointer for eu-ai-office
 
-snapshot_id: snap-eu-ai-office-2026-05-19t213148508
-checked_at: '2026-05-19T21:31:48.508Z'
+snapshot_id: snap-eu-ai-office-2026-05-19t213808737
+checked_at: '2026-05-19T21:38:08.737Z'
 watcher_id: watcher-eu-ai-office
 adapter_id: official_page_metadata
 storage_policy: metadata_only_no_body_storage

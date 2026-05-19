@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Manual official-source watchers (v0.7.3).
+ * Manual official-source watchers (v0.7.4).
  * Page, feed, and API adapters with conservative retry. Not in CI.
  */
 import fs from "node:fs";
@@ -24,7 +24,7 @@ const DEFAULT_TIMEOUT_MS = Number(process.env.WATCHER_TIMEOUT_MS ?? 20000);
 const DRY_RUN = process.argv.includes("--dry-run");
 const SKIP_NETWORK = process.argv.includes("--skip-network");
 const DEFAULT_USER_AGENT =
-  "Caesar-AI-Regulation-Watch/0.7.3 official-source-watcher (governance review support)";
+  "Caesar-AI-Regulation-Watch/0.7.4 official-source-watcher (governance review support)";
 
 const WATCHER_CONFIG = path.join(ROOT, "data/watchers/official-source-watchers.yml");
 const SNAPSHOTS_ROOT = path.join(ROOT, "data/snapshots");
@@ -128,8 +128,9 @@ function buildRunResult(watcher, previous, outcome) {
     error_category,
     retry_attempts,
     last_successful_snapshot_id,
+    feed_diagnostics,
   } = outcome;
-  return {
+  const result = {
     watcher_id: watcher.watcher_id,
     source_id: watcher.source_id,
     adapter_id: watcher.adapter_id ?? watcher.watcher_type,
@@ -144,10 +145,14 @@ function buildRunResult(watcher, previous, outcome) {
     retry_attempts: retry_attempts ?? null,
     soft_fail: watcher.soft_fail ?? true,
   };
+  if (feed_diagnostics) {
+    result.feed_diagnostics = feed_diagnostics;
+  }
+  return result;
 }
 
 async function main() {
-  console.log("\nCaesar AI Regulation Watch — official source watchers (v0.7.3)");
+  console.log("\nCaesar AI Regulation Watch — official source watchers (v0.7.4)");
   console.log(`Run date: ${RUN_DATE}`);
   console.log(`Run ID: ${RUN_ID}`);
   if (DRY_RUN) console.log("Mode: dry-run");
@@ -232,6 +237,7 @@ async function main() {
       errorCount += 1;
       const cat = error_category ?? "unknown_error";
       errorsByCategory[cat] = (errorsByCategory[cat] ?? 0) + 1;
+      const feedDiagnostics = runOutcome.feed_diagnostics ?? null;
       errorSummaries.push({
         watcher_id: watcher.watcher_id,
         source_id: watcher.source_id,
@@ -239,6 +245,7 @@ async function main() {
         error_category: cat,
         retry_attempts,
         last_successful_snapshot_id,
+        ...(feedDiagnostics ? { feed_diagnostics: feedDiagnostics } : {}),
       });
       results.push(
         buildRunResult(watcher, previous, {
@@ -249,6 +256,7 @@ async function main() {
           error_category: cat,
           retry_attempts,
           last_successful_snapshot_id,
+          feed_diagnostics: feedDiagnostics,
         }),
       );
       console.log(`error (${cat})`);
@@ -259,6 +267,7 @@ async function main() {
       errorCount += 1;
       const cat = error_category ?? "unknown_error";
       errorsByCategory[cat] = (errorsByCategory[cat] ?? 0) + 1;
+      const feedDiagnostics = runOutcome.feed_diagnostics ?? null;
       errorSummaries.push({
         watcher_id: watcher.watcher_id,
         source_id: watcher.source_id,
@@ -266,6 +275,7 @@ async function main() {
         error_category: cat,
         retry_attempts,
         last_successful_snapshot_id,
+        ...(feedDiagnostics ? { feed_diagnostics: feedDiagnostics } : {}),
       });
       results.push(
         buildRunResult(watcher, previous, {
@@ -276,6 +286,7 @@ async function main() {
           error_category: cat,
           retry_attempts,
           last_successful_snapshot_id,
+          feed_diagnostics: feedDiagnostics,
         }),
       );
       console.log(`soft error (${cat}, latest preserved)`);

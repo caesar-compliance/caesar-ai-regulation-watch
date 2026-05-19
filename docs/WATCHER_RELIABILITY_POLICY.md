@@ -1,4 +1,4 @@
-# Watcher reliability policy (v0.7.3)
+# Watcher reliability policy (v0.7.4)
 
 **Last updated:** 19 May 2026
 
@@ -32,6 +32,27 @@
 ## Error categories
 
 `timeout`, `dns_error`, `rate_limited`, `forbidden`, `server_error`, `invalid_feed`, `invalid_api_response`, `network_error`, `unknown_error`
+
+## Feed diagnostics (v0.7.4)
+
+On feed fetch/parse soft-fail, run logs may include `feed_diagnostics` (metadata only):
+
+| Field | Purpose |
+|---|---|
+| `response_status` | HTTP status |
+| `response_content_type` | Content-Type header |
+| `final_url` | URL after redirects |
+| `parse_error_code` | e.g. `invalid_feed` |
+| `diagnostic_note` | Short parse/classification note |
+| `diagnostic_prefix_hash` | SHA-256 of first ≤300 chars (whitespace-normalized) |
+| `diagnostic_prefix` | Prefix text only when safe XML (no HTML error page) |
+| `response_appears_xml` / `response_appears_html` | Shape hints |
+
+Full feed bodies are **not** stored in snapshots or run logs.
+
+## XML parser limits (feed adapter)
+
+Official EDPS news RSS triggered `Entity expansion limit exceeded: 1026 > 1000` with fast-xml-parser defaults (valid `application/rss+xml`). v0.7.4 sets `maxTotalExpansions: 2048` and `maxExpandedLength: 8192` — conservative raise for known official feeds; not unbounded.
 
 ## Related docs
 

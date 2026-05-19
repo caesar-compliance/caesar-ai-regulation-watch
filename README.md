@@ -3,7 +3,7 @@
 **Global AI regulation monitoring for governance teams** — part of the [Caesar AI Governance Hub](https://github.com/caesar-compliance/caesar-ai-governance-hub) ecosystem.
 
 **Last updated:** 19 May 2026  
-**Status:** v0.7.3 — Watcher reliability + API adapter foundation (page/feed/API adapters; manual CLI only) (`npm run watch:simulate-change`), metadata-only snapshots, manual `npm run watch:official`, plus URL remediation, source identity review, technical URL checks, curated records, review queue, map, timelines, CI validate/build, search, and JSON/RSS exports (no APIs, database, auth; watchers not in CI)
+**Status:** v0.7.4 — EDPS feed fix + live Federal Register API baseline (5 manual watchers: page/feed/API; metadata-only snapshots; `npm run watch:official`); plus URL remediation, source identity review, technical URL checks, curated records, review queue, map, timelines, CI validate/build, search, and JSON/RSS exports (no backend APIs, database, auth; watchers not in CI)
 
 ---
 

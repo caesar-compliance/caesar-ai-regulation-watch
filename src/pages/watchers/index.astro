@@ -37,6 +37,17 @@ const latestRun = latestWatcherRun();
           <div><dt>Date</dt><dd>{latestRun.run_date}</dd></div>
           <div><dt>Run mode</dt><dd>{humanizeId(latestRun.run_mode ?? latestRun.mode ?? "—")}</dd></div>
           <div><dt>Checked</dt><dd>{latestRun.checked_count}</dd></div>
+          {
+            latestRun.api_checked_count != null && (
+              <div>
+                <dt>By adapter</dt>
+                <dd>
+                  page {latestRun.page_checked_count ?? 0}, feed {latestRun.feed_checked_count ?? 0}, api{" "}
+                  {latestRun.api_checked_count ?? 0}
+                </dd>
+              </div>
+            )
+          }
           <div><dt>Changes detected</dt><dd>{latestRun.changed_count}</dd></div>
           <div><dt>Errors</dt><dd>{latestRun.error_count}</dd></div>
         </dl>

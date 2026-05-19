@@ -1,7 +1,7 @@
 # Specification — Caesar AI Regulation Watch
 
 **Last updated:** 19 May 2026  
-**Status:** v0.7.1 — watcher diff hardening + simulation validation (`npm run watch:official`, manual only), metadata-only snapshots, technical URL verification, human verification workflow, review queue, CI validate/build, read-only Astro site (no APIs, database, auth; watchers and URL checks not in CI)
+**Status:** v0.7.4 — five manual watchers (page, feed, API); EDPS feed + Federal Register API live baselines; feed diagnostics on soft-fail; metadata-only snapshots; technical URL verification; human verification workflow; review queue; CI validate/build, read-only Astro site (no backend APIs, database, auth; watchers and URL checks not in CI)
 
 ---
 

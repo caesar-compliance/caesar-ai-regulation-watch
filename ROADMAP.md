@@ -4,7 +4,7 @@
 
 This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
 
-**Current (v0.7.1):** watcher diff hardening + `watch:simulate-change` pipeline validation (2 pilot sources, manual CLI, metadata-only snapshots). **Next:** Control Tower record content review; second live watcher run for real diff detection; expand watchers only after approval.
+**Current (v0.7.4):** five manual watchers (page/feed/API); EDPS feed parser fix; Federal Register API enabled with live baseline; feed diagnostics. **Next:** Control Tower review of API baseline scope; second live watcher run for real feed/API diffs; production scheduling still deferred.
 
 ---
 

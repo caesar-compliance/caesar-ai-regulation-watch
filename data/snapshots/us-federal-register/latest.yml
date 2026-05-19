@@ -1,0 +1,7 @@
+# Latest snapshot pointer for us-federal-register
+
+snapshot_id: snap-api-us-federal-register-2026-05-19t213810301
+checked_at: '2026-05-19T21:38:10.301Z'
+watcher_id: watcher-us-federal-register-api
+adapter_id: official_api_metadata
+storage_policy: metadata_only_no_body_storage

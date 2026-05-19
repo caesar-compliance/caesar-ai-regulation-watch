@@ -1,4 +1,4 @@
-# Source adapters (v0.7.2)
+# Source adapters (v0.7.4)
 
 **Last updated:** 19 May 2026
 
@@ -10,7 +10,7 @@ Caesar AI Regulation Watch uses **source adapters** to fetch and diff official s
 |---|---|
 | `official_page_metadata` | HTTP metadata + content hash of a single official HTML page |
 | `official_rss_or_feed` | RSS/Atom feed entry metadata (title, link, date, id) |
-| `official_api_metadata` | Reserved for official JSON/API metadata (not implemented in v0.7.2) |
+| `official_api_metadata` | Official JSON API metadata (Federal Register pilot in v0.7.4) |
 | `manual_only` | No automated fetch; human-curated updates only |
 
 ---
@@ -43,9 +43,19 @@ Caesar AI Regulation Watch uses **source adapters** to fetch and diff official s
 
 | Aspect | Detail |
 |---|---|
-| **Purpose** | Future: official JSON APIs (e.g. Federal Register API) with metadata-only fields |
-| **Status** | Documented only in v0.7.2 — see `docs/FEED_WATCHER_CANDIDATES.md` |
-| **What not to do** | Treat API JSON as legal conclusions or client-ready records |
+| **Purpose** | Official JSON APIs (e.g. Federal Register Documents API) with metadata-only result fields |
+| **Inputs** | `api_url`, `max_results_per_check`, query scope note |
+| **Output snapshot** | `api-snapshot` — result id, title, link, publication date, result_hash; response hash only (no body storage) |
+| **Diff strategy** | New/removed/changed results (`scripts/lib/api-diff.mjs`) |
+| **Risk profile** | Medium — search term may return tangential documents; human review required |
+| **When to use** | Confirmed official API with narrow, approved query scope |
+| **What not to do** | Fetch document HTML bodies, crawl result links, run broad queries, treat API listings as legal conclusions |
+
+**v0.7.4 pilot:** `watcher-us-federal-register-api` — `per_page=10`, `term=artificial intelligence`, enabled after scope approval. First run = baseline only.
+
+### Feed diagnostics (`official_rss_or_feed`)
+
+On parse/fetch soft-fail, adapter attaches `feed_diagnostics` to run logs (status, content-type, final URL, parse note, prefix hash). No full feed body stored. See `docs/WATCHER_RELIABILITY_POLICY.md`.
 
 ### `manual_only`
 

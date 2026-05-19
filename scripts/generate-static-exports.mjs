@@ -625,7 +625,7 @@ const realApiDetectedChanges = apiDetectedChanges.filter((d) => !d.simulation);
 
 const snapshot = {
   generated_at: generatedAt,
-  version: "0.7.3",
+  version: "0.7.4",
   disclaimer: DISCLAIMER,
   pilot_jurisdictions: jurisdictions.map((j) => j.jurisdiction_id),
   counts: {

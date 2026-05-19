@@ -87,6 +87,26 @@ const runResult = latestRun?.results.find((r) => r.watcher_id === watcher.watche
     </div>
     <div><dt>Change detection</dt><dd>{humanizeId(watcher.change_detection_mode)}</dd></div>
     <div><dt>Snapshot policy</dt><dd>{humanizeId(watcher.snapshot_policy)}</dd></div>
+    {
+      watcher.feed_url && (
+        <div>
+          <dt>Feed URL</dt>
+          <dd class="mono" style="word-break: break-all;">
+            <a href={watcher.feed_url} target="_blank" rel="noopener noreferrer">
+              {watcher.feed_url}
+            </a>
+          </dd>
+        </div>
+      )
+    }
+    {
+      watcher.api_url && (
+        <div>
+          <dt>API URL</dt>
+          <dd class="mono" style="word-break: break-all;">{watcher.api_url}</dd>
+        </div>
+      )
+    }
   </dl>
 
   <h2>Monitoring scope</h2>
@@ -103,11 +123,44 @@ const runResult = latestRun?.results.find((r) => r.watcher_id === watcher.watche
           <div><dt>Status</dt><dd>{humanizeId(runResult.status)}</dd></div>
           <div><dt>Snapshot</dt><dd class="mono">{runResult.snapshot_id ?? "—"}</dd></div>
           {
+            runResult.error_category && (
+              <div><dt>Error category</dt><dd>{runResult.error_category}</dd></div>
+            )
+          }
+          {
             runResult.error_message && (
               <div>
                 <dt>Error</dt>
                 <dd>{runResult.error_message}</dd>
               </div>
+            )
+          }
+          {
+            runResult.feed_diagnostics && (
+              <>
+                <div>
+                  <dt>Response status</dt>
+                  <dd>{runResult.feed_diagnostics.response_status ?? "—"}</dd>
+                </div>
+                <div>
+                  <dt>Content-Type</dt>
+                  <dd class="mono">{runResult.feed_diagnostics.response_content_type ?? "—"}</dd>
+                </div>
+                <div>
+                  <dt>Final URL</dt>
+                  <dd class="mono" style="word-break: break-all;">
+                    {runResult.feed_diagnostics.final_url ?? "—"}
+                  </dd>
+                </div>
+                {
+                  runResult.feed_diagnostics.diagnostic_note && (
+                    <div>
+                      <dt>Diagnostic note</dt>
+                      <dd>{runResult.feed_diagnostics.diagnostic_note}</dd>
+                    </div>
+                  )
+                }
+              </>
             )
           }
         </dl>
@@ -130,8 +183,18 @@ const runResult = latestRun?.results.find((r) => r.watcher_id === watcher.watche
             <dt>Final URL</dt>
             <dd class="mono" style="word-break: break-all;">{latestSnap.final_url}</dd>
           </div>
-          <div><dt>Title</dt><dd>{latestSnap.title ?? "—"}</dd></div>
-          <div><dt>Content hash</dt><dd class="mono">{latestSnap.content_hash ?? "—"}</dd></div>
+          <div><dt>Title</dt><dd>{latestSnap.title ?? latestSnap.feed_title ?? "—"}</dd></div>
+          {
+            latestSnap.feed_entry_count != null && (
+              <div><dt>Feed entries</dt><dd>{latestSnap.feed_entry_count}</dd></div>
+            )
+          }
+          {
+            latestSnap.result_count != null && (
+              <div><dt>API results</dt><dd>{latestSnap.result_count}</dd></div>
+            )
+          }
+          <div><dt>Content hash</dt><dd class="mono">{latestSnap.content_hash ?? latestSnap.response_hash ?? "—"}</dd></div>
           <div>
             <dt>Normalized text hash</dt>
             <dd class="mono">{latestSnap.normalized_text_hash ?? "—"}</dd>

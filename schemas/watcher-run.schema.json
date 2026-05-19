@@ -125,6 +125,9 @@
           "last_successful_snapshot_id": {
             "type": ["string", "null"],
             "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "feed_diagnostics": {
+            "$ref": "#/$defs/feedDiagnostics"
           }
         }
       }
@@ -193,6 +196,9 @@
           },
           "soft_fail": {
             "type": ["boolean", "null"]
+          },
+          "feed_diagnostics": {
+            "$ref": "#/$defs/feedDiagnostics"
           }
         }
       }
@@ -200,6 +206,45 @@
     "legal_safe_note": {
       "type": "string",
       "minLength": 1
+    }
+  },
+  "$defs": {
+    "feedDiagnostics": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "response_status": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "maximum": 599
+        },
+        "response_content_type": {
+          "type": ["string", "null"]
+        },
+        "final_url": {
+          "type": ["string", "null"]
+        },
+        "parse_error_code": {
+          "type": ["string", "null"]
+        },
+        "diagnostic_note": {
+          "type": ["string", "null"]
+        },
+        "diagnostic_prefix": {
+          "type": ["string", "null"],
+          "maxLength": 300
+        },
+        "diagnostic_prefix_hash": {
+          "type": ["string", "null"],
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "response_appears_xml": {
+          "type": ["boolean", "null"]
+        },
+        "response_appears_html": {
+          "type": ["boolean", "null"]
+        }
+      }
     }
   }
 }

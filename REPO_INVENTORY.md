@@ -8,13 +8,13 @@
 
 | File | Role |
 |---|---|
-| **README.md** | Public entry; v0.7.1 status + npm commands |
+| **README.md** | Public entry; v0.7.4 status + npm commands |
 | **SPEC.md** | Requirements through static site |
 | **ARCHITECTURE.md** | Data layers + Astro publishing |
 | **ROADMAP.md** | v0.6.1 URL verification + review queue |
 | **CHANGELOG.md** | Semver history |
 | **REPO_INVENTORY.md** | This file |
-| **PROJECT_STATE.md** | v0.7.1 phase |
+| **PROJECT_STATE.md** | v0.7.4 phase |
 | **NEXT_ACTIONS.md** | Control Tower URL verification |
 | **docs/SOURCE_VERIFICATION_WORKFLOW.md** | Verification process |
 | **docs/RECORD_EXPANSION_GAPS.md** | Deferred records log |
@@ -66,14 +66,16 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **taxonomy.schema.json** | Taxonomy files |
 | **evidence-export-record.schema.json** | Export contract record |
 | **timeline.schema.json** | Timeline YAML (v0.5.0) |
-| **watcher-config.schema.json** | Watcher registry (v0.7.0) |
-| **source-snapshot.schema.json** | Metadata snapshot (v0.7.0) |
-| **watcher-run.schema.json** | Watcher run log (v0.7.0) |
-| **detected-change.schema.json** | Pending detected change (v0.7.0) |
+| **watcher-config.schema.json** | Watcher registry |
+| **source-snapshot.schema.json** | Page metadata snapshot |
+| **feed-snapshot.schema.json** | Feed metadata snapshot |
+| **api-snapshot.schema.json** | API metadata snapshot |
+| **watcher-run.schema.json** | Watcher run log (incl. feed_diagnostics) |
+| **detected-change.schema.json** | Pending detected change |
 
 ---
 
-## data/watchers/ & watcher outputs (v0.7.0)
+## data/watchers/ & watcher outputs (v0.7.4)
 
 | Path | Role |
 |---|---|
