@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-05-19",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
   "pilot_jurisdictions": [
     "australia",
@@ -31,6 +31,10 @@
     "url_checks_redirected": 2,
     "url_checks_unreachable": 1,
     "content_review_not_reviewed": 41,
+    "content_review_count": 9,
+    "content_reviewed_items_count": 0,
+    "content_needs_update_count": 0,
+    "verified_on_source_count": 0,
     "client_use_allowed_count": 0,
     "source_identity_reviewed_count": 23,
     "unresolved_url_issue_count": 1,
@@ -70,9 +74,9 @@
     "pending_review": 88,
     "needs_update": 0,
     "unverified_timeline_events": 10,
-    "unverified_records": 12,
+    "unverified_records": 15,
     "pending_source_verifications": 13,
-    "exports": 9
+    "exports": 10
   },
   "feeds": {
     "changes_rss": "/feeds/changes.xml"
@@ -87,6 +91,7 @@
     "map_coverage": "/data/map-coverage.json",
     "review_queue": "/data/review-queue.json",
     "verifications": "/data/verifications.json",
+    "content_reviews": "/data/content-reviews.json",
     "url_checks": "/data/url-checks.json",
     "watchers": "/data/watchers.json",
     "snapshots": "/data/snapshots.json",

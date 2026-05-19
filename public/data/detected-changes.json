@@ -41,6 +41,10 @@
       "review_status": "pending_review",
       "review_queue_reason": "simulated_feed_detected_change_pending_review",
       "client_use_allowed": false,
+      "content_review_status": "not_reviewed",
+      "last_content_review_id": "content-review-simulated-edpb-feed-change-2026-05-19",
+      "review_result": "not_checked",
+      "recommended_next_action": "ignore_noise",
       "legal_safe_note": "Simulation only; not an official feed update. Feed metadata fixture diff for pipeline validation. Human review required.",
       "minimum_change_policy": "feed_entry_identity_and_metadata_only",
       "feed_entries_affected": [
@@ -120,6 +124,10 @@
       "volatile_field_note": null,
       "minimum_change_policy": "high_significance_requires_content_signal_or_url_status_change",
       "client_use_allowed": false,
+      "content_review_status": "not_reviewed",
+      "last_content_review_id": "content-review-simulated-eu-ai-office-change-2026-05-19",
+      "review_result": "not_checked",
+      "recommended_next_action": "keep_pending_review",
       "simulation": true
     },
     {
@@ -158,6 +166,10 @@
       "review_status": "pending_review",
       "review_queue_reason": "simulated_api_detected_change_pending_review",
       "client_use_allowed": false,
+      "content_review_status": "not_reviewed",
+      "last_content_review_id": "content-review-simulated-us-federal-register-api-change-2026-05-19",
+      "review_result": "not_checked",
+      "recommended_next_action": "keep_pending_review",
       "legal_safe_note": "Simulation only; not an official API update. Fixture metadata diff for pipeline validation.",
       "minimum_change_policy": "api_result_metadata_only",
       "api_results_affected": [

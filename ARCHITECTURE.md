@@ -1,7 +1,7 @@
 # Architecture — Caesar AI Regulation Watch
 
 **Last updated:** 19 May 2026  
-**Status:** v0.8.1 — static registry + monitoring cycle + optional review PR branch; scheduled monitoring artifacts-only; push/PR CI validate/build; read-only Astro site; no backend API/database/auth/deploy/auto-merge
+**Status:** v0.8.2 — static registry + content review workflow + monitoring cycle; scheduled monitoring artifacts-only; push/PR CI validate/build; read-only Astro site; no backend API/database/auth/deploy/auto-merge/write UI
 
 ---
 

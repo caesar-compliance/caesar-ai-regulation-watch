@@ -108,6 +108,18 @@ const verificationBatches = [
   ...readVerificationDir("source-identity-review"),
 ];
 const urlCheckBatches = readVerificationDir("url-check");
+const contentReviewBatches = readVerificationDir("content-review");
+const contentReviews = contentReviewBatches.flatMap((b) =>
+  (b.content_reviews ?? []).map((cr) => ({
+    ...cr,
+    content_review_batch_id: b.content_review_batch_id,
+  })),
+);
+const contentReviewByItem = Object.fromEntries(
+  [...contentReviews]
+    .sort((a, b) => b.review_date.localeCompare(a.review_date))
+    .map((cr) => [cr.item_id, cr]),
+);
 const verifications = verificationBatches.flatMap((b) =>
   (b.verifications ?? []).map((v) => ({
     ...v,
@@ -172,7 +184,7 @@ function urlCheckForRecord(recordId, urlChecks) {
   );
 }
 
-function technicalReasonsFromCheck(check, identityReviewed = false) {
+function technicalReasonsFromCheck(check, identityReviewed = false, includeContentReason = true) {
   if (!check) return ["technical_url_unchecked"];
   const reasons = [];
   const ok = check.check_result === "reachable" || check.check_result === "reachable_redirected";
@@ -187,7 +199,7 @@ function technicalReasonsFromCheck(check, identityReviewed = false) {
   if ((check.check_result === "reachable_redirected" || check.redirect_detected) && !identityReviewed) {
     reasons.push("redirected_url_needs_review");
   }
-  if (check.content_review_status === "not_reviewed") {
+  if (includeContentReason && check.content_review_status === "not_reviewed") {
     reasons.push("content_not_reviewed");
   }
   if (!check.client_use_allowed) {
@@ -209,6 +221,27 @@ function mergeReasons(...groups) {
   return [...new Set(groups.flat())];
 }
 
+function contentReasonsForItem(itemId, recordContentStatus, contentReview) {
+  const reasons = [];
+  const status = recordContentStatus ?? contentReview?.content_review_status_after_check ?? "not_reviewed";
+  if (status === "not_reviewed" || !contentReview) {
+    reasons.push("content_not_reviewed");
+  }
+  if (status === "needs_update" || contentReview?.content_review_status_after_check === "needs_update") {
+    reasons.push("content_review_needs_update");
+  }
+  if (
+    contentReview?.source_support_level === "unclear" ||
+    contentReview?.review_result === "source_support_unclear"
+  ) {
+    reasons.push("source_support_unclear");
+  }
+  if (status === "reviewed_content_summary") {
+    reasons.push("client_use_not_allowed");
+  }
+  return reasons;
+}
+
 const REASON_LABELS = {
   pending_review: "Editorial review_status is not reviewed.",
   technical_url_unchecked: "Technical URL not checked or outcome uncertain.",
@@ -218,6 +251,9 @@ const REASON_LABELS = {
   source_identity_reviewed_only:
     "Official source identity reviewed only; content/legal review not done.",
   content_not_reviewed: "Content summary not human-reviewed.",
+  content_review_needs_update: "Content review flagged fields needing update.",
+  source_support_unclear: "Source support for summary/dates/status is unclear.",
+  detected_change_needs_content_review: "Detected change has no completed content review.",
   legal_review_not_done: "Legal/content verification on official source not completed.",
   verified_on_source_false: "Not verified on official source in this repository.",
   client_use_not_allowed: "Client use not allowed.",
@@ -314,15 +350,18 @@ function buildReviewQueue() {
 
   for (const r of records) {
     const urlCheck = urlCheckForRecord(r.record_id, urlChecks);
-    const recordUnverified = r.verified_on_source === false;
+    const contentReview = contentReviewByItem[r.record_id];
+    const recordContentStatus =
+      r.content_review_status ?? contentReview?.content_review_status_after_check ?? "not_reviewed";
+    const recordUnverified = r.verified_on_source !== true;
     const identityDone = identityReasonsForSource(r.source_id, identityBySource).includes(
       "source_identity_reviewed_only",
     );
     const review_reasons = mergeReasons(
       needsReview(r.review_status) ? ["pending_review"] : [],
       recordUnverified ? ["verified_on_source_false", "legal_review_not_done"] : [],
-      ["content_not_reviewed"],
-      technicalReasonsFromCheck(urlCheck, identityDone),
+      contentReasonsForItem(r.record_id, recordContentStatus, contentReview),
+      technicalReasonsFromCheck(urlCheck, identityDone, false),
     );
     const verification = verifications.find((v) => v.item_id === r.record_id);
     if (verification && !verification.client_use_allowed) {
@@ -342,9 +381,14 @@ function buildReviewQueue() {
       missing_official_url: !r.official_url,
       verified_on_source_false: recordUnverified,
       technical_url_status: urlCheck?.check_result ?? null,
-      content_review_status: urlCheck?.content_review_status ?? null,
+      content_review_status: recordContentStatus,
+      content_review_result: contentReview?.review_result ?? null,
       redirect_detected: urlCheck?.redirect_detected ?? false,
-      client_use_allowed: urlCheck?.client_use_allowed ?? verification?.client_use_allowed ?? null,
+      client_use_allowed:
+        contentReview?.client_use_allowed ??
+        urlCheck?.client_use_allowed ??
+        verification?.client_use_allowed ??
+        null,
     });
   }
 
@@ -449,26 +493,35 @@ function buildReviewQueue() {
   for (const dc of detectedChanges) {
     if (!needsReview(dc.review_status)) continue;
     const src = sourceById[dc.source_id];
+    const contentReview = contentReviewByItem[dc.detected_change_id];
+    const dcContentStatus =
+      dc.content_review_status ?? contentReview?.content_review_status_after_check ?? "not_reviewed";
     const adapterType =
       dc.source_adapter_type ?? dc.adapter_id ?? "official_page_metadata";
     const isFeed = adapterType === "official_rss_or_feed";
     const isApi = adapterType === "official_api_metadata";
-    const review_reasons = [
-      dc.simulation
-        ? isApi
-          ? "simulated_api_detected_change_pending_review"
-          : isFeed
-            ? "simulated_feed_detected_change_pending_review"
-            : "simulated_detected_change_pending_review"
-        : isApi
-          ? "api_detected_change_pending_review"
-          : isFeed
-            ? "feed_detected_change_pending_review"
-            : "detected_change_pending_review",
-      "human_review_required",
-      "content_not_reviewed",
-      "legal_review_not_done",
-    ];
+    const review_reasons = mergeReasons(
+      [
+        dc.simulation
+          ? isApi
+            ? "simulated_api_detected_change_pending_review"
+            : isFeed
+              ? "simulated_feed_detected_change_pending_review"
+              : "simulated_detected_change_pending_review"
+          : isApi
+            ? "api_detected_change_pending_review"
+            : isFeed
+              ? "feed_detected_change_pending_review"
+              : "detected_change_pending_review",
+        "human_review_required",
+        "legal_review_not_done",
+        "verified_on_source_false",
+        "client_use_not_allowed",
+      ],
+      dcContentStatus === "not_reviewed" || !contentReview
+        ? ["detected_change_needs_content_review", "content_not_reviewed"]
+        : contentReasonsForItem(dc.detected_change_id, dcContentStatus, contentReview),
+    );
     items.push({
       item_type: "detected_change",
       item_id: dc.detected_change_id,
@@ -484,7 +537,10 @@ function buildReviewQueue() {
       missing_official_url: !src?.official_url,
       verified_on_source_false: true,
       technical_url_status: null,
-      content_review_status: "not_reviewed",
+      content_review_status: dcContentStatus,
+      content_review_result: dc.review_result ?? contentReview?.review_result ?? null,
+      recommended_next_action:
+        dc.recommended_next_action ?? contentReview?.recommended_next_action ?? null,
       redirect_detected: false,
       client_use_allowed: false,
     });
@@ -594,6 +650,9 @@ const reviewSummary = {
   technical_url_unreachable: countReason("technical_url_unreachable"),
   redirected_url_needs_review: countReason("redirected_url_needs_review"),
   content_not_reviewed: countReason("content_not_reviewed"),
+  content_review_needs_update: countReason("content_review_needs_update"),
+  source_support_unclear: countReason("source_support_unclear"),
+  detected_change_needs_content_review: countReason("detected_change_needs_content_review"),
   client_use_not_allowed: countReason("client_use_not_allowed"),
   detected_change_pending_review: countReason("detected_change_pending_review"),
   watcher_errors: countReason("watcher_error"),
@@ -677,9 +736,28 @@ const apiDetectedChanges = detectedChanges.filter(isApiChange);
 const simulatedApiDetectedChanges = apiDetectedChanges.filter((d) => d.simulation);
 const realApiDetectedChanges = apiDetectedChanges.filter((d) => !d.simulation);
 
+const contentReviewSummary = {
+  total: contentReviews.length,
+  not_checked: contentReviews.filter((cr) => cr.review_result === "not_checked").length,
+  matches_source: contentReviews.filter((cr) => cr.review_result === "matches_source_at_high_level")
+    .length,
+  needs_update: contentReviews.filter((cr) => cr.review_result === "needs_update").length,
+  reviewed_content_summary: contentReviews.filter(
+    (cr) => cr.content_review_status_after_check === "reviewed_content_summary",
+  ).length,
+  content_needs_update: contentReviews.filter(
+    (cr) => cr.content_review_status_after_check === "needs_update",
+  ).length,
+  verified_on_source_after_check: contentReviews.filter((cr) => cr.verified_on_source_after_check)
+    .length,
+  client_use_allowed: contentReviews.filter((cr) => cr.client_use_allowed).length,
+};
+
+const recordsVerifiedOnSource = records.filter((r) => r.verified_on_source === true).length;
+
 const snapshot = {
   generated_at: generatedAt,
-  version: "0.8.1",
+  version: "0.8.2",
   disclaimer: DISCLAIMER,
   pilot_jurisdictions: jurisdictions.map((j) => j.jurisdiction_id),
   counts: {
@@ -700,7 +778,12 @@ const snapshot = {
       urlCheckSummary.dns_error +
       urlCheckSummary.network_error,
     content_review_not_reviewed: urlCheckSummary.content_review_not_reviewed,
-    client_use_allowed_count: urlCheckSummary.client_use_allowed_count,
+    content_review_count: contentReviewSummary.total,
+    content_reviewed_items_count: contentReviewSummary.reviewed_content_summary,
+    content_needs_update_count: contentReviewSummary.content_needs_update,
+    verified_on_source_count: recordsVerifiedOnSource,
+    client_use_allowed_count:
+      urlCheckSummary.client_use_allowed_count + contentReviewSummary.client_use_allowed,
     source_identity_reviewed_count: identityVerifications.filter(
       (v) => v.review_status_after_check === "reviewed_source_identity_only",
     ).length,
@@ -752,7 +835,7 @@ const snapshot = {
     unverified_timeline_events: reviewSummary.unverified_timeline_events,
     unverified_records: reviewSummary.unverified_records,
     pending_source_verifications: reviewSummary.pending_source_verifications,
-    exports: 9,
+    exports: 10,
   },
   feeds: {
     changes_rss: "/feeds/changes.xml",
@@ -767,6 +850,7 @@ const snapshot = {
     map_coverage: "/data/map-coverage.json",
     review_queue: "/data/review-queue.json",
     verifications: "/data/verifications.json",
+    content_reviews: "/data/content-reviews.json",
     url_checks: "/data/url-checks.json",
     watchers: "/data/watchers.json",
     snapshots: "/data/snapshots.json",
@@ -853,6 +937,8 @@ writeJson(path.join(PUBLIC_DATA, "verifications.json"), {
   items: verifications,
   source_identity_items: identityVerifications,
   record_content_items: recordVerifications,
+  content_review_batches: contentReviewBatches,
+  content_review_items: contentReviews,
   summary: {
     total: verifications.length,
     source_identity_reviewed: identityVerifications.filter(
@@ -867,7 +953,18 @@ writeJson(path.join(PUBLIC_DATA, "verifications.json"), {
     not_checked: verifications.filter((v) => v.check_result === "not_checked").length,
     uncertain: verifications.filter((v) => v.check_result === "uncertain").length,
     client_use_allowed: verifications.filter((v) => v.client_use_allowed).length,
+    content_review_count: contentReviewSummary.total,
+    content_review_not_checked: contentReviewSummary.not_checked,
+    content_review_client_use_allowed: contentReviewSummary.client_use_allowed,
   },
+});
+
+writeJson(path.join(PUBLIC_DATA, "content-reviews.json"), {
+  generated_at: generatedAt,
+  disclaimer: DISCLAIMER,
+  batches: contentReviewBatches,
+  items: contentReviews,
+  summary: contentReviewSummary,
 });
 
 writeJson(path.join(PUBLIC_DATA, "url-checks.json"), {
@@ -1018,6 +1115,7 @@ console.log("  public/data/timelines.json");
 console.log("  public/data/map-coverage.json");
 console.log("  public/data/review-queue.json");
 console.log("  public/data/verifications.json");
+console.log("  public/data/content-reviews.json");
 console.log("  public/data/url-checks.json");
 console.log("  public/data/watchers.json");
 console.log("  public/data/snapshots.json");
@@ -1030,6 +1128,7 @@ console.log(`  ${snapshots.length} snapshot(s) exported`);
 console.log(`  ${detectedChanges.length} detected change(s) exported`);
 console.log(`  ${reviewQueueItems.length} item(s) in review queue export`);
 console.log(`  ${verifications.length} verification(s) exported`);
+console.log(`  ${contentReviews.length} content review(s) exported`);
 console.log(`  ${urlChecks.length} URL check(s) exported`);
 console.log("  public/feeds/changes.xml");
 console.log(`  ${changes.length} change(s) in RSS feed`);

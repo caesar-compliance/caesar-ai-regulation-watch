@@ -32,6 +32,10 @@ human_review_required: true
 review_status: pending_review
 review_queue_reason: simulated_api_detected_change_pending_review
 client_use_allowed: false
+content_review_status: not_reviewed
+last_content_review_id: content-review-simulated-us-federal-register-api-change-2026-05-19
+review_result: not_checked
+recommended_next_action: keep_pending_review
 legal_safe_note: Simulation only; not an official API update. Fixture metadata diff for pipeline validation.
 minimum_change_policy: api_result_metadata_only
 api_results_affected:

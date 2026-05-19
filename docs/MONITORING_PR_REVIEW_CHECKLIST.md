@@ -20,7 +20,13 @@ Use this checklist when reviewing a **monitoring results** pull request opened f
 - [ ] For each **real** detected change, open the official source URL yourself — do not trust hashes or summaries alone.
 - [ ] Confirm the change is relevant to Caesar scope (jurisdiction, source, topic).
 
-### 3. Official source identity
+### 3. Content review (v0.8.2)
+
+- [ ] For any record or detected change you rely on, check `content_review_status` and `data/verifications/content-review-*.yml`.
+- [ ] Do not merge monitoring output that implies client-use approval — `client_use_allowed` must remain false.
+- [ ] Log content review outcomes in a separate curator PR if summaries/dates need updating (see [CONTENT_REVIEW_CHECKLIST.md](./CONTENT_REVIEW_CHECKLIST.md)).
+
+### 4. Official source identity
 
 - [ ] Match `source_id` / `watcher_id` to `data/sources/` registry entries.
 - [ ] Confirm URL/domain is the expected official or registered authoritative source.

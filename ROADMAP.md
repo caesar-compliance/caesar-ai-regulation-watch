@@ -4,7 +4,7 @@
 
 This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
 
-**Current (v0.8.1):** monitoring cycle + optional review PR workflow (scheduled artifact-only; manual `create_pr`; no auto-merge). **Next:** Control Tower trial review PR; `monitoring-review` label; optional Hetzner worker; deploy remains deferred.
+**Current (v0.8.2):** content review workflow (schema, pilot batch, static page, exports). **Next:** human browser content review on priority records; Control Tower monitoring PR trial; deploy remains deferred.
 
 ---
 

@@ -82,7 +82,30 @@ export function contentReviewStatusLabel(status: string): string {
     needs_human_review: "Needs human review",
     reviewed_source_identity_only: "Source identity reviewed",
     reviewed_content_summary: "Content summary reviewed",
+    needs_update: "Needs update",
     rejected_for_client_use: "Rejected for client use",
   };
   return labels[status] ?? humanizeId(status);
+}
+
+export function contentReviewResultLabel(result: string): string {
+  const labels: Record<string, string> = {
+    matches_source_at_high_level: "Matches source (high level)",
+    partially_matches_source: "Partially matches source",
+    source_support_unclear: "Source support unclear",
+    needs_update: "Needs update",
+    rejected_for_client_use: "Rejected for client use",
+    not_checked: "Not checked",
+  };
+  return labels[result] ?? humanizeId(result);
+}
+
+export function sourceSupportLevelLabel(level: string): string {
+  const labels: Record<string, string> = {
+    high: "High",
+    medium: "Medium",
+    low: "Low",
+    unclear: "Unclear",
+  };
+  return labels[level] ?? humanizeId(level);
 }

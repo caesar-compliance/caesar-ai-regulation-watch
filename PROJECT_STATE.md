@@ -9,12 +9,12 @@
 | Field | Value |
 |---|---|
 | **Repository** | `caesar-ai-regulation-watch` |
-| **Current version** | `v0.8.1` |
-| **Current phase** | Monitoring review PR workflow |
-| **Status** | Monitoring cycle + optional review PR + CI validate/build; no deploy |
-| **Working branch** | `agent/v0.8.1-monitoring-pr-workflow` |
-| **Latest completed task** | Diff summary script + optional GitHub review PR |
-| **Next recommended step** | Control Tower: create `monitoring-review` label; trial manual `create_pr=true` run |
+| **Current version** | `v0.8.2` |
+| **Current phase** | Content review workflow |
+| **Status** | Content review batch + page + exports; monitoring cycle unchanged; no deploy |
+| **Working branch** | `agent/v0.8.2-content-review-workflow` |
+| **Latest completed task** | Content review schema, batch, docs, `/content-review/` page |
+| **Next recommended step** | Human browser content review on priority records; update batch with real outcomes |
 
 ---
 
@@ -26,6 +26,19 @@
 | RSS/feed | 2 | 2 |
 | API metadata | 1 | 1 |
 | **Total watchers** | **5** | **5** |
+
+---
+
+## Content review (v0.8.2)
+
+| Capability | Status |
+|---|---|
+| `schemas/content-review.schema.json` | Yes |
+| `data/verifications/content-review-*.yml` | Yes (9-item pilot batch) |
+| `/content-review/` page | Yes |
+| `public/data/content-reviews.json` | Yes |
+| `client_use_allowed: true` | **No** (policy) |
+| Auto-update records from watchers | **No** |
 
 ---
 

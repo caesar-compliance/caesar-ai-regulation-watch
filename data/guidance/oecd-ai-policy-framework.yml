@@ -5,6 +5,8 @@ record_id: policy-oecd-ai-policy-navigator
 record_type: policy_framework
 record_origin: official_source_registry
 verified_on_source: false
+content_review_status: not_reviewed
+last_content_review_id: content-review-policy-oecd-ai-policy-navigator
 title: OECD.AI — Policy observatory and AI principles resources
 jurisdiction_id: oecd
 source_id: oecd-ai-policy-navigator

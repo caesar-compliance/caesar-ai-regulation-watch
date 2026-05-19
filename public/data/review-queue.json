@@ -7,14 +7,17 @@
     "pending_review": 88,
     "needs_update": 0,
     "unverified_timeline_events": 10,
-    "unverified_records": 12,
+    "unverified_records": 15,
     "pending_source_verifications": 13,
     "missing_official_url": 0,
     "technical_url_unchecked": 13,
     "technical_url_unreachable": 1,
     "redirected_url_needs_review": 1,
     "content_not_reviewed": 67,
-    "client_use_not_allowed": 64,
+    "content_review_needs_update": 0,
+    "source_support_unclear": 6,
+    "detected_change_needs_content_review": 3,
+    "client_use_not_allowed": 67,
     "detected_change_pending_review": 0,
     "watcher_errors": 0,
     "watcher_soft_errors": 0,
@@ -885,6 +888,7 @@
       "verified_on_source_false": true,
       "technical_url_status": "reachable",
       "content_review_status": "not_reviewed",
+      "content_review_result": null,
       "redirect_detected": false,
       "client_use_allowed": false
     },
@@ -894,19 +898,23 @@
       "title": "Regulation (EU) 2024/1689 — Artificial Intelligence Act",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Content summary not human-reviewed. Technical URL reachable after remediation (content review still required). Client use not allowed.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Content summary not human-reviewed. Source support for summary/dates/status is unclear. Technical URL reachable after remediation (content review still required). Client use not allowed.",
       "review_reasons": [
         "pending_review",
+        "verified_on_source_false",
+        "legal_review_not_done",
         "content_not_reviewed",
+        "source_support_unclear",
         "technical_url_fixed",
         "client_use_not_allowed"
       ],
       "official_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689",
       "page_href": "/records/law-eu-ai-act-2024-1689/",
       "missing_official_url": false,
-      "verified_on_source_false": false,
+      "verified_on_source_false": true,
       "technical_url_status": "reachable",
       "content_review_status": "not_reviewed",
+      "content_review_result": "not_checked",
       "redirect_detected": false,
       "client_use_allowed": false
     },
@@ -932,6 +940,7 @@
       "verified_on_source_false": true,
       "technical_url_status": "reachable",
       "content_review_status": "not_reviewed",
+      "content_review_result": null,
       "redirect_detected": false,
       "client_use_allowed": false
     },
@@ -957,6 +966,7 @@
       "verified_on_source_false": true,
       "technical_url_status": "reachable",
       "content_review_status": "not_reviewed",
+      "content_review_result": null,
       "redirect_detected": false,
       "client_use_allowed": false
     },
@@ -966,19 +976,23 @@
       "title": "Datatilsynet — AI and privacy theme (sample pointer)",
       "jurisdiction_id": "norway",
       "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Content summary not human-reviewed. Technical URL reachable after remediation (content review still required). Client use not allowed.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Content summary not human-reviewed. Source support for summary/dates/status is unclear. Technical URL reachable after remediation (content review still required). Client use not allowed.",
       "review_reasons": [
         "pending_review",
+        "verified_on_source_false",
+        "legal_review_not_done",
         "content_not_reviewed",
+        "source_support_unclear",
         "technical_url_fixed",
         "client_use_not_allowed"
       ],
       "official_url": "https://www.datatilsynet.no/",
       "page_href": "/records/guidance-datatilsynet-ai-privacy/",
       "missing_official_url": false,
-      "verified_on_source_false": false,
+      "verified_on_source_false": true,
       "technical_url_status": "reachable",
       "content_review_status": "not_reviewed",
+      "content_review_result": "not_checked",
       "redirect_detected": false,
       "client_use_allowed": false
     },
@@ -988,19 +1002,23 @@
       "title": "EU AI Office — General-purpose AI (GPAI) framework pages (sample pointer)",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Content summary not human-reviewed. Technical URL reachable after remediation (content review still required). Client use not allowed.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Content summary not human-reviewed. Source support for summary/dates/status is unclear. Technical URL reachable after remediation (content review still required). Client use not allowed.",
       "review_reasons": [
         "pending_review",
+        "verified_on_source_false",
+        "legal_review_not_done",
         "content_not_reviewed",
+        "source_support_unclear",
         "technical_url_fixed",
         "client_use_not_allowed"
       ],
       "official_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
       "page_href": "/records/guidance-eu-ai-office-gpai/",
       "missing_official_url": false,
-      "verified_on_source_false": false,
+      "verified_on_source_false": true,
       "technical_url_status": "reachable",
       "content_review_status": "not_reviewed",
+      "content_review_result": "not_checked",
       "redirect_detected": false,
       "client_use_allowed": false
     },
@@ -1026,6 +1044,7 @@
       "verified_on_source_false": true,
       "technical_url_status": "reachable",
       "content_review_status": "not_reviewed",
+      "content_review_result": null,
       "redirect_detected": false,
       "client_use_allowed": false
     },
@@ -1050,6 +1069,7 @@
       "verified_on_source_false": true,
       "technical_url_status": "reachable",
       "content_review_status": "not_reviewed",
+      "content_review_result": null,
       "redirect_detected": false,
       "client_use_allowed": false
     },
@@ -1059,12 +1079,13 @@
       "title": "Norway — EU AI Act implementation (government tracking)",
       "jurisdiction_id": "norway",
       "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Content summary not human-reviewed. Technical URL reachable after remediation (content review still required). Client use not allowed. Client use not allowed.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Content summary not human-reviewed. Source support for summary/dates/status is unclear. Technical URL reachable after remediation (content review still required). Client use not allowed. Client use not allowed.",
       "review_reasons": [
         "pending_review",
         "verified_on_source_false",
         "legal_review_not_done",
         "content_not_reviewed",
+        "source_support_unclear",
         "technical_url_fixed",
         "client_use_not_allowed",
         "client_use_not_allowed"
@@ -1075,6 +1096,7 @@
       "verified_on_source_false": true,
       "technical_url_status": "reachable",
       "content_review_status": "not_reviewed",
+      "content_review_result": "not_checked",
       "redirect_detected": false,
       "client_use_allowed": false
     },
@@ -1084,12 +1106,13 @@
       "title": "OECD.AI — Policy observatory and AI principles resources",
       "jurisdiction_id": "oecd",
       "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Content summary not human-reviewed. Technical URL reachable after remediation (content review still required). Client use not allowed. Client use not allowed.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Content summary not human-reviewed. Source support for summary/dates/status is unclear. Technical URL reachable after remediation (content review still required). Client use not allowed. Client use not allowed.",
       "review_reasons": [
         "pending_review",
         "verified_on_source_false",
         "legal_review_not_done",
         "content_not_reviewed",
+        "source_support_unclear",
         "technical_url_fixed",
         "client_use_not_allowed",
         "client_use_not_allowed"
@@ -1100,6 +1123,7 @@
       "verified_on_source_false": true,
       "technical_url_status": "reachable",
       "content_review_status": "not_reviewed",
+      "content_review_result": "not_checked",
       "redirect_detected": false,
       "client_use_allowed": false
     },
@@ -1125,6 +1149,7 @@
       "verified_on_source_false": true,
       "technical_url_status": "reachable",
       "content_review_status": "not_reviewed",
+      "content_review_result": null,
       "redirect_detected": false,
       "client_use_allowed": false
     },
@@ -1150,6 +1175,7 @@
       "verified_on_source_false": true,
       "technical_url_status": "reachable",
       "content_review_status": "not_reviewed",
+      "content_review_result": null,
       "redirect_detected": false,
       "client_use_allowed": false
     },
@@ -1175,6 +1201,7 @@
       "verified_on_source_false": true,
       "technical_url_status": "reachable",
       "content_review_status": "not_reviewed",
+      "content_review_result": null,
       "redirect_detected": false,
       "client_use_allowed": false
     },
@@ -1200,6 +1227,7 @@
       "verified_on_source_false": true,
       "technical_url_status": "reachable",
       "content_review_status": "not_reviewed",
+      "content_review_result": null,
       "redirect_detected": false,
       "client_use_allowed": false
     },
@@ -1209,12 +1237,13 @@
       "title": "NIST — AI Risk Management Framework (AI RMF 1.0)",
       "jurisdiction_id": "us-federal",
       "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Content summary not human-reviewed. Technical URL reachable after remediation (content review still required). Client use not allowed. Client use not allowed.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Content summary not human-reviewed. Source support for summary/dates/status is unclear. Technical URL reachable after remediation (content review still required). Client use not allowed. Client use not allowed.",
       "review_reasons": [
         "pending_review",
         "verified_on_source_false",
         "legal_review_not_done",
         "content_not_reviewed",
+        "source_support_unclear",
         "technical_url_fixed",
         "client_use_not_allowed",
         "client_use_not_allowed"
@@ -1225,6 +1254,7 @@
       "verified_on_source_false": true,
       "technical_url_status": "reachable",
       "content_review_status": "not_reviewed",
+      "content_review_result": "not_checked",
       "redirect_detected": false,
       "client_use_allowed": false
     },
@@ -1655,12 +1685,15 @@
       "title": "[Simulation] Feed change: edpb",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
-      "reason_for_review": "Simulated feed diff for pipeline validation only; not an official feed update. Watcher output requires human review before any record update. Content summary not human-reviewed. Legal/content verification on official source not completed.",
+      "reason_for_review": "Simulated feed diff for pipeline validation only; not an official feed update. Watcher output requires human review before any record update. Legal/content verification on official source not completed. Not verified on official source in this repository. Client use not allowed. Detected change has no completed content review. Content summary not human-reviewed.",
       "review_reasons": [
         "simulated_feed_detected_change_pending_review",
         "human_review_required",
-        "content_not_reviewed",
-        "legal_review_not_done"
+        "legal_review_not_done",
+        "verified_on_source_false",
+        "client_use_not_allowed",
+        "detected_change_needs_content_review",
+        "content_not_reviewed"
       ],
       "official_url": "https://www.edpb.europa.eu/edpb_en",
       "page_href": "/detected-changes/simulated-edpb-feed-change-2026-05-19/",
@@ -1668,6 +1701,8 @@
       "verified_on_source_false": true,
       "technical_url_status": null,
       "content_review_status": "not_reviewed",
+      "content_review_result": "not_checked",
+      "recommended_next_action": "ignore_noise",
       "redirect_detected": false,
       "client_use_allowed": false
     },
@@ -1677,12 +1712,15 @@
       "title": "[Simulation] Page change: eu-ai-office",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
-      "reason_for_review": "Simulated watcher diff for pipeline validation only; not an official source update. Watcher output requires human review before any record update. Content summary not human-reviewed. Legal/content verification on official source not completed.",
+      "reason_for_review": "Simulated watcher diff for pipeline validation only; not an official source update. Watcher output requires human review before any record update. Legal/content verification on official source not completed. Not verified on official source in this repository. Client use not allowed. Detected change has no completed content review. Content summary not human-reviewed.",
       "review_reasons": [
         "simulated_detected_change_pending_review",
         "human_review_required",
-        "content_not_reviewed",
-        "legal_review_not_done"
+        "legal_review_not_done",
+        "verified_on_source_false",
+        "client_use_not_allowed",
+        "detected_change_needs_content_review",
+        "content_not_reviewed"
       ],
       "official_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
       "page_href": "/detected-changes/simulated-eu-ai-office-change-2026-05-19/",
@@ -1690,6 +1728,8 @@
       "verified_on_source_false": true,
       "technical_url_status": null,
       "content_review_status": "not_reviewed",
+      "content_review_result": "not_checked",
+      "recommended_next_action": "keep_pending_review",
       "redirect_detected": false,
       "client_use_allowed": false
     },
@@ -1699,12 +1739,15 @@
       "title": "[Simulation] API change: us-federal-register",
       "jurisdiction_id": "us-federal",
       "review_status": "pending_review",
-      "reason_for_review": "Simulated API diff for pipeline validation only; not an official API update. Watcher output requires human review before any record update. Content summary not human-reviewed. Legal/content verification on official source not completed.",
+      "reason_for_review": "Simulated API diff for pipeline validation only; not an official API update. Watcher output requires human review before any record update. Legal/content verification on official source not completed. Not verified on official source in this repository. Client use not allowed. Detected change has no completed content review. Content summary not human-reviewed.",
       "review_reasons": [
         "simulated_api_detected_change_pending_review",
         "human_review_required",
-        "content_not_reviewed",
-        "legal_review_not_done"
+        "legal_review_not_done",
+        "verified_on_source_false",
+        "client_use_not_allowed",
+        "detected_change_needs_content_review",
+        "content_not_reviewed"
       ],
       "official_url": "https://www.federalregister.gov/",
       "page_href": "/detected-changes/simulated-us-federal-register-api-change-2026-05-19/",
@@ -1712,6 +1755,8 @@
       "verified_on_source_false": true,
       "technical_url_status": null,
       "content_review_status": "not_reviewed",
+      "content_review_result": "not_checked",
+      "recommended_next_action": "keep_pending_review",
       "redirect_detected": false,
       "client_use_allowed": false
     },

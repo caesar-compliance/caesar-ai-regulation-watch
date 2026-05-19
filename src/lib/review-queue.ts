@@ -11,9 +11,11 @@ import {
   getVerifications,
   getUrlChecks,
   latestIdentityVerificationForSource,
+  latestContentReviewForItem,
   getDetectedChanges,
   latestWatcherRun,
 } from "./data";
+import type { ContentReviewEntryWithBatch } from "./data";
 
 export type ReviewQueueItemType =
   | "jurisdiction"
@@ -36,6 +38,9 @@ export type ReviewQueueReason =
   | "redirected_url_needs_review"
   | "source_identity_reviewed_only"
   | "content_not_reviewed"
+  | "content_review_needs_update"
+  | "source_support_unclear"
+  | "detected_change_needs_content_review"
   | "legal_review_not_done"
   | "verified_on_source_false"
   | "client_use_not_allowed"
@@ -98,9 +103,35 @@ function urlCheckForRecord(
   );
 }
 
+function contentReasonsForItem(
+  recordContentStatus: string | undefined,
+  contentReview: ContentReviewEntryWithBatch | undefined,
+): ReviewQueueReason[] {
+  const reasons: ReviewQueueReason[] = [];
+  const status =
+    recordContentStatus ?? contentReview?.content_review_status_after_check ?? "not_reviewed";
+  if (status === "not_reviewed" || !contentReview) {
+    reasons.push("content_not_reviewed");
+  }
+  if (status === "needs_update" || contentReview?.content_review_status_after_check === "needs_update") {
+    reasons.push("content_review_needs_update");
+  }
+  if (
+    contentReview?.source_support_level === "unclear" ||
+    contentReview?.review_result === "source_support_unclear"
+  ) {
+    reasons.push("source_support_unclear");
+  }
+  if (status === "reviewed_content_summary") {
+    reasons.push("client_use_not_allowed");
+  }
+  return reasons;
+}
+
 function technicalReasonsFromCheck(
   check: ReturnType<typeof getUrlChecks>[0] | undefined,
   identityReviewed = false,
+  includeContentReason = true,
 ): ReviewQueueReason[] {
   if (!check) return ["technical_url_unchecked"];
   const reasons: ReviewQueueReason[] = [];
@@ -125,7 +156,7 @@ function technicalReasonsFromCheck(
   ) {
     reasons.push("redirected_url_needs_review");
   }
-  if (check.content_review_status === "not_reviewed") {
+  if (includeContentReason && check.content_review_status === "not_reviewed") {
     reasons.push("content_not_reviewed");
   }
   if (!check.client_use_allowed) {
@@ -160,6 +191,9 @@ function reasonText(reasons: ReviewQueueReason[]): string {
     source_identity_reviewed_only:
       "Official source identity reviewed only; content/legal review not done.",
     content_not_reviewed: "Content summary not human-reviewed.",
+    content_review_needs_update: "Content review flagged fields needing update.",
+    source_support_unclear: "Source support for summary/dates/status is unclear.",
+    detected_change_needs_content_review: "Detected change has no completed content review.",
     legal_review_not_done: "Legal/content verification on official source not completed.",
     verified_on_source_false: "Not verified on official source in this repository.",
     client_use_not_allowed: "Client use not allowed.",
@@ -272,7 +306,10 @@ export function buildReviewQueue(): ReviewQueueItem[] {
 
   for (const r of getRecords()) {
     const urlCheck = urlCheckForRecord(r.record_id, r.record_type, urlChecks);
-    const recordUnverified = r.verified_on_source === false;
+    const contentReview = latestContentReviewForItem(r.record_id);
+    const recordContentStatus =
+      r.content_review_status ?? contentReview?.content_review_status_after_check ?? "not_reviewed";
+    const recordUnverified = r.verified_on_source !== true;
     const identityDone =
       identityReasonsForSource(r.source_id).includes("source_identity_reviewed_only");
     const editorialReasons: ReviewQueueReason[] = [];
@@ -281,13 +318,13 @@ export function buildReviewQueue(): ReviewQueueItem[] {
       editorialReasons.push("verified_on_source_false");
       editorialReasons.push("legal_review_not_done");
     }
-    editorialReasons.push("content_not_reviewed");
-    const techReasons = technicalReasonsFromCheck(urlCheck, identityDone);
+    const contentReasons = contentReasonsForItem(recordContentStatus, contentReview);
+    const techReasons = technicalReasonsFromCheck(urlCheck, identityDone, false);
     const verification = getVerifications().find((v) => v.item_id === r.record_id);
     if (verification && !verification.client_use_allowed) {
       techReasons.push("client_use_not_allowed");
     }
-    const reasons = mergeReasons(editorialReasons, techReasons);
+    const reasons = mergeReasons(editorialReasons, contentReasons, techReasons);
     const recordNeedsReview =
       reasons.length > 0 || needsReview(r.review_status) || recordUnverified;
     if (!recordNeedsReview) continue;
@@ -306,9 +343,13 @@ export function buildReviewQueue(): ReviewQueueItem[] {
       missing_official_url: !r.official_url,
       verified_on_source_false: recordUnverified,
       technical_url_status: urlCheck?.check_result ?? null,
-      content_review_status: urlCheck?.content_review_status ?? null,
+      content_review_status: recordContentStatus,
       redirect_detected: urlCheck?.redirect_detected ?? false,
-      client_use_allowed: urlCheck?.client_use_allowed ?? verification?.client_use_allowed ?? null,
+      client_use_allowed:
+        contentReview?.client_use_allowed ??
+        urlCheck?.client_use_allowed ??
+        verification?.client_use_allowed ??
+        null,
     });
   }
 
@@ -419,26 +460,35 @@ export function buildReviewQueue(): ReviewQueueItem[] {
   for (const dc of getDetectedChanges()) {
     if (!needsReview(dc.review_status)) continue;
     const src = getSource(dc.source_id);
+    const contentReview = latestContentReviewForItem(dc.detected_change_id);
+    const dcContentStatus =
+      dc.content_review_status ?? contentReview?.content_review_status_after_check ?? "not_reviewed";
     const adapterType =
       dc.source_adapter_type ?? dc.adapter_id ?? "official_page_metadata";
     const isFeed = adapterType === "official_rss_or_feed";
     const isApi = adapterType === "official_api_metadata";
-    const reasons: ReviewQueueReason[] = [
-      dc.simulation
-        ? isApi
-          ? "simulated_api_detected_change_pending_review"
-          : isFeed
-            ? "simulated_feed_detected_change_pending_review"
-            : "simulated_detected_change_pending_review"
-        : isApi
-          ? "api_detected_change_pending_review"
-          : isFeed
-            ? "feed_detected_change_pending_review"
-            : "detected_change_pending_review",
-      "human_review_required",
-      "content_not_reviewed",
-      "legal_review_not_done",
-    ];
+    const reasons = mergeReasons(
+      [
+        dc.simulation
+          ? isApi
+            ? "simulated_api_detected_change_pending_review"
+            : isFeed
+              ? "simulated_feed_detected_change_pending_review"
+              : "simulated_detected_change_pending_review"
+          : isApi
+            ? "api_detected_change_pending_review"
+            : isFeed
+              ? "feed_detected_change_pending_review"
+              : "detected_change_pending_review",
+        "human_review_required",
+        "legal_review_not_done",
+        "verified_on_source_false",
+        "client_use_not_allowed",
+      ],
+      dcContentStatus === "not_reviewed" || !contentReview
+        ? ["detected_change_needs_content_review", "content_not_reviewed"]
+        : contentReasonsForItem(dcContentStatus, contentReview),
+    );
     items.push({
       item_type: "detected_change",
       item_id: dc.detected_change_id,
@@ -455,7 +505,7 @@ export function buildReviewQueue(): ReviewQueueItem[] {
       missing_official_url: !src?.official_url,
       verified_on_source_false: true,
       technical_url_status: null,
-      content_review_status: "not_reviewed",
+      content_review_status: dcContentStatus,
       redirect_detected: false,
       client_use_allowed: false,
     });
@@ -541,6 +591,9 @@ export function getReviewQueueSummary() {
   let technicalUrlUnreachable = 0;
   let redirectedNeedsReview = 0;
   let contentNotReviewed = 0;
+  let contentReviewNeedsUpdate = 0;
+  let sourceSupportUnclear = 0;
+  let detectedChangeNeedsContentReview = 0;
   let clientUseNotAllowed = 0;
   let sourceIdentityReviewed = 0;
   let legalReviewNotDone = 0;
@@ -557,6 +610,11 @@ export function getReviewQueueSummary() {
     if (item.review_reasons.includes("technical_url_unreachable")) technicalUrlUnreachable += 1;
     if (item.review_reasons.includes("redirected_url_needs_review")) redirectedNeedsReview += 1;
     if (item.review_reasons.includes("content_not_reviewed")) contentNotReviewed += 1;
+    if (item.review_reasons.includes("content_review_needs_update")) contentReviewNeedsUpdate += 1;
+    if (item.review_reasons.includes("source_support_unclear")) sourceSupportUnclear += 1;
+    if (item.review_reasons.includes("detected_change_needs_content_review")) {
+      detectedChangeNeedsContentReview += 1;
+    }
     if (item.review_reasons.includes("client_use_not_allowed")) clientUseNotAllowed += 1;
     if (item.review_reasons.includes("source_identity_reviewed_only")) {
       sourceIdentityReviewed += 1;
@@ -578,6 +636,9 @@ export function getReviewQueueSummary() {
     technical_url_unreachable: technicalUrlUnreachable,
     redirected_url_needs_review: redirectedNeedsReview,
     content_not_reviewed: contentNotReviewed,
+    content_review_needs_update: contentReviewNeedsUpdate,
+    source_support_unclear: sourceSupportUnclear,
+    detected_change_needs_content_review: detectedChangeNeedsContentReview,
     client_use_not_allowed: clientUseNotAllowed,
     source_identity_reviewed_only: sourceIdentityReviewed,
     legal_review_not_done: legalReviewNotDone,

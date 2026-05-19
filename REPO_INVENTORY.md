@@ -71,7 +71,20 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **feed-snapshot.schema.json** | Feed metadata snapshot |
 | **api-snapshot.schema.json** | API metadata snapshot |
 | **watcher-run.schema.json** | Watcher run log (incl. feed_diagnostics) |
-| **detected-change.schema.json** | Pending detected change |
+| **detected-change.schema.json** | Pending detected change (+ content review fields v0.8.2) |
+| **content-review.schema.json** | Content review batch (v0.8.2) |
+
+---
+
+## data/verifications/ (v0.8.2 content review)
+
+| Pattern | Role |
+|---|---|
+| **content-review-*.yml** | Human content review batches (summary, dates, detected changes) |
+| **docs/CONTENT_REVIEW_WORKFLOW.md** | Process |
+| **docs/CONTENT_REVIEW_CHECKLIST.md** | Reviewer checklist |
+| **src/pages/content-review/index.astro** | Static content review dashboard |
+| **public/data/content-reviews.json** | Generated export |
 
 ---
 

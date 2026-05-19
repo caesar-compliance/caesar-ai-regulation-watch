@@ -69,4 +69,8 @@ ignored_fields: []
 volatile_field_note: null
 minimum_change_policy: high_significance_requires_content_signal_or_url_status_change
 client_use_allowed: false
+content_review_status: not_reviewed
+last_content_review_id: content-review-simulated-eu-ai-office-change-2026-05-19
+review_result: not_checked
+recommended_next_action: keep_pending_review
 simulation: true

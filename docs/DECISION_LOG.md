@@ -259,6 +259,16 @@
 
 ---
 
+## [DEC-029] — 19 May 2026 — Content review workflow (v0.8.2)
+
+- **Status:** Approved (implementation complete)
+- **Decision:** Add `content-review.schema.json`, pilot batch `content-review-2026-05-19.yml`, docs, `/content-review/` page, and `content-reviews.json` export. Extend review queue reasons for content review states.
+- **Rationale:** Source identity and technical URL checks are insufficient to trust summaries, dates, and watcher signals for governance review.
+- **Boundaries:** All pilot entries `not_checked` until human browser review; `client_use_allowed` remains false; no auto-update of records from watchers; no backend/auth/write UI; no legal advice.
+- **Artifacts:** `schemas/content-review.schema.json`, `data/verifications/content-review-2026-05-19.yml`, `docs/CONTENT_REVIEW_WORKFLOW.md`, `docs/CONTENT_REVIEW_CHECKLIST.md`, `src/pages/content-review/index.astro`.
+
+---
+
 ## [DEC-028] — 19 May 2026 — Monitoring review PR workflow (v0.8.1)
 
 - **Status:** Approved (implementation complete)

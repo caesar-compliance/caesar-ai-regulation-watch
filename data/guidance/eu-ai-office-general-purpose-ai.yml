@@ -4,6 +4,9 @@
 record_id: guidance-eu-ai-office-gpai
 record_type: guidance
 record_origin: manual_sample
+verified_on_source: false
+content_review_status: not_reviewed
+last_content_review_id: content-review-guidance-eu-ai-office-gpai
 title: EU AI Office — General-purpose AI (GPAI) framework pages (sample pointer)
 jurisdiction_id: eu
 source_id: eu-ai-office

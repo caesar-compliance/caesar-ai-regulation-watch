@@ -2,11 +2,20 @@
 
 **Last updated:** 19 May 2026
 
-**Current version:** v0.8.1 · **Phase:** monitoring review PR workflow.
+**Current version:** v0.8.2 · **Phase:** content review workflow.
 
 ---
 
-## Immediate priority — Control Tower
+## Immediate priority — human content review
+
+1. Complete browser content review for `data/verifications/content-review-2026-05-19.yml` entries marked `not_checked`.
+2. Update batch with honest outcomes; set record `verified_on_source: true` only with documented high-level source support.
+3. Follow `docs/CONTENT_REVIEW_CHECKLIST.md` — keep `client_use_allowed: false`.
+4. Regenerate exports after YAML updates.
+
+---
+
+## Control Tower — monitoring (unchanged)
 
 1. Add GitHub label `monitoring-review` (optional; workflow falls back without it).
 2. Trial `workflow_dispatch` with `create_pr=true` after a cycle with meaningful changes.
@@ -28,7 +37,7 @@ npm run build
 
 ---
 
-## Not in scope (v0.8.1)
+## Not in scope (v0.8.2)
 
 - Production deploy / Coolify
 - Auto-merge monitoring output to main

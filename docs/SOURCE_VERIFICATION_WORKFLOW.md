@@ -19,7 +19,8 @@ Verification is **not** legal advice and **does not** grant compliance certifica
 |---|---|---|---|
 | **Technical URL check** | `data/verifications/url-check-*.yml` | `npm run check:urls` | HTTP reachability, redirects, status code only |
 | **Source identity review** | `source-verification-*.yml` | Human | Confirms authority, domain, and instrument match |
-| **Content summary review** | Record YAML + `content_review_status` on URL checks | Human | Confirms `summary_for_review` against official text |
+| **Content review** | `data/verifications/content-review-*.yml` | Human (browser) | Confirms summary, dates, status at high level — see [CONTENT_REVIEW_WORKFLOW.md](./CONTENT_REVIEW_WORKFLOW.md) |
+| **URL batch content flag** | `content_review_status` on URL checks | Automated default | Stays `not_reviewed` until human content batch updates |
 | **Client-use approval** | `client_use_allowed` on verification entries | Human | Explicit opt-in; default `false` |
 
 **Do not** set `check_result` in source verification to `reachable_*` based only on `npm run check:urls`. Technical results use the URL verification schema (`reachable`, `reachable_redirected`, etc.). Human source verification uses its own enum (`reachable_matches_expected_source`, etc.).

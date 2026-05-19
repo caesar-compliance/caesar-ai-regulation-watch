@@ -33,6 +33,10 @@ human_review_required: true
 review_status: pending_review
 review_queue_reason: simulated_feed_detected_change_pending_review
 client_use_allowed: false
+content_review_status: not_reviewed
+last_content_review_id: content-review-simulated-edpb-feed-change-2026-05-19
+review_result: not_checked
+recommended_next_action: ignore_noise
 legal_safe_note: >-
   Simulation only; not an official feed update. Feed metadata fixture diff for pipeline validation. Human review
   required.

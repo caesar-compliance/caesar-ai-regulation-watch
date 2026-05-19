@@ -90,6 +90,19 @@
         "archived"
       ]
     },
+    "content_review_status": {
+      "type": "string",
+      "enum": [
+        "not_reviewed",
+        "reviewed_content_summary",
+        "needs_update",
+        "rejected_for_client_use"
+      ]
+    },
+    "last_content_review_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
     "legal_safe_note": {
       "type": "string",
       "minLength": 1

@@ -87,7 +87,60 @@ export type ContentReviewStatus =
   | "needs_human_review"
   | "reviewed_source_identity_only"
   | "reviewed_content_summary"
+  | "needs_update"
   | "rejected_for_client_use";
+
+export type ContentReviewResult =
+  | "matches_source_at_high_level"
+  | "partially_matches_source"
+  | "source_support_unclear"
+  | "needs_update"
+  | "rejected_for_client_use"
+  | "not_checked";
+
+export type SourceSupportLevel = "high" | "medium" | "low" | "unclear";
+
+export interface ContentReviewEntry {
+  content_review_id: string;
+  review_date: string;
+  reviewer_type: string;
+  item_type:
+    | "law"
+    | "guidance"
+    | "policy_framework"
+    | "implementation_update"
+    | "detected_change"
+    | "timeline_event";
+  item_id: string;
+  jurisdiction_id: string;
+  source_id: string;
+  official_url_checked: string;
+  review_scope: string;
+  review_result: ContentReviewResult;
+  source_support_level: SourceSupportLevel;
+  reviewed_fields: string[];
+  fields_needing_update: string[];
+  summary_review_note: string;
+  date_review_note: string;
+  status_review_note: string;
+  recommended_next_action: string;
+  content_review_status_after_check: ContentReviewStatus;
+  verified_on_source_after_check: boolean;
+  client_use_allowed: boolean;
+  legal_safe_note: string;
+}
+
+export interface ContentReviewBatch {
+  content_review_batch_id: string;
+  review_date: string;
+  verifier_type: string;
+  content_reviews: ContentReviewEntry[];
+  legal_safe_note: string;
+}
+
+export type ContentReviewEntryWithBatch = ContentReviewEntry & {
+  content_review_batch_id: string;
+};
 
 export interface UrlCheckEntry {
   url_check_id: string;
@@ -130,6 +183,8 @@ export interface LawRecord {
   key_dates: KeyDate[];
   affected_topics: string[];
   verified_on_source?: boolean;
+  content_review_status?: ContentReviewStatus;
+  last_content_review_id?: string;
   review_status: ReviewStatus;
   legal_safe_note: string;
 }
@@ -146,6 +201,8 @@ export interface GuidanceRecord {
   summary_for_review: string;
   affected_topics: string[];
   verified_on_source?: boolean;
+  content_review_status?: ContentReviewStatus;
+  last_content_review_id?: string;
   review_status: ReviewStatus;
   legal_safe_note: string;
 }
@@ -398,6 +455,10 @@ export interface DetectedChange {
   review_status: ReviewStatus;
   review_queue_reason: string;
   client_use_allowed: false;
+  content_review_status?: ContentReviewStatus;
+  last_content_review_id?: string;
+  review_result?: ContentReviewResult;
+  recommended_next_action?: string;
   legal_safe_note: string;
 }
 
@@ -543,6 +604,15 @@ function urlCheckYamlFiles(): string[] {
     .map((f) => path.join(abs, f));
 }
 
+function contentReviewYamlFiles(): string[] {
+  const abs = path.join(ROOT, "data/verifications");
+  if (!fs.existsSync(abs)) return [];
+  return fs
+    .readdirSync(abs)
+    .filter((f) => f.startsWith("content-review") && (f.endsWith(".yml") || f.endsWith(".yaml")))
+    .map((f) => path.join(abs, f));
+}
+
 export function getVerificationBatches(): SourceVerificationBatch[] {
   return verificationYamlFiles()
     .map((f) => yaml.load(fs.readFileSync(f, "utf8")) as SourceVerificationBatch)
@@ -565,6 +635,29 @@ export function getRecordContentVerifications(): SourceVerificationEntryWithBatc
   return getVerifications().filter((v) =>
     v.verification_batch_id.startsWith("source-verification"),
   );
+}
+
+export function getContentReviewBatches(): ContentReviewBatch[] {
+  return contentReviewYamlFiles()
+    .map((f) => yaml.load(fs.readFileSync(f, "utf8")) as ContentReviewBatch)
+    .sort((a, b) => b.review_date.localeCompare(a.review_date));
+}
+
+export function getContentReviews(): ContentReviewEntryWithBatch[] {
+  return getContentReviewBatches().flatMap((b) =>
+    b.content_reviews.map((cr) => ({
+      ...cr,
+      content_review_batch_id: b.content_review_batch_id,
+    })),
+  );
+}
+
+export function latestContentReviewForItem(
+  itemId: string,
+): ContentReviewEntryWithBatch | undefined {
+  const entries = getContentReviews().filter((cr) => cr.item_id === itemId);
+  if (entries.length === 0) return undefined;
+  return [...entries].sort((a, b) => b.review_date.localeCompare(a.review_date))[0];
 }
 
 export function latestIdentityVerificationForSource(

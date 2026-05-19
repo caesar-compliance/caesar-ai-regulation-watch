@@ -20,7 +20,7 @@ Machine-readable taxonomies live in `data/taxonomies/`. JSON Schema: `schemas/ta
 | **Official source registry** | `data/jurisdictions/`, `data/sources/` | Registry definitions of what may be monitored later; not law text |
 | **Manual sample records** | `data/laws/`, `data/guidance/`, `data/changes/` | `record_origin: manual_sample` — for data-model testing only |
 | **Curated registry records** | `data/laws/`, `data/guidance/` | `record_origin: official_source_registry` — pointers to official instruments (v0.6.0+) |
-| **Source verifications** | `data/verifications/` | URL check log; see [SOURCE_VERIFICATION_WORKFLOW.md](SOURCE_VERIFICATION_WORKFLOW.md) |
+| **Source verifications** | `data/verifications/` | URL check, identity, and content review logs; see [SOURCE_VERIFICATION_WORKFLOW.md](SOURCE_VERIFICATION_WORKFLOW.md), [CONTENT_REVIEW_WORKFLOW.md](CONTENT_REVIEW_WORKFLOW.md) |
 | **Future watcher output** | (not implemented) | `record_origin: future_watcher_output` — automated detections when approved |
 | **Mappings** | `mappings/*.yml` | Curated links from change → controls/evidence; always review-gated |
 | **Export contract samples** | `exports/samples/` | Illustrative export payloads; **no client evidence created** |
@@ -91,8 +91,24 @@ These are **tracked operational labels** — verify status on official sources; 
 
 ---
 
+## Content review status (v0.8.2)
+
+On records and detected changes, `content_review_status` tracks human summary review (separate from `review_status` editorial state):
+
+| Value | Meaning |
+|---|---|
+| `not_reviewed` | No completed browser content review |
+| `reviewed_content_summary` | High-level summary/dates/status checked on official source |
+| `needs_update` | Curator must fix listed fields |
+| `rejected_for_client_use` | Do not use in client deliverables |
+
+`verified_on_source: true` requires documented content review with high source support — not URL reachability alone.
+
+---
+
 ## Related documents
 
+- [CONTENT_REVIEW_WORKFLOW.md](CONTENT_REVIEW_WORKFLOW.md)
 - [EVIDENCE_EXPORT_CONTRACT.md](EVIDENCE_EXPORT_CONTRACT.md)
 - [SAMPLE_RECORDS_GUIDE.md](SAMPLE_RECORDS_GUIDE.md)
 - [PILOT_SOURCE_REGISTRY.md](PILOT_SOURCE_REGISTRY.md)

@@ -43,6 +43,7 @@ const schemas = {
   watcherRun: loadSchema("watcher-run.schema.json"),
   detectedChange: loadSchema("detected-change.schema.json"),
   monitoringRun: loadSchema("monitoring-run.schema.json"),
+  contentReview: loadSchema("content-review.schema.json"),
 };
 
 function readYaml(filePath) {
@@ -143,12 +144,44 @@ for (const file of listYamlFiles(path.join(ROOT, "data/verifications"))) {
   const data = readYaml(file);
   if (base.startsWith("url-check")) {
     check(validate(file, data, schemas.urlVerification));
+  } else if (base.startsWith("content-review")) {
+    check(validate(file, data, schemas.contentReview));
+    for (const cr of data.content_reviews ?? []) {
+      if (cr.client_use_allowed !== false) {
+        failures.push({
+          label: `${file} → ${cr.content_review_id} (policy)`,
+          errors: [{ message: "content review must have client_use_allowed: false" }],
+        });
+      }
+      if (cr.review_result === "not_checked" && cr.verified_on_source_after_check === true) {
+        failures.push({
+          label: `${file} → ${cr.content_review_id} (policy)`,
+          errors: [
+            { message: "verified_on_source_after_check cannot be true when review_result is not_checked" },
+          ],
+        });
+      }
+      if (
+        cr.review_result !== "matches_source_at_high_level" &&
+        cr.verified_on_source_after_check === true
+      ) {
+        failures.push({
+          label: `${file} → ${cr.content_review_id} (policy)`,
+          errors: [
+            {
+              message:
+                "verified_on_source_after_check true requires review_result matches_source_at_high_level",
+            },
+          ],
+        });
+      }
+    }
   } else if (base.startsWith("source-verification") || base.startsWith("source-identity-review")) {
     check(validate(file, data, schemas.sourceVerification));
   } else {
     failures.push({
       label: file,
-      errors: [{ message: "unknown verification file prefix; use source-verification-*, source-identity-review-*, or url-check-*" }],
+      errors: [{ message: "unknown verification file prefix; use source-verification-*, source-identity-review-*, content-review-*, or url-check-*" }],
     });
   }
 }
@@ -469,6 +502,93 @@ for (const file of listYamlFiles(path.join(ROOT, "data/detected-changes"))) {
     failures.push({
       label: `${file} (policy)`,
       errors: [{ message: "detected change must have human_review_required: true" }],
+    });
+  }
+  if (dc.content_review_status && dc.client_use_allowed !== false) {
+    failures.push({
+      label: `${file} (policy)`,
+      errors: [{ message: "detected change with content_review_status must have client_use_allowed: false" }],
+    });
+  }
+}
+
+// Referential integrity (content reviews)
+const detectedChangeIds = new Set(
+  listYamlFiles(path.join(ROOT, "data/detected-changes")).map((f) => readYaml(f).detected_change_id),
+);
+const timelineEventIds = new Set();
+for (const file of listYamlFiles(timelineDir)) {
+  const t = readYaml(file);
+  for (const ev of t.events ?? []) {
+    timelineEventIds.add(ev.event_id);
+  }
+}
+
+for (const file of listYamlFiles(path.join(ROOT, "data/verifications"))) {
+  const base = path.basename(file);
+  if (!base.startsWith("content-review")) continue;
+  const batch = readYaml(file);
+  for (const cr of batch.content_reviews ?? []) {
+    if (!jurisdictionIds.has(cr.jurisdiction_id)) {
+      failures.push({
+        label: `${file} → ${cr.content_review_id} (referential)`,
+        errors: [{ message: `unknown jurisdiction_id: ${cr.jurisdiction_id}` }],
+      });
+    }
+    if (!sourceIds.has(cr.source_id)) {
+      failures.push({
+        label: `${file} → ${cr.content_review_id} (referential)`,
+        errors: [{ message: `unknown source_id: ${cr.source_id}` }],
+      });
+    }
+    const recordTypes = ["law", "guidance", "policy_framework", "implementation_update"];
+    if (recordTypes.includes(cr.item_type) && !recordIds.has(cr.item_id)) {
+      failures.push({
+        label: `${file} → ${cr.content_review_id} (referential)`,
+        errors: [{ message: `unknown item_id (record): ${cr.item_id}` }],
+      });
+    }
+    if (cr.item_type === "detected_change" && !detectedChangeIds.has(cr.item_id)) {
+      failures.push({
+        label: `${file} → ${cr.content_review_id} (referential)`,
+        errors: [{ message: `unknown item_id (detected_change): ${cr.item_id}` }],
+      });
+    }
+    if (cr.item_type === "timeline_event" && !timelineEventIds.has(cr.item_id)) {
+      failures.push({
+        label: `${file} → ${cr.content_review_id} (referential)`,
+        errors: [{ message: `unknown item_id (timeline_event): ${cr.item_id}` }],
+      });
+    }
+  }
+}
+
+// Policy: records must not claim verified_on_source without evidence
+for (const file of listYamlFiles(path.join(ROOT, "data/laws"))) {
+  const r = readYaml(file);
+  if (r.verified_on_source === true && r.content_review_status !== "reviewed_content_summary") {
+    failures.push({
+      label: `${file} (policy)`,
+      errors: [
+        {
+          message:
+            "verified_on_source true requires content_review_status reviewed_content_summary with documented batch",
+        },
+      ],
+    });
+  }
+}
+for (const file of listYamlFiles(path.join(ROOT, "data/guidance"))) {
+  const r = readYaml(file);
+  if (r.verified_on_source === true && r.content_review_status !== "reviewed_content_summary") {
+    failures.push({
+      label: `${file} (policy)`,
+      errors: [
+        {
+          message:
+            "verified_on_source true requires content_review_status reviewed_content_summary with documented batch",
+        },
+      ],
     });
   }
 }

@@ -245,6 +245,42 @@
       "type": "boolean",
       "const": false
     },
+    "content_review_status": {
+      "type": "string",
+      "enum": [
+        "not_reviewed",
+        "reviewed_content_summary",
+        "needs_update",
+        "rejected_for_client_use"
+      ]
+    },
+    "last_content_review_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "review_result": {
+      "type": "string",
+      "enum": [
+        "matches_source_at_high_level",
+        "partially_matches_source",
+        "source_support_unclear",
+        "needs_update",
+        "rejected_for_client_use",
+        "not_checked"
+      ]
+    },
+    "recommended_next_action": {
+      "type": "string",
+      "enum": [
+        "keep_pending_review",
+        "convert_to_change_record",
+        "update_existing_record",
+        "ignore_noise",
+        "needs_human_legal_review",
+        "human_browser_content_review_required",
+        "no_action_until_human_review"
+      ]
+    },
     "legal_safe_note": {
       "type": "string",
       "minLength": 1

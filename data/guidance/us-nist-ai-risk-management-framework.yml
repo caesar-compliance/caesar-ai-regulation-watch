@@ -5,6 +5,8 @@ record_id: policy-us-nist-ai-rmf
 record_type: policy_framework
 record_origin: official_source_registry
 verified_on_source: false
+content_review_status: not_reviewed
+last_content_review_id: content-review-policy-us-nist-ai-rmf
 title: NIST — AI Risk Management Framework (AI RMF 1.0)
 jurisdiction_id: us-federal
 source_id: us-nist-ai-rmf

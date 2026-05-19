@@ -11,6 +11,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.8.2] - 19 May 2026
+
+### Added
+
+- **Content review workflow** — `schemas/content-review.schema.json`, `data/verifications/content-review-2026-05-19.yml` (9-item pilot batch).
+- **Docs** — `docs/CONTENT_REVIEW_WORKFLOW.md`, `docs/CONTENT_REVIEW_CHECKLIST.md`.
+- **Site** — `/content-review/` page; nav/footer link.
+- **Exports** — `public/data/content-reviews.json`; content review fields on `verifications.json`, `review-queue.json`, `regulation-watch-snapshot.json`.
+
+### Changed
+
+- Priority records and simulated detected changes include `content_review_status`, `last_content_review_id` (batch placeholders; browser review pending).
+- Review queue reasons: `content_review_needs_update`, `source_support_unclear`, `detected_change_needs_content_review`.
+
+### Notes
+
+- All pilot content reviews logged as `not_checked` — human browser review required.
+- `client_use_allowed` remains false. No `verified_on_source: true` on records.
+- No backend, database, auth, or write UI.
+
+---
+
 ## [0.8.1] - 19 May 2026
 
 ### Added

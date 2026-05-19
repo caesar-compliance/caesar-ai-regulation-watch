@@ -5,6 +5,8 @@ record_id: implementation-norway-ai-act
 record_type: implementation_update
 record_origin: official_source_registry
 verified_on_source: false
+content_review_status: not_reviewed
+last_content_review_id: content-review-implementation-norway-ai-act
 title: Norway — EU AI Act implementation (government tracking)
 jurisdiction_id: norway
 source_id: norway-ai-act-implementation
