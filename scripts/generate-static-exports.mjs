@@ -70,7 +70,10 @@ function readVerificationDir(prefix) {
     .map((f) => yaml.load(fs.readFileSync(path.join(abs, f), "utf8")));
 }
 
-const verificationBatches = readVerificationDir("source-verification");
+const verificationBatches = [
+  ...readVerificationDir("source-verification"),
+  ...readVerificationDir("source-identity-review"),
+];
 const urlCheckBatches = readVerificationDir("url-check");
 const verifications = verificationBatches.flatMap((b) =>
   (b.verifications ?? []).map((v) => ({
@@ -113,16 +116,19 @@ function urlCheckForRecord(recordId, urlChecks) {
   );
 }
 
-function technicalReasonsFromCheck(check) {
+function technicalReasonsFromCheck(check, identityReviewed = false) {
   if (!check) return ["technical_url_unchecked"];
   const reasons = [];
+  const ok = check.check_result === "reachable" || check.check_result === "reachable_redirected";
   if (check.check_result === "not_checked" || check.check_result === "uncertain") {
     reasons.push("technical_url_unchecked");
   }
   if (["unreachable", "timeout", "dns_error", "network_error"].includes(check.check_result)) {
     reasons.push("technical_url_unreachable");
+  } else if (ok && identityReviewed) {
+    reasons.push("technical_url_fixed");
   }
-  if (check.check_result === "reachable_redirected" || check.redirect_detected) {
+  if ((check.check_result === "reachable_redirected" || check.redirect_detected) && !identityReviewed) {
     reasons.push("redirected_url_needs_review");
   }
   if (check.content_review_status === "not_reviewed") {
@@ -134,6 +140,15 @@ function technicalReasonsFromCheck(check) {
   return reasons;
 }
 
+function identityReasonsForSource(sourceId, identityBySource) {
+  const identity = identityBySource[sourceId];
+  if (!identity) return [];
+  if (identity.review_status_after_check === "reviewed_source_identity_only") {
+    return ["source_identity_reviewed_only"];
+  }
+  return [];
+}
+
 function mergeReasons(...groups) {
   return [...new Set(groups.flat())];
 }
@@ -142,8 +157,12 @@ const REASON_LABELS = {
   pending_review: "Editorial review_status is not reviewed.",
   technical_url_unchecked: "Technical URL not checked or outcome uncertain.",
   technical_url_unreachable: "Official URL unreachable (HTTP/network error).",
+  technical_url_fixed: "Technical URL reachable after remediation (content review still required).",
   redirected_url_needs_review: "URL redirects; confirm canonical destination.",
-  content_not_reviewed: "Content/source identity not human-reviewed.",
+  source_identity_reviewed_only:
+    "Official source identity reviewed only; content/legal review not done.",
+  content_not_reviewed: "Content summary not human-reviewed.",
+  legal_review_not_done: "Legal/content verification on official source not completed.",
   verified_on_source_false: "Not verified on official source in this repository.",
   client_use_not_allowed: "Client use not allowed.",
   needs_update: "Marked needs_update.",
@@ -158,6 +177,11 @@ function buildReviewQueue() {
   const sourceById = Object.fromEntries(sources.map((s) => [s.source_id, s]));
   const urlCheckBySource = Object.fromEntries(
     urlChecks.filter((c) => c.item_type === "source").map((c) => [c.item_id, c]),
+  );
+  const identityBySource = Object.fromEntries(
+    verifications
+      .filter((v) => v.verification_batch_id?.startsWith("source-identity-review"))
+      .map((v) => [v.source_id, v]),
   );
 
   for (const j of jurisdictions) {
@@ -184,10 +208,13 @@ function buildReviewQueue() {
 
   for (const s of sources) {
     const urlCheck = urlCheckBySource[s.source_id];
+    const idReasons = identityReasonsForSource(s.source_id, identityBySource);
+    const identityDone = idReasons.includes("source_identity_reviewed_only");
     const review_reasons = mergeReasons(
       needsReview(s.review_status) ? ["pending_review"] : [],
       s.review_status === "needs_update" ? ["needs_update"] : [],
-      technicalReasonsFromCheck(urlCheck),
+      idReasons,
+      technicalReasonsFromCheck(urlCheck, identityDone),
     );
     if (!s.official_url) review_reasons.push("technical_url_unchecked");
     if (review_reasons.length === 0 && s.official_url && !needsReview(s.review_status)) continue;
@@ -213,10 +240,14 @@ function buildReviewQueue() {
   for (const r of records) {
     const urlCheck = urlCheckForRecord(r.record_id, urlChecks);
     const recordUnverified = r.verified_on_source === false;
+    const identityDone = identityReasonsForSource(r.source_id, identityBySource).includes(
+      "source_identity_reviewed_only",
+    );
     const review_reasons = mergeReasons(
       needsReview(r.review_status) ? ["pending_review"] : [],
-      recordUnverified ? ["verified_on_source_false"] : [],
-      technicalReasonsFromCheck(urlCheck),
+      recordUnverified ? ["verified_on_source_false", "legal_review_not_done"] : [],
+      ["content_not_reviewed"],
+      technicalReasonsFromCheck(urlCheck, identityDone),
     );
     const verification = verifications.find((v) => v.item_id === r.record_id);
     if (verification && !verification.client_use_allowed) {
@@ -289,10 +320,13 @@ function buildReviewQueue() {
       if (!needsReview(ev.review_status) && ev.verified_on_source) continue;
       const src = sourceById[ev.source_id];
       const urlCheck = urlCheckBySource[ev.source_id];
+      const identityDone = identityReasonsForSource(ev.source_id, identityBySource).includes(
+        "source_identity_reviewed_only",
+      );
       const review_reasons = mergeReasons(
         needsReview(ev.review_status) ? ["pending_review"] : [],
-        !ev.verified_on_source ? ["verified_on_source_false"] : [],
-        technicalReasonsFromCheck(urlCheck),
+        !ev.verified_on_source ? ["verified_on_source_false", "legal_review_not_done"] : [],
+        technicalReasonsFromCheck(urlCheck, identityDone),
       );
       items.push({
         item_type: "timeline_event",
@@ -432,9 +466,16 @@ const mapMarkers = jurisdictions
     page_href: `/jurisdictions/${j.jurisdiction_id}/`,
   }));
 
+const identityVerifications = verifications.filter((v) =>
+  v.verification_batch_id?.startsWith("source-identity-review"),
+);
+const recordVerifications = verifications.filter((v) =>
+  v.verification_batch_id?.startsWith("source-verification"),
+);
+
 const snapshot = {
   generated_at: generatedAt,
-  version: "0.6.1",
+  version: "0.6.2",
   disclaimer: DISCLAIMER,
   pilot_jurisdictions: jurisdictions.map((j) => j.jurisdiction_id),
   counts: {
@@ -456,6 +497,16 @@ const snapshot = {
       urlCheckSummary.network_error,
     content_review_not_reviewed: urlCheckSummary.content_review_not_reviewed,
     client_use_allowed_count: urlCheckSummary.client_use_allowed_count,
+    source_identity_reviewed_count: identityVerifications.filter(
+      (v) => v.review_status_after_check === "reviewed_source_identity_only",
+    ).length,
+    unresolved_url_issue_count:
+      urlCheckSummary.unreachable +
+      urlCheckSummary.timeout +
+      urlCheckSummary.dns_error +
+      urlCheckSummary.network_error +
+      urlCheckSummary.not_checked +
+      urlCheckSummary.uncertain,
     export_samples: exportSamples.length,
     map_markers: mapMarkers.length,
     review_queue_items: reviewSummary.total,
@@ -558,8 +609,19 @@ writeJson(path.join(PUBLIC_DATA, "verifications.json"), {
   disclaimer: DISCLAIMER,
   batches: verificationBatches,
   items: verifications,
+  source_identity_items: identityVerifications,
+  record_content_items: recordVerifications,
   summary: {
     total: verifications.length,
+    source_identity_reviewed: identityVerifications.filter(
+      (v) => v.review_status_after_check === "reviewed_source_identity_only",
+    ).length,
+    source_identity_needs_human_review: identityVerifications.filter(
+      (v) => v.review_status_after_check === "needs_human_review",
+    ).length,
+    record_content_not_checked: recordVerifications.filter(
+      (v) => v.check_result === "not_checked",
+    ).length,
     not_checked: verifications.filter((v) => v.check_result === "not_checked").length,
     uncertain: verifications.filter((v) => v.check_result === "uncertain").length,
     client_use_allowed: verifications.filter((v) => v.client_use_allowed).length,

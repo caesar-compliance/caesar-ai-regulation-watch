@@ -6,12 +6,12 @@ title: Norwegian Government — AI Act / EEA implementation information
 jurisdiction_id: norway
 source_type: regulator
 credibility_level: official_primary
-official_url: https://www.regjeringen.no/en/topics/business-and-industry/ai/id3015480/
+official_url: https://www.regjeringen.no/en/whats-new/gjor-norge-klar-for-trygg-og-innovativ-ki-bruk/id3093081/
 monitoring_scope: >
-  Official Norwegian government pages on AI policy and EEA/EU AI Act implementation,
+  Official Norwegian government news and policy pages on AI Act / KI implementation,
   including press releases, hearing documents, and links to proposed regulations
-  published via regjeringen.no. Does not include full Lovdata statute text unless
-  cross-linked; Lovdata may be added as a separate source later.
+  published via regjeringen.no. Prior topic URL id3015480 returned 404 in May 2026.
+  Does not include full Lovdata statute text unless cross-linked.
 expected_update_types:
   - implementation_roadmap_updates
   - public_consultations

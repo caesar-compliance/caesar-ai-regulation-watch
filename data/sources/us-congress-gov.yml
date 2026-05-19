@@ -20,5 +20,6 @@ related_topics:
   - ai_bills
 review_status: pending_review
 notes: >
-  Official legislative source portal. Not exhaustive monitoring; specific bill URLs
+  Official legislative source portal. May return HTTP 403 to automated checks (bot protection);
+  identity confirmed manually for registry purposes. Not exhaustive monitoring; specific bill URLs
   should be added as separate records when curated for review.

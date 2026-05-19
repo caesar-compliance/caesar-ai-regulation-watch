@@ -127,6 +127,8 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **scripts/validate-data.mjs** | ajv CI validation |
 | **scripts/check-official-urls.mjs** | Manual technical URL check (`npm run check:urls`; not CI) |
 | **docs/URL_VERIFICATION_POLICY.md** | Technical vs content review policy |
+| **docs/URL_REMEDIATION_LOG.md** | v0.6.2 URL fix log |
+| **data/verifications/source-identity-review-2026-05-19.yml** | Source identity review batch |
 | **schemas/url-verification.schema.json** | URL check batch schema |
 
 ## docs/ (v0.3.3–v0.4.0)

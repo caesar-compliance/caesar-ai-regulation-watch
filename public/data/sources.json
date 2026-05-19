@@ -8,7 +8,7 @@
       "jurisdiction_id": "australia",
       "source_type": "regulator",
       "credibility_level": "official_primary",
-      "official_url": "https://www.industry.gov.au/publications/australias-artificial-intelligence-ai-ethics-framework",
+      "official_url": "https://www.industry.gov.au/publications/australias-ai-ethics-principles",
       "monitoring_scope": "Australian Government Department of Industry publications on the AI Ethics Framework and related responsible AI policy pages on industry.gov.au linked from this entry.\n",
       "expected_update_types": [
         "framework_updates",
@@ -20,7 +20,7 @@
         "responsible_ai"
       ],
       "review_status": "pending_review",
-      "notes": "Official federal policy publication. National privacy guidance tracked separately via OAIC entry.\n"
+      "notes": "Official federal policy publication. URL remediated v0.6.2: legacy ethics-framework slug returned 404; canonical page is Australia's AI Ethics Principles. National privacy guidance tracked separately via OAIC entry.\n"
     },
     {
       "source_id": "australia-oaic-ai",
@@ -28,8 +28,8 @@
       "jurisdiction_id": "australia",
       "source_type": "regulator",
       "credibility_level": "official_primary",
-      "official_url": "https://www.oaic.gov.au/privacy/your-privacy-rights/your-personal-information/technologies/artificial-intelligence",
-      "monitoring_scope": "OAIC resources on artificial intelligence and privacy on oaic.gov.au, including guidance updates and linked official materials under this path.\n",
+      "official_url": "https://www.oaic.gov.au/privacy/guidance-and-advice",
+      "monitoring_scope": "OAIC privacy guidance hub on oaic.gov.au, including AI-related guidance (e.g. generative AI model development and commercial AI products) linked from this section.\n",
       "expected_update_types": [
         "guidance_updates",
         "enforcement_communications",
@@ -40,7 +40,7 @@
         "ai_and_personal_information"
       ],
       "review_status": "pending_review",
-      "notes": "Official privacy regulator source. Does not capture all Australian AI legislation or state laws.\n"
+      "notes": "Official privacy regulator source. URL remediated v0.6.2: prior deep-linked AI path returned 404; hub page is the maintained entry point. Does not capture all Australian AI legislation or state laws.\n"
     },
     {
       "source_id": "canada-opc-ai",
@@ -157,7 +157,7 @@
       "jurisdiction_id": "eu",
       "source_type": "regulator",
       "credibility_level": "official_primary",
-      "official_url": "https://www.edpb.europa.eu/",
+      "official_url": "https://www.edpb.europa.eu/edpb_en",
       "monitoring_scope": "EDPB guidelines, opinions, statements, and public documents where AI intersects with GDPR and law enforcement directives, as published on edpb.europa.eu. Not all EDPB work is AI-specific; monitoring should filter for AI-relevant items.\n",
       "expected_update_types": [
         "new_guidelines_or_opinions",
@@ -182,7 +182,7 @@
       "jurisdiction_id": "eu",
       "source_type": "regulator",
       "credibility_level": "official_primary",
-      "official_url": "https://www.edps.europa.eu/",
+      "official_url": "https://www.edps.europa.eu/_en",
       "monitoring_scope": "EDPS opinions, guidance, investigations summaries, and policy documents on AI, EU institutions' use of AI, and digital rights as published on edps.europa.eu. Scope limited to publicly listed official publications; not all EDPS activity is AI-related.\n",
       "expected_update_types": [
         "opinions_on_proposed_legislation",
@@ -277,12 +277,12 @@
     },
     {
       "source_id": "g7-hiroshima-ai-process",
-      "title": "G7 Hiroshima AI Process — official portal",
+      "title": "G7 Hiroshima AI Process — MIC official portal (English)",
       "jurisdiction_id": "g7",
       "source_type": "international_body",
       "credibility_level": "official_primary",
-      "official_url": "https://www.g7hiroshima.go.jp/en/",
-      "monitoring_scope": "Official G7 Hiroshima AI Process website for communiqués, code of conduct materials, and process documents published on g7hiroshima.go.jp and linked official G7 domains.\n",
+      "official_url": "https://www.soumu.go.jp/hiroshimaaiprocess/en/index.html",
+      "monitoring_scope": "Official Hiroshima AI Process site hosted by Japan Ministry of Internal Affairs and Communications (soumu.go.jp), including communiqués, code of conduct materials, and linked MOFA/G7 documents. Summit domain g7hiroshima.go.jp no longer resolves (May 2026).\n",
       "expected_update_types": [
         "communiques",
         "voluntary_codes",
@@ -294,7 +294,7 @@
         "gpai_safety"
       ],
       "review_status": "pending_review",
-      "notes": "Intergovernmental process communications only. Implementation and binding rules remain at national level. Does not cover all G7 digital policy work outside this process.\n"
+      "notes": "Intergovernmental process communications only. URL remediated v0.6.2 to MIC-hosted official process site after g7hiroshima.go.jp DNS failure. Implementation and binding rules remain at national level.\n"
     },
     {
       "source_id": "japan-meti-ai",
@@ -302,8 +302,8 @@
       "jurisdiction_id": "japan",
       "source_type": "regulator",
       "credibility_level": "official_primary",
-      "official_url": "https://www.meti.go.jp/english/policy/mono_info_service/connected_industries/ai/index.html",
-      "monitoring_scope": "Ministry of Economy, Trade and Industry English-language AI policy pages on meti.go.jp, including government AI governance initiatives linked from this section.\n",
+      "official_url": "https://www.meti.go.jp/english/policy/index.html",
+      "monitoring_scope": "METI English policy index on meti.go.jp. Prior AI subdirectory returned 404 in May 2026 technical check; follow links to current AI and digital policy pages from this index.\n",
       "expected_update_types": [
         "policy_updates",
         "guideline_announcements",
@@ -315,7 +315,7 @@
         "connected_industries"
       ],
       "review_status": "pending_review",
-      "notes": "English METI entry point only. Authoritative legal text may appear on Japanese-language government sites (e.g. MIC, Cabinet) requiring separate curated entries.\n"
+      "notes": "English METI entry point only. URL remediated v0.6.2 to surviving English policy index; dedicated AI subdirectory not reachable. Source identity partially confirmed; Japanese-language MIC/Cabinet pages may need separate entries.\n"
     },
     {
       "source_id": "norway-ai-act-implementation",
@@ -323,8 +323,8 @@
       "jurisdiction_id": "norway",
       "source_type": "regulator",
       "credibility_level": "official_primary",
-      "official_url": "https://www.regjeringen.no/en/topics/business-and-industry/ai/id3015480/",
-      "monitoring_scope": "Official Norwegian government pages on AI policy and EEA/EU AI Act implementation, including press releases, hearing documents, and links to proposed regulations published via regjeringen.no. Does not include full Lovdata statute text unless cross-linked; Lovdata may be added as a separate source later.\n",
+      "official_url": "https://www.regjeringen.no/en/whats-new/gjor-norge-klar-for-trygg-og-innovativ-ki-bruk/id3093081/",
+      "monitoring_scope": "Official Norwegian government news and policy pages on AI Act / KI implementation, including press releases, hearing documents, and links to proposed regulations published via regjeringen.no. Prior topic URL id3015480 returned 404 in May 2026. Does not include full Lovdata statute text unless cross-linked.\n",
       "expected_update_types": [
         "implementation_roadmap_updates",
         "public_consultations",
@@ -410,7 +410,7 @@
       "jurisdiction_id": "south-korea",
       "source_type": "regulator",
       "credibility_level": "official_primary",
-      "official_url": "https://www.pipc.go.kr/np/eng/main/main.do",
+      "official_url": "https://www.pipc.go.kr/eng/",
       "monitoring_scope": "PIPC English portal for privacy and data protection policy that may intersect with AI governance, plus links to official announcements. Korean-language site may contain additional AI-specific materials requiring separate review.\n",
       "expected_update_types": [
         "guidance_updates",
@@ -423,7 +423,7 @@
         "ai_intersection"
       ],
       "review_status": "pending_review",
-      "notes": "Official privacy regulator portal. Dedicated ROK AI framework pages should be added when URLs are verified by human reviewers.\n"
+      "notes": "Official privacy regulator portal. URL remediated v0.6.2: legacy np/eng/main path returned 404; /eng/ is the reachable English entry point. Dedicated ROK AI framework pages should be added when URLs are verified by human reviewers.\n"
     },
     {
       "source_id": "uk-gov-ai-regulation",
@@ -527,7 +527,7 @@
         "ai_bills"
       ],
       "review_status": "pending_review",
-      "notes": "Official legislative source portal. Not exhaustive monitoring; specific bill URLs should be added as separate records when curated for review.\n"
+      "notes": "Official legislative source portal. May return HTTP 403 to automated checks (bot protection); identity confirmed manually for registry purposes. Not exhaustive monitoring; specific bill URLs should be added as separate records when curated for review.\n"
     },
     {
       "source_id": "us-federal-register",
@@ -547,7 +547,7 @@
         "agency_rules"
       ],
       "review_status": "pending_review",
-      "notes": "Official federal publication source. This registry entry does not automate searches; humans must identify AI-relevant documents and link specific docket URLs separately.\n"
+      "notes": "Official federal publication source. Automated checks may redirect via unblock subdomain; www.federalregister.gov remains the canonical registry URL. This entry does not automate searches; humans must identify AI-relevant documents and link specific docket URLs separately.\n"
     },
     {
       "source_id": "us-nist-ai-rmf",

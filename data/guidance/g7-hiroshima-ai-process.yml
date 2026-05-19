@@ -9,12 +9,11 @@ title: G7 — Hiroshima AI Process (summit policy framework)
 jurisdiction_id: g7
 source_id: g7-hiroshima-ai-process
 guidance_status: guidance
-official_url: https://www.g7hiroshima.go.jp/en/
+official_url: https://www.soumu.go.jp/hiroshimaaiprocess/en/index.html
 summary_for_review: >
-  Curated pointer to official G7 Hiroshima summit materials on the Hiroshima AI Process,
-  including communiqué and code-of-conduct related publications hosted on the summit
-  domain. Supports governance review when tracking voluntary international commitments
-  on advanced AI systems; successor G7 hosts may publish follow-on materials elsewhere.
+  Curated pointer to the official Hiroshima AI Process site (Japan MIC / soumu.go.jp),
+  including communiqué and code-of-conduct materials. Supports governance review when tracking
+  voluntary international commitments on advanced AI systems; legacy summit domain may be archived.
 affected_topics:
   - international_cooperation
   - advanced_ai_systems

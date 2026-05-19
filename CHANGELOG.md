@@ -11,6 +11,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.6.2] - 19 May 2026
+
+### Added
+
+- **URL remediation log** — `docs/URL_REMEDIATION_LOG.md` documents v0.6.1 problematic URL fixes.
+- **Source identity review batch** — `data/verifications/source-identity-review-2026-05-19.yml` (26 sources; identity only).
+
+### Changed
+
+- Remediated official URLs for Australia (Industry, OAIC), Japan METI, Norway, South Korea PIPC, G7 (MIC host), EDPB, EDPS.
+- `/verification/` separates technical URL checks, source identity review, and record content review.
+- Review queue reasons: `technical_url_fixed`, `source_identity_reviewed_only`, `legal_review_not_done`.
+- Schema: `reviewed_source_identity_only` and `needs_human_review` on verification entries.
+
+### Notes
+
+- No `verified_on_source: true` or `client_use_allowed: true`.
+- Congress.gov kept with bot-block note; Japan METI uses general English policy index.
+- Re-ran `npm run check:urls` after remediation.
+
+---
+
 ## [0.6.1] - 19 May 2026
 
 ### Added

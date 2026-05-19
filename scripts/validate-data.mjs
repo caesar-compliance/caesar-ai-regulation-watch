@@ -136,12 +136,12 @@ for (const file of listYamlFiles(path.join(ROOT, "data/verifications"))) {
   const data = readYaml(file);
   if (base.startsWith("url-check")) {
     check(validate(file, data, schemas.urlVerification));
-  } else if (base.startsWith("source-verification")) {
+  } else if (base.startsWith("source-verification") || base.startsWith("source-identity-review")) {
     check(validate(file, data, schemas.sourceVerification));
   } else {
     failures.push({
       label: file,
-      errors: [{ message: "unknown verification file prefix; use source-verification-* or url-check-*" }],
+      errors: [{ message: "unknown verification file prefix; use source-verification-*, source-identity-review-*, or url-check-*" }],
     });
   }
 }
@@ -240,7 +240,7 @@ for (const file of listYamlFiles(path.join(ROOT, "data/guidance"))) {
 for (const file of listYamlFiles(path.join(ROOT, "data/verifications"))) {
   const base = path.basename(file);
   const batch = readYaml(file);
-  if (base.startsWith("source-verification")) {
+  if (base.startsWith("source-verification") || base.startsWith("source-identity-review")) {
     for (const v of batch.verifications ?? []) {
       if (!sourceIds.has(v.source_id)) {
         failures.push({
@@ -252,6 +252,12 @@ for (const file of listYamlFiles(path.join(ROOT, "data/verifications"))) {
         failures.push({
           label: `${file} → ${v.verification_id} (referential)`,
           errors: [{ message: `unknown item_id (record): ${v.item_id}` }],
+        });
+      }
+      if (v.item_type === "source" && !sourceIds.has(v.item_id)) {
+        failures.push({
+          label: `${file} → ${v.verification_id} (referential)`,
+          errors: [{ message: `unknown item_id (source): ${v.item_id}` }],
         });
       }
     }

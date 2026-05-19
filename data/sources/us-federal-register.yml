@@ -20,5 +20,6 @@ related_topics:
   - agency_rules
 review_status: pending_review
 notes: >
-  Official federal publication source. This registry entry does not automate searches;
+  Official federal publication source. Automated checks may redirect via unblock subdomain;
+  www.federalregister.gov remains the canonical registry URL. This entry does not automate searches;
   humans must identify AI-relevant documents and link specific docket URLs separately.

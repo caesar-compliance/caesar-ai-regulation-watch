@@ -186,3 +186,13 @@
 - **Rationale:** Operators need HTTP status without conflating reachability with legal review or client-use approval.
 - **Boundaries:** No crawlers; no auto `verified_on_source`; no `client_use_allowed: true` from URL script; no scraping beyond optional response headers.
 - **Artifacts:** `schemas/url-verification.schema.json`, `docs/URL_VERIFICATION_POLICY.md`, `scripts/check-official-urls.mjs`, `data/verifications/url-check-2026-05-19.yml`, `public/data/url-checks.json`.
+
+---
+
+## [DEC-021] — 19 May 2026 — URL remediation and source identity review (v0.6.2)
+
+- **Status:** Approved (implementation complete)
+- **Decision:** Remediate broken official URLs from v0.6.1 technical check; add source identity review batch separate from record content review; extend review queue reasons; do not mark content reviewed or client-use allowed.
+- **Rationale:** Operators need accurate registry URLs and a clear distinction between HTTP reachability, source identity, and legal/content review.
+- **Boundaries:** No competitor URLs; no `verified_on_source: true`; Congress.gov kept with bot-block documentation; G7 uses MIC-hosted official process site.
+- **Artifacts:** `docs/URL_REMEDIATION_LOG.md`, `data/verifications/source-identity-review-2026-05-19.yml`, remediated `data/sources/` and aligned records.

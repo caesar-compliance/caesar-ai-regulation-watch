@@ -76,7 +76,7 @@
       "jurisdiction_id": "australia",
       "source_id": "australia-industry-ai",
       "guidance_status": "voluntary",
-      "official_url": "https://www.industry.gov.au/publications/australias-artificial-intelligence-ai-ethics-framework",
+      "official_url": "https://www.industry.gov.au/publications/australias-ai-ethics-principles",
       "summary_for_review": "Curated pointer to the Australian Government’s AI Ethics Framework publication on industry.gov.au. Supports governance review of whether voluntary ethics principles referenced in internal policies or vendor questionnaires need refresh when official materials are updated.\n",
       "affected_topics": [
         "ai_ethics",
@@ -161,8 +161,8 @@
       "jurisdiction_id": "g7",
       "source_id": "g7-hiroshima-ai-process",
       "guidance_status": "guidance",
-      "official_url": "https://www.g7hiroshima.go.jp/en/",
-      "summary_for_review": "Curated pointer to official G7 Hiroshima summit materials on the Hiroshima AI Process, including communiqué and code-of-conduct related publications hosted on the summit domain. Supports governance review when tracking voluntary international commitments on advanced AI systems; successor G7 hosts may publish follow-on materials elsewhere.\n",
+      "official_url": "https://www.soumu.go.jp/hiroshimaaiprocess/en/index.html",
+      "summary_for_review": "Curated pointer to the official Hiroshima AI Process site (Japan MIC / soumu.go.jp), including communiqué and code-of-conduct materials. Supports governance review when tracking voluntary international commitments on advanced AI systems; legacy summit domain may be archived.\n",
       "affected_topics": [
         "international_cooperation",
         "advanced_ai_systems",
@@ -182,7 +182,7 @@
       "jurisdiction_id": "japan",
       "source_id": "japan-meti-ai",
       "guidance_status": "guidance",
-      "official_url": "https://www.meti.go.jp/english/policy/mono_info_service/connected_industries/ai/index.html",
+      "official_url": "https://www.meti.go.jp/english/policy/index.html",
       "summary_for_review": "Curated pointer to METI’s English-language AI policy hub covering government AI initiatives, governance discussion papers, and related official materials. Supports governance review when Japan-linked AI strategy or industry-policy references need updating. Additional instruments may be published on Japanese-only pages.\n",
       "affected_topics": [
         "ai_strategy",
@@ -202,7 +202,7 @@
       "jurisdiction_id": "norway",
       "source_id": "norway-ai-act-implementation",
       "guidance_status": "implementation_update",
-      "official_url": "https://www.regjeringen.no/en/topics/business-and-industry/ai/id3015480/",
+      "official_url": "https://www.regjeringen.no/en/whats-new/gjor-norge-klar-for-trygg-og-innovativ-ki-bruk/id3093081/",
       "summary_for_review": "Curated pointer to the Norwegian Government’s official pages on AI and EU AI Act implementation planning on regjeringen.no. Supports governance review of EEA-linked implementation timelines, consultation documents, and national transposition work. Does not state final Norwegian statute text.\n",
       "affected_topics": [
         "eu_ai_act",
@@ -264,7 +264,7 @@
       "jurisdiction_id": "south-korea",
       "source_id": "south-korea-pipc",
       "guidance_status": "guidance",
-      "official_url": "https://www.pipc.go.kr/np/eng/main/main.do",
+      "official_url": "https://www.pipc.go.kr/eng/",
       "summary_for_review": "Curated pointer to the Personal Information Protection Commission English portal for AI-related privacy guidance and enforcement context in South Korea. Supports governance review of cross-border processing, automated decision-making, and consent documentation where Korean personal data is involved.\n",
       "affected_topics": [
         "personal_information_protection",

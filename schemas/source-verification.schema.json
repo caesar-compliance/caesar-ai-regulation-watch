@@ -90,7 +90,9 @@
               "draft",
               "pending_review",
               "reviewed",
+              "reviewed_source_identity_only",
               "needs_update",
+              "needs_human_review",
               "rejected_for_client_use",
               "archived"
             ]

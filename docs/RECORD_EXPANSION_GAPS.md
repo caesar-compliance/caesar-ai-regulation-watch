@@ -1,9 +1,27 @@
 # Record Expansion Gaps
 
 **Prepared:** 19 May 2026  
-**Version:** v0.6.0
+**Version:** v0.6.2
 
 This log lists jurisdictions or instruments where **official sources need human verification** before adding further curated records. Prefer documenting gaps here over fabricating records.
+
+---
+
+## v0.6.2 URL remediation outcomes
+
+| Source | Status after remediation |
+|---|---|
+| Australia Industry / record | Fixed — `australias-ai-ethics-principles` |
+| Australia OAIC | Fixed — guidance hub (may redirect) |
+| Japan METI | Partial — English policy index only; dedicated AI path 404 |
+| Norway | Fixed — government AI implementation news page |
+| South Korea PIPC | Fixed — `/eng/` portal |
+| G7 Hiroshima | Fixed — MIC `soumu.go.jp/hiroshimaaiprocess` (summit domain dead) |
+| EDPB / EDPS | Canonical locale URLs updated |
+| US Congress.gov | Unresolved bot block (HTTP 403 to automated checks) |
+| US Federal Register | Canonical URL kept; anti-bot redirect possible |
+
+See [URL_REMEDIATION_LOG.md](./URL_REMEDIATION_LOG.md) for full detail.
 
 ---
 
@@ -14,7 +32,7 @@ This log lists jurisdictions or instruments where **official sources need human 
 | **China** | Additional AI rules (algorithm recommendation, deep synthesis) have separate CAC pages not yet in the source registry | Add dedicated `source_id` entries per instrument on `cac.gov.cn` after URL confirmation |
 | **South Korea** | PIPC English portal is an entry point; specific AI statutes/guidance pages need canonical URLs | Identify official Korean/English instrument pages on `pipc.go.kr` or legislation portal |
 | **Japan** | Binding rules may appear on Japanese-only ministry pages not linked from METI English hub | Add Japanese official sources or bilingual index pages after human review |
-| **G7** | Hiroshima summit domain may archive; successor G7 hosts publish follow-on AI materials | Verify current official G7 publication URL for 2024+ declarations |
+| **G7** | MIC hosts Hiroshima process archive; 2024+ G7 presidencies publish elsewhere | Add successor G7 official publication sources when URLs confirmed |
 | **US federal** | No single comprehensive federal AI statute in registry; EO and agency rules scattered | Add White House / Federal Register source entries when canonical URLs are confirmed |
 | **UK** | Sector regulators (ICO, FCA, etc.) have separate guidance beyond DSIT policy paper | Expand registry with sector `source_id` entries as needed |
 

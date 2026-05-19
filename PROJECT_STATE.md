@@ -9,16 +9,16 @@
 | Field | Value |
 |---|---|
 | **Repository** | `caesar-ai-regulation-watch` |
-| **Current version** | `v0.6.1` |
-| **Current phase** | Technical URL verification + refined review queue |
+| **Current version** | `v0.6.2` |
+| **Current phase** | URL remediation + source identity review |
 | **Status** | Read-only Astro site with URL check batch, verification log, Pagefind, JSON/RSS, CI validate/build (no live URL checks in CI) |
-| **Working branch** | `agent/v0.6.1-url-verification-review-queue` |
-| **Latest completed task** | Technical URL verification pass and review queue separation |
-| **Next recommended step** | Control Tower human source identity review; fix unreachable/redirected URLs in registry |
+| **Working branch** | `agent/v0.6.2-url-remediation-source-identity` |
+| **Latest completed task** | URL remediation and source identity review batch |
+| **Next recommended step** | Control Tower record content review on official sources; resolve Congress.gov bot access manually |
 
 ---
 
-## Site inventory (v0.6.1)
+## Site inventory (v0.6.2)
 
 | Item | Value |
 |---|---|
@@ -29,10 +29,10 @@
 | Sources | 28 official registry entries |
 | Records | 15 (3 pilot samples + 12 curated v0.6.0) |
 | Timelines | 5 |
-| Verifications | 12 human (`not_checked`) + 41 technical URL checks |
+| Verifications | 12 record content (`not_checked`) + 26 source identity + 41 URL checks |
 | JSON exports | 10 files in `public/data/` |
 | RSS | `public/feeds/changes.xml` (sample changes only) |
-| Validation | 77 YAML checks passing |
+| Validation | 104 YAML checks passing |
 | CI | `validate-and-build.yml` on push/PR |
 
 ---
@@ -46,7 +46,8 @@
 | v0.5.0 Global data, timelines, CI | **Complete** |
 | v0.5.1 Map + review queue | **Complete** |
 | v0.6.0 Curated records + verification | **Complete** |
-| v0.6.1 Technical URL verification | **Complete** (pending Control Tower content review) |
+| v0.6.1 Technical URL verification | **Complete** |
+| v0.6.2 URL remediation + source identity | **Complete** (pending Control Tower content review) |
 | v0.6+ Watchers | Not started |
 
 ---

@@ -12,7 +12,9 @@ export type ReviewStatus =
   | "draft"
   | "pending_review"
   | "reviewed"
+  | "reviewed_source_identity_only"
   | "needs_update"
+  | "needs_human_review"
   | "rejected_for_client_use"
   | "archived";
 
@@ -171,6 +173,10 @@ export interface SourceVerificationBatch {
   verifications: SourceVerificationEntry[];
   legal_safe_note: string;
 }
+
+export type SourceVerificationEntryWithBatch = SourceVerificationEntry & {
+  verification_batch_id: string;
+};
 
 export type RegulationRecord = (LawRecord | GuidanceRecord) & {
   status: string;
@@ -368,7 +374,11 @@ function verificationYamlFiles(): string[] {
   if (!fs.existsSync(abs)) return [];
   return fs
     .readdirSync(abs)
-    .filter((f) => f.startsWith("source-verification") && (f.endsWith(".yml") || f.endsWith(".yaml")))
+    .filter(
+      (f) =>
+        (f.startsWith("source-verification") || f.startsWith("source-identity-review")) &&
+        (f.endsWith(".yml") || f.endsWith(".yaml")),
+    )
     .map((f) => path.join(abs, f));
 }
 
@@ -387,8 +397,32 @@ export function getVerificationBatches(): SourceVerificationBatch[] {
     .sort((a, b) => b.verified_date.localeCompare(a.verified_date));
 }
 
-export function getVerifications(): SourceVerificationEntry[] {
-  return getVerificationBatches().flatMap((b) => b.verifications);
+export function getVerifications(): SourceVerificationEntryWithBatch[] {
+  return getVerificationBatches().flatMap((b) =>
+    b.verifications.map((v) => ({ ...v, verification_batch_id: b.verification_batch_id })),
+  );
+}
+
+export function getSourceIdentityVerifications(): SourceVerificationEntryWithBatch[] {
+  return getVerifications().filter((v) =>
+    v.verification_batch_id.startsWith("source-identity-review"),
+  );
+}
+
+export function getRecordContentVerifications(): SourceVerificationEntryWithBatch[] {
+  return getVerifications().filter((v) =>
+    v.verification_batch_id.startsWith("source-verification"),
+  );
+}
+
+export function latestIdentityVerificationForSource(
+  sourceId: string,
+): SourceVerificationEntryWithBatch | undefined {
+  const entries = getSourceIdentityVerifications().filter(
+    (v) => v.item_type === "source" && v.item_id === sourceId,
+  );
+  if (entries.length === 0) return undefined;
+  return [...entries].sort((a, b) => b.verified_date.localeCompare(a.verified_date))[0];
 }
 
 export function getUrlCheckBatches(): UrlCheckBatch[] {

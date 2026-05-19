@@ -1,7 +1,7 @@
 # Source Verification Workflow
 
 **Prepared:** 19 May 2026  
-**Version:** v0.6.1
+**Version:** v0.6.2
 
 ---
 
@@ -89,7 +89,8 @@ Each entry in `data/verifications/*.yml` validates against `schemas/source-verif
 | File | Description |
 |---|---|
 | [source-verification-2026-05-19.yml](../data/verifications/source-verification-2026-05-19.yml) | v0.6.0 curated records batch (`not_checked`) |
-| [url-check-2026-05-19.yml](../data/verifications/url-check-2026-05-19.yml) | v0.6.1 technical URL batch (`npm run check:urls`) |
+| [url-check-2026-05-19.yml](../data/verifications/url-check-2026-05-19.yml) | Technical URL batch (`npm run check:urls`; re-run after remediation) |
+| [source-identity-review-2026-05-19.yml](../data/verifications/source-identity-review-2026-05-19.yml) | v0.6.2 source identity batch (`reviewed_source_identity_only`) |
 
 Static exports: `/data/verifications.json`, `/data/url-checks.json` (generated at build).
 

@@ -3,8 +3,19 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import ReviewBanner from "../../components/ReviewBanner.astro";
 import CredibilityBadge from "../../components/CredibilityBadge.astro";
 import ReviewStatusBadge from "../../components/ReviewStatusBadge.astro";
-import { getSources, getSource, getJurisdiction, latestUrlCheckForSource } from "../../lib/data";
-import { humanizeId, urlCheckResultLabel, contentReviewStatusLabel } from "../../lib/format";
+import {
+  getSources,
+  getSource,
+  getJurisdiction,
+  latestUrlCheckForSource,
+  latestIdentityVerificationForSource,
+} from "../../lib/data";
+import {
+  humanizeId,
+  urlCheckResultLabel,
+  contentReviewStatusLabel,
+  verificationCheckLabel,
+} from "../../lib/format";
 
 export function getStaticPaths() {
   return getSources().map((s) => ({
@@ -21,6 +32,7 @@ if (!source) {
 
 const jurisdiction = getJurisdiction(source.jurisdiction_id);
 const urlCheck = latestUrlCheckForSource(source.source_id);
+const identityReview = latestIdentityVerificationForSource(source.source_id);
 ---
 
 <BaseLayout title={source.title} currentPath="/sources/">
@@ -33,6 +45,22 @@ const urlCheck = latestUrlCheckForSource(source.source_id);
   </div>
 
   <ReviewBanner reviewStatus={source.review_status} />
+
+  {
+    identityReview && (
+      <section>
+        <h2>Source identity review</h2>
+        <dl class="meta-grid">
+          <div><dt>Identity check</dt><dd>{verificationCheckLabel(identityReview.check_result)}</dd></div>
+          <div><dt>Review status</dt><dd>{humanizeId(identityReview.review_status_after_check)}</dd></div>
+          <div><dt>Client use allowed</dt><dd>{identityReview.client_use_allowed ? "Yes" : "No"}</dd></div>
+        </dl>
+        <p class="card__excerpt">
+          <small>Identity review only — not content or legal summary review.</small>
+        </p>
+      </section>
+    )
+  }
 
   {
     urlCheck && (

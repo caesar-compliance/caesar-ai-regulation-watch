@@ -10,6 +10,7 @@ import {
   getRecord,
   getVerifications,
   getUrlChecks,
+  latestIdentityVerificationForSource,
 } from "./data";
 
 export type ReviewQueueItemType =
@@ -27,8 +28,11 @@ export type ReviewQueueReason =
   | "pending_review"
   | "technical_url_unchecked"
   | "technical_url_unreachable"
+  | "technical_url_fixed"
   | "redirected_url_needs_review"
+  | "source_identity_reviewed_only"
   | "content_not_reviewed"
+  | "legal_review_not_done"
   | "verified_on_source_false"
   | "client_use_not_allowed"
   | "needs_update";
@@ -83,9 +87,12 @@ function urlCheckForRecord(
 
 function technicalReasonsFromCheck(
   check: ReturnType<typeof getUrlChecks>[0] | undefined,
+  identityReviewed = false,
 ): ReviewQueueReason[] {
   if (!check) return ["technical_url_unchecked"];
   const reasons: ReviewQueueReason[] = [];
+  const ok =
+    check.check_result === "reachable" || check.check_result === "reachable_redirected";
   if (check.check_result === "not_checked" || check.check_result === "uncertain") {
     reasons.push("technical_url_unchecked");
   }
@@ -96,8 +103,13 @@ function technicalReasonsFromCheck(
     check.check_result === "network_error"
   ) {
     reasons.push("technical_url_unreachable");
+  } else if (ok && identityReviewed) {
+    reasons.push("technical_url_fixed");
   }
-  if (check.check_result === "reachable_redirected" || check.redirect_detected) {
+  if (
+    (check.check_result === "reachable_redirected" || check.redirect_detected) &&
+    !identityReviewed
+  ) {
     reasons.push("redirected_url_needs_review");
   }
   if (check.content_review_status === "not_reviewed") {
@@ -109,6 +121,18 @@ function technicalReasonsFromCheck(
   return reasons;
 }
 
+function identityReasonsForSource(sourceId: string): ReviewQueueReason[] {
+  const identity = latestIdentityVerificationForSource(sourceId);
+  if (!identity) return [];
+  if (identity.review_status_after_check === "reviewed_source_identity_only") {
+    return ["source_identity_reviewed_only"];
+  }
+  if (identity.review_status_after_check === "needs_human_review") {
+    return [];
+  }
+  return [];
+}
+
 function mergeReasons(...groups: ReviewQueueReason[][]): ReviewQueueReason[] {
   return [...new Set(groups.flat())];
 }
@@ -118,8 +142,12 @@ function reasonText(reasons: ReviewQueueReason[]): string {
     pending_review: "Editorial review_status is not reviewed.",
     technical_url_unchecked: "Technical URL not checked or outcome uncertain.",
     technical_url_unreachable: "Official URL unreachable (HTTP/network error).",
+    technical_url_fixed: "Technical URL reachable after remediation (content review still required).",
     redirected_url_needs_review: "URL redirects; confirm canonical destination.",
-    content_not_reviewed: "Content/source identity not human-reviewed.",
+    source_identity_reviewed_only:
+      "Official source identity reviewed only; content/legal review not done.",
+    content_not_reviewed: "Content summary not human-reviewed.",
+    legal_review_not_done: "Legal/content verification on official source not completed.",
     verified_on_source_false: "Not verified on official source in this repository.",
     client_use_not_allowed: "Client use not allowed.",
     needs_update: "Marked needs_update.",
@@ -175,11 +203,13 @@ export function buildReviewQueue(): ReviewQueueItem[] {
 
   for (const s of getSources()) {
     const urlCheck = urlCheckBySource[s.source_id];
-    const techReasons = technicalReasonsFromCheck(urlCheck);
+    const identityReasons = identityReasonsForSource(s.source_id);
+    const identityDone = identityReasons.includes("source_identity_reviewed_only");
+    const techReasons = technicalReasonsFromCheck(urlCheck, identityDone);
     const editorialReasons: ReviewQueueReason[] = [];
     if (needsReview(s.review_status)) editorialReasons.push("pending_review");
     if (s.review_status === "needs_update") editorialReasons.push("needs_update");
-    const reasons = mergeReasons(editorialReasons, techReasons);
+    const reasons = mergeReasons(editorialReasons, identityReasons, techReasons);
     if (!s.official_url) reasons.push("technical_url_unchecked");
     const inQueue =
       reasons.length > 0 || !s.official_url || needsReview(s.review_status);
@@ -210,10 +240,16 @@ export function buildReviewQueue(): ReviewQueueItem[] {
   for (const r of getRecords()) {
     const urlCheck = urlCheckForRecord(r.record_id, r.record_type, urlChecks);
     const recordUnverified = r.verified_on_source === false;
+    const identityDone =
+      identityReasonsForSource(r.source_id).includes("source_identity_reviewed_only");
     const editorialReasons: ReviewQueueReason[] = [];
     if (needsReview(r.review_status)) editorialReasons.push("pending_review");
-    if (recordUnverified) editorialReasons.push("verified_on_source_false");
-    const techReasons = technicalReasonsFromCheck(urlCheck);
+    if (recordUnverified) {
+      editorialReasons.push("verified_on_source_false");
+      editorialReasons.push("legal_review_not_done");
+    }
+    editorialReasons.push("content_not_reviewed");
+    const techReasons = technicalReasonsFromCheck(urlCheck, identityDone);
     const verification = getVerifications().find((v) => v.item_id === r.record_id);
     if (verification && !verification.client_use_allowed) {
       techReasons.push("client_use_not_allowed");
@@ -294,10 +330,13 @@ export function buildReviewQueue(): ReviewQueueItem[] {
       if (!eventNeedsReview) continue;
       const src = getSource(ev.source_id);
       const urlCheck = urlCheckBySource[ev.source_id];
+      const identityDone = identityReasonsForSource(ev.source_id).includes(
+        "source_identity_reviewed_only",
+      );
       const reasons = mergeReasons(
         needsReview(ev.review_status) ? ["pending_review"] : [],
-        !ev.verified_on_source ? ["verified_on_source_false"] : [],
-        technicalReasonsFromCheck(urlCheck),
+        !ev.verified_on_source ? ["verified_on_source_false", "legal_review_not_done"] : [],
+        technicalReasonsFromCheck(urlCheck, identityDone),
       );
       items.push({
         item_type: "timeline_event",
@@ -394,6 +433,8 @@ export function getReviewQueueSummary() {
   let redirectedNeedsReview = 0;
   let contentNotReviewed = 0;
   let clientUseNotAllowed = 0;
+  let sourceIdentityReviewed = 0;
+  let legalReviewNotDone = 0;
 
   for (const item of items) {
     byStatus[item.review_status] = (byStatus[item.review_status] ?? 0) + 1;
@@ -406,6 +447,10 @@ export function getReviewQueueSummary() {
     if (item.review_reasons.includes("redirected_url_needs_review")) redirectedNeedsReview += 1;
     if (item.review_reasons.includes("content_not_reviewed")) contentNotReviewed += 1;
     if (item.review_reasons.includes("client_use_not_allowed")) clientUseNotAllowed += 1;
+    if (item.review_reasons.includes("source_identity_reviewed_only")) {
+      sourceIdentityReviewed += 1;
+    }
+    if (item.review_reasons.includes("legal_review_not_done")) legalReviewNotDone += 1;
   }
 
   return {
@@ -419,6 +464,8 @@ export function getReviewQueueSummary() {
     redirected_url_needs_review: redirectedNeedsReview,
     content_not_reviewed: contentNotReviewed,
     client_use_not_allowed: clientUseNotAllowed,
+    source_identity_reviewed_only: sourceIdentityReviewed,
+    legal_review_not_done: legalReviewNotDone,
     by_status: byStatus,
   };
 }
