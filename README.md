@@ -3,7 +3,7 @@
 **Global AI regulation monitoring for governance teams** — part of the [Caesar AI Governance Hub](https://github.com/caesar-compliance/caesar-ai-governance-hub) ecosystem.
 
 **Last updated:** 20 May 2026  
-**Status:** v0.8.4 on **`main`** — **static deploy readiness** (manual GitHub Pages workflow `deploy-static-site.yml`, docs, `build:pages` / `verify:dist`; not auto-deployed); plus v0.8.3 evidence export **candidates**; v0.8.2 content review; monitoring cycle; 5 watchers; CI validate/build; review queue, map, timelines, search, JSON exports (no backend APIs, database, auth, secrets, custom domain, or `client_use_allowed: true`)
+**Status:** v0.8.5 on **`main`** — **public GitHub Pages pilot** at [caesar-compliance.github.io/caesar-ai-regulation-watch](https://caesar-compliance.github.io/caesar-ai-regulation-watch/) (manual `deploy-static-site.yml` with `DEPLOY` gate; not auto-deployed on merge); plus v0.8.3 evidence export **candidates**; v0.8.2 content review; monitoring cycle; 5 watchers; CI validate/build; review queue, map, timelines, search, JSON exports (no backend APIs, database, auth, secrets, custom domain, or `client_use_allowed: true`)
 
 ---
 
@@ -135,7 +135,13 @@ Architecture reference study and implementation planning — **no VerifyWise cod
 - [docs/NEXT_IMPLEMENTATION_ARCHITECTURE_OPTIONS.md](docs/NEXT_IMPLEMENTATION_ARCHITECTURE_OPTIONS.md) — Astro vs Next vs plain generator
 - [docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md](docs/V0_4_STATIC_SITE_IMPLEMENTATION_PLAN.md) — next implementation plan (not built yet)
 
-## Static site preview (v0.5.0)
+## Public pilot site (v0.8.5)
+
+**URL:** https://caesar-compliance.github.io/caesar-ai-regulation-watch/
+
+Manual deploy only (`workflow_dispatch`, `confirm_disclaimers: DEPLOY`). Baseline: [docs/PUBLIC_DEPLOYMENT_BASELINE.md](docs/PUBLIC_DEPLOYMENT_BASELINE.md).
+
+## Static site preview (local)
 
 Read-only Astro site generated from `data/` at build time:
 

@@ -1,7 +1,9 @@
 # Post-Deploy Smoke Tests
 
-**Phase:** v0.8.4  
+**Phase:** v0.8.5  
 **After:** successful `deploy-static-site.yml` run
+
+**Last recorded pass:** 20 May 2026 — deploy run [26130431228](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26130431228). See [PUBLIC_DEPLOYMENT_BASELINE.md](PUBLIC_DEPLOYMENT_BASELINE.md).
 
 **Base URL (GitHub Pages project site):**
 
