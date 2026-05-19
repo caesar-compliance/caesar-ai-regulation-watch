@@ -271,6 +271,54 @@ export interface ExportRecord {
   review_status: ReviewStatus;
 }
 
+export type EvidenceExportCandidateStatus =
+  | "blocked_pending_content_review"
+  | "blocked_simulation_only"
+  | "ready_for_human_review"
+  | "rejected_for_client_use";
+
+export interface EvidenceExportCandidate {
+  candidate_id: string;
+  source_item_type: "change_record" | "detected_change";
+  source_item_id: string;
+  jurisdiction_id: string;
+  source_id: string;
+  related_record_id?: string;
+  export_type: "regulation_change_candidate";
+  candidate_status: EvidenceExportCandidateStatus;
+  eligibility_reasons: string[];
+  blocking_reasons: string[];
+  summary_for_review: string;
+  may_affect_controls: { control_ref: string; rationale: string; reference_alignment: string }[];
+  may_affect_evidence: { evidence_ref: string; rationale: string; reference_alignment: string }[];
+  suggested_review_actions: { action_type: string; rationale: string; target_ref?: string }[];
+  human_review_required: true;
+  client_use_allowed: false;
+  verified_on_source_required: true;
+  created_from: "manual_sample" | "watcher_detected_change" | "simulated_detected_change";
+  content_review_id?: string;
+  provenance: {
+    generated_by: string;
+    generated_at: string;
+    source_data_paths: string[];
+    mapping_ids?: string[];
+    export_sample_record_id?: string;
+  };
+  legal_safe_note: string;
+}
+
+export interface EvidenceExportCandidateBatch {
+  evidence_export_candidate_batch_id: string;
+  generated_at: string;
+  pipeline_version: string;
+  legal_safe_note: string;
+  candidates: EvidenceExportCandidate[];
+}
+
+export interface EvidenceExportCandidateWithBatch extends EvidenceExportCandidate {
+  evidence_export_candidate_batch_id: string;
+}
+
 export interface TaxonomyValue {
   value_id: string;
   label: string;
@@ -528,6 +576,25 @@ export function getExportSamples(): ExportRecord[] {
     "exports/samples/regulation-change-export.sample.yml",
   );
   return file?.exports ?? [];
+}
+
+export function getEvidenceExportCandidateBatches(): EvidenceExportCandidateBatch[] {
+  return readYamlDir<EvidenceExportCandidateBatch>("data/evidence-export-candidates").sort(
+    (a, b) => b.generated_at.localeCompare(a.generated_at),
+  );
+}
+
+export function getEvidenceExportCandidates(): EvidenceExportCandidateWithBatch[] {
+  return getEvidenceExportCandidateBatches().flatMap((b) =>
+    b.candidates.map((c) => ({
+      ...c,
+      evidence_export_candidate_batch_id: b.evidence_export_candidate_batch_id,
+    })),
+  );
+}
+
+export function getEvidenceExportCandidate(id: string): EvidenceExportCandidateWithBatch | undefined {
+  return getEvidenceExportCandidates().find((c) => c.candidate_id === id);
 }
 
 export function getTaxonomies(): Record<string, Taxonomy> {

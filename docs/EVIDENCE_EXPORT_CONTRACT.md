@@ -1,7 +1,7 @@
 # Evidence Export Contract
 
-**Prepared:** 19 May 2026  
-**Phase:** v0.3.1 — contract definition only (no export implementation)
+**Prepared:** 19 May 2026 · **Updated:** 20 May 2026  
+**Phase:** v0.3.1 contract definition · v0.8.3 candidate pipeline (not final export)
 
 ---
 
@@ -58,18 +58,20 @@ Sample file ( **does not write to caesar-ai-evidence** ): [exports/samples/regul
 
 ---
 
-## Pipeline (future — not implemented)
+## Pipeline
 
 ```text
 Official source (registry)
-  → [future watcher] change record
+  → watcher / manual change record
       → mapping (may_affect / suggested_review)
-          → export record (this contract)
-              → [future] caesar-ai-evidence ingest
-                  → [future] Governance OS regulatory inbox
+          → evidence export candidate (v0.8.3 — gated, local only)
+              → [future] export record (this contract)
+                  → [future] caesar-ai-evidence ingest
+                      → [future] Governance OS regulatory inbox
 ```
 
-**v0.3.1 delivers:** schema + sample YAML only.
+**v0.3.1 delivers:** schema + sample YAML for final export shape.  
+**v0.8.3 delivers:** [EVIDENCE_EXPORT_CANDIDATE_PIPELINE.md](EVIDENCE_EXPORT_CANDIDATE_PIPELINE.md) — candidates only; **no** caesar-ai-evidence writes; `client_use_allowed` false; human review required.
 
 ---
 
@@ -117,5 +119,6 @@ Avoid: *compliant*, *non-compliant*, *guarantees*, *complete coverage*, *definit
 
 ## Related documents
 
+- [EVIDENCE_EXPORT_CANDIDATE_PIPELINE.md](EVIDENCE_EXPORT_CANDIDATE_PIPELINE.md) — v0.8.3 gated candidates
 - [TAXONOMY_AND_REVIEW_WORKFLOW.md](TAXONOMY_AND_REVIEW_WORKFLOW.md)
 - [SAMPLE_RECORDS_GUIDE.md](SAMPLE_RECORDS_GUIDE.md)

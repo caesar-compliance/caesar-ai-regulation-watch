@@ -11,6 +11,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.8.3] - 20 May 2026
+
+### Added
+
+- **Evidence export candidate pipeline** — `schemas/evidence-export-candidate.schema.json`, `scripts/generate-evidence-export-candidates.mjs`, `npm run generate:evidence-candidates`.
+- **Data** — `data/evidence-export-candidates/evidence-export-candidates-2026-05-20.yml` (5 gated candidates from changes + detected changes).
+- **Docs** — `docs/EVIDENCE_EXPORT_CANDIDATE_PIPELINE.md`; updated `docs/EVIDENCE_EXPORT_CONTRACT.md`.
+- **Site** — `/evidence-export-candidates/` page; nav link.
+- **Exports** — `public/data/evidence-export-candidates.json`; candidate counts on `regulation-watch-snapshot.json`.
+
+### Changed
+
+- `scripts/validate-data.mjs` — candidate schema + policy validation (`client_use_allowed`, blocking vs status, legal-safe language).
+- `npm run build` — runs candidate generation before validate/exports.
+- CI `validate-and-build.yml` — generates candidates before validate; build step includes full pipeline.
+
+### Notes
+
+- Candidates are **not** final evidence; **no** writes to caesar-ai-evidence.
+- All candidates: `client_use_allowed: false`, `human_review_required: true`.
+- Counts: 2 blocked (content review), 3 blocked (simulation), 0 ready for human review.
+- No backend, database, auth, or write UI.
+
+---
+
 ## [0.8.2] - 19 May 2026
 
 ### Added

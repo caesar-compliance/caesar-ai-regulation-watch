@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 19 May 2026
+**Last updated:** 20 May 2026
 
 ---
 
@@ -73,6 +73,19 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **watcher-run.schema.json** | Watcher run log (incl. feed_diagnostics) |
 | **detected-change.schema.json** | Pending detected change (+ content review fields v0.8.2) |
 | **content-review.schema.json** | Content review batch (v0.8.2) |
+| **evidence-export-candidate.schema.json** | Gated export candidate batch (v0.8.3) |
+
+---
+
+## data/evidence-export-candidates/ (v0.8.3)
+
+| Path | Role |
+|---|---|
+| **evidence-export-candidates-2026-05-20.yml** | Generated candidate batch (5 items) |
+| **scripts/generate-evidence-export-candidates.mjs** | `npm run generate:evidence-candidates` |
+| **docs/EVIDENCE_EXPORT_CANDIDATE_PIPELINE.md** | Pipeline scope and policy |
+| **src/pages/evidence-export-candidates/index.astro** | Read-only candidate dashboard |
+| **public/data/evidence-export-candidates.json** | Generated static export |
 
 ---
 
@@ -132,7 +145,7 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 
 | File | Role |
 |---|---|
-| **validate-and-build.yml** | PR/push: validate:data → generate:exports → build |
+| **validate-and-build.yml** | PR/push: generate:evidence-candidates → validate:data → build |
 
 ---
 

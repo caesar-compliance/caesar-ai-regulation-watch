@@ -1,6 +1,6 @@
 # Project State — Caesar AI Regulation Watch
 
-**Last updated:** 19 May 2026
+**Last updated:** 20 May 2026
 
 ---
 
@@ -9,12 +9,12 @@
 | Field | Value |
 |---|---|
 | **Repository** | `caesar-ai-regulation-watch` |
-| **Current version** | `v0.8.2` |
-| **Current phase** | Content review workflow |
-| **Status** | Content review batch + page + exports; monitoring cycle unchanged; no deploy |
-| **Working branch** | `agent/v0.8.2-content-review-workflow` |
-| **Latest completed task** | Content review schema, batch, docs, `/content-review/` page |
-| **Next recommended step** | Human browser content review on priority records; update batch with real outcomes |
+| **Current version** | `v0.8.3` |
+| **Current phase** | Evidence export candidate pipeline |
+| **Status** | Gated local candidates + page + JSON export; no caesar-ai-evidence writes; no deploy |
+| **Working branch** | `agent/v0.8.3-evidence-export-candidates` |
+| **Latest completed task** | Candidate schema, generator, validation policy, `/evidence-export-candidates/` page |
+| **Next recommended step** | Control Tower human review of candidates after content review progress |
 
 ---
 
@@ -26,6 +26,20 @@
 | RSS/feed | 2 | 2 |
 | API metadata | 1 | 1 |
 | **Total watchers** | **5** | **5** |
+
+---
+
+## Evidence export candidates (v0.8.3)
+
+| Capability | Status |
+|---|---|
+| `schemas/evidence-export-candidate.schema.json` | Yes |
+| `scripts/generate-evidence-export-candidates.mjs` | Yes |
+| `data/evidence-export-candidates/evidence-export-candidates-2026-05-20.yml` | Yes (5 candidates) |
+| `/evidence-export-candidates/` page | Yes |
+| `public/data/evidence-export-candidates.json` | Yes |
+| Final evidence export / caesar-ai-evidence ingest | **No** |
+| `client_use_allowed: true` on candidates | **No** (policy) |
 
 ---
 
@@ -59,6 +73,7 @@
 
 ## Boundaries
 
+- Candidates are not final evidence; not legal advice; no compliance guarantee.
 - Monitoring is review-gated; not legal advice.
-- `client_use_allowed` remains false on watcher outputs.
+- `client_use_allowed` remains false on watcher outputs and export candidates.
 - Push/PR CI still does not run live watchers (`validate-and-build.yml`).

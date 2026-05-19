@@ -44,7 +44,28 @@ const schemas = {
   detectedChange: loadSchema("detected-change.schema.json"),
   monitoringRun: loadSchema("monitoring-run.schema.json"),
   contentReview: loadSchema("content-review.schema.json"),
+  evidenceExportCandidate: loadSchema("evidence-export-candidate.schema.json"),
 };
+
+const COMPLIANCE_GUARANTEE_LANGUAGE =
+  /\b(compliant|non-compliant|guarantees?|complete coverage|definitive legal interpretation)\b/i;
+
+function hasComplianceGuaranteeLanguage(text) {
+  if (!text || typeof text !== "string") return true;
+  const lower = text.toLowerCase();
+  const disclaimers = [
+    "no compliance guarantee",
+    "not a compliance guarantee",
+    "does not guarantee compliance",
+    "no complete coverage claim",
+    "not complete coverage",
+    "no complete regulatory coverage",
+  ];
+  if (disclaimers.some((d) => lower.includes(d))) {
+    return false;
+  }
+  return COMPLIANCE_GUARANTEE_LANGUAGE.test(text);
+}
 
 function readYaml(filePath) {
   const raw = fs.readFileSync(filePath, "utf8");
@@ -251,6 +272,84 @@ if (fs.existsSync(monitoringDir)) {
 for (const file of listYamlFiles(path.join(ROOT, "data/detected-changes"))) {
   const data = readYaml(file);
   check(validate(file, data, schemas.detectedChange));
+}
+
+// Evidence export candidates (v0.8.3)
+const candidateDir = path.join(ROOT, "data/evidence-export-candidates");
+for (const file of listYamlFiles(candidateDir)) {
+  const data = readYaml(file);
+  check(validate(file, data, schemas.evidenceExportCandidate));
+  for (const c of data.candidates ?? []) {
+    const label = `${file} → ${c.candidate_id ?? "?"}`;
+    if (c.client_use_allowed !== false) {
+      failures.push({
+        label: `${label} (policy)`,
+        errors: [{ message: "evidence export candidate must have client_use_allowed: false" }],
+      });
+    }
+    if (c.human_review_required !== true) {
+      failures.push({
+        label: `${label} (policy)`,
+        errors: [{ message: "evidence export candidate must have human_review_required: true" }],
+      });
+    }
+    if (c.verified_on_source_required !== true) {
+      failures.push({
+        label: `${label} (policy)`,
+        errors: [{ message: "evidence export candidate must have verified_on_source_required: true" }],
+      });
+    }
+    if (
+      c.created_from === "simulated_detected_change" &&
+      c.candidate_status === "ready_for_human_review"
+    ) {
+      failures.push({
+        label: `${label} (policy)`,
+        errors: [
+          {
+            message:
+              "simulated detected change candidate cannot be ready_for_human_review (client-ready implication)",
+          },
+        ],
+      });
+    }
+    if (
+      c.candidate_status === "ready_for_human_review" &&
+      Array.isArray(c.blocking_reasons) &&
+      c.blocking_reasons.length > 0
+    ) {
+      failures.push({
+        label: `${label} (policy)`,
+        errors: [
+          {
+            message:
+              "ready_for_human_review cannot be set while blocking_reasons is non-empty",
+          },
+        ],
+      });
+    }
+    if (!c.legal_safe_note || hasComplianceGuaranteeLanguage(c.legal_safe_note)) {
+      failures.push({
+        label: `${label} (policy)`,
+        errors: [
+          {
+            message:
+              "legal_safe_note missing or contains compliance-guarantee language",
+          },
+        ],
+      });
+    }
+    if (data.legal_safe_note && hasComplianceGuaranteeLanguage(data.legal_safe_note)) {
+      failures.push({
+        label: `${file} (policy)`,
+        errors: [
+          {
+            message: "batch legal_safe_note contains compliance-guarantee language",
+          },
+        ],
+      });
+    }
+  }
 }
 
 // Export samples
@@ -558,6 +657,46 @@ for (const file of listYamlFiles(path.join(ROOT, "data/verifications"))) {
       failures.push({
         label: `${file} → ${cr.content_review_id} (referential)`,
         errors: [{ message: `unknown item_id (timeline_event): ${cr.item_id}` }],
+      });
+    }
+  }
+}
+
+const changeIds = new Set(
+  listYamlFiles(path.join(ROOT, "data/changes")).map((f) => readYaml(f).change_id),
+);
+
+for (const file of listYamlFiles(candidateDir)) {
+  const batch = readYaml(file);
+  for (const c of batch.candidates ?? []) {
+    if (!jurisdictionIds.has(c.jurisdiction_id)) {
+      failures.push({
+        label: `${file} → ${c.candidate_id} (referential)`,
+        errors: [{ message: `unknown jurisdiction_id: ${c.jurisdiction_id}` }],
+      });
+    }
+    if (!sourceIds.has(c.source_id)) {
+      failures.push({
+        label: `${file} → ${c.candidate_id} (referential)`,
+        errors: [{ message: `unknown source_id: ${c.source_id}` }],
+      });
+    }
+    if (c.related_record_id && !recordIds.has(c.related_record_id)) {
+      failures.push({
+        label: `${file} → ${c.candidate_id} (referential)`,
+        errors: [{ message: `unknown related_record_id: ${c.related_record_id}` }],
+      });
+    }
+    if (c.source_item_type === "change_record" && !changeIds.has(c.source_item_id)) {
+      failures.push({
+        label: `${file} → ${c.candidate_id} (referential)`,
+        errors: [{ message: `unknown source_item_id (change): ${c.source_item_id}` }],
+      });
+    }
+    if (c.source_item_type === "detected_change" && !detectedChangeIds.has(c.source_item_id)) {
+      failures.push({
+        label: `${file} → ${c.candidate_id} (referential)`,
+        errors: [{ message: `unknown source_item_id (detected_change): ${c.source_item_id}` }],
       });
     }
   }

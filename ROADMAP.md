@@ -1,10 +1,10 @@
 # Development Roadmap — Caesar AI Regulation Watch
 
-**Last updated:** 19 May 2026
+**Last updated:** 20 May 2026
 
 This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
 
-**Current (v0.8.2):** content review workflow (schema, pilot batch, static page, exports). **Next:** human browser content review on priority records; Control Tower monitoring PR trial; deploy remains deferred.
+**Current (v0.8.3):** evidence export candidate pipeline (gated local YAML + page + JSON; no caesar-ai-evidence). **Next:** human content review; Control Tower candidate triage; final export contract implementation remains deferred.
 
 ---
 

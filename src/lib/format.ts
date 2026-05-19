@@ -109,3 +109,13 @@ export function sourceSupportLevelLabel(level: string): string {
   };
   return labels[level] ?? humanizeId(level);
 }
+
+export function evidenceExportCandidateStatusLabel(status: string): string {
+  const labels: Record<string, string> = {
+    blocked_pending_content_review: "Blocked — content review pending",
+    blocked_simulation_only: "Blocked — simulation only",
+    ready_for_human_review: "Ready for human review",
+    rejected_for_client_use: "Rejected for client use",
+  };
+  return labels[status] ?? humanizeId(status);
+}

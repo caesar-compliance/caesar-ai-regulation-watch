@@ -1,0 +1,173 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import {
+  getEvidenceExportCandidateBatches,
+  getEvidenceExportCandidates,
+  getJurisdiction,
+  getSource,
+} from "../../lib/data";
+import {
+  evidenceExportCandidateStatusLabel,
+  humanizeId,
+  truncate,
+} from "../../lib/format";
+
+const batches = getEvidenceExportCandidateBatches();
+const candidates = getEvidenceExportCandidates();
+const latestBatch = batches[0];
+
+const byStatus = {
+  ready_for_human_review: candidates.filter((c) => c.candidate_status === "ready_for_human_review"),
+  blocked_pending_content_review: candidates.filter(
+    (c) => c.candidate_status === "blocked_pending_content_review",
+  ),
+  blocked_simulation_only: candidates.filter((c) => c.candidate_status === "blocked_simulation_only"),
+  rejected_for_client_use: candidates.filter((c) => c.candidate_status === "rejected_for_client_use"),
+};
+const clientUseAllowed = candidates.filter((c) => c.client_use_allowed);
+
+function sourceHref(c: (typeof candidates)[0]) {
+  if (c.source_item_type === "change_record") {
+    return `/changes/${c.source_item_id}/`;
+  }
+  return `/detected-changes/${c.source_item_id}/`;
+}
+---
+
+<BaseLayout
+  title="Evidence export candidates"
+  currentPath="/evidence-export-candidates/"
+>
+  <h1>Evidence export candidates</h1>
+  <p class="lead">
+    Gated pipeline output from local change records, detected changes, and content review status.
+    <strong>Not final evidence</strong> — no writes to caesar-ai-evidence. Human review required.
+  </p>
+
+  <div class="banner banner--sample" role="alert">
+    <strong>Candidate-only — not client evidence.</strong> v0.8.3 local pipeline.{" "}
+    <code>client_use_allowed</code> is false for every candidate. Not legal advice. No compliance
+    guarantee. No complete coverage claim. Download{" "}
+    <a href="/data/evidence-export-candidates.json">evidence-export-candidates.json</a>.
+  </div>
+
+  <dl class="meta-grid">
+    <div><dt>Batch</dt><dd>{latestBatch?.evidence_export_candidate_batch_id ?? "—"}</dd></div>
+    <div><dt>Total candidates</dt><dd>{candidates.length}</dd></div>
+    <div>
+      <dt>Ready for human review</dt><dd>{byStatus.ready_for_human_review.length}</dd>
+    </div>
+    <div>
+      <dt>Blocked (content review)</dt><dd>{byStatus.blocked_pending_content_review.length}</dd>
+    </div>
+    <div>
+      <dt>Blocked (simulation)</dt><dd>{byStatus.blocked_simulation_only.length}</dd>
+    </div>
+    <div>
+      <dt>client_use_allowed</dt><dd>{clientUseAllowed.length} (expected 0)</dd>
+    </div>
+  </dl>
+
+  <p>
+    Regenerate: <code>npm run generate:evidence-candidates</code>. Docs: repository{" "}
+    <code>docs/EVIDENCE_EXPORT_CANDIDATE_PIPELINE.md</code>.
+  </p>
+
+  <h2>Candidate list</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Candidate</th>
+        <th>Status</th>
+        <th>Source item</th>
+        <th>Jurisdiction / source</th>
+        <th>Blocking reasons</th>
+        <th>Suggested actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        candidates.map((c) => {
+          const jurisdiction = getJurisdiction(c.jurisdiction_id);
+          const source = getSource(c.source_id);
+          return (
+            <tr>
+              <td>
+                <span class="mono">{c.candidate_id}</span>
+                <br />
+                <span class="badge badge--sample-only">Candidate</span>
+              </td>
+              <td>
+                <span class={`badge badge--review-${c.candidate_status}`}>
+                  {evidenceExportCandidateStatusLabel(c.candidate_status)}
+                </span>
+              </td>
+              <td>
+                <a href={sourceHref(c)}>{c.source_item_id}</a>
+                <br />
+                <span class="muted">{humanizeId(c.source_item_type)}</span>
+                {c.related_record_id && (
+                  <>
+                    <br />
+                    <a href={`/records/${c.related_record_id}/`} class="muted">
+                      {c.related_record_id}
+                    </a>
+                  </>
+                )}
+              </td>
+              <td>
+                {jurisdiction ? (
+                  <a href={`/jurisdictions/${jurisdiction.jurisdiction_id}/`}>
+                    {jurisdiction.name}
+                  </a>
+                ) : (
+                  c.jurisdiction_id
+                )}
+                <br />
+                <a href={`/sources/${c.source_id}/`}>{source?.title ?? c.source_id}</a>
+              </td>
+              <td>
+                <ul class="inline-list">
+                  {c.blocking_reasons.map((r) => (
+                    <li>{humanizeId(r)}</li>
+                  ))}
+                </ul>
+              </td>
+              <td>
+                <ul class="inline-list">
+                  {c.suggested_review_actions.map((a) => (
+                    <li>
+                      {humanizeId(a.action_type)}
+                      {a.target_ref ? ` (${a.target_ref})` : ""}
+                    </li>
+                  ))}
+                </ul>
+              </td>
+            </tr>
+          );
+        })
+      }
+    </tbody>
+  </table>
+
+  <h2>Summaries</h2>
+  <ul class="card-list">
+    {
+      candidates.map((c) => (
+        <li class="card">
+          <div class="card__meta">
+            <span class="badge badge--sample-only">Candidate only</span>
+            <span class={`badge badge--review-${c.candidate_status}`}>
+              {evidenceExportCandidateStatusLabel(c.candidate_status)}
+            </span>
+          </div>
+          <h3 class="mono">{c.candidate_id}</h3>
+          <p class="card__excerpt">{truncate(c.summary_for_review, 240)}</p>
+          <p class="card__excerpt card__excerpt--note">
+            <small>{c.legal_safe_note}</small>
+          </p>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>

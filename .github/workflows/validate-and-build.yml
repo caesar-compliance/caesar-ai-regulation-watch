@@ -21,11 +21,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Generate evidence export candidates
+        run: npm run generate:evidence-candidates
+
       - name: Validate data
         run: npm run validate:data
-
-      - name: Generate static exports
-        run: npm run generate:exports
 
       - name: Build site
         run: npm run build

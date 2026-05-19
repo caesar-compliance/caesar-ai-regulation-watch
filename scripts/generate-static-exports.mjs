@@ -62,6 +62,25 @@ function readDetectedChanges() {
   );
 }
 
+function readEvidenceExportCandidates() {
+  const dir = path.join(ROOT, "data/evidence-export-candidates");
+  if (!fs.existsSync(dir)) return { batch: null, candidates: [] };
+  const files = fs
+    .readdirSync(dir)
+    .filter((f) => f.endsWith(".yml") || f.endsWith(".yaml"))
+    .sort()
+    .reverse();
+  if (files.length === 0) return { batch: null, candidates: [] };
+  const batch = yaml.load(fs.readFileSync(path.join(dir, files[0]), "utf8"));
+  const candidates = (batch?.candidates ?? []).map((c) => ({
+    ...c,
+    evidence_export_candidate_batch_id: batch.evidence_export_candidate_batch_id,
+    is_candidate_not_final_export: true,
+    not_client_evidence: true,
+  }));
+  return { batch, candidates };
+}
+
 function writeJson(filePath, data) {
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2) + "\n", "utf8");
@@ -153,6 +172,8 @@ if (fs.existsSync(monitoringDiffSummaryPath)) {
   }
 }
 const detectedChanges = readDetectedChanges();
+const { batch: evidenceCandidateBatch, candidates: evidenceExportCandidates } =
+  readEvidenceExportCandidates();
 const latestWatcherRun = watcherRuns[0] ?? null;
 
 const exportFile = readYamlFile("exports/samples/regulation-change-export.sample.yml");
@@ -171,7 +192,7 @@ const records = [
   })),
 ];
 
-const generatedAt = "2026-05-19";
+const generatedAt = evidenceCandidateBatch?.generated_at ?? "2026-05-20";
 
 function needsReview(status) {
   return status !== "reviewed";
@@ -755,9 +776,26 @@ const contentReviewSummary = {
 
 const recordsVerifiedOnSource = records.filter((r) => r.verified_on_source === true).length;
 
+const evidenceCandidateSummary = {
+  total: evidenceExportCandidates.length,
+  ready_for_human_review: evidenceExportCandidates.filter(
+    (c) => c.candidate_status === "ready_for_human_review",
+  ).length,
+  blocked_pending_content_review: evidenceExportCandidates.filter(
+    (c) => c.candidate_status === "blocked_pending_content_review",
+  ).length,
+  blocked_simulation_only: evidenceExportCandidates.filter(
+    (c) => c.candidate_status === "blocked_simulation_only",
+  ).length,
+  rejected_for_client_use: evidenceExportCandidates.filter(
+    (c) => c.candidate_status === "rejected_for_client_use",
+  ).length,
+  client_use_allowed: evidenceExportCandidates.filter((c) => c.client_use_allowed).length,
+};
+
 const snapshot = {
   generated_at: generatedAt,
-  version: "0.8.2",
+  version: "0.8.3",
   disclaimer: DISCLAIMER,
   pilot_jurisdictions: jurisdictions.map((j) => j.jurisdiction_id),
   counts: {
@@ -829,6 +867,15 @@ const snapshot = {
     monitoring_diff_has_meaningful_changes:
       latestMonitoringDiffSummary?.has_meaningful_changes ?? null,
     monitoring_diff_recommended_action: latestMonitoringDiffSummary?.recommended_action ?? null,
+    evidence_export_candidate_count: evidenceCandidateSummary.total,
+    evidence_export_candidates_ready_for_human_review:
+      evidenceCandidateSummary.ready_for_human_review,
+    evidence_export_candidates_blocked_content_review:
+      evidenceCandidateSummary.blocked_pending_content_review,
+    evidence_export_candidates_blocked_simulation:
+      evidenceCandidateSummary.blocked_simulation_only,
+    evidence_export_candidates_client_use_allowed:
+      evidenceCandidateSummary.client_use_allowed,
     review_queue_items: reviewSummary.total,
     pending_review: reviewSummary.pending_review,
     needs_update: reviewSummary.needs_update,
@@ -857,6 +904,7 @@ const snapshot = {
     watcher_runs: "/data/watcher-runs.json",
     monitoring_runs: "/data/monitoring-runs.json",
     detected_changes: "/data/detected-changes.json",
+    evidence_export_candidates: "/data/evidence-export-candidates.json",
   },
   review_notice:
     "All pilot content is curated manual YAML. Human review required before client use.",
@@ -1055,6 +1103,20 @@ writeJson(path.join(PUBLIC_DATA, "detected-changes.json"), {
   },
 });
 
+writeJson(path.join(PUBLIC_DATA, "evidence-export-candidates.json"), {
+  generated_at: generatedAt,
+  disclaimer: DISCLAIMER,
+  candidate_only: true,
+  not_final_evidence: true,
+  not_client_evidence: true,
+  no_caesar_ai_evidence_write: true,
+  batch_id: evidenceCandidateBatch?.evidence_export_candidate_batch_id ?? null,
+  pipeline_version: evidenceCandidateBatch?.pipeline_version ?? null,
+  legal_safe_note: evidenceCandidateBatch?.legal_safe_note ?? DISCLAIMER,
+  summary: evidenceCandidateSummary,
+  items: evidenceExportCandidates,
+});
+
 writeJson(path.join(PUBLIC_DATA, "regulation-watch-snapshot.json"), snapshot);
 
 // RSS feed — sample changes only
@@ -1122,6 +1184,8 @@ console.log("  public/data/snapshots.json");
 console.log("  public/data/watcher-runs.json");
 console.log("  public/data/monitoring-runs.json");
 console.log("  public/data/detected-changes.json");
+console.log("  public/data/evidence-export-candidates.json");
+console.log(`  ${evidenceExportCandidates.length} evidence export candidate(s) exported`);
 console.log("  public/data/regulation-watch-snapshot.json");
 console.log(`  ${watchers.length} watcher(s) configured`);
 console.log(`  ${snapshots.length} snapshot(s) exported`);

@@ -1,0 +1,304 @@
+# Evidence export candidates — v0.8.3 (generated)
+# Not final evidence. Do not write to caesar-ai-evidence. Regenerate: npm run generate:evidence-candidates
+
+evidence_export_candidate_batch_id: evidence-export-candidates-2026-05-20
+generated_at: '2026-05-20'
+pipeline_version: 0.8.3
+legal_safe_note: >-
+  v0.8.3 evidence export candidate batch. Candidates are not final evidence exports. Does not write
+  to caesar-ai-evidence. Not legal advice. No compliance guarantee. No complete regulatory coverage
+  claim. Human review required before any client use. client_use_allowed remains false for every
+  candidate.
+candidates:
+  - candidate_id: candidate-change-sample-datatilsynet-guidance-change
+    source_item_type: change_record
+    source_item_id: sample-datatilsynet-guidance-change
+    jurisdiction_id: norway
+    source_id: datatilsynet
+    export_type: regulation_change_candidate
+    candidate_status: blocked_pending_content_review
+    eligibility_reasons:
+      - change_record_in_repository
+      - draft_mapping_available
+      - export_contract_sample_available
+      - related_record_id_present
+    blocking_reasons:
+      - human_review_required_before_export
+      - verified_on_source_not_confirmed
+      - client_use_not_allowed_v083
+      - manual_sample_not_production_data
+      - content_review_not_checked
+    summary_for_review: >-
+      Sample regulation-change export for illustrative Datatilsynet guidance update. Supports
+      governance review of privacy documentation and DPIAs for AI in Norway. Not an automated
+      detection.
+    may_affect_controls:
+      - control_ref: regulation_watch.control.privacy_and_data_protection
+        rationale: May affect privacy controls for Norwegian personal-data processing.
+        reference_alignment: draft_pending_caesar_ai_evidence
+      - control_ref: regulation_watch.control.transparency_and_notices
+        rationale: May affect transparency controls for AI features.
+        reference_alignment: draft_pending_caesar_ai_evidence
+    may_affect_evidence:
+      - evidence_ref: regulation_watch.evidence.dpia
+        rationale: May affect DPIA content if guidance changes materially.
+        reference_alignment: draft_pending_caesar_ai_evidence
+      - evidence_ref: regulation_watch.evidence.guidance_review_note
+        rationale: Suggested internal note documenting guidance review outcome.
+        reference_alignment: draft_pending_caesar_ai_evidence
+    suggested_review_actions:
+      - action_type: verify_on_official_source
+        rationale: Read current Datatilsynet pages on the official site.
+      - action_type: review_evidence
+        target_ref: regulation_watch.evidence.dpia
+        rationale: Suggested DPIA review if guidance applies to active systems.
+      - action_type: consult_qualified_advisor
+        rationale: Escalate if change affects lawful basis or automated decisions.
+    human_review_required: true
+    client_use_allowed: false
+    verified_on_source_required: true
+    created_from: manual_sample
+    provenance:
+      generated_by: scripts/generate-evidence-export-candidates.mjs
+      generated_at: '2026-05-20'
+      source_data_paths:
+        - data/changes/sample-datatilsynet-guidance-change.yml
+        - data/laws or data/guidance (guidance-datatilsynet-ai-privacy)
+        - data/verifications/content-review (item guidance-datatilsynet-ai-privacy)
+        - mappings/change-to-controls.sample.yml
+        - mappings/change-to-evidence.sample.yml
+      mapping_ids:
+        - map-ctrl-sample-datatilsynet-guidance
+        - map-ev-sample-datatilsynet-guidance
+      export_sample_record_id: export-sample-datatilsynet-guidance-001
+    legal_safe_note: >-
+      Evidence export candidate for governance review only — not final evidence, not client-ready.
+      Draft regulation_watch control/evidence refs pending caesar-ai-evidence alignment. Requires
+      human review on official sources before any client use. Not legal advice. Manual sample change
+      — not watcher output.
+    related_record_id: guidance-datatilsynet-ai-privacy
+    content_review_id: content-review-guidance-datatilsynet-ai-privacy
+  - candidate_id: candidate-change-sample-eu-ai-act-status-change
+    source_item_type: change_record
+    source_item_id: sample-eu-ai-act-status-change
+    jurisdiction_id: eu
+    source_id: eu-ai-act
+    export_type: regulation_change_candidate
+    candidate_status: blocked_pending_content_review
+    eligibility_reasons:
+      - change_record_in_repository
+      - draft_mapping_available
+      - export_contract_sample_available
+      - related_record_id_present
+    blocking_reasons:
+      - human_review_required_before_export
+      - verified_on_source_not_confirmed
+      - client_use_not_allowed_v083
+      - manual_sample_not_production_data
+      - content_review_not_checked
+    summary_for_review: >-
+      Sample regulation-change export derived from manual change record
+      sample-eu-ai-act-status-change. Supports governance review of whether AI system registers and
+      governance memos may need refresh if EUR-Lex metadata change is confirmed on the official
+      source. Not legal advice.
+    may_affect_controls:
+      - control_ref: regulation_watch.control.regulatory_tracking
+        rationale: May affect how regulatory applicability is tracked internally.
+        reference_alignment: draft_pending_caesar_ai_evidence
+      - control_ref: regulation_watch.control.ai_act_inventory_review
+        rationale: May affect AI Act inventory fields if status display changed on EUR-Lex.
+        reference_alignment: draft_pending_caesar_ai_evidence
+    may_affect_evidence:
+      - evidence_ref: regulation_watch.evidence.ai_system_register
+        rationale: May affect AI system register entries citing EU AI Act status.
+        reference_alignment: draft_pending_caesar_ai_evidence
+      - evidence_ref: regulation_watch.evidence.ai_act_source_snapshot
+        rationale: Suggested capture of official source state after verification.
+        reference_alignment: draft_pending_caesar_ai_evidence
+    suggested_review_actions:
+      - action_type: verify_on_official_source
+        rationale: Confirm whether EUR-Lex metadata actually changed.
+      - action_type: review_evidence
+        target_ref: regulation_watch.evidence.ai_system_register
+        rationale: Suggested evidence review if change is material to registered systems.
+      - action_type: review_control
+        target_ref: regulation_watch.control.ai_act_inventory_review
+        rationale: Suggested control review for inventory accuracy.
+    human_review_required: true
+    client_use_allowed: false
+    verified_on_source_required: true
+    created_from: manual_sample
+    provenance:
+      generated_by: scripts/generate-evidence-export-candidates.mjs
+      generated_at: '2026-05-20'
+      source_data_paths:
+        - data/changes/sample-eu-ai-act-status-change.yml
+        - data/laws or data/guidance (law-eu-ai-act-2024-1689)
+        - data/verifications/content-review (item law-eu-ai-act-2024-1689)
+        - mappings/change-to-controls.sample.yml
+        - mappings/change-to-evidence.sample.yml
+      mapping_ids:
+        - map-ctrl-sample-eu-ai-act-status
+        - map-ev-sample-eu-ai-act-status
+      export_sample_record_id: export-sample-eu-ai-act-status-001
+    legal_safe_note: >-
+      Evidence export candidate for governance review only — not final evidence, not client-ready.
+      Draft regulation_watch control/evidence refs pending caesar-ai-evidence alignment. Requires
+      human review on official sources before any client use. Not legal advice. Manual sample change
+      — not watcher output.
+    related_record_id: law-eu-ai-act-2024-1689
+    content_review_id: content-review-law-eu-ai-act-2024-1689
+  - candidate_id: candidate-detected-simulated-edpb-feed-change-2026-05-19
+    source_item_type: detected_change
+    source_item_id: simulated-edpb-feed-change-2026-05-19
+    jurisdiction_id: eu
+    source_id: edpb
+    export_type: regulation_change_candidate
+    candidate_status: blocked_simulation_only
+    eligibility_reasons:
+      - detected_change_in_repository
+      - content_review_batch_entry_exists
+    blocking_reasons:
+      - human_review_required_before_export
+      - verified_on_source_not_confirmed
+      - client_use_not_allowed_v083
+      - simulation_only_not_official_update
+      - content_review_not_checked
+      - related_record_id_missing
+    summary_for_review: >-
+      [SIMULATION] 1 new feed entry(ies): Fixture: New simulated EDPB publication C. Not an official
+      update confirmation.
+    may_affect_controls: []
+    may_affect_evidence: []
+    suggested_review_actions:
+      - action_type: verify_on_official_source
+        rationale: Confirm whether any real change exists on the official source; simulation is not evidence.
+      - action_type: complete_content_review
+        rationale: >-
+          Content review is not_checked or not_reviewed; complete browser review before export
+          consideration.
+      - action_type: update_internal_register
+        rationale: Link or create a related regulation record before final export mapping.
+      - action_type: review_evidence
+        rationale: Suggested evidence review if change is confirmed material (human decision).
+    human_review_required: true
+    client_use_allowed: false
+    verified_on_source_required: true
+    created_from: simulated_detected_change
+    provenance:
+      generated_by: scripts/generate-evidence-export-candidates.mjs
+      generated_at: '2026-05-20'
+      source_data_paths:
+        - data/detected-changes/simulated-edpb-feed-change-2026-05-19.yml
+        - data/verifications/content-review (content-review-simulated-edpb-feed-change-2026-05-19)
+    legal_safe_note: >-
+      Evidence export candidate for governance review only — not final evidence, not client-ready.
+      Draft regulation_watch control/evidence refs pending caesar-ai-evidence alignment. Requires
+      human review on official sources before any client use. Not legal advice. Simulated watcher
+      diff — not an official source update.
+    content_review_id: content-review-simulated-edpb-feed-change-2026-05-19
+  - candidate_id: candidate-detected-simulated-eu-ai-office-change-2026-05-19
+    source_item_type: detected_change
+    source_item_id: simulated-eu-ai-office-change-2026-05-19
+    jurisdiction_id: eu
+    source_id: eu-ai-office
+    export_type: regulation_change_candidate
+    candidate_status: blocked_simulation_only
+    eligibility_reasons:
+      - detected_change_in_repository
+      - content_review_batch_entry_exists
+    blocking_reasons:
+      - human_review_required_before_export
+      - verified_on_source_not_confirmed
+      - client_use_not_allowed_v083
+      - simulation_only_not_official_update
+      - content_review_not_checked
+      - related_record_id_missing
+    summary_for_review: >-
+      [SIMULATION] Fixture metadata diff (normalized text hash changed; title: "Fixture: EU AI
+      regulatory framework (baseline)" → "Fixture: EU AI regulatory framework (updated simulation)";
+      content hash changed; etag changed; last modified changed; content length changed). Not an
+      official source update. Confirm on live source before any record update; not a legal
+      conclusion.
+    may_affect_controls: []
+    may_affect_evidence: []
+    suggested_review_actions:
+      - action_type: verify_on_official_source
+        rationale: Confirm whether any real change exists on the official source; simulation is not evidence.
+      - action_type: complete_content_review
+        rationale: >-
+          Content review is not_checked or not_reviewed; complete browser review before export
+          consideration.
+      - action_type: update_internal_register
+        rationale: Link or create a related regulation record before final export mapping.
+      - action_type: review_evidence
+        rationale: Suggested evidence review if change is confirmed material (human decision).
+    human_review_required: true
+    client_use_allowed: false
+    verified_on_source_required: true
+    created_from: simulated_detected_change
+    provenance:
+      generated_by: scripts/generate-evidence-export-candidates.mjs
+      generated_at: '2026-05-20'
+      source_data_paths:
+        - data/detected-changes/simulated-eu-ai-office-change-2026-05-19.yml
+        - >-
+          data/verifications/content-review
+          (content-review-simulated-eu-ai-office-change-2026-05-19)
+    legal_safe_note: >-
+      Evidence export candidate for governance review only — not final evidence, not client-ready.
+      Draft regulation_watch control/evidence refs pending caesar-ai-evidence alignment. Requires
+      human review on official sources before any client use. Not legal advice. Simulated watcher
+      diff — not an official source update.
+    content_review_id: content-review-simulated-eu-ai-office-change-2026-05-19
+  - candidate_id: candidate-detected-simulated-us-federal-register-api-change-2026-05-19
+    source_item_type: detected_change
+    source_item_id: simulated-us-federal-register-api-change-2026-05-19
+    jurisdiction_id: us-federal
+    source_id: us-federal-register
+    export_type: regulation_change_candidate
+    candidate_status: blocked_simulation_only
+    eligibility_reasons:
+      - detected_change_in_repository
+      - content_review_batch_entry_exists
+    blocking_reasons:
+      - human_review_required_before_export
+      - verified_on_source_not_confirmed
+      - client_use_not_allowed_v083
+      - simulation_only_not_official_update
+      - content_review_not_checked
+      - related_record_id_missing
+    summary_for_review: >-
+      [SIMULATION] 1 new API result(s): Fixture: New simulated Federal Register AI document C. Not
+      an official update confirmation.
+    may_affect_controls: []
+    may_affect_evidence: []
+    suggested_review_actions:
+      - action_type: verify_on_official_source
+        rationale: Confirm whether any real change exists on the official source; simulation is not evidence.
+      - action_type: complete_content_review
+        rationale: >-
+          Content review is not_checked or not_reviewed; complete browser review before export
+          consideration.
+      - action_type: update_internal_register
+        rationale: Link or create a related regulation record before final export mapping.
+      - action_type: review_evidence
+        rationale: Suggested evidence review if change is confirmed material (human decision).
+    human_review_required: true
+    client_use_allowed: false
+    verified_on_source_required: true
+    created_from: simulated_detected_change
+    provenance:
+      generated_by: scripts/generate-evidence-export-candidates.mjs
+      generated_at: '2026-05-20'
+      source_data_paths:
+        - data/detected-changes/simulated-us-federal-register-api-change-2026-05-19.yml
+        - >-
+          data/verifications/content-review
+          (content-review-simulated-us-federal-register-api-change-2026-05-19)
+    legal_safe_note: >-
+      Evidence export candidate for governance review only — not final evidence, not client-ready.
+      Draft regulation_watch control/evidence refs pending caesar-ai-evidence alignment. Requires
+      human review on official sources before any client use. Not legal advice. Simulated watcher
+      diff — not an official source update.
+    content_review_id: content-review-simulated-us-federal-register-api-change-2026-05-19
