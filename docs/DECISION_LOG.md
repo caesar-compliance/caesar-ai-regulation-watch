@@ -226,3 +226,13 @@
 - **Rationale:** Structured official feeds are lower-risk and more stable than HTML hash diffs where available.
 - **Boundaries:** No invented feed URLs; Datatilsynet remains page-only; Federal Register in candidate log only; not in CI; no article body storage.
 - **Artifacts:** `scripts/lib/source-adapters/`, `scripts/lib/feed-diff.mjs`, `schemas/feed-snapshot.schema.json`, `docs/SOURCE_ADAPTERS.md`, `docs/FEED_WATCHER_CANDIDATES.md`.
+
+---
+
+## [DEC-025] — 19 May 2026 — Watcher reliability and API adapter (v0.7.3)
+
+- **Status:** Approved (implementation complete)
+- **Decision:** Add conservative retry/error classification, soft-fail snapshot preservation, and `official_api_metadata` adapter. Federal Register API watcher configured but disabled until Control Tower enables.
+- **Rationale:** EDPS feed failures and rate limits require operational clarity without legal false positives.
+- **Boundaries:** Not in CI; no document bodies; no broad API queries.
+- **Artifacts:** `scripts/lib/source-adapters/reliability.mjs`, `api-metadata-adapter.mjs`, `docs/WATCHER_RELIABILITY_POLICY.md`, `docs/API_WATCHER_CANDIDATES.md`.

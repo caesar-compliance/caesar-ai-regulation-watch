@@ -77,6 +77,14 @@
         "pattern": "^[a-z][a-z0-9_-]*$"
       }
     },
+    "api_checked_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "errors_by_category": {
+      "type": "object",
+      "additionalProperties": { "type": "integer", "minimum": 0 }
+    },
     "error_summaries": {
       "type": "array",
       "items": {
@@ -95,6 +103,28 @@
           "message": {
             "type": "string",
             "minLength": 1
+          },
+          "error_category": {
+            "type": "string",
+            "enum": [
+              "timeout",
+              "dns_error",
+              "rate_limited",
+              "forbidden",
+              "server_error",
+              "invalid_feed",
+              "invalid_api_response",
+              "network_error",
+              "unknown_error"
+            ]
+          },
+          "retry_attempts": {
+            "type": ["integer", "null"],
+            "minimum": 0
+          },
+          "last_successful_snapshot_id": {
+            "type": ["string", "null"],
+            "pattern": "^[a-z][a-z0-9_-]*$"
           }
         }
       }
@@ -146,6 +176,23 @@
           },
           "error_message": {
             "type": ["string", "null"]
+          },
+          "adapter_id": {
+            "type": ["string", "null"]
+          },
+          "last_successful_snapshot_id": {
+            "type": ["string", "null"],
+            "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "error_category": {
+            "type": ["string", "null"]
+          },
+          "retry_attempts": {
+            "type": ["integer", "null"],
+            "minimum": 0
+          },
+          "soft_fail": {
+            "type": ["boolean", "null"]
           }
         }
       }

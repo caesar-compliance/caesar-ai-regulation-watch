@@ -373,6 +373,14 @@ export interface DetectedChange {
   adapter_id?: string;
   change_type: string;
   feed_entries_affected?: FeedSnapshotEntry[];
+  api_results_affected?: {
+    result_id: string;
+    title?: string | null;
+    link?: string | null;
+    publication_date?: string | null;
+  }[];
+  error_category?: string;
+  source_adapter_type?: string;
   changed_fields: string[];
   previous_snapshot_id: string;
   current_snapshot_id: string;

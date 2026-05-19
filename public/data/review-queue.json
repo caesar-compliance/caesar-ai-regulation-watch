@@ -3,8 +3,8 @@
   "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
   "read_only": true,
   "summary": {
-    "total": 89,
-    "pending_review": 87,
+    "total": 90,
+    "pending_review": 88,
     "needs_update": 0,
     "unverified_timeline_events": 10,
     "unverified_records": 12,
@@ -13,11 +13,11 @@
     "technical_url_unchecked": 14,
     "technical_url_unreachable": 1,
     "redirected_url_needs_review": 1,
-    "content_not_reviewed": 66,
+    "content_not_reviewed": 67,
     "client_use_not_allowed": 64,
     "detected_change_pending_review": 0,
     "watcher_errors": 1,
-    "human_review_required_watcher": 3
+    "human_review_required_watcher": 4
   },
   "items": [
     {
@@ -1692,12 +1692,34 @@
       "client_use_allowed": false
     },
     {
+      "item_type": "detected_change",
+      "item_id": "simulated-us-federal-register-api-change-2026-05-19",
+      "title": "[Simulation] API change: us-federal-register",
+      "jurisdiction_id": "us-federal",
+      "review_status": "pending_review",
+      "reason_for_review": "Simulated API diff for pipeline validation only; not an official API update. Watcher output requires human review before any record update. Content summary not human-reviewed. Legal/content verification on official source not completed.",
+      "review_reasons": [
+        "simulated_api_detected_change_pending_review",
+        "human_review_required",
+        "content_not_reviewed",
+        "legal_review_not_done"
+      ],
+      "official_url": "https://www.federalregister.gov/",
+      "page_href": "/detected-changes/simulated-us-federal-register-api-change-2026-05-19/",
+      "missing_official_url": false,
+      "verified_on_source_false": true,
+      "technical_url_status": null,
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
+    },
+    {
       "item_type": "watcher_error",
       "item_id": "watcher-run-2026-05-19-watcher-edps-feed",
       "title": "Watcher error: edps",
       "jurisdiction_id": "eu",
       "review_status": "needs_human_review",
-      "reason_for_review": "Entity expansion limit exceeded: 1026 > 1000 Latest watcher run reported a fetch or check error for this source. Technical URL not checked or outcome uncertain. Watcher output requires human review before any record update.",
+      "reason_for_review": "[invalid_feed] Entity expansion limit exceeded: 1026 > 1000 Latest watcher run reported a fetch or check error for this source. Technical URL not checked or outcome uncertain. Watcher output requires human review before any record update.",
       "review_reasons": [
         "watcher_error",
         "technical_url_unchecked",

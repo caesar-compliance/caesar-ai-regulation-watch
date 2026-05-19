@@ -71,6 +71,45 @@
             "type": "string",
             "format": "uri"
           },
+          "api_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "query_scope_note": {
+            "type": "string"
+          },
+          "max_results_per_check": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "create_detected_change_for_new_results": {
+            "type": "boolean"
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "minimum": 5000,
+            "maximum": 120000
+          },
+          "retry_count": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3
+          },
+          "retry_delay_ms": {
+            "type": "integer",
+            "minimum": 500,
+            "maximum": 60000
+          },
+          "soft_fail": {
+            "type": "boolean"
+          },
+          "user_agent_note": {
+            "type": "string"
+          },
+          "notes": {
+            "type": "string"
+          },
           "feed_format": {
             "type": "string",
             "enum": ["rss", "atom", "unknown"]

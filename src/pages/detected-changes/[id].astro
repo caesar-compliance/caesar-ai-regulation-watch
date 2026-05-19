@@ -106,6 +106,26 @@ const curr = snapshots.find((s) => s.snapshot_id === change.current_snapshot_id)
   <div class="prose"><p>{change.change_summary_for_review}</p></div>
 
   {
+    (change as { api_results_affected?: { result_id: string; title?: string | null; link?: string | null }[] }).api_results_affected &&
+    (change as { api_results_affected: { result_id: string; title?: string | null; link?: string | null }[] }).api_results_affected.length > 0 && (
+      <section>
+        <h2>API results affected (metadata only)</h2>
+        <ul>
+          {(change as { api_results_affected: { result_id: string; title?: string | null; link?: string | null; publication_date?: string | null }[] }).api_results_affected.map((r) => (
+            <li>
+              <strong>{r.title ?? r.result_id}</strong>
+              {r.link && (
+                <> — <a href={r.link} target="_blank" rel="noopener noreferrer">link</a></>
+              )}
+              {r.publication_date && <small> ({r.publication_date})</small>}
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  {
     change.feed_entries_affected && change.feed_entries_affected.length > 0 && (
       <section>
         <h2>Feed entries affected (metadata only)</h2>

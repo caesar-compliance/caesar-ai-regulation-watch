@@ -5,6 +5,11 @@ import {
   normalizeEntryId,
   entryMetadataHash,
 } from "./shared.mjs";
+import {
+  fetchWithRetry,
+  resolveReliability,
+  buildFetchErrorMessage,
+} from "./reliability.mjs";
 import { classifyFeedSnapshotDiff } from "../feed-diff.mjs";
 
 export const ADAPTER_ID = "official_rss_or_feed";
@@ -128,30 +133,14 @@ export function aggregateEntryHash(entries) {
   return sha256Hex(ids.join("\n"));
 }
 
-export async function fetchFeed(url, timeoutMs, userAgent) {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), timeoutMs);
-  try {
-    const res = await fetch(url, {
-      method: "GET",
-      redirect: "follow",
-      signal: controller.signal,
-      headers: {
-        "User-Agent": userAgent,
-        Accept: "application/rss+xml, application/atom+xml, application/xml, text/xml, */*",
-      },
-    });
-    const body = await res.arrayBuffer();
-    return { res, body: Buffer.from(body) };
-  } finally {
-    clearTimeout(timer);
-  }
-}
-
 export async function runFeedWatcher(watcher, context) {
-  const { previousSnapshot, dryRun, skipNetwork, timeoutMs, userAgent, runDate } = context;
+  const { previousSnapshot, dryRun, skipNetwork, userAgent, runDate, defaultUserAgent } =
+    context;
+  const reliability = resolveReliability(watcher, "feed");
   const checkedAt = new Date().toISOString();
   const snapId = snapshotIdFor(watcher.source_id, checkedAt, "snap-feed");
+  const lastSuccessfulSnapshotId =
+    previousSnapshot && !previousSnapshot.fetch_error ? previousSnapshot.snapshot_id : null;
 
   const base = {
     snapshot_id: snapId,
@@ -181,48 +170,122 @@ export async function runFeedWatcher(watcher, context) {
         snapshot_kind: "error_placeholder",
       },
       error: dryRun ? "dry_run" : "skip_network",
+      error_category: null,
+      retry_attempts: 0,
+      last_successful_snapshot_id: lastSuccessfulSnapshotId,
       detectedChanges: [],
     };
   }
 
+  const ua = defaultUserAgent ?? userAgent;
   try {
-    const { res, body } = await fetchFeed(watcher.feed_url, timeoutMs, userAgent);
-    const xml = body.toString("utf8");
-    const parsed = parseFeedXml(xml, watcher);
+    const fetched = await fetchWithRetry(
+      watcher.feed_url,
+      {
+        method: "GET",
+        redirect: "follow",
+        headers: {
+          "User-Agent": ua,
+          Accept: "application/rss+xml, application/atom+xml, application/xml, text/xml, */*",
+        },
+      },
+      reliability,
+    );
+
+    if (!fetched.ok) {
+      const category = fetched.error_category ?? "unknown_error";
+      const detail = fetched.res
+        ? `HTTP ${fetched.res.status} after ${fetched.attempt} attempt(s)`
+        : String(fetched.error?.message ?? "fetch failed");
+      return {
+        snapshot: {
+          ...base,
+          http_status: fetched.res?.status ?? null,
+          fetch_error: buildFetchErrorMessage(category, detail),
+          snapshot_kind: "error_placeholder",
+          error_category: category,
+        },
+        error: buildFetchErrorMessage(category, detail),
+        error_category: category,
+        retry_attempts: fetched.attempt,
+        last_successful_snapshot_id: lastSuccessfulSnapshotId,
+        detectedChanges: [],
+      };
+    }
+
+    const xml = fetched.body.toString("utf8");
+    let parsed;
+    try {
+      parsed = parseFeedXml(xml, watcher);
+    } catch (parseErr) {
+      const msg = buildFetchErrorMessage(
+        "invalid_feed",
+        String(parseErr?.message ?? parseErr),
+      );
+      return {
+        snapshot: {
+          ...base,
+          http_status: fetched.res.status,
+          fetch_error: msg,
+          snapshot_kind: "error_placeholder",
+          error_category: "invalid_feed",
+        },
+        error: msg,
+        error_category: "invalid_feed",
+        retry_attempts: fetched.attempt,
+        last_successful_snapshot_id: lastSuccessfulSnapshotId,
+        detectedChanges: [],
+      };
+    }
+
     const entries = parsed.entries;
     const snapshot = {
       ...base,
-      final_url: res.url || watcher.feed_url,
-      http_status: res.status,
-      content_type: res.headers.get("content-type"),
+      final_url: fetched.res.url || watcher.feed_url,
+      http_status: fetched.res.status,
+      content_type: fetched.res.headers.get("content-type"),
       feed_title: parsed.feed_title,
       feed_format_detected: parsed.feed_format,
       feed_entry_count: entries.length,
       entries,
       entries_aggregate_hash: aggregateEntryHash(entries),
-      content_hash: sha256Hex(body),
-      content_length: body.length,
+      content_hash: sha256Hex(fetched.body),
+      content_length: fetched.body.length,
+      retry_attempts: fetched.attempt,
     };
 
     const detectedChanges = [];
-    if (previousSnapshot && !previousSnapshot.fetch_error && !snapshot.fetch_error) {
-      const diffs = classifyFeedSnapshotDiff(previousSnapshot, snapshot, watcher, {
-        runDate,
-        simulation: false,
-      });
-      detectedChanges.push(...diffs);
+    if (previousSnapshot && !previousSnapshot.fetch_error) {
+      detectedChanges.push(
+        ...classifyFeedSnapshotDiff(previousSnapshot, snapshot, watcher, {
+          runDate,
+          simulation: false,
+        }),
+      );
     }
 
-    return { snapshot, error: null, detectedChanges };
+    return {
+      snapshot,
+      error: null,
+      error_category: null,
+      retry_attempts: fetched.attempt,
+      last_successful_snapshot_id: lastSuccessfulSnapshotId,
+      detectedChanges,
+    };
   } catch (err) {
-    const msg = String(err?.message ?? err);
+    const category = "network_error";
+    const msg = buildFetchErrorMessage(category, String(err?.message ?? err));
     return {
       snapshot: {
         ...base,
         fetch_error: msg,
         snapshot_kind: "error_placeholder",
+        error_category: category,
       },
       error: msg,
+      error_category: category,
+      retry_attempts: 0,
+      last_successful_snapshot_id: lastSuccessfulSnapshotId,
       detectedChanges: [],
     };
   }

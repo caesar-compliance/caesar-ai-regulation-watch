@@ -208,6 +208,10 @@ const REASON_LABELS = {
     "Feed watcher detected new or changed entries; human review required.",
   simulated_feed_detected_change_pending_review:
     "Simulated feed diff for pipeline validation only; not an official feed update.",
+  api_detected_change_pending_review:
+    "API watcher detected new result metadata; human review required.",
+  simulated_api_detected_change_pending_review:
+    "Simulated API diff for pipeline validation only; not an official API update.",
   watcher_error: "Latest watcher run reported a fetch or check error for this source.",
   snapshot_changed: "New metadata snapshot differs from previous; confirm on official source.",
   human_review_required: "Watcher output requires human review before any record update.",
@@ -419,17 +423,22 @@ function buildReviewQueue() {
   for (const dc of detectedChanges) {
     if (!needsReview(dc.review_status)) continue;
     const src = sourceById[dc.source_id];
-    const isFeed =
-      dc.adapter_id === "official_rss_or_feed" ||
-      String(dc.change_type ?? "").includes("feed");
+    const adapterType =
+      dc.source_adapter_type ?? dc.adapter_id ?? "official_page_metadata";
+    const isFeed = adapterType === "official_rss_or_feed";
+    const isApi = adapterType === "official_api_metadata";
     const review_reasons = [
       dc.simulation
-        ? isFeed
-          ? "simulated_feed_detected_change_pending_review"
-          : "simulated_detected_change_pending_review"
-        : isFeed
-          ? "feed_detected_change_pending_review"
-          : "detected_change_pending_review",
+        ? isApi
+          ? "simulated_api_detected_change_pending_review"
+          : isFeed
+            ? "simulated_feed_detected_change_pending_review"
+            : "simulated_detected_change_pending_review"
+        : isApi
+          ? "api_detected_change_pending_review"
+          : isFeed
+            ? "feed_detected_change_pending_review"
+            : "detected_change_pending_review",
       "human_review_required",
       "content_not_reviewed",
       "legal_review_not_done",
@@ -438,8 +447,8 @@ function buildReviewQueue() {
       item_type: "detected_change",
       item_id: dc.detected_change_id,
       title: dc.simulation
-        ? `[Simulation] ${isFeed ? "Feed" : "Page"} change: ${dc.source_id}`
-        : `${isFeed ? "Feed" : "Page"} change: ${dc.source_id}`,
+        ? `[Simulation] ${isApi ? "API" : isFeed ? "Feed" : "Page"} change: ${dc.source_id}`
+        : `${isApi ? "API" : isFeed ? "Feed" : "Page"} change: ${dc.source_id}`,
       jurisdiction_id: dc.jurisdiction_id,
       review_status: dc.review_status,
       reason_for_review: reasonText(review_reasons),
@@ -600,10 +609,23 @@ const isFeedChange = (d) =>
 const feedDetectedChanges = detectedChanges.filter(isFeedChange);
 const simulatedFeedDetectedChanges = feedDetectedChanges.filter((d) => d.simulation);
 const realFeedDetectedChanges = feedDetectedChanges.filter((d) => !d.simulation);
+const apiWatchers = watchers.filter(
+  (w) => w.adapter_id === "official_api_metadata" || w.watcher_type === "official_api_metadata",
+);
+const apiSnapshots = snapshots.filter(
+  (s) => s.snapshot_kind === "api_metadata" || s.api_url,
+);
+const isApiChange = (d) =>
+  d.source_adapter_type === "official_api_metadata" ||
+  d.adapter_id === "official_api_metadata" ||
+  String(d.change_type ?? "").includes("api");
+const apiDetectedChanges = detectedChanges.filter(isApiChange);
+const simulatedApiDetectedChanges = apiDetectedChanges.filter((d) => d.simulation);
+const realApiDetectedChanges = apiDetectedChanges.filter((d) => !d.simulation);
 
 const snapshot = {
   generated_at: generatedAt,
-  version: "0.7.2",
+  version: "0.7.3",
   disclaimer: DISCLAIMER,
   pilot_jurisdictions: jurisdictions.map((j) => j.jurisdiction_id),
   counts: {
@@ -645,6 +667,13 @@ const snapshot = {
     feed_detected_change_count: feedDetectedChanges.length,
     simulated_feed_detected_change_count: simulatedFeedDetectedChanges.length,
     real_feed_detected_change_count: realFeedDetectedChanges.length,
+    api_watcher_count: apiWatchers.length,
+    api_watchers_enabled: apiWatchers.filter((w) => w.enabled).length,
+    api_snapshot_count: apiSnapshots.length,
+    api_detected_change_count: apiDetectedChanges.length,
+    simulated_api_detected_change_count: simulatedApiDetectedChanges.length,
+    real_api_detected_change_count: realApiDetectedChanges.length,
+    watcher_errors_by_category: latestWatcherRun?.errors_by_category ?? {},
     snapshots: snapshots.length,
     detected_changes: detectedChanges.length,
     detected_change_count: detectedChanges.length,

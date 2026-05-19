@@ -1,4 +1,9 @@
 import { sha256Hex, snapshotIdFor } from "./shared.mjs";
+import {
+  fetchWithRetry,
+  resolveReliability,
+  buildFetchErrorMessage,
+} from "./reliability.mjs";
 
 export const ADAPTER_ID = "official_page_metadata";
 
@@ -18,31 +23,15 @@ function extractTitle(html) {
   return m[1].replace(/\s+/g, " ").trim().slice(0, 500) || null;
 }
 
-export async function fetchPage(url, timeoutMs, userAgent) {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), timeoutMs);
-  try {
-    const res = await fetch(url, {
-      method: "GET",
-      redirect: "follow",
-      signal: controller.signal,
-      headers: {
-        "User-Agent": userAgent,
-        Accept: "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8",
-      },
-    });
-    const body = await res.arrayBuffer();
-    return { res, body: Buffer.from(body) };
-  } finally {
-    clearTimeout(timer);
-  }
-}
-
 export async function runPageMetadataWatcher(watcher, context) {
-  const { sources, previousSnapshot, dryRun, skipNetwork, timeoutMs, userAgent } = context;
+  const { sources, previousSnapshot, dryRun, skipNetwork, userAgent, defaultUserAgent } =
+    context;
+  const reliability = resolveReliability(watcher, "page");
   const source = sources[watcher.source_id];
   const checkedAt = new Date().toISOString();
   const snapId = snapshotIdFor(watcher.source_id, checkedAt);
+  const lastSuccessfulSnapshotId =
+    previousSnapshot && !previousSnapshot.fetch_error ? previousSnapshot.snapshot_id : null;
 
   const base = {
     snapshot_id: snapId,
@@ -74,43 +63,96 @@ export async function runPageMetadataWatcher(watcher, context) {
         snapshot_kind: "error_placeholder",
       },
       error: dryRun ? "dry_run" : "skip_network",
+      error_category: null,
+      retry_attempts: 0,
+      last_successful_snapshot_id: lastSuccessfulSnapshotId,
       detectedChanges: [],
     };
   }
 
   if (!source) {
-    return { snapshot: null, error: `Unknown source_id: ${watcher.source_id}`, detectedChanges: [] };
+    return {
+      snapshot: null,
+      error: `Unknown source_id: ${watcher.source_id}`,
+      error_category: "unknown_error",
+      retry_attempts: 0,
+      last_successful_snapshot_id: lastSuccessfulSnapshotId,
+      detectedChanges: [],
+    };
   }
 
+  const ua = defaultUserAgent ?? userAgent;
   try {
-    const { res, body } = await fetchPage(watcher.official_url, timeoutMs, userAgent);
-    const text = body.toString("utf8");
+    const fetched = await fetchWithRetry(
+      watcher.official_url,
+      {
+        method: "GET",
+        redirect: "follow",
+        headers: {
+          "User-Agent": ua,
+          Accept: "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8",
+        },
+      },
+      reliability,
+    );
+
+    if (!fetched.ok) {
+      const category = fetched.error_category ?? "unknown_error";
+      const detail = fetched.res
+        ? `HTTP ${fetched.res.status} after ${fetched.attempt} attempt(s)`
+        : String(fetched.error?.message ?? "fetch failed");
+      return {
+        snapshot: {
+          ...base,
+          http_status: fetched.res?.status ?? null,
+          fetch_error: buildFetchErrorMessage(category, detail),
+          snapshot_kind: "error_placeholder",
+          error_category: category,
+        },
+        error: buildFetchErrorMessage(category, detail),
+        error_category: category,
+        retry_attempts: fetched.attempt,
+        last_successful_snapshot_id: lastSuccessfulSnapshotId,
+        detectedChanges: [],
+      };
+    }
+
+    const text = fetched.body.toString("utf8");
     const normalized = normalizeText(text);
     return {
       snapshot: {
         ...base,
-        final_url: res.url || watcher.official_url,
-        http_status: res.status,
-        content_type: res.headers.get("content-type"),
-        etag: res.headers.get("etag"),
-        last_modified: res.headers.get("last-modified"),
+        final_url: fetched.res.url || watcher.official_url,
+        http_status: fetched.res.status,
+        content_type: fetched.res.headers.get("content-type"),
+        etag: fetched.res.headers.get("etag"),
+        last_modified: fetched.res.headers.get("last-modified"),
         title: extractTitle(text),
-        content_hash: sha256Hex(body),
+        content_hash: sha256Hex(fetched.body),
         normalized_text_hash: sha256Hex(normalized),
-        content_length: body.length,
+        content_length: fetched.body.length,
+        retry_attempts: fetched.attempt,
       },
       error: null,
+      error_category: null,
+      retry_attempts: fetched.attempt,
+      last_successful_snapshot_id: lastSuccessfulSnapshotId,
       detectedChanges: [],
     };
   } catch (err) {
-    const msg = String(err?.message ?? err);
+    const category = "network_error";
+    const msg = buildFetchErrorMessage(category, String(err?.message ?? err));
     return {
       snapshot: {
         ...base,
         fetch_error: msg,
         snapshot_kind: "error_placeholder",
+        error_category: category,
       },
       error: msg,
+      error_category: category,
+      retry_attempts: 0,
+      last_successful_snapshot_id: lastSuccessfulSnapshotId,
       detectedChanges: [],
     };
   }

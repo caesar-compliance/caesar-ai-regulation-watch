@@ -11,6 +11,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.7.3] - 19 May 2026
+
+### Added
+
+- **Watcher reliability** — conservative retry/backoff, `error_category`, soft-fail (preserve `latest.yml`).
+- **API metadata adapter** — `scripts/lib/source-adapters/api-metadata-adapter.mjs`, `schemas/api-snapshot.schema.json`.
+- **Federal Register API watcher** — configured but **disabled by default** (`watcher-us-federal-register-api`).
+- **Simulation** — `npm run watch:simulate-api-change`.
+- **Docs** — `docs/WATCHER_RELIABILITY_POLICY.md`, `docs/API_WATCHER_CANDIDATES.md`.
+
+### Changed
+
+- Feed/page adapters use shared `fetchWithRetry`; run logs include `errors_by_category`.
+- Detected changes support `source_adapter_type`, `api_results_affected`.
+
+---
+
 ## [0.7.2] - 19 May 2026
 
 ### Added

@@ -114,6 +114,13 @@
       "type": "string",
       "enum": ["metadata_only_no_body_storage"]
     },
+    "retry_attempts": {
+      "type": ["integer", "null"],
+      "minimum": 0
+    },
+    "error_category": {
+      "type": ["string", "null"]
+    },
     "fetch_error": {
       "type": "string"
     },

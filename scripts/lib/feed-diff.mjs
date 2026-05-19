@@ -172,6 +172,7 @@ function buildFeedDetectedChange({
     jurisdiction_id: watcher.jurisdiction_id,
     detected_at: curr.checked_at,
     adapter_id: "official_rss_or_feed",
+    source_adapter_type: "official_rss_or_feed",
     simulation,
     change_type: changeType,
     changed_fields: changedFields,
