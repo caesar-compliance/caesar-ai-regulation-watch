@@ -4,12 +4,22 @@ import ReviewStatusBadge from "../../components/ReviewStatusBadge.astro";
 import {
   getVerifications,
   getVerificationBatches,
+  getUrlChecks,
+  getUrlCheckBatches,
   getSources,
 } from "../../lib/data";
-import { formatDate, verificationCheckLabel, humanizeId } from "../../lib/format";
+import {
+  formatDate,
+  verificationCheckLabel,
+  urlCheckResultLabel,
+  contentReviewStatusLabel,
+  humanizeId,
+} from "../../lib/format";
 
 const verifications = getVerifications();
 const batches = getVerificationBatches();
+const urlChecks = getUrlChecks();
+const urlBatches = getUrlCheckBatches();
 const sources = getSources();
 const sourceMap = Object.fromEntries(sources.map((s) => [s.source_id, s]));
 
@@ -18,22 +28,124 @@ const uncertain = verifications.filter((v) => v.check_result === "uncertain");
 const checked = verifications.filter(
   (v) => v.check_result !== "not_checked" && v.check_result !== "uncertain",
 );
+
+const urlReachable = urlChecks.filter((c) => c.check_result === "reachable").length;
+const urlRedirected = urlChecks.filter((c) => c.check_result === "reachable_redirected").length;
+const urlUnreachable = urlChecks.filter((c) => c.check_result === "unreachable").length;
+const urlNetworkErrors = urlChecks.filter((c) =>
+  ["timeout", "dns_error", "network_error"].includes(c.check_result),
+).length;
+const urlNotChecked = urlChecks.filter(
+  (c) => c.check_result === "not_checked" || c.check_result === "uncertain",
+).length;
+
+function pageHrefForCheck(check: (typeof urlChecks)[0]) {
+  if (check.item_type === "source") return `/sources/${check.item_id}/`;
+  if (check.item_type === "law" || check.item_type === "guidance") {
+    return `/records/${check.item_id}/`;
+  }
+  return "/verification/";
+}
 ---
 
 <BaseLayout title="Source verification" currentPath="/verification/">
-  <h1>Source verification</h1>
+  <h1>Verification</h1>
   <p class="lead">
-    Read-only log of official URL checks for curated records. This page does not perform live checks or
-    update verification status.
+    Read-only logs for technical URL checks and human source verification. Reachable URLs do not
+    mean legal or content review is complete.
   </p>
 
   <div class="banner banner--review" role="note">
-    <strong>Legal-safe notice.</strong> Verification entries support governance review only. Not legal
-    advice. Client use is not allowed in the v0.6.0 batch. See <a href="/methodology/">methodology</a>.
+    <strong>Legal-safe notice.</strong> Technical reachability is not legal advice or client-use
+    approval. All client-use flags remain false unless a human reviewer sets them after full review.
+    Run <code>npm run check:urls</code> locally to refresh technical checks (not in CI). See{" "}
+    <a href="/methodology/">methodology</a>.
   </div>
 
+  <h2>Technical URL checks</h2>
   <dl class="meta-grid">
-    <div><dt>Total checks</dt><dd>{verifications.length}</dd></div>
+    <div><dt>Total checked</dt><dd>{urlChecks.length}</dd></div>
+    <div><dt>Reachable</dt><dd>{urlReachable}</dd></div>
+    <div><dt>Redirected</dt><dd>{urlRedirected}</dd></div>
+    <div><dt>Unreachable (HTTP)</dt><dd>{urlUnreachable}</dd></div>
+    <div><dt>Timeout / network / DNS</dt><dd>{urlNetworkErrors}</dd></div>
+    <div><dt>Not checked / uncertain</dt><dd>{urlNotChecked}</dd></div>
+    <div>
+      <dt>Content not reviewed</dt>
+      <dd>{urlChecks.filter((c) => c.content_review_status === "not_reviewed").length}</dd>
+    </div>
+    <div><dt>Client use allowed</dt><dd>{urlChecks.filter((c) => c.client_use_allowed).length}</dd></div>
+  </dl>
+
+  <p>
+    <a href="/data/url-checks.json">url-checks.json</a> ·{" "}
+    <a href="/review-queue/">Human review queue →</a>
+  </p>
+
+  {
+    urlChecks.length > 0 && (
+      <section>
+        <h3>URL check results</h3>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Technical result</th>
+              <th>HTTP</th>
+              <th>Content review</th>
+              <th>Redirect</th>
+              <th>Link</th>
+            </tr>
+          </thead>
+          <tbody>
+            {urlChecks.map((c) => (
+              <tr>
+                <td>
+                  <a href={pageHrefForCheck(c)}>{c.item_id}</a>
+                  <br />
+                  <small>{humanizeId(c.item_type)}</small>
+                </td>
+                <td>{urlCheckResultLabel(c.check_result)}</td>
+                <td>{c.http_status ?? "—"}</td>
+                <td>{contentReviewStatusLabel(c.content_review_status)}</td>
+                <td>{c.redirect_detected ? "Yes" : "No"}</td>
+                <td>
+                  <a href={c.original_url} target="_blank" rel="noopener noreferrer">
+                    Original ↗
+                  </a>
+                  {c.final_url !== c.original_url && (
+                    <>
+                      {" "}
+                      ·{" "}
+                      <a href={c.final_url} target="_blank" rel="noopener noreferrer">
+                        Final ↗
+                      </a>
+                    </>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+    )
+  }
+
+  {
+    urlBatches.map((b) => (
+      <section>
+        <h3>URL batch: {b.url_check_batch_id}</h3>
+        <p class="card__excerpt">
+          <small>Checked: {formatDate(b.checked_date)} · {humanizeId(b.checker_type)}</small>
+        </p>
+        <div class="prose"><p>{b.legal_safe_note}</p></div>
+      </section>
+    ))
+  }
+
+  <h2>Human source verification</h2>
+  <dl class="meta-grid">
+    <div><dt>Total entries</dt><dd>{verifications.length}</dd></div>
     <div><dt>Not checked</dt><dd>{notChecked.length}</dd></div>
     <div><dt>Uncertain</dt><dd>{uncertain.length}</dd></div>
     <div><dt>Completed checks</dt><dd>{checked.length}</dd></div>
@@ -41,14 +153,13 @@ const checked = verifications.filter(
   </dl>
 
   <p>
-    <a href="/review-queue/">Human review queue →</a> ·{" "}
     <a href="/data/verifications.json">verifications.json</a>
   </p>
 
   {
     notChecked.length > 0 && (
       <section>
-        <h2>Not yet checked ({notChecked.length})</h2>
+        <h3>Not yet checked ({notChecked.length})</h3>
         <ul class="card-list">
           {notChecked.map((v) => (
             <li class="card">
@@ -56,9 +167,9 @@ const checked = verifications.filter(
                 <span class="badge badge--warn">{verificationCheckLabel(v.check_result)}</span>
                 <ReviewStatusBadge status={v.review_status_after_check} />
               </div>
-              <h3>
+              <h4>
                 <a href={`/records/${v.item_id}/`}>{v.item_id}</a>
-              </h3>
+              </h4>
               <p class="card__excerpt">
                 <small>
                   {humanizeId(v.item_type)} · {v.verification_id} · {formatDate(v.verified_date)}
@@ -78,7 +189,7 @@ const checked = verifications.filter(
   }
 
   <section>
-    <h2>All verification entries</h2>
+    <h3>All source verification entries</h3>
     <table class="data-table">
       <thead>
         <tr>
@@ -108,7 +219,7 @@ const checked = verifications.filter(
   {
     batches.map((b) => (
       <section>
-        <h2>Batch: {b.verification_batch_id}</h2>
+        <h3>Batch: {b.verification_batch_id}</h3>
         <p class="card__excerpt">
           <small>Verified date: {formatDate(b.verified_date)} · {humanizeId(b.verifier_type)}</small>
         </p>

@@ -9,16 +9,16 @@
 | Field | Value |
 |---|---|
 | **Repository** | `caesar-ai-regulation-watch` |
-| **Current version** | `v0.6.0` |
-| **Current phase** | Curated global records + source verification workflow |
-| **Status** | Read-only Astro site with 15 records, verification log, 5 timelines, Pagefind, JSON/RSS, CI validate/build |
-| **Working branch** | `agent/v0.6.0-curated-records-verification` |
-| **Latest completed task** | Manually curated global records and source verification workflow |
-| **Next recommended step** | Control Tower human URL verification; close gaps in `RECORD_EXPANSION_GAPS.md` |
+| **Current version** | `v0.6.1` |
+| **Current phase** | Technical URL verification + refined review queue |
+| **Status** | Read-only Astro site with URL check batch, verification log, Pagefind, JSON/RSS, CI validate/build (no live URL checks in CI) |
+| **Working branch** | `agent/v0.6.1-url-verification-review-queue` |
+| **Latest completed task** | Technical URL verification pass and review queue separation |
+| **Next recommended step** | Control Tower human source identity review; fix unreachable/redirected URLs in registry |
 
 ---
 
-## Site inventory (v0.6.0)
+## Site inventory (v0.6.1)
 
 | Item | Value |
 |---|---|
@@ -29,10 +29,10 @@
 | Sources | 28 official registry entries |
 | Records | 15 (3 pilot samples + 12 curated v0.6.0) |
 | Timelines | 5 |
-| Verifications | 12 (`not_checked` batch) |
-| JSON exports | 9 files in `public/data/` |
+| Verifications | 12 human (`not_checked`) + 41 technical URL checks |
+| JSON exports | 10 files in `public/data/` |
 | RSS | `public/feeds/changes.xml` (sample changes only) |
-| Validation | 76 YAML checks passing |
+| Validation | 77 YAML checks passing |
 | CI | `validate-and-build.yml` on push/PR |
 
 ---
@@ -45,7 +45,8 @@
 | v0.4.1 Search, UX, exports | **Complete** |
 | v0.5.0 Global data, timelines, CI | **Complete** |
 | v0.5.1 Map + review queue | **Complete** |
-| v0.6.0 Curated records + verification | **Complete** (pending Control Tower URL review) |
+| v0.6.0 Curated records + verification | **Complete** |
+| v0.6.1 Technical URL verification | **Complete** (pending Control Tower content review) |
 | v0.6+ Watchers | Not started |
 
 ---

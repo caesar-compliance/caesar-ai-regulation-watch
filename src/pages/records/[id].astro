@@ -11,8 +11,16 @@ import {
   changesForRecord,
   timelinesForRecord,
   latestVerificationForItem,
+  latestUrlCheckForItem,
 } from "../../lib/data";
-import { formatDate, humanizeId, recordTypeLabel, verificationCheckLabel } from "../../lib/format";
+import {
+  formatDate,
+  humanizeId,
+  recordTypeLabel,
+  verificationCheckLabel,
+  urlCheckResultLabel,
+  contentReviewStatusLabel,
+} from "../../lib/format";
 
 export function getStaticPaths() {
   return getRecords().map((r) => ({
@@ -32,6 +40,9 @@ const jurisdiction = getJurisdiction(record.jurisdiction_id);
 const relatedChanges = changesForRecord(record.record_id);
 const relatedTimelines = timelinesForRecord(record.record_id);
 const verification = latestVerificationForItem(record.record_id);
+const urlCheck =
+  latestUrlCheckForItem("law", record.record_id) ??
+  latestUrlCheckForItem("guidance", record.record_id);
 const keyDates = "key_dates" in record ? record.key_dates : [];
 ---
 
@@ -63,9 +74,37 @@ const keyDates = "key_dates" in record ? record.key_dates : [];
   }
 
   {
+    urlCheck && (
+      <section>
+        <h2>Technical URL status</h2>
+        <dl class="meta-grid">
+          <div><dt>Check result</dt><dd>{urlCheckResultLabel(urlCheck.check_result)}</dd></div>
+          <div><dt>Checked date</dt><dd>{formatDate(urlCheck.checked_date)}</dd></div>
+          <div><dt>HTTP status</dt><dd>{urlCheck.http_status ?? "—"}</dd></div>
+          <div>
+            <dt>Content review</dt>
+            <dd>{contentReviewStatusLabel(urlCheck.content_review_status)}</dd>
+          </div>
+          <div>
+            <dt>Client use allowed</dt>
+            <dd>{urlCheck.client_use_allowed ? "Yes" : "No"}</dd>
+          </div>
+        </dl>
+        {urlCheck.technical_note && <p class="card__excerpt">{urlCheck.technical_note}</p>}
+        {(urlCheck.check_result === "reachable" ||
+          urlCheck.check_result === "reachable_redirected") && (
+          <p class="banner banner--review" role="note">
+            Reachable URL does not mean this record is legally reviewed or approved for client use.
+          </p>
+        )}
+      </section>
+    )
+  }
+
+  {
     verification && (
       <section>
-        <h2>Source verification</h2>
+        <h2>Human source verification</h2>
         <dl class="meta-grid">
           <div><dt>Check result</dt><dd>{verificationCheckLabel(verification.check_result)}</dd></div>
           <div><dt>Verified date</dt><dd>{formatDate(verification.verified_date)}</dd></div>

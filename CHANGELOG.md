@@ -11,6 +11,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.6.1] - 19 May 2026
+
+### Added
+
+- **Technical URL verification** — `schemas/url-verification.schema.json`, `docs/URL_VERIFICATION_POLICY.md`, `scripts/check-official-urls.mjs`, `npm run check:urls`.
+- **URL check batch** — `data/verifications/url-check-2026-05-19.yml` (41 official URLs; first automated HEAD/GET pass).
+- Export: `public/data/url-checks.json`.
+- Review queue filters for technical URL status, content review, unreachable, redirected, and not-checked URLs.
+
+### Changed
+
+- `/verification/` shows technical URL summary and human source verification separately.
+- Source and record pages show technical URL status when a check exists.
+- Review queue uses `review_reasons` (technical vs content vs client-use).
+- Snapshot v0.6.1 includes URL check counts; validation includes url-check YAML.
+
+### Notes
+
+- Live URL checks are **not** in CI (`validate-and-build.yml` unchanged).
+- Reachable URL does not set `verified_on_source: true` or `client_use_allowed: true`.
+- First pass: 26 reachable, 3 redirected, 10 unreachable, 2 DNS errors (41 total).
+
+---
+
 ## [0.6.0] - 19 May 2026
 
 ### Added

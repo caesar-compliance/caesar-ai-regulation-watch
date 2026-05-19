@@ -22,6 +22,7 @@ Steps:
 - No deployment
 - No secrets or external integrations
 - No automated ingestion or scraping
+- **No live URL checks** — run `npm run check:urls` locally; commit `data/verifications/url-check-*.yml` when refreshing technical status
 
 ## Local parity
 

@@ -121,7 +121,7 @@
                               [Site build | RSS | JSON | Evidence export]
 ```
 
-**v0.6.0 phase:** Layer A includes 15 curated records and `data/verifications/`; `/verification/` page; review queue covers unverified records and pending verifications; 9 JSON exports including `verifications.json`. **v0.5.x:** static SVG map and review queue. No runtime API or remote fetch. **Deferred:** Layers B–C watchers (post v0.6.0).
+**v0.6.1 phase:** Layer A includes `data/verifications/` with human source-verification batches and technical `url-check-*` batches; `npm run check:urls` (manual, not CI); `/verification/` shows both layers; review queue separates technical URL reasons from content review; 10 JSON exports including `url-checks.json`. **v0.6.0:** 15 curated records. **v0.5.x:** static SVG map and review queue. No runtime API or remote fetch in site build. **Deferred:** Layers B–C watchers.
 
 ---
 

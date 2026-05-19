@@ -61,11 +61,27 @@ const changes = readYamlDir("data/changes").sort((a, b) =>
   b.detected_date.localeCompare(a.detected_date),
 );
 const timelines = readYamlDir("data/timelines");
-const verificationBatches = readYamlDir("data/verifications");
+function readVerificationDir(prefix) {
+  const abs = path.join(ROOT, "data/verifications");
+  if (!fs.existsSync(abs)) return [];
+  return fs
+    .readdirSync(abs)
+    .filter((f) => f.startsWith(prefix) && (f.endsWith(".yml") || f.endsWith(".yaml")))
+    .map((f) => yaml.load(fs.readFileSync(path.join(abs, f), "utf8")));
+}
+
+const verificationBatches = readVerificationDir("source-verification");
+const urlCheckBatches = readVerificationDir("url-check");
 const verifications = verificationBatches.flatMap((b) =>
   (b.verifications ?? []).map((v) => ({
     ...v,
     verification_batch_id: b.verification_batch_id,
+  })),
+);
+const urlChecks = urlCheckBatches.flatMap((b) =>
+  (b.url_checks ?? []).map((c) => ({
+    ...c,
+    url_check_batch_id: b.url_check_batch_id,
   })),
 );
 const exportFile = readYamlFile("exports/samples/regulation-change-export.sample.yml");
@@ -90,152 +106,262 @@ function needsReview(status) {
   return status !== "reviewed";
 }
 
+function urlCheckForRecord(recordId, urlChecks) {
+  return (
+    urlChecks.find((c) => c.item_id === recordId && c.item_type === "law") ??
+    urlChecks.find((c) => c.item_id === recordId && c.item_type === "guidance")
+  );
+}
+
+function technicalReasonsFromCheck(check) {
+  if (!check) return ["technical_url_unchecked"];
+  const reasons = [];
+  if (check.check_result === "not_checked" || check.check_result === "uncertain") {
+    reasons.push("technical_url_unchecked");
+  }
+  if (["unreachable", "timeout", "dns_error", "network_error"].includes(check.check_result)) {
+    reasons.push("technical_url_unreachable");
+  }
+  if (check.check_result === "reachable_redirected" || check.redirect_detected) {
+    reasons.push("redirected_url_needs_review");
+  }
+  if (check.content_review_status === "not_reviewed") {
+    reasons.push("content_not_reviewed");
+  }
+  if (!check.client_use_allowed) {
+    reasons.push("client_use_not_allowed");
+  }
+  return reasons;
+}
+
+function mergeReasons(...groups) {
+  return [...new Set(groups.flat())];
+}
+
+const REASON_LABELS = {
+  pending_review: "Editorial review_status is not reviewed.",
+  technical_url_unchecked: "Technical URL not checked or outcome uncertain.",
+  technical_url_unreachable: "Official URL unreachable (HTTP/network error).",
+  redirected_url_needs_review: "URL redirects; confirm canonical destination.",
+  content_not_reviewed: "Content/source identity not human-reviewed.",
+  verified_on_source_false: "Not verified on official source in this repository.",
+  client_use_not_allowed: "Client use not allowed.",
+  needs_update: "Marked needs_update.",
+};
+
+function reasonText(reasons) {
+  return reasons.map((r) => REASON_LABELS[r] ?? r).join(" ");
+}
+
 function buildReviewQueue() {
   const items = [];
   const sourceById = Object.fromEntries(sources.map((s) => [s.source_id, s]));
+  const urlCheckBySource = Object.fromEntries(
+    urlChecks.filter((c) => c.item_type === "source").map((c) => [c.item_id, c]),
+  );
 
   for (const j of jurisdictions) {
     if (!needsReview(j.review_status)) continue;
+    const review_reasons = ["pending_review"];
     items.push({
       item_type: "jurisdiction",
       item_id: j.jurisdiction_id,
       title: j.name,
       jurisdiction_id: j.jurisdiction_id,
       review_status: j.review_status,
-      reason_for_review: `Jurisdiction review_status is ${j.review_status}.`,
+      reason_for_review: reasonText(review_reasons),
+      review_reasons,
       official_url: null,
       page_href: `/jurisdictions/${j.jurisdiction_id}/`,
       missing_official_url: false,
       verified_on_source_false: false,
+      technical_url_status: null,
+      content_review_status: null,
+      redirect_detected: false,
+      client_use_allowed: null,
     });
   }
+
   for (const s of sources) {
-    if (!needsReview(s.review_status)) continue;
+    const urlCheck = urlCheckBySource[s.source_id];
+    const review_reasons = mergeReasons(
+      needsReview(s.review_status) ? ["pending_review"] : [],
+      s.review_status === "needs_update" ? ["needs_update"] : [],
+      technicalReasonsFromCheck(urlCheck),
+    );
+    if (!s.official_url) review_reasons.push("technical_url_unchecked");
+    if (review_reasons.length === 0 && s.official_url && !needsReview(s.review_status)) continue;
     items.push({
       item_type: "source",
       item_id: s.source_id,
       title: s.title,
       jurisdiction_id: s.jurisdiction_id,
       review_status: s.review_status,
-      reason_for_review: s.official_url
-        ? `Source review_status is ${s.review_status}.`
-        : `Source review_status is ${s.review_status}; official URL missing or unverified.`,
+      reason_for_review: reasonText(review_reasons),
+      review_reasons,
       official_url: s.official_url ?? null,
       page_href: `/sources/${s.source_id}/`,
       missing_official_url: !s.official_url,
       verified_on_source_false: false,
+      technical_url_status: urlCheck?.check_result ?? null,
+      content_review_status: urlCheck?.content_review_status ?? null,
+      redirect_detected: urlCheck?.redirect_detected ?? false,
+      client_use_allowed: urlCheck?.client_use_allowed ?? null,
     });
   }
-  const recordById = Object.fromEntries(records.map((r) => [r.record_id, r]));
 
   for (const r of records) {
+    const urlCheck = urlCheckForRecord(r.record_id, urlChecks);
     const recordUnverified = r.verified_on_source === false;
-    const recordNeedsReview = needsReview(r.review_status) || recordUnverified;
-    if (!recordNeedsReview) continue;
-    const reasons = [];
-    if (needsReview(r.review_status)) {
-      reasons.push(`Record (${r.record_type}) review_status is ${r.review_status}.`);
+    const review_reasons = mergeReasons(
+      needsReview(r.review_status) ? ["pending_review"] : [],
+      recordUnverified ? ["verified_on_source_false"] : [],
+      technicalReasonsFromCheck(urlCheck),
+    );
+    const verification = verifications.find((v) => v.item_id === r.record_id);
+    if (verification && !verification.client_use_allowed) {
+      review_reasons.push("client_use_not_allowed");
     }
-    if (recordUnverified) {
-      reasons.push("Record not verified on official source in this repository.");
-    }
+    if (review_reasons.length === 0) continue;
     items.push({
       item_type: "record",
       item_id: r.record_id,
       title: r.title,
       jurisdiction_id: r.jurisdiction_id,
       review_status: r.review_status,
-      reason_for_review: reasons.join(" "),
+      reason_for_review: reasonText(review_reasons),
+      review_reasons,
       official_url: r.official_url ?? null,
       page_href: `/records/${r.record_id}/`,
       missing_official_url: !r.official_url,
       verified_on_source_false: recordUnverified,
+      technical_url_status: urlCheck?.check_result ?? null,
+      content_review_status: urlCheck?.content_review_status ?? null,
+      redirect_detected: urlCheck?.redirect_detected ?? false,
+      client_use_allowed: urlCheck?.client_use_allowed ?? verification?.client_use_allowed ?? null,
     });
   }
+
   for (const c of changes) {
     if (!needsReview(c.review_status)) continue;
+    const review_reasons = ["pending_review"];
     items.push({
       item_type: "change",
       item_id: c.change_id,
       title: c.change_id,
       jurisdiction_id: c.jurisdiction_id,
       review_status: c.review_status,
-      reason_for_review: `Change review_status is ${c.review_status}.`,
+      reason_for_review: reasonText(review_reasons),
+      review_reasons,
       official_url: sourceById[c.source_id]?.official_url ?? null,
       page_href: `/changes/${c.change_id}/`,
       missing_official_url: false,
       verified_on_source_false: false,
+      technical_url_status: null,
+      content_review_status: null,
+      redirect_detected: false,
+      client_use_allowed: null,
     });
   }
+
   for (const t of timelines) {
     if (needsReview(t.review_status)) {
+      const review_reasons = ["pending_review"];
       items.push({
         item_type: "timeline",
         item_id: t.timeline_id,
         title: t.title,
         jurisdiction_id: t.jurisdiction_id,
         review_status: t.review_status,
-        reason_for_review: `Timeline review_status is ${t.review_status}.`,
+        reason_for_review: reasonText(review_reasons),
+        review_reasons,
         official_url: null,
         page_href: `/timelines/${t.timeline_id}/`,
         missing_official_url: false,
         verified_on_source_false: false,
+        technical_url_status: null,
+        content_review_status: null,
+        redirect_detected: false,
+        client_use_allowed: null,
       });
     }
     for (const ev of t.events ?? []) {
       if (!needsReview(ev.review_status) && ev.verified_on_source) continue;
       const src = sourceById[ev.source_id];
-      const reasons = [];
-      if (needsReview(ev.review_status)) reasons.push(`Event review_status is ${ev.review_status}.`);
-      if (!ev.verified_on_source) {
-        reasons.push("Date/summary not verified on official source in this repository.");
-      }
+      const urlCheck = urlCheckBySource[ev.source_id];
+      const review_reasons = mergeReasons(
+        needsReview(ev.review_status) ? ["pending_review"] : [],
+        !ev.verified_on_source ? ["verified_on_source_false"] : [],
+        technicalReasonsFromCheck(urlCheck),
+      );
       items.push({
         item_type: "timeline_event",
         item_id: ev.event_id,
         title: `${t.title} — ${ev.title}`,
         jurisdiction_id: t.jurisdiction_id,
         review_status: ev.review_status,
-        reason_for_review: reasons.join(" "),
+        reason_for_review: reasonText(review_reasons),
+        review_reasons,
         official_url: src?.official_url ?? null,
         page_href: `/timelines/${t.timeline_id}/`,
         parent_timeline_id: t.timeline_id,
         missing_official_url: !src?.official_url,
         verified_on_source_false: !ev.verified_on_source,
+        technical_url_status: urlCheck?.check_result ?? null,
+        content_review_status: urlCheck?.content_review_status ?? null,
+        redirect_detected: urlCheck?.redirect_detected ?? false,
+        client_use_allowed: urlCheck?.client_use_allowed ?? null,
       });
     }
   }
+
   for (const e of exportSamples) {
     if (!needsReview(e.review_status)) continue;
+    const review_reasons = ["pending_review"];
     items.push({
       item_type: "export_sample",
       item_id: e.export_record_id,
       title: e.export_record_id,
       jurisdiction_id: e.jurisdiction_id,
       review_status: e.review_status,
-      reason_for_review: `Export sample review_status is ${e.review_status}.`,
+      reason_for_review: reasonText(review_reasons),
+      review_reasons,
       official_url: null,
       page_href: "/exports/",
       missing_official_url: false,
       verified_on_source_false: false,
+      technical_url_status: null,
+      content_review_status: null,
+      redirect_detected: false,
+      client_use_allowed: null,
     });
   }
 
   for (const v of verifications) {
     if (v.check_result !== "not_checked" && v.check_result !== "uncertain") continue;
-    const related = recordById[v.item_id];
+    const related = records.find((r) => r.record_id === v.item_id);
     const src = sourceById[v.source_id];
+    const review_reasons = [
+      "content_not_reviewed",
+      "client_use_not_allowed",
+      "technical_url_unchecked",
+    ];
     items.push({
       item_type: "source_verification",
       item_id: v.verification_id,
-      title: `Verification: ${v.item_id} (${v.check_result})`,
+      title: `Source verification: ${v.item_id}`,
       jurisdiction_id: related?.jurisdiction_id ?? src?.jurisdiction_id ?? "oecd",
       review_status: v.review_status_after_check,
-      reason_for_review: `Source verification check_result is ${v.check_result}.`,
+      reason_for_review: `Human source verification ${v.check_result}. ${reasonText(review_reasons)}`,
+      review_reasons,
       official_url: v.official_url_checked,
       page_href: "/verification/",
       missing_official_url: false,
       verified_on_source_false: true,
+      technical_url_status: null,
+      content_review_status: "not_reviewed",
+      redirect_detected: false,
+      client_use_allowed: v.client_use_allowed,
     });
   }
 
@@ -243,6 +369,9 @@ function buildReviewQueue() {
 }
 
 const reviewQueueItems = buildReviewQueue();
+const countReason = (key) =>
+  reviewQueueItems.filter((i) => i.review_reasons?.includes(key)).length;
+
 const reviewSummary = {
   total: reviewQueueItems.length,
   pending_review: reviewQueueItems.filter((i) => i.review_status === "pending_review").length,
@@ -257,6 +386,27 @@ const reviewSummary = {
     (i) => i.item_type === "source_verification",
   ).length,
   missing_official_url: reviewQueueItems.filter((i) => i.missing_official_url).length,
+  technical_url_unchecked: countReason("technical_url_unchecked"),
+  technical_url_unreachable: countReason("technical_url_unreachable"),
+  redirected_url_needs_review: countReason("redirected_url_needs_review"),
+  content_not_reviewed: countReason("content_not_reviewed"),
+  client_use_not_allowed: countReason("client_use_not_allowed"),
+};
+
+const urlCheckSummary = {
+  total: urlChecks.length,
+  reachable: urlChecks.filter((c) => c.check_result === "reachable").length,
+  reachable_redirected: urlChecks.filter((c) => c.check_result === "reachable_redirected").length,
+  unreachable: urlChecks.filter((c) => c.check_result === "unreachable").length,
+  timeout: urlChecks.filter((c) => c.check_result === "timeout").length,
+  dns_error: urlChecks.filter((c) => c.check_result === "dns_error").length,
+  network_error: urlChecks.filter((c) => c.check_result === "network_error").length,
+  not_checked: urlChecks.filter((c) => c.check_result === "not_checked").length,
+  uncertain: urlChecks.filter((c) => c.check_result === "uncertain").length,
+  content_review_not_reviewed: urlChecks.filter(
+    (c) => c.content_review_status === "not_reviewed",
+  ).length,
+  client_use_allowed_count: urlChecks.filter((c) => c.client_use_allowed).length,
 };
 
 function countsForJurisdiction(jurisdictionId) {
@@ -284,7 +434,7 @@ const mapMarkers = jurisdictions
 
 const snapshot = {
   generated_at: generatedAt,
-  version: "0.6.0",
+  version: "0.6.1",
   disclaimer: DISCLAIMER,
   pilot_jurisdictions: jurisdictions.map((j) => j.jurisdiction_id),
   counts: {
@@ -296,6 +446,16 @@ const snapshot = {
     changes: changes.length,
     timelines: timelines.length,
     verifications: verifications.length,
+    url_checks: urlCheckSummary.total,
+    url_checks_reachable: urlCheckSummary.reachable,
+    url_checks_redirected: urlCheckSummary.reachable_redirected,
+    url_checks_unreachable:
+      urlCheckSummary.unreachable +
+      urlCheckSummary.timeout +
+      urlCheckSummary.dns_error +
+      urlCheckSummary.network_error,
+    content_review_not_reviewed: urlCheckSummary.content_review_not_reviewed,
+    client_use_allowed_count: urlCheckSummary.client_use_allowed_count,
     export_samples: exportSamples.length,
     map_markers: mapMarkers.length,
     review_queue_items: reviewSummary.total,
@@ -319,6 +479,7 @@ const snapshot = {
     map_coverage: "/data/map-coverage.json",
     review_queue: "/data/review-queue.json",
     verifications: "/data/verifications.json",
+    url_checks: "/data/url-checks.json",
   },
   review_notice:
     "All pilot content is curated manual YAML. Human review required before client use.",
@@ -405,6 +566,14 @@ writeJson(path.join(PUBLIC_DATA, "verifications.json"), {
   },
 });
 
+writeJson(path.join(PUBLIC_DATA, "url-checks.json"), {
+  generated_at: generatedAt,
+  disclaimer: DISCLAIMER,
+  batches: urlCheckBatches,
+  items: urlChecks,
+  summary: urlCheckSummary,
+});
+
 writeJson(path.join(PUBLIC_DATA, "regulation-watch-snapshot.json"), snapshot);
 
 // RSS feed — sample changes only
@@ -465,8 +634,10 @@ console.log("  public/data/timelines.json");
 console.log("  public/data/map-coverage.json");
 console.log("  public/data/review-queue.json");
 console.log("  public/data/verifications.json");
+console.log("  public/data/url-checks.json");
 console.log("  public/data/regulation-watch-snapshot.json");
 console.log(`  ${reviewQueueItems.length} item(s) in review queue export`);
 console.log(`  ${verifications.length} verification(s) exported`);
+console.log(`  ${urlChecks.length} URL check(s) exported`);
 console.log("  public/feeds/changes.xml");
 console.log(`  ${changes.length} change(s) in RSS feed`);

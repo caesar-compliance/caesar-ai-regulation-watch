@@ -61,3 +61,28 @@ export function verificationCheckLabel(result: string): string {
   };
   return labels[result] ?? humanizeId(result);
 }
+
+export function urlCheckResultLabel(result: string): string {
+  const labels: Record<string, string> = {
+    reachable: "Reachable",
+    reachable_redirected: "Reachable (redirected)",
+    unreachable: "Unreachable",
+    timeout: "Timeout",
+    dns_error: "DNS error",
+    network_error: "Network error",
+    not_checked: "Not checked",
+    uncertain: "Uncertain",
+  };
+  return labels[result] ?? humanizeId(result);
+}
+
+export function contentReviewStatusLabel(status: string): string {
+  const labels: Record<string, string> = {
+    not_reviewed: "Not reviewed",
+    needs_human_review: "Needs human review",
+    reviewed_source_identity_only: "Source identity reviewed",
+    reviewed_content_summary: "Content summary reviewed",
+    rejected_for_client_use: "Rejected for client use",
+  };
+  return labels[status] ?? humanizeId(status);
+}

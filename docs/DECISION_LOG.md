@@ -176,3 +176,13 @@
 - **Rationale:** Moves from registry-only coverage to reviewable instrument pointers while keeping data static and official-source-first.
 - **Boundaries:** No auto-mark reviewed; no `client_use_allowed: true` without strong verification; no competitor sources; no legal interpretation beyond `summary_for_review`.
 - **Artifacts:** `data/laws/`, `data/guidance/`, `data/verifications/`, `docs/SOURCE_VERIFICATION_WORKFLOW.md`, `docs/RECORD_EXPANSION_GAPS.md`, `public/data/verifications.json`.
+
+---
+
+## [DEC-020] — 19 May 2026 — Technical URL verification separate from content review (v0.6.1)
+
+- **Status:** Approved (implementation complete)
+- **Decision:** Add technical URL check batch (`url-check-*` YAML), `npm run check:urls` script (HEAD/GET, local YAML URLs only), and review queue reasons separating technical reachability from human source/content review. Do not run URL checks in CI.
+- **Rationale:** Operators need HTTP status without conflating reachability with legal review or client-use approval.
+- **Boundaries:** No crawlers; no auto `verified_on_source`; no `client_use_allowed: true` from URL script; no scraping beyond optional response headers.
+- **Artifacts:** `schemas/url-verification.schema.json`, `docs/URL_VERIFICATION_POLICY.md`, `scripts/check-official-urls.mjs`, `data/verifications/url-check-2026-05-19.yml`, `public/data/url-checks.json`.

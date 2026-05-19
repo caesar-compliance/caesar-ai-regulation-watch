@@ -2,14 +2,15 @@
 
 **Last updated:** 19 May 2026
 
-**Current version:** v0.6.0 · **Phase:** curated records + source verification · **Mode:** read-only preview.
+**Current version:** v0.6.1 · **Phase:** technical URL verification + refined review queue · **Mode:** read-only preview.
 
 ---
 
 ## Immediate priority — Control Tower
 
-1. Perform live URL verification per [docs/SOURCE_VERIFICATION_WORKFLOW.md](docs/SOURCE_VERIFICATION_WORKFLOW.md); update `check_result` in verification YAML.
-2. Work through `/review-queue/` and `/verification/`; set `verified_on_source: true` on records only when confirmed on official sources.
+1. Review technical URL results at `/verification/` and `data/verifications/url-check-2026-05-19.yml`; fix unreachable/redirected registry URLs where needed.
+2. Perform **human** source identity review per [docs/SOURCE_VERIFICATION_WORKFLOW.md](docs/SOURCE_VERIFICATION_WORKFLOW.md); do not conflate with technical `check_result` in url-check batch.
+3. Work through `/review-queue/` filters (technical URL vs content review); set `verified_on_source: true` only when confirmed on official sources.
 3. Review [docs/RECORD_EXPANSION_GAPS.md](docs/RECORD_EXPANSION_GAPS.md); add sources before new records where gaps exist.
 4. Sign off legal-safe language on curated summaries (no obligation claims).
 
@@ -32,5 +33,6 @@
 - v0.5.0 — Global jurisdiction/source expansion, timelines, CI validate/build
 - v0.5.1 — Static SVG global map, read-only review queue
 - v0.6.0 — Curated global records, verification workflow, 3 timelines, `/verification/` page
+- v0.6.1 — Technical URL verification script, url-check batch, review queue filters, `url-checks.json`
 
 See [ROADMAP.md](ROADMAP.md).

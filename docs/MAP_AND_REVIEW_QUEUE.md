@@ -1,10 +1,10 @@
-# Map and review queue — v0.6.0
+# Map and review queue — v0.6.1
 
 **Last updated:** 19 May 2026
 
 ## Overview
 
-v0.5.1+ adds read-only browsing tools (map, review queue). v0.6.0 extends the review queue with unverified records and source verification items. See also [/verification/](/verification/).
+v0.5.1+ adds read-only browsing tools (map, review queue). v0.6.0 extends the review queue with unverified records and source verification items. v0.6.1 adds **review_reasons** and filters for technical URL status (reachable, redirected, unreachable, not checked) separate from content review. See [/verification/](/verification/).
 
 1. **Global coverage map** (`/map/`) — static SVG markers from jurisdiction YAML
 2. **Human review queue** (`/review-queue/`) — aggregated items needing verification

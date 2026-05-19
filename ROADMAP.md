@@ -4,7 +4,7 @@
 
 This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
 
-**Current (v0.6.0):** curated global records, source verification workflow, static map, review queue, CI — no watchers, APIs, database, auth. **Next:** Control Tower live URL verification; close record expansion gaps.
+**Current (v0.6.1):** technical URL verification pass, refined review queue, curated records, human verification workflow, CI — no watchers, APIs, database, auth. **Next:** Control Tower human source identity and content review; fix unreachable registry URLs.
 
 ---
 

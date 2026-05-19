@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import ReviewStatusBadge from "../components/ReviewStatusBadge.astro";
 import { getJurisdictions, getTaxonomies, taxonomyLabel } from "../lib/data";
 import { buildReviewQueue, getReviewQueueSummary } from "../lib/review-queue";
-import { humanizeId } from "../lib/format";
+import { humanizeId, urlCheckResultLabel, contentReviewStatusLabel } from "../lib/format";
 
 const items = buildReviewQueue();
 const summary = getReviewQueueSummary();
@@ -12,6 +12,12 @@ const taxonomies = getTaxonomies();
 
 const itemTypes = [...new Set(items.map((i) => i.item_type))].sort();
 const reviewStatuses = [...new Set(items.map((i) => i.review_status))].sort();
+const technicalStatuses = [
+  ...new Set(items.map((i) => i.technical_url_status).filter(Boolean)),
+].sort() as string[];
+const contentStatuses = [
+  ...new Set(items.map((i) => i.content_review_status).filter(Boolean)),
+].sort() as string[];
 const jMap = Object.fromEntries(jurisdictions.map((j) => [j.jurisdiction_id, j.name]));
 ---
 
@@ -19,15 +25,15 @@ const jMap = Object.fromEntries(jurisdictions.map((j) => [j.jurisdiction_id, j.n
   <div data-filter-page>
     <h1>Human review queue</h1>
     <p class="lead">
-      Read-only list of registry items needing human verification. This page does not update data or mark
-      items reviewed.
+      Read-only list of registry items needing human verification. Technical URL reachability is
+      separate from legal/content review. This page does not update data.
     </p>
 
     <div class="banner banner--review" role="note">
       <strong>{summary.total} items</strong> in queue · {summary.pending_review} pending_review ·{" "}
-      {summary.needs_update} needs_update ·       {summary.unverified_timeline_events} unverified timeline events ·{" "}
-      {summary.missing_official_url} missing official URL · See also{" "}
-      <a href="/verification/">source verification</a>
+      {summary.technical_url_unreachable} unreachable URLs · {summary.redirected_url_needs_review}{" "}
+      redirected · {summary.content_not_reviewed} content not reviewed · See{" "}
+      <a href="/verification/">verification</a>
     </div>
 
     <div class="filter-bar">
@@ -60,6 +66,24 @@ const jMap = Object.fromEntries(jurisdictions.map((j) => [j.jurisdiction_id, j.n
           ))}
         </select>
       </label>
+      <label>
+        Technical URL
+        <select data-filter-key="technical">
+          <option value="">All</option>
+          {technicalStatuses.map((s) => (
+            <option value={s}>{urlCheckResultLabel(s)}</option>
+          ))}
+        </select>
+      </label>
+      <label>
+        Content review
+        <select data-filter-key="content">
+          <option value="">All</option>
+          {contentStatuses.map((s) => (
+            <option value={s}>{contentReviewStatusLabel(s)}</option>
+          ))}
+        </select>
+      </label>
       <label class="filter-bar__checkbox">
         <input type="checkbox" data-filter-flag="missingUrl" />
         Missing official URL only
@@ -67,6 +91,18 @@ const jMap = Object.fromEntries(jurisdictions.map((j) => [j.jurisdiction_id, j.n
       <label class="filter-bar__checkbox">
         <input type="checkbox" data-filter-flag="unverified" />
         Not verified on source
+      </label>
+      <label class="filter-bar__checkbox">
+        <input type="checkbox" data-filter-flag="unreachable" />
+        Unreachable URLs
+      </label>
+      <label class="filter-bar__checkbox">
+        <input type="checkbox" data-filter-flag="redirected" />
+        Redirected URLs
+      </label>
+      <label class="filter-bar__checkbox">
+        <input type="checkbox" data-filter-flag="notChecked" />
+        URL not checked
       </label>
       <p class="filter-bar__count" data-filter-count />
     </div>
@@ -80,17 +116,37 @@ const jMap = Object.fromEntries(jurisdictions.map((j) => [j.jurisdiction_id, j.n
             data-type={item.item_type}
             data-jurisdiction={item.jurisdiction_id}
             data-review={item.review_status}
+            data-technical={item.technical_url_status ?? ""}
+            data-content={item.content_review_status ?? ""}
             data-missing-url={item.missing_official_url ? "true" : "false"}
             data-unverified={item.verified_on_source_false ? "true" : "false"}
+            data-unreachable={
+              item.review_reasons.includes("technical_url_unreachable") ? "true" : "false"
+            }
+            data-redirected={
+              item.review_reasons.includes("redirected_url_needs_review") ? "true" : "false"
+            }
+            data-not-checked={
+              item.review_reasons.includes("technical_url_unchecked") ? "true" : "false"
+            }
           >
             <div class="card__meta">
               <span class="badge badge--type">{humanizeId(item.item_type)}</span>
               <ReviewStatusBadge status={item.review_status} />
+              {item.technical_url_status && (
+                <span class="badge">{urlCheckResultLabel(item.technical_url_status)}</span>
+              )}
+              {item.content_review_status && (
+                <span class="badge">{contentReviewStatusLabel(item.content_review_status)}</span>
+              )}
               {item.verified_on_source_false && (
                 <span class="badge badge--warn">Not verified on source</span>
               )}
               {item.missing_official_url && (
                 <span class="badge badge--warn">Missing URL</span>
+              )}
+              {item.client_use_allowed === false && (
+                <span class="badge badge--warn">Client use not allowed</span>
               )}
             </div>
             <h2 class="card__title-sm">
@@ -98,7 +154,8 @@ const jMap = Object.fromEntries(jurisdictions.map((j) => [j.jurisdiction_id, j.n
             </h2>
             <p class="card__excerpt">
               <small>
-                {jMap[item.jurisdiction_id] ?? item.jurisdiction_id} · <span class="mono">{item.item_id}</span>
+                {jMap[item.jurisdiction_id] ?? item.jurisdiction_id} ·{" "}
+                <span class="mono">{item.item_id}</span>
               </small>
             </p>
             <p>{item.reason_for_review}</p>

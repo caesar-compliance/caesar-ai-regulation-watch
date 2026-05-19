@@ -9,7 +9,12 @@
     "unverified_timeline_events": 10,
     "unverified_records": 12,
     "pending_source_verifications": 12,
-    "missing_official_url": 0
+    "missing_official_url": 0,
+    "technical_url_unchecked": 12,
+    "technical_url_unreachable": 14,
+    "redirected_url_needs_review": 3,
+    "content_not_reviewed": 63,
+    "client_use_not_allowed": 63
   },
   "items": [
     {
@@ -18,11 +23,18 @@
       "title": "Australia",
       "jurisdiction_id": "australia",
       "review_status": "pending_review",
-      "reason_for_review": "Jurisdiction review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed.",
+      "review_reasons": [
+        "pending_review"
+      ],
       "official_url": null,
       "page_href": "/jurisdictions/australia/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
     },
     {
       "item_type": "jurisdiction",
@@ -30,11 +42,18 @@
       "title": "Canada",
       "jurisdiction_id": "canada",
       "review_status": "pending_review",
-      "reason_for_review": "Jurisdiction review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed.",
+      "review_reasons": [
+        "pending_review"
+      ],
       "official_url": null,
       "page_href": "/jurisdictions/canada/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
     },
     {
       "item_type": "jurisdiction",
@@ -42,11 +61,18 @@
       "title": "China",
       "jurisdiction_id": "china",
       "review_status": "pending_review",
-      "reason_for_review": "Jurisdiction review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed.",
+      "review_reasons": [
+        "pending_review"
+      ],
       "official_url": null,
       "page_href": "/jurisdictions/china/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
     },
     {
       "item_type": "jurisdiction",
@@ -54,11 +80,18 @@
       "title": "European Union",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
-      "reason_for_review": "Jurisdiction review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed.",
+      "review_reasons": [
+        "pending_review"
+      ],
       "official_url": null,
       "page_href": "/jurisdictions/eu/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
     },
     {
       "item_type": "jurisdiction",
@@ -66,11 +99,18 @@
       "title": "G7",
       "jurisdiction_id": "g7",
       "review_status": "pending_review",
-      "reason_for_review": "Jurisdiction review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed.",
+      "review_reasons": [
+        "pending_review"
+      ],
       "official_url": null,
       "page_href": "/jurisdictions/g7/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
     },
     {
       "item_type": "jurisdiction",
@@ -78,11 +118,18 @@
       "title": "Japan",
       "jurisdiction_id": "japan",
       "review_status": "pending_review",
-      "reason_for_review": "Jurisdiction review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed.",
+      "review_reasons": [
+        "pending_review"
+      ],
       "official_url": null,
       "page_href": "/jurisdictions/japan/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
     },
     {
       "item_type": "jurisdiction",
@@ -90,11 +137,18 @@
       "title": "Norway",
       "jurisdiction_id": "norway",
       "review_status": "pending_review",
-      "reason_for_review": "Jurisdiction review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed.",
+      "review_reasons": [
+        "pending_review"
+      ],
       "official_url": null,
       "page_href": "/jurisdictions/norway/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
     },
     {
       "item_type": "jurisdiction",
@@ -102,11 +156,18 @@
       "title": "OECD",
       "jurisdiction_id": "oecd",
       "review_status": "pending_review",
-      "reason_for_review": "Jurisdiction review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed.",
+      "review_reasons": [
+        "pending_review"
+      ],
       "official_url": null,
       "page_href": "/jurisdictions/oecd/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
     },
     {
       "item_type": "jurisdiction",
@@ -114,11 +175,18 @@
       "title": "Singapore",
       "jurisdiction_id": "singapore",
       "review_status": "pending_review",
-      "reason_for_review": "Jurisdiction review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed.",
+      "review_reasons": [
+        "pending_review"
+      ],
       "official_url": null,
       "page_href": "/jurisdictions/singapore/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
     },
     {
       "item_type": "jurisdiction",
@@ -126,11 +194,18 @@
       "title": "South Korea",
       "jurisdiction_id": "south-korea",
       "review_status": "pending_review",
-      "reason_for_review": "Jurisdiction review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed.",
+      "review_reasons": [
+        "pending_review"
+      ],
       "official_url": null,
       "page_href": "/jurisdictions/south-korea/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
     },
     {
       "item_type": "jurisdiction",
@@ -138,11 +213,18 @@
       "title": "United Kingdom",
       "jurisdiction_id": "uk",
       "review_status": "pending_review",
-      "reason_for_review": "Jurisdiction review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed.",
+      "review_reasons": [
+        "pending_review"
+      ],
       "official_url": null,
       "page_href": "/jurisdictions/uk/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
     },
     {
       "item_type": "jurisdiction",
@@ -150,11 +232,18 @@
       "title": "UNESCO",
       "jurisdiction_id": "unesco",
       "review_status": "pending_review",
-      "reason_for_review": "Jurisdiction review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed.",
+      "review_reasons": [
+        "pending_review"
+      ],
       "official_url": null,
       "page_href": "/jurisdictions/unesco/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
     },
     {
       "item_type": "jurisdiction",
@@ -162,11 +251,18 @@
       "title": "United States (federal)",
       "jurisdiction_id": "us-federal",
       "review_status": "pending_review",
-      "reason_for_review": "Jurisdiction review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed.",
+      "review_reasons": [
+        "pending_review"
+      ],
       "official_url": null,
       "page_href": "/jurisdictions/us-federal/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
     },
     {
       "item_type": "source",
@@ -174,11 +270,21 @@
       "title": "Department of Industry — Australia's AI Ethics Framework",
       "jurisdiction_id": "australia",
       "review_status": "pending_review",
-      "reason_for_review": "Source review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. Official URL unreachable (HTTP/network error). Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "technical_url_unreachable",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.industry.gov.au/publications/australias-artificial-intelligence-ai-ethics-framework",
       "page_href": "/sources/australia-industry-ai/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "unreachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source",
@@ -186,11 +292,21 @@
       "title": "Office of the Australian Information Commissioner — Artificial intelligence",
       "jurisdiction_id": "australia",
       "review_status": "pending_review",
-      "reason_for_review": "Source review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. Official URL unreachable (HTTP/network error). Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "technical_url_unreachable",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.oaic.gov.au/privacy/your-privacy-rights/your-personal-information/technologies/artificial-intelligence",
       "page_href": "/sources/australia-oaic-ai/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "unreachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source",
@@ -198,11 +314,20 @@
       "title": "Office of the Privacy Commissioner of Canada — Artificial intelligence",
       "jurisdiction_id": "canada",
       "review_status": "pending_review",
-      "reason_for_review": "Source review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.priv.gc.ca/en/privacy-topics/technology/artificial-intelligence/",
       "page_href": "/sources/canada-opc-ai/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source",
@@ -210,11 +335,20 @@
       "title": "Government of Canada — Responsible use of AI in government",
       "jurisdiction_id": "canada",
       "review_status": "pending_review",
-      "reason_for_review": "Source review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai.html",
       "page_href": "/sources/canada-responsible-ai/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source",
@@ -222,11 +356,20 @@
       "title": "Cyberspace Administration of China — Interim Measures for Generative AI Services",
       "jurisdiction_id": "china",
       "review_status": "pending_review",
-      "reason_for_review": "Source review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm",
       "page_href": "/sources/china-cac-generative-ai/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source",
@@ -234,11 +377,20 @@
       "title": "Cyberspace Administration of China (CAC) — official site",
       "jurisdiction_id": "china",
       "review_status": "pending_review",
-      "reason_for_review": "Source review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.cac.gov.cn/",
       "page_href": "/sources/china-cac/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source",
@@ -246,11 +398,20 @@
       "title": "Datatilsynet — Norwegian Data Protection Authority",
       "jurisdiction_id": "norway",
       "review_status": "pending_review",
-      "reason_for_review": "Source review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.datatilsynet.no/",
       "page_href": "/sources/datatilsynet/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source",
@@ -258,11 +419,21 @@
       "title": "European Data Protection Board (EDPB)",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
-      "reason_for_review": "Source review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. URL redirects; confirm canonical destination. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "redirected_url_needs_review",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.edpb.europa.eu/",
       "page_href": "/sources/edpb/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "reachable_redirected",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": true,
+      "client_use_allowed": false
     },
     {
       "item_type": "source",
@@ -270,11 +441,21 @@
       "title": "European Data Protection Supervisor (EDPS)",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
-      "reason_for_review": "Source review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. URL redirects; confirm canonical destination. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "redirected_url_needs_review",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.edps.europa.eu/",
       "page_href": "/sources/edps/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "reachable_redirected",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": true,
+      "client_use_allowed": false
     },
     {
       "item_type": "source",
@@ -282,11 +463,20 @@
       "title": "EU Artificial Intelligence Act — EUR-Lex",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
-      "reason_for_review": "Source review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689",
       "page_href": "/sources/eu-ai-act/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source",
@@ -294,11 +484,20 @@
       "title": "European Commission — AI Office and AI Act policy pages",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
-      "reason_for_review": "Source review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
       "page_href": "/sources/eu-ai-office/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source",
@@ -306,11 +505,20 @@
       "title": "EUR-Lex — EU law portal (AI Act cluster monitoring entry point)",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
-      "reason_for_review": "Source review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://eur-lex.europa.eu/",
       "page_href": "/sources/eur-lex/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source",
@@ -318,11 +526,21 @@
       "title": "G7 Hiroshima AI Process — official portal",
       "jurisdiction_id": "g7",
       "review_status": "pending_review",
-      "reason_for_review": "Source review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. Official URL unreachable (HTTP/network error). Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "technical_url_unreachable",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.g7hiroshima.go.jp/en/",
       "page_href": "/sources/g7-hiroshima-ai-process/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "dns_error",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source",
@@ -330,11 +548,21 @@
       "title": "METI — AI policy (English pages)",
       "jurisdiction_id": "japan",
       "review_status": "pending_review",
-      "reason_for_review": "Source review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. Official URL unreachable (HTTP/network error). Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "technical_url_unreachable",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.meti.go.jp/english/policy/mono_info_service/connected_industries/ai/index.html",
       "page_href": "/sources/japan-meti-ai/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "unreachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source",
@@ -342,11 +570,21 @@
       "title": "Norwegian Government — AI Act / EEA implementation information",
       "jurisdiction_id": "norway",
       "review_status": "pending_review",
-      "reason_for_review": "Source review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. Official URL unreachable (HTTP/network error). Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "technical_url_unreachable",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.regjeringen.no/en/topics/business-and-industry/ai/id3015480/",
       "page_href": "/sources/norway-ai-act-implementation/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "unreachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source",
@@ -354,11 +592,20 @@
       "title": "OECD.AI — Policy Observatory and AI Policy Navigator",
       "jurisdiction_id": "oecd",
       "review_status": "pending_review",
-      "reason_for_review": "Source review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://oecd.ai/en/",
       "page_href": "/sources/oecd-ai-policy-navigator/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source",
@@ -366,11 +613,20 @@
       "title": "IMDA — AI and trusted digital ecosystem",
       "jurisdiction_id": "singapore",
       "review_status": "pending_review",
-      "reason_for_review": "Source review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.imda.gov.sg/resources/blog/blog-listing/blog-details/building-a-trusted-ai-ecosystem",
       "page_href": "/sources/singapore-imda-ai/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source",
@@ -378,11 +634,20 @@
       "title": "PDPC — Model AI Governance Framework",
       "jurisdiction_id": "singapore",
       "review_status": "pending_review",
-      "reason_for_review": "Source review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.pdpc.gov.sg/help-and-resources/2020/01/model-ai-governance-framework",
       "page_href": "/sources/singapore-pdpc-ai/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source",
@@ -390,11 +655,21 @@
       "title": "Personal Information Protection Commission — official site (English)",
       "jurisdiction_id": "south-korea",
       "review_status": "pending_review",
-      "reason_for_review": "Source review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. Official URL unreachable (HTTP/network error). Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "technical_url_unreachable",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.pipc.go.kr/np/eng/main/main.do",
       "page_href": "/sources/south-korea-pipc/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "unreachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source",
@@ -402,11 +677,20 @@
       "title": "UK Government — AI regulation (pro-innovation approach)",
       "jurisdiction_id": "uk",
       "review_status": "pending_review",
-      "reason_for_review": "Source review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.gov.uk/government/publications/ai-regulation-a-pro-innovation-approach",
       "page_href": "/sources/uk-gov-ai-regulation/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source",
@@ -414,11 +698,20 @@
       "title": "ICO — Artificial intelligence guidance",
       "jurisdiction_id": "uk",
       "review_status": "pending_review",
-      "reason_for_review": "Source review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/",
       "page_href": "/sources/uk-ico-ai-guidance/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source",
@@ -426,11 +719,20 @@
       "title": "UNESCO — Recommendation on the Ethics of Artificial Intelligence",
       "jurisdiction_id": "unesco",
       "review_status": "pending_review",
-      "reason_for_review": "Source review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.unesco.org/en/artificial-intelligence/recommendation-ethics",
       "page_href": "/sources/unesco-ai-ethics/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source",
@@ -438,11 +740,20 @@
       "title": "National AI Initiative — AI.gov",
       "jurisdiction_id": "us-federal",
       "review_status": "pending_review",
-      "reason_for_review": "Source review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.ai.gov/",
       "page_href": "/sources/us-ai-gov/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source",
@@ -450,11 +761,21 @@
       "title": "Congress.gov — federal legislative information",
       "jurisdiction_id": "us-federal",
       "review_status": "pending_review",
-      "reason_for_review": "Source review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. Official URL unreachable (HTTP/network error). Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "technical_url_unreachable",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.congress.gov/",
       "page_href": "/sources/us-congress-gov/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "unreachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source",
@@ -462,11 +783,21 @@
       "title": "Federal Register — official journal of federal rulemaking",
       "jurisdiction_id": "us-federal",
       "review_status": "pending_review",
-      "reason_for_review": "Source review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. URL redirects; confirm canonical destination. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "redirected_url_needs_review",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.federalregister.gov/",
       "page_href": "/sources/us-federal-register/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "reachable_redirected",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": true,
+      "client_use_allowed": false
     },
     {
       "item_type": "source",
@@ -474,11 +805,20 @@
       "title": "NIST — AI Risk Management Framework",
       "jurisdiction_id": "us-federal",
       "review_status": "pending_review",
-      "reason_for_review": "Source review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.nist.gov/itl/ai-risk-management-framework",
       "page_href": "/sources/us-nist-ai-rmf/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "record",
@@ -486,11 +826,22 @@
       "title": "Interim Measures for the Management of Generative Artificial Intelligence Services",
       "jurisdiction_id": "china",
       "review_status": "pending_review",
-      "reason_for_review": "Record (law) review_status is pending_review. Record not verified on official source in this repository.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Content/source identity not human-reviewed. Client use not allowed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "verified_on_source_false",
+        "content_not_reviewed",
+        "client_use_not_allowed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm",
       "page_href": "/records/law-china-generative-ai-interim-measures/",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "record",
@@ -498,11 +849,20 @@
       "title": "Regulation (EU) 2024/1689 — Artificial Intelligence Act",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
-      "reason_for_review": "Record (law) review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689",
       "page_href": "/records/law-eu-ai-act-2024-1689/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "record",
@@ -510,11 +870,23 @@
       "title": "Australia's Artificial Intelligence (AI) Ethics Framework",
       "jurisdiction_id": "australia",
       "review_status": "pending_review",
-      "reason_for_review": "Record (guidance) review_status is pending_review. Record not verified on official source in this repository.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Official URL unreachable (HTTP/network error). Content/source identity not human-reviewed. Client use not allowed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "verified_on_source_false",
+        "technical_url_unreachable",
+        "content_not_reviewed",
+        "client_use_not_allowed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.industry.gov.au/publications/australias-artificial-intelligence-ai-ethics-framework",
       "page_href": "/records/policy-australia-ai-ethics-framework/",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": "unreachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "record",
@@ -522,11 +894,22 @@
       "title": "Government of Canada — Responsible use of artificial intelligence",
       "jurisdiction_id": "canada",
       "review_status": "pending_review",
-      "reason_for_review": "Record (guidance) review_status is pending_review. Record not verified on official source in this repository.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Content/source identity not human-reviewed. Client use not allowed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "verified_on_source_false",
+        "content_not_reviewed",
+        "client_use_not_allowed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai.html",
       "page_href": "/records/policy-canada-responsible-use-ai/",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "record",
@@ -534,11 +917,20 @@
       "title": "Datatilsynet — AI and privacy theme (sample pointer)",
       "jurisdiction_id": "norway",
       "review_status": "pending_review",
-      "reason_for_review": "Record (guidance) review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.datatilsynet.no/",
       "page_href": "/records/guidance-datatilsynet-ai-privacy/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "record",
@@ -546,11 +938,20 @@
       "title": "EU AI Office — General-purpose AI (GPAI) framework pages (sample pointer)",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
-      "reason_for_review": "Record (guidance) review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
       "page_href": "/records/guidance-eu-ai-office-gpai/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "record",
@@ -558,11 +959,23 @@
       "title": "G7 — Hiroshima AI Process (summit policy framework)",
       "jurisdiction_id": "g7",
       "review_status": "pending_review",
-      "reason_for_review": "Record (guidance) review_status is pending_review. Record not verified on official source in this repository.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Official URL unreachable (HTTP/network error). Content/source identity not human-reviewed. Client use not allowed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "verified_on_source_false",
+        "technical_url_unreachable",
+        "content_not_reviewed",
+        "client_use_not_allowed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.g7hiroshima.go.jp/en/",
       "page_href": "/records/policy-g7-hiroshima-ai-process/",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": "dns_error",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "record",
@@ -570,11 +983,23 @@
       "title": "Japan METI — AI policy and connected industries materials",
       "jurisdiction_id": "japan",
       "review_status": "pending_review",
-      "reason_for_review": "Record (guidance) review_status is pending_review. Record not verified on official source in this repository.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Official URL unreachable (HTTP/network error). Content/source identity not human-reviewed. Client use not allowed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "verified_on_source_false",
+        "technical_url_unreachable",
+        "content_not_reviewed",
+        "client_use_not_allowed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.meti.go.jp/english/policy/mono_info_service/connected_industries/ai/index.html",
       "page_href": "/records/policy-japan-meti-ai/",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": "unreachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "record",
@@ -582,11 +1007,23 @@
       "title": "Norway — EU AI Act implementation (government tracking)",
       "jurisdiction_id": "norway",
       "review_status": "pending_review",
-      "reason_for_review": "Record (guidance) review_status is pending_review. Record not verified on official source in this repository.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Official URL unreachable (HTTP/network error). Content/source identity not human-reviewed. Client use not allowed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "verified_on_source_false",
+        "technical_url_unreachable",
+        "content_not_reviewed",
+        "client_use_not_allowed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.regjeringen.no/en/topics/business-and-industry/ai/id3015480/",
       "page_href": "/records/implementation-norway-ai-act/",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": "unreachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "record",
@@ -594,11 +1031,22 @@
       "title": "OECD.AI — Policy observatory and AI principles resources",
       "jurisdiction_id": "oecd",
       "review_status": "pending_review",
-      "reason_for_review": "Record (guidance) review_status is pending_review. Record not verified on official source in this repository.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Content/source identity not human-reviewed. Client use not allowed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "verified_on_source_false",
+        "content_not_reviewed",
+        "client_use_not_allowed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://oecd.ai/en/",
       "page_href": "/records/policy-oecd-ai-policy-navigator/",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "record",
@@ -606,11 +1054,22 @@
       "title": "Singapore — Model AI Governance Framework",
       "jurisdiction_id": "singapore",
       "review_status": "pending_review",
-      "reason_for_review": "Record (guidance) review_status is pending_review. Record not verified on official source in this repository.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Content/source identity not human-reviewed. Client use not allowed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "verified_on_source_false",
+        "content_not_reviewed",
+        "client_use_not_allowed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.pdpc.gov.sg/help-and-resources/2020/01/model-ai-governance-framework",
       "page_href": "/records/policy-singapore-model-ai-governance/",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "record",
@@ -618,11 +1077,23 @@
       "title": "South Korea PIPC — AI and personal information protection (official portal)",
       "jurisdiction_id": "south-korea",
       "review_status": "pending_review",
-      "reason_for_review": "Record (guidance) review_status is pending_review. Record not verified on official source in this repository.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Official URL unreachable (HTTP/network error). Content/source identity not human-reviewed. Client use not allowed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "verified_on_source_false",
+        "technical_url_unreachable",
+        "content_not_reviewed",
+        "client_use_not_allowed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.pipc.go.kr/np/eng/main/main.do",
       "page_href": "/records/guidance-south-korea-pipc-ai/",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": "unreachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "record",
@@ -630,11 +1101,22 @@
       "title": "UK — AI regulation pro-innovation approach (government policy framework)",
       "jurisdiction_id": "uk",
       "review_status": "pending_review",
-      "reason_for_review": "Record (guidance) review_status is pending_review. Record not verified on official source in this repository.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Content/source identity not human-reviewed. Client use not allowed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "verified_on_source_false",
+        "content_not_reviewed",
+        "client_use_not_allowed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.gov.uk/government/publications/ai-regulation-a-pro-innovation-approach",
       "page_href": "/records/policy-uk-ai-regulation-pro-innovation/",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "record",
@@ -642,11 +1124,22 @@
       "title": "UNESCO — Recommendation on the Ethics of Artificial Intelligence",
       "jurisdiction_id": "unesco",
       "review_status": "pending_review",
-      "reason_for_review": "Record (guidance) review_status is pending_review. Record not verified on official source in this repository.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Content/source identity not human-reviewed. Client use not allowed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "verified_on_source_false",
+        "content_not_reviewed",
+        "client_use_not_allowed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.unesco.org/en/artificial-intelligence/recommendation-ethics",
       "page_href": "/records/policy-unesco-ai-ethics-recommendation/",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "record",
@@ -654,11 +1147,22 @@
       "title": "NIST — AI Risk Management Framework (AI RMF 1.0)",
       "jurisdiction_id": "us-federal",
       "review_status": "pending_review",
-      "reason_for_review": "Record (guidance) review_status is pending_review. Record not verified on official source in this repository.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Content/source identity not human-reviewed. Client use not allowed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "verified_on_source_false",
+        "content_not_reviewed",
+        "client_use_not_allowed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.nist.gov/itl/ai-risk-management-framework",
       "page_href": "/records/policy-us-nist-ai-rmf/",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "change",
@@ -666,11 +1170,18 @@
       "title": "sample-eu-ai-act-status-change",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
-      "reason_for_review": "Change review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed.",
+      "review_reasons": [
+        "pending_review"
+      ],
       "official_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689",
       "page_href": "/changes/sample-eu-ai-act-status-change/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
     },
     {
       "item_type": "change",
@@ -678,11 +1189,18 @@
       "title": "sample-datatilsynet-guidance-change",
       "jurisdiction_id": "norway",
       "review_status": "pending_review",
-      "reason_for_review": "Change review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed.",
+      "review_reasons": [
+        "pending_review"
+      ],
       "official_url": "https://www.datatilsynet.no/",
       "page_href": "/changes/sample-datatilsynet-guidance-change/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
     },
     {
       "item_type": "timeline",
@@ -690,11 +1208,18 @@
       "title": "EU AI Act — sample milestone timeline",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
-      "reason_for_review": "Timeline review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed.",
+      "review_reasons": [
+        "pending_review"
+      ],
       "official_url": null,
       "page_href": "/timelines/eu-ai-act-milestones/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
     },
     {
       "item_type": "timeline_event",
@@ -702,12 +1227,22 @@
       "title": "EU AI Act — sample milestone timeline — Regulation published in Official Journal (sample)",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
-      "reason_for_review": "Event review_status is pending_review. Date/summary not verified on official source in this repository.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "verified_on_source_false",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://eur-lex.europa.eu/",
       "page_href": "/timelines/eu-ai-act-milestones/",
       "parent_timeline_id": "eu-ai-act-milestones",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "timeline_event",
@@ -715,12 +1250,22 @@
       "title": "EU AI Act — sample milestone timeline — General application start (sample — phased obligations apply)",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
-      "reason_for_review": "Event review_status is pending_review. Date/summary not verified on official source in this repository.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "verified_on_source_false",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689",
       "page_href": "/timelines/eu-ai-act-milestones/",
       "parent_timeline_id": "eu-ai-act-milestones",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "timeline_event",
@@ -728,12 +1273,22 @@
       "title": "EU AI Act — sample milestone timeline — Commission AI Office implementation communications (ongoing)",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
-      "reason_for_review": "Event review_status is pending_review. Date/summary not verified on official source in this repository.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "verified_on_source_false",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
       "page_href": "/timelines/eu-ai-act-milestones/",
       "parent_timeline_id": "eu-ai-act-milestones",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "timeline",
@@ -741,11 +1296,18 @@
       "title": "Global AI regulation watch — sample cross-jurisdiction timeline",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
-      "reason_for_review": "Timeline review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed.",
+      "review_reasons": [
+        "pending_review"
+      ],
       "official_url": null,
       "page_href": "/timelines/global-ai-regulation-watch-sample/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
     },
     {
       "item_type": "timeline_event",
@@ -753,12 +1315,22 @@
       "title": "Global AI regulation watch — sample cross-jurisdiction timeline — UNESCO AI Ethics Recommendation adopted (sample reference date)",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
-      "reason_for_review": "Event review_status is pending_review. Date/summary not verified on official source in this repository.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "verified_on_source_false",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.unesco.org/en/artificial-intelligence/recommendation-ethics",
       "page_href": "/timelines/global-ai-regulation-watch-sample/",
       "parent_timeline_id": "global-ai-regulation-watch-sample",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "timeline_event",
@@ -766,12 +1338,23 @@
       "title": "Global AI regulation watch — sample cross-jurisdiction timeline — G7 Hiroshima AI Process announced (sample reference date)",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
-      "reason_for_review": "Event review_status is pending_review. Date/summary not verified on official source in this repository.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Official URL unreachable (HTTP/network error). Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "verified_on_source_false",
+        "technical_url_unreachable",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.g7hiroshima.go.jp/en/",
       "page_href": "/timelines/global-ai-regulation-watch-sample/",
       "parent_timeline_id": "global-ai-regulation-watch-sample",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": "dns_error",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "timeline_event",
@@ -779,12 +1362,22 @@
       "title": "Global AI regulation watch — sample cross-jurisdiction timeline — OECD.AI policy database — ongoing monitoring entry",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
-      "reason_for_review": "Event review_status is pending_review. Date/summary not verified on official source in this repository.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "verified_on_source_false",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://oecd.ai/en/",
       "page_href": "/timelines/global-ai-regulation-watch-sample/",
       "parent_timeline_id": "global-ai-regulation-watch-sample",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "timeline",
@@ -792,11 +1385,18 @@
       "title": "International — AI ethics and cooperation frameworks (curated)",
       "jurisdiction_id": "oecd",
       "review_status": "pending_review",
-      "reason_for_review": "Timeline review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed.",
+      "review_reasons": [
+        "pending_review"
+      ],
       "official_url": null,
       "page_href": "/timelines/international-ai-frameworks/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
     },
     {
       "item_type": "timeline_event",
@@ -804,12 +1404,22 @@
       "title": "International — AI ethics and cooperation frameworks (curated) — UNESCO AI Ethics Recommendation adopted (pending verification)",
       "jurisdiction_id": "oecd",
       "review_status": "pending_review",
-      "reason_for_review": "Event review_status is pending_review. Date/summary not verified on official source in this repository.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "verified_on_source_false",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.unesco.org/en/artificial-intelligence/recommendation-ethics",
       "page_href": "/timelines/international-ai-frameworks/",
       "parent_timeline_id": "international-ai-frameworks",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "timeline_event",
@@ -817,12 +1427,23 @@
       "title": "International — AI ethics and cooperation frameworks (curated) — G7 Hiroshima AI Process announced (pending verification)",
       "jurisdiction_id": "oecd",
       "review_status": "pending_review",
-      "reason_for_review": "Event review_status is pending_review. Date/summary not verified on official source in this repository.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Official URL unreachable (HTTP/network error). Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "verified_on_source_false",
+        "technical_url_unreachable",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.g7hiroshima.go.jp/en/",
       "page_href": "/timelines/international-ai-frameworks/",
       "parent_timeline_id": "international-ai-frameworks",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": "dns_error",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "timeline",
@@ -830,11 +1451,18 @@
       "title": "UK — AI regulation policy (curated milestones)",
       "jurisdiction_id": "uk",
       "review_status": "pending_review",
-      "reason_for_review": "Timeline review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed.",
+      "review_reasons": [
+        "pending_review"
+      ],
       "official_url": null,
       "page_href": "/timelines/uk-ai-regulation-policy/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
     },
     {
       "item_type": "timeline_event",
@@ -842,12 +1470,22 @@
       "title": "UK — AI regulation policy (curated milestones) — Pro-innovation AI regulation white paper published (pending verification)",
       "jurisdiction_id": "uk",
       "review_status": "pending_review",
-      "reason_for_review": "Event review_status is pending_review. Date/summary not verified on official source in this repository.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "verified_on_source_false",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.gov.uk/government/publications/ai-regulation-a-pro-innovation-approach",
       "page_href": "/timelines/uk-ai-regulation-policy/",
       "parent_timeline_id": "uk-ai-regulation-policy",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "timeline",
@@ -855,11 +1493,18 @@
       "title": "US federal — AI policy and frameworks (curated milestones)",
       "jurisdiction_id": "us-federal",
       "review_status": "pending_review",
-      "reason_for_review": "Timeline review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed.",
+      "review_reasons": [
+        "pending_review"
+      ],
       "official_url": null,
       "page_href": "/timelines/us-federal-ai-policy/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
     },
     {
       "item_type": "timeline_event",
@@ -867,12 +1512,22 @@
       "title": "US federal — AI policy and frameworks (curated milestones) — NIST AI RMF 1.0 released (pending verification)",
       "jurisdiction_id": "us-federal",
       "review_status": "pending_review",
-      "reason_for_review": "Event review_status is pending_review. Date/summary not verified on official source in this repository.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Content/source identity not human-reviewed. Client use not allowed.",
+      "review_reasons": [
+        "pending_review",
+        "verified_on_source_false",
+        "content_not_reviewed",
+        "client_use_not_allowed"
+      ],
       "official_url": "https://www.nist.gov/itl/ai-risk-management-framework",
       "page_href": "/timelines/us-federal-ai-policy/",
       "parent_timeline_id": "us-federal-ai-policy",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": "reachable",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "export_sample",
@@ -880,11 +1535,18 @@
       "title": "export-sample-eu-ai-act-status-001",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
-      "reason_for_review": "Export sample review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed.",
+      "review_reasons": [
+        "pending_review"
+      ],
       "official_url": null,
       "page_href": "/exports/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
     },
     {
       "item_type": "export_sample",
@@ -892,155 +1554,270 @@
       "title": "export-sample-datatilsynet-guidance-001",
       "jurisdiction_id": "norway",
       "review_status": "pending_review",
-      "reason_for_review": "Export sample review_status is pending_review.",
+      "reason_for_review": "Editorial review_status is not reviewed.",
+      "review_reasons": [
+        "pending_review"
+      ],
       "official_url": null,
       "page_href": "/exports/",
       "missing_official_url": false,
-      "verified_on_source_false": false
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
     },
     {
       "item_type": "source_verification",
       "item_id": "verify-uk-gov-ai-regulation",
-      "title": "Verification: policy-uk-ai-regulation-pro-innovation (not_checked)",
+      "title": "Source verification: policy-uk-ai-regulation-pro-innovation",
       "jurisdiction_id": "uk",
       "review_status": "pending_review",
-      "reason_for_review": "Source verification check_result is not_checked.",
+      "reason_for_review": "Human source verification not_checked. Content/source identity not human-reviewed. Client use not allowed. Technical URL not checked or outcome uncertain.",
+      "review_reasons": [
+        "content_not_reviewed",
+        "client_use_not_allowed",
+        "technical_url_unchecked"
+      ],
       "official_url": "https://www.gov.uk/government/publications/ai-regulation-a-pro-innovation-approach",
       "page_href": "/verification/",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": null,
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source_verification",
       "item_id": "verify-us-nist-ai-rmf",
-      "title": "Verification: policy-us-nist-ai-rmf (not_checked)",
+      "title": "Source verification: policy-us-nist-ai-rmf",
       "jurisdiction_id": "us-federal",
       "review_status": "pending_review",
-      "reason_for_review": "Source verification check_result is not_checked.",
+      "reason_for_review": "Human source verification not_checked. Content/source identity not human-reviewed. Client use not allowed. Technical URL not checked or outcome uncertain.",
+      "review_reasons": [
+        "content_not_reviewed",
+        "client_use_not_allowed",
+        "technical_url_unchecked"
+      ],
       "official_url": "https://www.nist.gov/itl/ai-risk-management-framework",
       "page_href": "/verification/",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": null,
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source_verification",
       "item_id": "verify-china-cac-generative-ai",
-      "title": "Verification: law-china-generative-ai-interim-measures (not_checked)",
+      "title": "Source verification: law-china-generative-ai-interim-measures",
       "jurisdiction_id": "china",
       "review_status": "pending_review",
-      "reason_for_review": "Source verification check_result is not_checked.",
+      "reason_for_review": "Human source verification not_checked. Content/source identity not human-reviewed. Client use not allowed. Technical URL not checked or outcome uncertain.",
+      "review_reasons": [
+        "content_not_reviewed",
+        "client_use_not_allowed",
+        "technical_url_unchecked"
+      ],
       "official_url": "https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm",
       "page_href": "/verification/",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": null,
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source_verification",
       "item_id": "verify-canada-responsible-ai",
-      "title": "Verification: policy-canada-responsible-use-ai (not_checked)",
+      "title": "Source verification: policy-canada-responsible-use-ai",
       "jurisdiction_id": "canada",
       "review_status": "pending_review",
-      "reason_for_review": "Source verification check_result is not_checked.",
+      "reason_for_review": "Human source verification not_checked. Content/source identity not human-reviewed. Client use not allowed. Technical URL not checked or outcome uncertain.",
+      "review_reasons": [
+        "content_not_reviewed",
+        "client_use_not_allowed",
+        "technical_url_unchecked"
+      ],
       "official_url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai.html",
       "page_href": "/verification/",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": null,
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source_verification",
       "item_id": "verify-australia-ai-ethics",
-      "title": "Verification: policy-australia-ai-ethics-framework (not_checked)",
+      "title": "Source verification: policy-australia-ai-ethics-framework",
       "jurisdiction_id": "australia",
       "review_status": "pending_review",
-      "reason_for_review": "Source verification check_result is not_checked.",
+      "reason_for_review": "Human source verification not_checked. Content/source identity not human-reviewed. Client use not allowed. Technical URL not checked or outcome uncertain.",
+      "review_reasons": [
+        "content_not_reviewed",
+        "client_use_not_allowed",
+        "technical_url_unchecked"
+      ],
       "official_url": "https://www.industry.gov.au/publications/australias-artificial-intelligence-ai-ethics-framework",
       "page_href": "/verification/",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": null,
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source_verification",
       "item_id": "verify-singapore-model-ai-governance",
-      "title": "Verification: policy-singapore-model-ai-governance (not_checked)",
+      "title": "Source verification: policy-singapore-model-ai-governance",
       "jurisdiction_id": "singapore",
       "review_status": "pending_review",
-      "reason_for_review": "Source verification check_result is not_checked.",
+      "reason_for_review": "Human source verification not_checked. Content/source identity not human-reviewed. Client use not allowed. Technical URL not checked or outcome uncertain.",
+      "review_reasons": [
+        "content_not_reviewed",
+        "client_use_not_allowed",
+        "technical_url_unchecked"
+      ],
       "official_url": "https://www.pdpc.gov.sg/help-and-resources/2020/01/model-ai-governance-framework",
       "page_href": "/verification/",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": null,
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source_verification",
       "item_id": "verify-japan-meti-ai",
-      "title": "Verification: policy-japan-meti-ai (not_checked)",
+      "title": "Source verification: policy-japan-meti-ai",
       "jurisdiction_id": "japan",
       "review_status": "pending_review",
-      "reason_for_review": "Source verification check_result is not_checked.",
+      "reason_for_review": "Human source verification not_checked. Content/source identity not human-reviewed. Client use not allowed. Technical URL not checked or outcome uncertain.",
+      "review_reasons": [
+        "content_not_reviewed",
+        "client_use_not_allowed",
+        "technical_url_unchecked"
+      ],
       "official_url": "https://www.meti.go.jp/english/policy/mono_info_service/connected_industries/ai/index.html",
       "page_href": "/verification/",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": null,
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source_verification",
       "item_id": "verify-south-korea-pipc",
-      "title": "Verification: guidance-south-korea-pipc-ai (not_checked)",
+      "title": "Source verification: guidance-south-korea-pipc-ai",
       "jurisdiction_id": "south-korea",
       "review_status": "pending_review",
-      "reason_for_review": "Source verification check_result is not_checked.",
+      "reason_for_review": "Human source verification not_checked. Content/source identity not human-reviewed. Client use not allowed. Technical URL not checked or outcome uncertain.",
+      "review_reasons": [
+        "content_not_reviewed",
+        "client_use_not_allowed",
+        "technical_url_unchecked"
+      ],
       "official_url": "https://www.pipc.go.kr/np/eng/main/main.do",
       "page_href": "/verification/",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": null,
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source_verification",
       "item_id": "verify-oecd-ai",
-      "title": "Verification: policy-oecd-ai-policy-navigator (not_checked)",
+      "title": "Source verification: policy-oecd-ai-policy-navigator",
       "jurisdiction_id": "oecd",
       "review_status": "pending_review",
-      "reason_for_review": "Source verification check_result is not_checked.",
+      "reason_for_review": "Human source verification not_checked. Content/source identity not human-reviewed. Client use not allowed. Technical URL not checked or outcome uncertain.",
+      "review_reasons": [
+        "content_not_reviewed",
+        "client_use_not_allowed",
+        "technical_url_unchecked"
+      ],
       "official_url": "https://oecd.ai/en/",
       "page_href": "/verification/",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": null,
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source_verification",
       "item_id": "verify-unesco-ai-ethics",
-      "title": "Verification: policy-unesco-ai-ethics-recommendation (not_checked)",
+      "title": "Source verification: policy-unesco-ai-ethics-recommendation",
       "jurisdiction_id": "unesco",
       "review_status": "pending_review",
-      "reason_for_review": "Source verification check_result is not_checked.",
+      "reason_for_review": "Human source verification not_checked. Content/source identity not human-reviewed. Client use not allowed. Technical URL not checked or outcome uncertain.",
+      "review_reasons": [
+        "content_not_reviewed",
+        "client_use_not_allowed",
+        "technical_url_unchecked"
+      ],
       "official_url": "https://www.unesco.org/en/artificial-intelligence/recommendation-ethics",
       "page_href": "/verification/",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": null,
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source_verification",
       "item_id": "verify-g7-hiroshima-ai",
-      "title": "Verification: policy-g7-hiroshima-ai-process (not_checked)",
+      "title": "Source verification: policy-g7-hiroshima-ai-process",
       "jurisdiction_id": "g7",
       "review_status": "pending_review",
-      "reason_for_review": "Source verification check_result is not_checked.",
+      "reason_for_review": "Human source verification not_checked. Content/source identity not human-reviewed. Client use not allowed. Technical URL not checked or outcome uncertain.",
+      "review_reasons": [
+        "content_not_reviewed",
+        "client_use_not_allowed",
+        "technical_url_unchecked"
+      ],
       "official_url": "https://www.g7hiroshima.go.jp/en/",
       "page_href": "/verification/",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": null,
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     },
     {
       "item_type": "source_verification",
       "item_id": "verify-norway-ai-act-implementation",
-      "title": "Verification: implementation-norway-ai-act (not_checked)",
+      "title": "Source verification: implementation-norway-ai-act",
       "jurisdiction_id": "norway",
       "review_status": "pending_review",
-      "reason_for_review": "Source verification check_result is not_checked.",
+      "reason_for_review": "Human source verification not_checked. Content/source identity not human-reviewed. Client use not allowed. Technical URL not checked or outcome uncertain.",
+      "review_reasons": [
+        "content_not_reviewed",
+        "client_use_not_allowed",
+        "technical_url_unchecked"
+      ],
       "official_url": "https://www.regjeringen.no/en/topics/business-and-industry/ai/id3015480/",
       "page_href": "/verification/",
       "missing_official_url": false,
-      "verified_on_source_false": true
+      "verified_on_source_false": true,
+      "technical_url_status": null,
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
     }
   ]
 }

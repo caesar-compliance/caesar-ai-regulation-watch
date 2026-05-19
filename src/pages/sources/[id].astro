@@ -3,8 +3,8 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import ReviewBanner from "../../components/ReviewBanner.astro";
 import CredibilityBadge from "../../components/CredibilityBadge.astro";
 import ReviewStatusBadge from "../../components/ReviewStatusBadge.astro";
-import { getSources, getSource, getJurisdiction } from "../../lib/data";
-import { humanizeId } from "../../lib/format";
+import { getSources, getSource, getJurisdiction, latestUrlCheckForSource } from "../../lib/data";
+import { humanizeId, urlCheckResultLabel, contentReviewStatusLabel } from "../../lib/format";
 
 export function getStaticPaths() {
   return getSources().map((s) => ({
@@ -20,6 +20,7 @@ if (!source) {
 }
 
 const jurisdiction = getJurisdiction(source.jurisdiction_id);
+const urlCheck = latestUrlCheckForSource(source.source_id);
 ---
 
 <BaseLayout title={source.title} currentPath="/sources/">
@@ -32,6 +33,42 @@ const jurisdiction = getJurisdiction(source.jurisdiction_id);
   </div>
 
   <ReviewBanner reviewStatus={source.review_status} />
+
+  {
+    urlCheck && (
+      <section>
+        <h2>Technical URL status</h2>
+        <dl class="meta-grid">
+          <div><dt>Check result</dt><dd>{urlCheckResultLabel(urlCheck.check_result)}</dd></div>
+          <div><dt>HTTP status</dt><dd>{urlCheck.http_status ?? "—"}</dd></div>
+          <div>
+            <dt>Content review</dt>
+            <dd>{contentReviewStatusLabel(urlCheck.content_review_status)}</dd>
+          </div>
+          <div>
+            <dt>Client use allowed</dt>
+            <dd>{urlCheck.client_use_allowed ? "Yes" : "No"}</dd>
+          </div>
+        </dl>
+        {urlCheck.redirect_detected && (
+          <p class="banner banner--review" role="note">
+            URL redirects to <span class="mono">{urlCheck.final_url}</span>. Confirm canonical URL
+            after human review.
+          </p>
+        )}
+        {(urlCheck.check_result === "reachable" ||
+          urlCheck.check_result === "reachable_redirected") && (
+          <p class="card__excerpt">
+            <small>
+              Reachable URL does not mean this source is legally reviewed or approved for client
+              use.
+            </small>
+          </p>
+        )}
+        <p><a href="/verification/">All verification →</a></p>
+      </section>
+    )
+  }
 
   {
     source.official_url ? (

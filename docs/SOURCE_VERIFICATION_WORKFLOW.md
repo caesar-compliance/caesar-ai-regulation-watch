@@ -1,7 +1,7 @@
 # Source Verification Workflow
 
 **Prepared:** 19 May 2026  
-**Version:** v0.6.0
+**Version:** v0.6.1
 
 ---
 
@@ -10,6 +10,21 @@
 This workflow supports **systematic human review** of official URLs linked from the Caesar AI Regulation Watch registry. Verification records document what was checked, when, and whether an item remains suitable for governance review support.
 
 Verification is **not** legal advice and **does not** grant compliance certification.
+
+---
+
+## Technical URL check vs human verification
+
+| Layer | Data | Tool | Meaning |
+|---|---|---|---|
+| **Technical URL check** | `data/verifications/url-check-*.yml` | `npm run check:urls` | HTTP reachability, redirects, status code only |
+| **Source identity review** | `source-verification-*.yml` | Human | Confirms authority, domain, and instrument match |
+| **Content summary review** | Record YAML + `content_review_status` on URL checks | Human | Confirms `summary_for_review` against official text |
+| **Client-use approval** | `client_use_allowed` on verification entries | Human | Explicit opt-in; default `false` |
+
+**Do not** set `check_result` in source verification to `reachable_*` based only on `npm run check:urls`. Technical results use the URL verification schema (`reachable`, `reachable_redirected`, etc.). Human source verification uses its own enum (`reachable_matches_expected_source`, etc.).
+
+See [URL_VERIFICATION_POLICY.md](./URL_VERIFICATION_POLICY.md).
 
 ---
 
@@ -74,8 +89,9 @@ Each entry in `data/verifications/*.yml` validates against `schemas/source-verif
 | File | Description |
 |---|---|
 | [source-verification-2026-05-19.yml](../data/verifications/source-verification-2026-05-19.yml) | v0.6.0 curated records batch (`not_checked`) |
+| [url-check-2026-05-19.yml](../data/verifications/url-check-2026-05-19.yml) | v0.6.1 technical URL batch (`npm run check:urls`) |
 
-Static export: `/data/verifications.json` (generated at build).
+Static exports: `/data/verifications.json`, `/data/url-checks.json` (generated at build).
 
 Site page: [/verification/](/verification/) (read-only summary).
 

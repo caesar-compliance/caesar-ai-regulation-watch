@@ -70,6 +70,51 @@ export type VerificationCheckResult =
   | "not_checked"
   | "uncertain";
 
+export type UrlCheckResult =
+  | "reachable"
+  | "reachable_redirected"
+  | "unreachable"
+  | "timeout"
+  | "dns_error"
+  | "network_error"
+  | "not_checked"
+  | "uncertain";
+
+export type ContentReviewStatus =
+  | "not_reviewed"
+  | "needs_human_review"
+  | "reviewed_source_identity_only"
+  | "reviewed_content_summary"
+  | "rejected_for_client_use";
+
+export interface UrlCheckEntry {
+  url_check_id: string;
+  checked_date: string;
+  checker_type: string;
+  item_type: "source" | "record" | "law" | "guidance";
+  item_id: string;
+  source_id?: string;
+  original_url: string;
+  final_url: string;
+  http_status: number | null;
+  check_result: UrlCheckResult;
+  redirect_detected: boolean;
+  domain_matches_expected: boolean | null;
+  title_or_reference?: string;
+  technical_note?: string;
+  content_review_status: ContentReviewStatus;
+  client_use_allowed: boolean;
+  legal_safe_note: string;
+}
+
+export interface UrlCheckBatch {
+  url_check_batch_id: string;
+  checked_date: string;
+  checker_type: string;
+  url_checks: UrlCheckEntry[];
+  legal_safe_note: string;
+}
+
 export interface LawRecord {
   record_id: string;
   record_type: "law";
@@ -318,12 +363,61 @@ export function timelinesForRecord(recordId: string): Timeline[] {
   return getTimelines().filter((t) => t.related_record_id === recordId);
 }
 
+function verificationYamlFiles(): string[] {
+  const abs = path.join(ROOT, "data/verifications");
+  if (!fs.existsSync(abs)) return [];
+  return fs
+    .readdirSync(abs)
+    .filter((f) => f.startsWith("source-verification") && (f.endsWith(".yml") || f.endsWith(".yaml")))
+    .map((f) => path.join(abs, f));
+}
+
+function urlCheckYamlFiles(): string[] {
+  const abs = path.join(ROOT, "data/verifications");
+  if (!fs.existsSync(abs)) return [];
+  return fs
+    .readdirSync(abs)
+    .filter((f) => f.startsWith("url-check") && (f.endsWith(".yml") || f.endsWith(".yaml")))
+    .map((f) => path.join(abs, f));
+}
+
 export function getVerificationBatches(): SourceVerificationBatch[] {
-  return readYamlDir<SourceVerificationBatch>("data/verifications");
+  return verificationYamlFiles()
+    .map((f) => yaml.load(fs.readFileSync(f, "utf8")) as SourceVerificationBatch)
+    .sort((a, b) => b.verified_date.localeCompare(a.verified_date));
 }
 
 export function getVerifications(): SourceVerificationEntry[] {
   return getVerificationBatches().flatMap((b) => b.verifications);
+}
+
+export function getUrlCheckBatches(): UrlCheckBatch[] {
+  return urlCheckYamlFiles()
+    .map((f) => yaml.load(fs.readFileSync(f, "utf8")) as UrlCheckBatch)
+    .sort((a, b) => b.checked_date.localeCompare(a.checked_date));
+}
+
+export function getUrlChecks(): UrlCheckEntry[] {
+  return getUrlCheckBatches().flatMap((b) => b.url_checks);
+}
+
+export function latestUrlCheckForItem(
+  itemType: string,
+  itemId: string,
+): UrlCheckEntry | undefined {
+  const entries = getUrlChecks().filter(
+    (c) => c.item_type === itemType && c.item_id === itemId,
+  );
+  if (entries.length === 0) return undefined;
+  return [...entries].sort((a, b) => b.checked_date.localeCompare(a.checked_date))[0];
+}
+
+export function latestUrlCheckForSource(sourceId: string): UrlCheckEntry | undefined {
+  const entries = getUrlChecks().filter(
+    (c) => c.item_type === "source" && c.item_id === sourceId,
+  );
+  if (entries.length === 0) return undefined;
+  return [...entries].sort((a, b) => b.checked_date.localeCompare(a.checked_date))[0];
 }
 
 export function verificationsForItem(itemId: string): SourceVerificationEntry[] {

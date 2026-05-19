@@ -36,6 +36,15 @@ function applyReviewQueueFilters(listEl) {
     if (show && flags.unverified) {
       if (item.getAttribute("data-unverified") !== "true") show = false;
     }
+    if (show && flags.unreachable) {
+      if (item.getAttribute("data-unreachable") !== "true") show = false;
+    }
+    if (show && flags.redirected) {
+      if (item.getAttribute("data-redirected") !== "true") show = false;
+    }
+    if (show && flags.notChecked) {
+      if (item.getAttribute("data-not-checked") !== "true") show = false;
+    }
     item.hidden = !show;
     if (show) visible += 1;
   });

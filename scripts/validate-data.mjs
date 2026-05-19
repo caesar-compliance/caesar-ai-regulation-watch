@@ -35,6 +35,7 @@ const schemas = {
   evidenceMapping: loadSchema("change-evidence-mapping.schema.json"),
   timeline: loadSchema("timeline.schema.json"),
   sourceVerification: loadSchema("source-verification.schema.json"),
+  urlVerification: loadSchema("url-verification.schema.json"),
 };
 
 function readYaml(filePath) {
@@ -131,8 +132,18 @@ for (const file of listYamlFiles(timelineDir)) {
 
 // Source verifications
 for (const file of listYamlFiles(path.join(ROOT, "data/verifications"))) {
+  const base = path.basename(file);
   const data = readYaml(file);
-  check(validate(file, data, schemas.sourceVerification));
+  if (base.startsWith("url-check")) {
+    check(validate(file, data, schemas.urlVerification));
+  } else if (base.startsWith("source-verification")) {
+    check(validate(file, data, schemas.sourceVerification));
+  } else {
+    failures.push({
+      label: file,
+      errors: [{ message: "unknown verification file prefix; use source-verification-* or url-check-*" }],
+    });
+  }
 }
 
 // Export samples
@@ -227,19 +238,47 @@ for (const file of listYamlFiles(path.join(ROOT, "data/guidance"))) {
 
 // Referential integrity (verifications)
 for (const file of listYamlFiles(path.join(ROOT, "data/verifications"))) {
+  const base = path.basename(file);
   const batch = readYaml(file);
-  for (const v of batch.verifications ?? []) {
-    if (!sourceIds.has(v.source_id)) {
-      failures.push({
-        label: `${file} → ${v.verification_id} (referential)`,
-        errors: [{ message: `unknown source_id: ${v.source_id}` }],
-      });
+  if (base.startsWith("source-verification")) {
+    for (const v of batch.verifications ?? []) {
+      if (!sourceIds.has(v.source_id)) {
+        failures.push({
+          label: `${file} → ${v.verification_id} (referential)`,
+          errors: [{ message: `unknown source_id: ${v.source_id}` }],
+        });
+      }
+      if (v.item_type === "record" && !recordIds.has(v.item_id)) {
+        failures.push({
+          label: `${file} → ${v.verification_id} (referential)`,
+          errors: [{ message: `unknown item_id (record): ${v.item_id}` }],
+        });
+      }
     }
-    if (v.item_type === "record" && !recordIds.has(v.item_id)) {
-      failures.push({
-        label: `${file} → ${v.verification_id} (referential)`,
-        errors: [{ message: `unknown item_id (record): ${v.item_id}` }],
-      });
+  }
+  if (base.startsWith("url-check")) {
+    for (const c of batch.url_checks ?? []) {
+      if (c.source_id && !sourceIds.has(c.source_id)) {
+        failures.push({
+          label: `${file} → ${c.url_check_id} (referential)`,
+          errors: [{ message: `unknown source_id: ${c.source_id}` }],
+        });
+      }
+      if (
+        (c.item_type === "law" || c.item_type === "guidance" || c.item_type === "record") &&
+        !recordIds.has(c.item_id)
+      ) {
+        failures.push({
+          label: `${file} → ${c.url_check_id} (referential)`,
+          errors: [{ message: `unknown item_id (record): ${c.item_id}` }],
+        });
+      }
+      if (c.item_type === "source" && !sourceIds.has(c.item_id)) {
+        failures.push({
+          label: `${file} → ${c.url_check_id} (referential)`,
+          errors: [{ message: `unknown source item_id: ${c.item_id}` }],
+        });
+      }
     }
   }
 }
