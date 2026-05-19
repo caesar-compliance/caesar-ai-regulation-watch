@@ -1,6 +1,6 @@
 # Evidence Export Candidate Review Workflow
 
-**Phase:** v0.8.8 — governance/export-readiness gate (not final evidence export); public static page shows review statuses in HTML
+**Phase:** v0.8.9 — governance/export-readiness gate (not final evidence export); v0.8.9 source verification refresh
 
 ---
 
@@ -57,16 +57,16 @@ Every reviewed entry must keep:
 
 ---
 
-## v0.8.7 batch (20 May 2026)
+## v0.8.7 / v0.8.9 batch (20 May 2026)
 
-| Candidate ID | Pipeline status | Review status |
+| Candidate ID | Pipeline status | Review status (v0.8.9) |
 |---|---|---|
-| `candidate-change-sample-datatilsynet-guidance-change` | `ready_for_human_review` | `reviewed_for_internal_governance_only` |
-| `candidate-change-sample-eu-ai-act-status-change` | `ready_for_human_review` | `needs_more_source_review` |
+| `candidate-change-sample-datatilsynet-guidance-change` | `ready_for_human_review` | `reviewed_for_internal_governance_only` (official AI theme URL linked) |
+| `candidate-change-sample-eu-ai-act-status-change` | `ready_for_human_review` | `needs_more_source_review` (EUR-Lex HTTP 202; EC overview corroborates CELEX only) |
 
 Simulated detected-change candidates remain `blocked_simulation_only` and were **not** reviewed for export readiness.
 
-**Counts after batch:** 2 reviewed; 0 `client_use_allowed`; 0 `final_evidence_allowed`.
+**Counts after v0.8.9 refresh:** 2 reviewed; 0 `client_use_allowed`; 0 `final_evidence_allowed`.
 
 ---
 

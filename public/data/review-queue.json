@@ -972,7 +972,7 @@
     {
       "item_type": "record",
       "item_id": "guidance-datatilsynet-ai-privacy",
-      "title": "Datatilsynet — AI and privacy theme (sample pointer)",
+      "title": "Kunstig intelligens og personvern (Datatilsynet)",
       "jurisdiction_id": "norway",
       "review_status": "pending_review",
       "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Content summary not human-reviewed. Technical URL reachable after remediation (content review still required). Client use not allowed.",
@@ -984,7 +984,7 @@
         "technical_url_fixed",
         "client_use_not_allowed"
       ],
-      "official_url": "https://www.datatilsynet.no/",
+      "official_url": "https://www.datatilsynet.no/regelverk-og-verktoy/rapporter-og-utredninger/kunstig-intelligens/",
       "page_href": "/records/guidance-datatilsynet-ai-privacy/",
       "missing_official_url": false,
       "verified_on_source_false": true,

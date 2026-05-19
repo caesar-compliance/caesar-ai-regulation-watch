@@ -11,6 +11,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.8.9] - 20 May 2026
+
+### Changed
+
+- **EU AI Act deep source verification** — v0.8.9 pass documents EUR-Lex CELEX HTTP 202 (bot protection); European Commission AI Act overview corroborates CELEX 32024R1689 at high level only. Candidate review remains `needs_more_source_review`; `verified_on_source_after_check` stays false.
+- **Datatilsynet AI/privacy source pointer** — `guidance-datatilsynet-ai-privacy` now links official theme hub (`kunstig-intelligens`); content review and URL check updated. Candidate review remains `reviewed_for_internal_governance_only`.
+
+### Notes
+
+- Public pilot only; not final/client evidence; `client_use_allowed: 0`; simulated candidates unchanged.
+
+---
+
 ## [0.8.8] - 20 May 2026
 
 ### Fixed
