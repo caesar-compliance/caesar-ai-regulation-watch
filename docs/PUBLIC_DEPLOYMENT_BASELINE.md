@@ -15,7 +15,7 @@
 | **First deploy commit** | `57acfcf` (`merge: v0.8.4 static deployment readiness`) |
 | **Workflow** | [Deploy static site](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/workflows/deploy-static-site.yml) |
 | **First workflow run ID** | [26130431228](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26130431228) |
-| **Latest workflow run ID** | _(see Actions after post-merge redeploy)_ |
+| **Latest workflow run ID** | [26130535955](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26130535955) |
 | **Trigger** | `workflow_dispatch` with `confirm_disclaimers=DEPLOY` |
 | **Result** | Success |
 | **Public URL** | https://caesar-compliance.github.io/caesar-ai-regulation-watch/ |
