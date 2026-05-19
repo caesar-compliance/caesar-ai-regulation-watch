@@ -11,6 +11,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.7.2] - 19 May 2026
+
+### Added
+
+- **Source adapters** — `official_page_metadata`, `official_rss_or_feed` (`scripts/lib/source-adapters/`).
+- **Feed watchers** — EDPB publications RSS, EDPS news RSS (`watcher-edpb-feed`, `watcher-edps-feed`).
+- **Feed snapshot schema** — `schemas/feed-snapshot.schema.json`; entry metadata only.
+- **Feed diff** — `new_feed_entry`, `removed_feed_entry`, `changed_feed_entry_metadata`, `feed_unreachable`, `feed_redirected`.
+- **Simulation** — `npm run watch:simulate-feed-change`, `test-fixtures/feed-snapshots/`.
+- **Docs** — `docs/SOURCE_ADAPTERS.md`, `docs/FEED_WATCHER_CANDIDATES.md`.
+- **Dependency** — `fast-xml-parser` for RSS/Atom parsing.
+
+### Notes
+
+- Datatilsynet: no confirmed official RSS (page watcher retained).
+- Federal Register: candidate log only (API/RSS needs Control Tower scope).
+- Watchers not in CI; no article body storage.
+
+---
+
 ## [0.7.1] - 19 May 2026
 
 ### Added

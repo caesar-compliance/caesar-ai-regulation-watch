@@ -5,6 +5,7 @@
   "items": [
     {
       "watcher_id": "watcher-eu-ai-office",
+      "adapter_id": "official_page_metadata",
       "source_id": "eu-ai-office",
       "jurisdiction_id": "eu",
       "watcher_type": "official_page_metadata",
@@ -19,6 +20,7 @@
     },
     {
       "watcher_id": "watcher-datatilsynet",
+      "adapter_id": "official_page_metadata",
       "source_id": "datatilsynet",
       "jurisdiction_id": "norway",
       "watcher_type": "official_page_metadata",
@@ -30,11 +32,69 @@
       "snapshot_policy": "metadata_only_no_body_storage",
       "review_status": "pending_review",
       "legal_safe_note": "Metadata-only snapshot; content hash for diff signal only. No full body stored. Detected changes require human review before any record update.\n"
+    },
+    {
+      "watcher_id": "watcher-edpb-feed",
+      "adapter_id": "official_rss_or_feed",
+      "source_id": "edpb",
+      "jurisdiction_id": "eu",
+      "watcher_type": "official_rss_or_feed",
+      "official_url": "https://www.edpb.europa.eu/edpb_en",
+      "feed_url": "https://www.edpb.europa.eu/feed/publications_en",
+      "feed_format": "rss",
+      "enabled": true,
+      "monitoring_scope": "EDPB official publications RSS feed metadata only. Does not fetch linked document bodies.\n",
+      "check_frequency_recommendation": "weekly",
+      "change_detection_mode": "feed_item_count",
+      "snapshot_policy": "metadata_only_no_body_storage",
+      "entry_identity_fields": [
+        "guid",
+        "link"
+      ],
+      "entry_date_fields": [
+        "pubDate",
+        "dc:date"
+      ],
+      "max_entries_per_check": 50,
+      "create_detected_change_for_new_entries": true,
+      "create_detected_change_for_changed_entries": true,
+      "review_status": "pending_review",
+      "legal_safe_note": "Feed metadata only; entry title/link/date for signals. No article body storage. Human review required before any record update.\n"
+    },
+    {
+      "watcher_id": "watcher-edps-feed",
+      "adapter_id": "official_rss_or_feed",
+      "source_id": "edps",
+      "jurisdiction_id": "eu",
+      "watcher_type": "official_rss_or_feed",
+      "official_url": "https://www.edps.europa.eu/_en",
+      "feed_url": "https://www.edps.europa.eu/feed/news_en",
+      "feed_format": "rss",
+      "enabled": true,
+      "monitoring_scope": "EDPS official news RSS feed metadata only. Does not fetch linked article bodies.\n",
+      "check_frequency_recommendation": "weekly",
+      "change_detection_mode": "feed_item_count",
+      "snapshot_policy": "metadata_only_no_body_storage",
+      "entry_identity_fields": [
+        "guid",
+        "link"
+      ],
+      "entry_date_fields": [
+        "pubDate",
+        "updated"
+      ],
+      "max_entries_per_check": 50,
+      "create_detected_change_for_new_entries": true,
+      "create_detected_change_for_changed_entries": true,
+      "review_status": "pending_review",
+      "legal_safe_note": "Feed metadata only; entry title/link/date for signals. No article body storage. Human review required before any record update.\n"
     }
   ],
   "summary": {
-    "total": 2,
-    "enabled": 2,
-    "official_page_metadata": 2
+    "total": 4,
+    "enabled": 4,
+    "official_page_metadata": 2,
+    "official_rss_or_feed": 2,
+    "feed_watchers_enabled": 2
   }
 }

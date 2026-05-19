@@ -1,0 +1,7 @@
+# Latest snapshot pointer for edpb
+
+snapshot_id: snap-feed-edpb-2026-05-19t212408273
+checked_at: '2026-05-19T21:24:08.273Z'
+watcher_id: watcher-edpb-feed
+adapter_id: official_rss_or_feed
+storage_policy: metadata_only_no_body_storage

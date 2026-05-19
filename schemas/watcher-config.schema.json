@@ -19,6 +19,7 @@
         "additionalProperties": false,
         "required": [
           "watcher_id",
+          "adapter_id",
           "source_id",
           "jurisdiction_id",
           "watcher_type",
@@ -35,6 +36,15 @@
           "watcher_id": {
             "type": "string",
             "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "adapter_id": {
+            "type": "string",
+            "enum": [
+              "official_page_metadata",
+              "official_rss_or_feed",
+              "official_api_metadata",
+              "manual_only"
+            ]
           },
           "source_id": {
             "type": "string",
@@ -56,6 +66,14 @@
           "official_url": {
             "type": "string",
             "format": "uri"
+          },
+          "feed_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "feed_format": {
+            "type": "string",
+            "enum": ["rss", "atom", "unknown"]
           },
           "enabled": {
             "type": "boolean"
@@ -80,6 +98,25 @@
           "snapshot_policy": {
             "type": "string",
             "enum": ["metadata_only_no_body_storage", "manual_only"]
+          },
+          "entry_identity_fields": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "entry_date_fields": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "max_entries_per_check": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 200
+          },
+          "create_detected_change_for_new_entries": {
+            "type": "boolean"
+          },
+          "create_detected_change_for_changed_entries": {
+            "type": "boolean"
           },
           "review_status": {
             "type": "string",

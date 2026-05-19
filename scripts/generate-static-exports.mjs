@@ -204,6 +204,10 @@ const REASON_LABELS = {
     "Watcher detected a possible metadata change; human review required.",
   simulated_detected_change_pending_review:
     "Simulated watcher diff for pipeline validation only; not an official source update.",
+  feed_detected_change_pending_review:
+    "Feed watcher detected new or changed entries; human review required.",
+  simulated_feed_detected_change_pending_review:
+    "Simulated feed diff for pipeline validation only; not an official feed update.",
   watcher_error: "Latest watcher run reported a fetch or check error for this source.",
   snapshot_changed: "New metadata snapshot differs from previous; confirm on official source.",
   human_review_required: "Watcher output requires human review before any record update.",
@@ -415,10 +419,17 @@ function buildReviewQueue() {
   for (const dc of detectedChanges) {
     if (!needsReview(dc.review_status)) continue;
     const src = sourceById[dc.source_id];
+    const isFeed =
+      dc.adapter_id === "official_rss_or_feed" ||
+      String(dc.change_type ?? "").includes("feed");
     const review_reasons = [
       dc.simulation
-        ? "simulated_detected_change_pending_review"
-        : "detected_change_pending_review",
+        ? isFeed
+          ? "simulated_feed_detected_change_pending_review"
+          : "simulated_detected_change_pending_review"
+        : isFeed
+          ? "feed_detected_change_pending_review"
+          : "detected_change_pending_review",
       "human_review_required",
       "content_not_reviewed",
       "legal_review_not_done",
@@ -427,8 +438,8 @@ function buildReviewQueue() {
       item_type: "detected_change",
       item_id: dc.detected_change_id,
       title: dc.simulation
-        ? `[Simulation] Detected change: ${dc.source_id}`
-        : `Detected change: ${dc.source_id}`,
+        ? `[Simulation] ${isFeed ? "Feed" : "Page"} change: ${dc.source_id}`
+        : `${isFeed ? "Feed" : "Page"} change: ${dc.source_id}`,
       jurisdiction_id: dc.jurisdiction_id,
       review_status: dc.review_status,
       reason_for_review: reasonText(review_reasons),
@@ -577,10 +588,22 @@ const recordVerifications = verifications.filter((v) =>
 const watcherErrorCount = latestWatcherRun?.error_count ?? 0;
 const simulatedDetectedChanges = detectedChanges.filter((d) => d.simulation === true);
 const realDetectedChanges = detectedChanges.filter((d) => !d.simulation);
+const feedWatchers = watchers.filter(
+  (w) => w.adapter_id === "official_rss_or_feed" || w.watcher_type === "official_rss_or_feed",
+);
+const feedSnapshots = snapshots.filter(
+  (s) => s.snapshot_kind === "feed_metadata" || s.feed_url,
+);
+const isFeedChange = (d) =>
+  d.adapter_id === "official_rss_or_feed" ||
+  String(d.change_type ?? "").includes("feed");
+const feedDetectedChanges = detectedChanges.filter(isFeedChange);
+const simulatedFeedDetectedChanges = feedDetectedChanges.filter((d) => d.simulation);
+const realFeedDetectedChanges = feedDetectedChanges.filter((d) => !d.simulation);
 
 const snapshot = {
   generated_at: generatedAt,
-  version: "0.7.1",
+  version: "0.7.2",
   disclaimer: DISCLAIMER,
   pilot_jurisdictions: jurisdictions.map((j) => j.jurisdiction_id),
   counts: {
@@ -616,6 +639,12 @@ const snapshot = {
     map_markers: mapMarkers.length,
     watchers: watchers.length,
     watchers_enabled: watchers.filter((w) => w.enabled).length,
+    feed_watcher_count: feedWatchers.length,
+    feed_watchers_enabled: feedWatchers.filter((w) => w.enabled).length,
+    feed_snapshot_count: feedSnapshots.length,
+    feed_detected_change_count: feedDetectedChanges.length,
+    simulated_feed_detected_change_count: simulatedFeedDetectedChanges.length,
+    real_feed_detected_change_count: realFeedDetectedChanges.length,
     snapshots: snapshots.length,
     detected_changes: detectedChanges.length,
     detected_change_count: detectedChanges.length,
@@ -766,8 +795,11 @@ writeJson(path.join(PUBLIC_DATA, "watchers.json"), {
   summary: {
     total: watchers.length,
     enabled: watchers.filter((w) => w.enabled).length,
-    official_page_metadata: watchers.filter((w) => w.watcher_type === "official_page_metadata")
-      .length,
+    official_page_metadata: watchers.filter(
+      (w) => w.adapter_id === "official_page_metadata" || w.watcher_type === "official_page_metadata",
+    ).length,
+    official_rss_or_feed: feedWatchers.length,
+    feed_watchers_enabled: feedWatchers.filter((w) => w.enabled).length,
   },
 });
 

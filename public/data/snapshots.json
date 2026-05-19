@@ -4,6 +4,161 @@
   "storage_policy": "metadata_only_no_body_storage",
   "items": [
     {
+      "snapshot_id": "snap-feed-edpb-2026-05-19t212408273",
+      "watcher_id": "watcher-edpb-feed",
+      "source_id": "edpb",
+      "jurisdiction_id": "eu",
+      "adapter_id": "official_rss_or_feed",
+      "checked_at": "2026-05-19T21:24:08.273Z",
+      "feed_url": "https://www.edpb.europa.eu/feed/publications_en",
+      "final_url": "https://www.edpb.europa.eu/feed/publications_en",
+      "http_status": 200,
+      "content_type": "application/rss+xml; charset=utf-8",
+      "feed_title": "EDPB publications",
+      "feed_entry_count": 10,
+      "entries": [
+        {
+          "entry_id": "6967c046-319a-4832-9160-ada31e4aa82f",
+          "guid": "6967c046-319a-4832-9160-ada31e4aa82f",
+          "link": "https://www.edpb.europa.eu/our-work-tools/our-documents/opinion-board-art-64/opinion-132026-draft-decision-office-data_en",
+          "title": "Opinion 13/2026 on the draft decision of the Office of the Data Protection Ombudsman (FI SA) regarding the approval of the requirement for accreditation of a certification body pursuant to Article 43(3) GDPR",
+          "published_at": "Tue, 12 May 2026 14:00:00 +0200",
+          "updated_at": null,
+          "entry_hash": "sha256:5b6c95bbf94dd562c3e9a795793d0348a2dfa24e32a6a4a26686bda985ebe049"
+        },
+        {
+          "entry_id": "c260af49-4a78-479c-b01f-e232fc4fcdbe",
+          "guid": "c260af49-4a78-479c-b01f-e232fc4fcdbe",
+          "link": "https://www.edpb.europa.eu/our-work-tools/our-documents/csc-documents/coordinated-supervisory-action-minors-under-15-years-old_en",
+          "title": "Coordinated supervisory action on minors under 15 years old processed by Europol as suspects or potential criminals",
+          "published_at": "Thu, 30 Apr 2026 14:00:00 +0200",
+          "updated_at": null,
+          "entry_hash": "sha256:ba25046439649b38266923755fd1735e523c23bb492d8d06f47834c76d0d6a60"
+        },
+        {
+          "entry_id": "db34d3e9-292a-4c73-8142-fe11e32f90c0",
+          "guid": "db34d3e9-292a-4c73-8142-fe11e32f90c0",
+          "link": "https://www.edpb.europa.eu/our-work-tools/our-documents/opinion-board-art-64/opinion-92026-draft-decision-dutch-supervisory_en",
+          "title": "Opinion 9/2026 on the draft decision of the Dutch Supervisory Authority regarding the Controller Binding Corporate Rules of the Jacobs Douwe Egberts Group",
+          "published_at": "Mon, 27 Apr 2026 14:00:00 +0200",
+          "updated_at": null,
+          "entry_hash": "sha256:95e4e0fae99c6b874706db92ca2a2065d5a70a2b12b32758cea76a31fcc9c4bf"
+        },
+        {
+          "entry_id": "366654cf-1ab3-436f-8a2b-8dc5d6730a1c",
+          "guid": "366654cf-1ab3-436f-8a2b-8dc5d6730a1c",
+          "link": "https://www.edpb.europa.eu/our-work-tools/our-documents/opinion-board-art-64/opinion-112026-draft-decision-belgian-supervisory_en",
+          "title": "Opinion 11/2026 on the draft decision of the Belgian Supervisory Authority regarding the Controller Binding Corporate Rules of the Kuwait Petroleum Group",
+          "published_at": "Mon, 27 Apr 2026 14:00:00 +0200",
+          "updated_at": null,
+          "entry_hash": "sha256:da0b2ab97e1af2caba21fc45925f8efa9787da310f11539ea8f5002eb3b7d776"
+        },
+        {
+          "entry_id": "babc132e-cd37-431a-9711-b53e29d7e880",
+          "guid": "babc132e-cd37-431a-9711-b53e29d7e880",
+          "link": "https://www.edpb.europa.eu/our-work-tools/our-documents/opinion-board-art-64/opinion-102026-draft-decision-dutch-supervisory_en",
+          "title": "Opinion 10/2026 on the draft decision of the Dutch Supervisory Authority regarding the Controller Binding Corporate Rules of the SLB Group",
+          "published_at": "Mon, 27 Apr 2026 14:00:00 +0200",
+          "updated_at": null,
+          "entry_hash": "sha256:a15ce652f571b411b11252943abcfcb4548c77be4efac16edc6f1fa1fd704c5d"
+        },
+        {
+          "entry_id": "5e5800a5-6891-41fd-af89-cb260fed794f",
+          "guid": "5e5800a5-6891-41fd-af89-cb260fed794f",
+          "link": "https://www.edpb.europa.eu/our-work-tools/our-documents/opinion-board-art-64/opinion-122026-draft-decision-spanish-supervisory_en",
+          "title": "Opinion 12/2026 on the draft decision of the Spanish Supervisory Authority regarding the Controller Binding Corporate Rules of the Santander Group",
+          "published_at": "Mon, 27 Apr 2026 14:00:00 +0200",
+          "updated_at": null,
+          "entry_hash": "sha256:14a433c248e6c5ac5dc57099d334647763c083d90a96348fcfc3efc505a35371"
+        },
+        {
+          "entry_id": "e1534525-9308-4259-9ba6-b9cab8995615",
+          "guid": "e1534525-9308-4259-9ba6-b9cab8995615",
+          "link": "https://www.edpb.europa.eu/our-work-tools/our-documents/support-pool-experts-projects/report-use-spe-external-experts-2025_en",
+          "title": "Report on the use of SPE external experts in 2025",
+          "published_at": "Fri, 24 Apr 2026 14:00:00 +0200",
+          "updated_at": null,
+          "entry_hash": "sha256:19b3cb095c3366f49a0fa6509b3eefdabd14228ce8a2a832aba3bd0317c1b4a0"
+        },
+        {
+          "entry_id": "f5361931-9e70-46f4-8893-58059331efe7",
+          "guid": "f5361931-9e70-46f4-8893-58059331efe7",
+          "link": "https://www.edpb.europa.eu/our-work-tools/our-documents/letters/edpb-letter-european-commission-regarding-ingo-registration_en",
+          "title": "EDPB Letter to the European Commission regarding INGO registration requirements",
+          "published_at": "Tue, 21 Apr 2026 14:00:00 +0200",
+          "updated_at": null,
+          "entry_hash": "sha256:06a50b0f31c693e25f986e9aa034a2577a6129dfdd23054d4b893238a75d39e8"
+        },
+        {
+          "entry_id": "1002a035-4f9a-4930-a5c5-2216b16ff529",
+          "guid": "1002a035-4f9a-4930-a5c5-2216b16ff529",
+          "link": "https://www.edpb.europa.eu/our-work-tools/our-documents/opinion-board-art-64/opinion-152026-europrivacy-certification-criteria_en",
+          "title": "Opinion 15/2026 on the Europrivacy certification criteria regarding their approval by the Board as European Data Protection Seal to be used as tool for transfers pursuant to Articles 42 and 46 GDPR",
+          "published_at": "Thu, 16 Apr 2026 14:00:00 +0200",
+          "updated_at": null,
+          "entry_hash": "sha256:f16116eaf17db99a2eaba92541766ee629a4b165deef418d85c58793592f2aa4"
+        },
+        {
+          "entry_id": "ac69aa97-0a5d-404a-80ea-f333a330b8ea",
+          "guid": "ac69aa97-0a5d-404a-80ea-f333a330b8ea",
+          "link": "https://www.edpb.europa.eu/our-work-tools/documents/public-consultations/2026/guidelines-12026-processing-personal-data_en",
+          "title": "Guidelines 1/2026 on processing of personal data for scientific research purposes",
+          "published_at": "Thu, 16 Apr 2026 14:00:00 +0200",
+          "updated_at": null,
+          "entry_hash": "sha256:f0b6b702abe759524ad59b4712652de2d058bcb3128f7033fe01bce6002e1225"
+        }
+      ],
+      "entries_aggregate_hash": "sha256:d7746035de2f62908fd0ab6d6378b0071a7ab9f467dbc3338e07b5393aee3da1",
+      "snapshot_kind": "feed_metadata",
+      "storage_policy": "metadata_only_no_body_storage",
+      "legal_safe_note": "Feed metadata only; entry title/link/date for signals. No article body storage. Human review required before any record update.\n",
+      "feed_format_detected": "rss",
+      "content_hash": "sha256:9b3227eed3bd09d8ba37a1220780e893ac2063b1cdc5e017d4daa4498a6bb006",
+      "content_length": 5219
+    },
+    {
+      "snapshot_id": "snap-datatilsynet-2026-05-19t212408174",
+      "watcher_id": "watcher-datatilsynet",
+      "source_id": "datatilsynet",
+      "jurisdiction_id": "norway",
+      "adapter_id": "official_page_metadata",
+      "checked_at": "2026-05-19T21:24:08.174Z",
+      "original_url": "https://www.datatilsynet.no/",
+      "final_url": "https://www.datatilsynet.no/",
+      "http_status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "etag": null,
+      "last_modified": null,
+      "title": "Datatilsynet - personvern og informasjonssikkerhet | Datatilsynet",
+      "content_hash": "sha256:a53671164fb4546c9314430f374fa642731cbcb471f47b4105fe413e06cb9018",
+      "normalized_text_hash": "sha256:6918243efdbcedec67d078e9f87ba02a5d824d17b2ff5876179783e47b9c11f5",
+      "content_length": 43113,
+      "snapshot_kind": "periodic_check",
+      "storage_policy": "metadata_only_no_body_storage",
+      "legal_safe_note": "Metadata-only snapshot; content hash for diff signal only. No full body stored. Detected changes require human review before any record update.\n"
+    },
+    {
+      "snapshot_id": "snap-eu-ai-office-2026-05-19t212407931",
+      "watcher_id": "watcher-eu-ai-office",
+      "source_id": "eu-ai-office",
+      "jurisdiction_id": "eu",
+      "adapter_id": "official_page_metadata",
+      "checked_at": "2026-05-19T21:24:07.931Z",
+      "original_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+      "final_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+      "http_status": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "etag": "\"1779224455-gzip\"",
+      "last_modified": "Tue, 19 May 2026 21:00:55 GMT",
+      "title": "AI Act | Shaping Europe’s digital future",
+      "content_hash": "sha256:4520fe0cd8fc00652757ff2fe52b7f99b131f329b40b139026e9abf0dc630a14",
+      "normalized_text_hash": "sha256:fa8cb3477f9d7d8bd78771be6982432f616378642965777ec1832b4cb4ba6bb9",
+      "content_length": 86754,
+      "snapshot_kind": "periodic_check",
+      "storage_policy": "metadata_only_no_body_storage",
+      "legal_safe_note": "Metadata-only snapshot; content hash for diff signal only. No full body stored. Detected changes require human review before any record update.\n"
+    },
+    {
       "snapshot_id": "snap-datatilsynet-2026-05-19t211308548",
       "watcher_id": "watcher-datatilsynet",
       "source_id": "datatilsynet",
@@ -84,6 +239,50 @@
       "legal_safe_note": "Metadata-only snapshot; content hash for diff signal only. No full body stored. Detected changes require human review before any record update.\n"
     },
     {
+      "snapshot_id": "snap-fixture-edpb-feed-after-2026-05-19",
+      "watcher_id": "watcher-edpb-feed",
+      "source_id": "edpb",
+      "jurisdiction_id": "eu",
+      "adapter_id": "official_rss_or_feed",
+      "checked_at": "2026-05-19T11:00:00.000Z",
+      "feed_url": "https://www.edpb.europa.eu/feed/publications_en",
+      "final_url": "https://www.edpb.europa.eu/feed/publications_en",
+      "http_status": 200,
+      "content_type": "application/rss+xml",
+      "feed_title": "Fixture: EDPB publications feed (updated)",
+      "feed_entry_count": 3,
+      "entries": [
+        {
+          "entry_id": "fixture-entry-001",
+          "guid": "fixture-entry-001",
+          "link": "https://example.invalid/edpb/fixture/001",
+          "title": "Fixture: Sample EDPB publication A",
+          "published_at": "Mon, 01 May 2026 10:00:00 +0200",
+          "entry_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        {
+          "entry_id": "fixture-entry-002",
+          "guid": "fixture-entry-002",
+          "link": "https://example.invalid/edpb/fixture/002",
+          "title": "Fixture: Sample EDPB publication B",
+          "published_at": "Mon, 05 May 2026 10:00:00 +0200",
+          "entry_hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        {
+          "entry_id": "fixture-entry-003",
+          "guid": "fixture-entry-003",
+          "link": "https://example.invalid/edpb/fixture/003",
+          "title": "Fixture: New simulated EDPB publication C",
+          "published_at": "Tue, 19 May 2026 09:00:00 +0200",
+          "entry_hash": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+        }
+      ],
+      "entries_aggregate_hash": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "snapshot_kind": "feed_metadata",
+      "storage_policy": "metadata_only_no_body_storage",
+      "legal_safe_note": "Simulation fixture feed snapshot only."
+    },
+    {
       "snapshot_id": "snap-fixture-eu-ai-office-after-2026-05-19",
       "watcher_id": "watcher-eu-ai-office",
       "source_id": "eu-ai-office",
@@ -102,6 +301,42 @@
       "snapshot_kind": "periodic_check",
       "storage_policy": "metadata_only_no_body_storage",
       "legal_safe_note": "Simulation fixture snapshot only. Not copied from live official source."
+    },
+    {
+      "snapshot_id": "snap-fixture-edpb-feed-before-2026-05-19",
+      "watcher_id": "watcher-edpb-feed",
+      "source_id": "edpb",
+      "jurisdiction_id": "eu",
+      "adapter_id": "official_rss_or_feed",
+      "checked_at": "2026-05-19T10:00:00.000Z",
+      "feed_url": "https://www.edpb.europa.eu/feed/publications_en",
+      "final_url": "https://www.edpb.europa.eu/feed/publications_en",
+      "http_status": 200,
+      "content_type": "application/rss+xml",
+      "feed_title": "Fixture: EDPB publications feed (baseline)",
+      "feed_entry_count": 2,
+      "entries": [
+        {
+          "entry_id": "fixture-entry-001",
+          "guid": "fixture-entry-001",
+          "link": "https://example.invalid/edpb/fixture/001",
+          "title": "Fixture: Sample EDPB publication A",
+          "published_at": "Mon, 01 May 2026 10:00:00 +0200",
+          "entry_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        {
+          "entry_id": "fixture-entry-002",
+          "guid": "fixture-entry-002",
+          "link": "https://example.invalid/edpb/fixture/002",
+          "title": "Fixture: Sample EDPB publication B",
+          "published_at": "Mon, 05 May 2026 10:00:00 +0200",
+          "entry_hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        }
+      ],
+      "entries_aggregate_hash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "snapshot_kind": "feed_metadata",
+      "storage_policy": "metadata_only_no_body_storage",
+      "legal_safe_note": "Simulation fixture feed snapshot only."
     },
     {
       "snapshot_id": "snap-fixture-eu-ai-office-before-2026-05-19",
@@ -125,10 +360,11 @@
     }
   ],
   "summary": {
-    "total": 6,
+    "total": 11,
     "by_source": {
-      "datatilsynet": 2,
-      "eu-ai-office": 4
+      "edpb": 3,
+      "datatilsynet": 3,
+      "eu-ai-office": 5
     }
   }
 }

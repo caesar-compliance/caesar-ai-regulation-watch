@@ -1,6 +1,7 @@
 # Latest snapshot pointer for datatilsynet
 
-snapshot_id: snap-datatilsynet-2026-05-19t211308548
-checked_at: '2026-05-19T21:13:08.548Z'
+snapshot_id: snap-datatilsynet-2026-05-19t212408174
+checked_at: '2026-05-19T21:24:08.174Z'
 watcher_id: watcher-datatilsynet
+adapter_id: official_page_metadata
 storage_policy: metadata_only_no_body_storage

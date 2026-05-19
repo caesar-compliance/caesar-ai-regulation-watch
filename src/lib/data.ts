@@ -257,10 +257,18 @@ export type WatcherType =
 
 export interface OfficialWatcher {
   watcher_id: string;
+  adapter_id?: string;
   source_id: string;
   jurisdiction_id: string;
   watcher_type: WatcherType;
   official_url: string;
+  feed_url?: string;
+  feed_format?: string;
+  entry_identity_fields?: string[];
+  entry_date_fields?: string[];
+  max_entries_per_check?: number;
+  create_detected_change_for_new_entries?: boolean;
+  create_detected_change_for_changed_entries?: boolean;
   enabled: boolean;
   monitoring_scope: string;
   check_frequency_recommendation: string;
@@ -325,6 +333,36 @@ export interface WatcherRun {
 
 export type SignificanceLevel = "low" | "medium" | "high";
 
+export interface FeedSnapshotEntry {
+  entry_id: string;
+  guid?: string | null;
+  link?: string | null;
+  title?: string | null;
+  published_at?: string | null;
+  updated_at?: string | null;
+  entry_hash: string;
+}
+
+export interface FeedSnapshot {
+  snapshot_id: string;
+  watcher_id: string;
+  source_id: string;
+  jurisdiction_id: string;
+  adapter_id: "official_rss_or_feed";
+  checked_at: string;
+  feed_url: string;
+  final_url: string;
+  http_status: number | null;
+  feed_title: string | null;
+  feed_entry_count: number;
+  entries: FeedSnapshotEntry[];
+  entries_aggregate_hash: string | null;
+  snapshot_kind: "feed_metadata" | "error_placeholder";
+  storage_policy: string;
+  fetch_error?: string;
+  legal_safe_note: string;
+}
+
 export interface DetectedChange {
   detected_change_id: string;
   watcher_id: string;
@@ -332,7 +370,9 @@ export interface DetectedChange {
   jurisdiction_id: string;
   detected_at: string;
   simulation?: boolean;
+  adapter_id?: string;
   change_type: string;
+  feed_entries_affected?: FeedSnapshotEntry[];
   changed_fields: string[];
   previous_snapshot_id: string;
   current_snapshot_id: string;

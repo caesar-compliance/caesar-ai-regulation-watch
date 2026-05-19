@@ -83,6 +83,9 @@ const curr = snapshots.find((s) => s.snapshot_id === change.current_snapshot_id)
       </dd>
     </div>
     <div><dt>Detected at</dt><dd>{change.detected_at}</dd></div>
+    {change.adapter_id && (
+      <div><dt>Adapter</dt><dd>{humanizeId(change.adapter_id)}</dd></div>
+    )}
     <div>
       <dt>Official URL</dt>
       <dd class="mono" style="word-break: break-all;">
@@ -101,6 +104,31 @@ const curr = snapshots.find((s) => s.snapshot_id === change.current_snapshot_id)
 
   <h2>Summary for review</h2>
   <div class="prose"><p>{change.change_summary_for_review}</p></div>
+
+  {
+    change.feed_entries_affected && change.feed_entries_affected.length > 0 && (
+      <section>
+        <h2>Feed entries affected (metadata only)</h2>
+        <p class="card__excerpt">
+          <small>Title/link/date only. No article body stored or fetched.</small>
+        </p>
+        <ul>
+          {change.feed_entries_affected.map((e) => (
+            <li>
+              <strong>{e.title ?? e.entry_id}</strong>
+              {e.link && (
+                <>
+                  {" "}
+                  — <a href={e.link} target="_blank" rel="noopener noreferrer">link</a>
+                </>
+              )}
+              {e.published_at && <small> ({e.published_at})</small>}
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
 
   {
     change.volatile_field_note && (

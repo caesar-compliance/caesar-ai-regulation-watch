@@ -50,6 +50,9 @@ const runResult = latestRun?.results.find((r) => r.watcher_id === watcher.watche
 
   <dl class="meta-grid">
     <div><dt>Watcher ID</dt><dd class="mono">{watcher.watcher_id}</dd></div>
+    {watcher.adapter_id && (
+      <div><dt>Adapter</dt><dd>{humanizeId(watcher.adapter_id)}</dd></div>
+    )}
     <div>
       <dt>Source</dt>
       <dd>

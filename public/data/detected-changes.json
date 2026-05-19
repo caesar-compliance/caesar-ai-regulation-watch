@@ -3,6 +3,56 @@
   "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
   "items": [
     {
+      "detected_change_id": "simulated-edpb-feed-change-2026-05-19",
+      "watcher_id": "watcher-edpb-feed",
+      "source_id": "edpb",
+      "jurisdiction_id": "eu",
+      "detected_at": "2026-05-19T11:00:00.000Z",
+      "adapter_id": "official_rss_or_feed",
+      "simulation": true,
+      "change_type": "new_feed_entry",
+      "changed_fields": [
+        "new_feed_entry"
+      ],
+      "previous_snapshot_id": "snap-fixture-edpb-feed-before-2026-05-19",
+      "current_snapshot_id": "snap-fixture-edpb-feed-after-2026-05-19",
+      "previous_value_summary": {
+        "feed_entry_count": "2",
+        "entries_aggregate_hash": "sha256:ccccccccccccccccccccccccccccccccc"
+      },
+      "current_value_summary": {
+        "feed_entry_count": "3",
+        "entries_aggregate_hash": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+      },
+      "previous_snapshot_summary": {
+        "snapshot_id": "snap-fixture-edpb-feed-before-2026-05-19",
+        "feed_title": "Fixture: EDPB publications feed (baseline)",
+        "feed_entry_count": 2
+      },
+      "current_snapshot_summary": {
+        "snapshot_id": "snap-fixture-edpb-feed-after-2026-05-19",
+        "feed_title": "Fixture: EDPB publications feed (updated)",
+        "feed_entry_count": 3
+      },
+      "change_summary_for_review": "[SIMULATION] 1 new feed entry(ies): Fixture: New simulated EDPB publication C. Not an official update confirmation.",
+      "significance_level": "medium",
+      "confidence_level": "medium",
+      "human_review_required": true,
+      "review_status": "pending_review",
+      "review_queue_reason": "simulated_feed_detected_change_pending_review",
+      "client_use_allowed": false,
+      "legal_safe_note": "Simulation only; not an official feed update. Feed metadata fixture diff for pipeline validation. Human review required.",
+      "minimum_change_policy": "feed_entry_identity_and_metadata_only",
+      "feed_entries_affected": [
+        {
+          "entry_id": "fixture-entry-003",
+          "title": "Fixture: New simulated EDPB publication C",
+          "link": "https://example.invalid/edpb/fixture/003",
+          "published_at": "Tue, 19 May 2026 09:00:00 +0200"
+        }
+      ]
+    },
+    {
       "detected_change_id": "simulated-eu-ai-office-change-2026-05-19",
       "watcher_id": "watcher-eu-ai-office",
       "source_id": "eu-ai-office",
@@ -74,9 +124,9 @@
     }
   ],
   "summary": {
-    "total": 1,
+    "total": 2,
     "real": 0,
-    "simulated": 1,
-    "pending_review": 1
+    "simulated": 2,
+    "pending_review": 2
   }
 }

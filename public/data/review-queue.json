@@ -3,21 +3,21 @@
   "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
   "read_only": true,
   "summary": {
-    "total": 87,
-    "pending_review": 86,
+    "total": 89,
+    "pending_review": 87,
     "needs_update": 0,
     "unverified_timeline_events": 10,
     "unverified_records": 12,
     "pending_source_verifications": 13,
     "missing_official_url": 0,
-    "technical_url_unchecked": 13,
+    "technical_url_unchecked": 14,
     "technical_url_unreachable": 1,
     "redirected_url_needs_review": 1,
-    "content_not_reviewed": 65,
+    "content_not_reviewed": 66,
     "client_use_not_allowed": 64,
     "detected_change_pending_review": 0,
-    "watcher_errors": 0,
-    "human_review_required_watcher": 1
+    "watcher_errors": 1,
+    "human_review_required_watcher": 3
   },
   "items": [
     {
@@ -1649,8 +1649,30 @@
     },
     {
       "item_type": "detected_change",
+      "item_id": "simulated-edpb-feed-change-2026-05-19",
+      "title": "[Simulation] Feed change: edpb",
+      "jurisdiction_id": "eu",
+      "review_status": "pending_review",
+      "reason_for_review": "Simulated feed diff for pipeline validation only; not an official feed update. Watcher output requires human review before any record update. Content summary not human-reviewed. Legal/content verification on official source not completed.",
+      "review_reasons": [
+        "simulated_feed_detected_change_pending_review",
+        "human_review_required",
+        "content_not_reviewed",
+        "legal_review_not_done"
+      ],
+      "official_url": "https://www.edpb.europa.eu/edpb_en",
+      "page_href": "/detected-changes/simulated-edpb-feed-change-2026-05-19/",
+      "missing_official_url": false,
+      "verified_on_source_false": true,
+      "technical_url_status": null,
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
+    },
+    {
+      "item_type": "detected_change",
       "item_id": "simulated-eu-ai-office-change-2026-05-19",
-      "title": "[Simulation] Detected change: eu-ai-office",
+      "title": "[Simulation] Page change: eu-ai-office",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
       "reason_for_review": "Simulated watcher diff for pipeline validation only; not an official source update. Watcher output requires human review before any record update. Content summary not human-reviewed. Legal/content verification on official source not completed.",
@@ -1662,6 +1684,27 @@
       ],
       "official_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
       "page_href": "/detected-changes/simulated-eu-ai-office-change-2026-05-19/",
+      "missing_official_url": false,
+      "verified_on_source_false": true,
+      "technical_url_status": null,
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
+    },
+    {
+      "item_type": "watcher_error",
+      "item_id": "watcher-run-2026-05-19-watcher-edps-feed",
+      "title": "Watcher error: edps",
+      "jurisdiction_id": "eu",
+      "review_status": "needs_human_review",
+      "reason_for_review": "Entity expansion limit exceeded: 1026 > 1000 Latest watcher run reported a fetch or check error for this source. Technical URL not checked or outcome uncertain. Watcher output requires human review before any record update.",
+      "review_reasons": [
+        "watcher_error",
+        "technical_url_unchecked",
+        "human_review_required"
+      ],
+      "official_url": "https://www.edps.europa.eu/_en",
+      "page_href": "/watchers/watcher-edps-feed/",
       "missing_official_url": false,
       "verified_on_source_false": true,
       "technical_url_status": null,

@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 /**
- * Manual official-source metadata watcher (v0.7.1).
- * Metadata-only snapshots; no full body storage; no legal conclusions; not in CI.
+ * Manual official-source watchers (v0.7.2).
+ * Page metadata + RSS/Atom feed adapters. Not in CI.
  */
 import fs from "node:fs";
 import path from "node:path";
-import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
 import yaml from "js-yaml";
 import {
@@ -13,6 +12,9 @@ import {
   buildDetectedChangeRecord,
   LEGAL_SAFE_NOTE,
 } from "./lib/watcher-diff.mjs";
+import { runPageMetadataWatcher } from "./lib/source-adapters/page-metadata-adapter.mjs";
+import { runFeedWatcher } from "./lib/source-adapters/feed-adapter.mjs";
+import { writeYaml } from "./lib/source-adapters/shared.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const RUN_DATE = process.env.WATCHER_RUN_DATE ?? "2026-05-19";
@@ -20,6 +22,8 @@ const RUN_ID = `watcher-run-${RUN_DATE}`;
 const TIMEOUT_MS = Number(process.env.WATCHER_TIMEOUT_MS ?? 20000);
 const DRY_RUN = process.argv.includes("--dry-run");
 const SKIP_NETWORK = process.argv.includes("--skip-network");
+const USER_AGENT =
+  "Caesar-AI-Regulation-Watch/0.7.2 official-source-watcher (governance review support)";
 
 const WATCHER_CONFIG = path.join(ROOT, "data/watchers/official-source-watchers.yml");
 const SNAPSHOTS_ROOT = path.join(ROOT, "data/snapshots");
@@ -30,44 +34,12 @@ function readYaml(filePath) {
   return yaml.load(fs.readFileSync(filePath, "utf8"));
 }
 
-function writeYaml(filePath, data, header = "") {
-  fs.mkdirSync(path.dirname(filePath), { recursive: true });
-  const body =
-    header +
-    yaml.dump(data, { lineWidth: 120, noRefs: true, sortKeys: false });
-  fs.writeFileSync(filePath, body, "utf8");
-}
-
 function listYamlFiles(dir) {
   if (!fs.existsSync(dir)) return [];
   return fs
     .readdirSync(dir)
     .filter((f) => f.endsWith(".yml") && f !== "latest.yml")
     .map((f) => path.join(dir, f));
-}
-
-function sha256Hex(bufferOrString) {
-  const buf =
-    typeof bufferOrString === "string"
-      ? Buffer.from(bufferOrString, "utf8")
-      : bufferOrString;
-  return `sha256:${crypto.createHash("sha256").update(buf).digest("hex")}`;
-}
-
-function normalizeText(html) {
-  return html
-    .replace(/<script[\s\S]*?<\/script>/gi, " ")
-    .replace(/<style[\s\S]*?<\/style>/gi, " ")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/\s+/g, " ")
-    .trim()
-    .toLowerCase();
-}
-
-function extractTitle(html) {
-  const m = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
-  if (!m) return null;
-  return m[1].replace(/\s+/g, " ").trim().slice(0, 500) || null;
 }
 
 function loadSources() {
@@ -90,119 +62,17 @@ function latestSnapshotForSource(sourceId) {
   return readYaml(snapPath);
 }
 
-function snapshotIdFor(sourceId, checkedAt) {
-  const stamp = checkedAt.replace(/[:.]/g, "").replace("T", "t").slice(0, 20);
-  return `snap-${sourceId}-${stamp}`;
-}
-
-async function fetchOfficial(url) {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
-  try {
-    const res = await fetch(url, {
-      method: "GET",
-      redirect: "follow",
-      signal: controller.signal,
-      headers: {
-        "User-Agent":
-          "Caesar-AI-Regulation-Watch/0.7.1 official-source-watcher (governance review support)",
-        Accept: "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8",
-      },
-    });
-    const body = await res.arrayBuffer();
-    return { res, body: Buffer.from(body) };
-  } finally {
-    clearTimeout(timer);
-  }
-}
-
-async function checkWatcher(watcher, sources, previousSnapshot) {
-  const source = sources[watcher.source_id];
-  const checkedAt = new Date().toISOString();
-  const snapId = snapshotIdFor(watcher.source_id, checkedAt);
-  const base = {
-    snapshot_id: snapId,
-    watcher_id: watcher.watcher_id,
-    source_id: watcher.source_id,
-    jurisdiction_id: watcher.jurisdiction_id,
-    checked_at: checkedAt,
-    original_url: watcher.official_url,
-    final_url: watcher.official_url,
-    http_status: null,
-    content_type: null,
-    etag: null,
-    last_modified: null,
-    title: null,
-    content_hash: null,
-    normalized_text_hash: null,
-    content_length: null,
-    snapshot_kind: previousSnapshot ? "periodic_check" : "baseline",
-    storage_policy: "metadata_only_no_body_storage",
-    legal_safe_note: watcher.legal_safe_note,
-  };
-
-  if (DRY_RUN || SKIP_NETWORK) {
-    return {
-      snapshot: {
-        ...base,
-        fetch_error: DRY_RUN ? "Dry run; no HTTP request." : "Network skipped (--skip-network).",
-        snapshot_kind: "error_placeholder",
-      },
-      error: DRY_RUN ? "dry_run" : "skip_network",
-    };
-  }
-
-  if (!source) {
-    return { snapshot: null, error: `Unknown source_id: ${watcher.source_id}` };
-  }
-
-  if (source.official_url && source.official_url !== watcher.official_url) {
-    console.warn(
-      `  Warning: watcher URL differs from source registry for ${watcher.source_id}`,
-    );
-  }
-
-  try {
-    const { res, body } = await fetchOfficial(watcher.official_url);
-    const text = body.toString("utf8");
-    const normalized = normalizeText(text);
-    return {
-      snapshot: {
-        ...base,
-        final_url: res.url || watcher.official_url,
-        http_status: res.status,
-        content_type: res.headers.get("content-type"),
-        etag: res.headers.get("etag"),
-        last_modified: res.headers.get("last-modified"),
-        title: extractTitle(text),
-        content_hash: sha256Hex(body),
-        normalized_text_hash: sha256Hex(normalized),
-        content_length: body.length,
-      },
-      error: null,
-    };
-  } catch (err) {
-    const msg = String(err?.message ?? err);
-    return {
-      snapshot: {
-        ...base,
-        fetch_error: msg,
-        snapshot_kind: "error_placeholder",
-      },
-      error: msg,
-    };
-  }
-}
-
 function writeSnapshot(snapshot) {
   const dir = path.join(SNAPSHOTS_ROOT, snapshot.source_id);
   const file = path.join(dir, `${snapshot.snapshot_id}.yml`);
-  const header = `# Metadata-only snapshot — ${snapshot.checked_at}\n# No full page body stored.\n\n`;
+  const label = snapshot.adapter_id === "official_rss_or_feed" ? "feed" : "page";
+  const header = `# Metadata-only ${label} snapshot — ${snapshot.checked_at}\n# No article/page body stored.\n\n`;
   writeYaml(file, snapshot, header);
   const pointer = {
     snapshot_id: snapshot.snapshot_id,
     checked_at: snapshot.checked_at,
     watcher_id: snapshot.watcher_id,
+    adapter_id: snapshot.adapter_id,
     storage_policy: snapshot.storage_policy,
   };
   writeYaml(
@@ -220,16 +90,39 @@ function writeDetectedChange(change) {
   return file;
 }
 
+function resolveAdapter(watcher) {
+  const id = watcher.adapter_id ?? watcher.watcher_type;
+  if (id === "official_rss_or_feed" || watcher.watcher_type === "official_rss_or_feed") {
+    return "feed";
+  }
+  return "page";
+}
+
+async function runWatcher(watcher, context) {
+  const kind = resolveAdapter(watcher);
+  if (kind === "feed") {
+    return runFeedWatcher(watcher, context);
+  }
+  return runPageMetadataWatcher(watcher, context);
+}
+
 async function main() {
-  console.log("\nCaesar AI Regulation Watch — official source watchers (v0.7.1)");
+  console.log("\nCaesar AI Regulation Watch — official source watchers (v0.7.2)");
   console.log(`Run date: ${RUN_DATE}`);
   console.log(`Run ID: ${RUN_ID}`);
   if (DRY_RUN) console.log("Mode: dry-run");
   if (SKIP_NETWORK) console.log("Mode: skip-network");
 
   const config = readYaml(WATCHER_CONFIG);
-  const watchers = (config.watchers ?? []).filter((w) => w.enabled);
   const sources = loadSources();
+  const context = {
+    sources,
+    dryRun: DRY_RUN,
+    skipNetwork: SKIP_NETWORK,
+    timeoutMs: TIMEOUT_MS,
+    userAgent: USER_AGENT,
+    runDate: RUN_DATE,
+  };
 
   const results = [];
   const detectedChangeIds = [];
@@ -237,6 +130,8 @@ async function main() {
   let changedCount = 0;
   let errorCount = 0;
   let checkedCount = 0;
+  let pageChecked = 0;
+  let feedChecked = 0;
 
   for (const watcher of config.watchers ?? []) {
     if (!watcher.enabled) {
@@ -252,12 +147,24 @@ async function main() {
       continue;
     }
 
-    process.stdout.write(`  Checking ${watcher.watcher_id} (${watcher.source_id})… `);
+    const adapterLabel = resolveAdapter(watcher);
+    process.stdout.write(
+      `  Checking ${watcher.watcher_id} (${watcher.source_id}, ${adapterLabel})… `,
+    );
+
     const previous = latestSnapshotForSource(watcher.source_id);
-    const { snapshot, error } = await checkWatcher(watcher, sources, previous);
+    const { snapshot, error, detectedChanges: feedChanges = [] } = await runWatcher(watcher, {
+      ...context,
+      previousSnapshot: previous,
+    });
 
     if (!snapshot) {
       errorCount += 1;
+      errorSummaries.push({
+        watcher_id: watcher.watcher_id,
+        source_id: watcher.source_id,
+        message: error,
+      });
       results.push({
         watcher_id: watcher.watcher_id,
         source_id: watcher.source_id,
@@ -295,14 +202,16 @@ async function main() {
       writeSnapshot(snapshot);
     }
     checkedCount += 1;
+    if (adapterLabel === "feed") feedChecked += 1;
+    else pageChecked += 1;
 
-    let detectedChangeId = null;
+    const writtenChangeIds = [];
     let status = previous ? "unchanged" : "checked";
 
-    if (previous && !snapshot.fetch_error) {
+    if (adapterLabel === "page" && previous && !snapshot.fetch_error) {
       const diff = classifySnapshotDiff(previous, snapshot, { simulation: false });
       if (diff) {
-        detectedChangeId = `detected-${watcher.source_id}-${RUN_DATE.replace(/-/g, "")}`;
+        const detectedChangeId = `detected-${watcher.source_id}-${RUN_DATE.replace(/-/g, "")}`;
         const change = buildDetectedChangeRecord({
           detectedChangeId,
           watcherId: watcher.watcher_id,
@@ -311,29 +220,41 @@ async function main() {
           detectedAt: snapshot.checked_at,
           previousSnapshotId: previous.snapshot_id,
           currentSnapshotId: snapshot.snapshot_id,
-          diff,
+          diff: { ...diff, adapter_id: "official_page_metadata" },
         });
-        if (!DRY_RUN && !SKIP_NETWORK) {
-          writeDetectedChange(change);
-        }
-        detectedChangeIds.push(detectedChangeId);
+        if (!DRY_RUN && !SKIP_NETWORK) writeDetectedChange(change);
+        writtenChangeIds.push(detectedChangeId);
         changedCount += 1;
         status = "change_detected";
         console.log(`change detected (${diff.significance_level})`);
       } else {
         console.log("unchanged");
       }
+    } else if (adapterLabel === "feed") {
+      if (feedChanges.length > 0) {
+        for (const change of feedChanges) {
+          if (!DRY_RUN && !SKIP_NETWORK) writeDetectedChange(change);
+          writtenChangeIds.push(change.detected_change_id);
+        }
+        changedCount += feedChanges.length;
+        status = "change_detected";
+        console.log(`feed change(s): ${feedChanges.length}`);
+      } else {
+        console.log(previous ? "unchanged" : "baseline");
+      }
     } else {
       console.log(previous ? "baseline refresh" : "baseline");
     }
 
+    detectedChangeIds.push(...writtenChangeIds);
     results.push({
       watcher_id: watcher.watcher_id,
       source_id: watcher.source_id,
       status,
       snapshot_id: snapshot.snapshot_id,
       previous_snapshot_id: previous?.snapshot_id ?? null,
-      detected_change_id: detectedChangeId,
+      detected_change_id: writtenChangeIds[0] ?? null,
+      detected_change_ids: writtenChangeIds,
       error_message: snapshot.fetch_error ?? null,
     });
   }
@@ -350,6 +271,8 @@ async function main() {
     preserves_latest_snapshots: true,
     watcher_count: (config.watchers ?? []).length,
     checked_count: checkedCount,
+    page_checked_count: pageChecked,
+    feed_checked_count: feedChecked,
     changed_count: changedCount,
     error_count: errorCount,
     detected_change_ids: detectedChangeIds,
@@ -370,7 +293,7 @@ async function main() {
   }
 
   console.log(
-    `Summary: watchers=${(config.watchers ?? []).length} checked=${checkedCount} changes=${changedCount} errors=${errorCount}`,
+    `Summary: watchers=${(config.watchers ?? []).length} checked=${checkedCount} (page=${pageChecked} feed=${feedChecked}) changes=${changedCount} errors=${errorCount}`,
   );
 }
 

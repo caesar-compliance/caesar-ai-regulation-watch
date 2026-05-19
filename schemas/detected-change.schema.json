@@ -53,6 +53,15 @@
       "type": "boolean",
       "default": false
     },
+    "adapter_id": {
+      "type": "string",
+      "enum": [
+        "official_page_metadata",
+        "official_rss_or_feed",
+        "official_api_metadata",
+        "manual_only"
+      ]
+    },
     "change_type": {
       "type": "string",
       "enum": [
@@ -68,7 +77,12 @@
         "last_modified_changed",
         "content_length_changed",
         "combined_metadata_change",
-        "watcher_error"
+        "watcher_error",
+        "new_feed_entry",
+        "removed_feed_entry",
+        "changed_feed_entry_metadata",
+        "feed_unreachable",
+        "feed_redirected"
       ]
     },
     "changed_fields": {
@@ -88,8 +102,27 @@
           "etag_changed",
           "last_modified_changed",
           "content_length_changed",
-          "watcher_error"
+          "watcher_error",
+          "new_feed_entry",
+          "removed_feed_entry",
+          "changed_feed_entry_metadata",
+          "feed_unreachable",
+          "feed_redirected"
         ]
+      }
+    },
+    "feed_entries_affected": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["entry_id"],
+        "properties": {
+          "entry_id": { "type": "string" },
+          "title": { "type": ["string", "null"] },
+          "link": { "type": ["string", "null"] },
+          "published_at": { "type": ["string", "null"] }
+        }
       }
     },
     "previous_snapshot_id": {
@@ -159,6 +192,8 @@
       "enum": [
         "detected_change_pending_review",
         "simulated_detected_change_pending_review",
+        "feed_detected_change_pending_review",
+        "simulated_feed_detected_change_pending_review",
         "watcher_error",
         "human_review_required"
       ]

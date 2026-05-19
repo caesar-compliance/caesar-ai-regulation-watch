@@ -1,4 +1,4 @@
-# Official source watcher prototype (v0.7.1)
+# Official source watcher prototype (v0.7.2)
 
 **Last updated:** 19 May 2026
 
@@ -10,10 +10,14 @@ This is **not** legal advice, **not** a compliance guarantee, and **not** produc
 
 ## Pilot watchers
 
-| Watcher ID | Source | Jurisdiction |
-|---|---|---|
-| `watcher-eu-ai-office` | `eu-ai-office` | EU |
-| `watcher-datatilsynet` | `datatilsynet` | Norway |
+| Watcher ID | Adapter | Source | Jurisdiction |
+|---|---|---|---|
+| `watcher-eu-ai-office` | page metadata | `eu-ai-office` | EU |
+| `watcher-datatilsynet` | page metadata | `datatilsynet` | Norway |
+| `watcher-edpb-feed` | RSS/feed | `edpb` | EU |
+| `watcher-edps-feed` | RSS/feed | `edps` | EU |
+
+See `docs/SOURCE_ADAPTERS.md` and `docs/FEED_WATCHER_CANDIDATES.md`.
 
 Configuration: `data/watchers/official-source-watchers.yml`
 

@@ -1,4 +1,4 @@
-# Watcher diff validation (v0.7.1)
+# Watcher diff validation (v0.7.2)
 
 **Last updated:** 19 May 2026
 
@@ -23,10 +23,18 @@ Optional flags: `--dry-run`, `--skip-network`.
 
 **Not run in CI** — see `docs/CI_VALIDATION.md`.
 
-## Simulation test (safe, local)
+## Simulation tests (safe, local)
+
+Page metadata:
 
 ```bash
 npm run watch:simulate-change
+```
+
+Feed metadata:
+
+```bash
+npm run watch:simulate-feed-change
 ```
 
 - Reads fixtures from `test-fixtures/watcher-snapshots/` only.

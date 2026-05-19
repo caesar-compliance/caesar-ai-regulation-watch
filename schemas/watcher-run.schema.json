@@ -54,6 +54,14 @@
       "type": "integer",
       "minimum": 0
     },
+    "page_checked_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "feed_checked_count": {
+      "type": "integer",
+      "minimum": 0
+    },
     "changed_count": {
       "type": "integer",
       "minimum": 0
@@ -128,6 +136,13 @@
           "detected_change_id": {
             "type": ["string", "null"],
             "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "detected_change_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_-]*$"
+            }
           },
           "error_message": {
             "type": ["string", "null"]

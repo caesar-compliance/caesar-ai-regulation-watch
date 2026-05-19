@@ -216,3 +216,13 @@
 - **Rationale:** Baseline watcher run produces no diff; simulation proves pipeline safely before second live run.
 - **Boundaries:** Simulation clearly marked; `client_use_allowed` remains false; not in CI; no full body storage.
 - **Artifacts:** `scripts/lib/watcher-diff.mjs`, `scripts/simulate-watcher-change.mjs`, `test-fixtures/watcher-snapshots/`, `docs/WATCHER_DIFF_VALIDATION.md`.
+
+---
+
+## [DEC-024] — 19 May 2026 — Source adapters and RSS/feed watchers (v0.7.2)
+
+- **Status:** Approved (implementation complete)
+- **Decision:** Add source adapter layer (`official_page_metadata`, `official_rss_or_feed`) and pilot feed watchers for confirmed official EDPB and EDPS RSS feeds. Metadata-only entry snapshots; feed diff creates review-gated detected changes.
+- **Rationale:** Structured official feeds are lower-risk and more stable than HTML hash diffs where available.
+- **Boundaries:** No invented feed URLs; Datatilsynet remains page-only; Federal Register in candidate log only; not in CI; no article body storage.
+- **Artifacts:** `scripts/lib/source-adapters/`, `scripts/lib/feed-diff.mjs`, `schemas/feed-snapshot.schema.json`, `docs/SOURCE_ADAPTERS.md`, `docs/FEED_WATCHER_CANDIDATES.md`.

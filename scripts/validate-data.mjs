@@ -38,6 +38,7 @@ const schemas = {
   urlVerification: loadSchema("url-verification.schema.json"),
   watcherConfig: loadSchema("watcher-config.schema.json"),
   sourceSnapshot: loadSchema("source-snapshot.schema.json"),
+  feedSnapshot: loadSchema("feed-snapshot.schema.json"),
   watcherRun: loadSchema("watcher-run.schema.json"),
   detectedChange: loadSchema("detected-change.schema.json"),
 };
@@ -166,7 +167,11 @@ if (fs.existsSync(snapshotsRoot)) {
     for (const file of listYamlFiles(dir)) {
       if (path.basename(file) === "latest.yml") continue;
       const data = readYaml(file);
-      check(validate(file, data, schemas.sourceSnapshot));
+      const schema =
+        data.snapshot_kind === "feed_metadata" || data.feed_url
+          ? schemas.feedSnapshot
+          : schemas.sourceSnapshot;
+      check(validate(file, data, schema));
     }
     const latestPath = path.join(dir, "latest.yml");
     if (fs.existsSync(latestPath)) {
@@ -366,6 +371,18 @@ if (fs.existsSync(watcherConfigPath)) {
       failures.push({
         label: `${watcherConfigPath} → ${w.watcher_id} (referential)`,
         errors: [{ message: `unknown jurisdiction_id: ${w.jurisdiction_id}` }],
+      });
+    }
+    if (w.adapter_id === "official_rss_or_feed" && !w.feed_url) {
+      failures.push({
+        label: `${watcherConfigPath} → ${w.watcher_id} (policy)`,
+        errors: [{ message: "feed watcher requires feed_url" }],
+      });
+    }
+    if (w.adapter_id === "official_page_metadata" && !w.official_url) {
+      failures.push({
+        label: `${watcherConfigPath} → ${w.watcher_id} (policy)`,
+        errors: [{ message: "page metadata watcher requires official_url" }],
       });
     }
   }

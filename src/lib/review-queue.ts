@@ -42,6 +42,8 @@ export type ReviewQueueReason =
   | "needs_update"
   | "detected_change_pending_review"
   | "simulated_detected_change_pending_review"
+  | "feed_detected_change_pending_review"
+  | "simulated_feed_detected_change_pending_review"
   | "watcher_error"
   | "snapshot_changed"
   | "human_review_required";
@@ -164,6 +166,10 @@ function reasonText(reasons: ReviewQueueReason[]): string {
       "Watcher detected a possible metadata change; human review required.",
     simulated_detected_change_pending_review:
       "Simulated watcher diff for pipeline validation only; not an official source update.",
+    feed_detected_change_pending_review:
+      "Feed watcher detected new or changed entries; human review required.",
+    simulated_feed_detected_change_pending_review:
+      "Simulated feed diff for pipeline validation only; not an official feed update.",
     watcher_error: "Latest watcher run reported a fetch or check error for this source.",
     snapshot_changed: "New metadata snapshot differs from previous; confirm on official source.",
     human_review_required:
@@ -407,10 +413,17 @@ export function buildReviewQueue(): ReviewQueueItem[] {
   for (const dc of getDetectedChanges()) {
     if (!needsReview(dc.review_status)) continue;
     const src = getSource(dc.source_id);
+    const isFeed =
+      dc.adapter_id === "official_rss_or_feed" ||
+      String(dc.change_type ?? "").includes("feed");
     const reasons: ReviewQueueReason[] = [
       dc.simulation
-        ? "simulated_detected_change_pending_review"
-        : "detected_change_pending_review",
+        ? isFeed
+          ? "simulated_feed_detected_change_pending_review"
+          : "simulated_detected_change_pending_review"
+        : isFeed
+          ? "feed_detected_change_pending_review"
+          : "detected_change_pending_review",
       "human_review_required",
       "content_not_reviewed",
       "legal_review_not_done",
@@ -419,8 +432,8 @@ export function buildReviewQueue(): ReviewQueueItem[] {
       item_type: "detected_change",
       item_id: dc.detected_change_id,
       title: dc.simulation
-        ? `[Simulation] Detected change: ${dc.source_id}`
-        : `Detected change: ${dc.source_id}`,
+        ? `[Simulation] ${isFeed ? "Feed" : "Page"} change: ${dc.source_id}`
+        : `${isFeed ? "Feed" : "Page"} change: ${dc.source_id}`,
       jurisdiction_id: dc.jurisdiction_id,
       review_status: dc.review_status,
       reason_for_review: reasonText(reasons),
