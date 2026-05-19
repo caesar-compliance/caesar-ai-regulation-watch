@@ -16,4 +16,12 @@ notes: >
   Federal-level AI regulation and policy monitoring entry only. Does not cover US state
   or local AI laws, all federal agencies, or sector-specific rules unless added later.
   Requires human review before client use.
+map:
+  display_name: Washington, DC
+  latitude: 38.9072
+  longitude: -77.0369
+  marker_type: institutional
+  coverage_status: expanded
+  map_note: >
+    Federal policy display marker only. Does not represent US state/local law or territorial claims.
 review_status: pending_review

@@ -1,0 +1,17 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CoverageMap from "../components/CoverageMap.astro";
+import { getMapMarkers } from "../lib/jurisdiction-stats";
+
+const markers = getMapMarkers();
+---
+
+<BaseLayout title="Global coverage map" currentPath="/map/">
+  <h1>Global coverage map</h1>
+  <p class="lead">
+    Browse curated jurisdiction and framework coverage. Markers are display aids from manual YAML — not
+    territorial boundary claims.
+  </p>
+
+  <CoverageMap markers={markers} />
+</BaseLayout>

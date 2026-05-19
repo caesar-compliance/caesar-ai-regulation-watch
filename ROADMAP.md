@@ -4,7 +4,7 @@
 
 This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
 
-**Current (v0.5.0):** global static data, timelines, CI validate/build — no watchers, APIs, database, auth. **Next:** Control Tower review; human URL verification; optional Leaflet map.
+**Current (v0.5.1):** static SVG map, review queue, global data, CI — no watchers, APIs, database, auth. **Next:** Control Tower review; human URL verification via queue.
 
 ---
 
@@ -178,11 +178,17 @@ v0.1 Foundation ──> v0.2.0 Registry ──> v0.3.0 Samples ──> v0.3.1 Ta
 
 ---
 
-## v0.5.1 — Map (planned)
+## v0.5.1 — Static map and review queue
 
-**Status:** Planned
+**Status:** Complete on branch `agent/v0.5.1-map-review-queue` (19 May 2026)
 
-**Goal:** Leaflet pilot map with list fallback.
+**Deliverables:**
+
+- [x] Jurisdiction `map` metadata (13 markers)
+- [x] `/map/` static SVG (no Leaflet, no remote tiles)
+- [x] `/review-queue/` read-only with filters
+- [x] `map-coverage.json` and `review-queue.json` exports
+- [ ] Optional Leaflet basemap (future, if approved)
 
 ---
 

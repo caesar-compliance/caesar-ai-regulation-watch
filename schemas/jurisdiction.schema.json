@@ -13,7 +13,8 @@
     "regulatory_focus",
     "monitoring_priority",
     "notes",
-    "review_status"
+    "review_status",
+    "map"
   ],
   "properties": {
     "jurisdiction_id": {
@@ -81,6 +82,52 @@
         "rejected_for_client_use",
         "archived"
       ]
+    },
+    "map": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Display-only map marker metadata; not legal territorial boundaries.",
+      "required": [
+        "display_name",
+        "latitude",
+        "longitude",
+        "marker_type",
+        "coverage_status",
+        "map_note"
+      ],
+      "properties": {
+        "display_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "latitude": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "longitude": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        },
+        "marker_type": {
+          "type": "string",
+          "enum": [
+            "country_capital",
+            "institutional",
+            "international_framework",
+            "display_only"
+          ]
+        },
+        "coverage_status": {
+          "type": "string",
+          "enum": ["pilot", "expanded", "international", "high_priority"]
+        },
+        "map_note": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
     }
   }
 }

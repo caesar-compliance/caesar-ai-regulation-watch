@@ -11,6 +11,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.5.1] - 19 May 2026
+
+### Added
+
+- **Map metadata** on all 13 jurisdiction YAML files (`map` object with display coordinates).
+- **Global coverage map** (`/map/`) — static SVG projection, no Leaflet, no remote tiles.
+- **Human review queue** (`/review-queue/`) — read-only aggregated review list with client-side filters.
+- Exports: `public/data/map-coverage.json`, `public/data/review-queue.json`.
+
+### Changed
+
+- Snapshot JSON includes map marker count and review queue summary counts.
+- Navigation, homepage, methodology, disclaimer, jurisdiction detail pages updated.
+
+### Notes
+
+- Map markers are display aids only — not legal boundary claims.
+- Review queue does not update data or mark items reviewed.
+
+---
+
 ## [0.5.0] - 19 May 2026
 
 ### Added

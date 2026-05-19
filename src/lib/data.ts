@@ -16,6 +16,15 @@ export type ReviewStatus =
   | "rejected_for_client_use"
   | "archived";
 
+export interface JurisdictionMapMeta {
+  display_name: string;
+  latitude: number;
+  longitude: number;
+  marker_type: "country_capital" | "institutional" | "international_framework" | "display_only";
+  coverage_status: "pilot" | "expanded" | "international" | "high_priority";
+  map_note: string;
+}
+
 export interface Jurisdiction {
   jurisdiction_id: string;
   name: string;
@@ -27,6 +36,7 @@ export interface Jurisdiction {
   monitoring_priority: string;
   notes: string;
   review_status: ReviewStatus;
+  map: JurisdictionMapMeta;
 }
 
 export interface Source {
@@ -276,5 +286,6 @@ export function getPilotSummary() {
     changeCount: getChanges().length,
     timelineCount: getTimelines().length,
     exportSampleCount: getExportSamples().length,
+    mapMarkerCount: getJurisdictions().filter((j) => j.map).length,
   };
 }

@@ -1,0 +1,313 @@
+{
+  "generated_at": "2026-05-19",
+  "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
+  "implementation": {
+    "type": "static-svg",
+    "leaflet_used": false,
+    "remote_tiles": false,
+    "attribution": null,
+    "note": "Equirectangular SVG projection from manual YAML coordinates. Display markers only."
+  },
+  "marker_count": 13,
+  "markers": [
+    {
+      "jurisdiction_id": "australia",
+      "name": "Australia",
+      "region": "Asia-Pacific",
+      "type": "country",
+      "monitoring_priority": "medium",
+      "review_status": "pending_review",
+      "map": {
+        "display_name": "Canberra",
+        "latitude": -35.2809,
+        "longitude": 149.13,
+        "marker_type": "country_capital",
+        "coverage_status": "expanded",
+        "map_note": "National capital display marker for federal sources. State/territory law not shown on map.\n"
+      },
+      "counts": {
+        "sources": 2,
+        "records": 0,
+        "changes": 0,
+        "timelines": 0
+      },
+      "page_href": "/jurisdictions/australia/"
+    },
+    {
+      "jurisdiction_id": "canada",
+      "name": "Canada",
+      "region": "Americas",
+      "type": "country",
+      "monitoring_priority": "medium",
+      "review_status": "pending_review",
+      "map": {
+        "display_name": "Ottawa",
+        "latitude": 45.4215,
+        "longitude": -75.6972,
+        "marker_type": "country_capital",
+        "coverage_status": "expanded",
+        "map_note": "Federal capital display marker. Provincial and territorial regimes are not shown separately.\n"
+      },
+      "counts": {
+        "sources": 2,
+        "records": 0,
+        "changes": 0,
+        "timelines": 0
+      },
+      "page_href": "/jurisdictions/canada/"
+    },
+    {
+      "jurisdiction_id": "china",
+      "name": "China",
+      "region": "Asia-Pacific",
+      "type": "country",
+      "monitoring_priority": "medium",
+      "review_status": "pending_review",
+      "map": {
+        "display_name": "Beijing",
+        "latitude": 39.9042,
+        "longitude": 116.4074,
+        "marker_type": "country_capital",
+        "coverage_status": "expanded",
+        "map_note": "National capital display marker for curated PRC official sources. Not complete legal coverage.\n"
+      },
+      "counts": {
+        "sources": 1,
+        "records": 0,
+        "changes": 0,
+        "timelines": 0
+      },
+      "page_href": "/jurisdictions/china/"
+    },
+    {
+      "jurisdiction_id": "eu",
+      "name": "European Union",
+      "region": "Europe",
+      "type": "supranational_bloc",
+      "monitoring_priority": "high",
+      "review_status": "pending_review",
+      "map": {
+        "display_name": "Brussels (EU institutions)",
+        "latitude": 50.8503,
+        "longitude": 4.3517,
+        "marker_type": "institutional",
+        "coverage_status": "high_priority",
+        "map_note": "Display marker for EU institutional and regulatory coverage. Not a territorial boundary claim and not complete EU legal coverage.\n"
+      },
+      "counts": {
+        "sources": 5,
+        "records": 2,
+        "changes": 1,
+        "timelines": 2
+      },
+      "page_href": "/jurisdictions/eu/"
+    },
+    {
+      "jurisdiction_id": "g7",
+      "name": "G7",
+      "region": "International",
+      "type": "other",
+      "monitoring_priority": "low",
+      "review_status": "pending_review",
+      "map": {
+        "display_name": "Hiroshima (G7 AI Process — display)",
+        "latitude": 34.3853,
+        "longitude": 132.4553,
+        "marker_type": "display_only",
+        "coverage_status": "international",
+        "map_note": "Display marker referencing the G7 Hiroshima AI Process portal. Rotating G7 presidency; not a legal territory or binding jurisdiction boundary.\n"
+      },
+      "counts": {
+        "sources": 1,
+        "records": 0,
+        "changes": 0,
+        "timelines": 0
+      },
+      "page_href": "/jurisdictions/g7/"
+    },
+    {
+      "jurisdiction_id": "japan",
+      "name": "Japan",
+      "region": "Asia-Pacific",
+      "type": "country",
+      "monitoring_priority": "medium",
+      "review_status": "pending_review",
+      "map": {
+        "display_name": "Tokyo",
+        "latitude": 35.6762,
+        "longitude": 139.6503,
+        "marker_type": "country_capital",
+        "coverage_status": "expanded",
+        "map_note": "National capital display marker; English METI pages are one entry point among many ministries.\n"
+      },
+      "counts": {
+        "sources": 1,
+        "records": 0,
+        "changes": 0,
+        "timelines": 0
+      },
+      "page_href": "/jurisdictions/japan/"
+    },
+    {
+      "jurisdiction_id": "norway",
+      "name": "Norway",
+      "region": "Europe",
+      "type": "country",
+      "monitoring_priority": "high",
+      "review_status": "pending_review",
+      "map": {
+        "display_name": "Oslo",
+        "latitude": 59.9139,
+        "longitude": 10.7522,
+        "marker_type": "country_capital",
+        "coverage_status": "pilot",
+        "map_note": "National capital display marker for Norway pilot coverage. Not a territorial boundary claim.\n"
+      },
+      "counts": {
+        "sources": 2,
+        "records": 1,
+        "changes": 1,
+        "timelines": 0
+      },
+      "page_href": "/jurisdictions/norway/"
+    },
+    {
+      "jurisdiction_id": "oecd",
+      "name": "OECD",
+      "region": "International",
+      "type": "other",
+      "monitoring_priority": "medium",
+      "review_status": "pending_review",
+      "map": {
+        "display_name": "Paris (OECD headquarters)",
+        "latitude": 48.8566,
+        "longitude": 2.3522,
+        "marker_type": "international_framework",
+        "coverage_status": "international",
+        "map_note": "Institutional display marker for OECD.AI and OECD publications. Not a territorial or binding-law claim.\n"
+      },
+      "counts": {
+        "sources": 1,
+        "records": 0,
+        "changes": 0,
+        "timelines": 0
+      },
+      "page_href": "/jurisdictions/oecd/"
+    },
+    {
+      "jurisdiction_id": "singapore",
+      "name": "Singapore",
+      "region": "Asia-Pacific",
+      "type": "country",
+      "monitoring_priority": "medium",
+      "review_status": "pending_review",
+      "map": {
+        "display_name": "Singapore",
+        "latitude": 1.3521,
+        "longitude": 103.8198,
+        "marker_type": "country_capital",
+        "coverage_status": "expanded",
+        "map_note": "City-state display marker for curated official AI governance sources.\n"
+      },
+      "counts": {
+        "sources": 2,
+        "records": 0,
+        "changes": 0,
+        "timelines": 0
+      },
+      "page_href": "/jurisdictions/singapore/"
+    },
+    {
+      "jurisdiction_id": "south-korea",
+      "name": "South Korea",
+      "region": "Asia-Pacific",
+      "type": "country",
+      "monitoring_priority": "medium",
+      "review_status": "pending_review",
+      "map": {
+        "display_name": "Seoul",
+        "latitude": 37.5665,
+        "longitude": 126.978,
+        "marker_type": "country_capital",
+        "coverage_status": "expanded",
+        "map_note": "National capital display marker for curated ROK official sources.\n"
+      },
+      "counts": {
+        "sources": 1,
+        "records": 0,
+        "changes": 0,
+        "timelines": 0
+      },
+      "page_href": "/jurisdictions/south-korea/"
+    },
+    {
+      "jurisdiction_id": "uk",
+      "name": "United Kingdom",
+      "region": "Europe",
+      "type": "country",
+      "monitoring_priority": "medium",
+      "review_status": "pending_review",
+      "map": {
+        "display_name": "London",
+        "latitude": 51.5074,
+        "longitude": -0.1278,
+        "marker_type": "country_capital",
+        "coverage_status": "expanded",
+        "map_note": "National capital display marker for UK federal-level policy coverage. Does not represent devolved administrations or territorial boundaries beyond display purposes.\n"
+      },
+      "counts": {
+        "sources": 2,
+        "records": 0,
+        "changes": 0,
+        "timelines": 0
+      },
+      "page_href": "/jurisdictions/uk/"
+    },
+    {
+      "jurisdiction_id": "unesco",
+      "name": "UNESCO",
+      "region": "International",
+      "type": "other",
+      "monitoring_priority": "low",
+      "review_status": "pending_review",
+      "map": {
+        "display_name": "Paris (UNESCO headquarters)",
+        "latitude": 48.8606,
+        "longitude": 2.3376,
+        "marker_type": "international_framework",
+        "coverage_status": "international",
+        "map_note": "Institutional display marker for UNESCO AI ethics materials. Soft-law reference only; not national law.\n"
+      },
+      "counts": {
+        "sources": 1,
+        "records": 0,
+        "changes": 0,
+        "timelines": 0
+      },
+      "page_href": "/jurisdictions/unesco/"
+    },
+    {
+      "jurisdiction_id": "us-federal",
+      "name": "United States (federal)",
+      "region": "Americas",
+      "type": "country",
+      "monitoring_priority": "medium",
+      "review_status": "pending_review",
+      "map": {
+        "display_name": "Washington, DC",
+        "latitude": 38.9072,
+        "longitude": -77.0369,
+        "marker_type": "institutional",
+        "coverage_status": "expanded",
+        "map_note": "Federal policy display marker only. Does not represent US state/local law or territorial claims.\n"
+      },
+      "counts": {
+        "sources": 4,
+        "records": 0,
+        "changes": 0,
+        "timelines": 0
+      },
+      "page_href": "/jurisdictions/us-federal/"
+    }
+  ]
+}

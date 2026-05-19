@@ -10,6 +10,7 @@ import {
   sourcesForJurisdiction,
   recordsForJurisdiction,
   changesForJurisdiction,
+  timelinesForJurisdiction,
 } from "../../lib/data";
 import { formatDate, truncate, humanizeId } from "../../lib/format";
 
@@ -29,6 +30,7 @@ if (!jurisdiction) {
 const sources = sourcesForJurisdiction(jurisdiction.jurisdiction_id);
 const records = recordsForJurisdiction(jurisdiction.jurisdiction_id);
 const changes = changesForJurisdiction(jurisdiction.jurisdiction_id);
+const timelines = timelinesForJurisdiction(jurisdiction.jurisdiction_id);
 ---
 
 <BaseLayout title={jurisdiction.name} currentPath="/jurisdictions/">
@@ -54,6 +56,36 @@ const changes = changesForJurisdiction(jurisdiction.jurisdiction_id);
       )
     }
   </dl>
+
+  {
+    jurisdiction.map && (
+      <section>
+        <h2>Map display marker</h2>
+        <dl class="meta-grid">
+          <div>
+            <dt>Display location</dt>
+            <dd>{jurisdiction.map.display_name}</dd>
+          </div>
+          <div>
+            <dt>Coordinates</dt>
+            <dd class="mono">
+              {jurisdiction.map.latitude}°, {jurisdiction.map.longitude}°
+            </dd>
+          </div>
+          <div>
+            <dt>Marker type</dt>
+            <dd>{humanizeId(jurisdiction.map.marker_type)}</dd>
+          </div>
+        </dl>
+        <p class="card__excerpt">
+          <small>{jurisdiction.map.map_note}</small>
+        </p>
+        <p>
+          <a href="/map/">View on global coverage map →</a>
+        </p>
+      </section>
+    )
+  }
 
   <div class="prose">
     <p>{jurisdiction.notes}</p>
@@ -87,6 +119,21 @@ const changes = changesForJurisdiction(jurisdiction.jurisdiction_id);
   ) : (
     <p>No records yet.</p>
   )}
+
+  <h2>Timelines ({timelines.length})</h2>
+  {
+    timelines.length > 0 ? (
+      <ul>
+        {timelines.map((t) => (
+          <li>
+            <a href={`/timelines/${t.timeline_id}/`}>{t.title}</a>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p>No timelines for this jurisdiction.</p>
+    )
+  }
 
   <h2>Sample changes ({changes.length})</h2>
   {changes.length > 0 ? (

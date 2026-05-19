@@ -15,4 +15,12 @@ monitoring_priority: medium
 notes: >
   International organisation entry for OECD AI Policy Observatory and related official
   publications. Does not substitute for national law in member countries.
+map:
+  display_name: Paris (OECD headquarters)
+  latitude: 48.8566
+  longitude: 2.3522
+  marker_type: international_framework
+  coverage_status: international
+  map_note: >
+    Institutional display marker for OECD.AI and OECD publications. Not a territorial or binding-law claim.
 review_status: pending_review

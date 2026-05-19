@@ -14,4 +14,12 @@ monitoring_priority: medium
 notes: >
   Curated federal and national regulator sources. Does not cover all state/territory
   laws or sector regulators unless added later. Requires human review.
+map:
+  display_name: Canberra
+  latitude: -35.2809
+  longitude: 149.13
+  marker_type: country_capital
+  coverage_status: expanded
+  map_note: >
+    National capital display marker for federal sources. State/territory law not shown on map.
 review_status: pending_review

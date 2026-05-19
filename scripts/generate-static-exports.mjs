@@ -79,9 +79,167 @@ const records = [
 
 const generatedAt = "2026-05-19";
 
+function needsReview(status) {
+  return status !== "reviewed";
+}
+
+function buildReviewQueue() {
+  const items = [];
+  const sourceById = Object.fromEntries(sources.map((s) => [s.source_id, s]));
+
+  for (const j of jurisdictions) {
+    if (!needsReview(j.review_status)) continue;
+    items.push({
+      item_type: "jurisdiction",
+      item_id: j.jurisdiction_id,
+      title: j.name,
+      jurisdiction_id: j.jurisdiction_id,
+      review_status: j.review_status,
+      reason_for_review: `Jurisdiction review_status is ${j.review_status}.`,
+      official_url: null,
+      page_href: `/jurisdictions/${j.jurisdiction_id}/`,
+      missing_official_url: false,
+      verified_on_source_false: false,
+    });
+  }
+  for (const s of sources) {
+    if (!needsReview(s.review_status)) continue;
+    items.push({
+      item_type: "source",
+      item_id: s.source_id,
+      title: s.title,
+      jurisdiction_id: s.jurisdiction_id,
+      review_status: s.review_status,
+      reason_for_review: s.official_url
+        ? `Source review_status is ${s.review_status}.`
+        : `Source review_status is ${s.review_status}; official URL missing or unverified.`,
+      official_url: s.official_url ?? null,
+      page_href: `/sources/${s.source_id}/`,
+      missing_official_url: !s.official_url,
+      verified_on_source_false: false,
+    });
+  }
+  for (const r of records) {
+    if (!needsReview(r.review_status)) continue;
+    items.push({
+      item_type: "record",
+      item_id: r.record_id,
+      title: r.title,
+      jurisdiction_id: r.jurisdiction_id,
+      review_status: r.review_status,
+      reason_for_review: `Record (${r.record_type}) review_status is ${r.review_status}.`,
+      official_url: r.official_url ?? null,
+      page_href: `/records/${r.record_id}/`,
+      missing_official_url: !r.official_url,
+      verified_on_source_false: false,
+    });
+  }
+  for (const c of changes) {
+    if (!needsReview(c.review_status)) continue;
+    items.push({
+      item_type: "change",
+      item_id: c.change_id,
+      title: c.change_id,
+      jurisdiction_id: c.jurisdiction_id,
+      review_status: c.review_status,
+      reason_for_review: `Change review_status is ${c.review_status}.`,
+      official_url: sourceById[c.source_id]?.official_url ?? null,
+      page_href: `/changes/${c.change_id}/`,
+      missing_official_url: false,
+      verified_on_source_false: false,
+    });
+  }
+  for (const t of timelines) {
+    if (needsReview(t.review_status)) {
+      items.push({
+        item_type: "timeline",
+        item_id: t.timeline_id,
+        title: t.title,
+        jurisdiction_id: t.jurisdiction_id,
+        review_status: t.review_status,
+        reason_for_review: `Timeline review_status is ${t.review_status}.`,
+        official_url: null,
+        page_href: `/timelines/${t.timeline_id}/`,
+        missing_official_url: false,
+        verified_on_source_false: false,
+      });
+    }
+    for (const ev of t.events ?? []) {
+      if (!needsReview(ev.review_status) && ev.verified_on_source) continue;
+      const src = sourceById[ev.source_id];
+      const reasons = [];
+      if (needsReview(ev.review_status)) reasons.push(`Event review_status is ${ev.review_status}.`);
+      if (!ev.verified_on_source) {
+        reasons.push("Date/summary not verified on official source in this repository.");
+      }
+      items.push({
+        item_type: "timeline_event",
+        item_id: ev.event_id,
+        title: `${t.title} — ${ev.title}`,
+        jurisdiction_id: t.jurisdiction_id,
+        review_status: ev.review_status,
+        reason_for_review: reasons.join(" "),
+        official_url: src?.official_url ?? null,
+        page_href: `/timelines/${t.timeline_id}/`,
+        parent_timeline_id: t.timeline_id,
+        missing_official_url: !src?.official_url,
+        verified_on_source_false: !ev.verified_on_source,
+      });
+    }
+  }
+  for (const e of exportSamples) {
+    if (!needsReview(e.review_status)) continue;
+    items.push({
+      item_type: "export_sample",
+      item_id: e.export_record_id,
+      title: e.export_record_id,
+      jurisdiction_id: e.jurisdiction_id,
+      review_status: e.review_status,
+      reason_for_review: `Export sample review_status is ${e.review_status}.`,
+      official_url: null,
+      page_href: "/exports/",
+      missing_official_url: false,
+      verified_on_source_false: false,
+    });
+  }
+  return items;
+}
+
+const reviewQueueItems = buildReviewQueue();
+const reviewSummary = {
+  total: reviewQueueItems.length,
+  pending_review: reviewQueueItems.filter((i) => i.review_status === "pending_review").length,
+  needs_update: reviewQueueItems.filter((i) => i.review_status === "needs_update").length,
+  unverified_timeline_events: reviewQueueItems.filter((i) => i.verified_on_source_false).length,
+  missing_official_url: reviewQueueItems.filter((i) => i.missing_official_url).length,
+};
+
+function countsForJurisdiction(jurisdictionId) {
+  return {
+    sources: sources.filter((s) => s.jurisdiction_id === jurisdictionId).length,
+    records: records.filter((r) => r.jurisdiction_id === jurisdictionId).length,
+    changes: changes.filter((c) => c.jurisdiction_id === jurisdictionId).length,
+    timelines: timelines.filter((t) => t.jurisdiction_id === jurisdictionId).length,
+  };
+}
+
+const mapMarkers = jurisdictions
+  .filter((j) => j.map)
+  .map((j) => ({
+    jurisdiction_id: j.jurisdiction_id,
+    name: j.name,
+    region: j.region,
+    type: j.type,
+    monitoring_priority: j.monitoring_priority,
+    review_status: j.review_status,
+    map: j.map,
+    counts: countsForJurisdiction(j.jurisdiction_id),
+    page_href: `/jurisdictions/${j.jurisdiction_id}/`,
+  }));
+
 const snapshot = {
   generated_at: generatedAt,
-  version: "0.5.0",
+  version: "0.5.1",
   disclaimer: DISCLAIMER,
   pilot_jurisdictions: jurisdictions.map((j) => j.jurisdiction_id),
   counts: {
@@ -93,7 +251,12 @@ const snapshot = {
     changes: changes.length,
     timelines: timelines.length,
     export_samples: exportSamples.length,
-    exports: 6,
+    map_markers: mapMarkers.length,
+    review_queue_items: reviewSummary.total,
+    pending_review: reviewSummary.pending_review,
+    needs_update: reviewSummary.needs_update,
+    unverified_timeline_events: reviewSummary.unverified_timeline_events,
+    exports: 8,
   },
   feeds: {
     changes_rss: "/feeds/changes.xml",
@@ -105,6 +268,8 @@ const snapshot = {
     changes: "/data/changes.json",
     export_samples: "/data/export-samples.json",
     timelines: "/data/timelines.json",
+    map_coverage: "/data/map-coverage.json",
+    review_queue: "/data/review-queue.json",
   },
   review_notice:
     "All pilot content is curated manual YAML. Human review required before client use.",
@@ -154,6 +319,28 @@ writeJson(path.join(PUBLIC_DATA, "export-samples.json"), {
   sample_only: true,
   not_client_evidence: true,
   items: exportSamples,
+});
+
+writeJson(path.join(PUBLIC_DATA, "map-coverage.json"), {
+  generated_at: generatedAt,
+  disclaimer: DISCLAIMER,
+  implementation: {
+    type: "static-svg",
+    leaflet_used: false,
+    remote_tiles: false,
+    attribution: null,
+    note: "Equirectangular SVG projection from manual YAML coordinates. Display markers only.",
+  },
+  marker_count: mapMarkers.length,
+  markers: mapMarkers,
+});
+
+writeJson(path.join(PUBLIC_DATA, "review-queue.json"), {
+  generated_at: generatedAt,
+  disclaimer: DISCLAIMER,
+  read_only: true,
+  summary: reviewSummary,
+  items: reviewQueueItems,
 });
 
 writeJson(path.join(PUBLIC_DATA, "regulation-watch-snapshot.json"), snapshot);
@@ -213,6 +400,9 @@ console.log("  public/data/records.json");
 console.log("  public/data/changes.json");
 console.log("  public/data/export-samples.json");
 console.log("  public/data/timelines.json");
+console.log("  public/data/map-coverage.json");
+console.log("  public/data/review-queue.json");
 console.log("  public/data/regulation-watch-snapshot.json");
+console.log(`  ${reviewQueueItems.length} item(s) in review queue export`);
 console.log("  public/feeds/changes.xml");
 console.log(`  ${changes.length} change(s) in RSS feed`);

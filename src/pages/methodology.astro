@@ -52,10 +52,25 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       robots.txt, and hub approval. Until then, the change feed shows manual samples only.
     </p>
 
+    <h2>Global coverage map (v0.5.1)</h2>
+    <p>
+      The <a href="/map/">coverage map</a> uses a <strong>static SVG projection</strong> from manually curated
+      latitude/longitude fields in jurisdiction YAML. Markers are <strong>display aids only</strong> — they do
+      not represent legal territorial boundaries, sovereignty claims, or complete geographic coverage. No remote
+      map tiles are loaded.
+    </p>
+
+    <h2>Human review queue (v0.5.1)</h2>
+    <p>
+      The <a href="/review-queue/">review queue</a> lists items with <code>review_status</code> other than{" "}
+      <code>reviewed</code>, plus timeline events not verified on source. It is <strong>read-only</strong> — it
+      does not update YAML, mark items reviewed, or replace qualified legal review.
+    </p>
+
     <h2>Coverage limits</h2>
     <p>
-      The pilot covers a <strong>curated subset</strong> of EU and Norway official sources. We do{" "}
-      <strong>not</strong> claim complete global legal coverage, exhaustive instrument lists, or
+      The registry covers a <strong>curated subset</strong> of global official sources starting from EU/Norway.
+      We do <strong>not</strong> claim complete global legal coverage, exhaustive instrument lists, or
       up-to-date status without verification on official sites.
     </p>
 

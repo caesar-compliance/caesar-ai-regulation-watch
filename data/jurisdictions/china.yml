@@ -15,4 +15,12 @@ notes: >
   Curated entry for official cyber/data/AI governance sources where listed. Does not
   claim complete coverage of PRC law, provincial rules, or all CAC publications.
   Many materials are in Chinese; human review and language expertise required.
+map:
+  display_name: Beijing
+  latitude: 39.9042
+  longitude: 116.4074
+  marker_type: country_capital
+  coverage_status: expanded
+  map_note: >
+    National capital display marker for curated PRC official sources. Not complete legal coverage.
 review_status: pending_review

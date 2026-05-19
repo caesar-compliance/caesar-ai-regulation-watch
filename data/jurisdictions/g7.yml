@@ -15,4 +15,13 @@ monitoring_priority: low
 notes: >
   Intergovernmental process entry for G7 Hiroshima AI Process official materials.
   Does not create binding law; national implementation varies. Not exhaustive of all G7 work.
+map:
+  display_name: Hiroshima (G7 AI Process — display)
+  latitude: 34.3853
+  longitude: 132.4553
+  marker_type: display_only
+  coverage_status: international
+  map_note: >
+    Display marker referencing the G7 Hiroshima AI Process portal. Rotating G7 presidency; not a legal
+    territory or binding jurisdiction boundary.
 review_status: pending_review

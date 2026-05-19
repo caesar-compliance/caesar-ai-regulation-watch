@@ -14,4 +14,12 @@ monitoring_priority: medium
 notes: >
   Entry for identifiable official government and METI AI governance sources. Does not
   include all ministries, standards bodies, or local rules unless added later.
+map:
+  display_name: Tokyo
+  latitude: 35.6762
+  longitude: 139.6503
+  marker_type: country_capital
+  coverage_status: expanded
+  map_note: >
+    National capital display marker; English METI pages are one entry point among many ministries.
 review_status: pending_review

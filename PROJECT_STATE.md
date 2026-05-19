@@ -9,12 +9,12 @@
 | Field | Value |
 |---|---|
 | **Repository** | `caesar-ai-regulation-watch` |
-| **Current version** | `v0.5.0` |
-| **Current phase** | Global static data foundation + timelines + CI |
+| **Current version** | `v0.5.1` |
+| **Current phase** | Global map + review queue + static foundation |
 | **Status** | Read-only Astro site with expanded jurisdictions/sources, timelines, Pagefind, JSON/RSS, CI validate/build |
-| **Working branch** | `agent/v0.5.0-global-data-timeline-ci` |
-| **Latest completed task** | Global YAML expansion, timelines, CI guardrails |
-| **Next recommended step** | Control Tower review of expanded registry; human URL/date verification |
+| **Working branch** | `agent/v0.5.1-map-review-queue` |
+| **Latest completed task** | Static SVG map and read-only review queue |
+| **Next recommended step** | Control Tower review of map/queue; human URL/date verification |
 
 ---
 

@@ -156,3 +156,13 @@
 - **Rationale:** Broader global monitoring foundation with automated data/build guardrails while remaining static and official-source-first.
 - **Boundaries:** No crawlers, watchers, APIs, database, auth, runtime remote fetch, or competitor code/data import.
 - **Artifacts:** `data/jurisdictions/*.yml` (global), `data/sources/*.yml`, `data/timelines/`, `schemas/timeline.schema.json`, `docs/TIMELINE_MODEL.md`, `docs/GLOBAL_COVERAGE_EXPANSION.md`, `docs/CI_VALIDATION.md`.
+
+---
+
+## [DEC-018] — 19 May 2026 — Static map and review queue (v0.5.1)
+
+- **Status:** Approved (implementation complete)
+- **Decision:** Add jurisdiction `map` metadata, static SVG coverage map (no Leaflet, no remote tiles), and read-only review queue page with JSON exports. Defer Leaflet/tiles to a future slice if interactive basemap is needed.
+- **Rationale:** Improves browse and verify UX without runtime ingestion or competitor map stacks.
+- **Boundaries:** Display markers only; queue does not write to YAML or mark items reviewed.
+- **Artifacts:** `src/pages/map.astro`, `src/pages/review-queue.astro`, `docs/MAP_AND_REVIEW_QUEUE.md`, `public/data/map-coverage.json`, `public/data/review-queue.json`.

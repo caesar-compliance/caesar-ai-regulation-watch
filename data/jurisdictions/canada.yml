@@ -14,4 +14,12 @@ monitoring_priority: medium
 notes: >
   Federal and national-authority sources only. Does not include all provincial or
   territorial AI or privacy regimes unless added later. Requires human review.
+map:
+  display_name: Ottawa
+  latitude: 45.4215
+  longitude: -75.6972
+  marker_type: country_capital
+  coverage_status: expanded
+  map_note: >
+    Federal capital display marker. Provincial and territorial regimes are not shown separately.
 review_status: pending_review
