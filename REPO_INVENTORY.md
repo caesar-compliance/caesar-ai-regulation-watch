@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 20 May 2026 (v0.8.5 first public deploy)
+**Last updated:** 20 May 2026 (v0.8.6 content review + candidate refresh)
 
 ---
 
@@ -8,13 +8,13 @@
 
 | File | Role |
 |---|---|
-| **README.md** | Public entry; v0.8.5 live pilot URL + npm commands |
+| **README.md** | Public entry; v0.8.6 live pilot URL + npm commands |
 | **SPEC.md** | Requirements through static site |
 | **ARCHITECTURE.md** | Data layers + Astro publishing |
 | **ROADMAP.md** | v0.6.1 URL verification + review queue |
 | **CHANGELOG.md** | Semver history |
 | **REPO_INVENTORY.md** | This file |
-| **PROJECT_STATE.md** | v0.8.5 phase (public Pages live) |
+| **PROJECT_STATE.md** | v0.8.6 phase (public Pages + first review batch) |
 | **NEXT_ACTIONS.md** | Control Tower URL verification |
 | **docs/SOURCE_VERIFICATION_WORKFLOW.md** | Verification process |
 | **docs/RECORD_EXPANSION_GAPS.md** | Deferred records log |

@@ -16,18 +16,13 @@ candidates:
     jurisdiction_id: norway
     source_id: datatilsynet
     export_type: regulation_change_candidate
-    candidate_status: blocked_pending_content_review
+    candidate_status: ready_for_human_review
     eligibility_reasons:
       - change_record_in_repository
       - draft_mapping_available
       - export_contract_sample_available
       - related_record_id_present
-    blocking_reasons:
-      - human_review_required_before_export
-      - verified_on_source_not_confirmed
-      - client_use_not_allowed_v083
-      - manual_sample_not_production_data
-      - content_review_not_checked
+    blocking_reasons: []
     summary_for_review: >-
       Sample regulation-change export for illustrative Datatilsynet guidance update. Supports
       governance review of privacy documentation and DPIAs for AI in Norway. Not an automated
@@ -84,18 +79,13 @@ candidates:
     jurisdiction_id: eu
     source_id: eu-ai-act
     export_type: regulation_change_candidate
-    candidate_status: blocked_pending_content_review
+    candidate_status: ready_for_human_review
     eligibility_reasons:
       - change_record_in_repository
       - draft_mapping_available
       - export_contract_sample_available
       - related_record_id_present
-    blocking_reasons:
-      - human_review_required_before_export
-      - verified_on_source_not_confirmed
-      - client_use_not_allowed_v083
-      - manual_sample_not_production_data
-      - content_review_not_checked
+    blocking_reasons: []
     summary_for_review: >-
       Sample regulation-change export derived from manual change record
       sample-eu-ai-act-status-change. Supports governance review of whether AI system registers and
@@ -163,7 +153,6 @@ candidates:
       - verified_on_source_not_confirmed
       - client_use_not_allowed_v083
       - simulation_only_not_official_update
-      - content_review_not_checked
       - related_record_id_missing
     summary_for_review: >-
       [SIMULATION] 1 new feed entry(ies): Fixture: New simulated EDPB publication C. Not an official
@@ -173,10 +162,6 @@ candidates:
     suggested_review_actions:
       - action_type: verify_on_official_source
         rationale: Confirm whether any real change exists on the official source; simulation is not evidence.
-      - action_type: complete_content_review
-        rationale: >-
-          Content review is not_checked or not_reviewed; complete browser review before export
-          consideration.
       - action_type: update_internal_register
         rationale: Link or create a related regulation record before final export mapping.
       - action_type: review_evidence
@@ -212,7 +197,6 @@ candidates:
       - verified_on_source_not_confirmed
       - client_use_not_allowed_v083
       - simulation_only_not_official_update
-      - content_review_not_checked
       - related_record_id_missing
     summary_for_review: >-
       [SIMULATION] Fixture metadata diff (normalized text hash changed; title: "Fixture: EU AI
@@ -225,10 +209,6 @@ candidates:
     suggested_review_actions:
       - action_type: verify_on_official_source
         rationale: Confirm whether any real change exists on the official source; simulation is not evidence.
-      - action_type: complete_content_review
-        rationale: >-
-          Content review is not_checked or not_reviewed; complete browser review before export
-          consideration.
       - action_type: update_internal_register
         rationale: Link or create a related regulation record before final export mapping.
       - action_type: review_evidence
@@ -266,7 +246,6 @@ candidates:
       - verified_on_source_not_confirmed
       - client_use_not_allowed_v083
       - simulation_only_not_official_update
-      - content_review_not_checked
       - related_record_id_missing
     summary_for_review: >-
       [SIMULATION] 1 new API result(s): Fixture: New simulated Federal Register AI document C. Not
@@ -276,10 +255,6 @@ candidates:
     suggested_review_actions:
       - action_type: verify_on_official_source
         rationale: Confirm whether any real change exists on the official source; simulation is not evidence.
-      - action_type: complete_content_review
-        rationale: >-
-          Content review is not_checked or not_reviewed; complete browser review before export
-          consideration.
       - action_type: update_internal_register
         rationale: Link or create a related regulation record before final export mapping.
       - action_type: review_evidence

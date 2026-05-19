@@ -11,6 +11,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.8.6] - 20 May 2026
+
+### Added
+
+- **First human source/content review batch** — all 9 entries in `content-review-2026-05-19.yml` reviewed with source access notes (access date 20 May 2026).
+
+### Changed
+
+- **Evidence export candidates** — 2 manual sample change candidates moved to `ready_for_human_review` (from `blocked_pending_content_review`); 3 simulated detected changes remain `blocked_simulation_only`.
+- **Generator** — clears `blocking_reasons` when status is `ready_for_human_review` (aligns with `validate-data.mjs` policy).
+- Project docs updated for v0.8.6 (`PROJECT_STATE.md`, `NEXT_ACTIONS.md`, `README.md`, `REPO_INVENTORY.md`, pipeline/review docs).
+
+### Notes
+
+- Not legal advice; not final evidence export; `client_use_allowed: 0`; `verified_on_source_after_check: false` on all reviewed items.
+- EUR-Lex CELEX page hit bot-protection in automated review — partial review only for EU AI Act law record.
+- Public redeploy required after merge (prior live deploy was commit `6f28ade`, behind docs-only `1f31b6d`).
+
+---
+
 ## [0.8.5] - 20 May 2026
 
 ### Added

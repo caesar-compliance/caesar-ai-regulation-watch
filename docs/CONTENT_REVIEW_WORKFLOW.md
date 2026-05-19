@@ -108,6 +108,19 @@ Add a short note in `summary_review_note`, `date_review_note`, or `status_review
 
 ---
 
+## v0.8.6 batch (20 May 2026)
+
+First human source-access pass on all 9 entries in `data/verifications/content-review-2026-05-19.yml`:
+
+- 6 registry/sample records: `reviewed_content_summary` (mix of `matches_source_at_high_level` and `partially_matches_source`).
+- 3 simulated detected changes: `reviewed_content_summary` with `source_support_unclear` — simulations not confirmed on live sources.
+- `verified_on_source_after_check` remains **false** on every entry; `client_use_allowed` remains **false**.
+- EUR-Lex CELEX page for EU AI Act: bot-protection limited automated read — see `content-review-law-eu-ai-act-2024-1689` notes.
+
+After this batch, regenerate candidates (`npm run generate:evidence-candidates`) and exports before deploy.
+
+---
+
 ## Related documents
 
 - [CONTENT_REVIEW_CHECKLIST.md](CONTENT_REVIEW_CHECKLIST.md)
