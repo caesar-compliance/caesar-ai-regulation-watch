@@ -11,6 +11,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.9.0] - 20 May 2026
+
+### Added
+
+- **DEPLOYMENTS.md** — deployment event log (Deployment ID, product version, commit, run ID, URL, smoke result) separate from work items and product version.
+- **`npm run build:custom-domain`** — site root `/` at `https://regulation-watch.caesar.no/`.
+
+### Changed
+
+- **Product version** — `v0.9.0` across `package.json`, `project-version.ts`, public snapshot, and docs.
+- **Deploy workflow** — `deploy-static-site.yml` builds with custom domain (no `/caesar-ai-regulation-watch/` base path); RSS/export URLs use `regulation-watch.caesar.no`.
+- **Ecosystem alignment** — follows hub [Versioning and Deployment Standard](https://github.com/caesar-compliance/caesar-ai-governance-hub/blob/main/docs/VERSIONING_AND_DEPLOYMENT_STANDARD.md).
+
+### Notes
+
+- Public pilot only; not final/client evidence; `client_use_allowed: 0`; DNS CNAME already configured by Control Tower.
+
+---
+
 ## [0.8.9] - 20 May 2026
 
 ### Changed

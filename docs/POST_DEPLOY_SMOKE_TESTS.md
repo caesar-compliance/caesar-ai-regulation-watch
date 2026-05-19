@@ -1,15 +1,21 @@
 # Post-Deploy Smoke Tests
 
-**Phase:** v0.8.9  
+**Phase:** v0.9.0  
 **After:** successful `deploy-static-site.yml` run
 
-**Last recorded pass:** 20 May 2026 — deploy run [26130431228](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26130431228). See [PUBLIC_DEPLOYMENT_BASELINE.md](PUBLIC_DEPLOYMENT_BASELINE.md).
+**Canonical base URL (custom domain):**
 
-**Base URL (GitHub Pages project site):**
+```text
+https://regulation-watch.caesar.no/
+```
+
+**Legacy project URL (optional check after deploy):**
 
 ```text
 https://caesar-compliance.github.io/caesar-ai-regulation-watch/
 ```
+
+Record results in [DEPLOYMENTS.md](../DEPLOYMENTS.md) and [PUBLIC_DEPLOYMENT_BASELINE.md](PUBLIC_DEPLOYMENT_BASELINE.md).
 
 Replace `{BASE}` below with that URL (trailing slash optional).
 

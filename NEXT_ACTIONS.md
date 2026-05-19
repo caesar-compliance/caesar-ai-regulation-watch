@@ -2,26 +2,27 @@
 
 **Last updated:** 20 May 2026
 
-**Current version:** v0.8.9 · **Phase:** public pilot + source verification refresh · **Branch:** `main`
+**Current version:** v0.9.0 · **Phase:** public pilot — custom domain · **Branch:** `main` (after merge)
 
-**Live site:** https://caesar-compliance.github.io/caesar-ai-regulation-watch/
+**Canonical URL:** https://regulation-watch.caesar.no/
 
 ---
 
 ## Immediate priority
 
-1. **EUR-Lex deep pass** for `law-eu-ai-act-2024-1689` — candidate `candidate-change-sample-eu-ai-act-status-change` is `needs_more_source_review`.
-2. **Mapping review** — draft `regulation_watch.*` control/evidence refs (design only; no caesar-ai-evidence implementation without approval).
-3. Second content review batch for remaining registry records; Datatilsynet AI-theme subpage URL.
+1. **Deploy v0.9.0** — Actions → **Deploy static site** → `confirm_disclaimers: DEPLOY`; record run ID in [DEPLOYMENTS.md](DEPLOYMENTS.md).
+2. **Smoke test** — [docs/POST_DEPLOY_SMOKE_TESTS.md](docs/POST_DEPLOY_SMOKE_TESTS.md) against custom domain; update deployment row and baseline.
+3. **Tag** — `regulation-watch-v0.9.0` after smoke pass.
+4. **EUR-Lex deep pass** — EU AI Act candidate remains `needs_more_source_review`.
 
 ---
 
 ## Deployment (ongoing)
 
-1. **Redeploy:** Actions → **Deploy static site** → `confirm_disclaimers: DEPLOY` (not automatic on merge).
-2. **Pre-deploy:** `docs/PUBLIC_RELEASE_CHECKLIST.md`.
-3. **Post-deploy:** `docs/POST_DEPLOY_SMOKE_TESTS.md`; update `docs/PUBLIC_DEPLOYMENT_BASELINE.md` if baseline changes.
-4. **Custom domain** (`regulations.caesar.no`) — deferred.
+1. **Pre-deploy:** `docs/PUBLIC_RELEASE_CHECKLIST.md`.
+2. **Build parity:** `npm run build:custom-domain` + `npm run verify:dist` (root `/`, no project base path).
+3. **Post-deploy:** smoke tests; update `DEPLOYMENTS.md` and `docs/PUBLIC_DEPLOYMENT_BASELINE.md`.
+4. **Legacy URL** — document whether `https://caesar-compliance.github.io/caesar-ai-regulation-watch/` redirects, works, or 404s.
 
 ---
 
@@ -29,8 +30,9 @@
 
 ```bash
 npm run build                    # local / CI (root base path)
-npm run build:pages              # GitHub Pages base path (parity with deploy workflow)
-ASTRO_BASE_PATH=/caesar-ai-regulation-watch/ npm run verify:dist  # after build:pages
+npm run build:custom-domain      # production custom domain (parity with deploy workflow)
+npm run verify:dist              # after build:custom-domain
+npm run build:pages              # legacy GitHub project path only (rollback reference)
 npm run validate:data
 npm run generate:evidence-candidates
 npm run generate:exports
@@ -38,11 +40,10 @@ npm run generate:exports
 
 ---
 
-## Not in scope (v0.8.7)
+## Not in scope
 
 - Final evidence export to caesar-ai-evidence
 - `client_use_allowed: true` on candidates or reviews
-- Custom domain / DNS
 - Auto-deploy on every merge to `main`
 
-See [ROADMAP.md](ROADMAP.md), [docs/EVIDENCE_EXPORT_CANDIDATE_REVIEW_WORKFLOW.md](docs/EVIDENCE_EXPORT_CANDIDATE_REVIEW_WORKFLOW.md), and [docs/PUBLIC_DEPLOYMENT_BASELINE.md](docs/PUBLIC_DEPLOYMENT_BASELINE.md).
+See [ROADMAP.md](ROADMAP.md), [DEPLOYMENTS.md](DEPLOYMENTS.md), and [docs/PUBLIC_DEPLOYMENT_BASELINE.md](docs/PUBLIC_DEPLOYMENT_BASELINE.md).

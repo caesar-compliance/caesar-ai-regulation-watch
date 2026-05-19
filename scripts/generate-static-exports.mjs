@@ -1203,7 +1203,7 @@ writeJson(path.join(PUBLIC_DATA, "evidence-export-candidate-reviews.json"), {
 writeJson(path.join(PUBLIC_DATA, "regulation-watch-snapshot.json"), snapshot);
 
 // RSS feed — sample changes only
-const siteBase = "https://regulations.caesar.no";
+const siteBase = process.env.ASTRO_SITE || "https://regulation-watch.caesar.no";
 const channelTitle = "Caesar AI Regulation Watch — Sample changes (pilot)";
 const channelDescription = stripMultiline(
   "Manual sample regulatory change records for governance review. Not legal advice. Not automated monitoring. Human review required.",
