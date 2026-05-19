@@ -1,7 +1,10 @@
 # Competitor Benchmarks — Caesar AI Regulation Watch
 
 **Prepared:** 19 May 2026  
+**Updated:** v0.3.2 — linked to acceleration policy  
 **Purpose:** Study product patterns and feature categories. **Do not copy** code, UI, database schemas, proprietary text, or restricted implementations.
+
+Policy: [THIRD_PARTY_CODE_AND_DATA_POLICY.md](THIRD_PARTY_CODE_AND_DATA_POLICY.md) · Audit: [../research/THIRD_PARTY_ACCELERATION_AUDIT.md](../research/THIRD_PARTY_ACCELERATION_AUDIT.md) · Replication plan: [../research/COMPETITOR_FEATURE_REPLICATION_PLAN.md](../research/COMPETITOR_FEATURE_REPLICATION_PLAN.md)
 
 ---
 
@@ -61,18 +64,35 @@
 ### AI Legislation Tracker (open source)
 
 - **URL:** https://github.com/delschlangen/ai-legislation-tracker
-- **Type:** Structured dataset / tooling (verify license before reuse)
+- **Type:** Structured dataset / tooling — **MIT License** (verified 19 May 2026)
+- **Classification:** `data_seed_candidate` — see [ACCELERATION_DECISION_MATRIX.md](ACCELERATION_DECISION_MATRIX.md)
 - **What to study:** Queryable regulation records, structured fields, global scope data model
 - **Caesar takeaway:** Machine-readable registry patterns; merge with Caesar control/evidence layer and official-source-first policy
-- **Reuse:** License verification required; attribute if used as supplementary data
+- **Reuse:** Permitted with attribution; **re-verify every row against official sources** before `reviewed`
 
 ### artificialintelligenceact.eu
 
 - **URL:** https://artificialintelligenceact.eu/
 - **Type:** Public EU AI Act resource (content site)
+- **Classification:** `reference_only`
 - **What to study:** AI Act-focused navigation, timeline/checker UX, topic breakdown for EU AI Act
 - **Caesar takeaway:** Deep EU AI Act user experience; Caesar covers EU AI Act as **one jurisdiction cluster** within global product
-- **Reuse:** Link and cite; do not copy site text or tools
+- **Reuse:** Link and cite; do not copy site text or tools; prefer EUR-Lex / EU AI Office as primary
+
+### Fairly Regulation and Policy Tracker
+
+- **URL:** https://github.com/fairlyAI/fairly-regulation-policy-tracker
+- **Type:** Feedback repo for Fairly’s commercial global regulatory map
+- **Classification:** `blocked_or_unknown` — **no LICENSE file** in repo (19 May 2026)
+- **What to study:** Color-coded status legend, sector roadmap presentation
+- **Caesar takeaway:** Status color concept only; implement with Caesar taxonomies and original palette
+- **Reuse:** **Blocked** for data/code until license clarified; benchmark UX only
+
+### Techieray API (supplement)
+
+- **URL:** https://pypi.org/project/techieray-ai-reg-tracker-api/ · [API Terms](https://docs.google.com/document/d/e/2PACX-1vQnGlGUDn83BHl-fNkQJIQNndktpK-AY2FGwR3z4-PkQQgvDrix-wZnoAOne6BDZw/pub)
+- **Classification:** `api_integration_candidate` — proprietary; no public redistribution of API Data on standard tiers
+- **Reuse:** Internal evaluation only under subscription; not Caesar primary truth
 
 ---
 

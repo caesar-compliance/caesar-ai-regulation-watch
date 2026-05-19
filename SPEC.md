@@ -1,7 +1,7 @@
 # Specification — Caesar AI Regulation Watch
 
 **Last updated:** 19 May 2026  
-**Status:** v0.3.1 — spec, registry, samples, taxonomies, and export contract (no watchers or UI)
+**Status:** v0.3.2 — spec, registry, samples, taxonomies, export contract, and third-party acceleration plan (no watchers, UI, or imported dependencies)
 
 ---
 
@@ -189,13 +189,32 @@ Draft references use `regulation_watch.control.*` and `regulation_watch.evidence
 
 ---
 
+## 8.1 Third-party acceleration plan (v0.3.2 — delivered)
+
+Documentation-only adoption plan; **no third-party code or package managers** in this release:
+
+| Path | Contents |
+|---|---|
+| [docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md](docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md) | Allowed/prohibited reuse, clean-room, attribution |
+| [docs/ACCELERATION_DECISION_MATRIX.md](docs/ACCELERATION_DECISION_MATRIX.md) | Prioritised candidates and phases |
+| [research/THIRD_PARTY_ACCELERATION_AUDIT.md](research/THIRD_PARTY_ACCELERATION_AUDIT.md) | Per-source classification |
+| [research/OPEN_SOURCE_COMPONENT_SHORTLIST.md](research/OPEN_SOURCE_COMPONENT_SHORTLIST.md) | Map, site, search, validation shortlist |
+| [research/COMPETITOR_FEATURE_REPLICATION_PLAN.md](research/COMPETITOR_FEATURE_REPLICATION_PLAN.md) | Clean-room feature replication |
+| [research/OFFICIAL_SOURCE_INGESTION_CANDIDATES.md](research/OFFICIAL_SOURCE_INGESTION_CANDIDATES.md) | Future watcher planning |
+
+Competitor products are benchmark inputs only. Future phases may use approved open-source dependencies and official-source ingestion.
+
+---
+
 ## 9. MVP scope (next implementation phases)
 
 1. ~~**Source registry** (YAML) for pilot jurisdictions.~~ **Done (v0.2.0).**
 2. ~~**Sample law/guidance/change records** and mapping samples.~~ **Done (v0.3.0 manual).**
 3. ~~**Export contract draft** for regulation-change.~~ **Done (v0.3.1 contract + sample).** Align with `caesar-ai-evidence` validator (cross-repo).
-4. **Timeline file** per pilot jurisdiction.
-5. **Static site skeleton** reading `data/` (no watcher automation).
+4. ~~**Third-party acceleration policy and plan.**~~ **Done (v0.3.2).**
+5. **Timeline file** per pilot jurisdiction.
+6. **Static site skeleton** reading `data/` (v0.3.3; no watcher automation).
+7. **CI schema validation** (ajv) when package manager approved.
 
 ---
 
@@ -278,4 +297,6 @@ All user-facing text must:
 - [docs/SAMPLE_RECORDS_GUIDE.md](docs/SAMPLE_RECORDS_GUIDE.md)
 - [docs/TAXONOMY_AND_REVIEW_WORKFLOW.md](docs/TAXONOMY_AND_REVIEW_WORKFLOW.md)
 - [docs/EVIDENCE_EXPORT_CONTRACT.md](docs/EVIDENCE_EXPORT_CONTRACT.md)
+- [docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md](docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md)
+- [docs/ACCELERATION_DECISION_MATRIX.md](docs/ACCELERATION_DECISION_MATRIX.md)
 - [ROADMAP.md](ROADMAP.md)

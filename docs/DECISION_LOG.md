@@ -105,3 +105,14 @@
 - **Decision:** v0.3.1 adds canonical taxonomies, expanded review workflow (`draft` through `rejected_for_client_use`), draft `regulation_watch.control.*` / `regulation_watch.evidence.*` references with `reference_alignment: draft_pending_caesar_ai_evidence`, and `evidence-export-record` schema plus sample YAML. No export runtime, watchers, or UI.
 - **Data boundaries:** `record_origin` distinguishes `official_source_registry`, `manual_sample`, and `future_watcher_output` on entity records.
 - **Rationale:** Resolves v0.3.0 caveats (placeholder refs, undefined export shape, unstable review statuses) before v0.4 watchers or static site.
+
+---
+
+## [DEC-013] — 19 May 2026 — Third-party acceleration plan (v0.3.2)
+
+- **Status:** Approved (documentation only)
+- **Decision:** Add third-party acceleration **policy and research** without importing code, package managers, competitor datasets, or watchers. Competitor products remain **benchmark inputs**; official sources remain **primary truth**. Approved future stack direction: **Astro** (static site), **Leaflet** (2D map), **Pagefind** (search), **ajv** (schema CI) — adoption deferred to v0.3.3+.
+- **Blocked until clarified:** Fairly regulation tracker repo (no LICENSE file). Techieray API data must not populate public Caesar exports without Commercial tier and terms compliance.
+- **Data seed:** AI Legislation Tracker (MIT) may be used as supplementary gap-finding seed only after per-record official verification.
+- **Rationale:** Accelerate delivery legally and technically; align with hub [LICENSE_AND_CODE_POLICY](https://github.com/caesar-compliance/caesar-ai-governance-hub/blob/main/research/LICENSE_AND_CODE_POLICY.md); keep v0.3.x data foundation clean before implementation.
+- **Artifacts:** [docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md](THIRD_PARTY_CODE_AND_DATA_POLICY.md), [research/THIRD_PARTY_ACCELERATION_AUDIT.md](../research/THIRD_PARTY_ACCELERATION_AUDIT.md), [docs/ACCELERATION_DECISION_MATRIX.md](ACCELERATION_DECISION_MATRIX.md).

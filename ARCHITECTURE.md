@@ -1,7 +1,7 @@
 # Architecture — Caesar AI Regulation Watch
 
 **Last updated:** 19 May 2026  
-**Status:** v0.3.1 — static registry, samples, taxonomies, and export contract; ingestion/UI not implemented
+**Status:** v0.3.2 — static registry, samples, taxonomies, export contract, and acceleration plan; ingestion/UI not implemented; no third-party code imported
 
 ---
 
@@ -121,7 +121,7 @@
                               [Site build | RSS | JSON | Evidence export]
 ```
 
-**v0.3.1 phase:** Layer A adds `data/taxonomies/`, export contract schema, and sample export YAML. All data remains **static and manual** — no watcher pipeline. Layers B–C remain deferred.
+**v0.3.2 phase:** Layer A unchanged (static manual data). Added third-party acceleration policy and component shortlist ([docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md](docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md), [research/](../research/)). Planned stack: Astro static site, Leaflet map, Pagefind search, ajv validation — **not installed in v0.3.2**. Layers B–C remain deferred until v0.4.
 
 ---
 
@@ -140,9 +140,10 @@ caesar-ai-regulation-watch/
 ├── data/taxonomies/         # v0.3.1 canonical values
 ├── mappings/                # v0.3.0 sample control & evidence links
 ├── exports/samples/         # v0.3.1 export contract samples (no runtime export)
-├── docs/                    # blueprint, PILOT_SOURCE_REGISTRY
-├── site/                    # future: static site source
-└── (no package manager; no watcher code)
+├── docs/                    # blueprint, policies, PILOT_SOURCE_REGISTRY
+├── research/                # v0.3.2 acceleration audit (no vendored code)
+├── site/                    # future: static site source (Astro + Leaflet per plan)
+└── (no package manager in v0.3.2; no watcher code)
 ```
 
 The registry and sample records form the **static data foundation**: human-curated YAML in git only. Change samples are **not** watcher output. Future ingestion layers read from `data/sources/` definitions but are **not implemented**.
@@ -176,8 +177,8 @@ Import mechanism: file drop, git submodule, or API — **TBD** at OS spec time.
 
 ## 8. Public site architecture
 
-- **Static generation** from data (Eleventy, Astro, or plain HTML — decision deferred).
-- **Globe/map** as client-side module; fallback list for accessibility.
+- **Static generation** from data — **Astro** recommended ([research/OPEN_SOURCE_COMPONENT_SHORTLIST.md](research/OPEN_SOURCE_COMPONENT_SHORTLIST.md)).
+- **Map** — **Leaflet** (2D) recommended; 3D globe deferred; fallback list for accessibility.
 - **CDN/GitHub Pages** hosting until `regulations.caesar.no` routed.
 - No server-side legal logic in v1.
 

@@ -8,14 +8,14 @@
 
 | File | Role |
 |---|---|
-| **README.md** | Public entry; v0.3.1 status |
-| **SPEC.md** | Requirements through taxonomy and export contract |
-| **ARCHITECTURE.md** | Static data layers including taxonomies and exports |
-| **ROADMAP.md** | Phases through v0.3.1 |
+| **README.md** | Public entry; v0.3.2 status |
+| **SPEC.md** | Requirements through acceleration plan |
+| **ARCHITECTURE.md** | Static data layers; planned Astro/Leaflet stack |
+| **ROADMAP.md** | Phases through v0.3.2 |
 | **CHANGELOG.md** | Semver history |
 | **REPO_INVENTORY.md** | This file |
-| **PROJECT_STATE.md** | v0.3.1 phase |
-| **NEXT_ACTIONS.md** | Cross-repo evidence alignment |
+| **PROJECT_STATE.md** | v0.3.2 phase |
+| **NEXT_ACTIONS.md** | Evidence alignment + v0.3.3 implementation |
 
 ---
 
@@ -66,6 +66,17 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 
 ---
 
+## research/ (v0.3.2)
+
+| File | Role |
+|---|---|
+| **research/THIRD_PARTY_ACCELERATION_AUDIT.md** | Per-source reuse classification |
+| **research/OPEN_SOURCE_COMPONENT_SHORTLIST.md** | Map, site, search, validation picks |
+| **research/COMPETITOR_FEATURE_REPLICATION_PLAN.md** | Clean-room feature plan |
+| **research/OFFICIAL_SOURCE_INGESTION_CANDIDATES.md** | Future watcher table |
+
+---
+
 ## docs/
 
 | File | Role |
@@ -74,6 +85,9 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **docs/SAMPLE_RECORDS_GUIDE.md** | v0.3.0 samples |
 | **docs/TAXONOMY_AND_REVIEW_WORKFLOW.md** | v0.3.1 taxonomies and review |
 | **docs/EVIDENCE_EXPORT_CONTRACT.md** | v0.3.1 export contract |
-| **docs/DECISION_LOG.md** | Decisions through DEC-012 |
+| **docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md** | v0.3.2 reuse policy |
+| **docs/ACCELERATION_DECISION_MATRIX.md** | v0.3.2 decision matrix |
+| **docs/DECISION_LOG.md** | Decisions through DEC-013 |
+| **docs/COMPETITOR_BENCHMARKS.md** | Benchmarks incl. Fairly |
 | **docs/FULL_SCALE_PRODUCT_BLUEPRINT.md** | Master blueprint |
 | **docs/RESEARCH_CONTEXT.md** | Domain research (preserve) |

@@ -4,14 +4,14 @@
 
 This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
 
-**Current (v0.3.1):** taxonomies, review workflow, and evidence-export contract — still no watchers, UI, APIs, or automated monitoring. **Next:** Cross-repo alignment with `caesar-ai-evidence`; optional static site skeleton.
+**Current (v0.3.2):** third-party acceleration policy and adoption plan — still no watchers, UI, APIs, imported dependencies, or automated monitoring. **Next:** Cross-repo evidence alignment; v0.3.3 static site skeleton + CI validation.
 
 ---
 
 ## Phase overview
 
 ```text
-v0.1 Foundation ──> v0.2.0 Registry ──> v0.3.0 Samples ──> v0.3.1 Taxonomy/export ──> v0.4 Watchers ──> v0.4 Watchers ──> v0.5 Public site & feeds ──> v1.0 Pilot release
+v0.1 Foundation ──> v0.2.0 Registry ──> v0.3.0 Samples ──> v0.3.1 Taxonomy/export ──> v0.3.2 Acceleration plan ──> v0.3.3 Static site/CI ──> v0.4 Watchers ──> v0.5 Public site & feeds ──> v1.0 Pilot release
 ```
 
 ---
@@ -94,13 +94,33 @@ v0.1 Foundation ──> v0.2.0 Registry ──> v0.3.0 Samples ──> v0.3.1 Ta
 
 ---
 
-## v0.3.2 — Static site skeleton (optional)
+## v0.3.2 — Third-party acceleration audit & adoption plan
+
+**Status:** Complete on branch `agent/v0.3.2-third-party-acceleration-audit` (19 May 2026)
+
+**Goal:** Document how to accelerate delivery using permissive open source, official sources, and licensed APIs — without importing third-party code in this release.
+
+**Deliverables:**
+
+- [x] [docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md](docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md)
+- [x] [docs/ACCELERATION_DECISION_MATRIX.md](docs/ACCELERATION_DECISION_MATRIX.md)
+- [x] [research/THIRD_PARTY_ACCELERATION_AUDIT.md](research/THIRD_PARTY_ACCELERATION_AUDIT.md)
+- [x] [research/OPEN_SOURCE_COMPONENT_SHORTLIST.md](research/OPEN_SOURCE_COMPONENT_SHORTLIST.md)
+- [x] [research/COMPETITOR_FEATURE_REPLICATION_PLAN.md](research/COMPETITOR_FEATURE_REPLICATION_PLAN.md)
+- [x] [research/OFFICIAL_SOURCE_INGESTION_CANDIDATES.md](research/OFFICIAL_SOURCE_INGESTION_CANDIDATES.md)
+- [x] Updated README, SPEC, ARCHITECTURE, benchmarks, DECISION_LOG
+
+**Exit criteria:** Control Tower accepts policy; no package managers or vendored code committed.
+
+---
+
+## v0.3.3 — Static site skeleton & schema CI (optional)
 
 **Status:** Planned
 
-**Goal:** Read-only static pages from `data/` (no automated fetching).
+**Goal:** Read-only static pages from `data/` plus JSON Schema validation in CI (no automated fetching).
 
-**Deliverables:** Jurisdiction and record listing templates; source links and disclaimers on every page.
+**Deliverables:** Astro (or approved SSG) skeleton; ajv validation; jurisdiction listing; source links and disclaimers on every page.
 
 ---
 

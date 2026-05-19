@@ -3,7 +3,7 @@
 **Global AI regulation monitoring for governance teams** — part of the [Caesar AI Governance Hub](https://github.com/caesar-compliance/caesar-ai-governance-hub) ecosystem.
 
 **Last updated:** 19 May 2026  
-**Status:** v0.3.1 — taxonomy, review workflow, and evidence-export contract (static data only; no watchers, UI, APIs, or automated monitoring)
+**Status:** v0.3.2 — third-party acceleration policy and adoption plan (static data only; no third-party code imported; no watchers, UI, APIs, or automated monitoring)
 
 ---
 
@@ -102,8 +102,9 @@ We study product patterns from these resources; we do **not** copy their code, U
 | IAPP Global AI Law and Policy Tracker | https://iapp.org/resources/article/global-ai-legislation-tracker |
 | AI Legislation Tracker (open dataset) | https://github.com/delschlangen/ai-legislation-tracker |
 | artificialintelligenceact.eu | https://artificialintelligenceact.eu/ |
+| Fairly Regulation and Policy Tracker | https://github.com/fairlyAI/fairly-regulation-policy-tracker |
 
-Details: [docs/COMPETITOR_BENCHMARKS.md](docs/COMPETITOR_BENCHMARKS.md)
+Details: [docs/COMPETITOR_BENCHMARKS.md](docs/COMPETITOR_BENCHMARKS.md). Competitor features are **benchmark inputs only** — see [docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md](docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md).
 
 ---
 
@@ -125,6 +126,19 @@ Manual **law, guidance, change, and mapping** samples for data-model testing onl
 - `mappings/` — control and evidence mapping samples
 - `schemas/law.schema.json`, `guidance.schema.json`, `change.schema.json`, and mapping schemas
 
+## Third-party acceleration plan (v0.3.2)
+
+Policy and research for faster delivery using **permissive open source**, **official sources**, and **licensed APIs** — without importing competitor code or data in this release:
+
+- [docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md](docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md)
+- [docs/ACCELERATION_DECISION_MATRIX.md](docs/ACCELERATION_DECISION_MATRIX.md)
+- [research/THIRD_PARTY_ACCELERATION_AUDIT.md](research/THIRD_PARTY_ACCELERATION_AUDIT.md)
+- [research/OPEN_SOURCE_COMPONENT_SHORTLIST.md](research/OPEN_SOURCE_COMPONENT_SHORTLIST.md)
+- [research/COMPETITOR_FEATURE_REPLICATION_PLAN.md](research/COMPETITOR_FEATURE_REPLICATION_PLAN.md)
+- [research/OFFICIAL_SOURCE_INGESTION_CANDIDATES.md](research/OFFICIAL_SOURCE_INGESTION_CANDIDATES.md)
+
+Future implementation may adopt approved open-source dependencies and official-source ingestion per the matrix. **No package managers or third-party source trees in v0.3.2.**
+
 ## Taxonomy and export contract (v0.3.1)
 
 Canonical values, review workflow, and future evidence export shape:
@@ -145,6 +159,8 @@ Canonical values, review workflow, and future evidence export shape:
 | [docs/SAMPLE_RECORDS_GUIDE.md](docs/SAMPLE_RECORDS_GUIDE.md) | Manual sample law/guidance/change records |
 | [docs/TAXONOMY_AND_REVIEW_WORKFLOW.md](docs/TAXONOMY_AND_REVIEW_WORKFLOW.md) | Taxonomies and review statuses |
 | [docs/EVIDENCE_EXPORT_CONTRACT.md](docs/EVIDENCE_EXPORT_CONTRACT.md) | Future regulation-change export contract |
+| [docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md](docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md) | Reuse, attribution, clean-room rules |
+| [docs/ACCELERATION_DECISION_MATRIX.md](docs/ACCELERATION_DECISION_MATRIX.md) | Prioritised acceleration decisions |
 | [docs/FULL_SCALE_PRODUCT_BLUEPRINT.md](docs/FULL_SCALE_PRODUCT_BLUEPRINT.md) | End-to-end product blueprint |
 | [SPEC.md](SPEC.md) | Requirements, scope, inputs/outputs |
 | [ARCHITECTURE.md](ARCHITECTURE.md) | Layers, data flow, integrations |
@@ -167,6 +183,6 @@ Canonical values, review workflow, and future evidence export shape:
 
 ## Project status
 
-**v0.3.1** stabilises taxonomies, review workflow, and the evidence-export contract (19 May 2026). v0.2.0 registry and v0.3.0 samples are approved with draft `regulation_watch.*` refs. No automated monitoring or UI yet.
+**v0.3.2** defines third-party acceleration policy and adoption research (19 May 2026). v0.3.1 taxonomies and export contract remain the data foundation. No third-party code imported; competitor features are benchmarks only. No automated monitoring or UI yet.
 
 See [PROJECT_STATE.md](PROJECT_STATE.md) and [NEXT_ACTIONS.md](NEXT_ACTIONS.md).

@@ -11,6 +11,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.3.2] - 19 May 2026
+
+### Added
+
+- Third-party acceleration policy and adoption plan (documentation only).
+- [docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md](docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md) — reuse, clean-room, attribution, checklist.
+- [docs/ACCELERATION_DECISION_MATRIX.md](docs/ACCELERATION_DECISION_MATRIX.md) — prioritised candidates and phases.
+- [research/THIRD_PARTY_ACCELERATION_AUDIT.md](research/THIRD_PARTY_ACCELERATION_AUDIT.md) — competitor, OSS, and official-source classifications.
+- [research/OPEN_SOURCE_COMPONENT_SHORTLIST.md](research/OPEN_SOURCE_COMPONENT_SHORTLIST.md) — map, site, search, validation recommendations.
+- [research/COMPETITOR_FEATURE_REPLICATION_PLAN.md](research/COMPETITOR_FEATURE_REPLICATION_PLAN.md) — clean-room feature replication.
+- [research/OFFICIAL_SOURCE_INGESTION_CANDIDATES.md](research/OFFICIAL_SOURCE_INGESTION_CANDIDATES.md) — future watcher planning table.
+
+### Changed
+
+- README, SPEC, ARCHITECTURE, ROADMAP, PROJECT_STATE, NEXT_ACTIONS, REPO_INVENTORY, COMPETITOR_BENCHMARKS, DECISION_LOG updated for v0.3.2.
+- ROADMAP: static site moved to v0.3.3; v0.3.2 is acceleration audit.
+
+### Notes
+
+- No third-party code, package managers, crawlers, or competitor datasets imported.
+- Competitor features remain benchmark inputs only.
+
+---
+
 ## [0.3.1] - 19 May 2026
 
 ### Added
