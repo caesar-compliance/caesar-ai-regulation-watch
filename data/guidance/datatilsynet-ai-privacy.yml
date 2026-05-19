@@ -7,17 +7,17 @@ record_origin: manual_sample
 verified_on_source: false
 content_review_status: not_reviewed
 last_content_review_id: content-review-guidance-datatilsynet-ai-privacy
-title: Datatilsynet — AI and privacy theme (sample pointer)
+title: Kunstig intelligens og personvern (Datatilsynet)
 jurisdiction_id: norway
 source_id: datatilsynet
 guidance_status: guidance
-official_url: https://www.datatilsynet.no/
+official_url: https://www.datatilsynet.no/regelverk-og-verktoy/rapporter-og-utredninger/kunstig-intelligens/
 summary_for_review: >
-  Manual sample record for Norwegian Data Protection Authority material on AI,
-  automated decisions, and privacy. Supports governance review of DPIAs, transparency
-  information, and lawful-basis documentation where AI processes personal data.
-  Primary language on the authority site is Norwegian; verify current theme pages
-  on the official URL before client use.
+  Manual sample record pointing to Datatilsynet's official AI and privacy theme hub
+  (Norwegian). Supports governance review of DPIAs, transparency information, and
+  lawful-basis documentation where AI processes personal data. Subpages cover
+  recommendations, DPIA guidance, and tools — verify current pages on the official URL
+  before client use. Not a substitute for reading applicable law or qualified advice.
 affected_topics:
   - gdpr
   - automated_decision_making

@@ -9,12 +9,12 @@
 | Field | Value |
 |---|---|
 | **Repository** | `caesar-ai-regulation-watch` |
-| **Current version** | `v0.8.8` |
-| **Current phase** | Public GitHub Pages pilot + export-candidate governance review gate |
-| **Status** | Pilot **live** at `https://caesar-compliance.github.io/caesar-ai-regulation-watch/`; v0.8.8 aligns public HTML with JSON version labels and strengthens deploy verification |
+| **Current version** | `v0.8.9` |
+| **Current phase** | Public GitHub Pages pilot + official source verification refresh |
+| **Status** | Pilot **live** at `https://caesar-compliance.github.io/caesar-ai-regulation-watch/`; v0.8.9 deepens EUR-Lex/EC and Datatilsynet source verification; candidate reviews refreshed |
 | **Working branch** | `main` (after merge) |
-| **Latest completed task** | v0.8.8 public HTML consistency redeploy + candidate review gate visibility in static HTML |
-| **Next recommended step** | EUR-Lex deep pass; mapping review design; final export contract — no caesar-ai-evidence writes without approval |
+| **Latest completed task** | v0.8.9 official source deep verification + candidate review refresh |
+| **Next recommended step** | Human browser EUR-Lex read for EU AI Act candidate; mapping review design — no caesar-ai-evidence writes without approval |
 
 ---
 

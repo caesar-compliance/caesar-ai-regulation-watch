@@ -13,11 +13,12 @@ source_id: eu-ai-act
 legal_status: in_force
 official_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689
 summary_for_review: >
-  Manual sample record linking to the EU AI Act instrument on EUR-Lex. Supports
-  governance review of whether AI system registers, risk processes, and vendor
-  documentation may need alignment with tracked EU requirements. Dates below are
-  illustrative samples for schema testing—verify all dates on the official source
-  before client use.
+  Manual sample record linking to the EU AI Act instrument on EUR-Lex (CELEX 32024R1689).
+  Supports governance review of whether AI system registers, risk processes, and vendor
+  documentation may need alignment with tracked EU requirements. v0.8.9: Commission AI Act
+  overview page corroborates instrument identity; EUR-Lex full text still requires human
+  browser review (automated access limited). Dates below are illustrative — verify on official
+  sources before client use.
 key_dates:
   - label: Regulation published in Official Journal (sample — verify on EUR-Lex)
     date: "2024-07-12"

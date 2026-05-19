@@ -1,14 +1,14 @@
-# Evidence export candidate review — v0.8.7 governance/export-readiness gate
+# Evidence export candidate review — v0.8.7 governance gate; v0.8.9 source verification refresh
 # Not final evidence. Not client evidence. client_use_allowed: false for every entry.
 
 evidence_export_candidate_review_batch_id: evidence-export-candidate-review-2026-05-20
 review_date: '2026-05-20'
 verifier_type: curator_batch
 legal_safe_note: >-
-  v0.8.7 export-candidate governance review batch. Internal export-readiness review only — not
-  final evidence export, not client evidence, not legal advice, no compliance guarantee, no
-  complete coverage claim. client_use_allowed and final_evidence_allowed remain false for every
-  reviewed candidate. Qualified human review still required before any real client use.
+  v0.8.9 export-candidate governance review batch (refreshed 20 May 2026). Internal export-readiness
+  review only — not final evidence export, not client evidence, not legal advice, no compliance
+  guarantee, no complete coverage claim. client_use_allowed and final_evidence_allowed remain false
+  for every reviewed candidate. Qualified human review still required before any real client use.
 candidate_reviews:
   - candidate_review_id: candidate-review-datatilsynet-guidance-change
     candidate_id: candidate-change-sample-datatilsynet-guidance-change
@@ -19,11 +19,11 @@ candidate_reviews:
     content_review_id: content-review-guidance-datatilsynet-ai-privacy
     governance_review_summary: >-
       Manual sample change candidate is understandable and links to a reviewed Datatilsynet
-      guidance record. Content review exists (homepage pointer scope). Suggested DPIA and
-      transparency control/evidence prompts are plausible as internal review prompts only.
-      Disclaimers present; blocking_reasons empty is consistent with ready_for_human_review.
-      Still not client evidence; still not final evidence; official guidance text not fully
-      verified in this session.
+      guidance record. v0.8.9: content review now uses official AI/privacy theme hub URL (HTTP 200,
+      "Kunstig intelligens og personvern"). Suggested DPIA and transparency prompts remain plausible
+      as internal review prompts only. Disclaimers present; blocking_reasons empty matches
+      ready_for_human_review pipeline status. Still not client evidence; still not final evidence;
+      subpages and legal text not fully verified.
     checks_performed:
       - candidate_understandable
       - content_review_present
@@ -34,7 +34,8 @@ candidate_reviews:
       - not_client_evidence_confirmed
       - not_final_evidence_confirmed
     governance_findings:
-      - content_review_used_homepage_pointer_only
+      - official_ai_theme_url_linked_in_record_v089
+      - official_ai_theme_url_http_200_v089
       - verified_on_source_after_check_remains_false_on_related_record
       - draft_mapping_refs_pending_caesar_ai_evidence_alignment
     recommended_next_action: no_action_until_qualified_review
@@ -43,8 +44,9 @@ candidate_reviews:
     final_evidence_allowed: false
     qualified_advisor_review_required: true
     legal_safe_note: >-
-      v0.8.7 governance review only. reviewed_for_internal_governance_only — not approval for
-      client use or final evidence export. Not legal advice.
+      v0.8.9 governance review refresh. reviewed_for_internal_governance_only — not approval for
+      client use or final evidence export. Official AI theme URL improved; not full legal verification.
+      Not legal advice.
   - candidate_review_id: candidate-review-eu-ai-act-status-change
     candidate_id: candidate-change-sample-eu-ai-act-status-change
     review_date: '2026-05-20'
@@ -53,12 +55,12 @@ candidate_reviews:
     candidate_review_status: needs_more_source_review
     content_review_id: content-review-law-eu-ai-act-2024-1689
     governance_review_summary: >-
-      Manual sample EU AI Act status-change candidate is understandable and has content review,
-      but EUR-Lex automated access was limited (bot protection) and verified_on_source_after_check
-      remains false. Suggested inventory/register prompts are plausible for internal review but
-      export-readiness review cannot pass source verification gate yet. Disclaimers present;
-      blocking_reasons empty matches ready_for_human_review pipeline status only — not source
-      verification complete.
+      Manual sample EU AI Act status-change candidate is understandable and has content review.
+      v0.8.9: EUR-Lex CELEX URL still returns HTTP 202 (bot protection); full instrument not read.
+      European Commission AI Act overview (HTTP 200) corroborates CELEX 32024R1689 and Regulation
+      (EU) 2024/1689 at high level only — not sufficient to clear source verification gate.
+      verified_on_source_after_check remains false. Export-readiness stays needs_more_source_review.
+      Disclaimers present; blocking_reasons empty is pipeline status only.
     checks_performed:
       - candidate_understandable
       - content_review_present
@@ -69,15 +71,15 @@ candidate_reviews:
       - not_client_evidence_confirmed
       - not_final_evidence_confirmed
     governance_findings:
-      - eur_lex_full_text_not_verified_in_content_review_batch
+      - eur_lex_full_text_not_verified_http_202_v089
+      - ec_digital_strategy_corroborates_instrument_identity_only
       - verified_on_source_after_check_false
-      - sample_key_dates_still_unverified_on_official_source
+      - sample_key_dates_still_unverified_on_eur_lex
     recommended_next_action: complete_source_verification
     human_review_required: true
     client_use_allowed: false
     final_evidence_allowed: false
     qualified_advisor_review_required: true
     legal_safe_note: >-
-      v0.8.7 governance review: needs_more_source_review — not rejection, not client approval,
-      not final evidence. Complete official-source verification before mapping/export promotion.
-      Not legal advice.
+      v0.8.9 governance review refresh: needs_more_source_review — EUR-Lex human browser review still
+      required. EC overview corroboration is not client approval or final evidence. Not legal advice.

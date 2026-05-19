@@ -2,7 +2,7 @@
 
 **Last updated:** 20 May 2026
 
-**Current version:** v0.8.8 · **Phase:** public pilot + export-candidate review gate · **Branch:** `main`
+**Current version:** v0.8.9 · **Phase:** public pilot + source verification refresh · **Branch:** `main`
 
 **Live site:** https://caesar-compliance.github.io/caesar-ai-regulation-watch/
 

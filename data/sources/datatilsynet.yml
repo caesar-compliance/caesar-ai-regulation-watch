@@ -29,3 +29,5 @@ notes: >
   regulatory communication. Supports governance review and may affect controls
   or evidence (e.g. DPIA, transparency to data subjects). Does not cover all
   Norwegian regulators (e.g. Finanstilsynet) unless added in future registry waves.
+  AI/privacy theme hub (v0.8.9): https://www.datatilsynet.no/regelverk-og-verktoy/rapporter-og-utredninger/kunstig-intelligens/
+  — used by guidance-datatilsynet-ai-privacy sample record; homepage remains canonical source entry.

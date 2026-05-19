@@ -525,7 +525,7 @@ url_checks:
       Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
       client_use_allowed remains false unless separately approved by human reviewer.
   - url_check_id: urlcheck-law-eu-ai-act-2024-1689
-    checked_date: '2026-05-19'
+    checked_date: '2026-05-20'
     checker_type: automated_head_get
     item_type: law
     item_id: law-eu-ai-act-2024-1689
@@ -537,7 +537,8 @@ url_checks:
     redirect_detected: false
     domain_matches_expected: true
     title_or_reference: Regulation (EU) 2024/1689 — Artificial Intelligence Act
-    technical_note: HTTP check completed.
+    technical_note: >-
+      v0.8.9 recheck: HTTP 202 (EUR-Lex bot protection). EC AI Act overview corroborates CELEX at high level only.
     content_review_status: not_reviewed
     client_use_allowed: false
     legal_safe_note: >-
@@ -584,19 +585,19 @@ url_checks:
       Technical HTTP reachability check only. Not legal advice. Not source identity or content review.
       client_use_allowed remains false unless separately approved by human reviewer.
   - url_check_id: urlcheck-guidance-datatilsynet-ai-privacy
-    checked_date: '2026-05-19'
+    checked_date: '2026-05-20'
     checker_type: automated_head_get
     item_type: guidance
     item_id: guidance-datatilsynet-ai-privacy
     source_id: datatilsynet
-    original_url: https://www.datatilsynet.no/
-    final_url: https://www.datatilsynet.no/
+    original_url: https://www.datatilsynet.no/regelverk-og-verktoy/rapporter-og-utredninger/kunstig-intelligens/
+    final_url: https://www.datatilsynet.no/regelverk-og-verktoy/rapporter-og-utredninger/kunstig-intelligens/
     http_status: 200
     check_result: reachable
     redirect_detected: false
     domain_matches_expected: true
-    title_or_reference: Datatilsynet — AI and privacy theme (sample pointer)
-    technical_note: HTTP check completed.
+    title_or_reference: Kunstig intelligens og personvern | Datatilsynet
+    technical_note: v0.8.9 recheck on official AI/privacy theme hub (replaces homepage pointer).
     content_review_status: not_reviewed
     client_use_allowed: false
     legal_safe_note: >-

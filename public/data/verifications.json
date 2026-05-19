@@ -1789,17 +1789,16 @@
             "summary_for_review"
           ],
           "fields_needing_update": [
-            "key_dates",
-            "summary_for_review"
+            "key_dates"
           ],
-          "summary_review_note": "Source access 20 May 2026. Official EUR-Lex CELEX URL (32024R1689) matches record title \"Regulation (EU) 2024/1689 — Artificial Intelligence Act\". Automated curl/WebFetch hit EUR-Lex bot-protection (HTTP 202 / JS challenge); full instrument text not read in this session. Commission AI Act overview page (digital-strategy.ec.europa.eu) links the same CELEX and describes Regulation (EU) 2024/1689 — high-level summary in record is not obviously contradicted. No legal interpretation performed.",
-          "date_review_note": "Sample key_dates in record remain unverified on EUR-Lex in this session (WAF limitation). Commission page cites entry into force 1 Aug 2024 and phased applicability — curator should align key_dates with official sources in a follow-up pass.",
-          "status_review_note": "Record legal_status in_force — consistent with published EU regulation; not re-verified on EUR-Lex full text in this session.",
-          "recommended_next_action": "no_action_until_human_review",
+          "summary_review_note": "v0.8.9 deep verification (20 May 2026). Primary EUR-Lex CELEX URL (32024R1689): automated curl HTTP 202 (bot protection / JS challenge); instrument full text not read. Secondary official EU source checked: European Commission digital-strategy AI Act page HTTP 200; visible title \"AI Act | Shaping Europe's digital future\"; page links CELEX 32024R1689 and states Regulation (EU) 2024/1689 is the comprehensive AI legal framework — corroborates record title and CELEX mapping at high level only. Commission page \"Last update\" visible: 11 May 2026. No legal interpretation; no copying of legal text.",
+          "date_review_note": "Sample key_dates in record remain unverified on EUR-Lex full text (WAF limitation). Commission page mentions phased applicability dates (e.g. 1 Aug 2024 entry into force context) — curator should align key_dates with EUR-Lex/OJ in a human browser pass.",
+          "status_review_note": "Record legal_status in_force — consistent with published EU regulation at high level; not re-verified on EUR-Lex consolidated text in this session.",
+          "recommended_next_action": "human_browser_content_review_required",
           "content_review_status_after_check": "reviewed_content_summary",
           "verified_on_source_after_check": false,
           "client_use_allowed": false,
-          "legal_safe_note": "v0.8.6 source-access review. EUR-Lex WAF limited automated read. Not legal advice. client_use_allowed remains false. verified_on_source_after_check false."
+          "legal_safe_note": "v0.8.9 deep source verification. EUR-Lex automated read still blocked. EC overview corroborates identity only. Not legal advice. client_use_allowed false. verified_on_source_after_check false."
         },
         {
           "content_review_id": "content-review-guidance-eu-ai-office-gpai",
@@ -1837,27 +1836,25 @@
           "item_id": "guidance-datatilsynet-ai-privacy",
           "jurisdiction_id": "norway",
           "source_id": "datatilsynet",
-          "official_url_checked": "https://www.datatilsynet.no/",
+          "official_url_checked": "https://www.datatilsynet.no/regelverk-og-verktoy/rapporter-og-utredninger/kunstig-intelligens/",
           "review_scope": "summary_status_high_level",
           "review_result": "partially_matches_source",
-          "source_support_level": "medium",
+          "source_support_level": "high",
           "reviewed_fields": [
             "title",
             "official_url",
             "summary_for_review",
             "guidance_status"
           ],
-          "fields_needing_update": [
-            "official_url"
-          ],
-          "summary_review_note": "Source access 20 May 2026. HTTP 200. Visible title: \"Datatilsynet - personvern og informasjonssikkerhet | Datatilsynet\". Official Norwegian Data Protection Authority homepage; jurisdiction and source mapping plausible. Record summary describes AI/privacy theme — homepage alone does not confirm specific AI guidance pages (Norwegian). Consider linking a current AI-theme URL in a future curator pass. No legal interpretation performed.",
-          "date_review_note": "No key_dates on record.",
-          "status_review_note": "Record guidance_status guidance — authority site is official; specific AI guidance status not deep-checked on subpages in this session.",
+          "fields_needing_update": [],
+          "summary_review_note": "v0.8.9 deep verification (20 May 2026). Official Datatilsynet AI/privacy theme hub HTTP 200. Visible title: \"Kunstig intelligens og personvern | Datatilsynet\". Page is an official datatilsynet.no regulator theme hub on artificial intelligence and privacy (Norwegian); aligns with record purpose for DPIA/transparency governance review. Record official_url updated from homepage pointer to this theme URL. Subpages (recommendations, DPIA, tools) not fully reviewed in this session. No legal interpretation performed.",
+          "date_review_note": "No key_dates on record; theme hub publication dates not captured in this session.",
+          "status_review_note": "Record guidance_status guidance — official regulator AI/privacy theme material; subpage depth not exhaustively checked.",
           "recommended_next_action": "no_action_until_human_review",
           "content_review_status_after_check": "reviewed_content_summary",
           "verified_on_source_after_check": false,
           "client_use_allowed": false,
-          "legal_safe_note": "v0.8.6 source-access review. Homepage pointer only. Not legal advice. client_use_allowed false."
+          "legal_safe_note": "v0.8.9 source verification. Official AI theme URL confirmed at high level. Not legal advice. client_use_allowed false. verified_on_source_after_check false (subpages and legal text not fully verified)."
         },
         {
           "content_review_id": "content-review-implementation-norway-ai-act",
@@ -2043,17 +2040,16 @@
         "summary_for_review"
       ],
       "fields_needing_update": [
-        "key_dates",
-        "summary_for_review"
+        "key_dates"
       ],
-      "summary_review_note": "Source access 20 May 2026. Official EUR-Lex CELEX URL (32024R1689) matches record title \"Regulation (EU) 2024/1689 — Artificial Intelligence Act\". Automated curl/WebFetch hit EUR-Lex bot-protection (HTTP 202 / JS challenge); full instrument text not read in this session. Commission AI Act overview page (digital-strategy.ec.europa.eu) links the same CELEX and describes Regulation (EU) 2024/1689 — high-level summary in record is not obviously contradicted. No legal interpretation performed.",
-      "date_review_note": "Sample key_dates in record remain unverified on EUR-Lex in this session (WAF limitation). Commission page cites entry into force 1 Aug 2024 and phased applicability — curator should align key_dates with official sources in a follow-up pass.",
-      "status_review_note": "Record legal_status in_force — consistent with published EU regulation; not re-verified on EUR-Lex full text in this session.",
-      "recommended_next_action": "no_action_until_human_review",
+      "summary_review_note": "v0.8.9 deep verification (20 May 2026). Primary EUR-Lex CELEX URL (32024R1689): automated curl HTTP 202 (bot protection / JS challenge); instrument full text not read. Secondary official EU source checked: European Commission digital-strategy AI Act page HTTP 200; visible title \"AI Act | Shaping Europe's digital future\"; page links CELEX 32024R1689 and states Regulation (EU) 2024/1689 is the comprehensive AI legal framework — corroborates record title and CELEX mapping at high level only. Commission page \"Last update\" visible: 11 May 2026. No legal interpretation; no copying of legal text.",
+      "date_review_note": "Sample key_dates in record remain unverified on EUR-Lex full text (WAF limitation). Commission page mentions phased applicability dates (e.g. 1 Aug 2024 entry into force context) — curator should align key_dates with EUR-Lex/OJ in a human browser pass.",
+      "status_review_note": "Record legal_status in_force — consistent with published EU regulation at high level; not re-verified on EUR-Lex consolidated text in this session.",
+      "recommended_next_action": "human_browser_content_review_required",
       "content_review_status_after_check": "reviewed_content_summary",
       "verified_on_source_after_check": false,
       "client_use_allowed": false,
-      "legal_safe_note": "v0.8.6 source-access review. EUR-Lex WAF limited automated read. Not legal advice. client_use_allowed remains false. verified_on_source_after_check false.",
+      "legal_safe_note": "v0.8.9 deep source verification. EUR-Lex automated read still blocked. EC overview corroborates identity only. Not legal advice. client_use_allowed false. verified_on_source_after_check false.",
       "content_review_batch_id": "content-review-2026-05-19"
     },
     {
@@ -2093,27 +2089,25 @@
       "item_id": "guidance-datatilsynet-ai-privacy",
       "jurisdiction_id": "norway",
       "source_id": "datatilsynet",
-      "official_url_checked": "https://www.datatilsynet.no/",
+      "official_url_checked": "https://www.datatilsynet.no/regelverk-og-verktoy/rapporter-og-utredninger/kunstig-intelligens/",
       "review_scope": "summary_status_high_level",
       "review_result": "partially_matches_source",
-      "source_support_level": "medium",
+      "source_support_level": "high",
       "reviewed_fields": [
         "title",
         "official_url",
         "summary_for_review",
         "guidance_status"
       ],
-      "fields_needing_update": [
-        "official_url"
-      ],
-      "summary_review_note": "Source access 20 May 2026. HTTP 200. Visible title: \"Datatilsynet - personvern og informasjonssikkerhet | Datatilsynet\". Official Norwegian Data Protection Authority homepage; jurisdiction and source mapping plausible. Record summary describes AI/privacy theme — homepage alone does not confirm specific AI guidance pages (Norwegian). Consider linking a current AI-theme URL in a future curator pass. No legal interpretation performed.",
-      "date_review_note": "No key_dates on record.",
-      "status_review_note": "Record guidance_status guidance — authority site is official; specific AI guidance status not deep-checked on subpages in this session.",
+      "fields_needing_update": [],
+      "summary_review_note": "v0.8.9 deep verification (20 May 2026). Official Datatilsynet AI/privacy theme hub HTTP 200. Visible title: \"Kunstig intelligens og personvern | Datatilsynet\". Page is an official datatilsynet.no regulator theme hub on artificial intelligence and privacy (Norwegian); aligns with record purpose for DPIA/transparency governance review. Record official_url updated from homepage pointer to this theme URL. Subpages (recommendations, DPIA, tools) not fully reviewed in this session. No legal interpretation performed.",
+      "date_review_note": "No key_dates on record; theme hub publication dates not captured in this session.",
+      "status_review_note": "Record guidance_status guidance — official regulator AI/privacy theme material; subpage depth not exhaustively checked.",
       "recommended_next_action": "no_action_until_human_review",
       "content_review_status_after_check": "reviewed_content_summary",
       "verified_on_source_after_check": false,
       "client_use_allowed": false,
-      "legal_safe_note": "v0.8.6 source-access review. Homepage pointer only. Not legal advice. client_use_allowed false.",
+      "legal_safe_note": "v0.8.9 source verification. Official AI theme URL confirmed at high level. Not legal advice. client_use_allowed false. verified_on_source_after_check false (subpages and legal text not fully verified).",
       "content_review_batch_id": "content-review-2026-05-19"
     },
     {
