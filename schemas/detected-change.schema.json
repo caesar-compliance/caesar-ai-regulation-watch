@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caesar.no/schemas/caesar-ai-regulation-watch/detected-change.schema.json",
+  "title": "Caesar AI Regulation Watch — Detected change (pending review)",
+  "description": "Watcher-detected metadata diff pending human review. Not a legal conclusion or verified change record.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "detected_change_id",
+    "watcher_id",
+    "source_id",
+    "jurisdiction_id",
+    "detected_at",
+    "change_type",
+    "previous_snapshot_id",
+    "current_snapshot_id",
+    "change_summary_for_review",
+    "confidence_level",
+    "human_review_required",
+    "review_status",
+    "legal_safe_note"
+  ],
+  "properties": {
+    "detected_change_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "watcher_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "source_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "jurisdiction_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "detected_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "change_type": {
+      "type": "string",
+      "enum": [
+        "content_hash_changed",
+        "normalized_text_hash_changed",
+        "http_metadata_changed",
+        "title_changed",
+        "redirect_changed",
+        "http_status_changed",
+        "combined_metadata_change"
+      ]
+    },
+    "previous_snapshot_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "current_snapshot_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "change_summary_for_review": {
+      "type": "string",
+      "minLength": 1
+    },
+    "confidence_level": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "human_review_required": {
+      "type": "boolean",
+      "const": true
+    },
+    "review_status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "pending_review",
+        "reviewed",
+        "needs_update",
+        "rejected_for_client_use",
+        "archived"
+      ]
+    },
+    "legal_safe_note": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

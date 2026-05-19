@@ -1,0 +1,40 @@
+{
+  "generated_at": "2026-05-19",
+  "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
+  "legal_safe_note": "Pilot metadata-only watchers for governance review support. Not legal advice. Not automated legal conclusions. Human review required for any detected change. Does not set verified_on_source or client_use_allowed.\n",
+  "items": [
+    {
+      "watcher_id": "watcher-eu-ai-office",
+      "source_id": "eu-ai-office",
+      "jurisdiction_id": "eu",
+      "watcher_type": "official_page_metadata",
+      "official_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+      "enabled": true,
+      "monitoring_scope": "EU Commission AI regulatory framework landing page metadata only. Does not crawl linked documents or subsidiary agency sites.\n",
+      "check_frequency_recommendation": "weekly",
+      "change_detection_mode": "metadata_and_content_hash",
+      "snapshot_policy": "metadata_only_no_body_storage",
+      "review_status": "pending_review",
+      "legal_safe_note": "Metadata-only snapshot; content hash for diff signal only. No full body stored. Detected changes require human review before any record update.\n"
+    },
+    {
+      "watcher_id": "watcher-datatilsynet",
+      "source_id": "datatilsynet",
+      "jurisdiction_id": "norway",
+      "watcher_type": "official_page_metadata",
+      "official_url": "https://www.datatilsynet.no/",
+      "enabled": true,
+      "monitoring_scope": "Datatilsynet homepage metadata only. Does not crawl theme subsites or PDFs.\n",
+      "check_frequency_recommendation": "weekly",
+      "change_detection_mode": "metadata_and_content_hash",
+      "snapshot_policy": "metadata_only_no_body_storage",
+      "review_status": "pending_review",
+      "legal_safe_note": "Metadata-only snapshot; content hash for diff signal only. No full body stored. Detected changes require human review before any record update.\n"
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "enabled": 2,
+    "official_page_metadata": 2
+  }
+}

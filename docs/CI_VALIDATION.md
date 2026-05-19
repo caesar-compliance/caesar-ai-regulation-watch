@@ -23,6 +23,7 @@ Steps:
 - No secrets or external integrations
 - No automated ingestion or scraping
 - **No live URL checks** — run `npm run check:urls` locally; commit `data/verifications/url-check-*.yml` when refreshing technical status
+- **No official-source watchers** — run `npm run watch:official` locally; commit snapshots/runs/detected-changes when refreshing watcher data (see `docs/WATCHER_PROTOTYPE.md`)
 
 ## Local parity
 

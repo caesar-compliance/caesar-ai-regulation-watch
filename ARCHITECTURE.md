@@ -1,7 +1,7 @@
 # Architecture — Caesar AI Regulation Watch
 
 **Last updated:** 19 May 2026  
-**Status:** v0.5.0 — expanded static global registry, timelines, CI validate/build, read-only Astro site with Pagefind and JSON/RSS; watchers/API not implemented
+**Status:** v0.7.0 — static registry + manual metadata watcher CLI (2 pilot sources); CI validate/build; read-only Astro site; no API/database/auth; production watcher scheduling not implemented
 
 ---
 
@@ -121,7 +121,7 @@
                               [Site build | RSS | JSON | Evidence export]
 ```
 
-**v0.6.1 phase:** Layer A includes `data/verifications/` with human source-verification batches and technical `url-check-*` batches; `npm run check:urls` (manual, not CI); `/verification/` shows both layers; review queue separates technical URL reasons from content review; 10 JSON exports including `url-checks.json`. **v0.6.0:** 15 curated records. **v0.5.x:** static SVG map and review queue. No runtime API or remote fetch in site build. **Deferred:** Layers B–C watchers.
+**v0.7.0 phase:** Layer B pilot — `scripts/run-official-source-watchers.mjs` writes `data/snapshots/`, `data/watcher-runs/`, `data/detected-changes/` (metadata only; manual CLI, not CI). **v0.6.x:** verifications, URL checks, 15 curated records. **v0.5.x:** static SVG map and review queue. Site build does not run watchers. **Deferred:** production scheduling, broad watcher fleet, Layers B–C full ingestion.
 
 ---
 
@@ -147,7 +147,7 @@ caesar-ai-regulation-watch/
 ├── package.json             # astro, js-yaml, ajv
 ├── astro.config.mjs
 ├── dist/                    # build output (gitignored)
-└── (no watcher code)
+└── scripts/run-official-source-watchers.mjs  # manual CLI only (v0.7.0 pilot)
 ```
 
 The registry and sample records form the **static data foundation**: human-curated YAML in git only. Change samples are **not** watcher output. Future ingestion layers read from `data/sources/` definitions but are **not implemented**.

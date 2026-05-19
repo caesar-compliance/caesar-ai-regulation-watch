@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caesar.no/schemas/caesar-ai-regulation-watch/watcher-config.schema.json",
+  "title": "Caesar AI Regulation Watch — Official source watcher configuration",
+  "description": "Pilot watcher registry. Manual CLI execution only; not CI or production scheduling.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["legal_safe_note", "watchers"],
+  "properties": {
+    "legal_safe_note": {
+      "type": "string",
+      "minLength": 1
+    },
+    "watchers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "watcher_id",
+          "source_id",
+          "jurisdiction_id",
+          "watcher_type",
+          "official_url",
+          "enabled",
+          "monitoring_scope",
+          "check_frequency_recommendation",
+          "change_detection_mode",
+          "snapshot_policy",
+          "review_status",
+          "legal_safe_note"
+        ],
+        "properties": {
+          "watcher_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "source_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "jurisdiction_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "watcher_type": {
+            "type": "string",
+            "enum": [
+              "official_page_metadata",
+              "official_rss_or_feed",
+              "official_api_metadata",
+              "manual_only"
+            ]
+          },
+          "official_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "monitoring_scope": {
+            "type": "string",
+            "minLength": 1
+          },
+          "check_frequency_recommendation": {
+            "type": "string",
+            "enum": ["daily", "weekly", "monthly", "manual_only"]
+          },
+          "change_detection_mode": {
+            "type": "string",
+            "enum": [
+              "metadata_only",
+              "metadata_and_content_hash",
+              "feed_item_count",
+              "manual_only"
+            ]
+          },
+          "snapshot_policy": {
+            "type": "string",
+            "enum": ["metadata_only_no_body_storage", "manual_only"]
+          },
+          "review_status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "pending_review",
+              "reviewed",
+              "needs_update",
+              "rejected_for_client_use",
+              "archived"
+            ]
+          },
+          "legal_safe_note": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

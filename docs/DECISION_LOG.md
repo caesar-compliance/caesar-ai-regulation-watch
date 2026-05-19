@@ -196,3 +196,13 @@
 - **Rationale:** Operators need accurate registry URLs and a clear distinction between HTTP reachability, source identity, and legal/content review.
 - **Boundaries:** No competitor URLs; no `verified_on_source: true`; Congress.gov kept with bot-block documentation; G7 uses MIC-hosted official process site.
 - **Artifacts:** `docs/URL_REMEDIATION_LOG.md`, `data/verifications/source-identity-review-2026-05-19.yml`, remediated `data/sources/` and aligned records.
+
+---
+
+## [DEC-022] — 19 May 2026 — Official source watcher prototype (v0.7.0)
+
+- **Status:** Approved (implementation complete)
+- **Decision:** Add manual CLI metadata-only watchers for two pilot sources (`eu-ai-office`, `datatilsynet`). Store hashes and HTTP metadata; write pending detected-change records on diff; never auto-update curated records or set verification flags.
+- **Rationale:** First safe step toward automated monitoring while keeping legal/content review human-gated and repo static-first.
+- **Boundaries:** Not in CI; no production schedule; no full body storage; no broad crawl; no competitor code.
+- **Artifacts:** `scripts/run-official-source-watchers.mjs`, `data/watchers/`, `data/snapshots/`, `docs/WATCHER_PROTOTYPE.md`, `docs/SNAPSHOT_AND_DIFF_POLICY.md`.

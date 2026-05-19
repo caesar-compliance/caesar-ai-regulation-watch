@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caesar.no/schemas/caesar-ai-regulation-watch/source-snapshot.schema.json",
+  "title": "Caesar AI Regulation Watch — Source metadata snapshot",
+  "description": "Metadata-only snapshot from official source watcher. No full page body stored.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "snapshot_id",
+    "watcher_id",
+    "source_id",
+    "jurisdiction_id",
+    "checked_at",
+    "original_url",
+    "final_url",
+    "http_status",
+    "content_type",
+    "etag",
+    "last_modified",
+    "title",
+    "content_hash",
+    "normalized_text_hash",
+    "content_length",
+    "snapshot_kind",
+    "storage_policy",
+    "legal_safe_note"
+  ],
+  "properties": {
+    "snapshot_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "watcher_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "source_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "jurisdiction_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "checked_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "original_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "final_url": {
+      "type": "string"
+    },
+    "http_status": {
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "maximum": 599
+    },
+    "content_type": {
+      "type": ["string", "null"]
+    },
+    "etag": {
+      "type": ["string", "null"]
+    },
+    "last_modified": {
+      "type": ["string", "null"]
+    },
+    "title": {
+      "type": ["string", "null"]
+    },
+    "content_hash": {
+      "type": ["string", "null"],
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "normalized_text_hash": {
+      "type": ["string", "null"],
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "content_length": {
+      "type": ["integer", "null"],
+      "minimum": 0
+    },
+    "snapshot_kind": {
+      "type": "string",
+      "enum": ["baseline", "periodic_check", "error_placeholder"]
+    },
+    "storage_policy": {
+      "type": "string",
+      "enum": ["metadata_only_no_body_storage"]
+    },
+    "fetch_error": {
+      "type": "string"
+    },
+    "legal_safe_note": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

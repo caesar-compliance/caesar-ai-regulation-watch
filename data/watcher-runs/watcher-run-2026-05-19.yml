@@ -1,0 +1,28 @@
+# Watcher run log — 2026-05-19
+# Manual CLI only; not CI.
+
+run_id: watcher-run-2026-05-19
+run_date: '2026-05-19'
+mode: manual_cli
+watcher_count: 2
+checked_count: 2
+changed_count: 0
+error_count: 0
+results:
+  - watcher_id: watcher-eu-ai-office
+    source_id: eu-ai-office
+    status: checked
+    snapshot_id: snap-eu-ai-office-2026-05-19t210233248
+    previous_snapshot_id: null
+    detected_change_id: null
+    error_message: null
+  - watcher_id: watcher-datatilsynet
+    source_id: datatilsynet
+    status: checked
+    snapshot_id: snap-datatilsynet-2026-05-19t210233429
+    previous_snapshot_id: null
+    detected_change_id: null
+    error_message: null
+legal_safe_note: >-
+  Metadata-only watcher output for governance review support. Not legal advice. Not a compliance guarantee. Human review
+  required before any record update. Does not set verified_on_source or client_use_allowed.

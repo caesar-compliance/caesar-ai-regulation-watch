@@ -29,6 +29,33 @@ function readYamlFile(relPath) {
   return yaml.load(fs.readFileSync(abs, "utf8"));
 }
 
+function readSnapshots() {
+  const root = path.join(ROOT, "data/snapshots");
+  if (!fs.existsSync(root)) return [];
+  const items = [];
+  for (const sourceDir of fs.readdirSync(root)) {
+    const dir = path.join(root, sourceDir);
+    if (!fs.statSync(dir).isDirectory()) continue;
+    for (const f of fs.readdirSync(dir)) {
+      if (!f.endsWith(".yml") || f === "latest.yml") continue;
+      items.push(yaml.load(fs.readFileSync(path.join(dir, f), "utf8")));
+    }
+  }
+  return items.sort((a, b) => b.checked_at.localeCompare(a.checked_at));
+}
+
+function readWatcherRuns() {
+  return readYamlDir("data/watcher-runs").sort((a, b) =>
+    b.run_date.localeCompare(a.run_date),
+  );
+}
+
+function readDetectedChanges() {
+  return readYamlDir("data/detected-changes").sort((a, b) =>
+    b.detected_at.localeCompare(a.detected_at),
+  );
+}
+
 function writeJson(filePath, data) {
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2) + "\n", "utf8");
@@ -87,6 +114,13 @@ const urlChecks = urlCheckBatches.flatMap((b) =>
     url_check_batch_id: b.url_check_batch_id,
   })),
 );
+const watcherConfig = readYamlFile("data/watchers/official-source-watchers.yml");
+const watchers = watcherConfig?.watchers ?? [];
+const snapshots = readSnapshots();
+const watcherRuns = readWatcherRuns();
+const detectedChanges = readDetectedChanges();
+const latestWatcherRun = watcherRuns[0] ?? null;
+
 const exportFile = readYamlFile("exports/samples/regulation-change-export.sample.yml");
 const exportSamples = (exportFile?.exports ?? []).map((e) => ({
   ...e,
@@ -166,6 +200,11 @@ const REASON_LABELS = {
   verified_on_source_false: "Not verified on official source in this repository.",
   client_use_not_allowed: "Client use not allowed.",
   needs_update: "Marked needs_update.",
+  detected_change_pending_review:
+    "Watcher detected a possible metadata change; human review required.",
+  watcher_error: "Latest watcher run reported a fetch or check error for this source.",
+  snapshot_changed: "New metadata snapshot differs from previous; confirm on official source.",
+  human_review_required: "Watcher output requires human review before any record update.",
 };
 
 function reasonText(reasons) {
@@ -371,6 +410,59 @@ function buildReviewQueue() {
     });
   }
 
+  for (const dc of detectedChanges) {
+    if (!needsReview(dc.review_status)) continue;
+    const src = sourceById[dc.source_id];
+    const review_reasons = [
+      "detected_change_pending_review",
+      "human_review_required",
+      "content_not_reviewed",
+      "legal_review_not_done",
+    ];
+    items.push({
+      item_type: "detected_change",
+      item_id: dc.detected_change_id,
+      title: `Detected change: ${dc.source_id}`,
+      jurisdiction_id: dc.jurisdiction_id,
+      review_status: dc.review_status,
+      reason_for_review: reasonText(review_reasons),
+      review_reasons,
+      official_url: src?.official_url ?? null,
+      page_href: `/detected-changes/${dc.detected_change_id}/`,
+      missing_official_url: !src?.official_url,
+      verified_on_source_false: true,
+      technical_url_status: null,
+      content_review_status: "not_reviewed",
+      redirect_detected: false,
+      client_use_allowed: false,
+    });
+  }
+
+  if (latestWatcherRun) {
+    for (const r of latestWatcherRun.results ?? []) {
+      if (r.status !== "error") continue;
+      const src = sourceById[r.source_id];
+      const review_reasons = ["watcher_error", "technical_url_unchecked", "human_review_required"];
+      items.push({
+        item_type: "watcher_error",
+        item_id: `${latestWatcherRun.run_id}-${r.watcher_id}`,
+        title: `Watcher error: ${r.source_id}`,
+        jurisdiction_id: src?.jurisdiction_id ?? "eu",
+        review_status: "needs_human_review",
+        reason_for_review: `${r.error_message ?? "Watcher check failed."} ${reasonText(review_reasons)}`,
+        review_reasons,
+        official_url: src?.official_url ?? null,
+        page_href: `/watchers/${r.watcher_id}/`,
+        missing_official_url: !src?.official_url,
+        verified_on_source_false: true,
+        technical_url_status: null,
+        content_review_status: "not_reviewed",
+        redirect_detected: false,
+        client_use_allowed: false,
+      });
+    }
+  }
+
   for (const v of verifications) {
     if (v.check_result !== "not_checked" && v.check_result !== "uncertain") continue;
     const related = records.find((r) => r.record_id === v.item_id);
@@ -425,6 +517,9 @@ const reviewSummary = {
   redirected_url_needs_review: countReason("redirected_url_needs_review"),
   content_not_reviewed: countReason("content_not_reviewed"),
   client_use_not_allowed: countReason("client_use_not_allowed"),
+  detected_change_pending_review: countReason("detected_change_pending_review"),
+  watcher_errors: countReason("watcher_error"),
+  human_review_required_watcher: countReason("human_review_required"),
 };
 
 const urlCheckSummary = {
@@ -473,9 +568,11 @@ const recordVerifications = verifications.filter((v) =>
   v.verification_batch_id?.startsWith("source-verification"),
 );
 
+const watcherErrorCount = latestWatcherRun?.error_count ?? 0;
+
 const snapshot = {
   generated_at: generatedAt,
-  version: "0.6.2",
+  version: "0.7.0",
   disclaimer: DISCLAIMER,
   pilot_jurisdictions: jurisdictions.map((j) => j.jurisdiction_id),
   counts: {
@@ -509,6 +606,15 @@ const snapshot = {
       urlCheckSummary.uncertain,
     export_samples: exportSamples.length,
     map_markers: mapMarkers.length,
+    watchers: watchers.length,
+    watchers_enabled: watchers.filter((w) => w.enabled).length,
+    snapshots: snapshots.length,
+    detected_changes: detectedChanges.length,
+    detected_changes_pending_review: detectedChanges.filter((d) =>
+      needsReview(d.review_status),
+    ).length,
+    watcher_error_count: watcherErrorCount,
+    latest_watcher_run: latestWatcherRun?.run_id ?? null,
     review_queue_items: reviewSummary.total,
     pending_review: reviewSummary.pending_review,
     needs_update: reviewSummary.needs_update,
@@ -531,6 +637,10 @@ const snapshot = {
     review_queue: "/data/review-queue.json",
     verifications: "/data/verifications.json",
     url_checks: "/data/url-checks.json",
+    watchers: "/data/watchers.json",
+    snapshots: "/data/snapshots.json",
+    watcher_runs: "/data/watcher-runs.json",
+    detected_changes: "/data/detected-changes.json",
   },
   review_notice:
     "All pilot content is curated manual YAML. Human review required before client use.",
@@ -636,6 +746,57 @@ writeJson(path.join(PUBLIC_DATA, "url-checks.json"), {
   summary: urlCheckSummary,
 });
 
+writeJson(path.join(PUBLIC_DATA, "watchers.json"), {
+  generated_at: generatedAt,
+  disclaimer: DISCLAIMER,
+  legal_safe_note: watcherConfig?.legal_safe_note ?? DISCLAIMER,
+  items: watchers,
+  summary: {
+    total: watchers.length,
+    enabled: watchers.filter((w) => w.enabled).length,
+    official_page_metadata: watchers.filter((w) => w.watcher_type === "official_page_metadata")
+      .length,
+  },
+});
+
+writeJson(path.join(PUBLIC_DATA, "snapshots.json"), {
+  generated_at: generatedAt,
+  disclaimer: DISCLAIMER,
+  storage_policy: "metadata_only_no_body_storage",
+  items: snapshots,
+  summary: {
+    total: snapshots.length,
+    by_source: Object.fromEntries(
+      [...new Set(snapshots.map((s) => s.source_id))].map((id) => [
+        id,
+        snapshots.filter((s) => s.source_id === id).length,
+      ]),
+    ),
+  },
+});
+
+writeJson(path.join(PUBLIC_DATA, "watcher-runs.json"), {
+  generated_at: generatedAt,
+  disclaimer: DISCLAIMER,
+  items: watcherRuns,
+  latest: latestWatcherRun,
+  summary: {
+    total: watcherRuns.length,
+    latest_run_id: latestWatcherRun?.run_id ?? null,
+    latest_error_count: watcherErrorCount,
+  },
+});
+
+writeJson(path.join(PUBLIC_DATA, "detected-changes.json"), {
+  generated_at: generatedAt,
+  disclaimer: DISCLAIMER,
+  items: detectedChanges,
+  summary: {
+    total: detectedChanges.length,
+    pending_review: detectedChanges.filter((d) => needsReview(d.review_status)).length,
+  },
+});
+
 writeJson(path.join(PUBLIC_DATA, "regulation-watch-snapshot.json"), snapshot);
 
 // RSS feed — sample changes only
@@ -697,7 +858,14 @@ console.log("  public/data/map-coverage.json");
 console.log("  public/data/review-queue.json");
 console.log("  public/data/verifications.json");
 console.log("  public/data/url-checks.json");
+console.log("  public/data/watchers.json");
+console.log("  public/data/snapshots.json");
+console.log("  public/data/watcher-runs.json");
+console.log("  public/data/detected-changes.json");
 console.log("  public/data/regulation-watch-snapshot.json");
+console.log(`  ${watchers.length} watcher(s) configured`);
+console.log(`  ${snapshots.length} snapshot(s) exported`);
+console.log(`  ${detectedChanges.length} detected change(s) exported`);
 console.log(`  ${reviewQueueItems.length} item(s) in review queue export`);
 console.log(`  ${verifications.length} verification(s) exported`);
 console.log(`  ${urlChecks.length} URL check(s) exported`);

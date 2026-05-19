@@ -1,7 +1,7 @@
 {
   "name": "caesar-ai-regulation-watch",
   "type": "module",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "private": true,
   "description": "Read-only static site for Caesar AI Regulation Watch pilot data",
   "scripts": {
@@ -11,6 +11,7 @@
     "build:site": "astro build",
     "build:search": "pagefind --site dist",
     "check:urls": "node scripts/check-official-urls.mjs",
+    "watch:official": "node scripts/run-official-source-watchers.mjs",
     "build": "npm run validate:data && npm run generate:exports && npm run build:site && npm run build:search",
     "preview": "astro preview"
   },

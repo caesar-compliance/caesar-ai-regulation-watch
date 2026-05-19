@@ -1,0 +1,121 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ReviewStatusBadge from "../../components/ReviewStatusBadge.astro";
+import {
+  getDetectedChanges,
+  getDetectedChange,
+  getSource,
+  getJurisdiction,
+  getWatcher,
+  getSnapshots,
+} from "../../lib/data";
+import { humanizeId } from "../../lib/format";
+
+export function getStaticPaths() {
+  return getDetectedChanges().map((d) => ({
+    params: { id: d.detected_change_id },
+  }));
+}
+
+const { id } = Astro.params;
+const change = getDetectedChange(id!);
+
+if (!change) {
+  return Astro.redirect("/detected-changes/");
+}
+
+const source = getSource(change.source_id);
+const jurisdiction = getJurisdiction(change.jurisdiction_id);
+const watcher = getWatcher(change.watcher_id);
+const snapshots = getSnapshots();
+const prev = snapshots.find((s) => s.snapshot_id === change.previous_snapshot_id);
+const curr = snapshots.find((s) => s.snapshot_id === change.current_snapshot_id);
+---
+
+<BaseLayout title={change.detected_change_id} currentPath="/detected-changes/">
+  <p><a href="/detected-changes/">← Detected changes</a></p>
+  <h1>{change.detected_change_id}</h1>
+
+  <div class="banner banner--review" role="note">
+    <strong>Not legal advice.</strong> Pending human review. This entry does not verify regulatory
+    content or approve client use.
+  </div>
+
+  <div class="card__meta" style="margin-bottom: 1rem;">
+    <ReviewStatusBadge status={change.review_status} />
+    <span class="badge badge--type">{humanizeId(change.change_type)}</span>
+    <span class="badge">Confidence: {change.confidence_level}</span>
+    {change.human_review_required && <span class="badge">Human review required</span>}
+  </div>
+
+  <dl class="meta-grid">
+    <div><dt>Watcher</dt><dd><a href={`/watchers/${change.watcher_id}/`}>{change.watcher_id}</a></dd></div>
+    <div>
+      <dt>Source</dt>
+      <dd>
+        {source ? (
+          <a href={`/sources/${source.source_id}/`}>{source.title}</a>
+        ) : (
+          change.source_id
+        )}
+      </dd>
+    </div>
+    <div>
+      <dt>Jurisdiction</dt>
+      <dd>
+        {jurisdiction ? (
+          <a href={`/jurisdictions/${jurisdiction.jurisdiction_id}/`}>{jurisdiction.name}</a>
+        ) : (
+          change.jurisdiction_id
+        )}
+      </dd>
+    </div>
+    <div><dt>Detected at</dt><dd>{change.detected_at}</dd></div>
+    <div>
+      <dt>Official URL</dt>
+      <dd class="mono" style="word-break: break-all;">
+        {watcher?.official_url ?? source?.official_url ?? "—"}
+      </dd>
+    </div>
+  </dl>
+
+  <h2>Summary for review</h2>
+  <div class="prose"><p>{change.change_summary_for_review}</p></div>
+
+  <section>
+    <h2>Snapshot comparison (metadata only)</h2>
+    <p class="card__excerpt">
+      <small>No full page bodies stored. Compare hashes and HTTP metadata on the official site.</small>
+    </p>
+    <div class="grid-2">
+      {
+        prev && (
+          <div>
+            <h3>Previous</h3>
+            <dl class="meta-grid">
+              <div><dt>ID</dt><dd class="mono">{prev.snapshot_id}</dd></div>
+              <div><dt>Checked</dt><dd>{prev.checked_at}</dd></div>
+              <div><dt>Title</dt><dd>{prev.title ?? "—"}</dd></div>
+              <div><dt>Content hash</dt><dd class="mono">{prev.content_hash ?? "—"}</dd></div>
+            </dl>
+          </div>
+        )
+      }
+      {
+        curr && (
+          <div>
+            <h3>Current</h3>
+            <dl class="meta-grid">
+              <div><dt>ID</dt><dd class="mono">{curr.snapshot_id}</dd></div>
+              <div><dt>Checked</dt><dd>{curr.checked_at}</dd></div>
+              <div><dt>Title</dt><dd>{curr.title ?? "—"}</dd></div>
+              <div><dt>Content hash</dt><dd class="mono">{curr.content_hash ?? "—"}</dd></div>
+            </dl>
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <p class="prose"><small>{change.legal_safe_note}</small></p>
+</BaseLayout>

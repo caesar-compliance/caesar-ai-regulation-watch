@@ -1,0 +1,89 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ReviewStatusBadge from "../../components/ReviewStatusBadge.astro";
+import {
+  getWatchers,
+  getSources,
+  latestWatcherRun,
+  latestSnapshotForSource,
+  detectedChangesForSource,
+} from "../../lib/data";
+import { humanizeId } from "../../lib/format";
+
+const watchers = getWatchers();
+const sources = Object.fromEntries(getSources().map((s) => [s.source_id, s]));
+const latestRun = latestWatcherRun();
+---
+
+<BaseLayout title="Official source watchers" currentPath="/watchers/">
+  <h1>Official source watchers</h1>
+  <p class="lead">
+    Pilot metadata-only watchers for a small set of official sources. Manually executed via{" "}
+    <code>npm run watch:official</code> — not run in CI or on a production schedule.
+  </p>
+
+  <div class="banner banner--review" role="note">
+    <strong>Not legal advice.</strong> Watcher output signals possible page metadata changes only.
+    Hash differences are not legal conclusions. Human review required before any record update.{" "}
+    <a href="/methodology/">Methodology</a> · <a href="/disclaimer/">Disclaimer</a>
+  </div>
+
+  {
+    latestRun && (
+      <section>
+        <h2>Latest run</h2>
+        <dl class="meta-grid">
+          <div><dt>Run ID</dt><dd class="mono">{latestRun.run_id}</dd></div>
+          <div><dt>Date</dt><dd>{latestRun.run_date}</dd></div>
+          <div><dt>Checked</dt><dd>{latestRun.checked_count}</dd></div>
+          <div><dt>Changes detected</dt><dd>{latestRun.changed_count}</dd></div>
+          <div><dt>Errors</dt><dd>{latestRun.error_count}</dd></div>
+        </dl>
+      </section>
+    )
+  }
+
+  <ul class="card-list">
+    {
+      watchers.map((w) => {
+        const snap = latestSnapshotForSource(w.source_id);
+        const pendingChanges = detectedChangesForSource(w.source_id).filter(
+          (d) => d.review_status !== "reviewed",
+        );
+        return (
+          <li class="card">
+            <h2>
+              <a href={`/watchers/${w.watcher_id}/`}>{sources[w.source_id]?.title ?? w.source_id}</a>
+            </h2>
+            <div class="card__meta">
+              <ReviewStatusBadge status={w.review_status} />
+              <span class="badge badge--type">{humanizeId(w.watcher_type)}</span>
+              {w.enabled ? <span class="badge">Enabled</span> : <span class="badge">Disabled</span>}
+            </div>
+            <p class="card__excerpt">{w.monitoring_scope}</p>
+            <dl class="meta-grid meta-grid--compact">
+              <div>
+                <dt>Source</dt>
+                <dd>
+                  <a href={`/sources/${w.source_id}/`}>{w.source_id}</a>
+                </dd>
+              </div>
+              <div>
+                <dt>Last snapshot</dt>
+                <dd>{snap ? `${snap.checked_at.slice(0, 19).replace("T", " ")} UTC` : "—"}</dd>
+              </div>
+              <div>
+                <dt>Pending detected changes</dt>
+                <dd>{pendingChanges.length}</dd>
+              </div>
+            </dl>
+          </li>
+        );
+      })
+    }
+  </ul>
+
+  <p>
+    <a href="/detected-changes/">Detected changes →</a> · <a href="/review-queue/">Review queue →</a>
+  </p>
+</BaseLayout>

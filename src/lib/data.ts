@@ -249,6 +249,87 @@ export interface Timeline {
   legal_safe_note: string;
 }
 
+export type WatcherType =
+  | "official_page_metadata"
+  | "official_rss_or_feed"
+  | "official_api_metadata"
+  | "manual_only";
+
+export interface OfficialWatcher {
+  watcher_id: string;
+  source_id: string;
+  jurisdiction_id: string;
+  watcher_type: WatcherType;
+  official_url: string;
+  enabled: boolean;
+  monitoring_scope: string;
+  check_frequency_recommendation: string;
+  change_detection_mode: string;
+  snapshot_policy: string;
+  review_status: ReviewStatus;
+  legal_safe_note: string;
+}
+
+export interface SourceSnapshot {
+  snapshot_id: string;
+  watcher_id: string;
+  source_id: string;
+  jurisdiction_id: string;
+  checked_at: string;
+  original_url: string;
+  final_url: string;
+  http_status: number | null;
+  content_type: string | null;
+  etag: string | null;
+  last_modified: string | null;
+  title: string | null;
+  content_hash: string | null;
+  normalized_text_hash: string | null;
+  content_length: number | null;
+  snapshot_kind: "baseline" | "periodic_check" | "error_placeholder";
+  storage_policy: string;
+  fetch_error?: string;
+  legal_safe_note: string;
+}
+
+export interface WatcherRunResult {
+  watcher_id: string;
+  source_id: string;
+  status: string;
+  snapshot_id: string | null;
+  previous_snapshot_id?: string | null;
+  detected_change_id: string | null;
+  error_message: string | null;
+}
+
+export interface WatcherRun {
+  run_id: string;
+  run_date: string;
+  mode: string;
+  watcher_count: number;
+  checked_count: number;
+  changed_count: number;
+  error_count: number;
+  results: WatcherRunResult[];
+  legal_safe_note: string;
+}
+
+export interface DetectedChange {
+  detected_change_id: string;
+  watcher_id: string;
+  source_id: string;
+  jurisdiction_id: string;
+  detected_at: string;
+  change_type: string;
+  previous_snapshot_id: string;
+  current_snapshot_id: string;
+  change_summary_for_review: string;
+  confidence_level: string;
+  human_review_required: boolean;
+  review_status: ReviewStatus;
+  legal_safe_note: string;
+}
+
 function readYamlDir<T>(dir: string): T[] {
   const abs = path.join(ROOT, dir);
   if (!fs.existsSync(abs)) return [];
@@ -480,6 +561,81 @@ export function jurisdictionCoverage(jurisdictionId: string) {
   };
 }
 
+export function getWatchers(): OfficialWatcher[] {
+  const file = readYamlFile<{ watchers: OfficialWatcher[] }>(
+    "data/watchers/official-source-watchers.yml",
+  );
+  return file?.watchers ?? [];
+}
+
+export function getWatcher(id: string): OfficialWatcher | undefined {
+  return getWatchers().find((w) => w.watcher_id === id);
+}
+
+export function getSnapshots(): SourceSnapshot[] {
+  const root = path.join(ROOT, "data/snapshots");
+  if (!fs.existsSync(root)) return [];
+  const items: SourceSnapshot[] = [];
+  for (const sourceDir of fs.readdirSync(root)) {
+    const dir = path.join(root, sourceDir);
+    if (!fs.statSync(dir).isDirectory()) continue;
+    for (const f of fs.readdirSync(dir)) {
+      if (!f.endsWith(".yml") || f === "latest.yml") continue;
+      items.push(
+        yaml.load(fs.readFileSync(path.join(dir, f), "utf8")) as SourceSnapshot,
+      );
+    }
+  }
+  return items.sort((a, b) => b.checked_at.localeCompare(a.checked_at));
+}
+
+export function latestSnapshotForSource(sourceId: string): SourceSnapshot | undefined {
+  const pointerPath = path.join(ROOT, "data/snapshots", sourceId, "latest.yml");
+  if (!fs.existsSync(pointerPath)) {
+    return getSnapshots().find((s) => s.source_id === sourceId);
+  }
+  const pointer = yaml.load(fs.readFileSync(pointerPath, "utf8")) as {
+    snapshot_id?: string;
+  };
+  if (!pointer?.snapshot_id) return undefined;
+  const snapPath = path.join(
+    ROOT,
+    "data/snapshots",
+    sourceId,
+    `${pointer.snapshot_id}.yml`,
+  );
+  if (!fs.existsSync(snapPath)) return undefined;
+  return yaml.load(fs.readFileSync(snapPath, "utf8")) as SourceSnapshot;
+}
+
+export function snapshotsForSource(sourceId: string): SourceSnapshot[] {
+  return getSnapshots().filter((s) => s.source_id === sourceId);
+}
+
+export function getWatcherRuns(): WatcherRun[] {
+  return readYamlDir<WatcherRun>("data/watcher-runs").sort((a, b) =>
+    b.run_date.localeCompare(a.run_date),
+  );
+}
+
+export function latestWatcherRun(): WatcherRun | undefined {
+  return getWatcherRuns()[0];
+}
+
+export function getDetectedChanges(): DetectedChange[] {
+  return readYamlDir<DetectedChange>("data/detected-changes").sort((a, b) =>
+    b.detected_at.localeCompare(a.detected_at),
+  );
+}
+
+export function getDetectedChange(id: string): DetectedChange | undefined {
+  return getDetectedChanges().find((d) => d.detected_change_id === id);
+}
+
+export function detectedChangesForSource(sourceId: string): DetectedChange[] {
+  return getDetectedChanges().filter((d) => d.source_id === sourceId);
+}
+
 export function getPilotSummary() {
   return {
     jurisdictionCount: getJurisdictions().length,
@@ -490,5 +646,8 @@ export function getPilotSummary() {
     verificationCount: getVerifications().length,
     exportSampleCount: getExportSamples().length,
     mapMarkerCount: getJurisdictions().filter((j) => j.map).length,
+    watcherCount: getWatchers().length,
+    snapshotCount: getSnapshots().length,
+    detectedChangeCount: getDetectedChanges().length,
   };
 }

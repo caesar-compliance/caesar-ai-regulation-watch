@@ -36,6 +36,10 @@ const schemas = {
   timeline: loadSchema("timeline.schema.json"),
   sourceVerification: loadSchema("source-verification.schema.json"),
   urlVerification: loadSchema("url-verification.schema.json"),
+  watcherConfig: loadSchema("watcher-config.schema.json"),
+  sourceSnapshot: loadSchema("source-snapshot.schema.json"),
+  watcherRun: loadSchema("watcher-run.schema.json"),
+  detectedChange: loadSchema("detected-change.schema.json"),
 };
 
 function readYaml(filePath) {
@@ -144,6 +148,57 @@ for (const file of listYamlFiles(path.join(ROOT, "data/verifications"))) {
       errors: [{ message: "unknown verification file prefix; use source-verification-*, source-identity-review-*, or url-check-*" }],
     });
   }
+}
+
+// Watcher configuration
+const watcherConfigPath = path.join(ROOT, "data/watchers/official-source-watchers.yml");
+if (fs.existsSync(watcherConfigPath)) {
+  const watcherConfig = readYaml(watcherConfigPath);
+  check(validate(watcherConfigPath, watcherConfig, schemas.watcherConfig));
+}
+
+// Source snapshots (per-source dirs; exclude latest.yml pointer)
+const snapshotsRoot = path.join(ROOT, "data/snapshots");
+if (fs.existsSync(snapshotsRoot)) {
+  for (const sourceDir of fs.readdirSync(snapshotsRoot)) {
+    const dir = path.join(snapshotsRoot, sourceDir);
+    if (!fs.statSync(dir).isDirectory()) continue;
+    for (const file of listYamlFiles(dir)) {
+      if (path.basename(file) === "latest.yml") continue;
+      const data = readYaml(file);
+      check(validate(file, data, schemas.sourceSnapshot));
+    }
+    const latestPath = path.join(dir, "latest.yml");
+    if (fs.existsSync(latestPath)) {
+      const pointer = readYaml(latestPath);
+      if (!pointer?.snapshot_id) {
+        failures.push({
+          label: latestPath,
+          errors: [{ message: "latest.yml must include snapshot_id" }],
+        });
+      } else {
+        const snapPath = path.join(dir, `${pointer.snapshot_id}.yml`);
+        if (!fs.existsSync(snapPath)) {
+          failures.push({
+            label: latestPath,
+            errors: [{ message: `snapshot file missing: ${pointer.snapshot_id}.yml` }],
+          });
+        }
+      }
+    }
+  }
+}
+
+// Watcher runs
+for (const file of listYamlFiles(path.join(ROOT, "data/watcher-runs"))) {
+  const data = readYaml(file);
+  check(validate(file, data, schemas.watcherRun));
+}
+
+// Detected changes
+for (const file of listYamlFiles(path.join(ROOT, "data/detected-changes"))) {
+  const data = readYaml(file);
+  check(validate(file, data, schemas.detectedChange));
 }
 
 // Export samples
@@ -286,6 +341,86 @@ for (const file of listYamlFiles(path.join(ROOT, "data/verifications"))) {
         });
       }
     }
+  }
+}
+
+// Referential integrity (watchers)
+if (fs.existsSync(watcherConfigPath)) {
+  const watcherConfig = readYaml(watcherConfigPath);
+  const watcherIds = new Set();
+  for (const w of watcherConfig.watchers ?? []) {
+    if (watcherIds.has(w.watcher_id)) {
+      failures.push({
+        label: watcherConfigPath,
+        errors: [{ message: `duplicate watcher_id: ${w.watcher_id}` }],
+      });
+    }
+    watcherIds.add(w.watcher_id);
+    if (!sourceIds.has(w.source_id)) {
+      failures.push({
+        label: `${watcherConfigPath} → ${w.watcher_id} (referential)`,
+        errors: [{ message: `unknown source_id: ${w.source_id}` }],
+      });
+    }
+    if (!jurisdictionIds.has(w.jurisdiction_id)) {
+      failures.push({
+        label: `${watcherConfigPath} → ${w.watcher_id} (referential)`,
+        errors: [{ message: `unknown jurisdiction_id: ${w.jurisdiction_id}` }],
+      });
+    }
+  }
+}
+
+const snapshotIds = new Set();
+if (fs.existsSync(snapshotsRoot)) {
+  for (const sourceDir of fs.readdirSync(snapshotsRoot)) {
+    const dir = path.join(snapshotsRoot, sourceDir);
+    if (!fs.statSync(dir).isDirectory()) continue;
+    for (const file of listYamlFiles(dir)) {
+      if (path.basename(file) === "latest.yml") continue;
+      const snap = readYaml(file);
+      snapshotIds.add(snap.snapshot_id);
+      if (!sourceIds.has(snap.source_id)) {
+        failures.push({
+          label: `${file} (referential)`,
+          errors: [{ message: `unknown source_id: ${snap.source_id}` }],
+        });
+      }
+      if (!jurisdictionIds.has(snap.jurisdiction_id)) {
+        failures.push({
+          label: `${file} (referential)`,
+          errors: [{ message: `unknown jurisdiction_id: ${snap.jurisdiction_id}` }],
+        });
+      }
+    }
+  }
+}
+
+for (const file of listYamlFiles(path.join(ROOT, "data/detected-changes"))) {
+  const dc = readYaml(file);
+  if (!sourceIds.has(dc.source_id)) {
+    failures.push({
+      label: `${file} (referential)`,
+      errors: [{ message: `unknown source_id: ${dc.source_id}` }],
+    });
+  }
+  if (!jurisdictionIds.has(dc.jurisdiction_id)) {
+    failures.push({
+      label: `${file} (referential)`,
+      errors: [{ message: `unknown jurisdiction_id: ${dc.jurisdiction_id}` }],
+    });
+  }
+  if (!snapshotIds.has(dc.previous_snapshot_id)) {
+    failures.push({
+      label: `${file} (referential)`,
+      errors: [{ message: `unknown previous_snapshot_id: ${dc.previous_snapshot_id}` }],
+    });
+  }
+  if (!snapshotIds.has(dc.current_snapshot_id)) {
+    failures.push({
+      label: `${file} (referential)`,
+      errors: [{ message: `unknown current_snapshot_id: ${dc.current_snapshot_id}` }],
+    });
   }
 }
 

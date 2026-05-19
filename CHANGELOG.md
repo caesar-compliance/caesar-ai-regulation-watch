@@ -11,6 +11,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.7.0] - 19 May 2026
+
+### Added
+
+- **Official source watcher prototype** — `scripts/run-official-source-watchers.mjs`, `npm run watch:official` (manual CLI only; not in CI).
+- **Watcher config** — `data/watchers/official-source-watchers.yml` (pilot: `eu-ai-office`, `datatilsynet`).
+- **Schemas** — `watcher-config`, `source-snapshot`, `watcher-run`, `detected-change`.
+- **Metadata snapshots** — `data/snapshots/<source_id>/` (hashes and HTTP metadata only; no full body storage).
+- **Watcher run logs** — `data/watcher-runs/`.
+- **Detected changes** — `data/detected-changes/` (pending review only; no automatic record updates).
+- **Static exports** — `watchers.json`, `snapshots.json`, `watcher-runs.json`, `detected-changes.json`.
+- **Site pages** — `/watchers/`, `/detected-changes/`.
+- **Docs** — `docs/WATCHER_PROTOTYPE.md`, `docs/SNAPSHOT_AND_DIFF_POLICY.md`.
+
+### Changed
+
+- Review queue includes detected changes and watcher errors.
+- `regulation-watch-snapshot.json` includes watcher counts and latest run metadata.
+- Validation covers watcher config, snapshots, runs, and detected changes.
+
+### Notes
+
+- First baseline run: 2 snapshots, 0 detected changes, 0 errors.
+- No `verified_on_source: true` or `client_use_allowed: true`.
+- Production scheduling and CI execution explicitly deferred.
+
+---
+
 ## [0.6.2] - 19 May 2026
 
 ### Added

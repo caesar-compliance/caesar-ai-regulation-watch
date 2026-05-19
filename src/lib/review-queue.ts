@@ -11,6 +11,8 @@ import {
   getVerifications,
   getUrlChecks,
   latestIdentityVerificationForSource,
+  getDetectedChanges,
+  latestWatcherRun,
 } from "./data";
 
 export type ReviewQueueItemType =
@@ -22,7 +24,9 @@ export type ReviewQueueItemType =
   | "timeline_event"
   | "export_sample"
   | "source_verification"
-  | "url_check";
+  | "url_check"
+  | "detected_change"
+  | "watcher_error";
 
 export type ReviewQueueReason =
   | "pending_review"
@@ -35,7 +39,11 @@ export type ReviewQueueReason =
   | "legal_review_not_done"
   | "verified_on_source_false"
   | "client_use_not_allowed"
-  | "needs_update";
+  | "needs_update"
+  | "detected_change_pending_review"
+  | "watcher_error"
+  | "snapshot_changed"
+  | "human_review_required";
 
 export interface ReviewQueueItem {
   item_type: ReviewQueueItemType;
@@ -151,6 +159,12 @@ function reasonText(reasons: ReviewQueueReason[]): string {
     verified_on_source_false: "Not verified on official source in this repository.",
     client_use_not_allowed: "Client use not allowed.",
     needs_update: "Marked needs_update.",
+    detected_change_pending_review:
+      "Watcher detected a possible metadata change; human review required.",
+    watcher_error: "Latest watcher run reported a fetch or check error for this source.",
+    snapshot_changed: "New metadata snapshot differs from previous; confirm on official source.",
+    human_review_required:
+      "Watcher output requires human review before any record update.",
   };
   return reasons.map((r) => labels[r]).join(" ");
 }
@@ -169,6 +183,10 @@ const SUGGESTED: Record<ReviewQueueItemType, string> = {
     "Complete human source identity and content review per SOURCE_VERIFICATION_WORKFLOW.md.",
   url_check:
     "Review technical URL outcome; if redirected or domain mismatch, update registry URL after human confirmation.",
+  detected_change:
+    "Compare snapshots and live official source; do not treat hash diff as legal change until human confirms.",
+  watcher_error:
+    "Investigate watcher fetch error; re-run watch:official when network available; previous snapshot preserved.",
 };
 
 export function buildReviewQueue(): ReviewQueueItem[] {
@@ -383,6 +401,66 @@ export function buildReviewQueue(): ReviewQueueItem[] {
     });
   }
 
+  for (const dc of getDetectedChanges()) {
+    if (!needsReview(dc.review_status)) continue;
+    const src = getSource(dc.source_id);
+    const reasons: ReviewQueueReason[] = [
+      "detected_change_pending_review",
+      "human_review_required",
+      "content_not_reviewed",
+      "legal_review_not_done",
+    ];
+    items.push({
+      item_type: "detected_change",
+      item_id: dc.detected_change_id,
+      title: `Detected change: ${dc.source_id}`,
+      jurisdiction_id: dc.jurisdiction_id,
+      review_status: dc.review_status,
+      reason_for_review: reasonText(reasons),
+      review_reasons: reasons,
+      official_url: src?.official_url ?? null,
+      page_href: `/detected-changes/${dc.detected_change_id}/`,
+      suggested_action: SUGGESTED.detected_change,
+      missing_official_url: !src?.official_url,
+      verified_on_source_false: true,
+      technical_url_status: null,
+      content_review_status: "not_reviewed",
+      redirect_detected: false,
+      client_use_allowed: false,
+    });
+  }
+
+  const latestRun = latestWatcherRun();
+  if (latestRun) {
+    for (const r of latestRun.results) {
+      if (r.status !== "error") continue;
+      const src = getSource(r.source_id);
+      const reasons: ReviewQueueReason[] = [
+        "watcher_error",
+        "technical_url_unchecked",
+        "human_review_required",
+      ];
+      items.push({
+        item_type: "watcher_error",
+        item_id: `${latestRun.run_id}-${r.watcher_id}`,
+        title: `Watcher error: ${r.source_id}`,
+        jurisdiction_id: src?.jurisdiction_id ?? "eu",
+        review_status: "needs_human_review",
+        reason_for_review: `${r.error_message ?? "Watcher check failed."} ${reasonText(reasons)}`,
+        review_reasons: reasons,
+        official_url: src?.official_url ?? null,
+        page_href: `/watchers/${r.watcher_id}/`,
+        suggested_action: SUGGESTED.watcher_error,
+        missing_official_url: !src?.official_url,
+        verified_on_source_false: true,
+        technical_url_status: null,
+        content_review_status: "not_reviewed",
+        redirect_detected: false,
+        client_use_allowed: false,
+      });
+    }
+  }
+
   for (const v of getVerifications()) {
     if (v.check_result !== "not_checked" && v.check_result !== "uncertain") continue;
     const src = getSource(v.source_id);
@@ -435,6 +513,8 @@ export function getReviewQueueSummary() {
   let clientUseNotAllowed = 0;
   let sourceIdentityReviewed = 0;
   let legalReviewNotDone = 0;
+  let detectedChangePending = 0;
+  let watcherErrors = 0;
 
   for (const item of items) {
     byStatus[item.review_status] = (byStatus[item.review_status] ?? 0) + 1;
@@ -451,6 +531,10 @@ export function getReviewQueueSummary() {
       sourceIdentityReviewed += 1;
     }
     if (item.review_reasons.includes("legal_review_not_done")) legalReviewNotDone += 1;
+    if (item.review_reasons.includes("detected_change_pending_review")) {
+      detectedChangePending += 1;
+    }
+    if (item.review_reasons.includes("watcher_error")) watcherErrors += 1;
   }
 
   return {
@@ -466,6 +550,8 @@ export function getReviewQueueSummary() {
     client_use_not_allowed: clientUseNotAllowed,
     source_identity_reviewed_only: sourceIdentityReviewed,
     legal_review_not_done: legalReviewNotDone,
+    detected_change_pending_review: detectedChangePending,
+    watcher_errors: watcherErrors,
     by_status: byStatus,
   };
 }

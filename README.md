@@ -3,7 +3,7 @@
 **Global AI regulation monitoring for governance teams** — part of the [Caesar AI Governance Hub](https://github.com/caesar-compliance/caesar-ai-governance-hub) ecosystem.
 
 **Last updated:** 19 May 2026  
-**Status:** v0.6.2 — URL remediation, source identity review, technical URL checks, curated records, review queue, map, timelines, CI validate/build, search, and JSON/RSS exports (no watchers, APIs, database, auth; live URL checks manual only, not in CI)
+**Status:** v0.7.0 — First official-source watcher prototype (metadata-only snapshots, manual `npm run watch:official`), plus URL remediation, source identity review, technical URL checks, curated records, review queue, map, timelines, CI validate/build, search, and JSON/RSS exports (no APIs, database, auth; watchers not in CI)
 
 ---
 
@@ -142,6 +142,7 @@ Read-only Astro site generated from `data/` at build time:
 ```bash
 npm install
 npm run validate:data      # ajv — all YAML vs schemas/
+npm run watch:official     # manual metadata watcher (not CI)
 npm run generate:exports   # public/data/*.json + public/feeds/changes.xml
 npm run dev                # local preview (search needs full build)
 npm run build              # dist/ + Pagefind search index

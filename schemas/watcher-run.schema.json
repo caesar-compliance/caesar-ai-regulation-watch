@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caesar.no/schemas/caesar-ai-regulation-watch/watcher-run.schema.json",
+  "title": "Caesar AI Regulation Watch — Watcher run log",
+  "description": "Log of a manual official-source watcher execution. Not CI or production scheduling.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "run_date",
+    "mode",
+    "watcher_count",
+    "checked_count",
+    "changed_count",
+    "error_count",
+    "results",
+    "legal_safe_note"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "run_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "mode": {
+      "type": "string",
+      "enum": ["manual_cli", "dry_run"]
+    },
+    "watcher_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "checked_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "changed_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "error_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "watcher_id",
+          "source_id",
+          "status",
+          "snapshot_id",
+          "detected_change_id",
+          "error_message"
+        ],
+        "properties": {
+          "watcher_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "source_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["checked", "skipped_disabled", "error", "unchanged", "change_detected"]
+          },
+          "snapshot_id": {
+            "type": ["string", "null"],
+            "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "previous_snapshot_id": {
+            "type": ["string", "null"],
+            "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "detected_change_id": {
+            "type": ["string", "null"],
+            "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "error_message": {
+            "type": ["string", "null"]
+          }
+        }
+      }
+    },
+    "legal_safe_note": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

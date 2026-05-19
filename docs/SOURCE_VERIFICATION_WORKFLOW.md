@@ -1,7 +1,7 @@
 # Source Verification Workflow
 
 **Prepared:** 19 May 2026  
-**Version:** v0.6.2
+**Version:** v0.7.0
 
 ---
 
@@ -25,6 +25,14 @@ Verification is **not** legal advice and **does not** grant compliance certifica
 **Do not** set `check_result` in source verification to `reachable_*` based only on `npm run check:urls`. Technical results use the URL verification schema (`reachable`, `reachable_redirected`, etc.). Human source verification uses its own enum (`reachable_matches_expected_source`, etc.).
 
 See [URL_VERIFICATION_POLICY.md](./URL_VERIFICATION_POLICY.md).
+
+### Official-source watcher (v0.7.0 — separate from verification)
+
+| Layer | Data | Tool | Meaning |
+|---|---|---|---|
+| **Metadata watcher** | `data/snapshots/`, `data/detected-changes/` | `npm run watch:official` | Hash/metadata diff signals only; not legal review |
+
+Watcher output does **not** set `verified_on_source`, `client_use_allowed`, or update record YAML. Reviewers confirm any detected change on the live official source. See [WATCHER_PROTOTYPE.md](./WATCHER_PROTOTYPE.md).
 
 ---
 

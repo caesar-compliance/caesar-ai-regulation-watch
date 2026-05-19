@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-05-19",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
   "pilot_jurisdictions": [
     "australia",
@@ -36,6 +36,13 @@
     "unresolved_url_issue_count": 1,
     "export_samples": 2,
     "map_markers": 13,
+    "watchers": 2,
+    "watchers_enabled": 2,
+    "snapshots": 2,
+    "detected_changes": 0,
+    "detected_changes_pending_review": 0,
+    "watcher_error_count": 0,
+    "latest_watcher_run": "watcher-run-2026-05-19",
     "review_queue_items": 86,
     "pending_review": 85,
     "needs_update": 0,
@@ -57,7 +64,11 @@
     "map_coverage": "/data/map-coverage.json",
     "review_queue": "/data/review-queue.json",
     "verifications": "/data/verifications.json",
-    "url_checks": "/data/url-checks.json"
+    "url_checks": "/data/url-checks.json",
+    "watchers": "/data/watchers.json",
+    "snapshots": "/data/snapshots.json",
+    "watcher_runs": "/data/watcher-runs.json",
+    "detected_changes": "/data/detected-changes.json"
   },
   "review_notice": "All pilot content is curated manual YAML. Human review required before client use."
 }

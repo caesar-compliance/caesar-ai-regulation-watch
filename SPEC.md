@@ -1,7 +1,7 @@
 # Specification — Caesar AI Regulation Watch
 
 **Last updated:** 19 May 2026  
-**Status:** v0.6.1 — technical URL verification (`npm run check:urls`), human source verification workflow, refined review queue, CI validate/build, read-only Astro site (no watchers, APIs, database, auth; URL checks not in CI)
+**Status:** v0.7.0 — official-source watcher prototype (`npm run watch:official`, manual only), metadata-only snapshots, technical URL verification, human verification workflow, review queue, CI validate/build, read-only Astro site (no APIs, database, auth; watchers and URL checks not in CI)
 
 ---
 
@@ -228,12 +228,13 @@ Read-only Astro static site at repository root (`src/`, `package.json`):
 | Command | Purpose |
 |---|---|
 | `npm run validate:data` | ajv validation of all `data/` YAML |
+| `npm run watch:official` | Manual metadata watcher (not CI) |
 | `npm run dev` | Local preview |
 | `npm run build` | Static output to `dist/` |
 
-**Pages:** home, jurisdictions, sources, records (laws/guidance), changes, export samples.
+**Pages:** home, jurisdictions, sources, records, changes, watchers, detected changes, timelines, map, review queue, verification.
 
-**Not included:** watchers, API, database, auth, map, remote data fetch.
+**Not in CI:** watchers, live URL checks. **Not included:** API, database, auth, production scheduling.
 
 ---
 

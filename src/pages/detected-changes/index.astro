@@ -1,0 +1,70 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ReviewStatusBadge from "../../components/ReviewStatusBadge.astro";
+import { getDetectedChanges, getSource, getJurisdiction } from "../../lib/data";
+import { humanizeId } from "../../lib/format";
+
+const changes = getDetectedChanges();
+---
+
+<BaseLayout title="Detected changes" currentPath="/detected-changes/">
+  <h1>Detected changes</h1>
+  <p class="lead">
+    Pending watcher-detected metadata diffs. These are not verified regulatory change records and
+    require human review on the official source.
+  </p>
+
+  <div class="banner banner--review" role="note">
+    <strong>Not legal advice.</strong> A detected change is a technical signal only. Confirm on the
+    live official source before updating any curated record.
+  </div>
+
+  {
+    changes.length === 0 ? (
+      <p>No detected changes in the repository. Run the watcher after a baseline snapshot exists to compare future checks.</p>
+    ) : (
+      <ul class="card-list">
+        {changes.map((d) => {
+          const src = getSource(d.source_id);
+          const j = getJurisdiction(d.jurisdiction_id);
+          return (
+            <li class="card">
+              <h2>
+                <a href={`/detected-changes/${d.detected_change_id}/`}>{d.detected_change_id}</a>
+              </h2>
+              <div class="card__meta">
+                <ReviewStatusBadge status={d.review_status} />
+                <span class="badge badge--type">{humanizeId(d.change_type)}</span>
+                <span class="badge">Confidence: {d.confidence_level}</span>
+              </div>
+              <p>{d.change_summary_for_review}</p>
+              <dl class="meta-grid meta-grid--compact">
+                <div>
+                  <dt>Source</dt>
+                  <dd>
+                    <a href={`/sources/${d.source_id}/`}>{src?.title ?? d.source_id}</a>
+                  </dd>
+                </div>
+                <div>
+                  <dt>Jurisdiction</dt>
+                  <dd>{j?.name ?? d.jurisdiction_id}</dd>
+                </div>
+                <div>
+                  <dt>Detected at</dt>
+                  <dd>{d.detected_at}</dd>
+                </div>
+              </dl>
+              {d.human_review_required && (
+                <p class="card__excerpt">
+                  <small>Human review required — watcher does not update records automatically.</small>
+                </p>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    )
+  }
+
+  <p><a href="/watchers/">Watchers →</a> · <a href="/review-queue/">Review queue →</a></p>
+</BaseLayout>
