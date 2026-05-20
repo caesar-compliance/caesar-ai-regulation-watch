@@ -11,6 +11,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.9.8] - 20 May 2026
+
+### Added
+
+- **Manual-gated live metadata review workflow** — `.github/workflows/manual-live-metadata-review.yml` (`workflow_dispatch` + `confirm_live_metadata=RUN`; artifact upload only).
+- **Artifact pack builder** — `scripts/build-live-metadata-review-artifact.mjs` (`npm run monitoring:live-artifact`); outputs to `tmp/live-metadata-review-pack/`.
+- **Monitoring policy gate** — `scripts/check-monitoring-policy.mjs` (`npm run monitoring:policy-check`).
+- **Pilot output dir** — `LIVE_METADATA_OUTPUT_DIR` on `run-live-metadata-pilot.mjs` for non-repo writes.
+
+### Changed
+
+- **Monitoring page** — manual artifact workflow section; no scheduled production monitoring implied.
+- **Docs** — MONITORING_RUNBOOK, SCHEDULED_MONITORING_POLICY, METADATA_COMPARISON_POLICY, WATCHER_RELIABILITY_POLICY.
+
+### Notes
+
+- No schedule, auto-commit, auto-merge, deploy, client evidence, or final evidence from this workflow; tag after deploy on main.
+
+---
+
 ## [0.9.7] - 20 May 2026
 
 ### Added

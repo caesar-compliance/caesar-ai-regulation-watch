@@ -1,8 +1,14 @@
-# Watcher reliability policy (v0.9.7)
+# Watcher reliability policy (v0.9.8)
 
 **Last updated:** 20 May 2026
 
-## Live metadata pilot (v0.9.7)
+## Manual live metadata artifact workflow (v0.9.8)
+
+- `manual-live-metadata-review.yml`: `workflow_dispatch` only; confirmation `RUN`; `contents: read` only; uploads `tmp/live-metadata-review-pack/` as artifact.
+- Policy gate: `scripts/check-monitoring-policy.mjs` — fails on `client_use_allowed`, `final_evidence_allowed`, `verified_on_source`, `legal_change_claimed`, forbidden text fields, blocked sources, competitor URLs, or allowlist > 5 sources.
+- No schedule, push, pull_request, deploy, or secrets on this workflow.
+
+## Live metadata pilot (v0.9.7 comparison rules)
 
 - One request per allowlisted URL; metadata headers/title only; see `docs/METADATA_COMPARISON_POLICY.md`.
 - Weak headers (`Last-Modified`, `ETag` null→present vs deterministic baseline) classified as benign when triaged; not regulatory change signals.

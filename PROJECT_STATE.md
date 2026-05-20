@@ -9,16 +9,27 @@
 | Field | Value |
 |---|---|
 | **Repository** | `caesar-ai-regulation-watch` |
-| **Current version** | `v0.9.7` |
-| **Current phase** | Public pilot — live metadata triage + stable baseline hardening |
-| **Status** | Live on custom domain; v0.9.7 deployed (`aa94d88`) |
-| **Working branch** | `main` |
-| **Latest completed task** | v0.9.7 — triage 3 live metadata review candidates; comparison policy hardening |
-| **Deployment ID** | `DEPLOY-20260520-014` — commit `aa94d88`, run [26162113701](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26162113701) |
-| **Git tag** | `regulation-watch-v0.9.7` → `aa94d88` (matches deployed commit) |
-| **Next recommended step** | Optional UNESCO check_artifact confirm on official page; browser verification on blocked sources |
+| **Current version** | `v0.9.8` |
+| **Current phase** | Public pilot — manual-gated live metadata artifact review |
+| **Status** | Implementing v0.9.8 — manual workflow + artifact pack (pending deploy) |
+| **Working branch** | `agent/v0.9.8-manual-monitoring-workflow` |
+| **Latest completed task** | v0.9.8 — manual-gated GitHub Actions live metadata review workflow + artifact pack |
+| **Deployment ID** | Pending `DEPLOY-20260520-015` |
+| **Git tag** | Pending `regulation-watch-v0.9.8` (tag on deployed main commit) |
+| **Next recommended step** | Deploy v0.9.8; run manual workflow once; smoke test; tag deployed commit |
 
 ---
+
+## Manual live metadata artifact workflow (v0.9.8)
+
+| Property | Value |
+|---|---|
+| Workflow | `manual-live-metadata-review.yml` |
+| Trigger | `workflow_dispatch` only |
+| Confirmation | `confirm_live_metadata=RUN` |
+| Auto-commit / auto-merge | No |
+| Artifact | `live-metadata-review-pack-<run_id>` |
+| Local | `npm run monitoring:live-artifact` → `tmp/live-metadata-review-pack/` |
 
 ## Live metadata triage (v0.9.7)
 

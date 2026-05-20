@@ -1,10 +1,10 @@
-# Live metadata comparison policy (v0.9.7)
+# Live metadata comparison policy (v0.9.8)
 
 **Last updated:** 20 May 2026
 
 ## Scope
 
-Applies to the cautious live metadata pilot (`scripts/run-live-metadata-pilot.mjs`) and v0.9.7 triage of review candidates. **Not** scheduled broad monitoring, **not** legal/regulatory change detection, **not** client or final evidence.
+Applies to the cautious live metadata pilot (`scripts/run-live-metadata-pilot.mjs`), v0.9.8 manual artifact pack (`scripts/build-live-metadata-review-artifact.mjs`), and v0.9.7 triage of review candidates. **Not** scheduled broad monitoring, **not** legal/regulatory change detection, **not** client or final evidence. GitHub Actions artifact output is for human review only — never auto-merged to curated records.
 
 ## Compared fields
 

@@ -1,6 +1,15 @@
-# Scheduled monitoring policy (v0.8.1)
+# Scheduled monitoring policy (v0.9.8)
 
-**Last updated:** 19 May 2026
+**Last updated:** 20 May 2026
+
+## v0.9.8 manual live metadata workflow (not scheduled)
+
+| Workflow | Trigger | Schedule | Auto-commit |
+|---|---|---|---|
+| `manual-live-metadata-review.yml` | `workflow_dispatch` + `confirm_live_metadata=RUN` | **None** | **None** — artifact upload only |
+| `monitoring-cycle.yml` | `workflow_dispatch` + daily cron | 06:00 UTC (cycle only) | Optional review PR only (manual merge) |
+
+The cautious live metadata pilot for allowlisted official URLs is run through **Manual live metadata review** when operators need a fresh artifact pack. It does not replace CI validation and does not deploy the public site.
 
 ## Purpose
 
