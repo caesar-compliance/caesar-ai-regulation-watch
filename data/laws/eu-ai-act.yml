@@ -6,7 +6,7 @@ record_type: law
 record_origin: manual_sample
 verified_on_source: false
 content_review_status: reviewed_content_summary
-last_content_review_id: content-review-law-eu-ai-act-2024-1689-v092
+last_content_review_id: content-review-law-eu-ai-act-2024-1689-v093
 title: Regulation (EU) 2024/1689 — Artificial Intelligence Act
 jurisdiction_id: eu
 source_id: eu-ai-act
@@ -17,8 +17,8 @@ summary_for_review: >
   Supports governance review of whether AI system registers, risk processes, and vendor
   documentation may need alignment with tracked EU requirements. v0.8.9: Commission AI Act
   overview page corroborates instrument identity; EUR-Lex full text still requires human
-  browser review (automated access limited). Dates below are illustrative — verify on official
-  sources before client use.
+  browser review (automated access limited). v0.9.3: EUR-Lex CELEX URL still HTTP 202 / bot protection;
+  EC digital-strategy corroboration only. Dates below are illustrative — verify on official sources before client use.
 key_dates:
   - label: Regulation published in Official Journal (sample — verify on EUR-Lex)
     date: "2024-07-12"

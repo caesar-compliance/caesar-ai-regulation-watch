@@ -2,7 +2,7 @@
 
 **Last updated:** 20 May 2026
 
-**Current version:** v0.9.2 · **Phase:** public pilot — source resolution and content review · **Branch:** `main` (after merge)
+**Current version:** v0.9.3 · **Phase:** public pilot — targeted source verification · **Branch:** `main` (after merge)
 
 **Canonical URL:** https://regulation-watch.caesar.no/
 
@@ -13,7 +13,8 @@
 1. ~~**v0.9.2 source lead resolution**~~ — White House EO → Federal Register; Canada confirmed; Australia pending (WAF).
 2. ~~**v0.9.2 content review batch**~~ — six v0.9.1 minimal records + EUR-Lex follow-up in `content-review-2026-05-20-v092.yml`.
 3. ~~**Deploy and tag**~~ — `DEPLOY-20260520-009` live; tag `regulation-watch-v0.9.2` after docs commit.
-4. **Human browser verification** — Australia `industry.gov.au` AI ethics principles (WAF); EUR-Lex CELEX 32024R1689 full text; EDPB AI topic index (transient 502 in v0.9.2 automated pass).
+4. ~~**v0.9.3 targeted verification pass**~~ — batch `source-verification-2026-05-20-v093` + `content-review-2026-05-20-v093`; limitations documented.
+5. **Human browser verification (remaining)** — Australia `industry.gov.au` ethics principles HTML (WAF); EUR-Lex CELEX 32024R1689 full instrument; EDPB AI topic when edpb.europa.eu returns HTTP 200.
 
 ---
 

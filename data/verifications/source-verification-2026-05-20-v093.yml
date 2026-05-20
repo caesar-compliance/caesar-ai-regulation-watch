@@ -1,0 +1,83 @@
+# Targeted source verification — v0.9.3 human/browser-style pass
+# access_date: 2026-05-20 · client_use_allowed: false for every entry
+
+verification_batch_id: source-verification-2026-05-20-v093
+verified_date: "2026-05-20"
+verifier_type: curator_batch
+legal_safe_note: >
+  v0.9.3 targeted verification pass for Australia industry.gov.au AI ethics principles,
+  EUR-Lex CELEX 32024R1689 (EU AI Act instrument), and EDPB AI topic index. Uses curl and
+  supporting fetch checks only; no bot bypass. Not legal advice. Does not authorise client use
+  or final evidence export. verified_on_source remains false on related records.
+
+verifications:
+  - verification_id: verify-australia-industry-ai-principles-v093
+    verified_date: "2026-05-20"
+    verifier_type: curator_batch
+    item_type: source
+    item_id: australia-industry-ai
+    source_id: australia-industry-ai
+    official_url_checked: https://www.industry.gov.au/publications/australias-ai-ethics-principles
+    check_result: reachable_needs_human_review
+    page_title_or_reference: Australia's AI Ethics Principles (expected — Department of Industry)
+    notes: >
+      v0.9.3 pass. related_source_id: australia-industry-ai; related_record_id: policy-australia-ai-ethics-framework.
+      access_method: curl + manual_browser (blocked). http_status: connection timeout / HTTP 000 (curl HTTP/1.1);
+      supporting fetch HTTP 403 on HTML publication URL. source_type: guidance. source_identity_confirmed: false
+      (primary HTML page not read in-session). full_content_verified: false. Publisher: Department of Industry,
+      Science and Resources (Australian Government) — corroborated via independent index references and official
+      PDF on same domain (voluntary-ai-safety-standard.pdf on industry.gov.au returned reachable in supporting
+      check; distinct document from ethics principles page). limitations: industry.gov.au WAF/bot protection
+      blocks automated and headless access from this environment; human browser session still required to confirm
+      live publication page, title, and body. recommended_next_action: human_browser_content_review_required.
+      Discovery lead lead-australia-industry-ai-principles remains pending_official_review.
+    review_status_after_check: needs_human_review
+    client_use_allowed: false
+    legal_safe_note: >
+      Official domain plausible; primary URL not confirmed on live page in v0.9.3. Not client evidence. Not legal advice.
+
+  - verification_id: verify-eu-ai-act-eurlex-celex-v093
+    verified_date: "2026-05-20"
+    verifier_type: curator_batch
+    item_type: record
+    item_id: law-eu-ai-act-2024-1689
+    source_id: eu-ai-act
+    official_url_checked: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689
+    check_result: uncertain
+    page_title_or_reference: Regulation (EU) 2024/1689 — CELEX 32024R1689 (instrument identity corroborated only)
+    notes: >
+      v0.9.3 pass. related_source_id: eu-ai-act; related_record_id: law-eu-ai-act-2024-1689;
+      related_candidate_id: candidate-change-sample-eu-ai-act-status-change. CELEX: 32024R1689.
+      access_method: curl + supporting fetch. http_status: 202 (EUR-Lex TXT and PDF URLs); bot-protection /
+      JavaScript challenge page observed — full consolidated legal text not read. official_alternative corroboration:
+      EC digital-strategy regulatory-framework AI Act page HTTP 200 — confirms Regulation (EU) 2024/1689 and
+      CELEX 32024R1689 at high level only (not a substitute for EUR-Lex instrument verification). OJ publication
+      date not captured from EUR-Lex in this pass. source_identity_confirmed: partial (CELEX identity corroborated).
+      full_content_verified: false. limitations: EUR-Lex bot protection; no legal text copied. Export candidate
+      remains needs_more_source_review.
+    review_status_after_check: needs_human_review
+    client_use_allowed: false
+    legal_safe_note: >
+      High-level EC corroboration only. EUR-Lex human browser review still required. Not legal advice. Not final evidence.
+
+  - verification_id: verify-edpb-ai-topic-index-v093
+    verified_date: "2026-05-20"
+    verifier_type: curator_batch
+    item_type: source
+    item_id: edpb-ai-topic
+    source_id: edpb-ai-topic
+    official_url_checked: https://www.edpb.europa.eu/our-work-tools/our-documents/topic/artificial-intelligence_en
+    check_result: unreachable
+    page_title_or_reference: Artificial intelligence — EDPB documents topic (not loaded in v0.9.3 pass)
+    notes: >
+      v0.9.3 pass. related_source_id: edpb-ai-topic; related_record_id: guidance-edpb-ai-topic-index.
+      access_method: curl (3 retries). http_status: 502 Bad Gateway on topic URL; edpb.europa.eu homepage also
+      HTTP 502 in supporting check — appears infrastructure-wide transient outage from this environment, not URL
+      slug error. v0.9.1 discovery lead had HTTP 200 on same URL. source_type: guidance. source_identity_confirmed:
+      false (live page not read). full_content_verified: false. limitations: transient EDPB site availability;
+      re-check when edpb.europa.eu returns 200. recommended_next_action: re-check when site available; human
+      browser confirmation when HTTP 200.
+    review_status_after_check: pending_review
+    client_use_allowed: false
+    legal_safe_note: >
+      Transient HTTP 502; prior v0.9.1 confirmation not invalidated but not re-confirmed live. Not legal advice.

@@ -461,6 +461,97 @@
           "legal_safe_note": "v0.9.2 EUR-Lex focused pass. Automated EUR-Lex access still blocked. Not legal advice. client_use_allowed false. Does not clear export-readiness gate."
         }
       ]
+    },
+    {
+      "content_review_batch_id": "content-review-2026-05-20-v093",
+      "review_date": "2026-05-20",
+      "verifier_type": "curator_batch",
+      "legal_safe_note": "v0.9.3 targeted content review follow-up for Australia industry.gov.au ethics principles URL, EUR-Lex CELEX 32024R1689 law record, and EDPB AI topic index. Structured review log only; not legal advice. verified_on_source_after_check remains false unless explicitly documented per policy.",
+      "content_reviews": [
+        {
+          "content_review_id": "content-review-policy-australia-ai-ethics-framework-v093",
+          "review_date": "2026-05-20",
+          "reviewer_type": "curator_batch",
+          "item_type": "policy_framework",
+          "item_id": "policy-australia-ai-ethics-framework",
+          "jurisdiction_id": "australia",
+          "source_id": "australia-industry-ai",
+          "official_url_checked": "https://www.industry.gov.au/publications/australias-ai-ethics-principles",
+          "review_scope": "source_identity_high_level",
+          "review_result": "source_support_unclear",
+          "source_support_level": "low",
+          "reviewed_fields": [
+            "official_url",
+            "title"
+          ],
+          "fields_needing_update": [],
+          "summary_review_note": "v0.9.3 pass (20 May 2026). Primary publication URL not readable: automated curl timeouts and HTTP 403 on HTML fetch from this environment (industry.gov.au WAF). Official Department of Industry domain and publication slug remain the canonical registry target; independent search index and official PDF assets on industry.gov.au corroborate federal AI ethics policy family but do not substitute for loading this publication page. Human browser verification still required before confirming source identity on the live page.",
+          "date_review_note": "Not checked — publication page not loaded.",
+          "status_review_note": "Source review_status remains pending_review. Discovery lead stays pending_official_review.",
+          "recommended_next_action": "human_browser_content_review_required",
+          "content_review_status_after_check": "reviewed_content_summary",
+          "verified_on_source_after_check": false,
+          "client_use_allowed": false,
+          "legal_safe_note": "v0.9.3 WAF limitation. Not legal advice. client_use_allowed false. Does not confirm official_source_confirmed on lead."
+        },
+        {
+          "content_review_id": "content-review-law-eu-ai-act-2024-1689-v093",
+          "review_date": "2026-05-20",
+          "reviewer_type": "curator_batch",
+          "item_type": "law",
+          "item_id": "law-eu-ai-act-2024-1689",
+          "jurisdiction_id": "eu",
+          "source_id": "eu-ai-act",
+          "official_url_checked": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689",
+          "review_scope": "summary_dates_status_high_level",
+          "review_result": "partially_matches_source",
+          "source_support_level": "medium",
+          "reviewed_fields": [
+            "title",
+            "official_url",
+            "legal_status",
+            "summary_for_review"
+          ],
+          "fields_needing_update": [
+            "key_dates"
+          ],
+          "summary_review_note": "v0.9.3 EUR-Lex focused pass (20 May 2026). Primary CELEX URL: HTTP 202 / bot-protection page; instrument full text not read. EC digital-strategy AI Act page (HTTP 200) corroborates Regulation (EU) 2024/1689 and CELEX 32024R1689 identity at high level only — unchanged from v0.9.2. No legal interpretation; no legal text copied.",
+          "date_review_note": "Sample key_dates remain unverified on EUR-Lex consolidated text. Human browser pass on EUR-Lex still required.",
+          "status_review_note": "Record legal_status in_force — high-level consistent with published EU regulation; not re-verified on EUR-Lex full text in v0.9.3 pass. Export-readiness gate unchanged (needs_more_source_review on related candidate).",
+          "recommended_next_action": "human_browser_content_review_required",
+          "content_review_status_after_check": "reviewed_content_summary",
+          "verified_on_source_after_check": false,
+          "client_use_allowed": false,
+          "legal_safe_note": "v0.9.3 EUR-Lex pass. Automated access still blocked. Not legal advice. Does not clear export-readiness gate."
+        },
+        {
+          "content_review_id": "content-review-guidance-edpb-ai-topic-index-v093",
+          "review_date": "2026-05-20",
+          "reviewer_type": "curator_batch",
+          "item_type": "guidance",
+          "item_id": "guidance-edpb-ai-topic-index",
+          "jurisdiction_id": "eu",
+          "source_id": "edpb-ai-topic",
+          "official_url_checked": "https://www.edpb.europa.eu/our-work-tools/our-documents/topic/artificial-intelligence_en",
+          "review_scope": "summary_status_high_level",
+          "review_result": "source_support_unclear",
+          "source_support_level": "low",
+          "reviewed_fields": [
+            "title",
+            "official_url",
+            "summary_for_review"
+          ],
+          "fields_needing_update": [],
+          "summary_review_note": "v0.9.3 pass (20 May 2026). Topic URL and edpb.europa.eu homepage returned HTTP 502 (Bad Gateway) on three curl retries — transient infrastructure limitation; v0.9.1 lead batch had HTTP 200 on same topic URL. Topic index content not read in this pass. Record pointer remains plausible but not re-confirmed on live page.",
+          "date_review_note": "Not checked due to HTTP 502.",
+          "status_review_note": "Keep record review_status pending_review until human browser confirms topic index loads with expected EDPB AI documents framing.",
+          "recommended_next_action": "human_browser_content_review_required",
+          "content_review_status_after_check": "reviewed_content_summary",
+          "verified_on_source_after_check": false,
+          "client_use_allowed": false,
+          "legal_safe_note": "v0.9.3 transient HTTP 502. Not legal advice. client_use_allowed false. Prior v0.9.1 lead confirmation not updated."
+        }
+      ]
     }
   ],
   "items": [
@@ -923,14 +1014,100 @@
       "client_use_allowed": false,
       "legal_safe_note": "v0.9.2 EUR-Lex focused pass. Automated EUR-Lex access still blocked. Not legal advice. client_use_allowed false. Does not clear export-readiness gate.",
       "content_review_batch_id": "content-review-2026-05-20-v092"
+    },
+    {
+      "content_review_id": "content-review-policy-australia-ai-ethics-framework-v093",
+      "review_date": "2026-05-20",
+      "reviewer_type": "curator_batch",
+      "item_type": "policy_framework",
+      "item_id": "policy-australia-ai-ethics-framework",
+      "jurisdiction_id": "australia",
+      "source_id": "australia-industry-ai",
+      "official_url_checked": "https://www.industry.gov.au/publications/australias-ai-ethics-principles",
+      "review_scope": "source_identity_high_level",
+      "review_result": "source_support_unclear",
+      "source_support_level": "low",
+      "reviewed_fields": [
+        "official_url",
+        "title"
+      ],
+      "fields_needing_update": [],
+      "summary_review_note": "v0.9.3 pass (20 May 2026). Primary publication URL not readable: automated curl timeouts and HTTP 403 on HTML fetch from this environment (industry.gov.au WAF). Official Department of Industry domain and publication slug remain the canonical registry target; independent search index and official PDF assets on industry.gov.au corroborate federal AI ethics policy family but do not substitute for loading this publication page. Human browser verification still required before confirming source identity on the live page.",
+      "date_review_note": "Not checked — publication page not loaded.",
+      "status_review_note": "Source review_status remains pending_review. Discovery lead stays pending_official_review.",
+      "recommended_next_action": "human_browser_content_review_required",
+      "content_review_status_after_check": "reviewed_content_summary",
+      "verified_on_source_after_check": false,
+      "client_use_allowed": false,
+      "legal_safe_note": "v0.9.3 WAF limitation. Not legal advice. client_use_allowed false. Does not confirm official_source_confirmed on lead.",
+      "content_review_batch_id": "content-review-2026-05-20-v093"
+    },
+    {
+      "content_review_id": "content-review-law-eu-ai-act-2024-1689-v093",
+      "review_date": "2026-05-20",
+      "reviewer_type": "curator_batch",
+      "item_type": "law",
+      "item_id": "law-eu-ai-act-2024-1689",
+      "jurisdiction_id": "eu",
+      "source_id": "eu-ai-act",
+      "official_url_checked": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689",
+      "review_scope": "summary_dates_status_high_level",
+      "review_result": "partially_matches_source",
+      "source_support_level": "medium",
+      "reviewed_fields": [
+        "title",
+        "official_url",
+        "legal_status",
+        "summary_for_review"
+      ],
+      "fields_needing_update": [
+        "key_dates"
+      ],
+      "summary_review_note": "v0.9.3 EUR-Lex focused pass (20 May 2026). Primary CELEX URL: HTTP 202 / bot-protection page; instrument full text not read. EC digital-strategy AI Act page (HTTP 200) corroborates Regulation (EU) 2024/1689 and CELEX 32024R1689 identity at high level only — unchanged from v0.9.2. No legal interpretation; no legal text copied.",
+      "date_review_note": "Sample key_dates remain unverified on EUR-Lex consolidated text. Human browser pass on EUR-Lex still required.",
+      "status_review_note": "Record legal_status in_force — high-level consistent with published EU regulation; not re-verified on EUR-Lex full text in v0.9.3 pass. Export-readiness gate unchanged (needs_more_source_review on related candidate).",
+      "recommended_next_action": "human_browser_content_review_required",
+      "content_review_status_after_check": "reviewed_content_summary",
+      "verified_on_source_after_check": false,
+      "client_use_allowed": false,
+      "legal_safe_note": "v0.9.3 EUR-Lex pass. Automated access still blocked. Not legal advice. Does not clear export-readiness gate.",
+      "content_review_batch_id": "content-review-2026-05-20-v093"
+    },
+    {
+      "content_review_id": "content-review-guidance-edpb-ai-topic-index-v093",
+      "review_date": "2026-05-20",
+      "reviewer_type": "curator_batch",
+      "item_type": "guidance",
+      "item_id": "guidance-edpb-ai-topic-index",
+      "jurisdiction_id": "eu",
+      "source_id": "edpb-ai-topic",
+      "official_url_checked": "https://www.edpb.europa.eu/our-work-tools/our-documents/topic/artificial-intelligence_en",
+      "review_scope": "summary_status_high_level",
+      "review_result": "source_support_unclear",
+      "source_support_level": "low",
+      "reviewed_fields": [
+        "title",
+        "official_url",
+        "summary_for_review"
+      ],
+      "fields_needing_update": [],
+      "summary_review_note": "v0.9.3 pass (20 May 2026). Topic URL and edpb.europa.eu homepage returned HTTP 502 (Bad Gateway) on three curl retries — transient infrastructure limitation; v0.9.1 lead batch had HTTP 200 on same topic URL. Topic index content not read in this pass. Record pointer remains plausible but not re-confirmed on live page.",
+      "date_review_note": "Not checked due to HTTP 502.",
+      "status_review_note": "Keep record review_status pending_review until human browser confirms topic index loads with expected EDPB AI documents framing.",
+      "recommended_next_action": "human_browser_content_review_required",
+      "content_review_status_after_check": "reviewed_content_summary",
+      "verified_on_source_after_check": false,
+      "client_use_allowed": false,
+      "legal_safe_note": "v0.9.3 transient HTTP 502. Not legal advice. client_use_allowed false. Prior v0.9.1 lead confirmation not updated.",
+      "content_review_batch_id": "content-review-2026-05-20-v093"
     }
   ],
   "summary": {
-    "total": 16,
+    "total": 19,
     "not_checked": 0,
     "matches_source": 8,
     "needs_update": 0,
-    "reviewed_content_summary": 16,
+    "reviewed_content_summary": 19,
     "content_needs_update": 0,
     "verified_on_source_after_check": 0,
     "client_use_allowed": 0
