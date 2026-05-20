@@ -1,11 +1,11 @@
-# Evidence export candidates — v1.0.1 (generated)
+# Evidence export candidates — v1.0.2 (generated)
 # Not final evidence. Do not write to caesar-ai-evidence. Regenerate: npm run generate:evidence-candidates
 
 evidence_export_candidate_batch_id: evidence-export-candidates-2026-05-20
 generated_at: '2026-05-20'
-pipeline_version: 1.0.1
+pipeline_version: 1.0.2
 legal_safe_note: >-
-  v1.0.1 evidence export candidate batch. Candidates are not final evidence exports. Does not write
+  v1.0.2 evidence export candidate batch. Candidates are not final evidence exports. Does not write
   to caesar-ai-evidence. Not legal advice. No compliance guarantee. No complete regulatory coverage
   claim. Human review required before any client use. client_use_allowed remains false for every
   candidate.
@@ -137,7 +137,7 @@ candidates:
       human review on official sources before any client use. Not legal advice. Manual sample change
       — not watcher output.
     related_record_id: law-eu-ai-act-2024-1689
-    content_review_id: content-review-law-eu-ai-act-2024-1689-v093
+    content_review_id: content-review-law-eu-ai-act-2024-1689-v102
   - candidate_id: candidate-detected-simulated-edpb-feed-change-2026-05-19
     source_item_type: detected_change
     source_item_id: simulated-edpb-feed-change-2026-05-19

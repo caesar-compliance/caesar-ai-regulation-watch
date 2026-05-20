@@ -33,13 +33,13 @@ High-value quality improvements that do not block a **technical MVP candidate** 
 
 | Item | Current state | Recommended action | Owner |
 |---|---|---|---|
-| **Australia manual source verification** | Lead `pending_official_review`; v1.0.1 automated re-check still timeout | Human browser verification; update discovery + registry notes | Control Tower |
-| **EUR-Lex browser verification** | CELEX HTTP 202 unchanged in v1.0.1; EU AI Act candidate `needs_more_source_review` | Qualified human read of official instrument; do not rely on EC overview alone | Control Tower |
+| **Australia manual source verification** | v1.0.2 human/browser: HTTP 403/timeout on HTML; lead `pending_official_review` | Qualified human browser on official industry.gov.au page (outside automated environment) | Control Tower |
+| **EUR-Lex browser verification** | v1.0.2: HTTP 202 + EUR-Lex JS bot gate; candidate `needs_more_source_review` | Human browser with JavaScript on EUR-Lex CELEX; not EC overview alone | Control Tower |
 | **EDPB re-check** | ~~HTTP 502 transient in v0.9.3 pass~~ **v1.0.1: HTTP 200** — topic index re-confirmed | Periodic re-check; complements edpb RSS watcher | Implementation agent |
 | **UNESCO metadata artifact triage** | ~~`check_artifact` in triage v097~~ **v1.0.1: benign_metadata_change** | No further action unless live page body review requested | Control Tower |
 | **Tag/deploy registry cleanup** | DEPLOYMENTS.md historical rows; main may be ahead of last tag | Align v1.0.0 deploy row, tag, and baseline in one pass | Implementation agent |
 | **Methodology watcher status** | Says "not implemented" while prototype exists | Update public methodology (v0.9.9) | Implementation agent |
-| **Content review coverage** | v1.0.1 batch +9 reviews (EDPB refresh + 8 records); coverage still incomplete | Continue incremental batches; Australia/EUR-Lex human paths | Control Tower |
+| **Content review coverage** | v1.0.2: **36** exported reviews (was 28); coverage still incomplete | Continue batches; Australia/EUR-Lex/Japan human paths | Control Tower |
 | **POST_DEPLOY_SMOKE_TESTS.md version refs** | References v0.8.9 / v0.9.1 in places | Align with current version checks | Implementation agent |
 
 ---

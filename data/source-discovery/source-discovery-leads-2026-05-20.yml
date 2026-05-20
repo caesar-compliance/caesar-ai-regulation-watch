@@ -338,10 +338,10 @@ leads:
     existing_source_id: australia-industry-ai
     notes: >
       v0.9.3 targeted pass: primary HTML publication URL blocked (curl timeout/HTTP 000; supporting fetch HTTP 403).
-      v1.0.1 re-check: canonical and alternate HTML slugs still timeout from automated environment — unchanged.
-      Official industry.gov.au PDF corroboration only (distinct documents). Human browser verification still
-      required before official_source_confirmed on live ethics-principles page. Registry canonical URL unchanged.
-      See source-verification-2026-05-20-v093 and source-verification-2026-05-20-v101.
+      v1.0.1 re-check: canonical HTML still timeout. v1.0.2 human/browser sprint: automated timeout; browser fetch HTTP
+      403 on ethics-principles HTML — unchanged pending_official_review. Official industry.gov.au PDF paths also
+      unreachable from this environment. Human browser on official site still required before
+      official_source_confirmed. See source-verification-2026-05-20-v102.
     no_competitor_text_copied: true
     no_bulk_extraction: true
 

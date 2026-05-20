@@ -1,0 +1,101 @@
+# Source verification batch — v1.0.2 human/browser pass (20 May 2026)
+# Manual-style verification with safe HTTP and browser fetch attempts. Not legal advice.
+
+verification_batch_id: source-verification-2026-05-20-v102
+verified_date: "2026-05-20"
+verifier_type: curator_batch
+legal_safe_note: >
+  v1.0.2 human/browser source verification sprint. Browser fetch (MCP) and HTTP checks on official URLs only.
+  No WAF bypass; no legal text copied or stored. verified_on_source remains false unless Control Tower approves.
+  Not legal advice. Not client evidence. Not final evidence.
+
+verifications:
+  - verification_id: verify-australia-industry-ai-principles-v102
+    verified_date: "2026-05-20"
+    verifier_type: curator_batch
+    item_type: source
+    item_id: australia-industry-ai
+    source_id: australia-industry-ai
+    official_url_checked: https://www.industry.gov.au/publications/australias-ai-ethics-principles
+    check_result: unreachable
+    page_title_or_reference: Australia's AI Ethics Principles (HTML not loaded in v1.0.2 pass)
+    notes: >
+      v1.0.2 human/browser sprint: automated GET/HEAD timeout (~140s); browser fetch returned HTTP 403 Forbidden on
+      canonical HTML URL. Alternate ethics-framework PDF paths on industry.gov.au also timed out. Publisher remains
+      Department of Industry, Science and Resources (Australian Government) per prior corroboration only — not
+      re-read from live HTML. Discovery lead lead-australia-industry-ai-principles stays pending_official_review;
+      qualified human browser on official site still required. No competitor sources used.
+    review_status_after_check: needs_human_review
+    client_use_allowed: false
+    legal_safe_note: >
+      v1.0.2 Australia pass. HTML not confirmed in this environment. Not verified_on_source. Not client evidence.
+
+  - verification_id: verify-eu-ai-act-eurlex-v102
+    verified_date: "2026-05-20"
+    verifier_type: curator_batch
+    item_type: record
+    item_id: law-eu-ai-act-2024-1689
+    source_id: eu-ai-act
+    official_url_checked: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689
+    check_result: uncertain
+    page_title_or_reference: Regulation (EU) 2024/1689 — CELEX 32024R1689 (EUR-Lex bot gate in browser pass)
+    notes: >
+      v1.0.2 human/browser sprint: HEAD to CELEX TXT and ELI OJ URLs returns HTTP 202 from automated client. Browser
+      fetch of EUR-Lex TXT and ELI pages shows JavaScript bot-verification gate — consolidated instrument text not read.
+      EC digital-strategy regulatory-framework-ai page HTTP 200 with visible "AI Act" framing — corroborates instrument
+      identity at high level only (CELEX 32024R1689 / Regulation (EU) 2024/1689), not EUR-Lex verification. OJ
+      publication reference not captured. Export candidate remains needs_more_source_review. No legal text stored.
+    review_status_after_check: needs_human_review
+    client_use_allowed: false
+    legal_safe_note: >
+      v1.0.2 EUR-Lex pass. Bot protection blocks automated and headless browser read. Not verified_on_source.
+
+  - verification_id: verify-canada-responsible-ai-v102
+    verified_date: "2026-05-20"
+    verifier_type: curator_batch
+    item_type: source
+    item_id: canada-responsible-ai
+    source_id: canada-responsible-ai
+    official_url_checked: https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai.html
+    check_result: reachable_matches_expected_source
+    page_title_or_reference: Responsible use of artificial intelligence in government - Canada.ca
+    notes: >
+      v1.0.2 re-check: HTTP 200 on official canada.ca URL (v1.0.1 had environment timeout). Visible HTML title matches
+      Government of Canada responsible-use-of-AI policy hub. Page body and obligations not reviewed. Resolves v1.0.1
+      corroboration-only limitation for this source URL.
+    review_status_after_check: reviewed_source_identity_only
+    client_use_allowed: false
+    legal_safe_note: v1.0.2 Canada source identity re-confirmed. Not legal advice. verified_on_source false.
+
+  - verification_id: verify-japan-meti-ai-v102
+    verified_date: "2026-05-20"
+    verifier_type: curator_batch
+    item_type: source
+    item_id: japan-meti-ai
+    source_id: japan-meti-ai
+    official_url_checked: https://www.meti.go.jp/english/policy/index.html
+    check_result: unreachable
+    page_title_or_reference: METI English policy index (not loaded in v1.0.2 pass)
+    notes: >
+      v1.0.2 re-check: GET to METI English policy index and /english/policy/ai/ timed out; browser fetch HTTP 403 on
+      index URL. Official meti.go.jp domain remains registry target; AI policy subpages not confirmed live in this pass.
+      Human browser verification on official METI site still recommended.
+    review_status_after_check: needs_human_review
+    client_use_allowed: false
+    legal_safe_note: v1.0.2 Japan pass. Connectivity/blocker unchanged from v1.0.1. Not verified_on_source.
+
+  - verification_id: verify-canada-opc-ai-v102
+    verified_date: "2026-05-20"
+    verifier_type: curator_batch
+    item_type: source
+    item_id: canada-opc-ai
+    source_id: canada-opc-ai
+    official_url_checked: https://www.priv.gc.ca/en/privacy-topics/technology/artificial-intelligence/
+    check_result: reachable_matches_expected_source
+    page_title_or_reference: Privacy and artificial intelligence (AI) - Office of the Privacy Commissioner of Canada
+    notes: >
+      v1.0.2 supporting check: HTTP 200 on official OPC AI topic page. Complements canada-responsible-ai source; not a
+      substitute for industry.gov.au Australia verification.
+    review_status_after_check: reviewed_source_identity_only
+    client_use_allowed: false
+    legal_safe_note: v1.0.2 OPC corroboration check. Not client evidence.
