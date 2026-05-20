@@ -1,17 +1,15 @@
 # T054 — Final report
 
-*Populated after validation, commit, and PR creation.*
-
 ## State
 
 | Field | Value |
 |---|---|
 | Starting main | `39f44e9` |
 | Branch | `task/T054-single-source-network-dry-run-approval` |
-| Implementation commit | *(see git log)* |
-| PR | *(see gh pr create output)* |
-| Final main commit | unchanged until merge |
-| Working tree clean | *(post-commit)* |
+| Implementation commit | `9ab65dd` |
+| PR | *(see push / gh pr create)* |
+| Final main commit | `39f44e9` (unchanged until merge) |
+| Working tree clean | yes (post-commit) |
 
 ## Version / deploy
 
