@@ -6,8 +6,8 @@
 |---|---|
 | Starting main | `98ed630` |
 | Branch | `task/T055-approved-single-source-network-dry-run` |
-| Implementation commit | *(filled after commit)* |
-| PR | *(filled after PR create)* |
+| Implementation commit | `b438a18` |
+| PR | *(see final Control Tower report)* |
 | Final main commit | `98ed630` (unchanged until merge) |
 | Generated network outputs | Untracked under `generated/` (gitignored; not committed) |
 
