@@ -1,6 +1,13 @@
-# Monitoring runbook (v0.9.6)
+# Monitoring runbook (v0.9.7)
 
 **Last updated:** 20 May 2026
+
+## v0.9.7 live metadata review triage
+
+- Triage batch: `data/monitoring/metadata-review-triage-2026-05-20-v097.yml` (classifies v0.9.6 pilot `metadata_changed_needs_review` items).
+- Policy: `docs/METADATA_COMPARISON_POLICY.md` — weak headers, title normalization, not legal change claims.
+- Public: `/data/metadata-review-triage.json`, `/monitoring/` triage section.
+- Hardened compare: `scripts/run-live-metadata-pilot.mjs` (null baseline → live `Last-Modified`/`ETag` treated as benign when sole delta).
 
 ## v0.9.6 cautious live metadata pilot
 

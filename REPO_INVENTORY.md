@@ -122,7 +122,10 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **schemas/change-review-pack.schema.json** | Metadata change review pack validation |
 | **data/monitoring/live-metadata-pilot-allowlist-2026-05-20-v096.yml** | v0.9.6 pilot allowlist (max 5 sources) |
 | **data/monitoring/live-metadata-run-2026-05-20-v096.yml** | v0.9.6 live metadata run |
-| **data/monitoring/change-review-pack-2026-05-20-v096.yml** | v0.9.6 change review pack |
+| **data/monitoring/change-review-pack-2026-05-20-v096.yml** | v0.9.6 change review pack (v0.9.7 triage notes) |
+| **data/monitoring/metadata-review-triage-2026-05-20-v097.yml** | v0.9.7 live metadata review triage |
+| **schemas/metadata-review-triage.schema.json** | Triage batch schema |
+| **docs/METADATA_COMPARISON_POLICY.md** | Live metadata compare + triage policy |
 | **scripts/run-monitoring-pack.mjs** | `npm run monitoring:pack` — regenerate pack run |
 | **scripts/run-live-metadata-pilot.mjs** | `npm run monitoring:live-metadata` — cautious live pilot |
 | **public/data/monitoring-source-configs.json** | Static export of adapter configs |

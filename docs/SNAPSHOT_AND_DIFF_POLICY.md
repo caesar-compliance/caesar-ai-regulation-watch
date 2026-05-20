@@ -1,6 +1,10 @@
-# Snapshot and diff policy (v0.7.1)
+# Snapshot and diff policy (v0.9.7)
 
-**Last updated:** 19 May 2026
+**Last updated:** 20 May 2026
+
+## Live metadata pilot comparison (v0.9.7)
+
+See **`docs/METADATA_COMPARISON_POLICY.md`** for cautious live HEAD/GET comparison vs deterministic v0.9.5 baselines. Metadata-only deltas are triaged separately; they are **not** legal/regulatory change claims.
 
 ## Storage policy
 

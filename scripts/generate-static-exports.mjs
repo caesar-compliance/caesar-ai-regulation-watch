@@ -141,6 +141,21 @@ function readChangeReviewPacks() {
     );
 }
 
+function readMetadataReviewTriage() {
+  const dir = path.join(ROOT, "data/monitoring");
+  if (!fs.existsSync(dir)) return null;
+  const files = fs
+    .readdirSync(dir)
+    .filter(
+      (f) =>
+        f.startsWith("metadata-review-triage-") && (f.endsWith(".yml") || f.endsWith(".yaml")),
+    )
+    .sort()
+    .reverse();
+  if (files.length === 0) return null;
+  return yaml.load(fs.readFileSync(path.join(dir, files[0]), "utf8"));
+}
+
 function readMonitoringSourceConfigs() {
   const dir = path.join(ROOT, "data/monitoring");
   if (!fs.existsSync(dir)) return { batch: null, configs: [] };
@@ -324,6 +339,10 @@ const latestLiveMetadataRun = liveMetadataRuns[0] ?? null;
 const liveMetadataPilotAllowlist = readLiveMetadataPilotAllowlist();
 const changeReviewPacks = readChangeReviewPacks();
 const latestChangeReviewPack = changeReviewPacks[0] ?? null;
+const metadataReviewTriage = readMetadataReviewTriage();
+const metadataTriageBySourceId = Object.fromEntries(
+  (metadataReviewTriage?.items ?? []).map((i) => [i.source_id, i]),
+);
 const monitoringDiffSummaryPath = path.join(
   ROOT,
   "data/monitoring-runs/latest-monitoring-diff-summary.json",
@@ -489,6 +508,12 @@ const REASON_LABELS = {
     "Cautious live metadata pilot fetch failed; human corroboration on official source required.",
   live_metadata_redirect_changed:
     "Cautious live metadata pilot: redirect/final URL differs from allowlisted URL; confirm canonical destination.",
+  metadata_triage_benign:
+    "v0.9.7 triage: benign metadata difference vs baseline (weak headers); not a legal change claim.",
+  metadata_triage_check_artifact:
+    "v0.9.7 triage: likely baseline/title artifact; human review if substantive change suspected.",
+  metadata_triage_unresolved:
+    "v0.9.7 triage: unresolved metadata difference; human review required.",
   snapshot_changed: "New metadata snapshot differs from previous; confirm on official source.",
   human_review_required: "Watcher output requires human review before any record update.",
 };
@@ -790,25 +815,37 @@ function buildReviewQueue() {
 
   if (latestLiveMetadataRun) {
     for (const chk of latestLiveMetadataRun.checks ?? []) {
-      if (!chk.requires_human_review) continue;
+      const triage = metadataTriageBySourceId[chk.source_id];
+      const needsQueue = triage ? triage.human_review_required : chk.requires_human_review;
+      if (!needsQueue) continue;
       const src = sourceById[chk.source_id];
+      const triageReason =
+        triage?.triage_classification === "check_artifact"
+          ? "metadata_triage_check_artifact"
+          : triage?.triage_classification === "unresolved_needs_review" ||
+              triage?.triage_classification === "source_update_needs_human_review"
+            ? "metadata_triage_unresolved"
+            : null;
       const review_reasons = mergeReasons(
         chk.check_result === "metadata_check_failed"
           ? ["live_metadata_check_failed"]
           : chk.check_result === "redirect_changed_needs_review"
             ? ["live_metadata_redirect_changed"]
             : chk.check_result === "metadata_changed_needs_review"
-              ? ["live_metadata_change_needs_review"]
+              ? triageReason
+                ? [triageReason]
+                : ["live_metadata_change_needs_review"]
               : [],
         ["human_review_required", "verified_on_source_false", "client_use_not_allowed"],
       );
+      const triageNote = triage?.reviewer_note ? ` ${triage.reviewer_note}` : "";
       items.push({
         item_type: "live_metadata_review",
         item_id: `${latestLiveMetadataRun.run_id}-${chk.source_id}`,
-        title: `Live metadata pilot: ${chk.source_id} (${chk.check_result})`,
+        title: `Live metadata pilot: ${chk.source_id} (${triage?.triage_classification ?? chk.check_result})`,
         jurisdiction_id: src?.jurisdiction_id ?? "eu",
         review_status: "needs_human_review",
-        reason_for_review: `${chk.notes ?? ""} ${reasonText(review_reasons)}`.trim(),
+        reason_for_review: `${chk.notes ?? ""}${triageNote} ${reasonText(review_reasons)}`.trim(),
         review_reasons,
         official_url: chk.official_url ?? src?.official_url ?? null,
         page_href: "/monitoring/",
@@ -818,6 +855,8 @@ function buildReviewQueue() {
         content_review_status: "not_reviewed",
         redirect_detected: chk.check_result === "redirect_changed_needs_review",
         client_use_allowed: false,
+        metadata_triage_classification: triage?.triage_classification ?? null,
+        metadata_triage_id: triage?.triage_id ?? null,
       });
     }
   }
@@ -1295,6 +1334,20 @@ const snapshot = {
     metadata_change_needs_review_count:
       liveMetadataRunSummary?.metadata_changed_needs_review ?? 0,
     metadata_check_failed_count: liveMetadataRunSummary?.metadata_check_failed ?? 0,
+    metadata_review_triage_count: metadataReviewTriage?.items?.length ?? 0,
+    benign_metadata_change_count: (metadataReviewTriage?.items ?? []).filter(
+      (i) => i.triage_classification === "benign_metadata_change",
+    ).length,
+    source_update_needs_human_review_count: (metadataReviewTriage?.items ?? []).filter(
+      (i) => i.triage_classification === "source_update_needs_human_review",
+    ).length,
+    unresolved_metadata_review_count: (metadataReviewTriage?.items ?? []).filter(
+      (i) => i.triage_classification === "unresolved_needs_review",
+    ).length,
+    metadata_triage_check_artifact_count: (metadataReviewTriage?.items ?? []).filter(
+      (i) => i.triage_classification === "check_artifact",
+    ).length,
+    legal_change_claimed_count: 0,
     live_metadata_client_use_allowed_count: 0,
     live_metadata_final_evidence_allowed_count: 0,
     monitoring_pack_run_count: watcherMonitoringRuns.length,
@@ -1328,7 +1381,7 @@ const snapshot = {
     unverified_timeline_events: reviewSummary.unverified_timeline_events,
     unverified_records: reviewSummary.unverified_records,
     pending_source_verifications: reviewSummary.pending_source_verifications,
-    exports: 10,
+    exports: 11,
   },
   feeds: {
     changes_rss: "/feeds/changes.xml",
@@ -1352,6 +1405,7 @@ const snapshot = {
     monitoring_source_configs: "/data/monitoring-source-configs.json",
     live_metadata_runs: "/data/live-metadata-runs.json",
     change_review_packs: "/data/change-review-packs.json",
+    metadata_review_triage: "/data/metadata-review-triage.json",
     watcher_eligibility: "/data/watcher-eligibility.json",
     detected_changes: "/data/detected-changes.json",
     evidence_export_candidates: "/data/evidence-export-candidates.json",
@@ -1609,6 +1663,39 @@ writeJson(path.join(PUBLIC_DATA, "change-review-packs.json"), {
     : null,
 });
 
+writeJson(path.join(PUBLIC_DATA, "metadata-review-triage.json"), {
+  generated_at: generatedAt,
+  disclaimer: DISCLAIMER,
+  not_legal_change_claim: true,
+  metadata_change_is_not_regulatory_change: true,
+  not_client_evidence: true,
+  not_scheduled_monitoring: true,
+  batch: metadataReviewTriage,
+  items: metadataReviewTriage?.items ?? [],
+  summary: metadataReviewTriage
+    ? {
+        triage_batch_id: metadataReviewTriage.triage_batch_id,
+        related_live_run_id: metadataReviewTriage.related_live_run_id,
+        items_total: metadataReviewTriage.items?.length ?? 0,
+        benign_metadata_change: (metadataReviewTriage.items ?? []).filter(
+          (i) => i.triage_classification === "benign_metadata_change",
+        ).length,
+        check_artifact: (metadataReviewTriage.items ?? []).filter(
+          (i) => i.triage_classification === "check_artifact",
+        ).length,
+        source_update_needs_human_review: (metadataReviewTriage.items ?? []).filter(
+          (i) => i.triage_classification === "source_update_needs_human_review",
+        ).length,
+        unresolved_needs_review: (metadataReviewTriage.items ?? []).filter(
+          (i) => i.triage_classification === "unresolved_needs_review",
+        ).length,
+        legal_change_claimed: 0,
+        client_use_allowed: 0,
+        final_evidence_allowed: 0,
+      }
+    : null,
+});
+
 writeJson(path.join(PUBLIC_DATA, "monitoring-source-configs.json"), {
   generated_at: generatedAt,
   disclaimer: DISCLAIMER,
@@ -1754,6 +1841,9 @@ console.log(`  ${watcherEligibilityEntries.length} watcher eligibility entr(ies)
 console.log(`  ${monitoringSourceConfigs.length} monitoring source config(s)`);
 console.log(`  ${liveMetadataRuns.length} live metadata run(s)`);
 console.log(`  ${changeReviewPacks.length} change review pack(s)`);
+console.log(
+  `  ${metadataReviewTriage?.items?.length ?? 0} metadata review triage item(s)`,
+);
 console.log(`  ${watcherMonitoringRuns.length} watcher monitoring run(s)`);
 console.log("  public/data/detected-changes.json");
 console.log("  public/data/evidence-export-candidates.json");

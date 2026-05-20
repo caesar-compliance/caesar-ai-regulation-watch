@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-05-20",
-  "version": "0.9.6",
+  "version": "0.9.7",
   "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
   "pilot_jurisdictions": [
     "australia",
@@ -79,6 +79,12 @@
     "metadata_check_ok_count": 2,
     "metadata_change_needs_review_count": 3,
     "metadata_check_failed_count": 0,
+    "metadata_review_triage_count": 3,
+    "benign_metadata_change_count": 2,
+    "source_update_needs_human_review_count": 0,
+    "unresolved_metadata_review_count": 0,
+    "metadata_triage_check_artifact_count": 1,
+    "legal_change_claimed_count": 0,
     "live_metadata_client_use_allowed_count": 0,
     "live_metadata_final_evidence_allowed_count": 0,
     "monitoring_pack_run_count": 2,
@@ -98,13 +104,13 @@
     "evidence_export_candidate_reviews_count": 2,
     "evidence_export_candidate_reviews_governance_only": 1,
     "evidence_export_candidate_reviews_needs_source": 1,
-    "review_queue_items": 112,
+    "review_queue_items": 110,
     "pending_review": 103,
     "needs_update": 0,
     "unverified_timeline_events": 10,
     "unverified_records": 21,
     "pending_source_verifications": 14,
-    "exports": 10
+    "exports": 11
   },
   "feeds": {
     "changes_rss": "/feeds/changes.xml"
@@ -128,6 +134,7 @@
     "monitoring_source_configs": "/data/monitoring-source-configs.json",
     "live_metadata_runs": "/data/live-metadata-runs.json",
     "change_review_packs": "/data/change-review-packs.json",
+    "metadata_review_triage": "/data/metadata-review-triage.json",
     "watcher_eligibility": "/data/watcher-eligibility.json",
     "detected_changes": "/data/detected-changes.json",
     "evidence_export_candidates": "/data/evidence-export-candidates.json",

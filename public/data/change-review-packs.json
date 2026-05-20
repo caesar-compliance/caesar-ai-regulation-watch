@@ -40,10 +40,10 @@
           ],
           "change_detected": true,
           "review_status": "metadata_change_needs_review",
-          "human_review_required": true,
+          "human_review_required": false,
           "client_use_allowed": false,
           "final_evidence_allowed": false,
-          "notes": "Metadata differs from v0.9.5 baseline (last_modified). Not a legal/regulatory change claim — human review required."
+          "notes": "v0.9.7 triage: benign_metadata_change — Last-Modified null→present vs v0.9.5 deterministic baseline; not a legal/regulatory change claim."
         },
         {
           "source_id": "canada-responsible-ai",
@@ -96,10 +96,10 @@
           ],
           "change_detected": true,
           "review_status": "metadata_change_needs_review",
-          "human_review_required": true,
+          "human_review_required": false,
           "client_use_allowed": false,
           "final_evidence_allowed": false,
-          "notes": "Metadata differs from v0.9.5 baseline (etag). Not a legal/regulatory change claim — human review required."
+          "notes": "v0.9.7 triage: benign_metadata_change — ETag null→present vs baseline; weak header, not legal change."
         },
         {
           "source_id": "norway-ai-act-implementation",
@@ -157,7 +157,7 @@
           "human_review_required": true,
           "client_use_allowed": false,
           "final_evidence_allowed": false,
-          "notes": "Metadata differs from v0.9.5 baseline (page_title, last_modified, etag). Not a legal/regulatory change claim — human review required."
+          "notes": "v0.9.7 triage: check_artifact — title/headers differ from v0.9.5 baseline labels; human review if substantive page change suspected; not a legal/regulatory change claim from metadata alone."
         }
       ]
     }
@@ -197,10 +197,10 @@
         ],
         "change_detected": true,
         "review_status": "metadata_change_needs_review",
-        "human_review_required": true,
+        "human_review_required": false,
         "client_use_allowed": false,
         "final_evidence_allowed": false,
-        "notes": "Metadata differs from v0.9.5 baseline (last_modified). Not a legal/regulatory change claim — human review required."
+        "notes": "v0.9.7 triage: benign_metadata_change — Last-Modified null→present vs v0.9.5 deterministic baseline; not a legal/regulatory change claim."
       },
       {
         "source_id": "canada-responsible-ai",
@@ -253,10 +253,10 @@
         ],
         "change_detected": true,
         "review_status": "metadata_change_needs_review",
-        "human_review_required": true,
+        "human_review_required": false,
         "client_use_allowed": false,
         "final_evidence_allowed": false,
-        "notes": "Metadata differs from v0.9.5 baseline (etag). Not a legal/regulatory change claim — human review required."
+        "notes": "v0.9.7 triage: benign_metadata_change — ETag null→present vs baseline; weak header, not legal change."
       },
       {
         "source_id": "norway-ai-act-implementation",
@@ -314,7 +314,7 @@
         "human_review_required": true,
         "client_use_allowed": false,
         "final_evidence_allowed": false,
-        "notes": "Metadata differs from v0.9.5 baseline (page_title, last_modified, etag). Not a legal/regulatory change claim — human review required."
+        "notes": "v0.9.7 triage: check_artifact — title/headers differ from v0.9.5 baseline labels; human review if substantive page change suspected; not a legal/regulatory change claim from metadata alone."
       }
     ]
   },

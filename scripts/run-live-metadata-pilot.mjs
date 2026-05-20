@@ -23,12 +23,12 @@ const LIVE_FETCH = !process.argv.includes("--offline");
 
 const BLOCKED_SOURCE_IDS = new Set(["eu-ai-act", "edpb-ai-topic", "australia-industry-ai"]);
 const USER_AGENT =
-  "CaesarRegulationWatch/0.9.6 (metadata-pilot; +https://regulation-watch.caesar.no/methodology/)";
+  "CaesarRegulationWatch/0.9.7 (metadata-pilot; +https://regulation-watch.caesar.no/methodology/)";
 const FETCH_TIMEOUT_MS = 25_000;
 const TITLE_READ_BYTES = 12_288;
 
 const LEGAL_SAFE_NOTE =
-  "v0.9.6 cautious live metadata pilot. One request per allowlisted official URL; metadata headers and title only; no full legal text storage. Not scheduled monitoring. Not legal advice. Not client evidence. Human review required for detected metadata differences.";
+  "v0.9.7 cautious live metadata pilot. One request per allowlisted official URL; metadata headers and title only; no full legal text storage. Not scheduled monitoring. Not legal advice. Not client evidence. Human review required for meaningful metadata differences (not weak header null-to-present noise).";
 
 function readYaml(rel) {
   return yaml.load(fs.readFileSync(path.join(ROOT, rel), "utf8"));
@@ -72,6 +72,22 @@ function normalizeUrlForCompare(url) {
   } catch {
     return url;
   }
+}
+
+function normalizeTitleForCompare(title) {
+  if (title == null || title === "") return null;
+  return title
+    .trim()
+    .toLowerCase()
+    .replace(/\s*[-|–]\s*gov\.uk\s*$/i, "")
+    .replace(/\s*\|\s*unesco\s*$/i, "")
+    .replace(/\s+/g, " ");
+}
+
+function isWeakBaselineHeaderAppearance(baselineVal, liveVal) {
+  const baseEmpty = baselineVal == null || baselineVal === "";
+  const livePresent = liveVal != null && liveVal !== "";
+  return baseEmpty && livePresent;
 }
 
 function metadataFingerprint(fields) {
@@ -205,11 +221,32 @@ function compareCheck(live, baseline, refRunId) {
   if (live.http_status !== baseline.http_status) changedFields.push("http_status");
   const skipTitleCompare =
     live.request_method === "HEAD" && (live.page_title == null || live.page_title === "");
-  if (!skipTitleCompare && (live.page_title ?? null) !== (baseline.title ?? null)) {
-    changedFields.push("page_title");
+  if (!skipTitleCompare) {
+    const liveTitle = normalizeTitleForCompare(live.page_title);
+    const baseTitle = normalizeTitleForCompare(baseline.title);
+    if (liveTitle != null && baseTitle != null && liveTitle !== baseTitle) {
+      changedFields.push("page_title");
+    } else if (
+      liveTitle != null &&
+      baseTitle == null &&
+      live.page_title != null &&
+      live.page_title !== ""
+    ) {
+      changedFields.push("page_title");
+    }
   }
-  if ((live.last_modified ?? null) !== (baseline.last_modified ?? null)) changedFields.push("last_modified");
-  if ((live.etag ?? null) !== (baseline.etag ?? null)) changedFields.push("etag");
+  if (
+    (live.last_modified ?? null) !== (baseline.last_modified ?? null) &&
+    !isWeakBaselineHeaderAppearance(baseline.last_modified, live.last_modified)
+  ) {
+    changedFields.push("last_modified");
+  }
+  if (
+    (live.etag ?? null) !== (baseline.etag ?? null) &&
+    !isWeakBaselineHeaderAppearance(baseline.etag, live.etag)
+  ) {
+    changedFields.push("etag");
+  }
 
   if (changedFields.length > 0) {
     return {
@@ -369,12 +406,22 @@ async function main() {
               const skipTitle =
                 chk.request_method === "HEAD" &&
                 (chk.page_title == null || chk.page_title === "");
+              const liveTitle = normalizeTitleForCompare(chk.page_title);
+              const baseTitle = normalizeTitleForCompare(prev?.title);
+              const titleChanged =
+                !skipTitle &&
+                liveTitle != null &&
+                baseTitle != null &&
+                liveTitle !== baseTitle;
               const pmap = {
                 http_status: prev?.http_status !== chk.http_status,
-                page_title:
-                  !skipTitle && (prev?.title ?? null) !== (chk.page_title ?? null),
-                last_modified: (prev?.last_modified ?? null) !== (chk.last_modified ?? null),
-                etag: (prev?.etag ?? null) !== (chk.etag ?? null),
+                page_title: titleChanged,
+                last_modified:
+                  (prev?.last_modified ?? null) !== (chk.last_modified ?? null) &&
+                  !isWeakBaselineHeaderAppearance(prev?.last_modified, chk.last_modified),
+                etag:
+                  (prev?.etag ?? null) !== (chk.etag ?? null) &&
+                  !isWeakBaselineHeaderAppearance(prev?.etag, chk.etag),
               };
               return pmap[f];
             })

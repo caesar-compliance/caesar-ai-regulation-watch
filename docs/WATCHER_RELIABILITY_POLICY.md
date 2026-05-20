@@ -1,6 +1,12 @@
-# Watcher reliability policy (v0.7.4)
+# Watcher reliability policy (v0.9.7)
 
-**Last updated:** 19 May 2026
+**Last updated:** 20 May 2026
+
+## Live metadata pilot (v0.9.7)
+
+- One request per allowlisted URL; metadata headers/title only; see `docs/METADATA_COMPARISON_POLICY.md`.
+- Weak headers (`Last-Modified`, `ETag` null→present vs deterministic baseline) classified as benign when triaged; not regulatory change signals.
+- Triage batch `metadata-review-triage-*.yml` must keep `legal_change_claimed: false` and `client_use_allowed: false`.
 
 ## Principles
 
