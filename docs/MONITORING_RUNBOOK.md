@@ -1,13 +1,19 @@
-# Monitoring runbook (v0.9.4)
+# Monitoring runbook (v0.9.5)
 
 **Last updated:** 20 May 2026
 
-## v0.9.4 watcher eligibility + deterministic run
+## v0.9.5 monitoring adapter pack + deterministic pack run
 
-- Eligibility: `data/monitoring/watcher-eligibility-2026-05-20.yml` (confirmed official sources only).
-- Local run: `data/monitoring/monitoring-run-2026-05-20-v094.yml` (offline/deterministic; no broad fetch).
-- Public: `/monitoring/`, `/data/watcher-eligibility.json`, `/data/monitoring-runs.json` (`latest_watcher_monitoring_run`).
+- Config pack: `data/monitoring/source-configs-2026-05-20-v095.yml` (adapter_type, fetch_scope, diff_policy per source).
+- Pack run: `data/monitoring/monitoring-run-2026-05-20-v095.yml` (offline/deterministic; metadata snapshots; no legal text storage).
+- CLI: `npm run monitoring:pack` (regenerates pack run from latest source-configs batch).
+- Public: `/monitoring/`, `/data/monitoring-source-configs.json`, `/data/monitoring-runs.json`, `/data/watcher-eligibility.json`.
 - Blocked sources (EUR-Lex bot challenge, EDPB 502, Australia WAF) stay `manual_only` / `allowed_to_fetch: false`.
+
+## v0.9.4 watcher eligibility (baseline)
+
+- Eligibility: `data/monitoring/watcher-eligibility-2026-05-20.yml`.
+- Prior run: `data/monitoring/monitoring-run-2026-05-20-v094.yml`.
 
 ## Quick commands
 

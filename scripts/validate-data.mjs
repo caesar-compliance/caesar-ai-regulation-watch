@@ -49,6 +49,7 @@ const schemas = {
   sourceDiscoveryLead: loadSchema("source-discovery-lead.schema.json"),
   watcherEligibility: loadSchema("watcher-eligibility.schema.json"),
   watcherMonitoringRun: loadSchema("watcher-monitoring-run.schema.json"),
+  monitoringSourceConfig: loadSchema("monitoring-source-config.schema.json"),
 };
 
 const COMPETITOR_DISCOVERY_HOST_PATTERNS = [
@@ -385,6 +386,74 @@ if (fs.existsSync(watcherMonitoringDir)) {
                   "only confirmed or pending official sources may be fetch-eligible for url checks",
               },
             ],
+          });
+        }
+      }
+    } else if (base.startsWith("source-configs-")) {
+      check(validate(file, data, schemas.monitoringSourceConfig));
+      if (data.client_use_allowed !== false || data.final_evidence_allowed !== false) {
+        failures.push({
+          label: `${file} (policy)`,
+          errors: [
+            {
+              message:
+                "monitoring source config batch must have client_use_allowed and final_evidence_allowed false",
+            },
+          ],
+        });
+      }
+      for (const cfg of data.configs ?? []) {
+        const label = `${file} → ${cfg.source_id ?? "?"}`;
+        if (cfg.client_use_allowed !== false || cfg.final_evidence_allowed !== false) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [
+              {
+                message:
+                  "monitoring source config must have client_use_allowed and final_evidence_allowed false",
+              },
+            ],
+          });
+        }
+        if (cfg.verified_on_source === true) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [{ message: "monitoring source config must have verified_on_source: false" }],
+          });
+        }
+        if (cfg.no_broad_scraping !== true || cfg.no_competitor_source !== true) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [
+              { message: "monitoring source config must have no_broad_scraping and no_competitor_source true" },
+            ],
+          });
+        }
+        if (isCompetitorDiscoveryUrl(cfg.official_url)) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [{ message: "competitor URL cannot be a monitored official source" }],
+          });
+        }
+        if (
+          cfg.adapter_type === "manual_only" &&
+          cfg.allowed_to_fetch === true &&
+          cfg.fetch_scope !== "not_fetched"
+        ) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [{ message: "manual_only adapter must have allowed_to_fetch false" }],
+          });
+        }
+        if (
+          (cfg.source_id === "eu-ai-act" ||
+            cfg.source_id === "edpb-ai-topic" ||
+            cfg.source_id === "australia-industry-ai") &&
+          cfg.allowed_to_fetch === true
+        ) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [{ message: "blocked/manual-only sources must not have allowed_to_fetch true" }],
           });
         }
       }

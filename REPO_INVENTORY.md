@@ -114,6 +114,11 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **data/monitoring-runs/** | Monitoring cycle reports |
 | **schemas/watcher-eligibility.schema.json** | Watcher eligibility validation |
 | **schemas/watcher-monitoring-run.schema.json** | Deterministic monitoring run validation |
+| **schemas/monitoring-source-config.schema.json** | Monitoring adapter/config pack validation |
+| **data/monitoring/source-configs-2026-05-20-v095.yml** | v0.9.5 adapter pack (15 sources) |
+| **data/monitoring/monitoring-run-2026-05-20-v095.yml** | v0.9.5 deterministic pack run |
+| **scripts/run-monitoring-pack.mjs** | `npm run monitoring:pack` — regenerate pack run |
+| **public/data/monitoring-source-configs.json** | Static export of adapter configs |
 | **public/data/watcher-eligibility.json** | Static export of eligibility entries |
 | **data/detected-changes/** | Pending human review diffs |
 | **scripts/run-official-source-watchers.mjs** | `npm run watch:official` |

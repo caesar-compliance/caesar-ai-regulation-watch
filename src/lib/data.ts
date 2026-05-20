@@ -1045,13 +1045,30 @@ export function getWatcherEligibilityEntries(): WatcherEligibilityEntry[] {
 export type WatcherMonitoringCheckResult =
   | "no_change_snapshot_created"
   | "status_check_ok"
+  | "metadata_snapshot_created"
   | "status_check_failed"
+  | "fetch_failed_needs_review"
   | "manual_only_not_checked"
   | "blocked_not_checked";
+
+export interface MonitoringSourceConfig {
+  source_id: string;
+  jurisdiction_id: string;
+  official_url: string;
+  monitoring_method: string;
+  adapter_type: "static_page" | "feed" | "official_api" | "manual_only";
+  allowed_to_fetch: boolean;
+  fetch_scope: string;
+  diff_policy: string;
+  limitations: string;
+  monitoring_source_config_batch_id?: string;
+}
 
 export interface WatcherMonitoringCheck {
   source_id: string;
   url: string;
+  adapter_type?: string;
+  fetch_scope?: string;
   monitoring_method: string;
   check_result: WatcherMonitoringCheckResult;
   http_status?: number | null;
@@ -1068,6 +1085,8 @@ export interface WatcherMonitoringRun {
   run_date: string;
   run_timestamp: string;
   mode: "deterministic_local" | "dry_run" | "report_only";
+  product_version?: string;
+  monitoring_source_config_batch_id?: string;
   watcher_eligibility_batch_id: string;
   overall_status?: "completed" | "partial" | "report_only";
   change_detected_count?: number;
@@ -1086,11 +1105,34 @@ export function getWatcherMonitoringRuns(): WatcherMonitoringRun[] {
     )
     .map((f) => readYamlFile<WatcherMonitoringRun>(path.join("data/monitoring", f)))
     .filter((r): r is WatcherMonitoringRun => Boolean(r?.monitoring_run_id))
-    .sort((a, b) => b.run_date.localeCompare(a.run_date));
+    .sort(
+      (a, b) =>
+        b.run_date.localeCompare(a.run_date) ||
+        b.monitoring_run_id.localeCompare(a.monitoring_run_id),
+    );
 }
 
 export function latestWatcherMonitoringRun(): WatcherMonitoringRun | undefined {
   return getWatcherMonitoringRuns()[0];
+}
+
+export function getMonitoringSourceConfigs(): MonitoringSourceConfig[] {
+  const dir = path.join(ROOT, "data/monitoring");
+  if (!fs.existsSync(dir)) return [];
+  const files = fs
+    .readdirSync(dir)
+    .filter((f) => f.startsWith("source-configs-") && (f.endsWith(".yml") || f.endsWith(".yaml")))
+    .sort()
+    .reverse();
+  if (files.length === 0) return [];
+  const batch = readYamlFile<{
+    monitoring_source_config_batch_id: string;
+    configs?: MonitoringSourceConfig[];
+  }>(path.join("data/monitoring", files[0]));
+  return (batch?.configs ?? []).map((c) => ({
+    ...c,
+    monitoring_source_config_batch_id: batch?.monitoring_source_config_batch_id,
+  }));
 }
 
 export function getDetectedChanges(): DetectedChange[] {
