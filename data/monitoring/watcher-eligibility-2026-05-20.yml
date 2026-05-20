@@ -351,26 +351,28 @@ entries:
     source_category: guidance
     source_discovery_status: official_source_confirmed
     watcher_eligibility:
-      eligible_basic_url_check: false
+      eligible_basic_url_check: true
       eligible_feed_check: false
       eligible_api_check: false
       manual_review_required: true
       blocked_by_waf_or_bot_protection: false
       excluded_not_official: false
-      excluded_unstable: true
+      excluded_unstable: false
     eligibility_reason: >
-      v0.9.3 verification HTTP 502 (transient infrastructure); v0.9.1 had HTTP 200. Manual re-check required;
-      not eligible for automated fetch until stable 200 returns.
+      v1.0.1 re-check HTTP 200 on topic URL (v0.9.3 transient HTTP 502 resolved). Eligible for cautious metadata-only
+      URL check; not added to live-metadata pilot allowlist (scope freeze). Complements edpb RSS feed watcher.
     monitoring_method: manual_only
     allowed_to_fetch: false
-    fetch_limits: No fetch while site returns 502; use EDPB publications RSS on edpb source for feed monitoring instead.
+    fetch_limits: >
+      v1.0.1 HTTP 200 re-check; manual_only policy keeps allowed_to_fetch false. Future cautious metadata
+      fetch possible; not on v0.9.6 five-URL live pilot allowlist (scope freeze).
     no_broad_scraping: true
     no_competitor_source: true
     client_use_allowed: false
     final_evidence_allowed: false
-    created_from: source-verification-2026-05-20-v093
+    created_from: source-verification-2026-05-20-v101
     access_date: "2026-05-20"
-    limitations: Topic index unavailable in v0.9.3 pass; complements edpb feed watcher when site stable.
+    limitations: Topic index identity re-confirmed; document list not exhaustively reviewed.
 
   - source_id: australia-industry-ai
     jurisdiction_id: australia

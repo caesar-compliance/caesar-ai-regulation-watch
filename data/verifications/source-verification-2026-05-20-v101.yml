@@ -1,0 +1,85 @@
+# Source verification batch — v1.0.1 post-MVP sprint (20 May 2026)
+# Re-check Australia, EUR-Lex, EDPB, UNESCO. Not legal advice. No client evidence.
+
+verification_batch_id: source-verification-2026-05-20-v101
+verified_date: "2026-05-20"
+verifier_type: curator_batch
+legal_safe_note: >
+  v1.0.1 source verification sprint. Safe curl/HEAD checks only; no WAF bypass; no legal text storage.
+  verified_on_source remains false unless explicitly approved. Not legal advice. Not final evidence.
+
+verifications:
+  - verification_id: verify-australia-industry-ai-principles-v101
+    verified_date: "2026-05-20"
+    verifier_type: curator_batch
+    item_type: source
+    item_id: australia-industry-ai
+    source_id: australia-industry-ai
+    official_url_checked: https://www.industry.gov.au/publications/australias-ai-ethics-principles
+    check_result: unreachable
+    page_title_or_reference: Australia's AI Ethics Principles (expected — not loaded in v1.0.1 pass)
+    notes: >
+      v1.0.1 re-check: GET and HEAD to canonical HTML URL timed out from reviewer environment (same as v0.9.3).
+      Alternate slug australias-artificial-intelligence-ethics-principles also timed out. Publisher remains
+      Department of Industry, Science and Resources (Australian Government) per prior corroboration only.
+      Discovery lead lead-australia-industry-ai-principles stays pending_official_review; human browser
+      verification still required before official_source_confirmed on live ethics-principles page.
+    review_status_after_check: needs_human_review
+    client_use_allowed: false
+    legal_safe_note: >
+      v1.0.1 Australia pass. Automated HTML still blocked. Not legal advice. Does not set verified_on_source.
+
+  - verification_id: verify-eu-ai-act-eurlex-v101
+    verified_date: "2026-05-20"
+    verifier_type: curator_batch
+    item_type: record
+    item_id: law-eu-ai-act-2024-1689
+    source_id: eu-ai-act
+    official_url_checked: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689
+    check_result: uncertain
+    page_title_or_reference: Regulation (EU) 2024/1689 — CELEX 32024R1689 (instrument not read)
+    notes: >
+      v1.0.1 re-check: HEAD to CELEX TXT and PDF URLs returns HTTP 202 (EUR-Lex bot protection / processing page).
+      EC digital-strategy regulatory-framework-ai corroboration HEAD HTTP 200 — high-level identity only, not
+      EUR-Lex consolidated text. OJ publication metadata not captured. Export candidate remains
+      needs_more_source_review. prior discovery lead HTTP 200 may reflect browser session; automated pass unchanged.
+    review_status_after_check: needs_human_review
+    client_use_allowed: false
+    legal_safe_note: >
+      v1.0.1 EUR-Lex pass. Bot protection unchanged. Not legal advice. Not client evidence.
+
+  - verification_id: verify-edpb-ai-topic-index-v101
+    verified_date: "2026-05-20"
+    verifier_type: curator_batch
+    item_type: source
+    item_id: edpb-ai-topic
+    source_id: edpb-ai-topic
+    official_url_checked: https://www.edpb.europa.eu/our-work-tools/our-documents/topic/artificial-intelligence_en
+    check_result: reachable_matches_expected_source
+    page_title_or_reference: Artificial intelligence | European Data Protection Board
+    notes: >
+      v1.0.1 re-check: HTTP 200 on topic URL (v0.9.3 had transient HTTP 502). Visible HTML title matches
+      EDPB AI documents topic framing. edpb.europa.eu homepage HEAD HTTP 200. Topic document list not exhaustively
+      reviewed; metadata-only governance support. Complements edpb RSS watcher; not a legal change signal.
+    review_status_after_check: reviewed_source_identity_only
+    client_use_allowed: false
+    legal_safe_note: >
+      v1.0.1 EDPB pass. Site availability restored; not full legal verification. verified_on_source false.
+
+  - verification_id: verify-unesco-ai-ethics-landing-v101
+    verified_date: "2026-05-20"
+    verifier_type: curator_batch
+    item_type: source
+    item_id: unesco-ai-ethics
+    source_id: unesco-ai-ethics
+    official_url_checked: https://www.unesco.org/en/artificial-intelligence/recommendation-ethics
+    check_result: reachable_matches_expected_source
+    page_title_or_reference: Ethics of Artificial Intelligence - AI | UNESCO
+    notes: >
+      v1.0.1 re-check: HTTP 200; live HTML title consistent with UNESCO ethics recommendation landing page.
+      v0.9.7 live-metadata triage check_artifact reclassified to benign_metadata_change (baseline title label vs
+      live page title element; Last-Modified/ETag header presence only). No legal_change_claimed.
+    review_status_after_check: reviewed_source_identity_only
+    client_use_allowed: false
+    legal_safe_note: >
+      v1.0.1 UNESCO pass. Metadata artifact resolved as benign; not legal advice.

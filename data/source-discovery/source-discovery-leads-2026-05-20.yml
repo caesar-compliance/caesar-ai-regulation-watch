@@ -337,12 +337,11 @@ leads:
     access_date: "2026-05-20"
     existing_source_id: australia-industry-ai
     notes: >
-      v0.9.3 targeted pass: primary HTML publication URL still blocked (curl timeout/HTTP 000; supporting fetch
-      HTTP 403). Alternate slug australias-artificial-intelligence-ethics-principles also unreachable from this
-      environment. Official industry.gov.au PDF assets on same domain reachable as corroboration only (distinct
-      documents). Department of Industry, Science and Resources publication identity plausible via index references
-      but live ethics-principles page not read. Human browser verification still required before
-      official_source_confirmed. Registry canonical URL unchanged. See source-verification-2026-05-20-v093.
+      v0.9.3 targeted pass: primary HTML publication URL blocked (curl timeout/HTTP 000; supporting fetch HTTP 403).
+      v1.0.1 re-check: canonical and alternate HTML slugs still timeout from automated environment — unchanged.
+      Official industry.gov.au PDF corroboration only (distinct documents). Human browser verification still
+      required before official_source_confirmed on live ethics-principles page. Registry canonical URL unchanged.
+      See source-verification-2026-05-20-v093 and source-verification-2026-05-20-v101.
     no_competitor_text_copied: true
     no_bulk_extraction: true
 
