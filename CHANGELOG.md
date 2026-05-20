@@ -11,6 +11,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.1] - 20 May 2026
+
+### Added
+
+- **Source verification sprint** — `source-verification-2026-05-20-v101.yml` (Australia, EUR-Lex, EDPB, UNESCO re-check).
+- **Content review batch** — `content-review-2026-05-20-v101.yml` (9 records; EDPB refresh + 8 new high-level reviews).
+
+### Changed
+
+- **EDPB AI topic** — HTTP 200 re-check; watcher eligibility updated; source `reviewed_source_identity_only`.
+- **UNESCO metadata triage** — `check_artifact` reclassified to `benign_metadata_change`.
+- **Content review coverage** — expanded (public snapshot counts updated on deploy).
+- **Product version** — `v1.0.1` / package `1.0.1`.
+
+### Notes
+
+- Post-MVP hygiene only — no new jurisdictions, monitoring allowlist, or product features.
+- Australia HTML still blocked (timeout); EUR-Lex still HTTP 202; EU AI Act candidate stays `needs_more_source_review`.
+- Not legal advice; not complete coverage; `client_use_allowed: 0`; `verified_on_source: 0`.
+
+---
+
 ## [1.0.0] - 20 May 2026
 
 ### Added

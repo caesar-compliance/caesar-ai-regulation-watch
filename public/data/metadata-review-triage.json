@@ -120,15 +120,15 @@
           "last_modified",
           "etag"
         ],
-        "triage_classification": "check_artifact",
-        "human_review_required": true,
+        "triage_classification": "benign_metadata_change",
+        "human_review_required": false,
         "legal_change_claimed": false,
         "client_use_allowed": false,
         "final_evidence_allowed": false,
         "verified_on_source": false,
-        "reviewer_note": "Title string differs from v0.9.5 deterministic baseline label vs live HTML title element; recheck confirms current live title. Last-Modified and ETag are null-to-present vs baseline. Likely baseline wording drift and weak headers, not confirmed legal/regulatory change — human should confirm on official page if needed.\n",
+        "reviewer_note": "v1.0.1 re-triage: HTTP 200 recheck; live HTML title \"Ethics of Artificial Intelligence - AI | UNESCO\" on official page. v0.9.5 baseline used shorter catalog label \"UNESCO Recommendation on the Ethics of AI\" — wording drift only. Last-Modified/ETag null-to-present vs baseline are weak headers, not a legal change signal. Reclassified from check_artifact to benign_metadata_change per source-verification-2026-05-20-v101.\n",
         "access_date": "2026-05-20",
-        "limitations": "Title-only metadata snippet; no full text or recommendation content compared. Not verified_on_source in repo.\n"
+        "limitations": "Metadata-only comparison; no full text or recommendation content compared. Not verified_on_source in repo.\n"
       }
     ]
   },
@@ -236,23 +236,23 @@
         "last_modified",
         "etag"
       ],
-      "triage_classification": "check_artifact",
-      "human_review_required": true,
+      "triage_classification": "benign_metadata_change",
+      "human_review_required": false,
       "legal_change_claimed": false,
       "client_use_allowed": false,
       "final_evidence_allowed": false,
       "verified_on_source": false,
-      "reviewer_note": "Title string differs from v0.9.5 deterministic baseline label vs live HTML title element; recheck confirms current live title. Last-Modified and ETag are null-to-present vs baseline. Likely baseline wording drift and weak headers, not confirmed legal/regulatory change — human should confirm on official page if needed.\n",
+      "reviewer_note": "v1.0.1 re-triage: HTTP 200 recheck; live HTML title \"Ethics of Artificial Intelligence - AI | UNESCO\" on official page. v0.9.5 baseline used shorter catalog label \"UNESCO Recommendation on the Ethics of AI\" — wording drift only. Last-Modified/ETag null-to-present vs baseline are weak headers, not a legal change signal. Reclassified from check_artifact to benign_metadata_change per source-verification-2026-05-20-v101.\n",
       "access_date": "2026-05-20",
-      "limitations": "Title-only metadata snippet; no full text or recommendation content compared. Not verified_on_source in repo.\n"
+      "limitations": "Metadata-only comparison; no full text or recommendation content compared. Not verified_on_source in repo.\n"
     }
   ],
   "summary": {
     "triage_batch_id": "metadata-review-triage-2026-05-20-v097",
     "related_live_run_id": "live-metadata-run-2026-05-20-v096",
     "items_total": 3,
-    "benign_metadata_change": 2,
-    "check_artifact": 1,
+    "benign_metadata_change": 3,
+    "check_artifact": 0,
     "source_update_needs_human_review": 0,
     "unresolved_needs_review": 0,
     "legal_change_claimed": 0,
