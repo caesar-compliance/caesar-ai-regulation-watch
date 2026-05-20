@@ -9,13 +9,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+---
+
+## [1.0.6] - 20 May 2026
+
 ### Added
 
-- **T049 source adapter pipeline (offline)** — `scripts/build-regulatory-updates-from-metadata.mjs` generates `regulatory_update` candidates from repository monitoring/registry metadata (`offline_metadata_adapter`); `npm run build:regulatory-updates`; feed filter by automation method; JSON export method counts.
+- **T049 source adapter pipeline (offline)** — `scripts/build-regulatory-updates-from-metadata.mjs` generates `regulatory_update` candidates from repository monitoring/registry metadata (`offline_metadata_adapter`); `npm run build:regulatory-updates`; feed filter by automation method on `/updates/`; JSON export method counts; metadata adapter badges on tracker/update surfaces.
+
+### Changed
+
+- **Regulatory updates feed** — 33 total updates (`manual_seed`: 15, `offline_metadata_adapter`: 18); `data/regulatory-updates/generated-from-metadata.yml` checked in.
+- **Product version** — `v1.0.6`.
 
 ### Notes
 
-- No live scraping or new network adapters. All evidence gates remain closed. Manual seeds retained.
+- No live scraping, crawling, or new network adapters. All evidence gates remain closed. Not legal advice. Not final evidence. Not complete coverage. Not verified legal change.
+- **Deployed** 20 May 2026 — `DEPLOY-20260520-024`, commit TBD, run TBD, tag `regulation-watch-v1.0.6`. Public smoke on `/`, `/tracker/`, `/updates/`, `/countries/`, and tracker JSON exports.
 
 ---
 

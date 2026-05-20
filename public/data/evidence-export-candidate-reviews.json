@@ -57,7 +57,7 @@
       "review_purpose": "governance_export_readiness_only",
       "candidate_review_status": "needs_more_source_review",
       "content_review_id": "content-review-law-eu-ai-act-2024-1689",
-      "governance_review_summary": "Manual sample EU AI Act status-change candidate is understandable and has content review. v0.8.9/v0.9.2/v0.9.3/v1.0.1/v1.0.2: EUR-Lex CELEX still blocked (HTTP 202 automated; browser fetch shows JavaScript bot-verification gate); full instrument not read. EC AI Act overview (HTTP 200) corroborates CELEX 32024R1689 identity at high level only — not sufficient to clear source verification gate. v1.0.2 human/browser sprint (source-verification-2026-05-20-v102, content-review-law-eu-ai-act-2024-1689-v102) re-confirmed. verified_on_source_after_check remains false. Export-readiness stays needs_more_source_review. Disclaimers present; blocking_reasons empty is pipeline status only.",
+      "governance_review_summary": "Manual sample EU AI Act status-change candidate is understandable and has content review. v1.0.4 autonomous worker: Publications Office SPARQL has no CELEX 32024R1689 binding yet; EUR-Lex primary URL HTTP 202 (bot gate). Official EFTA EEA-Lex factsheet confirms Regulation (EU) 2024/1689 / CELEX 32024R1689 identity via metadata snippet only (official_alternative_verified_identity) — not EUR-Lex consolidated text. verified_on_source_after_check remains false. Export-readiness stays needs_more_source_review until EUR-Lex instrument page is machine- or policy-cleared. Disclaimers present; blocking_reasons empty is pipeline status only.",
       "checks_performed": [
         "candidate_understandable",
         "content_review_present",
@@ -70,6 +70,8 @@
       ],
       "governance_findings": [
         "eur_lex_full_text_not_verified_http_202_v089",
+        "autonomous_v103_efta_eea_lex_official_alternative_confirms_celex_identity",
+        "cellar_sparql_celex_32024r1689_not_indexed_in_pass",
         "ec_digital_strategy_corroborates_instrument_identity_only",
         "verified_on_source_after_check_false",
         "sample_key_dates_still_unverified_on_eur_lex"
@@ -79,7 +81,7 @@
       "client_use_allowed": false,
       "final_evidence_allowed": false,
       "qualified_advisor_review_required": true,
-      "legal_safe_note": "v1.0.2 governance review refresh: needs_more_source_review — EUR-Lex human browser with JavaScript still required. EC overview corroboration is not client approval or final evidence. Not legal advice.",
+      "legal_safe_note": "v1.0.4 governance review refresh: needs_more_source_review — EUR-Lex consolidated instrument still required; EFTA EEA-Lex autonomous pass is official-alternative identity only. Not client approval or final evidence. Not legal advice.",
       "evidence_export_candidate_review_batch_id": "evidence-export-candidate-review-2026-05-20"
     }
   ]
