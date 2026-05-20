@@ -11,12 +11,12 @@
 | **Repository** | `caesar-ai-regulation-watch` |
 | **Current version** | `v0.9.2` |
 | **Current phase** | Public pilot — source resolution and content review |
-| **Status** | Release in progress (branch `agent/v0.9.2-source-resolution-content-review`) |
-| **Working branch** | `agent/v0.9.2-source-resolution-content-review` → merge to `main` |
-| **Latest completed task** | v0.9.2 — resolve pending leads; first content review for v0.9.1 records |
-| **Prior deployment** | `DEPLOY-20260520-008` — v0.9.1 commit `8040212` / docs `2b14b8a` |
-| **Git tag (prior)** | `regulation-watch-v0.9.1` on `8040212` |
-| **Next recommended step** | Control Tower: deploy v0.9.2; human browser pass for Australia industry.gov.au and EUR-Lex |
+| **Status** | Live on custom domain; v0.9.2 deployed (`8038f9d`) |
+| **Working branch** | `main` (after merge) |
+| **Latest completed task** | v0.9.2 — 24/26 leads confirmed; 16 content reviews; 6 v0.9.1 records reviewed |
+| **Deployment ID** | `DEPLOY-20260520-009` — commit `8038f9d`, run [26133918817](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26133918817) |
+| **Git tag** | `regulation-watch-v0.9.2` on `8038f9d` (pending push after docs commit) |
+| **Next recommended step** | Control Tower: human browser pass for Australia industry.gov.au, EUR-Lex CELEX, EDPB AI topic |
 
 ---
 
@@ -26,8 +26,8 @@
 |---|---|---|
 | Work item | `TXXX` | `work-items/` only — not public version |
 | Product version | `v0.9.2` | Site footer, snapshot, `package.json` |
-| Deployment ID | `DEPLOY-20260520-009` (pending) | See [DEPLOYMENTS.md](DEPLOYMENTS.md) after deploy |
-| Git tag | `regulation-watch-v0.9.2` (pending) | After successful deploy smoke pass |
+| Deployment ID | `DEPLOY-20260520-009` | Live — see [DEPLOYMENTS.md](DEPLOYMENTS.md) |
+| Git tag | `regulation-watch-v0.9.2` | Points at deploy commit `8038f9d` |
 
 ---
 
