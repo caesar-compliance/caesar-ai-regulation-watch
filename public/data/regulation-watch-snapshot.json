@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-05-20",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
   "pilot_jurisdictions": [
     "australia",
@@ -104,6 +104,10 @@
     "evidence_export_candidate_reviews_count": 2,
     "evidence_export_candidate_reviews_governance_only": 1,
     "evidence_export_candidate_reviews_needs_source": 1,
+    "manual_source_verification_intake_count": 3,
+    "pending_human_browser_input_count": 3,
+    "verified_on_source_requested_count": 0,
+    "verified_on_source_approved_count": 0,
     "review_queue_items": 111,
     "pending_review": 102,
     "needs_update": 0,
@@ -139,7 +143,8 @@
     "detected_changes": "/data/detected-changes.json",
     "evidence_export_candidates": "/data/evidence-export-candidates.json",
     "evidence_export_candidate_reviews": "/data/evidence-export-candidate-reviews.json",
-    "source_discovery_leads": "/data/source-discovery-leads.json"
+    "source_discovery_leads": "/data/source-discovery-leads.json",
+    "manual_source_verification_intake": "/data/manual-source-verification-intake.json"
   },
   "review_notice": "All pilot content is curated manual YAML. Human review required before client use."
 }

@@ -1,7 +1,8 @@
 # Source Verification Workflow
 
 **Prepared:** 19 May 2026  
-**Version:** v0.9.3
+**Last updated:** 20 May 2026  
+**Version:** v1.0.3
 
 ---
 
@@ -92,15 +93,32 @@ Each entry in `data/verifications/*.yml` validates against `schemas/source-verif
 
 ---
 
+## Manual source verification intake (v1.0.3)
+
+When automated URL checks, headless browser fetches, or CI environments are **blocked** (HTTP 403, WAF, EUR-Lex bot gate, timeouts):
+
+| Action | Do | Do not |
+|---|---|---|
+| Route blocked sources | Create or update `manual-source-verification-intake-*.yml` | Loop `npm run check:urls` or watcher retries as primary path |
+| Record observations | Qualified human browser per [MANUAL_SOURCE_VERIFICATION_INTAKE_GUIDE.md](./MANUAL_SOURCE_VERIFICATION_INTAKE_GUIDE.md) | Fabricate titles or paste legal text into YAML |
+| Set `verified_on_source` | Only after Control Tower approval per [VERIFIED_ON_SOURCE_POLICY.md](./VERIFIED_ON_SOURCE_POLICY.md) | Auto-set from intake batch or automated jobs |
+
+Public status: `/source-verification/` and `/data/manual-source-verification-intake.json` (no private reviewer notes in export).
+
+**v1.0.3 intake placeholders:** Australia `australia-industry-ai`, EUR-Lex CELEX `law-eu-ai-act-2024-1689`, Japan `japan-meti-ai` — all `pending_human_browser_input`.
+
+---
+
 ## Review steps (human)
 
 1. Open the item in the site (`/records/`, `/sources/`, `/timelines/`, or `/review-queue/`).
-2. Follow the **official source** link (never competitor tracker pages).
-3. Confirm the page is from the expected authority (domain, branding, instrument title).
-4. Update or create a verification YAML entry with the actual `check_result`.
-5. If dates or summaries are confirmed, set `verified_on_source: true` on the record or timeline event in YAML (separate commit).
-6. Set `review_status: reviewed` only when Control Tower approves for your use case.
-7. Set `client_use_allowed: true` only when verification is genuinely strong — default is `false`.
+2. If automated verification is blocked, use **manual intake** (`/source-verification/`) instead of repeated automated retries.
+3. Follow the **official source** link (never competitor tracker pages).
+4. Confirm the page is from the expected authority (domain, branding, instrument title).
+5. Update or create a verification YAML entry with the actual `check_result`.
+6. **`verified_on_source: true`** on records requires completed manual intake + explicit Control Tower approval — see [VERIFIED_ON_SOURCE_POLICY.md](./VERIFIED_ON_SOURCE_POLICY.md). Not set in v1.0.3.
+7. Set `review_status: reviewed` only when Control Tower approves for your use case.
+8. Set `client_use_allowed: true` only when verification is genuinely strong — default is `false`.
 
 ---
 
@@ -112,10 +130,12 @@ Each entry in `data/verifications/*.yml` validates against `schemas/source-verif
 | [url-check-2026-05-19.yml](../data/verifications/url-check-2026-05-19.yml) | Technical URL batch (`npm run check:urls`; re-run after remediation) |
 | [source-identity-review-2026-05-19.yml](../data/verifications/source-identity-review-2026-05-19.yml) | v0.6.2 source identity batch (`reviewed_source_identity_only`) |
 | [source-verification-2026-05-20-v093.yml](../data/verifications/source-verification-2026-05-20-v093.yml) | v0.9.3 targeted pass — Australia industry.gov.au, EUR-Lex CELEX, EDPB AI topic |
+| [source-verification-2026-05-20-v102.yml](../data/verifications/source-verification-2026-05-20-v102.yml) | v1.0.2 human/browser pass — AU/EUR-Lex/Japan blockers documented |
+| [manual-source-verification-intake-2026-05-20-v103.yml](../data/verifications/manual-source-verification-intake-2026-05-20-v103.yml) | v1.0.3 manual intake placeholders — pending human browser |
 
-Static exports: `/data/verifications.json`, `/data/url-checks.json` (generated at build).
+Static exports: `/data/verifications.json`, `/data/url-checks.json`, `/data/manual-source-verification-intake.json` (generated at build).
 
-Site page: [/verification/](/verification/) (read-only summary).
+Site pages: [/verification/](/verification/) (batch summary) · [/source-verification/](/source-verification/) (manual intake + policy gate).
 
 ---
 

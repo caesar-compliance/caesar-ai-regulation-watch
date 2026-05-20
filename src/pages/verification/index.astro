@@ -57,7 +57,9 @@ function pageHrefForCheck(check: (typeof urlChecks)[0]) {
   <h1>Verification</h1>
   <p class="lead">
     Three separate layers: technical URL reachability, official source identity review, and
-    record content/legal review. None of these imply client-use approval.
+    record content/legal review. None of these imply client-use approval. Blocked sources (WAF, bot
+    gate) use the <a href="/source-verification/">manual verification intake</a> — not repeated
+    automated retries.
   </p>
 
   <div class="banner banner--review" role="note">

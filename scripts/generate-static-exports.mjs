@@ -220,6 +220,52 @@ function readSourceDiscoveryLeads() {
   return { batch, leads };
 }
 
+function readManualSourceVerificationIntake() {
+  const abs = path.join(ROOT, "data/verifications");
+  if (!fs.existsSync(abs)) return { batch: null, intakes: [] };
+  const files = fs
+    .readdirSync(abs)
+    .filter(
+      (f) =>
+        f.startsWith("manual-source-verification-intake") &&
+        (f.endsWith(".yml") || f.endsWith(".yaml")),
+    )
+    .sort()
+    .reverse();
+  if (files.length === 0) return { batch: null, intakes: [] };
+  const batch = yaml.load(fs.readFileSync(path.join(abs, files[0]), "utf8"));
+  const intakes = (batch?.intakes ?? []).map((intake) => ({
+    intake_id: intake.intake_id,
+    intake_status: intake.intake_status,
+    related_source_id: intake.related_source_id,
+    related_record_id: intake.related_record_id ?? null,
+    related_candidate_id: intake.related_candidate_id ?? null,
+    related_verification_id: intake.related_verification_id ?? null,
+    official_url: intake.official_url,
+    verification_target: intake.verification_target,
+    access_method: intake.access_method,
+    reviewer_role: intake.reviewer_role,
+    access_date: intake.access_date,
+    browser_observation: intake.browser_observation,
+    source_identity_confirmed: intake.source_identity_confirmed,
+    full_instrument_identity_confirmed: intake.full_instrument_identity_confirmed,
+    content_not_copied: intake.content_not_copied,
+    no_legal_advice: intake.no_legal_advice,
+    no_full_text_storage: intake.no_full_text_storage,
+    client_use_allowed: false,
+    final_evidence_allowed: false,
+    verified_on_source_requested: intake.verified_on_source_requested,
+    verified_on_source_approved: false,
+    limitations: intake.limitations,
+    next_action: intake.next_action,
+    legal_safe_note: intake.legal_safe_note,
+    manual_source_verification_intake_batch_id: batch.manual_source_verification_intake_batch_id,
+    not_client_evidence: true,
+    not_legal_advice: true,
+  }));
+  return { batch, intakes };
+}
+
 function readEvidenceExportCandidateReviews() {
   const abs = path.join(ROOT, "data/verifications");
   if (!fs.existsSync(abs)) return { batch: null, reviews: [] };
@@ -364,6 +410,8 @@ const { batch: evidenceCandidateBatch, candidates: rawEvidenceExportCandidates }
   readEvidenceExportCandidates();
 const { batch: evidenceCandidateReviewBatch, reviews: evidenceCandidateReviews } =
   readEvidenceExportCandidateReviews();
+const { batch: manualIntakeBatch, intakes: manualSourceVerificationIntakes } =
+  readManualSourceVerificationIntake();
 const reviewByCandidateId = latestReviewByCandidateId(evidenceCandidateReviews);
 const evidenceExportCandidates = rawEvidenceExportCandidates.map((c) => {
   const review = reviewByCandidateId.get(c.candidate_id);
@@ -1231,6 +1279,28 @@ const watcherMonitoringRunSummary = latestWatcherMonitoringRun
     }
   : null;
 
+const manualIntakeSummary = {
+  total: manualSourceVerificationIntakes.length,
+  pending_human_browser_input: manualSourceVerificationIntakes.filter(
+    (i) => i.intake_status === "pending_human_browser_input",
+  ).length,
+  observation_recorded: manualSourceVerificationIntakes.filter(
+    (i) => i.intake_status === "observation_recorded",
+  ).length,
+  identity_confirmed_pending_control_tower: manualSourceVerificationIntakes.filter(
+    (i) => i.intake_status === "identity_confirmed_pending_control_tower",
+  ).length,
+  verified_on_source_requested_count: manualSourceVerificationIntakes.filter(
+    (i) => i.verified_on_source_requested === true,
+  ).length,
+  verified_on_source_approved_count: 0,
+  source_identity_confirmed_count: manualSourceVerificationIntakes.filter(
+    (i) => i.source_identity_confirmed === true,
+  ).length,
+  client_use_allowed: 0,
+  final_evidence_allowed: 0,
+};
+
 const evidenceCandidateReviewSummary = {
   total_reviewed_candidates: evidenceCandidateReviews.length,
   reviewed_for_internal_governance_only: evidenceCandidateReviews.filter(
@@ -1375,6 +1445,10 @@ const snapshot = {
       evidenceCandidateReviewSummary.reviewed_for_internal_governance_only,
     evidence_export_candidate_reviews_needs_source:
       evidenceCandidateReviewSummary.needs_more_source_review,
+    manual_source_verification_intake_count: manualIntakeSummary.total,
+    pending_human_browser_input_count: manualIntakeSummary.pending_human_browser_input,
+    verified_on_source_requested_count: manualIntakeSummary.verified_on_source_requested_count,
+    verified_on_source_approved_count: manualIntakeSummary.verified_on_source_approved_count,
     review_queue_items: reviewSummary.total,
     pending_review: reviewSummary.pending_review,
     needs_update: reviewSummary.needs_update,
@@ -1411,6 +1485,7 @@ const snapshot = {
     evidence_export_candidates: "/data/evidence-export-candidates.json",
     evidence_export_candidate_reviews: "/data/evidence-export-candidate-reviews.json",
     source_discovery_leads: "/data/source-discovery-leads.json",
+    manual_source_verification_intake: "/data/manual-source-verification-intake.json",
   },
   review_notice:
     "All pilot content is curated manual YAML. Human review required before client use.",
@@ -1758,6 +1833,21 @@ writeJson(path.join(PUBLIC_DATA, "source-discovery-leads.json"), {
   items: sourceDiscoveryLeads,
 });
 
+writeJson(path.join(PUBLIC_DATA, "manual-source-verification-intake.json"), {
+  generated_at: generatedAt,
+  disclaimer: DISCLAIMER,
+  governance_intake_only: true,
+  not_client_evidence: true,
+  not_legal_advice: true,
+  verified_on_source_not_granted_by_intake: true,
+  batch_id: manualIntakeBatch?.manual_source_verification_intake_batch_id ?? null,
+  legal_safe_note: manualIntakeBatch?.legal_safe_note ?? DISCLAIMER,
+  policy_doc: "/docs/VERIFIED_ON_SOURCE_POLICY.md",
+  intake_guide_doc: "/docs/MANUAL_SOURCE_VERIFICATION_INTAKE_GUIDE.md",
+  summary: manualIntakeSummary,
+  items: manualSourceVerificationIntakes,
+});
+
 writeJson(path.join(PUBLIC_DATA, "evidence-export-candidate-reviews.json"), {
   generated_at: generatedAt,
   disclaimer: DISCLAIMER,
@@ -1850,6 +1940,9 @@ console.log("  public/data/evidence-export-candidates.json");
 console.log("  public/data/evidence-export-candidate-reviews.json");
 console.log(`  ${sourceDiscoveryLeads.length} source discovery lead(s) exported`);
 console.log(`  ${evidenceExportCandidates.length} evidence export candidate(s) exported`);
+console.log(
+  `  ${manualSourceVerificationIntakes.length} manual source verification intake(s) exported`,
+);
 console.log("  public/data/regulation-watch-snapshot.json");
 console.log(`  ${watchers.length} watcher(s) configured`);
 console.log(`  ${snapshots.length} snapshot(s) exported`);

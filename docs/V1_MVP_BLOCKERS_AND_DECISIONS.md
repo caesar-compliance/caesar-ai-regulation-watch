@@ -33,8 +33,9 @@ High-value quality improvements that do not block a **technical MVP candidate** 
 
 | Item | Current state | Recommended action | Owner |
 |---|---|---|---|
-| **Australia manual source verification** | v1.0.2 human/browser: HTTP 403/timeout on HTML; lead `pending_official_review` | Qualified human browser on official industry.gov.au page (outside automated environment) | Control Tower |
-| **EUR-Lex browser verification** | v1.0.2: HTTP 202 + EUR-Lex JS bot gate; candidate `needs_more_source_review` | Human browser with JavaScript on EUR-Lex CELEX; not EC overview alone | Control Tower |
+| **Australia manual source verification** | v1.0.3 intake `intake-australia-industry-ai-principles-v103` — `pending_human_browser_input` | Record browser observations in manual intake YAML; no automated retry loop | Control Tower |
+| **EUR-Lex browser verification** | v1.0.3 intake `intake-eu-ai-act-eurlex-v103` — `pending_human_browser_input`; candidate `needs_more_source_review` | Human browser with JavaScript on EUR-Lex CELEX; see VERIFIED_ON_SOURCE_POLICY | Control Tower |
+| **Japan METI manual verification** | v1.0.3 intake `intake-japan-meti-ai-v103` — `pending_human_browser_input` | Human browser on official METI pages | Control Tower |
 | **EDPB re-check** | ~~HTTP 502 transient in v0.9.3 pass~~ **v1.0.1: HTTP 200** — topic index re-confirmed | Periodic re-check; complements edpb RSS watcher | Implementation agent |
 | **UNESCO metadata artifact triage** | ~~`check_artifact` in triage v097~~ **v1.0.1: benign_metadata_change** | No further action unless live page body review requested | Control Tower |
 | **Tag/deploy registry cleanup** | DEPLOYMENTS.md historical rows; main may be ahead of last tag | Align v1.0.0 deploy row, tag, and baseline in one pass | Implementation agent |
