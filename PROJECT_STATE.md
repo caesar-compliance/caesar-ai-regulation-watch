@@ -11,7 +11,7 @@
 | **Repository** | `caesar-ai-regulation-watch` |
 | **Current version** | `v0.9.1` |
 | **Current phase** | Public pilot — competitor-assisted official source discovery |
-| **Status** | Live on custom domain; v0.9.1 source discovery expansion (pending deploy) |
+| **Status** | Live on custom domain; v0.9.1 deployed (`8040212`) |
 | **Working branch** | `main` (after merge) |
 | **Latest completed task** | v0.9.1 — 24 discovery leads, 9 new sources, 6 minimal records |
 | **Next recommended step** | Control Tower: URL re-check for pending/unclear leads; EUR-Lex deep pass |
