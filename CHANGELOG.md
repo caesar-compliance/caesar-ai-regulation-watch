@@ -11,6 +11,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.0-rc1] - 20 May 2026
+
+### Added
+
+- **Technical MVP scope freeze** — `docs/V1_TECHNICAL_MVP_SCOPE_FREEZE.md` (exact v1.0.0 in/out scope).
+- **Release candidate decision record** — `docs/V1_RELEASE_CANDIDATE_DECISION_RECORD.md` (Control Tower sign-off gate).
+
+### Changed
+
+- **Product version** — `v1.0.0-rc1` across `project-version.ts`, public snapshot, and project docs; `package.json` `1.0.0-rc.1`.
+- **Public phase label** — "Public technical MVP candidate" (release candidate — not final v1.0.0).
+- **Release candidate checklist** — status markers (pass / pending CT review / blocked / post-MVP).
+
+### Notes
+
+- Release candidate only — no new product features, jurisdictions, or monitoring allowlist expansion.
+- Control Tower sign-off required before final `regulation-watch-v1.0.0` tag.
+- No legal advice; no complete coverage; no client-use evidence; no final evidence export; no caesar-ai-evidence integration.
+- `client_use_allowed: 0`; `legal_change_claimed: 0`; tag after deploy on main.
+
+---
+
 ## [0.9.9] - 20 May 2026
 
 ### Added

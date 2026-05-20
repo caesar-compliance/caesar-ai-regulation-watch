@@ -1,7 +1,7 @@
 {
   "name": "caesar-ai-regulation-watch",
   "type": "module",
-  "version": "0.9.9",
+  "version": "1.0.0-rc.1",
   "private": true,
   "description": "Read-only static site for Caesar AI Regulation Watch pilot data",
   "scripts": {
