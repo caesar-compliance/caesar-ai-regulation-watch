@@ -1,6 +1,6 @@
 # Post-Deploy Smoke Tests
 
-**Phase:** v1.0.0-rc1+ (public technical MVP candidate)  
+**Phase:** v1.0.0+ (Public Technical MVP)  
 **After:** successful `deploy-static-site.yml` run
 
 **Canonical base URL (custom domain):**
@@ -48,7 +48,7 @@ Replace `{BASE}` below with that URL (trailing slash optional).
 
 ### Snapshot sanity (JSON body)
 
-- [ ] `version` matches deployed product version (e.g. `1.0.0-rc1` for v1.0.0-rc1 deploy).
+- [ ] `version` matches deployed product version (e.g. `1.0.0` for v1.0.0 deploy).
 - [ ] `counts.source_discovery_lead_count` ≥ 20 (when v0.9.1+ deployed).
 - [ ] `disclaimer` present and non-empty.
 - [ ] `counts.evidence_export_candidates_client_use_allowed` is **0** (if field present).
@@ -70,7 +70,7 @@ Replace `{BASE}` below with that URL (trailing slash optional).
 - [ ] Home or global layout shows pilot / not legal advice messaging.
 - [ ] Evidence export candidates page shows **candidate-only** banner and governance review gate status for reviewed candidates.
 - [ ] Home banner shows current version from `project-version.ts` (not stale v0.5.1); footer matches (not stale v0.8.4).
-- [ ] Phase label includes conservative pilot wording (e.g. "Public technical MVP candidate" for v1.0.0-rc1).
+- [ ] Phase label includes conservative pilot wording (e.g. "Public Technical MVP" for v1.0.0).
 - [ ] Evidence candidates page shows governance review gate section with `reviewed_for_internal_governance_only` and `needs_more_source_review` in HTML (not only human labels).
 
 ## Links under base path

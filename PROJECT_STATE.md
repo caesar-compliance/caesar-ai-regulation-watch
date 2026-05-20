@@ -11,12 +11,13 @@
 | **Repository** | `caesar-ai-regulation-watch` |
 | **Current version** | `v1.0.0` |
 | **Current phase** | Public Technical MVP |
-| **Status** | Approved with limitations — deploy in progress for final v1.0.0 label |
+| **Status** | Live — v1.0.0 deployed (`a3b3b3b`); tag `regulation-watch-v1.0.0` |
+| **Latest deployment** | `DEPLOY-20260520-018` — v1.0.0, commit `a3b3b3b`, run [26164212587](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26164212587) |
+| **Git tag (live)** | `regulation-watch-v1.0.0` → `a3b3b3b` |
 | **Control Tower decision** | **APPROVED_WITH_LIMITATIONS** — [docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md) |
 | **Working branch** | `main` (after merge) |
 | **Prior deployment** | `DEPLOY-20260520-017` — v1.0.0-rc1, commit `0765327`, run [26163494827](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26163494827) |
 | **Prior tag** | `regulation-watch-v1.0.0-rc1` → `0765327` |
-| **Final tag** | `regulation-watch-v1.0.0` — on deployed main commit after final deploy + smoke |
 
 ---
 
