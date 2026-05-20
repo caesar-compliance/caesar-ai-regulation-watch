@@ -8,39 +8,27 @@
 
 | Field | Value |
 |---|---|
-| **Repository** | `caesar-ai-regulation-watch` |
-| **Current version** | `v1.0.1` |
-| **Current phase** | Public Technical MVP |
-| **Status** | Live — v1.0.1 deployed (`489f9e7`); tag `regulation-watch-v1.0.1` |
-| **Latest deployment** | `DEPLOY-20260520-019` — run [26165712249](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26165712249) |
-| **Control Tower decision** | **APPROVED_WITH_LIMITATIONS** (v1.0.0) — unchanged |
+| **Current version** | `v1.0.2` (in release) |
+| **Prior live** | v1.0.1 — `489f9e7`; tag `regulation-watch-v1.0.1` |
+| **Phase** | Public Technical MVP |
 
 ---
 
-## v1.0.1 source verification sprint
+## v1.0.2 human/browser sprint
 
 | Target | Outcome |
 |---|---|
-| **EDPB** | **Improved** — HTTP 200; topic index re-confirmed |
-| **UNESCO** | **Improved** — `benign_metadata_change` |
-| **Content review** | **19 → 28** exported reviews |
-| **Australia** | Unchanged — `pending_official_review` |
-| **EUR-Lex** | Unchanged — HTTP 202; `needs_more_source_review` |
+| **Canada** | **Improved** — HTTP 200; title confirmed on canada.ca |
+| **Australia** | **Unchanged** — HTML 403/timeout; `pending_official_review` |
+| **EUR-Lex** | **Unchanged** — bot gate; candidate `needs_more_source_review` |
+| **Japan METI** | **Unchanged** — timeout/403 |
+| **Content reviews** | **28 → 36** (exported count) |
 
-No new jurisdictions, monitoring allowlist expansion, or client/final evidence.
-
----
-
-## Policy baseline (unchanged)
-
-- `client_use_allowed: 0`; `verified_on_source: 0`; `legal_change_claimed: 0`
-- Not legal advice; not complete coverage; not client evidence
+No new jurisdictions, monitoring allowlist, `verified_on_source`, or client evidence.
 
 ---
 
-## Static deployment
+## Policy baseline
 
-| Capability | Status |
-|---|---|
-| Custom domain | **regulation-watch.caesar.no** |
-| Auto-deploy | **No** (workflow_dispatch) |
+- `client_use_allowed: 0` · `verified_on_source: 0` · `legal_change_claimed: 0`
+- Not legal advice · not complete coverage · not client evidence

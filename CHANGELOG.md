@@ -11,6 +11,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.2] - 20 May 2026
+
+### Added
+
+- **Human/browser verification sprint** — `source-verification-2026-05-20-v102.yml` (Australia, EUR-Lex, Canada, Japan, OPC).
+- **Content review batch** — `content-review-2026-05-20-v102.yml` (8 entries: Canada confirmed HTTP 200; expansion for OECD, NIST RMF, Norway, EU AI Office).
+
+### Changed
+
+- **Canada** — official responsible-use-of-AI page HTTP 200 re-confirmed (resolves v1.0.1 timeout limitation).
+- **Australia** — human/browser pass documented (403/timeout); remains `pending_official_review`.
+- **EUR-Lex** — browser bot gate documented; EU AI Act candidate stays `needs_more_source_review`.
+- **Japan METI** — timeout/403 documented; human browser still required.
+- **Product version** — `v1.0.2`.
+
+### Notes
+
+- Post-MVP hardening only — no new scope, allowlist, or client/final evidence.
+- `verified_on_source: 0`; `client_use_allowed: 0`; not legal advice.
+
+---
+
 ## [1.0.1] - 20 May 2026
 
 ### Added

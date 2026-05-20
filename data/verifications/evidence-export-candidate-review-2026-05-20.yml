@@ -56,10 +56,10 @@ candidate_reviews:
     content_review_id: content-review-law-eu-ai-act-2024-1689
     governance_review_summary: >-
       Manual sample EU AI Act status-change candidate is understandable and has content review.
-      v0.8.9/v0.9.2/v0.9.3/v1.0.1: EUR-Lex CELEX URL still returns HTTP 202 (bot protection); full instrument not
-      read. European Commission AI Act overview (HTTP 200) corroborates CELEX 32024R1689 and
-      Regulation (EU) 2024/1689 at high level only — not sufficient to clear source verification
-      gate. v1.0.1 sprint (source-verification-2026-05-20-v101) re-confirmed limitation unchanged.
+      v0.8.9/v0.9.2/v0.9.3/v1.0.1/v1.0.2: EUR-Lex CELEX still blocked (HTTP 202 automated; browser fetch shows
+      JavaScript bot-verification gate); full instrument not read. EC AI Act overview (HTTP 200) corroborates CELEX
+      32024R1689 identity at high level only — not sufficient to clear source verification gate. v1.0.2 human/browser
+      sprint (source-verification-2026-05-20-v102, content-review-law-eu-ai-act-2024-1689-v102) re-confirmed.
       verified_on_source_after_check remains false. Export-readiness stays needs_more_source_review.
       Disclaimers present; blocking_reasons empty is pipeline status only.
     checks_performed:
@@ -82,5 +82,5 @@ candidate_reviews:
     final_evidence_allowed: false
     qualified_advisor_review_required: true
     legal_safe_note: >-
-      v1.0.1 governance review refresh: needs_more_source_review — EUR-Lex human browser review still
+      v1.0.2 governance review refresh: needs_more_source_review — EUR-Lex human browser with JavaScript still
       required. EC overview corroboration is not client approval or final evidence. Not legal advice.

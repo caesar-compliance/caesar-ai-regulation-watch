@@ -1,37 +1,28 @@
 # Next Actions — Caesar AI Regulation Watch
 
-**Last updated:** 20 May 2026
+**Last updated:** 20 May 2026 · **Version:** v1.0.2
 
-**Current version:** v1.0.1 (in progress) · **Phase:** Public Technical MVP
-
-**Canonical URL:** https://regulation-watch.caesar.no/
+**URL:** https://regulation-watch.caesar.no/
 
 ---
 
-## Immediate priority (post v1.0.1 deploy)
+## Immediate (post v1.0.2)
 
-1. **Australia** — human browser verification of `industry.gov.au` ethics principles HTML (automated still timeout).
-2. **EUR-Lex** — human browser pass on CELEX 32024R1689; only then consider export-readiness gate change.
-3. **Canada / Japan** — human browser re-check where v1.0.1 automated fetch timed out.
+1. **Australia** — qualified human browser on `industry.gov.au` ethics-principles HTML (automated + headless blocked).
+2. **EUR-Lex** — human browser with JavaScript on CELEX 32024R1689 (only path to clear EU AI Act export gate).
+3. **Japan METI** — human browser on official METI AI policy pages.
 4. **Content review** — continue incremental batches; no `verified_on_source: true` without CT approval.
-5. **Monitoring** — manual-gated pilot only; no scheduled broad crawl.
 
 ---
 
-## Completed (v1.0.1 sprint)
+## Completed (v1.0.2)
 
-- EDPB AI topic HTTP 200 re-check; source identity + content review refresh.
-- UNESCO `check_artifact` → `benign_metadata_change`.
-- Content review batch v101 (9 entries).
-- Duplicate Finder `* 2.*` files removed from workspace.
+- Canada responsible-use AI page HTTP 200 re-confirmed.
+- Content review v102 batch (+8 entries).
+- Human/browser verification documentation for AU/EUR-Lex/Japan blockers.
 
 ---
 
-## Deployment
+## Deploy
 
-1. Merge `agent/v1.0.1-source-verification-sprint` → `main`.
-2. `npm run build:custom-domain` + `npm run verify:dist`.
-3. Deploy with `confirm_disclaimers=DEPLOY`.
-4. Tag `regulation-watch-v1.0.1` on deployed commit.
-
-See [DEPLOYMENTS.md](DEPLOYMENTS.md) and [docs/PUBLIC_DEPLOYMENT_BASELINE.md](docs/PUBLIC_DEPLOYMENT_BASELINE.md).
+Merge → validate → `confirm_disclaimers=DEPLOY` → tag `regulation-watch-v1.0.2` on deployed commit.
