@@ -12,7 +12,9 @@ const parsed =
     : idsParam
       ? idsParam.split(",").map((s) => s.trim())
       : [];
-const selectedIds = [...new Set(parsed.filter(Boolean))].slice(0, 4);
+const uniqueParsed = [...new Set(parsed.filter(Boolean))];
+const compareLimitExceeded = uniqueParsed.length > 4;
+const selectedIds = uniqueParsed.slice(0, 4);
 const selected = selectedIds
   .map((id) => all.find((c) => c.jurisdiction_id === id))
   .filter((c): c is NonNullable<typeof c> => Boolean(c));
@@ -32,9 +34,9 @@ const invalidIds = selectedIds.filter((id) => !all.some((c) => c.jurisdiction_id
   </p>
 
   <div class="banner banner--automation" role="note">
-    <strong>Tracker metadata only.</strong> Maturity and activity scores are Caesar-native indices
-    from seed data and update feed counts. Gates for client evidence and verified legal change remain
-    closed.
+    <strong>Tracker metadata only.</strong> Maturity and activity scores are heuristic Caesar-native
+    indices from seed data and update feed counts — not legal certainty. Gates for client evidence
+    and verified legal change remain closed.
   </div>
 
   <form class="compare-form" method="get" action="/compare/">
@@ -54,6 +56,14 @@ const invalidIds = selectedIds.filter((id) => !all.some((c) => c.jurisdiction_id
       <button type="submit">Compare</button>
     </fieldset>
   </form>
+
+  {
+    compareLimitExceeded && (
+      <p class="compare-form__error" role="note">
+        Showing the first 4 of {uniqueParsed.length} selected jurisdictions (maximum 4).
+      </p>
+    )
+  }
 
   {
     invalidIds.length > 0 && (
