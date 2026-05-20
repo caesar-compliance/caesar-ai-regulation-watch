@@ -52,8 +52,8 @@
 11. **T056 — Manual review promotion from network dry-run candidate** *(merged to main — PR #16, squash `74e04aa`)*
    - One local generated T055 dry-run candidate promoted to draft under `data/regulatory-updates/drafts/`; draft excluded from public exports; no new live network; not verified; not client/evidence use; no publication.
 
-12. **T057 — Manual reviewer decision workflow for draft update** *(in progress)*
-   - Approve/reject/request-changes metadata only for `T056-001` draft; internal-draft-only scope; still no publication; gates unchanged.
+12. **T057 — Manual reviewer decision workflow for draft update** *(in progress on branch)*
+   - `T057-001` records `request_changes` for `T056-001` draft; internal-draft-only scope; still no publication; gates unchanged; no network.
 
 13. **T058 — Draft revision packet after request-changes** *(recommended next)*
    - Apply safe metadata edits to T056 draft only; still no publication; no source verification; gates unchanged.

@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.8 — T051–T056 on main; T057 in progress; live v1.0.7 `DEPLOY-20260520-025`)
+**Last updated:** 21 May 2026 (v1.0.8 — T051–T056 on main; T057 on branch; live v1.0.7 `DEPLOY-20260520-025`)
 
 ---
 
@@ -253,6 +253,17 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **scripts/build-manual-review-promotion.mjs** | `npm run build:manual-review-promotion` |
 | **docs/MANUAL_REVIEW_PROMOTION_PIPELINE.md** | T056 promotion model |
 | **fixtures/promotion/T054-001-candidate.json** | Fixture candidate when generated output missing |
+
+## T057 — Manual reviewer decision workflow (v1.0.8 branch)
+
+| Path | Purpose |
+|---|---|
+| **schemas/manual-review-decision.schema.json** | Decision record validation |
+| **data/source-adapters/manual-review-decisions.yml** | Pilot decision `T057-001` (`request_changes` for T056 draft) |
+| **scripts/validate-manual-review-decisions.mjs** | `npm run validate:manual-review-decisions` |
+| **scripts/build-manual-review-decision-summary.mjs** | `npm run build:manual-review-decision-summary` |
+| **docs/MANUAL_REVIEW_DECISION_WORKFLOW.md** | T057 decision model |
+| **generated/manual-review-decisions/T057-001.json** | Local summary (gitignored) |
 
 ---
 

@@ -1617,6 +1617,57 @@ export function getManualReviewPromotionEntries(): ManualReviewPromotion[] {
   return getManualReviewPromotions()?.promotions ?? [];
 }
 
+export interface ManualReviewDecisionSafety {
+  publication_allowed: boolean;
+  public_export_allowed: boolean;
+  evidence_export_allowed: boolean;
+  source_verification_completed: boolean;
+  metadata_only: boolean;
+  stores_full_text: boolean;
+  requires_followup_before_publication: boolean;
+}
+
+export interface ManualReviewDecision {
+  decision_id: string;
+  promotion_id: string;
+  draft_update_id: string;
+  draft_update_path: string;
+  source_execution_id: string;
+  source_approval_id: string;
+  source_adapter_id: string;
+  reviewer_role: string;
+  decision: string;
+  decision_status: string;
+  decision_scope: string;
+  review_notes: string;
+  requested_changes: string[];
+  decided_at: string;
+  created_at: string;
+  updated_at: string;
+  gates: NetworkDryRunGateState;
+  safety: ManualReviewDecisionSafety;
+}
+
+export interface ManualReviewDecisionsDoc {
+  manual_review_decisions_id: string;
+  generated_at: string;
+  product_version: string;
+  legal_safe_note: string;
+  no_live_collection: boolean;
+  no_scheduled_monitoring: boolean;
+  decisions: ManualReviewDecision[];
+}
+
+export function getManualReviewDecisions(): ManualReviewDecisionsDoc | null {
+  const file = path.join(ROOT, "data/source-adapters/manual-review-decisions.yml");
+  if (!fs.existsSync(file)) return null;
+  return yaml.load(fs.readFileSync(file, "utf8")) as ManualReviewDecisionsDoc;
+}
+
+export function getManualReviewDecisionEntries(): ManualReviewDecision[] {
+  return getManualReviewDecisions()?.decisions ?? [];
+}
+
 export function getPilotSummary() {
   return {
     jurisdictionCount: getJurisdictions().length,

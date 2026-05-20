@@ -1786,4 +1786,13 @@ if (promotionCheck.status !== 0) {
   process.exit(promotionCheck.status ?? 1);
 }
 
+const decisionCheck = spawnSync(
+  process.execPath,
+  [path.join(ROOT, "scripts/validate-manual-review-decisions.mjs")],
+  { cwd: ROOT, stdio: "inherit" },
+);
+if (decisionCheck.status !== 0) {
+  process.exit(decisionCheck.status ?? 1);
+}
+
 process.exit(0);
