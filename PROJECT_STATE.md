@@ -26,8 +26,8 @@
 |---|---|---|
 | Work item | `TXXX` | `work-items/` only — not public version |
 | Product version | `v0.9.1` | Site footer, snapshot, `package.json` |
-| Deployment ID | `DEPLOY-20260520-008` | Pending — see [DEPLOYMENTS.md](DEPLOYMENTS.md) after deploy |
-| Git tag | `regulation-watch-v0.9.1` | After deploy sign-off |
+| Deployment ID | `DEPLOY-20260520-008` | Live — see [DEPLOYMENTS.md](DEPLOYMENTS.md) |
+| Git tag | `regulation-watch-v0.9.1` | Points at deploy commit `8040212` |
 
 ---
 
