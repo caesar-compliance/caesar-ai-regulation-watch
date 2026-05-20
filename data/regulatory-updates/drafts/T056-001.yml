@@ -1,0 +1,38 @@
+# Draft regulatory update — manual review only (T056). NOT published to public/data.
+draft_id: T056-001
+update_id: t056-001-draft-edpb-network-dry-run
+title: >-
+  Opinion 13/2026 on the draft decision of the Office of the Data Protection Ombudsman (FI SA)
+  regarding the approval of the requirement for accreditation of a certification body pursuant to
+  Article 43(3) GDPR
+source_url: >-
+  https://www.edpb.europa.eu/our-work-tools/our-documents/opinion-board-art-64/opinion-132026-draft-decision-office-data_en
+source_id: edpb
+jurisdiction_ids:
+  - eu
+topic_ids:
+  - source_monitoring
+published_at: '2026-05-12'
+source_published_at: Tue, 12 May 2026 14:00:00 +0200
+summary: >-
+  T056 draft from network dry-run candidate T055-001-T054-001-1. Metadata-only; manual review
+  required. Not verified on source. Not legal advice.
+status: draft_manual_review
+intake_method: single_source_network_dry_run
+source_execution_id: T055-001
+source_approval_id: T054-001
+source_adapter_id: edpb-publications-rss
+promotion_id: T056-001
+candidate_id: T055-001-T054-001-1
+review_required: true
+verified_on_source: false
+client_use_allowed: false
+client_evidence_allowed: false
+final_evidence_allowed: false
+legal_change_claimed: false
+publication_allowed: false
+public_export_allowed: false
+evidence_export_allowed: false
+notes: >-
+  Manual review required before any publication, source verification, client/evidence use, or
+  legal-change claim. Draft excluded from public regulatory-updates export.

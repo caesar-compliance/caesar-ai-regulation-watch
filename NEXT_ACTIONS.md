@@ -49,8 +49,11 @@
 10. **T055 — Execute one approved single-source network dry-run** *(merged to main — PR #15, squash `10bdc4c`)*
    - Execution registry `T055-001`; exactly one GET executed locally; metadata-only `generated/` output; not published; gates unchanged; no deploy/tag.
 
-11. **T056 — Manual review promotion from network dry-run candidate** *(in progress)*
-   - Promote one dry-run candidate into a draft regulatory update YAML record; still not verified; not client/evidence use; no publication until reviewed.
+11. **T056 — Manual review promotion from network dry-run candidate** *(in progress on branch)*
+   - Promote one dry-run candidate into a draft regulatory update YAML record under `data/regulatory-updates/drafts/`; still not verified; not client/evidence use; no publication until reviewed.
+
+12. **T057 — Manual reviewer decision workflow for draft update** *(recommended next)*
+   - Approve/reject/request-changes metadata only for `T056-001` draft; still no publication; gates unchanged.
 
 ---
 

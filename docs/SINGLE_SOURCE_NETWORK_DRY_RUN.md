@@ -86,8 +86,13 @@ Wired into `npm run validate:data`.
 
 ---
 
+## After T055 — T056 promotion (no rerun)
+
+T056 promotes one local `generated/network-dry-run-candidates/` entry into a draft regulatory update under `data/regulatory-updates/drafts/`. See [MANUAL_REVIEW_PROMOTION_PIPELINE.md](MANUAL_REVIEW_PROMOTION_PIPELINE.md). T056 does not rerun network or publish candidates.
+
 ## Related docs
 
+- [MANUAL_REVIEW_PROMOTION_PIPELINE.md](MANUAL_REVIEW_PROMOTION_PIPELINE.md)
 - [NETWORK_DRY_RUN_APPROVAL_MODEL.md](NETWORK_DRY_RUN_APPROVAL_MODEL.md)
 - [MANUAL_SOURCE_INTAKE_RUNNER.md](MANUAL_SOURCE_INTAKE_RUNNER.md)
 - [SOURCE_ADAPTER_ALLOWLIST.md](SOURCE_ADAPTER_ALLOWLIST.md)

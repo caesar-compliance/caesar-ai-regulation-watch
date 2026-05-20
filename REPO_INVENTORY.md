@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.8 on main — T051–T055; T056 in progress; live v1.0.7 `DEPLOY-20260520-025`)
+**Last updated:** 21 May 2026 (v1.0.8 — T051–T055 on main; T056 on branch; live v1.0.7 `DEPLOY-20260520-025`)
 
 ---
 
@@ -240,6 +240,19 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **docs/SINGLE_SOURCE_NETWORK_DRY_RUN.md** | T055 execution model |
 | **generated/network-dry-run-candidates/T054-001.json** | Candidate output (gitignored) |
 | **generated/network-dry-run-reports/T055-001.json** | Dry-run report (gitignored) |
+
+## T056 — Manual review promotion pipeline (v1.0.8 branch)
+
+| Path | Purpose |
+|---|---|
+| **schemas/manual-review-promotion.schema.json** | Promotion packet validation |
+| **schemas/draft-regulatory-update.schema.json** | Draft update validation |
+| **data/source-adapters/manual-review-promotions.yml** | Pilot promotion `T056-001` |
+| **data/regulatory-updates/drafts/T056-001.yml** | Draft update (excluded from public export) |
+| **scripts/validate-manual-review-promotions.mjs** | `npm run validate:manual-review-promotions` |
+| **scripts/build-manual-review-promotion.mjs** | `npm run build:manual-review-promotion` |
+| **docs/MANUAL_REVIEW_PROMOTION_PIPELINE.md** | T056 promotion model |
+| **fixtures/promotion/T054-001-candidate.json** | Fixture candidate when generated output missing |
 
 ---
 

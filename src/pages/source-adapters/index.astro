@@ -4,6 +4,7 @@ import {
   getManualSourceIntakeRunEntries,
   getNetworkDryRunApprovalEntries,
   getSingleNetworkDryRunExecutionEntries,
+  getManualReviewPromotionEntries,
   getSourceAdapterAllowlistEntries,
   getSource,
 } from "../../lib/data";
@@ -14,6 +15,7 @@ const adapters = getSourceAdapterAllowlistEntries();
 const intakeRuns = getManualSourceIntakeRunEntries();
 const networkApprovals = getNetworkDryRunApprovalEntries();
 const networkExecutions = getSingleNetworkDryRunExecutionEntries();
+const manualReviewPromotions = getManualReviewPromotionEntries();
 const disabledCount = adapters.filter((a) => a.status === "disabled").length;
 const draftCount = adapters.filter((a) => a.status === "draft").length;
 ---
@@ -255,6 +257,58 @@ const draftCount = adapters.filter((a) => a.status === "draft").length;
                   <span class="mono">{e.report_path}</span>
                 </td>
                 <td>required / one-off only</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Manual review promotions</h2>
+    <p>
+      T056 draft promotion registry — read-only. No approve, publish, or source-verification controls.
+      Candidate content is not previewed on this page.
+    </p>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Promotion</th>
+            <th>Source execution</th>
+            <th>Adapter</th>
+            <th>Status</th>
+            <th>Review</th>
+            <th>Draft path</th>
+            <th>Publication</th>
+            <th>Gates</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            manualReviewPromotions.map((p) => (
+              <tr>
+                <td>
+                  <span class="mono">{p.promotion_id}</span>
+                  <br />
+                  <small class="mono">candidate {p.candidate_id}</small>
+                </td>
+                <td><span class="mono">{p.source_execution_id}</span></td>
+                <td>
+                  <span class="mono">{p.source_adapter_id}</span>
+                  <br />
+                  <small class="mono">{p.source_id}</small>
+                </td>
+                <td>
+                  <span class={`badge badge--status-${p.status}`}>{p.status}</span>
+                </td>
+                <td>{p.review_required ? "required" : "false"}</td>
+                <td><span class="mono">{p.draft_update_path}</span></td>
+                <td>{p.safety.publication_allowed ? "allowed" : "false"}</td>
+                <td>
+                  <span class="mono">verified/client/evidence/legal: false</span>
+                </td>
               </tr>
             ))
           }

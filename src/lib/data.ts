@@ -1557,6 +1557,66 @@ export function getSingleNetworkDryRunExecutionEntries(): SingleNetworkDryRunExe
   return getSingleNetworkDryRunExecutions()?.executions ?? [];
 }
 
+export interface ManualReviewPromotionSafety {
+  metadata_only: boolean;
+  stores_full_text: boolean;
+  publication_allowed: boolean;
+  public_export_allowed: boolean;
+  requires_human_review: boolean;
+  source_verification_required_before_publication: boolean;
+}
+
+export interface ManualReviewPromotionFields {
+  title: string;
+  url: string;
+  published_at: string;
+  summary_snippet: string | null;
+  jurisdiction_ids: string[];
+  detected_topics: string[];
+  source_name: string;
+}
+
+export interface ManualReviewPromotion {
+  promotion_id: string;
+  source_execution_id: string;
+  source_approval_id: string;
+  source_run_id: string;
+  source_adapter_id: string;
+  source_id: string;
+  candidate_id: string;
+  source_candidate_path: string;
+  status: string;
+  review_required: boolean;
+  reviewer_role: string;
+  promotion_mode: string;
+  draft_update_path: string;
+  created_at: string;
+  updated_at: string;
+  fields: ManualReviewPromotionFields;
+  gates: NetworkDryRunGateState;
+  safety: ManualReviewPromotionSafety;
+}
+
+export interface ManualReviewPromotionsDoc {
+  manual_review_promotions_id: string;
+  generated_at: string;
+  product_version: string;
+  legal_safe_note: string;
+  no_live_collection: boolean;
+  no_scheduled_monitoring: boolean;
+  promotions: ManualReviewPromotion[];
+}
+
+export function getManualReviewPromotions(): ManualReviewPromotionsDoc | null {
+  const file = path.join(ROOT, "data/source-adapters/manual-review-promotions.yml");
+  if (!fs.existsSync(file)) return null;
+  return yaml.load(fs.readFileSync(file, "utf8")) as ManualReviewPromotionsDoc;
+}
+
+export function getManualReviewPromotionEntries(): ManualReviewPromotion[] {
+  return getManualReviewPromotions()?.promotions ?? [];
+}
+
 export function getPilotSummary() {
   return {
     jurisdictionCount: getJurisdictions().length,
