@@ -138,6 +138,46 @@
       "status": "guidance"
     },
     {
+      "record_id": "guidance-edpb-ai-topic-index",
+      "record_type": "guidance",
+      "record_origin": "manual_sample",
+      "verified_on_source": false,
+      "content_review_status": "not_reviewed",
+      "title": "EDPB — Artificial intelligence documents topic (sample pointer)",
+      "jurisdiction_id": "eu",
+      "source_id": "edpb-ai-topic",
+      "guidance_status": "guidance",
+      "official_url": "https://www.edpb.europa.eu/our-work-tools/our-documents/topic/artificial-intelligence_en",
+      "summary_for_review": "Minimal pointer to the EDPB topic index for AI-related data protection documents. Useful for monitoring new official EDPB outputs; not a complete list of EU AI law.\n",
+      "affected_topics": [
+        "gdpr",
+        "ai_and_privacy"
+      ],
+      "review_status": "pending_review",
+      "legal_safe_note": "Manual sample from official index URL. Not legal advice. Content not fully reviewed.\n",
+      "status": "guidance"
+    },
+    {
+      "record_id": "guidance-eu-ai-act-service-desk-portal",
+      "record_type": "guidance",
+      "record_origin": "manual_sample",
+      "verified_on_source": false,
+      "content_review_status": "not_reviewed",
+      "title": "EU AI Act Service Desk — official portal (sample pointer)",
+      "jurisdiction_id": "eu",
+      "source_id": "eu-ai-act-service-desk",
+      "guidance_status": "guidance",
+      "official_url": "https://ai-act-service-desk.ec.europa.eu/",
+      "summary_for_review": "Minimal pointer to the Commission-hosted EU AI Act Service Desk. May help teams locate official implementation FAQs and links; full obligations remain on EUR-Lex and national law. Requires human content review before client use.\n",
+      "affected_topics": [
+        "eu_ai_act",
+        "implementation"
+      ],
+      "review_status": "pending_review",
+      "legal_safe_note": "Manual sample from official URL verification only. Not legal advice. Not verified on source content in this batch.\n",
+      "status": "guidance"
+    },
+    {
       "record_id": "guidance-eu-ai-office-gpai",
       "record_type": "guidance",
       "record_origin": "manual_sample",
@@ -160,6 +200,26 @@
       "review_status": "pending_review",
       "legal_safe_note": "Manual sample record for data-model testing only. Not legal advice. Requires human review before client use. Does not automatically determine which GPAI obligations apply to a specific system.\n",
       "status": "guidance"
+    },
+    {
+      "record_id": "policy-eu-digital-strategy-ai-approach",
+      "record_type": "guidance",
+      "record_origin": "manual_sample",
+      "verified_on_source": false,
+      "content_review_status": "not_reviewed",
+      "title": "European approach to artificial intelligence (sample pointer)",
+      "jurisdiction_id": "eu",
+      "source_id": "eu-digital-strategy-european-approach-ai",
+      "guidance_status": "monitoring",
+      "official_url": "https://digital-strategy.ec.europa.eu/en/policies/european-approach-artificial-intelligence",
+      "summary_for_review": "Minimal pointer to the Commission digital-strategy page on the European approach to AI. High-level policy context; binding rules remain in EU legislative texts on EUR-Lex.\n",
+      "affected_topics": [
+        "eu_ai_act",
+        "digital_strategy"
+      ],
+      "review_status": "pending_review",
+      "legal_safe_note": "Manual sample from official policy page URL. Not legal advice. Not a compliance assessment.\n",
+      "status": "monitoring"
     },
     {
       "record_id": "policy-g7-hiroshima-ai-process",
@@ -248,6 +308,26 @@
       "status": "guidance"
     },
     {
+      "record_id": "policy-singapore-aiverify-foundation-home",
+      "record_type": "guidance",
+      "record_origin": "manual_sample",
+      "verified_on_source": false,
+      "content_review_status": "not_reviewed",
+      "title": "AI Verify Foundation — official site (sample pointer)",
+      "jurisdiction_id": "singapore",
+      "source_id": "singapore-aiverify-foundation",
+      "guidance_status": "voluntary",
+      "official_url": "https://www.aiverifyfoundation.sg/",
+      "summary_for_review": "Minimal pointer to the AI Verify Foundation official website for Singapore's testing and governance toolkit. May support vendor or internal testing discussions; coordinate with PDPC/IMDA government sources for regulatory context.\n",
+      "affected_topics": [
+        "ai_governance",
+        "testing_toolkits"
+      ],
+      "review_status": "pending_review",
+      "legal_safe_note": "Manual sample. Foundation site is not legislation. Not legal advice. Human review required.\n",
+      "status": "voluntary"
+    },
+    {
       "record_id": "policy-singapore-model-ai-governance",
       "record_type": "guidance",
       "record_origin": "official_source_registry",
@@ -287,6 +367,26 @@
       ],
       "review_status": "pending_review",
       "legal_safe_note": "Curated registry record for governance review support only. Not legal advice. Authoritative guidance may appear on Korean-language pages; verify specific instruments on pipc.go.kr before client use.\n",
+      "status": "guidance"
+    },
+    {
+      "record_id": "guidance-uk-ai-assurance-intro",
+      "record_type": "guidance",
+      "record_origin": "manual_sample",
+      "verified_on_source": false,
+      "content_review_status": "not_reviewed",
+      "title": "UK Government — Introduction to AI assurance (sample pointer)",
+      "jurisdiction_id": "uk",
+      "source_id": "uk-gov-ai-assurance-intro",
+      "guidance_status": "guidance",
+      "official_url": "https://www.gov.uk/government/publications/introduction-to-ai-assurance",
+      "summary_for_review": "Minimal pointer to the official GOV.UK publication introducing AI assurance in the UK policy context. May inform internal governance discussions; does not prescribe controls for a specific organisation.\n",
+      "affected_topics": [
+        "ai_assurance",
+        "uk_ai_policy"
+      ],
+      "review_status": "pending_review",
+      "legal_safe_note": "Manual sample; high-level pointer only. Not legal advice. Human review required.\n",
       "status": "guidance"
     },
     {
@@ -330,6 +430,27 @@
       "review_status": "pending_review",
       "legal_safe_note": "Curated registry record for governance review support only. Not legal advice. Does not create binding obligations in member states without domestic implementation. Requires human verification on unesco.org before client use.\n",
       "status": "adopted"
+    },
+    {
+      "record_id": "policy-us-nist-ai-program-hub",
+      "record_type": "guidance",
+      "record_origin": "manual_sample",
+      "verified_on_source": false,
+      "content_review_status": "not_reviewed",
+      "title": "NIST Artificial Intelligence program hub (sample pointer)",
+      "jurisdiction_id": "us-federal",
+      "source_id": "us-nist-ai-portal",
+      "guidance_status": "monitoring",
+      "official_url": "https://www.nist.gov/artificial-intelligence",
+      "summary_for_review": "Minimal pointer to the official NIST.gov AI program landing page, which links to the AI Risk Management Framework and related standards work. Distinct from the framework-specific record tied to us-nist-ai-rmf.\n",
+      "affected_topics": [
+        "ai_rmf",
+        "standards",
+        "federal_ai_policy"
+      ],
+      "review_status": "pending_review",
+      "legal_safe_note": "Manual sample; not legal advice. Does not certify NIST alignment for any system.\n",
+      "status": "monitoring"
     },
     {
       "record_id": "policy-us-nist-ai-rmf",

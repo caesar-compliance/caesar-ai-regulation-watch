@@ -46,7 +46,23 @@ const schemas = {
   contentReview: loadSchema("content-review.schema.json"),
   evidenceExportCandidate: loadSchema("evidence-export-candidate.schema.json"),
   evidenceExportCandidateReview: loadSchema("evidence-export-candidate-review.schema.json"),
+  sourceDiscoveryLead: loadSchema("source-discovery-lead.schema.json"),
 };
+
+const COMPETITOR_DISCOVERY_HOST_PATTERNS = [
+  /techieray\.com/i,
+  /verifywise\.ai/i,
+  /dlapiper\.com/i,
+  /iapp\.org/i,
+  /artificialintelligenceact\.eu/i,
+  /github\.com\/delschlangen\/ai-legislation-tracker/i,
+  /fairlyai/i,
+];
+
+function isCompetitorDiscoveryUrl(url) {
+  if (!url || typeof url !== "string") return false;
+  return COMPETITOR_DISCOVERY_HOST_PATTERNS.some((re) => re.test(url));
+}
 
 const COMPLIANCE_GUARANTEE_LANGUAGE =
   /\b(compliant|non-compliant|guarantees?|complete coverage|definitive legal interpretation)\b/i;
@@ -384,6 +400,103 @@ const recordIds = new Set([
   ...listYamlFiles(path.join(ROOT, "data/laws")).map((f) => readYaml(f).record_id),
   ...listYamlFiles(path.join(ROOT, "data/guidance")).map((f) => readYaml(f).record_id),
 ]);
+
+// Source discovery leads (v0.9.1) — after jurisdiction/source sets
+const sourceDiscoveryDir = path.join(ROOT, "data/source-discovery");
+for (const file of listYamlFiles(sourceDiscoveryDir)) {
+  const batch = readYaml(file);
+  check(validate(file, batch, schemas.sourceDiscoveryLead));
+  if (batch.no_competitor_text_copied !== true) {
+    failures.push({
+      label: `${file} (policy)`,
+      errors: [{ message: "source discovery batch must have no_competitor_text_copied: true" }],
+    });
+  }
+  if (batch.no_bulk_extraction !== true) {
+    failures.push({
+      label: `${file} (policy)`,
+      errors: [{ message: "source discovery batch must have no_bulk_extraction: true" }],
+    });
+  }
+  for (const lead of batch.leads ?? []) {
+    const label = `${file} → ${lead.lead_id ?? "?"}`;
+    if (lead.no_competitor_text_copied !== true) {
+      failures.push({
+        label: `${label} (policy)`,
+        errors: [{ message: "lead must have no_competitor_text_copied: true" }],
+      });
+    }
+    if (lead.no_bulk_extraction !== true) {
+      failures.push({
+        label: `${label} (policy)`,
+        errors: [{ message: "lead must have no_bulk_extraction: true" }],
+      });
+    }
+    if (
+      lead.official_source_verified === true &&
+      (!lead.verified_title || lead.http_status == null)
+    ) {
+      failures.push({
+        label: `${label} (policy)`,
+        errors: [
+          {
+            message:
+              "official_source_verified true requires verified_title and http_status",
+          },
+        ],
+      });
+    }
+    if (
+      lead.verification_status === "official_source_confirmed" &&
+      isCompetitorDiscoveryUrl(lead.candidate_official_url)
+    ) {
+      failures.push({
+        label: `${label} (policy)`,
+        errors: [
+          {
+            message:
+              "competitor or third-party URL cannot be confirmed official source (candidate_official_url)",
+          },
+        ],
+      });
+    }
+    if (
+      lead.verification_status === "rejected_not_official" &&
+      lead.promoted_source_id
+    ) {
+      failures.push({
+        label: `${label} (policy)`,
+        errors: [{ message: "rejected_not_official lead cannot have promoted_source_id" }],
+      });
+    }
+    if (lead.jurisdiction_id && !jurisdictionIds.has(lead.jurisdiction_id)) {
+      failures.push({
+        label: `${label} (referential)`,
+        errors: [{ message: `unknown jurisdiction_id: ${lead.jurisdiction_id}` }],
+      });
+    }
+    if (lead.promoted_source_id && !sourceIds.has(lead.promoted_source_id)) {
+      failures.push({
+        label: `${label} (referential)`,
+        errors: [
+          {
+            message: `promoted_source_id not in registry: ${lead.promoted_source_id}`,
+          },
+        ],
+      });
+    }
+    if (lead.existing_source_id && !sourceIds.has(lead.existing_source_id)) {
+      failures.push({
+        label: `${label} (referential)`,
+        errors: [
+          {
+            message: `existing_source_id not in registry: ${lead.existing_source_id}`,
+          },
+        ],
+      });
+    }
+  }
+}
 
 for (const file of listYamlFiles(timelineDir)) {
   const t = readYaml(file);

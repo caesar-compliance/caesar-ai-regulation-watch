@@ -9,12 +9,12 @@
 | Field | Value |
 |---|---|
 | **Repository** | `caesar-ai-regulation-watch` |
-| **Current version** | `v0.9.0` |
-| **Current phase** | Public pilot — custom domain + deployment/version standard |
-| **Status** | Live on custom domain; deploy commit aligned with tag `regulation-watch-v0.9.0` |
-| **Working branch** | `main` |
-| **Latest completed task** | v0.9.0 deployment hygiene — redeploy `6779c28`, HTTPS enforced, smoke pass |
-| **Next recommended step** | Hub standardization (separate work item); no product version bump |
+| **Current version** | `v0.9.1` |
+| **Current phase** | Public pilot — competitor-assisted official source discovery |
+| **Status** | Live on custom domain; v0.9.1 source discovery expansion (pending deploy) |
+| **Working branch** | `main` (after merge) |
+| **Latest completed task** | v0.9.1 — 24 discovery leads, 9 new sources, 6 minimal records |
+| **Next recommended step** | Control Tower: URL re-check for pending/unclear leads; EUR-Lex deep pass |
 
 ---
 
@@ -23,11 +23,26 @@
 | ID type | Example | Use |
 |---|---|---|
 | Work item | `TXXX` | `work-items/` only — not public version |
-| Product version | `v0.9.0` | Site footer, snapshot, `package.json` |
-| Deployment ID | `DEPLOY-20260520-007` | Current publish — see [DEPLOYMENTS.md](DEPLOYMENTS.md) |
-| Git tag | `regulation-watch-v0.9.0` | Points at `6779c28` on `main` |
+| Product version | `v0.9.1` | Site footer, snapshot, `package.json` |
+| Deployment ID | `DEPLOY-20260520-008` | Pending — see [DEPLOYMENTS.md](DEPLOYMENTS.md) after deploy |
+| Git tag | `regulation-watch-v0.9.1` | After deploy sign-off |
 
-Hub standard: [VERSIONING_AND_DEPLOYMENT_STANDARD](https://github.com/caesar-compliance/caesar-ai-governance-hub/blob/main/docs/VERSIONING_AND_DEPLOYMENT_STANDARD.md)
+---
+
+## Source discovery (v0.9.1)
+
+| Metric | Count |
+|---|---|
+| Discovery leads | 26 |
+| Official source confirmed | 22 |
+| Pending official review | 2 |
+| Official source unclear | 1 |
+| Rejected (not official) | 1 |
+| Promoted new `source_id` | 9 |
+| New sources in registry | 9 |
+| New minimal records | 6 |
+
+Policy: [docs/COMPETITOR_ASSISTED_SOURCE_DISCOVERY_POLICY.md](docs/COMPETITOR_ASSISTED_SOURCE_DISCOVERY_POLICY.md)
 
 ---
 
@@ -35,12 +50,10 @@ Hub standard: [VERSIONING_AND_DEPLOYMENT_STANDARD](https://github.com/caesar-com
 
 | Capability | Status |
 |---|---|
-| `DEPLOYMENTS.md` | Yes — deployment event log |
+| `DEPLOYMENTS.md` | Yes |
 | `docs/PUBLIC_DEPLOYMENT_BASELINE.md` | Yes |
-| `.github/workflows/deploy-static-site.yml` | Yes — `build:custom-domain`, root `/` |
-| `npm run build:custom-domain` | Yes |
-| GitHub Pages custom domain | **regulation-watch.caesar.no** (DNS CNAME → caesar-compliance.github.io) |
-| Legacy project URL | `https://caesar-compliance.github.io/caesar-ai-regulation-watch/` — 301 to custom domain |
+| `.github/workflows/deploy-static-site.yml` | Yes |
+| Custom domain | **regulation-watch.caesar.no** |
 | Auto-deploy on push | **No** |
 
 ---

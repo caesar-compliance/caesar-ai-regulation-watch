@@ -1,6 +1,6 @@
 # Post-Deploy Smoke Tests
 
-**Phase:** v0.9.0  
+**Phase:** v0.9.1  
 **After:** successful `deploy-static-site.yml` run
 
 **Canonical base URL (custom domain):**
@@ -33,6 +33,7 @@ Replace `{BASE}` below with that URL (trailing slash optional).
 | Export samples | `{BASE}exports/` |
 | Methodology | `{BASE}methodology/` |
 | Disclaimer | `{BASE}disclaimer/` |
+| Source discovery | `{BASE}source-discovery/` |
 
 ## Public data (JSON)
 
@@ -43,10 +44,12 @@ Replace `{BASE}` below with that URL (trailing slash optional).
 | Review queue | `{BASE}data/review-queue.json` |
 | Content reviews | `{BASE}data/content-reviews.json` |
 | Candidate reviews | `{BASE}data/evidence-export-candidate-reviews.json` |
+| Source discovery leads | `{BASE}data/source-discovery-leads.json` |
 
 ### Snapshot sanity (JSON body)
 
-- [ ] `version` is `0.8.9` (or later pilot version string).
+- [ ] `version` is `0.9.1` (or later pilot version string).
+- [ ] `counts.source_discovery_lead_count` ≥ 20 (when v0.9.1+ deployed).
 - [ ] `disclaimer` present and non-empty.
 - [ ] `counts.evidence_export_candidates_client_use_allowed` is **0** (if field present).
 - [ ] `data_files.evidence_export_candidates` path resolves.

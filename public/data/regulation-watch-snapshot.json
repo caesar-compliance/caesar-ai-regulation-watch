@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-05-20",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
   "pilot_jurisdictions": [
     "australia",
@@ -19,10 +19,10 @@
   ],
   "counts": {
     "jurisdictions": 13,
-    "sources": 26,
-    "records": 15,
+    "sources": 35,
+    "records": 21,
     "laws": 2,
-    "guidance": 13,
+    "guidance": 19,
     "changes": 2,
     "timelines": 5,
     "verifications": 38,
@@ -75,14 +75,19 @@
     "evidence_export_candidates_blocked_content_review": 0,
     "evidence_export_candidates_blocked_simulation": 3,
     "evidence_export_candidates_client_use_allowed": 0,
+    "source_discovery_lead_count": 26,
+    "source_discovery_confirmed": 22,
+    "source_discovery_pending": 2,
+    "source_discovery_unclear": 1,
+    "source_discovery_rejected": 1,
     "evidence_export_candidate_reviews_count": 2,
     "evidence_export_candidate_reviews_governance_only": 1,
     "evidence_export_candidate_reviews_needs_source": 1,
-    "review_queue_items": 89,
-    "pending_review": 88,
+    "review_queue_items": 104,
+    "pending_review": 103,
     "needs_update": 0,
     "unverified_timeline_events": 10,
-    "unverified_records": 15,
+    "unverified_records": 21,
     "pending_source_verifications": 13,
     "exports": 10
   },
@@ -107,7 +112,8 @@
     "monitoring_runs": "/data/monitoring-runs.json",
     "detected_changes": "/data/detected-changes.json",
     "evidence_export_candidates": "/data/evidence-export-candidates.json",
-    "evidence_export_candidate_reviews": "/data/evidence-export-candidate-reviews.json"
+    "evidence_export_candidate_reviews": "/data/evidence-export-candidate-reviews.json",
+    "source_discovery_leads": "/data/source-discovery-leads.json"
   },
   "review_notice": "All pilot content is curated manual YAML. Human review required before client use."
 }

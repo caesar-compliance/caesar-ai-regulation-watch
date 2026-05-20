@@ -3,7 +3,7 @@
 **Global AI regulation monitoring for governance teams** — part of the [Caesar AI Governance Hub](https://github.com/caesar-compliance/caesar-ai-governance-hub) ecosystem.
 
 **Last updated:** 20 May 2026  
-**Status:** v0.9.0 — **public pilot** at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) (manual `deploy-static-site.yml` with `DEPLOY` gate; site root `/`); deployment log in [DEPLOYMENTS.md](DEPLOYMENTS.md); export-candidate governance review gate (2 reviewed, 0 client-use); evidence export **candidates** only (not final evidence); monitoring cycle; CI validate/build (no backend, database, auth, secrets, or `client_use_allowed: true`)
+**Status:** v0.9.1 — **public pilot** at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) (competitor-assisted official source discovery; 35 sources, 24 discovery leads) (manual `deploy-static-site.yml` with `DEPLOY` gate; site root `/`); deployment log in [DEPLOYMENTS.md](DEPLOYMENTS.md); export-candidate governance review gate (2 reviewed, 0 client-use); evidence export **candidates** only (not final evidence); monitoring cycle; CI validate/build (no backend, database, auth, secrets, or `client_use_allowed: true`)
 
 ---
 
@@ -104,7 +104,7 @@ We study product patterns from these resources; we do **not** copy their code, U
 | artificialintelligenceact.eu | https://artificialintelligenceact.eu/ |
 | Fairly Regulation and Policy Tracker | https://github.com/fairlyAI/fairly-regulation-policy-tracker |
 
-Details: [docs/COMPETITOR_BENCHMARKS.md](docs/COMPETITOR_BENCHMARKS.md). Competitor features are **benchmark inputs only** — see [docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md](docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md).
+Details: [docs/COMPETITOR_BENCHMARKS.md](docs/COMPETITOR_BENCHMARKS.md). Competitor features are **benchmark inputs only** — see [docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md](docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md) and [docs/COMPETITOR_ASSISTED_SOURCE_DISCOVERY_POLICY.md](docs/COMPETITOR_ASSISTED_SOURCE_DISCOVERY_POLICY.md) (v0.9.1).
 
 ---
 
@@ -160,7 +160,7 @@ npm run build              # dist/ + Pagefind search index
 npm run preview            # serve dist/
 ```
 
-**Pages:** home, search, jurisdictions, sources, records, changes, exports, methodology, disclaimer.  
+**Pages:** home, search, jurisdictions, sources, source discovery, records, changes, exports, methodology, disclaimer.  
 **Data:** `/data/*.json`, `/feeds/changes.xml` (generated; sample-only).  
 **Product preview only** — supports governance review, not legal advice.
 

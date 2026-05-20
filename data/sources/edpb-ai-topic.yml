@@ -1,0 +1,24 @@
+# Official source — EDPB artificial intelligence topic index
+# Promoted from source discovery — 20 May 2026
+
+source_id: edpb-ai-topic
+title: EDPB — Artificial intelligence documents topic
+jurisdiction_id: eu
+source_type: regulator
+credibility_level: official_primary
+official_url: https://www.edpb.europa.eu/our-work-tools/our-documents/topic/artificial-intelligence_en
+monitoring_scope: >
+  European Data Protection Board topic index for AI-related opinions, guidelines,
+  and documents on the official edpb.europa.eu domain. Complements the general EDPB
+  homepage source (edpb).
+expected_update_types:
+  - new_guidance_documents
+  - opinion_publications
+  - links_to_new_official_documents
+related_topics:
+  - gdpr
+  - ai_and_privacy
+  - cross_border_enforcement
+review_status: pending_review
+notes: >
+  v0.9.1 addition. IAPP tracker used only as discovery cue; content not copied.
