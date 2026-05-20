@@ -1374,6 +1374,48 @@ export function getSourceDiscoverySummary() {
   };
 }
 
+export interface SourceAdapterAllowlistEntry {
+  adapter_id: string;
+  source_id: string;
+  source_name: string;
+  jurisdiction_ids: string[];
+  region: string;
+  source_type: string;
+  adapter_kind: string;
+  status: string;
+  collection_mode: string;
+  endpoint_url?: string;
+  source_url?: string;
+  allowed_host: string;
+  paywall_login_required: boolean;
+  captcha_or_waf_risk: boolean;
+  stores_metadata_only: boolean;
+  schedule_enabled: boolean;
+  broad_crawl_allowed: boolean;
+  owner_review_required: boolean;
+  notes?: string;
+}
+
+export interface SourceAdapterAllowlistDoc {
+  source_adapter_allowlist_id: string;
+  generated_at: string;
+  product_version: string;
+  legal_safe_note: string;
+  no_live_collection: boolean;
+  no_scheduled_monitoring: boolean;
+  adapters: SourceAdapterAllowlistEntry[];
+}
+
+export function getSourceAdapterAllowlist(): SourceAdapterAllowlistDoc | null {
+  const file = path.join(ROOT, "data/source-adapters/source-adapter-allowlist.yml");
+  if (!fs.existsSync(file)) return null;
+  return yaml.load(fs.readFileSync(file, "utf8")) as SourceAdapterAllowlistDoc;
+}
+
+export function getSourceAdapterAllowlistEntries(): SourceAdapterAllowlistEntry[] {
+  return getSourceAdapterAllowlist()?.adapters ?? [];
+}
+
 export function getPilotSummary() {
   return {
     jurisdictionCount: getJurisdictions().length,

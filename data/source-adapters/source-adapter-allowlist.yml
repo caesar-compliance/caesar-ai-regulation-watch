@@ -1,0 +1,275 @@
+# Source adapter allowlist — T052 pilot registry (metadata-only, disabled/draft)
+# No live collection. No scheduled monitoring. Control Tower approval required for network runs.
+
+source_adapter_allowlist_id: source-adapter-allowlist-2026-05-20-v108
+generated_at: 2026-05-20
+product_version: 1.0.8
+legal_safe_note: >
+  T052 adapter allowlist architecture only. Entries are disabled or draft by default.
+  Metadata-only; no full legal text storage; no legal change claims; evidence gates closed.
+  Future manual network runs require separate Control Tower approval per adapter.
+no_live_collection: true
+no_scheduled_monitoring: true
+
+adapters:
+  - adapter_id: edpb-publications-rss
+    source_id: edpb
+    source_name: European Data Protection Board (EDPB) — publications RSS
+    jurisdiction_ids: [eu]
+    region: Europe
+    source_type: rss
+    adapter_kind: rss_metadata
+    status: draft
+    collection_mode: fixture_only
+    endpoint_url: https://www.edpb.europa.eu/feed/publications_en
+    allowed_host: www.edpb.europa.eu
+    robots_policy_note: Official EDPB feed; complements existing offline feed watcher fixtures.
+    paywall_login_required: false
+    captcha_or_waf_risk: false
+    stores_full_text: false
+    stores_metadata_only: true
+    legal_text_publication_allowed: false
+    schedule_enabled: false
+    broad_crawl_allowed: false
+    verified_on_source: false
+    client_use_allowed: false
+    client_evidence_allowed: false
+    final_evidence_allowed: false
+    legal_change_claimed: false
+    owner_review_required: true
+    notes: >
+      Aligns with data/watchers official EDPB RSS entry. T052 fixture parser only; no live fetch.
+    created_at: 2026-05-20
+    updated_at: 2026-05-20
+
+  - adapter_id: edps-news-rss
+    source_id: edps
+    source_name: European Data Protection Supervisor (EDPS) — news RSS
+    jurisdiction_ids: [eu]
+    region: Europe
+    source_type: rss
+    adapter_kind: rss_metadata
+    status: disabled
+    collection_mode: fixture_only
+    endpoint_url: https://www.edps.europa.eu/feed/news_en
+    allowed_host: www.edps.europa.eu
+    robots_policy_note: Official EDPS news feed; entity-expansion limits documented in feed adapter policy.
+    paywall_login_required: false
+    captcha_or_waf_risk: false
+    stores_full_text: false
+    stores_metadata_only: true
+    legal_text_publication_allowed: false
+    schedule_enabled: false
+    broad_crawl_allowed: false
+    verified_on_source: false
+    client_use_allowed: false
+    client_evidence_allowed: false
+    final_evidence_allowed: false
+    legal_change_claimed: false
+    owner_review_required: true
+    notes: Disabled pilot; fixture-only validation path for RSS metadata architecture.
+    created_at: 2026-05-20
+    updated_at: 2026-05-20
+
+  - adapter_id: eu-ai-office-policy-page
+    source_id: eu-ai-office
+    source_name: European Commission — AI regulatory framework pages
+    jurisdiction_ids: [eu]
+    region: Europe
+    source_type: webpage_metadata
+    adapter_kind: manual_seed
+    status: draft
+    collection_mode: manual_network_disabled
+    source_url: https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai
+    allowed_host: digital-strategy.ec.europa.eu
+    robots_policy_note: Official Commission policy pages; no broad crawl; single-page metadata scope when approved.
+    paywall_login_required: false
+    captcha_or_waf_risk: false
+    stores_full_text: false
+    stores_metadata_only: true
+    legal_text_publication_allowed: false
+    schedule_enabled: false
+    broad_crawl_allowed: false
+    verified_on_source: false
+    client_use_allowed: false
+    client_evidence_allowed: false
+    final_evidence_allowed: false
+    legal_change_claimed: false
+    owner_review_required: true
+    notes: Registry entry eu-ai-office; network disabled until manual approval workflow exists.
+    created_at: 2026-05-20
+    updated_at: 2026-05-20
+
+  - adapter_id: eur-lex-ai-act-entry
+    source_id: eu-ai-act
+    source_name: EU Artificial Intelligence Act — EUR-Lex entry (metadata reference)
+    jurisdiction_ids: [eu]
+    region: Europe
+    source_type: webpage_metadata
+    adapter_kind: disabled
+    status: disabled
+    collection_mode: manual_network_disabled
+    source_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689
+    allowed_host: eur-lex.europa.eu
+    robots_policy_note: EUR-Lex bot/WAF risk documented in autonomous verification; remain manual-only.
+    paywall_login_required: false
+    captcha_or_waf_risk: true
+    stores_full_text: false
+    stores_metadata_only: true
+    legal_text_publication_allowed: false
+    schedule_enabled: false
+    broad_crawl_allowed: false
+    verified_on_source: false
+    client_use_allowed: false
+    client_evidence_allowed: false
+    final_evidence_allowed: false
+    legal_change_claimed: false
+    owner_review_required: true
+    notes: Instrument identity reference only; no CELEX text storage or automated fetch.
+    created_at: 2026-05-20
+    updated_at: 2026-05-20
+
+  - adapter_id: eur-lex-portal-discovery
+    source_id: eur-lex
+    source_name: EUR-Lex — EU law portal (discovery entry point)
+    jurisdiction_ids: [eu]
+    region: Europe
+    source_type: webpage_metadata
+    adapter_kind: disabled
+    status: disabled
+    collection_mode: manual_network_disabled
+    source_url: https://eur-lex.europa.eu/
+    allowed_host: eur-lex.europa.eu
+    robots_policy_note: Portal entry only; narrow curated queries if ever approved; no broad crawl.
+    paywall_login_required: false
+    captcha_or_waf_risk: true
+    stores_full_text: false
+    stores_metadata_only: true
+    legal_text_publication_allowed: false
+    schedule_enabled: false
+    broad_crawl_allowed: false
+    verified_on_source: false
+    client_use_allowed: false
+    client_evidence_allowed: false
+    final_evidence_allowed: false
+    legal_change_claimed: false
+    owner_review_required: true
+    notes: Broader portal than single-instrument entry; disabled pending WAF policy review.
+    created_at: 2026-05-20
+    updated_at: 2026-05-20
+
+  - adapter_id: uk-dsit-govuk-org
+    source_id: uk-dsit
+    source_name: UK DSIT — GOV.UK organisation pages
+    jurisdiction_ids: [uk]
+    region: Europe
+    source_type: webpage_metadata
+    adapter_kind: manual_seed
+    status: draft
+    collection_mode: manual_network_disabled
+    source_url: https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology
+    allowed_host: www.gov.uk
+    robots_policy_note: Official GOV.UK; complements uk-gov-ai-regulation publication entry.
+    paywall_login_required: false
+    captcha_or_waf_risk: false
+    stores_full_text: false
+    stores_metadata_only: true
+    legal_text_publication_allowed: false
+    schedule_enabled: false
+    broad_crawl_allowed: false
+    verified_on_source: false
+    client_use_allowed: false
+    client_evidence_allowed: false
+    final_evidence_allowed: false
+    legal_change_claimed: false
+    owner_review_required: true
+    notes: Manual verification on gov.uk; no competitor tracker copy.
+    created_at: 2026-05-20
+    updated_at: 2026-05-20
+
+  - adapter_id: us-nist-ai-rmf-page
+    source_id: us-nist-ai-rmf
+    source_name: NIST — AI Risk Management Framework
+    jurisdiction_ids: [us-federal]
+    region: Americas
+    source_type: webpage_metadata
+    adapter_kind: manual_seed
+    status: draft
+    collection_mode: manual_network_disabled
+    source_url: https://www.nist.gov/itl/ai-risk-management-framework
+    allowed_host: www.nist.gov
+    robots_policy_note: Official NIST program page; voluntary framework not federal statute.
+    paywall_login_required: false
+    captcha_or_waf_risk: false
+    stores_full_text: false
+    stores_metadata_only: true
+    legal_text_publication_allowed: false
+    schedule_enabled: false
+    broad_crawl_allowed: false
+    verified_on_source: false
+    client_use_allowed: false
+    client_evidence_allowed: false
+    final_evidence_allowed: false
+    legal_change_claimed: false
+    owner_review_required: true
+    notes: Registry entry us-nist-ai-rmf; metadata-only when manually approved.
+    created_at: 2026-05-20
+    updated_at: 2026-05-20
+
+  - adapter_id: us-ai-gov-portal
+    source_id: us-ai-gov
+    source_name: National AI Initiative — AI.gov
+    jurisdiction_ids: [us-federal]
+    region: Americas
+    source_type: webpage_metadata
+    adapter_kind: manual_seed
+    status: draft
+    collection_mode: manual_network_disabled
+    source_url: https://www.ai.gov/
+    allowed_host: www.ai.gov
+    robots_policy_note: Federal portal aggregating agency links; verify binding instruments on agency sources.
+    paywall_login_required: false
+    captcha_or_waf_risk: false
+    stores_full_text: false
+    stores_metadata_only: true
+    legal_text_publication_allowed: false
+    schedule_enabled: false
+    broad_crawl_allowed: false
+    verified_on_source: false
+    client_use_allowed: false
+    client_evidence_allowed: false
+    final_evidence_allowed: false
+    legal_change_claimed: false
+    owner_review_required: true
+    notes: Portal metadata only; no link crawl beyond approved single-page scope.
+    created_at: 2026-05-20
+    updated_at: 2026-05-20
+
+  - adapter_id: oecd-ai-policy-observatory
+    source_id: oecd-ai-policy-navigator
+    source_name: OECD.AI — Policy Observatory
+    jurisdiction_ids: [oecd]
+    region: International
+    source_type: webpage_metadata
+    adapter_kind: manual_seed
+    status: draft
+    collection_mode: manual_network_disabled
+    source_url: https://oecd.ai/en/
+    allowed_host: oecd.ai
+    robots_policy_note: Official OECD comparative policy resource; national law remains authoritative.
+    paywall_login_required: false
+    captcha_or_waf_risk: false
+    stores_full_text: false
+    stores_metadata_only: true
+    legal_text_publication_allowed: false
+    schedule_enabled: false
+    broad_crawl_allowed: false
+    verified_on_source: false
+    client_use_allowed: false
+    client_evidence_allowed: false
+    final_evidence_allowed: false
+    legal_change_claimed: false
+    owner_review_required: true
+    notes: Informational international source; not binding obligations.
+    created_at: 2026-05-20
+    updated_at: 2026-05-20

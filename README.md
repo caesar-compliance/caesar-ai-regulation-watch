@@ -268,4 +268,8 @@ Canonical values, review workflow, and future evidence export shape:
 
 **v1.0.8 (main)** — T051 richer jurisdiction profiles, `/regions/` and `/topics/` drilldowns, and JSON exports (`jurisdiction-profiles.json`, `region-drilldowns.json`, `topic-drilldowns.json`). Merged to main; tag `regulation-watch-v1.0.8` and deploy pending future Control Tower approval.
 
-**v1.0.7 (live)** — [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) (`DEPLOY-20260520-025`, tag `regulation-watch-v1.0.7`). T050 map/compare + T049 feed. **Next:** T052 API/RSS adapter planning. See [PROJECT_STATE.md](PROJECT_STATE.md) and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md).
+**v1.0.7 (live)** — [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) (`DEPLOY-20260520-025`, tag `regulation-watch-v1.0.7`). T050 map/compare + T049 feed.
+
+**T052 (branch)** — Source adapter allowlist architecture: `npm run validate:source-adapters`, `npm run build:source-adapter-fixtures`, `/source-adapters/`, [docs/SOURCE_ADAPTER_ALLOWLIST.md](docs/SOURCE_ADAPTER_ALLOWLIST.md). No live collection. **Next after merge:** T053 manual approved intake runner.
+
+See [PROJECT_STATE.md](PROJECT_STATE.md) and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md).

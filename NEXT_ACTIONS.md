@@ -35,8 +35,12 @@
    - Richer `/jurisdictions/[id]/` profiles; `/regions/` and `/topics/` drilldowns; JSON exports.
    - Tag `regulation-watch-v1.0.8`, deploy, and closeout pending future Control Tower approval.
 
-7. **T052 — API/RSS source adapter planning + allowlist architecture** *(next)*
-   - Manual-gated adapter design; non-scraping by default.
+7. **T052 — API/RSS source adapter planning + allowlist architecture** *(in progress on branch)*
+   - Allowlist schema, draft registry, validation, fixture-only parser, `/source-adapters/` page.
+   - No live collection; no scheduled crawl; gates remain closed.
+
+8. **T053 — Manual approved source intake runner** *(next after T052 merge)*
+   - One official RSS/API source; fixture-first; manual approval; still disabled by default.
 
 ---
 

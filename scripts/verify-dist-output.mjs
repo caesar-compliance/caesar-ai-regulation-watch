@@ -69,6 +69,8 @@ const required = [
   "data/jurisdiction-profiles.json",
   "data/region-drilldowns.json",
   "data/topic-drilldowns.json",
+  "source-adapters/index.html",
+  "data/source-adapter-allowlist.json",
 ];
 
 const conditionalRequired = [];

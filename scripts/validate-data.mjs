@@ -5,6 +5,7 @@
  */
 import fs from "node:fs";
 import path from "node:path";
+import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import yaml from "js-yaml";
 import Ajv from "ajv";
@@ -1739,4 +1740,14 @@ if (failures.length > 0) {
 }
 
 console.log(`Failed: 0\nAll YAML files validated successfully.\n`);
+
+const adapterCheck = spawnSync(
+  process.execPath,
+  [path.join(ROOT, "scripts/validate-source-adapter-allowlist.mjs")],
+  { cwd: ROOT, stdio: "inherit" },
+);
+if (adapterCheck.status !== 0) {
+  process.exit(adapterCheck.status ?? 1);
+}
+
 process.exit(0);

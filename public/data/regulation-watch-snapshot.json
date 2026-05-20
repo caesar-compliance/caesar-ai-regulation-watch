@@ -158,7 +158,8 @@
     "jurisdiction_comparison": "/data/jurisdiction-comparison.json",
     "jurisdiction_profiles": "/data/jurisdiction-profiles.json",
     "region_drilldowns": "/data/region-drilldowns.json",
-    "topic_drilldowns": "/data/topic-drilldowns.json"
+    "topic_drilldowns": "/data/topic-drilldowns.json",
+    "source_adapter_allowlist": "/data/source-adapter-allowlist.json"
   },
   "review_notice": "All pilot content is curated manual YAML. Human review required before client use."
 }

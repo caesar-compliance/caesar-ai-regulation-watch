@@ -97,6 +97,19 @@ const triageItems = metadataTriage?.items ?? [];
   </div>
 
   <section>
+    <h2>Source adapter allowlist (T052 — planning only)</h2>
+    <p class="prose">
+      Separate manual-gated registry for future RSS/API metadata adapters. Disabled/draft by default; no live
+      collection or scheduled crawl on this surface.
+    </p>
+    <p>
+      <a href="/source-adapters/">Source adapter allowlist</a>
+      {" "}· <a href="/data/source-adapter-allowlist.json">source-adapter-allowlist.json</a>
+      {" "}· <code>docs/SOURCE_ADAPTER_ALLOWLIST.md</code>
+    </p>
+  </section>
+
+  <section>
     <h2>Manual artifact review workflow ({PROJECT_VERSION_LABEL})</h2>
     <p class="prose">
       GitHub Actions workflow <strong>Manual live metadata review</strong> (<code>manual-live-metadata-review.yml</code>)
