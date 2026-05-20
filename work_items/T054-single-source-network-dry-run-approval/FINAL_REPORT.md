@@ -6,8 +6,8 @@
 |---|---|
 | Starting main | `39f44e9` |
 | Branch | `task/T054-single-source-network-dry-run-approval` |
-| Implementation commit | `9ab65dd` |
-| PR | *(see push / gh pr create)* |
+| Implementation commits | `9ab65dd`, `b11b3c5` |
+| PR | https://github.com/caesar-compliance/caesar-ai-regulation-watch/pull/14 |
 | Final main commit | `39f44e9` (unchanged until merge) |
 | Working tree clean | yes (post-commit) |
 
