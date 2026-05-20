@@ -1,10 +1,12 @@
 # Competitor Benchmarks — Caesar AI Regulation Watch
 
-**Prepared:** 19 May 2026  
-**Updated:** v0.3.3 — VerifyWise architecture study complete; linked to acceleration policy  
+**Prepared:** 19 May 2026
+**Updated:** 20 May 2026 — automation-first rebase (T046)
 **Purpose:** Study product patterns and feature categories. **Do not copy** code, UI, database schemas, proprietary text, or restricted implementations.
 
-Policy: [THIRD_PARTY_CODE_AND_DATA_POLICY.md](THIRD_PARTY_CODE_AND_DATA_POLICY.md) · Audit: [../research/THIRD_PARTY_ACCELERATION_AUDIT.md](../research/THIRD_PARTY_ACCELERATION_AUDIT.md) · Replication plan: [../research/COMPETITOR_FEATURE_REPLICATION_PLAN.md](../research/COMPETITOR_FEATURE_REPLICATION_PLAN.md)
+**Automation-first edition:** [COMPETITOR_OPEN_SOURCE_BENCHMARKS_AUTOMATION_FIRST.md](COMPETITOR_OPEN_SOURCE_BENCHMARKS_AUTOMATION_FIRST.md) — primary benchmarks for the first full MVP (Techieray, The Legal Wire, `delschlangen/ai-legislation-tracker`, `riadeane/airegulationmap`).
+
+Policy: [REFERENCE_DRIVEN_BUILD_POLICY.md](REFERENCE_DRIVEN_BUILD_POLICY.md) · [THIRD_PARTY_CODE_AND_DATA_POLICY.md](THIRD_PARTY_CODE_AND_DATA_POLICY.md) · Audit: [../research/THIRD_PARTY_ACCELERATION_AUDIT.md](../research/THIRD_PARTY_ACCELERATION_AUDIT.md) · Replication plan: [../research/COMPETITOR_FEATURE_REPLICATION_PLAN.md](../research/COMPETITOR_FEATURE_REPLICATION_PLAN.md)
 
 ---
 
@@ -24,10 +26,18 @@ Policy: [THIRD_PARTY_CODE_AND_DATA_POLICY.md](THIRD_PARTY_CODE_AND_DATA_POLICY.m
 ### Techieray Global AI Regulation Tracker
 
 - **URL:** https://www.techieray.com/GlobalAIRegulationTracker
-- **Type:** Proprietary public product
-- **What to study:** Interactive world map/globe, region profiles, search, insights dashboard, newsfeed, API/widget concept, “vibe” or sentiment-style engagement patterns
-- **Caesar takeaway:** Map-first navigation and country drill-down; we add governance control/evidence mapping and open data exports
-- **Reuse:** UX inspiration only; no code or data copy
+- **Type:** Proprietary public product — **primary automation-first benchmark**
+- **What to study:** Interactive world map/globe, region profiles, search, insights dashboard, live newsfeed, API/widget concept, metrics
+- **Caesar takeaway:** Map-first navigation, country drill-down, live updates feed, metrics dashboard, public exports
+- **Reuse:** UX and product mechanics inspiration only; no code, data or text copy
+
+### The Legal Wire AI Regulation Tracker
+
+- **URL:** https://thelegalwire.ai/ai-regulation-tracker/
+- **Type:** Proprietary public product — **primary automation-first benchmark**
+- **What to study:** Clickable global map, country snapshots, standardized summaries, direct source links, timestamped jurisdiction pages, auto-sourced official channels
+- **Caesar takeaway:** Country snapshot model, source-linked updates, simple feed UX, automation transparency
+- **Reuse:** Product pattern only; no text, dataset, HTML/CSS/JS copy
 
 ### VerifyWise Global AI Regulations Tracker
 
@@ -63,14 +73,22 @@ Policy: [THIRD_PARTY_CODE_AND_DATA_POLICY.md](THIRD_PARTY_CODE_AND_DATA_POLICY.m
 - **Caesar takeaway:** Audience-appropriate language and tracker tables; pair with evidence mapping for practitioners
 - **Reuse:** Reference only; no content republication without permission
 
-### AI Legislation Tracker (open source)
+### AI Legislation Tracker — `delschlangen/ai-legislation-tracker` (open source)
 
-- **URL:** https://github.com/delschlangen/ai-legislation-tracker
+- **URL:** https://github.com/delschlangen/ai-legislation-tracker · Demo: https://delschlangen.github.io/ai-legislation-tracker
 - **Type:** Structured dataset / tooling — **MIT License** (verified 19 May 2026)
 - **Classification:** `data_seed_candidate` — see [ACCELERATION_DECISION_MATRIX.md](ACCELERATION_DECISION_MATRIX.md)
-- **What to study:** Queryable regulation records, structured fields, global scope data model
-- **Caesar takeaway:** Machine-readable registry patterns; merge with Caesar control/evidence layer and official-source-first policy
-- **Reuse:** Permitted with attribution; **re-verify every row against official sources** before `reviewed`
+- **What to study:** Queryable regulation records, filterable table, expandable rows, JSON/data-first static implementation
+- **Caesar takeaway:** Data model and lightweight static tracker patterns; Caesar-native Astro implementation preferred
+- **Reuse:** MIT code/data only with notices in `THIRD_PARTY_NOTICES.md`; default is reference + rewrite; **re-verify every row against official sources**
+
+### AI regulation map — `riadeane/airegulationmap` (open source)
+
+- **URL:** https://github.com/riadeane/airegulationmap
+- **Type:** Map UI — **GPL-3.0** (reference-only by default)
+- **What to study:** D3 map mechanics, country interaction, static deployment on Cloudflare Pages
+- **Caesar takeaway:** Map UX patterns; implement Caesar-native map without importing GPL code
+- **Reuse:** **Reference-only** unless Control Tower approves copyleft consequences
 
 ### artificialintelligenceact.eu
 
@@ -138,4 +156,4 @@ Add **Caesar-specific** layers:
 
 ## Positioning statement (vs benchmarks)
 
-> Benchmark trackers help you **see** regulatory developments. Caesar AI Regulation Watch helps you **see changes, review sources, and connect updates to controls and evidence** in the Caesar governance ecosystem — without claiming compliance or complete global coverage.
+> Public trackers help you **see** regulatory developments. Caesar AI Regulation Watch **automatically tracks** official and authoritative signals, publishes map-first country intelligence, latest updates, filters and metrics, and machine-readable exports — with optional governance/evidence assurance later. It does not claim legal advice, compliance, or complete global coverage.

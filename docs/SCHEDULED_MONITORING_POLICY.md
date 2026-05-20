@@ -1,6 +1,6 @@
-# Scheduled monitoring policy (v0.9.8)
+# Scheduled monitoring policy (v0.9.9)
 
-**Last updated:** 20 May 2026
+**Last updated:** 20 May 2026 (automation-first rebase — T046)
 
 ## v0.9.8 manual live metadata workflow (not scheduled)
 
@@ -13,7 +13,11 @@ The cautious live metadata pilot for allowlisted official URLs is run through **
 
 ## Purpose
 
-Provide a **controlled, review-gated** monitoring cycle for official-source watchers. Monitoring detects possible metadata changes; it does **not** make legal conclusions or update curated records automatically.
+Provide **scheduled, policy-controlled automation** for official-source watchers. Automation-first product direction expects monitoring when sources are approved and technically safe — API/RSS/feed-first, then approved public official pages.
+
+Monitoring detects possible metadata changes and can feed **regulatory update** records with confidence labels. It does **not** make legal conclusions, store full legal/source text, bypass technical controls, or enable client evidence without separate approval.
+
+**Preferred order:** official API → RSS/Atom → official structured page → approved public page (metadata-only) → manual seed.
 
 ## Manual vs scheduled
 
@@ -35,12 +39,15 @@ Provide a **controlled, review-gated** monitoring cycle for official-source watc
 
 CI validation remains the merge gate. Monitoring is operational signal collection, not a substitute for human review.
 
-## Review-gated outputs
+## Automation outputs and assurance gates
 
-- Detected changes require human review before any record update.
-- Monitoring does **not** set `verified_on_source: true`.
-- Monitoring does **not** set `client_use_allowed: true`.
-- Simulated detected changes remain clearly marked.
+- Detected changes may publish to public feeds when deterministic policy rules pass (allowed source, URL present, summary present, confidence visible, no legal advice wording).
+- **Human review is optional** for normal tracker usefulness; use exceptions/confidence queues for low-confidence or blocked items.
+- Monitoring does **not** set `verified_on_source: true` without Control Tower approval.
+- Monitoring does **not** set `client_use_allowed: true` or `final_evidence_allowed: true`.
+- Simulated or low-confidence items remain clearly labeled.
+
+**Prohibited:** broad uncontrolled scraping; WAF/CAPTCHA bypass; stealth/proxy evasion; competitor dataset copying; full legal/source text storage in repo artifacts.
 
 ## Artifact / branch / PR policy
 

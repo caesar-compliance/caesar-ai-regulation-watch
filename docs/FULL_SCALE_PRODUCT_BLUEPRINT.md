@@ -1,19 +1,22 @@
 # Full-Scale Product Blueprint — Caesar AI Regulation Watch
 
-**Prepared:** 19 May 2026  
+**Prepared:** 19 May 2026
+**Updated:** 20 May 2026 — automation-first rebase (T046)
 **Status:** Strategic product blueprint (documentation only; no implementation)
+
+**Charter:** [AUTOMATION_FIRST_PRODUCT_CHARTER.md](AUTOMATION_FIRST_PRODUCT_CHARTER.md) · **MVP requirements:** [FIRST_FULL_MVP_REQUIREMENTS.md](FIRST_FULL_MVP_REQUIREMENTS.md)
 
 ---
 
 ## 1. Product mission
 
-Build an **open, evidence-oriented global AI regulation monitoring product** that:
+Build an **automation-first global AI regulation tracker and news intelligence product** that:
 
-1. Surfaces **tracked official and authoritative sources** by jurisdiction.
-2. Helps teams **identify regulatory changes** worth governance review.
-3. **Supports governance review** with timelines, status labels, and change history.
-4. **Maps changes to controls and evidence** for Caesar ecosystem workflows.
-5. Publishes a **public website** and **machine-readable exports** (RSS, JSON).
+1. **Automatically monitors** official and authoritative sources (API/RSS/feed-first; approved public pages where needed).
+2. Publishes **world map**, country profiles, **latest updates/newsfeed**, filters and **metrics**.
+3. Surfaces **source-linked regulatory updates** with confidence labels and detection metadata.
+4. Provides **structured exports** (JSON, RSS, future API/widget).
+5. Optionally **maps changes to controls and evidence** and supports human/legal assurance in a **later phase** (not first full MVP foundation).
 6. Integrates later with **Caesar AI Governance OS** as the regulatory inbox.
 
 ### What we do not claim
@@ -40,7 +43,7 @@ Organizations using AI across borders face:
 - Difficulty connecting **legal change** to **internal controls and evidence**.
 - Expensive enterprise trackers that stop at information, not governance workflows.
 
-Caesar’s differentiation: **regulation change → governance meaning → evidence update → client action**, aligned with [caesar-ai-evidence](https://github.com/caesar-compliance/caesar-ai-evidence) and future Governance OS.
+Caesar’s differentiation: **automated tracking → country intelligence → latest updates → metrics and exports**, with optional **governance/evidence assurance** later — aligned with [caesar-ai-evidence](https://github.com/caesar-compliance/caesar-ai-evidence) and future Governance OS when approved.
 
 ---
 

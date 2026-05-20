@@ -1,20 +1,26 @@
 # UI / UX Vision — Caesar AI Regulation Watch
 
-**Prepared:** 19 May 2026  
+**Prepared:** 19 May 2026
+**Updated:** 20 May 2026 — automation-first rebase (T046)
 **Status:** Design direction only (no UI implementation)
 
-Public target: **regulations.caesar.no** (or static GitHub Pages during early phases).
+Public target: **regulation-watch.caesar.no** (GitHub Pages / Astro static site).
+
+**Benchmarks:** Techieray and The Legal Wire map/newsfeed patterns — [COMPETITOR_OPEN_SOURCE_BENCHMARKS_AUTOMATION_FIRST.md](COMPETITOR_OPEN_SOURCE_BENCHMARKS_AUTOMATION_FIRST.md).
 
 ---
 
-## Design principles
+## Design principles (priority order)
 
-1. **Source-first transparency** — every claim links to an official or registered authoritative URL.
-2. **Map as front door** — global discovery before dense tables.
-3. **Governance-oriented detail** — control and evidence tags visible without legal overclaim.
-4. **Review-visible** — AI drafts labeled; human-reviewed content distinguished.
-5. **Accessible and fast** — static-first where possible; progressive enhancement for globe.
-6. **No compliance theater** — no green “compliant” badges for countries or companies.
+1. **Map-first** — global discovery before dense tables; interactive country status.
+2. **Latest updates / newsfeed-first** — chronological feed with filters and grouping.
+3. **Filters and metrics** — region, status, topic, source type, date, confidence.
+4. **Country profiles** — snapshot pages with timeline, sources and topic tags.
+5. **Source-first transparency** — every update links to official or registered authoritative URLs.
+6. **Automation/confidence visible** — detection method and confidence labels, not legal certainty.
+7. **Accessible and fast** — static-first; progressive enhancement for map.
+8. **No compliance theater** — no green “compliant” badges for countries or companies.
+9. **Optional review/evidence layer later** — human/legal assurance UI is not required for first full MVP.
 
 ---
 

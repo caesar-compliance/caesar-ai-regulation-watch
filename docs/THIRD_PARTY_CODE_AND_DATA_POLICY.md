@@ -1,10 +1,12 @@
 # Third-Party Code and Data Policy — Caesar AI Regulation Watch
 
-**Effective:** 20 May 2026  
-**Version:** v0.9.1 (competitor-assisted discovery addendum)  
+**Effective:** 20 May 2026
+**Version:** v0.9.2 (automation-first / reference-driven addendum)
 **Status:** Approved for planning; no third-party code imported. v0.3.3 VerifyWise study completed in external sandbox only.
 
 This policy applies to **caesar-ai-regulation-watch** and aligns with [Caesar AI Governance Hub — License and Code Policy](https://github.com/caesar-compliance/caesar-ai-governance-hub/blob/main/research/LICENSE_AND_CODE_POLICY.md).
+
+**Companion policy (T046):** [REFERENCE_DRIVEN_BUILD_POLICY.md](REFERENCE_DRIVEN_BUILD_POLICY.md) — reference-driven clean implementation, MIT reuse with notices, GPL/proprietary/public-site reference-only default, no competitor text/code/dataset copying into final output.
 
 ---
 
@@ -17,6 +19,8 @@ Caesar AI Regulation Watch may accelerate delivery using **permissive open-sourc
 ## Core rule
 
 > Study competitors and third parties aggressively. Build Caesar products as **original implementations** unless a license or contract clearly allows reuse.
+
+**Reference-driven default (20 May 2026):** MIT/Apache/BSD/ISC code may be reused with preserved notices and `THIRD_PARTY_NOTICES.md` entries. GPL/AGPL, source-available, proprietary and public competitor site code are **reference-only** unless Control Tower approves otherwise. Public-site text/HTML/CSS/JS may inform local prototypes; final repo output must be Caesar-native or properly licensed.
 
 ---
 
@@ -153,6 +157,8 @@ Future phases may adopt approved dependencies per this policy and [docs/ACCELERA
 
 | Document | Role |
 |---|---|
+| [REFERENCE_DRIVEN_BUILD_POLICY.md](REFERENCE_DRIVEN_BUILD_POLICY.md) | Reference-driven build rules (T046) |
+| [COMPETITOR_OPEN_SOURCE_BENCHMARKS_AUTOMATION_FIRST.md](COMPETITOR_OPEN_SOURCE_BENCHMARKS_AUTOMATION_FIRST.md) | Automation-first benchmark pack |
 | [research/THIRD_PARTY_ACCELERATION_AUDIT.md](../research/THIRD_PARTY_ACCELERATION_AUDIT.md) | Per-source classification |
 | [research/OPEN_SOURCE_COMPONENT_SHORTLIST.md](../research/OPEN_SOURCE_COMPONENT_SHORTLIST.md) | Component recommendations |
 | [research/COMPETITOR_FEATURE_REPLICATION_PLAN.md](../research/COMPETITOR_FEATURE_REPLICATION_PLAN.md) | Clean-room feature plan |
