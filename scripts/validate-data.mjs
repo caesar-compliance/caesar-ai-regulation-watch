@@ -47,6 +47,8 @@ const schemas = {
   evidenceExportCandidate: loadSchema("evidence-export-candidate.schema.json"),
   evidenceExportCandidateReview: loadSchema("evidence-export-candidate-review.schema.json"),
   sourceDiscoveryLead: loadSchema("source-discovery-lead.schema.json"),
+  watcherEligibility: loadSchema("watcher-eligibility.schema.json"),
+  watcherMonitoringRun: loadSchema("watcher-monitoring-run.schema.json"),
 };
 
 const COMPETITOR_DISCOVERY_HOST_PATTERNS = [
@@ -282,13 +284,149 @@ for (const file of listYamlFiles(path.join(ROOT, "data/watcher-runs"))) {
   check(validate(file, data, schemas.watcherRun));
 }
 
-// Monitoring runs
+// Monitoring runs (cycle reports)
 const monitoringDir = path.join(ROOT, "data/monitoring-runs");
 if (fs.existsSync(monitoringDir)) {
   for (const file of listYamlFiles(monitoringDir)) {
     if (path.basename(file).startsWith(".")) continue;
     const data = readYaml(file);
     check(validate(file, data, schemas.monitoringRun));
+  }
+}
+
+// Watcher eligibility + deterministic monitoring runs (v0.9.4)
+const watcherMonitoringDir = path.join(ROOT, "data/monitoring");
+if (fs.existsSync(watcherMonitoringDir)) {
+  for (const file of listYamlFiles(watcherMonitoringDir)) {
+    const base = path.basename(file);
+    const data = readYaml(file);
+    if (base.startsWith("watcher-eligibility-")) {
+      check(validate(file, data, schemas.watcherEligibility));
+      if (data.no_broad_scraping !== true) {
+        failures.push({
+          label: `${file} (policy)`,
+          errors: [{ message: "watcher eligibility batch must have no_broad_scraping: true" }],
+        });
+      }
+      if (data.no_competitor_source !== true) {
+        failures.push({
+          label: `${file} (policy)`,
+          errors: [{ message: "watcher eligibility batch must have no_competitor_source: true" }],
+        });
+      }
+      for (const entry of data.entries ?? []) {
+        const label = `${file} → ${entry.source_id ?? "?"}`;
+        if (entry.client_use_allowed !== false) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [{ message: "watcher eligibility entry must have client_use_allowed: false" }],
+          });
+        }
+        if (entry.final_evidence_allowed !== false) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [{ message: "watcher eligibility entry must have final_evidence_allowed: false" }],
+          });
+        }
+        if (entry.no_broad_scraping !== true) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [{ message: "watcher eligibility entry must have no_broad_scraping: true" }],
+          });
+        }
+        if (entry.no_competitor_source !== true) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [{ message: "watcher eligibility entry must have no_competitor_source: true" }],
+          });
+        }
+        const we = entry.watcher_eligibility ?? {};
+        if (we.excluded_not_official === true && we.eligible_basic_url_check === true) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [{ message: "excluded_not_official cannot be watcher eligible for url check" }],
+          });
+        }
+        if (
+          entry.source_discovery_status === "rejected_not_official" &&
+          (we.eligible_basic_url_check || we.eligible_feed_check || we.eligible_api_check)
+        ) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [{ message: "rejected_not_official lead cannot be watcher eligible" }],
+          });
+        }
+        if (
+          (we.blocked_by_waf_or_bot_protection === true || entry.monitoring_method === "manual_only") &&
+          entry.allowed_to_fetch === true &&
+          entry.monitoring_method !== "none"
+        ) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [
+              {
+                message:
+                  "blocked/manual_only sources must have allowed_to_fetch false unless monitoring_method is none with documented safe method",
+              },
+            ],
+          });
+        }
+        if (
+          entry.source_discovery_status !== "official_source_confirmed" &&
+          entry.source_discovery_status !== "pending_official_review" &&
+          we.eligible_basic_url_check === true &&
+          entry.allowed_to_fetch === true
+        ) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [
+              {
+                message:
+                  "only confirmed or pending official sources may be fetch-eligible for url checks",
+              },
+            ],
+          });
+        }
+      }
+    } else if (base.startsWith("monitoring-run-")) {
+      check(validate(file, data, schemas.watcherMonitoringRun));
+      if (data.client_use_allowed !== false || data.final_evidence_allowed !== false) {
+        failures.push({
+          label: `${file} (policy)`,
+          errors: [
+            {
+              message:
+                "watcher monitoring run must have client_use_allowed and final_evidence_allowed false",
+            },
+          ],
+        });
+      }
+      for (const chk of data.checks ?? []) {
+        const label = `${file} → ${chk.source_id ?? "?"}`;
+        if (chk.client_use_allowed !== false || chk.final_evidence_allowed !== false) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [{ message: "monitoring check must have client_use_allowed/final_evidence_allowed false" }],
+          });
+        }
+        if (
+          chk.check_result === "status_check_ok" &&
+          (chk.check_result === "blocked_not_checked" || chk.check_result === "manual_only_not_checked") &&
+          chk.http_status == null
+        ) {
+          /* unreachable */
+        }
+        if (
+          (chk.check_result === "blocked_not_checked" || chk.check_result === "manual_only_not_checked") &&
+          chk.change_detected === true
+        ) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [{ message: "blocked/manual_only checks cannot report change_detected true" }],
+          });
+        }
+      }
+    }
   }
 }
 

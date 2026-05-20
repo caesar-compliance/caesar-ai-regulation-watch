@@ -58,6 +58,37 @@ function readMonitoringRuns() {
     .sort((a, b) => b.run_date.localeCompare(a.run_date));
 }
 
+function readWatcherEligibility() {
+  const dir = path.join(ROOT, "data/monitoring");
+  if (!fs.existsSync(dir)) return { batch: null, entries: [] };
+  const files = fs
+    .readdirSync(dir)
+    .filter((f) => f.startsWith("watcher-eligibility-") && (f.endsWith(".yml") || f.endsWith(".yaml")))
+    .sort()
+    .reverse();
+  if (files.length === 0) return { batch: null, entries: [] };
+  const batch = yaml.load(fs.readFileSync(path.join(dir, files[0]), "utf8"));
+  const entries = (batch?.entries ?? []).map((e) => ({
+    ...e,
+    watcher_eligibility_batch_id: batch.watcher_eligibility_batch_id,
+  }));
+  return { batch, entries };
+}
+
+function readWatcherMonitoringRuns() {
+  const dir = path.join(ROOT, "data/monitoring");
+  if (!fs.existsSync(dir)) return [];
+  return fs
+    .readdirSync(dir)
+    .filter(
+      (f) =>
+        f.startsWith("monitoring-run-") && (f.endsWith(".yml") || f.endsWith(".yaml")),
+    )
+    .map((f) => yaml.load(fs.readFileSync(path.join(dir, f), "utf8")))
+    .filter((r) => r?.monitoring_run_id)
+    .sort((a, b) => b.run_date.localeCompare(a.run_date));
+}
+
 function readDetectedChanges() {
   return readYamlDir("data/detected-changes").sort((a, b) =>
     b.detected_at.localeCompare(a.detected_at),
@@ -213,6 +244,10 @@ const snapshots = readSnapshots();
 const watcherRuns = readWatcherRuns();
 const monitoringRuns = readMonitoringRuns();
 const latestMonitoringRun = monitoringRuns[0] ?? null;
+const { batch: watcherEligibilityBatch, entries: watcherEligibilityEntries } =
+  readWatcherEligibility();
+const watcherMonitoringRuns = readWatcherMonitoringRuns();
+const latestWatcherMonitoringRun = watcherMonitoringRuns[0] ?? null;
 const monitoringDiffSummaryPath = path.join(
   ROOT,
   "data/monitoring-runs/latest-monitoring-diff-summary.json",
@@ -366,6 +401,12 @@ const REASON_LABELS = {
     "Watcher soft-failed; last good snapshot preserved. Human triage required.",
   monitoring_run_failed:
     "Latest monitoring cycle did not complete successfully (validate/build or hard failure).",
+  monitoring_manual_or_blocked:
+    "Watcher eligibility marks source manual-only or blocked; automated fetch not performed.",
+  monitoring_status_check_failed:
+    "Deterministic monitoring run reported status_check_failed for this source.",
+  monitoring_change_possible:
+    "Monitoring run flagged possible change; human review required before record update.",
   snapshot_changed: "New metadata snapshot differs from previous; confirm on official source.",
   human_review_required: "Watcher output requires human review before any record update.",
 };
@@ -665,6 +706,43 @@ function buildReviewQueue() {
     }
   }
 
+  if (latestWatcherMonitoringRun) {
+    for (const chk of latestWatcherMonitoringRun.checks ?? []) {
+      const needsQueue =
+        chk.requires_human_review === true ||
+        chk.check_result === "blocked_not_checked" ||
+        chk.check_result === "manual_only_not_checked" ||
+        chk.check_result === "status_check_failed" ||
+        chk.change_detected === true;
+      if (!needsQueue) continue;
+      const src = sourceById[chk.source_id];
+      const review_reasons = mergeReasons(
+        chk.change_detected ? ["monitoring_change_possible"] : [],
+        chk.check_result === "status_check_failed"
+          ? ["monitoring_status_check_failed"]
+          : ["monitoring_manual_or_blocked", "human_review_required"],
+        ["verified_on_source_false", "client_use_not_allowed"],
+      );
+      items.push({
+        item_type: "source",
+        item_id: chk.source_id,
+        title: `Monitoring review: ${chk.source_id} (${chk.check_result})`,
+        jurisdiction_id: src?.jurisdiction_id ?? "eu",
+        review_status: "needs_human_review",
+        reason_for_review: `${chk.notes ?? ""} ${reasonText(review_reasons)}`.trim(),
+        review_reasons,
+        official_url: chk.url ?? src?.official_url ?? null,
+        page_href: "/monitoring/",
+        missing_official_url: !chk.url && !src?.official_url,
+        verified_on_source_false: true,
+        technical_url_status: null,
+        content_review_status: "not_reviewed",
+        redirect_detected: false,
+        client_use_allowed: false,
+      });
+    }
+  }
+
   if (latestMonitoringRun && latestMonitoringRun.overall_status === "failed") {
     items.push({
       item_type: "monitoring_run",
@@ -749,6 +827,9 @@ const reviewSummary = {
   watcher_errors: countReason("watcher_error"),
   watcher_soft_errors: countReason("watcher_soft_error"),
   monitoring_run_failed: countReason("monitoring_run_failed"),
+  monitoring_manual_or_blocked: countReason("monitoring_manual_or_blocked"),
+  monitoring_status_check_failed: countReason("monitoring_status_check_failed"),
+  monitoring_change_possible: countReason("monitoring_change_possible"),
   human_review_required_watcher: countReason("human_review_required"),
 };
 
@@ -884,6 +965,62 @@ const evidenceCandidateSummary = {
   final_evidence_allowed: 0,
 };
 
+const watcherEligibilitySummary = {
+  total: watcherEligibilityEntries.length,
+  watcher_eligible_count: watcherEligibilityEntries.filter(
+    (e) =>
+      e.allowed_to_fetch === true &&
+      e.monitoring_method === "url_status_check" &&
+      e.watcher_eligibility?.eligible_basic_url_check === true,
+  ).length,
+  manual_only_count: watcherEligibilityEntries.filter(
+    (e) => e.monitoring_method === "manual_only",
+  ).length,
+  blocked_monitoring_count: watcherEligibilityEntries.filter(
+    (e) =>
+      e.watcher_eligibility?.blocked_by_waf_or_bot_protection === true ||
+      e.allowed_to_fetch === false,
+  ).length,
+  client_use_allowed: watcherEligibilityEntries.filter((e) => e.client_use_allowed).length,
+  final_evidence_allowed: watcherEligibilityEntries.filter((e) => e.final_evidence_allowed)
+    .length,
+};
+
+const watcherMonitoringRunSummary = latestWatcherMonitoringRun
+  ? {
+      monitoring_run_id: latestWatcherMonitoringRun.monitoring_run_id,
+      run_date: latestWatcherMonitoringRun.run_date,
+      mode: latestWatcherMonitoringRun.mode,
+      overall_status: latestWatcherMonitoringRun.overall_status ?? "completed",
+      checks_total: latestWatcherMonitoringRun.checks?.length ?? 0,
+      status_check_ok: (latestWatcherMonitoringRun.checks ?? []).filter(
+        (c) => c.check_result === "status_check_ok",
+      ).length,
+      no_change_snapshot_created: (latestWatcherMonitoringRun.checks ?? []).filter(
+        (c) => c.check_result === "no_change_snapshot_created",
+      ).length,
+      manual_only_not_checked: (latestWatcherMonitoringRun.checks ?? []).filter(
+        (c) => c.check_result === "manual_only_not_checked",
+      ).length,
+      blocked_not_checked: (latestWatcherMonitoringRun.checks ?? []).filter(
+        (c) => c.check_result === "blocked_not_checked",
+      ).length,
+      status_check_failed: (latestWatcherMonitoringRun.checks ?? []).filter(
+        (c) => c.check_result === "status_check_failed",
+      ).length,
+      change_detected_count: latestWatcherMonitoringRun.change_detected_count ?? 0,
+      requires_human_review_count: (latestWatcherMonitoringRun.checks ?? []).filter(
+        (c) => c.requires_human_review === true,
+      ).length,
+      client_use_allowed: (latestWatcherMonitoringRun.checks ?? []).filter(
+        (c) => c.client_use_allowed,
+      ).length,
+      final_evidence_allowed: (latestWatcherMonitoringRun.checks ?? []).filter(
+        (c) => c.final_evidence_allowed,
+      ).length,
+    }
+  : null;
+
 const evidenceCandidateReviewSummary = {
   total_reviewed_candidates: evidenceCandidateReviews.length,
   reviewed_for_internal_governance_only: evidenceCandidateReviews.filter(
@@ -973,6 +1110,15 @@ const snapshot = {
     latest_monitoring_run_id: latestMonitoringRun?.monitoring_run_id ?? null,
     latest_monitoring_run_mode: latestMonitoringRun?.mode ?? null,
     latest_monitoring_run_status: latestMonitoringRun?.overall_status ?? null,
+    watcher_eligible_count: watcherEligibilitySummary.watcher_eligible_count,
+    watcher_eligibility_manual_only_count: watcherEligibilitySummary.manual_only_count,
+    blocked_monitoring_count: watcherEligibilitySummary.blocked_monitoring_count,
+    latest_watcher_monitoring_run_id:
+      latestWatcherMonitoringRun?.monitoring_run_id ?? null,
+    latest_watcher_monitoring_run_status:
+      latestWatcherMonitoringRun?.overall_status ?? null,
+    watcher_monitoring_change_detected_count:
+      watcherMonitoringRunSummary?.change_detected_count ?? 0,
     monitoring_diff_has_meaningful_changes:
       latestMonitoringDiffSummary?.has_meaningful_changes ?? null,
     monitoring_diff_recommended_action: latestMonitoringDiffSummary?.recommended_action ?? null,
@@ -1022,6 +1168,7 @@ const snapshot = {
     snapshots: "/data/snapshots.json",
     watcher_runs: "/data/watcher-runs.json",
     monitoring_runs: "/data/monitoring-runs.json",
+    watcher_eligibility: "/data/watcher-eligibility.json",
     detected_changes: "/data/detected-changes.json",
     evidence_export_candidates: "/data/evidence-export-candidates.json",
     evidence_export_candidate_reviews: "/data/evidence-export-candidate-reviews.json",
@@ -1191,8 +1338,11 @@ writeJson(path.join(PUBLIC_DATA, "watcher-runs.json"), {
 writeJson(path.join(PUBLIC_DATA, "monitoring-runs.json"), {
   generated_at: generatedAt,
   disclaimer: DISCLAIMER,
+  cycle_runs: monitoringRuns,
   items: monitoringRuns,
+  watcher_monitoring_runs: watcherMonitoringRuns,
   latest: latestMonitoringRun,
+  latest_watcher_monitoring_run: latestWatcherMonitoringRun,
   latest_diff_summary: latestMonitoringDiffSummary
     ? {
         generated_at: latestMonitoringDiffSummary.generated_at,
@@ -1208,8 +1358,25 @@ writeJson(path.join(PUBLIC_DATA, "monitoring-runs.json"), {
     latest_run_id: latestMonitoringRun?.monitoring_run_id ?? null,
     latest_mode: latestMonitoringRun?.mode ?? null,
     latest_status: latestMonitoringRun?.overall_status ?? null,
+    latest_watcher_monitoring_run_id:
+      latestWatcherMonitoringRun?.monitoring_run_id ?? null,
+    latest_watcher_monitoring_run_status:
+      latestWatcherMonitoringRun?.overall_status ?? null,
+    watcher_monitoring_run_count: watcherMonitoringRuns.length,
     has_meaningful_changes: latestMonitoringDiffSummary?.has_meaningful_changes ?? null,
+    ...watcherMonitoringRunSummary,
   },
+});
+
+writeJson(path.join(PUBLIC_DATA, "watcher-eligibility.json"), {
+  generated_at: generatedAt,
+  disclaimer: DISCLAIMER,
+  not_complete_coverage: true,
+  not_client_evidence: true,
+  batch_id: watcherEligibilityBatch?.watcher_eligibility_batch_id ?? null,
+  legal_safe_note: watcherEligibilityBatch?.legal_safe_note ?? DISCLAIMER,
+  summary: watcherEligibilitySummary,
+  items: watcherEligibilityEntries,
 });
 
 writeJson(path.join(PUBLIC_DATA, "detected-changes.json"), {
@@ -1328,6 +1495,9 @@ console.log("  public/data/watchers.json");
 console.log("  public/data/snapshots.json");
 console.log("  public/data/watcher-runs.json");
 console.log("  public/data/monitoring-runs.json");
+console.log("  public/data/watcher-eligibility.json");
+console.log(`  ${watcherEligibilityEntries.length} watcher eligibility entr(ies)`);
+console.log(`  ${watcherMonitoringRuns.length} watcher monitoring run(s)`);
 console.log("  public/data/detected-changes.json");
 console.log("  public/data/evidence-export-candidates.json");
 console.log("  public/data/evidence-export-candidate-reviews.json");

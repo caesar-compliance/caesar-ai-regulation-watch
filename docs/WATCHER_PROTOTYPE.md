@@ -1,6 +1,8 @@
 # Official source watcher prototype (v0.7.4)
 
-**Last updated:** 19 May 2026
+**Last updated:** 20 May 2026
+
+**v0.9.4:** Watcher eligibility layer (`data/monitoring/watcher-eligibility-2026-05-20.yml`) maps confirmed official discovery sources to safe monitoring methods (url_status_check vs manual_only). Deterministic local run `monitoring-run-2026-05-20-v094` records baseline checks without broad scraping. Does not add scheduled live monitoring.
 
 ## Purpose
 

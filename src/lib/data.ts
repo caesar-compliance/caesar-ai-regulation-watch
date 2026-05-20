@@ -994,6 +994,105 @@ export function latestMonitoringDiffSummary(): MonitoringDiffSummary | undefined
   }
 }
 
+export interface WatcherEligibilityFlags {
+  eligible_basic_url_check: boolean;
+  eligible_feed_check: boolean;
+  eligible_api_check: boolean;
+  manual_review_required: boolean;
+  blocked_by_waf_or_bot_protection: boolean;
+  excluded_not_official: boolean;
+  excluded_unstable: boolean;
+}
+
+export interface WatcherEligibilityEntry {
+  source_id: string;
+  jurisdiction_id: string;
+  official_url: string;
+  source_category: string;
+  source_discovery_status: string;
+  watcher_eligibility: WatcherEligibilityFlags;
+  eligibility_reason: string;
+  monitoring_method: "url_status_check" | "feed_check" | "api_check" | "manual_only" | "none";
+  allowed_to_fetch: boolean;
+  fetch_limits: string;
+  client_use_allowed: false;
+  final_evidence_allowed: false;
+  created_from: string;
+  access_date: string;
+  limitations: string;
+  watcher_eligibility_batch_id?: string;
+}
+
+export function getWatcherEligibilityEntries(): WatcherEligibilityEntry[] {
+  const dir = path.join(ROOT, "data/monitoring");
+  if (!fs.existsSync(dir)) return [];
+  const files = fs
+    .readdirSync(dir)
+    .filter((f) => f.startsWith("watcher-eligibility-") && (f.endsWith(".yml") || f.endsWith(".yaml")))
+    .sort()
+    .reverse();
+  if (files.length === 0) return [];
+  const batch = readYamlFile<{
+    watcher_eligibility_batch_id: string;
+    entries?: WatcherEligibilityEntry[];
+  }>(path.join("data/monitoring", files[0]));
+  return (batch?.entries ?? []).map((e) => ({
+    ...e,
+    watcher_eligibility_batch_id: batch?.watcher_eligibility_batch_id,
+  }));
+}
+
+export type WatcherMonitoringCheckResult =
+  | "no_change_snapshot_created"
+  | "status_check_ok"
+  | "status_check_failed"
+  | "manual_only_not_checked"
+  | "blocked_not_checked";
+
+export interface WatcherMonitoringCheck {
+  source_id: string;
+  url: string;
+  monitoring_method: string;
+  check_result: WatcherMonitoringCheckResult;
+  http_status?: number | null;
+  title?: string | null;
+  change_detected: boolean;
+  requires_human_review: boolean;
+  notes: string;
+  client_use_allowed: false;
+  final_evidence_allowed: false;
+}
+
+export interface WatcherMonitoringRun {
+  monitoring_run_id: string;
+  run_date: string;
+  run_timestamp: string;
+  mode: "deterministic_local" | "dry_run" | "report_only";
+  watcher_eligibility_batch_id: string;
+  overall_status?: "completed" | "partial" | "report_only";
+  change_detected_count?: number;
+  legal_safe_note: string;
+  checks: WatcherMonitoringCheck[];
+}
+
+export function getWatcherMonitoringRuns(): WatcherMonitoringRun[] {
+  const dir = path.join(ROOT, "data/monitoring");
+  if (!fs.existsSync(dir)) return [];
+  return fs
+    .readdirSync(dir)
+    .filter(
+      (f) =>
+        f.startsWith("monitoring-run-") && (f.endsWith(".yml") || f.endsWith(".yaml")),
+    )
+    .map((f) => readYamlFile<WatcherMonitoringRun>(path.join("data/monitoring", f)))
+    .filter((r): r is WatcherMonitoringRun => Boolean(r?.monitoring_run_id))
+    .sort((a, b) => b.run_date.localeCompare(a.run_date));
+}
+
+export function latestWatcherMonitoringRun(): WatcherMonitoringRun | undefined {
+  return getWatcherMonitoringRuns()[0];
+}
+
 export function getDetectedChanges(): DetectedChange[] {
   return readYamlDir<DetectedChange>("data/detected-changes").sort((a, b) =>
     b.detected_at.localeCompare(a.detected_at),

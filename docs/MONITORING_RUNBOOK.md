@@ -1,6 +1,13 @@
-# Monitoring runbook (v0.8.1)
+# Monitoring runbook (v0.9.4)
 
-**Last updated:** 19 May 2026
+**Last updated:** 20 May 2026
+
+## v0.9.4 watcher eligibility + deterministic run
+
+- Eligibility: `data/monitoring/watcher-eligibility-2026-05-20.yml` (confirmed official sources only).
+- Local run: `data/monitoring/monitoring-run-2026-05-20-v094.yml` (offline/deterministic; no broad fetch).
+- Public: `/monitoring/`, `/data/watcher-eligibility.json`, `/data/monitoring-runs.json` (`latest_watcher_monitoring_run`).
+- Blocked sources (EUR-Lex bot challenge, EDPB 502, Australia WAF) stay `manual_only` / `allowed_to_fetch: false`.
 
 ## Quick commands
 
