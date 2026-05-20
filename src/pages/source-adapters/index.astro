@@ -5,6 +5,7 @@ import {
   getNetworkDryRunApprovalEntries,
   getSingleNetworkDryRunExecutionEntries,
   getManualReviewPromotionEntries,
+  getManualReviewDecisionEntries,
   getSourceAdapterAllowlistEntries,
   getSource,
 } from "../../lib/data";
@@ -16,6 +17,7 @@ const intakeRuns = getManualSourceIntakeRunEntries();
 const networkApprovals = getNetworkDryRunApprovalEntries();
 const networkExecutions = getSingleNetworkDryRunExecutionEntries();
 const manualReviewPromotions = getManualReviewPromotionEntries();
+const manualReviewDecisions = getManualReviewDecisionEntries();
 const disabledCount = adapters.filter((a) => a.status === "disabled").length;
 const draftCount = adapters.filter((a) => a.status === "draft").length;
 ---
@@ -306,6 +308,58 @@ const draftCount = adapters.filter((a) => a.status === "draft").length;
                 <td>{p.review_required ? "required" : "false"}</td>
                 <td><span class="mono">{p.draft_update_path}</span></td>
                 <td>{p.safety.publication_allowed ? "allowed" : "false"}</td>
+                <td>
+                  <span class="mono">verified/client/evidence/legal: false</span>
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Manual review decisions</h2>
+    <p>
+      T057 reviewer decision registry — read-only. No approve, publish, or source-verification controls.
+      Decisions are metadata-only and internal-draft-only.
+    </p>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Decision</th>
+            <th>Promotion</th>
+            <th>Draft</th>
+            <th>Decision</th>
+            <th>Scope</th>
+            <th>Publication</th>
+            <th>Source verification</th>
+            <th>Gates</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            manualReviewDecisions.map((d) => (
+              <tr>
+                <td>
+                  <span class="mono">{d.decision_id}</span>
+                  <br />
+                  <small>{d.decision_status}</small>
+                </td>
+                <td><span class="mono">{d.promotion_id}</span></td>
+                <td>
+                  <span class="mono">{d.draft_update_id}</span>
+                  <br />
+                  <small class="mono">{d.draft_update_path}</small>
+                </td>
+                <td>
+                  <span class={`badge badge--status-${d.decision}`}>{d.decision}</span>
+                </td>
+                <td><span class="mono">{d.decision_scope}</span></td>
+                <td>{d.safety.publication_allowed ? "allowed" : "false"}</td>
+                <td>{d.safety.source_verification_completed ? "completed" : "false"}</td>
                 <td>
                   <span class="mono">verified/client/evidence/legal: false</span>
                 </td>
