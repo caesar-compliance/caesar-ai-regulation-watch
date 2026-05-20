@@ -967,6 +967,253 @@ table.data-table tr:last-child td {
   margin: 0;
 }
 
+/* T050 — Choropleth status panel */
+.choropleth-map__note {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.choropleth-map__layout {
+  display: grid;
+  grid-template-columns: 1fr minmax(200px, 260px);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+@media (max-width: 800px) {
+  .choropleth-map__layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.choropleth-map__svg {
+  width: 100%;
+  max-width: 900px;
+  height: auto;
+  margin: 0.5rem 0 1rem;
+}
+
+.choropleth-map__svg-title,
+.choropleth-map__region-label {
+  font-size: 13px;
+  font-weight: 600;
+  fill: var(--color-text);
+}
+
+.choropleth-map__region-meta {
+  font-size: 11px;
+  fill: var(--color-muted);
+}
+
+.choropleth-map__region-heading {
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+}
+
+.choropleth-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.5rem;
+}
+
+.choropleth-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.55rem 0.65rem;
+  border-radius: var(--radius);
+  border-left: 5px solid var(--color-border);
+  background: var(--color-surface);
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+}
+
+.choropleth-tile:hover {
+  background: var(--color-accent-soft);
+  text-decoration: none;
+}
+
+.choropleth-tile--adopted {
+  border-left-color: #2d6a4f;
+  background: linear-gradient(90deg, #d8f3dc 0%, var(--color-surface) 45%);
+}
+.choropleth-tile--enforcement {
+  border-left-color: #9b2226;
+  background: linear-gradient(90deg, #fde8e8 0%, var(--color-surface) 45%);
+}
+.choropleth-tile--guidance {
+  border-left-color: #5a6a7d;
+}
+.choropleth-tile--proposed {
+  border-left-color: #1d4e89;
+  background: linear-gradient(90deg, #e7f0fa 0%, var(--color-surface) 45%);
+}
+.choropleth-tile--consultation {
+  border-left-color: #e07b39;
+}
+.choropleth-tile--monitoring {
+  border-left-color: #7b6cf0;
+}
+.choropleth-tile--no_clear_framework {
+  border-left-color: #adb5bd;
+}
+
+.choropleth-tile__name {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.choropleth-tile__status,
+.choropleth-tile__metrics {
+  font-size: 0.78rem;
+  color: var(--color-muted);
+}
+
+.choropleth-tile__bar {
+  display: block;
+  height: 3px;
+  margin-top: 0.25rem;
+  width: var(--maturity, 50%);
+  max-width: 100%;
+  background: #5c7cfa;
+  border-radius: 2px;
+  opacity: 0.75;
+}
+
+.choropleth-legend__title {
+  font-size: 0.95rem;
+  margin: 0 0 0.5rem;
+}
+
+.choropleth-legend__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.choropleth-legend__list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+  font-size: 0.85rem;
+}
+
+.choropleth-legend__swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.choropleth-legend__swatch--adopted {
+  background: #2d6a4f;
+}
+.choropleth-legend__swatch--enforcement {
+  background: #9b2226;
+}
+.choropleth-legend__swatch--guidance {
+  background: #5a6a7d;
+}
+.choropleth-legend__swatch--proposed {
+  background: #1d4e89;
+}
+.choropleth-legend__swatch--consultation {
+  background: #e07b39;
+}
+.choropleth-legend__swatch--monitoring {
+  background: #7b6cf0;
+}
+.choropleth-legend__swatch--no_clear_framework {
+  background: #adb5bd;
+}
+
+.choropleth-legend__note {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  margin: 0.75rem 0 0;
+}
+
+.choropleth-map__cta {
+  margin-top: 1rem;
+}
+
+.country-status-list__scores {
+  font-size: 0.88rem;
+  color: var(--color-muted);
+  margin: 0.25rem 0;
+}
+
+/* T050 — Compare jurisdictions */
+.compare-form fieldset {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.compare-form select {
+  display: block;
+  width: 100%;
+  max-width: 32rem;
+  min-height: 10rem;
+  margin: 0.5rem 0;
+}
+
+.compare-form__hint,
+.compare-form__error {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.compare-form__error {
+  color: #9b2226;
+}
+
+.compare-table-wrap {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.compare-table th,
+.compare-table td {
+  border: 1px solid var(--color-border);
+  padding: 0.5rem 0.65rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.compare-table thead th {
+  background: var(--color-accent-soft);
+}
+
+.compare-table__caption {
+  caption-side: top;
+  text-align: left;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.compare-table__sources {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.85rem;
+}
+
+.compare-summaries {
+  font-size: 0.88rem;
+  color: var(--color-muted);
+}
+
 .country-status-list__meta,
 .country-status-list__topics {
   font-size: 0.88rem;

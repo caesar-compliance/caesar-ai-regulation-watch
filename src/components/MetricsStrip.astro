@@ -37,4 +37,12 @@ const { metrics } = Astro.props;
     <strong>{metrics.updates_last_30_days}</strong>
     <span>Updates (last 30 days)</span>
   </div>
+  {
+    metrics.average_regulation_maturity_score != null && (
+      <div class="metrics-strip__card">
+        <strong>{metrics.average_regulation_maturity_score}</strong>
+        <span>Avg maturity index (pilot)</span>
+      </div>
+    )
+  }
 </div>

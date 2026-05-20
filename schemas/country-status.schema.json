@@ -73,6 +73,24 @@
     "client_evidence_allowed": { "type": "boolean" },
     "final_evidence_allowed": { "type": "boolean" },
     "legal_change_claimed": { "type": "boolean" },
-    "legal_safe_note": { "type": "string", "minLength": 1 }
+    "legal_safe_note": { "type": "string", "minLength": 1 },
+    "regulation_maturity_score": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Optional export-only tracker index (T050); not legal certainty."
+    },
+    "activity_score": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Optional export-only activity index from update recency/count."
+    },
+    "automation_signal_count": { "type": "integer", "minimum": 0 },
+    "latest_update_count": { "type": "integer", "minimum": 0 },
+    "status_weight": { "type": "integer", "minimum": 0, "maximum": 100 },
+    "comparison_summary": { "type": "string" },
+    "manual_seed_update_count": { "type": "integer", "minimum": 0 },
+    "offline_metadata_adapter_update_count": { "type": "integer", "minimum": 0 }
   }
 }

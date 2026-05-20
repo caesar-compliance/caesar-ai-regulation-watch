@@ -48,13 +48,17 @@
 
 See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inventory sections. Sample entities include `record_origin: manual_sample`.
 
-### T048–T049 automation-first tracker (v1.0.5–v1.0.6)
+### T048–T050 automation-first tracker (v1.0.5–T050 branch)
 
 | Directory | Role |
 |-----------|------|
 | **data/country-status/** | Per-jurisdiction regulation status seeds (`status_bucket`, source_ids, topic_tags) |
 | **data/regulatory-updates/** | Manual seed updates + `generated-from-metadata.yml` (`offline_metadata_adapter`, T049) |
 | **scripts/build-regulatory-updates-from-metadata.mjs** | T049 offline adapter — repo metadata → regulatory_update batch |
+| **scripts/lib/tracker-scoring.mjs** | T050 scoring for JSON exports |
+| **src/lib/tracker-scoring.ts** | T050 scoring for Astro pages |
+| **src/components/TrackerChoroplethMap.astro** | T050 choropleth-style status panel |
+| **src/pages/compare/** | T050 jurisdiction comparison |
 | **data/topics/** | Tracker topic tags for filters (distinct from `data/taxonomies/`) |
 
 ---

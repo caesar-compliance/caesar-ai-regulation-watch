@@ -36,12 +36,18 @@ The **v1.0.6** release adds the T049 offline metadata adapter for the regulatory
 - **JSON exports** — method counts on `regulatory-updates.json` and `automation-first-metrics.json`.
 - **Deploy** — `DEPLOY-20260520-024`, commit `1e8b7f0`, run [26187837019](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26187837019); tag `regulation-watch-v1.0.6`.
 - **No scraping/crawling** — repo-local metadata only; no competitor data; evidence gates unchanged.
-- **Recommended next** — T050 choropleth map + compare jurisdictions; live API/RSS adapters per Phase 2 backlog.
+- **Recommended next** — T051 richer country profile pages and regional/topic drilldowns; live API/RSS adapters per Phase 2 backlog.
 
-### Remaining limitations (v1.0.6)
+## T050 in progress (feature branch)
+
+- **Choropleth-style map** — `/tracker/` status panel with legend and maturity/activity indices (pilot metadata).
+- **Compare jurisdictions** — `/compare/` for 2–4 jurisdictions.
+- **Not deployed** — implementation on `feature/T050-choropleth-map-compare-jurisdictions`; live site remains v1.0.6 until release task.
+
+### Remaining limitations (v1.0.6 live + T050 branch)
 
 - Offline metadata adapter only — not live API/RSS fetch automation.
-- CSS/SVG map skeleton, not full choropleth (T050).
+- Abstract regional panel — not precise geographic choropleth.
 - 13 pilot jurisdictions — not complete global coverage.
 - Not legal advice; not final evidence; not verified legal change; `verified_on_source`, `client_use_allowed`, `final_evidence_allowed`, and `legal_change_claimed` remain closed.
 

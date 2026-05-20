@@ -9,6 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **T050 choropleth-style tracker map** — Regional status panel with colored jurisdiction tiles, maturity/activity indices, and legend on `/tracker/`.
+- **T050 compare jurisdictions** — `/compare/` for 2–4 pilot jurisdictions; side-by-side tracker metadata table with source links.
+- **Tracker scoring metadata** — `regulation_maturity_score`, `activity_score`, `status_weight`, `comparison_summary` on enriched country status exports.
+- **JSON export** — `/data/jurisdiction-comparison.json`; scoring fields on `/data/country-status.json`.
+
+### Notes
+
+- Caesar-native Astro/CSS/SVG only; no GPL map libraries. Not legal advice; evidence gates remain closed.
+
 ---
 
 ## [1.0.6] - 20 May 2026

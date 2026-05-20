@@ -154,7 +154,8 @@
     "country_status": "/data/country-status.json",
     "regulatory_updates": "/data/regulatory-updates.json",
     "automation_first_metrics": "/data/automation-first-metrics.json",
-    "tracker_topics": "/data/tracker-topics.json"
+    "tracker_topics": "/data/tracker-topics.json",
+    "jurisdiction_comparison": "/data/jurisdiction-comparison.json"
   },
   "review_notice": "All pilot content is curated manual YAML. Human review required before client use."
 }

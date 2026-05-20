@@ -5,6 +5,13 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import yaml from "js-yaml";
+import {
+  enrichCountryStatuses,
+  type EnrichedCountryStatus,
+} from "./tracker-scoring";
+
+export type { EnrichedCountryStatus, CountryStatusScores } from "./tracker-scoring";
+export { STATUS_BUCKET_WEIGHT } from "./tracker-scoring";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 
@@ -85,6 +92,9 @@ export interface AutomationFirstMetrics {
   region_counts: Record<string, number>;
   adopted_or_enforced_count: number;
   proposed_or_consultation_count: number;
+  choropleth_map_available?: boolean;
+  compare_route?: string;
+  average_regulation_maturity_score?: number;
 }
 
 export const AUTOMATION_METHOD_LABELS: Record<string, string> = {
@@ -130,6 +140,10 @@ export function getCountryStatuses(): CountryStatus[] {
   return readYamlDir<CountryStatus>("data/country-status").sort((a, b) =>
     a.country_name.localeCompare(b.country_name),
   );
+}
+
+export function getEnrichedCountryStatuses(): EnrichedCountryStatus[] {
+  return enrichCountryStatuses(getCountryStatuses(), getRegulatoryUpdates());
 }
 
 export function getCountryStatus(jurisdictionId: string): CountryStatus | undefined {
@@ -178,6 +192,14 @@ export function getAutomationFirstMetrics(): AutomationFirstMetrics {
   const offline_metadata_adapter_update_count = updates.filter(
     (u) => u.automation_method === "offline_metadata_adapter",
   ).length;
+  const enriched = enrichCountryStatuses(statuses, updates);
+  const average_regulation_maturity_score =
+    enriched.length > 0
+      ? Math.round(
+          enriched.reduce((s, c) => s + c.regulation_maturity_score, 0) / enriched.length,
+        )
+      : 0;
+
   return {
     jurisdiction_count: statuses.length,
     regulatory_update_count: updates.length,
@@ -191,6 +213,9 @@ export function getAutomationFirstMetrics(): AutomationFirstMetrics {
       (status_bucket_counts.adopted ?? 0) + (status_bucket_counts.enforcement ?? 0),
     proposed_or_consultation_count:
       (status_bucket_counts.proposed ?? 0) + (status_bucket_counts.consultation ?? 0),
+    choropleth_map_available: true,
+    compare_route: "/compare/",
+    average_regulation_maturity_score,
   };
 }
 

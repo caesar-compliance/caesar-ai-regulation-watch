@@ -1,0 +1,79 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import JurisdictionCompareTable from "../../components/JurisdictionCompareTable.astro";
+import { getEnrichedCountryStatuses } from "../../lib/tracker-data";
+
+const all = getEnrichedCountryStatuses();
+const rawIds = Astro.url.searchParams.getAll("ids");
+const idsParam = Astro.url.searchParams.get("ids");
+const parsed =
+  rawIds.length > 0
+    ? rawIds
+    : idsParam
+      ? idsParam.split(",").map((s) => s.trim())
+      : [];
+const selectedIds = [...new Set(parsed.filter(Boolean))].slice(0, 4);
+const selected = selectedIds
+  .map((id) => all.find((c) => c.jurisdiction_id === id))
+  .filter((c): c is NonNullable<typeof c> => Boolean(c));
+const invalidIds = selectedIds.filter((id) => !all.some((c) => c.jurisdiction_id === id));
+---
+
+<BaseLayout
+  title="Compare jurisdictions"
+  currentPath="/compare/"
+  description="Compare 2–4 pilot jurisdictions by tracker metadata — not legal advice."
+>
+  <h1>Compare jurisdictions</h1>
+  <p class="lead">
+    Side-by-side comparison of pilot tracker metadata for up to four jurisdictions. Status buckets,
+    update counts, topics, and source registry links — not legal advice, not final evidence, and not
+    verified legal change.
+  </p>
+
+  <div class="banner banner--automation" role="note">
+    <strong>Tracker metadata only.</strong> Maturity and activity scores are Caesar-native indices
+    from seed data and update feed counts. Gates for client evidence and verified legal change remain
+    closed.
+  </div>
+
+  <form class="compare-form" method="get" action="/compare/">
+    <fieldset>
+      <legend>Select 2–4 jurisdictions</legend>
+      <p class="compare-form__hint">
+        Hold <kbd>Cmd</kbd> or <kbd>Ctrl</kbd> to multi-select, or pick from the list (minimum two for
+        a meaningful comparison).
+      </p>
+      <select name="ids" multiple size={Math.min(13, all.length)}>
+        {all.map((cs) => (
+          <option value={cs.jurisdiction_id} selected={selectedIds.includes(cs.jurisdiction_id)}>
+            {cs.country_name} ({cs.region}) — {cs.status_label}
+          </option>
+        ))}
+      </select>
+      <button type="submit">Compare</button>
+    </fieldset>
+  </form>
+
+  {
+    invalidIds.length > 0 && (
+      <p class="compare-form__error" role="alert">
+        Unknown jurisdiction id(s): {invalidIds.join(", ")}
+      </p>
+    )
+  }
+
+  {
+    selected.length > 0 && selected.length < 2 && (
+      <p class="compare-form__error" role="note">
+        Select at least two jurisdictions for comparison.
+      </p>
+    )
+  }
+
+  <JurisdictionCompareTable selected={selected.length >= 2 ? selected : []} />
+
+  <p>
+    <a href="/tracker/">← Back to global tracker</a> · <a href="/countries/">Country list</a>
+  </p>
+</BaseLayout>

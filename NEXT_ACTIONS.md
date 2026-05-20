@@ -25,9 +25,13 @@
    - Feed: 33 updates (`manual_seed` 15 + `offline_metadata_adapter` 18); method filter and badges on public pages.
    - Live API/RSS scheduling and fetch adapters remain separate (Phase 2 P2-01).
 
-5. **T050 — Choropleth map + compare jurisdictions** *(next implementation task)*
-   - Safe official-source adapters using API/RSS/feed-first approach.
-   - No WAF/CAPTCHA bypass; no stealth scraping; no full legal/source text storage.
+5. **T050 — Choropleth map + compare jurisdictions** *(in progress on feature branch)*
+   - Choropleth-style status panel on `/tracker/`; `/compare/` for 2–4 jurisdictions.
+   - Tracker scoring metadata on country status exports; `jurisdiction-comparison.json`.
+   - No GPL map copy; no scraping; gates remain closed.
+
+6. **T051 — Richer country profiles + regional/topic drilldowns** *(recommended next after T050)*
+   - Deeper jurisdiction profile UX from tracker metadata and source registry.
 
 ---
 
