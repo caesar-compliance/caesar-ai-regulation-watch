@@ -59,9 +59,20 @@ After an adapter is registered here, a **manual intake run** may reference it in
 
 ---
 
+## Network dry-run approvals (T054)
+
+After manual fixture intake (T053), a **network dry-run approval packet** may reference the same adapter in `data/source-adapters/network-dry-run-approvals.yml`. T054 adds one pilot (`T054-001` → `T053-001` / `edpb-publications-rss`) with `planning_only` mode and `network_execution_allowed: false`. See [NETWORK_DRY_RUN_APPROVAL_MODEL.md](NETWORK_DRY_RUN_APPROVAL_MODEL.md).
+
+- Validation: `npm run validate:network-dry-run-approvals`
+- Plan generator: `npm run build:network-dry-run-plan -- --approval-id T054-001`
+- Plans: `generated/network-dry-run-plans/` (local, gitignored; not `public/data/`)
+
+---
+
 ## Related docs
 
 - [MANUAL_SOURCE_INTAKE_RUNNER.md](MANUAL_SOURCE_INTAKE_RUNNER.md)
+- [NETWORK_DRY_RUN_APPROVAL_MODEL.md](NETWORK_DRY_RUN_APPROVAL_MODEL.md)
 - [RSS_API_ADAPTER_SAFETY_MODEL.md](RSS_API_ADAPTER_SAFETY_MODEL.md)
 - [SCHEDULED_MONITORING_POLICY.md](SCHEDULED_MONITORING_POLICY.md)
 - [WATCHER_RELIABILITY_POLICY.md](WATCHER_RELIABILITY_POLICY.md)

@@ -1458,6 +1458,60 @@ export function getManualSourceIntakeRunEntries(): ManualSourceIntakeRun[] {
   return getManualSourceIntakeRuns()?.runs ?? [];
 }
 
+export interface NetworkDryRunGateState {
+  verified_on_source: boolean;
+  client_use_allowed: boolean;
+  client_evidence_allowed: boolean;
+  final_evidence_allowed: boolean;
+  legal_change_claimed: boolean;
+}
+
+export interface NetworkDryRunApproval {
+  approval_id: string;
+  run_id: string;
+  adapter_id: string;
+  source_id: string;
+  source_name: string;
+  source_type: string;
+  allowed_host: string;
+  endpoint_url: string;
+  mode: string;
+  status: string;
+  control_tower_approval_required: boolean;
+  network_execution_allowed: boolean;
+  schedule_enabled: boolean;
+  broad_crawl_allowed: boolean;
+  max_items: number;
+  max_bytes: number;
+  timeout_seconds: number;
+  output_path: string;
+  dry_run_plan_path: string;
+  gates: NetworkDryRunGateState;
+  approval_notes?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface NetworkDryRunApprovalsDoc {
+  network_dry_run_approvals_id: string;
+  generated_at: string;
+  product_version: string;
+  legal_safe_note: string;
+  no_live_collection: boolean;
+  no_scheduled_monitoring: boolean;
+  approvals: NetworkDryRunApproval[];
+}
+
+export function getNetworkDryRunApprovals(): NetworkDryRunApprovalsDoc | null {
+  const file = path.join(ROOT, "data/source-adapters/network-dry-run-approvals.yml");
+  if (!fs.existsSync(file)) return null;
+  return yaml.load(fs.readFileSync(file, "utf8")) as NetworkDryRunApprovalsDoc;
+}
+
+export function getNetworkDryRunApprovalEntries(): NetworkDryRunApproval[] {
+  return getNetworkDryRunApprovals()?.approvals ?? [];
+}
+
 export function getPilotSummary() {
   return {
     jurisdictionCount: getJurisdictions().length,

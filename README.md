@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **Status** | v1.0.8 on main (T051 + T052 + T053); live site v1.0.7 `DEPLOY-20260520-025` — deploy/tag pending |
+| **Status** | v1.0.8 on main (T051 + T052 + T053; T054 in PR); live site v1.0.7 `DEPLOY-20260520-025` — deploy/tag pending |
 | **Hosting** | GitHub Pages — static site (Astro) |
 | **Scope** | AI regulation tracking, country profiles, latest updates, source monitoring, metrics and structured exports |
 | **Safety** | Not legal advice; source transparency and automation confidence labels apply |

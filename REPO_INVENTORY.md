@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.8 on main — T051 + T052 + T053; live v1.0.7 `DEPLOY-20260520-025`)
+**Last updated:** 21 May 2026 (v1.0.8 on main — T051 + T052 + T053 + T054 branch; live v1.0.7 `DEPLOY-20260520-025`)
 
 ---
 
@@ -217,6 +217,18 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **scripts/validate-manual-source-intake-runs.mjs** | `npm run validate:manual-source-intake` |
 | **scripts/run-manual-source-intake.mjs** | `npm run run:manual-source-intake` (CLI; no network) |
 | **generated/source-intake-candidates/T053-001.json** | Per-run output (gitignored) |
+
+## T054 — Network dry-run approval architecture (v1.0.8 branch)
+
+| Path | Role |
+|---|---|
+| **schemas/network-dry-run-approval.schema.json** | Approval packet validation |
+| **data/source-adapters/network-dry-run-approvals.yml** | Pilot approval `T054-001` (planning_only) |
+| **docs/NETWORK_DRY_RUN_APPROVAL_MODEL.md** | Planning-only workflow; T055 execution gate |
+| **scripts/validate-network-dry-run-approvals.mjs** | `npm run validate:network-dry-run-approvals` |
+| **scripts/build-network-dry-run-plan.mjs** | `npm run build:network-dry-run-plan` (no network) |
+| **scripts/run-approved-network-dry-run.mjs** | Future runner stub (refuses in T054) |
+| **generated/network-dry-run-plans/T054-001.json** | Plan output (gitignored) |
 
 ---
 

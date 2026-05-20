@@ -63,15 +63,17 @@ The runner **requires** `--run-id` and `--fixture`. It rejects `--network` / `--
 
 ---
 
-## Future network run (not T053)
+## Network dry-run approval (T054 — planning only)
 
-A single manual network dry-run would require:
+T054 links pilot run `T053-001` to approval packet `T054-001` for a **future** one-off network dry-run. T054 does **not** fetch the live endpoint.
 
-1. Separate Control Tower approval per run.
-2. `mode: manual_network_approved` and `status: approved_for_single_manual_run` with `network_allowed: true`.
-3. Still **no** scheduling, no broad crawl, no gate changes.
+| Step | Command |
+|---|---|
+| Validate approval | `npm run validate:network-dry-run-approvals` |
+| Generate plan | `npm run build:network-dry-run-plan -- --approval-id T054-001` |
+| Future runner (refuses in T054) | `npm run run:approved-network-dry-run -- --approval-id T054-001` |
 
-Recommended follow-up: **T054** — approved single-source network dry-run design (manual-only, no publication).
+See [NETWORK_DRY_RUN_APPROVAL_MODEL.md](NETWORK_DRY_RUN_APPROVAL_MODEL.md). Execution remains **T055** after Control Tower approval.
 
 ---
 
@@ -79,4 +81,6 @@ Recommended follow-up: **T054** — approved single-source network dry-run desig
 
 - [SOURCE_ADAPTER_ALLOWLIST.md](SOURCE_ADAPTER_ALLOWLIST.md)
 - [RSS_API_ADAPTER_SAFETY_MODEL.md](RSS_API_ADAPTER_SAFETY_MODEL.md)
+- [NETWORK_DRY_RUN_APPROVAL_MODEL.md](NETWORK_DRY_RUN_APPROVAL_MODEL.md)
 - `work_items/T053-manual-approved-source-intake-runner/`
+- `work_items/T054-single-source-network-dry-run-approval/`

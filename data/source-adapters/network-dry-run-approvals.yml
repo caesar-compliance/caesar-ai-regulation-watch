@@ -1,0 +1,54 @@
+# Network dry-run approval packets — T054 pilot (planning-only, no live collection)
+# No network execution in T054. Control Tower approval required for future T055 run.
+
+network_dry_run_approvals_id: network-dry-run-approvals-2026-05-21-v108
+generated_at: 2026-05-21
+product_version: 1.0.8
+legal_safe_note: >
+  T054 network dry-run approval architecture only. One planning packet linked to T053 manual intake.
+  Metadata-only future path; no full legal text; no legal change claims; evidence gates closed.
+  Network execution disabled until separate Control Tower approval in T055.
+no_live_collection: true
+no_scheduled_monitoring: true
+
+approvals:
+  - approval_id: T054-001
+    run_id: T053-001
+    adapter_id: edpb-publications-rss
+    source_id: edpb
+    source_name: European Data Protection Board (EDPB) — publications RSS
+    source_type: rss
+    allowed_host: www.edpb.europa.eu
+    endpoint_url: https://www.edpb.europa.eu/feed/publications_en
+    mode: planning_only
+    status: ready_for_control_tower_review
+    control_tower_approval_required: true
+    network_execution_allowed: false
+    schedule_enabled: false
+    broad_crawl_allowed: false
+    max_items: 5
+    max_bytes: 500000
+    timeout_seconds: 20
+    user_agent_policy: >
+      Caesar-Regulation-Watch-Metadata-Pilot/1.0.8 (manual one-off dry-run; governance contact required;
+      not a crawler; respects official feed scope)
+    robots_policy_note: Official EDPB publications RSS feed; single-endpoint metadata scope only when approved.
+    paywall_login_required: false
+    captcha_or_waf_risk: false
+    stores_metadata_only: true
+    stores_full_text: false
+    legal_text_publication_allowed: false
+    output_path: generated/network-dry-run-candidates/T054-001.json
+    dry_run_plan_path: generated/network-dry-run-plans/T054-001.json
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      client_evidence_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+    approval_notes: >
+      T054 planning packet for future one-off network dry-run of official EDPB publications RSS.
+      Linked to T053 fixture intake run T053-001. No live fetch in T054; plan generation only.
+      Control Tower must approve before T055 execution. Not source verification; not publication.
+    created_at: 2026-05-21
+    updated_at: 2026-05-21
