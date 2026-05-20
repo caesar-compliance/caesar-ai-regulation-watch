@@ -1,9 +1,33 @@
 # Caesar AI Regulation Watch
 
-**Global AI regulation monitoring for governance teams** — part of the [Caesar AI Governance Hub](https://github.com/caesar-compliance/caesar-ai-governance-hub) ecosystem.
+> Public tracker for AI laws, regulatory guidance, source verification, and evidence export readiness.
 
-**Last updated:** 20 May 2026  
-**Status:** v1.0.4 **Public Technical MVP** at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) — autonomous official-source verification worker (`npm run source:verify:autonomous`) + `verified_on_source` policy gate (no WAF bypass; Australia/Japan machine `access_failed`; EUR-Lex bot-gated with EFTA EEA-Lex official-alternative identity; no `verified_on_source: true`) — official-source-first; human-review gated; **not legal advice**; **not complete coverage**; **not client evidence**; `client_use_allowed: 0` · `verified_on_source: 0` (see [docs/SOURCE_VERIFICATION_WORKFLOW.md](docs/SOURCE_VERIFICATION_WORKFLOW.md), [docs/VERIFIED_ON_SOURCE_POLICY.md](docs/VERIFIED_ON_SOURCE_POLICY.md))
+**Live site:** [regulation-watch.caesar.no](https://regulation-watch.caesar.no/)
+
+| | |
+|---|---|
+| **Status** | Public Technical MVP (v1.0.4) |
+| **Hosting** | GitHub Pages — static site (Astro) |
+| **Scope** | AI regulation, guidance, source review, evidence export candidates |
+| **Safety** | Source review and publication gates apply — not legal advice |
+
+Part of the [Caesar AI Governance Hub](https://github.com/caesar-compliance/caesar-ai-governance-hub) ecosystem.
+
+---
+
+## What it does
+
+- Tracks **AI regulation and official guidance** across jurisdictions.
+- Separates **source verification** from publication readiness — nothing is marked verified without review.
+- Supports **evidence and export planning** for downstream governance workflows.
+- Keeps public data **static and reviewable** — no runtime backend.
+- Fits the **Caesar AI Governance ecosystem** (Evidence, Scan, Vendor Watch, Governance OS).
+
+## What it is not
+
+- **Not legal advice** — outputs support review, not compliance guarantees.
+- **Not a complete legal database** — coverage grows incrementally by curated source registry.
+- **Not an automated scraping product** — ingestion is policy-gated and human-reviewed.
 
 ---
 
@@ -230,6 +254,4 @@ Canonical values, review workflow, and future evidence export shape:
 
 ## Project status
 
-**v0.5.0** expands global jurisdiction/source YAML, adds regulatory timelines and GitHub Actions CI (validate → generate → build). **v0.4.1** added Pagefind search, filters, methodology/disclaimer, JSON/RSS. Data remains manual YAML; no watchers or backend. Next: Control Tower review of expanded registry; optional Leaflet map.
-
-See [PROJECT_STATE.md](PROJECT_STATE.md) and [NEXT_ACTIONS.md](NEXT_ACTIONS.md).
+**v1.0.4** — Public Technical MVP live at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/). Autonomous source verification worker, source review gates, evidence export candidates, Pagefind search. Data is curated YAML; no unreviewed automation. See [PROJECT_STATE.md](PROJECT_STATE.md) and [NEXT_ACTIONS.md](NEXT_ACTIONS.md).
