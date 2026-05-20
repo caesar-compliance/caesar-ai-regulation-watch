@@ -1,7 +1,7 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 20 May 2026
-**Current release:** v1.0.5 (T048 tracker skeleton) — deploy pending at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/)
+**Current live release:** v1.0.5 (T048 tracker skeleton) — [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) (`DEPLOY-20260520-023`, tag `regulation-watch-v1.0.5`)
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
 ---
@@ -15,7 +15,7 @@
 2. **T047 — Competitor and open-source reference study** *(merged)*
    - Reference lab study docs; T048 implementation plan.
 
-3. **T048 — Automation-first tracker skeleton** *(merged to `main`; v1.0.5 release)*
+3. **T048 — Automation-first tracker skeleton** *(merged, released, deployed v1.0.5)*
    - Country status + regulatory update YAML seeds and schemas.
    - Public pages: `/tracker/`, `/updates/`, `/countries/` with map skeleton, filters, metrics.
    - JSON exports: `country-status.json`, `regulatory-updates.json`, `automation-first-metrics.json`.

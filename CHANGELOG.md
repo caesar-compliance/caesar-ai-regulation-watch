@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Notes
 
 - Manual seed data only (`automation_method: manual_seed`); adapters deferred to T049. Not legal advice. Not complete coverage. `verified_on_source`, `client_use_allowed`, and `final_evidence_allowed` remain closed.
+- **Deployed** 20 May 2026 — `DEPLOY-20260520-023`, commit `a153043`, run [26184820086](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26184820086), tag `regulation-watch-v1.0.5`. Public smoke pass on `/`, `/tracker/`, `/updates/`, `/countries/`, and tracker JSON exports.
 
 ---
 

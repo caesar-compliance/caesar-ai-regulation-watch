@@ -5,8 +5,8 @@
 | Field | Value |
 |---|---|
 | **Current version** | `v1.0.5` |
-| **Status** | Release candidate — deploy pending |
-| **Deployment** | `DEPLOY-20260520-023` — TBD (after v1.0.5 deploy workflow) |
+| **Status** | Live — tag `regulation-watch-v1.0.5` |
+| **Deployment** | `DEPLOY-20260520-023` — [26184820086](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26184820086) |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
 | **Phase** | Public Technical MVP + automation-first tracker skeleton (T048) |
 
@@ -27,15 +27,23 @@ The first full MVP target is a Techieray / The Legal Wire style AI regulation tr
 
 Human review is no longer the foundation of the MVP roadmap. It remains an optional future assurance layer for premium legal, client evidence and Caesar AI Evidence / Governance OS workflows.
 
-The **v1.0.5** release adds the T048 public tracker skeleton on top of the **v1.0.4** technical base. See [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md) and [docs/AUTOMATION_FIRST_MVP_ROADMAP.md](docs/AUTOMATION_FIRST_MVP_ROADMAP.md).
+The **v1.0.5** release is **live** on [regulation-watch.caesar.no](https://regulation-watch.caesar.no/). It adds the T048 public tracker skeleton on top of the **v1.0.4** technical base. See [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md) and [docs/AUTOMATION_FIRST_MVP_ROADMAP.md](docs/AUTOMATION_FIRST_MVP_ROADMAP.md).
 
-## v1.0.5 summary (release candidate — T048)
+## v1.0.5 summary (live — T048)
 
 - **Automation-first tracker skeleton** — `/tracker/`, `/updates/`, `/countries/` with metrics, filters, CSS/SVG map skeleton.
 - **Seed data** — 13 country statuses, 15 regulatory updates, 9 topics (`manual_seed` only).
 - **JSON exports** — `country-status.json`, `regulatory-updates.json`, `automation-first-metrics.json`, `tracker-topics.json`.
+- **Deployed** — commit `a153043`, tag `regulation-watch-v1.0.5`, deploy run [26184820086](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26184820086).
 - **No scraping** — no competitor data; evidence gates unchanged.
 - **Recommended next** — **T049** source adapter pipeline for updates feed.
+
+### Remaining limitations (v1.0.5)
+
+- Manual seed only — no live source adapter pipeline yet.
+- CSS/SVG map skeleton, not full choropleth.
+- 13 pilot jurisdictions — not complete global coverage.
+- Not legal advice; `verified_on_source`, `client_use_allowed`, and `final_evidence_allowed` remain closed.
 
 ## v1.0.4 summary (previous live technical base)
 
