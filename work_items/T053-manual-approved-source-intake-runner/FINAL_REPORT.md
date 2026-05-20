@@ -5,17 +5,23 @@
 | Field | Value |
 |---|---|
 | Starting main | `d373957` |
-| Branch | `task/T053-manual-approved-source-intake-runner` |
-| Implementation commit | `c7c9c2b` |
-| PR | https://github.com/caesar-compliance/caesar-ai-regulation-watch/pull/13 |
-| Final main commit | `d373957` (unchanged until merge) |
-| Working tree clean | yes |
+| Branch | `task/T053-manual-approved-source-intake-runner` (deleted after merge) |
+| Implementation commits | `c7c9c2b`, `664cd15` |
+| Squash merge | `0469a9e` (PR #13) |
+| PR | https://github.com/caesar-compliance/caesar-ai-regulation-watch/pull/13 (merged) |
+| Final main commit | `0469a9e` |
+| Working tree clean | yes (post-merge docs) |
 
 ## Version / deploy
 
 - Package: `1.0.8` (unchanged)
 - Live: `v1.0.7` (`regulation-watch-v1.0.7`)
-- No deploy, no tag, no deployment closeout in T053
+- Merged to main; no deploy, no tag, no deployment closeout in T053
+
+## Unicode pre-merge check
+
+- PASS: no bidi control characters in T053 target files
+- No cleanup commit required
 
 ## Pilot adapter
 

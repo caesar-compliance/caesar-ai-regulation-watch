@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Notes
 
-- T053: fixture-first intake; no live network; no scheduling; output under `generated/source-intake-candidates/` (gitignored). Live site remains v1.0.7; no tag/deploy/closeout in T053.
+- T053 merged to main (PR #13, squash commit `0469a9e`). Fixture-first intake; no live network; no scheduling; output under `generated/source-intake-candidates/` (gitignored). Live site remains v1.0.7; no tag/deploy/closeout in T053.
 - T052 merged to main (PR #12, squash commit `f3d2055`). No live source collection; adapters disabled/draft/manual-gated.
 
 ---
