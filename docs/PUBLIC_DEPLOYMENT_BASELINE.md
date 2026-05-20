@@ -1,8 +1,8 @@
 # Public Deployment Baseline
 
-**Phase:** v1.0.3 — Public Technical MVP (manual source verification intake)  
+**Phase:** v1.0.4 — Public Technical MVP (autonomous source verification worker)  
 **Deployment date:** 20 May 2026  
-**Status:** Live — [26167248912](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26167248912)
+**Status:** Live — [26168769688](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26168769688)
 
 ---
 
@@ -10,29 +10,29 @@
 
 | Field | Value |
 |---|---|
-| **Product version** | `v1.0.3` |
-| **Deployment ID** | `DEPLOY-20260520-021` |
-| **Deployed commit** | `16965d9` |
-| **Git tag** | `regulation-watch-v1.0.3` → `16965d9` |
-| **Prior deploy** | v1.0.2 `d36909e` — [26166657168](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26166657168) |
+| **Product version** | `v1.0.4` |
+| **Deployment ID** | `DEPLOY-20260520-022` |
+| **Deployed commit** | `5c19b28` |
+| **Git tag** | `regulation-watch-v1.0.4` → `5c19b28` |
+| **Prior deploy** | v1.0.3 `16965d9` — [26167248912](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26167248912) |
 | **Public URL** | https://regulation-watch.caesar.no/ |
 
 ---
 
 ## Smoke-tested (20 May 2026)
 
-- All required URLs HTTP **200** (including `/source-verification/` and `/data/manual-source-verification-intake.json`).
-- Snapshot `version` **1.0.3**; `manual_source_verification_intake_count` **3**; `pending_human_browser_input_count` **3**.
-- `verified_on_source_count` **0**; `verified_on_source_approved_count` **0**; `client_use_allowed_count` **0**; `legal_change_claimed_count` **0**.
+- All required URLs HTTP **200** (including `/source-verification/` and `/data/autonomous-source-verifications.json`).
+- Snapshot `version` **1.0.4**; `autonomous_source_verification_count` **3**; `official_alternative_verified_identity_count` **1**.
+- `verified_on_source_count` **0**; `client_use_allowed_count` **0**; `legal_change_claimed_count` **0**.
 
-## v1.0.3 outcomes
+## v1.0.4 outcomes
 
 | Area | Result |
 |---|---|
-| **Manual intake** | Schema + batch + public export + `/source-verification/` page |
-| **Policy gate** | `VERIFIED_ON_SOURCE_POLICY.md` — no `verified_on_source: true` in this release |
-| **Australia** | `intake-australia-industry-ai-principles-v103` — pending human browser |
-| **EUR-Lex** | `intake-eu-ai-act-eurlex-v103` — pending human browser (JS required) |
-| **Japan METI** | `intake-japan-meti-ai-v103` — pending human browser |
+| **Autonomous worker** | `npm run source:verify:autonomous` — SPARQL, metadata fetch, official alternatives; no WAF bypass |
+| **EUR-Lex / EU AI Act** | EUR-Lex HTTP 202 bot gate; EFTA EEA-Lex `official_alternative_verified_identity` for CELEX 32024R1689 |
+| **Australia** | `access_failed` (timeout) — identity not confirmed |
+| **Japan METI** | `access_failed` (timeout) — identity not confirmed |
+| **EU candidate review** | Stays `needs_more_source_review` (EUR-Lex consolidated text not verified) |
 
 Not legal advice. Not client evidence. Not complete coverage.

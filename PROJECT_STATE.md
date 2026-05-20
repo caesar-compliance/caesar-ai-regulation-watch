@@ -5,8 +5,9 @@
 | Field | Value |
 |---|---|
 | **Current version** | `v1.0.4` |
-| **Status** | In progress — autonomous source verification worker on branch `agent/v1.0.3-autonomous-source-verification-worker` |
-| **Previous live** | `v1.0.3` — tag `regulation-watch-v1.0.3` (manual intake) |
+| **Status** | Live — `5c19b28`; tag `regulation-watch-v1.0.4` |
+| **Deployment** | `DEPLOY-20260520-022` — [26168769688](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26168769688) |
+| **Previous live** | `v1.0.3` — tag `regulation-watch-v1.0.3` → `16965d9` |
 | **Phase** | Public Technical MVP |
 
 ## v1.0.4 summary (in progress)
