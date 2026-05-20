@@ -13,7 +13,9 @@
 | **Current phase** | Public pilot — competitor-assisted official source discovery |
 | **Status** | Live on custom domain; v0.9.1 deployed (`8040212`) |
 | **Working branch** | `main` (after merge) |
-| **Latest completed task** | v0.9.1 — 24 discovery leads, 9 new sources, 6 minimal records |
+| **Latest completed task** | v0.9.1 — 26 discovery leads, 9 new sources, 6 minimal records; deployed |
+| **Deployment ID** | `DEPLOY-20260520-008` — commit `8040212`, run [26133482897](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26133482897) |
+| **Git tag** | `regulation-watch-v0.9.1` on `8040212` |
 | **Next recommended step** | Control Tower: URL re-check for pending/unclear leads; EUR-Lex deep pass |
 
 ---
