@@ -97,12 +97,18 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 
 ---
 
-## data/verifications/ (v0.8.2 content review)
+## data/verifications/ (v0.8.2+ content review; v1.0.3 manual intake)
 
 | Pattern | Role |
 |---|---|
 | **content-review-*.yml** | Human content review batches (summary, dates, detected changes) |
+| **manual-source-verification-intake-*.yml** | Human browser intake for blocked official sources (v1.0.3) |
 | **docs/CONTENT_REVIEW_WORKFLOW.md** | Process |
+| **docs/MANUAL_SOURCE_VERIFICATION_INTAKE_GUIDE.md** | Reviewer guide for intake observations |
+| **docs/VERIFIED_ON_SOURCE_POLICY.md** | Control Tower gate for `verified_on_source: true` |
+| **schemas/manual-source-verification-intake.schema.json** | Intake batch schema |
+| **public/data/manual-source-verification-intake.json** | Public intake status export (no private reviewer notes) |
+| **src/pages/source-verification/** | Manual intake summary page |
 | **docs/CONTENT_REVIEW_CHECKLIST.md** | Reviewer checklist |
 | **src/pages/content-review/index.astro** | Static content review dashboard |
 | **public/data/content-reviews.json** | Generated export |

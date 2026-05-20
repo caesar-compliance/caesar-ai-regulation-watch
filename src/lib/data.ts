@@ -235,6 +235,62 @@ export type SourceVerificationEntryWithBatch = SourceVerificationEntry & {
   verification_batch_id: string;
 };
 
+export type ManualIntakeStatus =
+  | "pending_human_browser_input"
+  | "observation_recorded"
+  | "identity_confirmed_pending_control_tower"
+  | "submitted_for_control_tower"
+  | "closed_no_verification";
+
+export interface ManualBrowserObservation {
+  page_loaded: boolean | null;
+  visible_title: string | null;
+  visible_publisher: string | null;
+  visible_date: string | null;
+  celex_or_official_identifier: string | null;
+  final_url: string | null;
+}
+
+export interface ManualSourceVerificationIntakeEntry {
+  intake_id: string;
+  intake_status: ManualIntakeStatus;
+  related_source_id: string;
+  related_record_id?: string;
+  related_candidate_id?: string;
+  related_verification_id?: string;
+  official_url: string;
+  verification_target: string;
+  access_method: string;
+  reviewer_role: string;
+  access_date: string;
+  browser_observation: ManualBrowserObservation;
+  source_identity_confirmed: boolean;
+  full_instrument_identity_confirmed: boolean;
+  content_not_copied: boolean;
+  no_legal_advice: boolean;
+  no_full_text_storage: boolean;
+  client_use_allowed: boolean;
+  final_evidence_allowed: boolean;
+  verified_on_source_requested: boolean;
+  verified_on_source_approved: boolean;
+  limitations: string;
+  reviewer_note?: string;
+  next_action: string;
+  legal_safe_note: string;
+}
+
+export interface ManualSourceVerificationIntakeBatch {
+  manual_source_verification_intake_batch_id: string;
+  intake_date: string;
+  verifier_type: string;
+  legal_safe_note: string;
+  intakes: ManualSourceVerificationIntakeEntry[];
+}
+
+export type ManualSourceVerificationIntakeWithBatch = ManualSourceVerificationIntakeEntry & {
+  manual_source_verification_intake_batch_id: string;
+};
+
 export type RegulationRecord = (LawRecord | GuidanceRecord) & {
   status: string;
 };
@@ -795,6 +851,34 @@ export function getContentReviews(): ContentReviewEntryWithBatch[] {
     b.content_reviews.map((cr) => ({
       ...cr,
       content_review_batch_id: b.content_review_batch_id,
+    })),
+  );
+}
+
+function manualIntakeYamlFiles(): string[] {
+  const abs = path.join(ROOT, "data/verifications");
+  if (!fs.existsSync(abs)) return [];
+  return fs
+    .readdirSync(abs)
+    .filter(
+      (f) =>
+        f.startsWith("manual-source-verification-intake") &&
+        (f.endsWith(".yml") || f.endsWith(".yaml")),
+    )
+    .map((f) => path.join(abs, f));
+}
+
+export function getManualSourceVerificationIntakeBatches(): ManualSourceVerificationIntakeBatch[] {
+  return manualIntakeYamlFiles()
+    .map((f) => yaml.load(fs.readFileSync(f, "utf8")) as ManualSourceVerificationIntakeBatch)
+    .sort((a, b) => b.intake_date.localeCompare(a.intake_date));
+}
+
+export function getManualSourceVerificationIntakes(): ManualSourceVerificationIntakeWithBatch[] {
+  return getManualSourceVerificationIntakeBatches().flatMap((b) =>
+    b.intakes.map((intake) => ({
+      ...intake,
+      manual_source_verification_intake_batch_id: b.manual_source_verification_intake_batch_id,
     })),
   );
 }

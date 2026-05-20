@@ -3,7 +3,7 @@
 **Global AI regulation monitoring for governance teams** — part of the [Caesar AI Governance Hub](https://github.com/caesar-compliance/caesar-ai-governance-hub) ecosystem.
 
 **Last updated:** 20 May 2026  
-**Status:** v1.0.2 **Public Technical MVP** at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) — human/browser verification sprint (Canada improved; Australia/EUR-Lex/Japan blockers documented; content review expanded) — official-source-first; human-review gated; monitoring pilot; metadata-only monitoring where live; **not legal advice**; **not complete coverage**; **not client evidence**; no final evidence export; no caesar-ai-evidence integration; `client_use_allowed: 0` (see [docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md))
+**Status:** v1.0.3 **Public Technical MVP** at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) — manual source verification intake + `verified_on_source` policy gate (Australia/EUR-Lex/Japan pending human browser; no `verified_on_source: true` in this release) — official-source-first; human-review gated; **not legal advice**; **not complete coverage**; **not client evidence**; `client_use_allowed: 0` · `verified_on_source: 0` (see [docs/VERIFIED_ON_SOURCE_POLICY.md](docs/VERIFIED_ON_SOURCE_POLICY.md), [docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md))
 
 ---
 

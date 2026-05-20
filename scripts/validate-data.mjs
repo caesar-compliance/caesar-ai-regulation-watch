@@ -54,7 +54,22 @@ const schemas = {
   liveMetadataRun: loadSchema("live-metadata-run.schema.json"),
   changeReviewPack: loadSchema("change-review-pack.schema.json"),
   metadataReviewTriage: loadSchema("metadata-review-triage.schema.json"),
+  manualSourceVerificationIntake: loadSchema("manual-source-verification-intake.schema.json"),
 };
+
+const LONG_COPIED_TEXT_PATTERNS = [
+  /\bArticle\s+\d+/i,
+  /\bshall\s+be\b/i,
+  /\bWhereas\b/,
+  /(?:\. ){8,}/,
+];
+
+function reviewerNoteLooksLikeCopiedLegalText(note) {
+  if (!note || typeof note !== "string") return false;
+  if (note.length > 500) return true;
+  const hits = LONG_COPIED_TEXT_PATTERNS.filter((re) => re.test(note)).length;
+  return note.length > 280 && hits >= 2;
+}
 
 const LIVE_METADATA_BLOCKED_SOURCES = new Set([
   "eu-ai-act",
@@ -231,13 +246,100 @@ for (const file of listYamlFiles(path.join(ROOT, "data/verifications"))) {
     check(validate(file, data, schemas.sourceVerification));
   } else if (base.startsWith("evidence-export-candidate-review")) {
     check(validate(file, data, schemas.evidenceExportCandidateReview));
+  } else if (base.startsWith("manual-source-verification-intake")) {
+    check(validate(file, data, schemas.manualSourceVerificationIntake));
+    for (const intake of data.intakes ?? []) {
+      const label = `${file} → ${intake.intake_id ?? "?"} (policy)`;
+      if (intake.client_use_allowed !== false) {
+        failures.push({
+          label,
+          errors: [{ message: "manual intake must have client_use_allowed: false" }],
+        });
+      }
+      if (intake.final_evidence_allowed !== false) {
+        failures.push({
+          label,
+          errors: [{ message: "manual intake must have final_evidence_allowed: false" }],
+        });
+      }
+      if (intake.verified_on_source_approved !== false) {
+        failures.push({
+          label,
+          errors: [{ message: "manual intake must have verified_on_source_approved: false" }],
+        });
+      }
+      if (intake.verified_on_source_requested === true) {
+        failures.push({
+          label,
+          errors: [{ message: "manual intake must have verified_on_source_requested: false in v1.0.3" }],
+        });
+      }
+      if (intake.content_not_copied !== true) {
+        failures.push({
+          label,
+          errors: [{ message: "manual intake must have content_not_copied: true" }],
+        });
+      }
+      if (intake.no_full_text_storage !== true) {
+        failures.push({
+          label,
+          errors: [{ message: "manual intake must have no_full_text_storage: true" }],
+        });
+      }
+      if (intake.no_legal_advice !== true) {
+        failures.push({
+          label,
+          errors: [{ message: "manual intake must have no_legal_advice: true" }],
+        });
+      }
+      if (reviewerNoteLooksLikeCopiedLegalText(intake.reviewer_note)) {
+        failures.push({
+          label,
+          errors: [
+            {
+              message:
+                "reviewer_note appears to contain long copied legal text; use short workflow notes only",
+            },
+          ],
+        });
+      }
+      if (
+        intake.intake_status === "identity_confirmed_pending_control_tower" &&
+        !intake.source_identity_confirmed
+      ) {
+        failures.push({
+          label,
+          errors: [
+            {
+              message:
+                "identity_confirmed_pending_control_tower requires source_identity_confirmed: true",
+            },
+          ],
+        });
+      }
+      if (
+        intake.verification_target === "legal_instrument_identity" &&
+        intake.full_instrument_identity_confirmed &&
+        !intake.source_identity_confirmed
+      ) {
+        failures.push({
+          label,
+          errors: [
+            {
+              message:
+                "full_instrument_identity_confirmed requires source_identity_confirmed: true",
+            },
+          ],
+        });
+      }
+    }
   } else {
     failures.push({
       label: file,
       errors: [
         {
           message:
-            "unknown verification file prefix; use source-verification-*, source-identity-review-*, content-review-*, evidence-export-candidate-review-*, or url-check-*",
+            "unknown verification file prefix; use source-verification-*, source-identity-review-*, content-review-*, evidence-export-candidate-review-*, manual-source-verification-intake-*, or url-check-*",
         },
       ],
     });
@@ -1208,6 +1310,34 @@ for (const file of listYamlFiles(candidateDir)) {
       failures.push({
         label: `${file} → ${c.candidate_id} (referential)`,
         errors: [{ message: `unknown source_item_id (detected_change): ${c.source_item_id}` }],
+      });
+    }
+  }
+}
+
+// Referential integrity (manual source verification intake)
+for (const file of listYamlFiles(path.join(ROOT, "data/verifications"))) {
+  const base = path.basename(file);
+  if (!base.startsWith("manual-source-verification-intake")) continue;
+  const batch = readYaml(file);
+  for (const intake of batch.intakes ?? []) {
+    const label = `${file} → ${intake.intake_id ?? "?"} (referential)`;
+    if (!sourceIds.has(intake.related_source_id)) {
+      failures.push({
+        label,
+        errors: [{ message: `unknown related_source_id: ${intake.related_source_id}` }],
+      });
+    }
+    if (intake.related_record_id && !recordIds.has(intake.related_record_id)) {
+      failures.push({
+        label,
+        errors: [{ message: `unknown related_record_id: ${intake.related_record_id}` }],
+      });
+    }
+    if (intake.related_candidate_id && !candidateIds.has(intake.related_candidate_id)) {
+      failures.push({
+        label,
+        errors: [{ message: `unknown related_candidate_id: ${intake.related_candidate_id}` }],
       });
     }
   }

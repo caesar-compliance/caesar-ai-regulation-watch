@@ -1,7 +1,8 @@
 # Content Review Workflow
 
 **Prepared:** 19 May 2026  
-**Phase:** v0.8.2 — controlled content review for records, detected changes, and source summaries
+**Last updated:** 20 May 2026  
+**Phase:** v1.0.3 — content review with manual source verification intake gate
 
 ---
 
@@ -50,17 +51,21 @@ When a human reviewer completes content review with documented evidence:
 
 ```text
 1. Confirm technical URL + source identity (prior layers) where possible
-2. Open official_url_checked in a browser (human only)
-3. Compare summary, dates, status fields to the live official page
-4. Log outcome in content-review-YYYY-MM-DD.yml
-5. Update record/detected-change fields only when evidence supports it
-6. Regenerate exports and re-check review queue
+2. If automated checks are blocked, use manual source verification intake (v1.0.3) — do not loop automated retries
+3. Open official_url_checked in a browser (human only)
+4. Compare summary, dates, status fields to the live official page
+5. Log outcome in content-review-YYYY-MM-DD.yml
+6. Update record/detected-change fields only when evidence supports it
+7. Regenerate exports and re-check review queue
 ```
 
 ### `verified_on_source`
 
-Set `verified_on_source: true` on a record **only when**:
+**v1.0.3:** `verified_on_source` remains **0** on all records. No automatic changes from content review or manual intake batches.
 
+Set `verified_on_source: true` on a record **only when** Control Tower explicitly approves per [VERIFIED_ON_SOURCE_POLICY.md](./VERIFIED_ON_SOURCE_POLICY.md), including:
+
+- Completed [manual source verification intake](./MANUAL_SOURCE_VERIFICATION_INTAKE_GUIDE.md) where required (blocked sources), **and**
 - A human opened the official source in a browser during content review, **and**
 - Key title, summary, status, and date fields are source-supported, **and**
 - `review_result` is `matches_source_at_high_level` with `source_support_level: high`, **and**

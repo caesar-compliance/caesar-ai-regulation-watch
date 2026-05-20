@@ -11,6 +11,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.3] - 20 May 2026
+
+### Added
+
+- **Manual source verification intake** — `schemas/manual-source-verification-intake.schema.json`, batch `manual-source-verification-intake-2026-05-20-v103.yml` (Australia, EUR-Lex, Japan METI placeholders).
+- **Policy gate** — [VERIFIED_ON_SOURCE_POLICY.md](docs/VERIFIED_ON_SOURCE_POLICY.md), [MANUAL_SOURCE_VERIFICATION_INTAKE_GUIDE.md](docs/MANUAL_SOURCE_VERIFICATION_INTAKE_GUIDE.md).
+- **Public export** — `/data/manual-source-verification-intake.json`, snapshot counts (`manual_source_verification_intake_count`, `pending_human_browser_input_count`, `verified_on_source_approved_count: 0`).
+- **Site page** — `/source-verification/` (manual intake summary + policy warning).
+
+### Changed
+
+- **Source verification workflow** — blocked sources route to manual intake, not automated retry loops.
+- **Product version** — `v1.0.3`.
+
+### Notes
+
+- No `verified_on_source: true`, no client/final evidence, no legal advice. Human browser input still pending for AU/EUR-Lex/Japan.
+
+---
+
 ## [1.0.2] - 20 May 2026
 
 ### Added
