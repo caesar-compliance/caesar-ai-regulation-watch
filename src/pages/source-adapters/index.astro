@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import {
   getManualSourceIntakeRunEntries,
+  getNetworkDryRunApprovalEntries,
   getSourceAdapterAllowlistEntries,
   getSource,
 } from "../../lib/data";
@@ -10,6 +11,7 @@ import { PROJECT_VERSION_LABEL } from "../../lib/project-version";
 
 const adapters = getSourceAdapterAllowlistEntries();
 const intakeRuns = getManualSourceIntakeRunEntries();
+const networkApprovals = getNetworkDryRunApprovalEntries();
 const disabledCount = adapters.filter((a) => a.status === "disabled").length;
 const draftCount = adapters.filter((a) => a.status === "draft").length;
 ---
@@ -38,8 +40,9 @@ const draftCount = adapters.filter((a) => a.status === "draft").length;
     </dl>
     <p>
       <small>
-        See <code>docs/SOURCE_ADAPTER_ALLOWLIST.md</code>, <code>docs/MANUAL_SOURCE_INTAKE_RUNNER.md</code>, and{" "}
-        <code>docs/RSS_API_ADAPTER_SAFETY_MODEL.md</code>. Fixture parser:{" "}
+        See <code>docs/SOURCE_ADAPTER_ALLOWLIST.md</code>, <code>docs/MANUAL_SOURCE_INTAKE_RUNNER.md</code>,{" "}
+        <code>docs/NETWORK_DRY_RUN_APPROVAL_MODEL.md</code>, and <code>docs/RSS_API_ADAPTER_SAFETY_MODEL.md</code>.
+        Fixture parser:{" "}
         <code>npm run build:source-adapter-fixtures</code> (local only). Manual intake:{" "}
         <code>npm run run:manual-source-intake</code> (CLI only; no run button on this page).
       </small>
@@ -146,6 +149,60 @@ const draftCount = adapters.filter((a) => a.status === "draft").length;
                 <td>{r.network_allowed ? "allowed" : "false"}</td>
                 <td>{r.schedule_enabled ? "enabled" : "false"}</td>
                 <td><span class="mono">{r.output_path}</span></td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Network dry-run approval packets</h2>
+    <p>
+      T054 planning-only registry for a future single-source network dry-run — read-only. No run buttons. No
+      endpoint preview. Control Tower approval required before any T055 execution.
+    </p>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Approval</th>
+            <th>Adapter</th>
+            <th>Status</th>
+            <th>Mode</th>
+            <th>Network</th>
+            <th>Schedule</th>
+            <th>Limits</th>
+            <th>Paths</th>
+            <th>CT approval</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            networkApprovals.map((a) => (
+              <tr>
+                <td>
+                  <span class="mono">{a.approval_id}</span>
+                  <br />
+                  <small class="mono">run {a.run_id}</small>
+                </td>
+                <td><span class="mono">{a.adapter_id}</span></td>
+                <td>
+                  <span class={`badge badge--status-${a.status}`}>{a.status}</span>
+                </td>
+                <td><span class="mono">{a.mode}</span></td>
+                <td>{a.network_execution_allowed ? "allowed" : "false"}</td>
+                <td>{a.schedule_enabled ? "enabled" : "false"}</td>
+                <td>
+                  max {a.max_items} items / {a.max_bytes} bytes / {a.timeout_seconds}s
+                </td>
+                <td>
+                  <span class="mono">{a.output_path}</span>
+                  <br />
+                  <span class="mono">{a.dry_run_plan_path}</span>
+                </td>
+                <td>{a.control_tower_approval_required ? "required" : "false"}</td>
               </tr>
             ))
           }

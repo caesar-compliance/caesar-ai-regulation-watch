@@ -11,11 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **T054 network dry-run approval architecture** — `schemas/network-dry-run-approval.schema.json`, `data/source-adapters/network-dry-run-approvals.yml` (pilot `T054-001` linked to `T053-001`), `npm run validate:network-dry-run-approvals`, `npm run build:network-dry-run-plan`, guarded `npm run run:approved-network-dry-run` (refuses in T054), [docs/NETWORK_DRY_RUN_APPROVAL_MODEL.md](docs/NETWORK_DRY_RUN_APPROVAL_MODEL.md), network approval section on `/source-adapters/`.
 - **T053 manual source intake runner** — `schemas/manual-source-intake-run.schema.json`, `data/source-adapters/manual-intake-runs.yml` (pilot `T053-001` / `edpb-publications-rss`), `npm run validate:manual-source-intake`, `npm run run:manual-source-intake` (fixture-only CLI), [docs/MANUAL_SOURCE_INTAKE_RUNNER.md](docs/MANUAL_SOURCE_INTAKE_RUNNER.md), manual intake section on `/source-adapters/`.
 - **T052 source adapter allowlist architecture** — `schemas/source-adapter-allowlist.schema.json`, `data/source-adapters/source-adapter-allowlist.yml`, safety docs, `npm run validate:source-adapters`, fixture-only RSS/Atom parser (`npm run build:source-adapter-fixtures`), public export `/data/source-adapter-allowlist.json`, page `/source-adapters/`.
 
 ### Notes
 
+- T054 (branch): planning-only dry-run approval; no live network; no scheduling; plan under `generated/network-dry-run-plans/` (gitignored). Live site remains v1.0.7; no tag/deploy/closeout in T054.
 - T053 merged to main (PR #13, squash commit `0469a9e`). Fixture-first intake; no live network; no scheduling; output under `generated/source-intake-candidates/` (gitignored). Live site remains v1.0.7; no tag/deploy/closeout in T053.
 - T052 merged to main (PR #12, squash commit `f3d2055`). No live source collection; adapters disabled/draft/manual-gated.
 

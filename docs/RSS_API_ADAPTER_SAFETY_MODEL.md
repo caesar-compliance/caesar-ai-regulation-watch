@@ -79,3 +79,22 @@ npm run run:manual-source-intake -- --run-id T053-001 --fixture fixtures/source-
 - Does **not** publish candidates to `public/data/` or enable scheduling.
 
 See [MANUAL_SOURCE_INTAKE_RUNNER.md](MANUAL_SOURCE_INTAKE_RUNNER.md).
+
+---
+
+## Network dry-run approval (T054)
+
+T054 adds approval packets and a **planning-only** dry-run plan generator. No live fetch, no scheduling, no candidate output in T054.
+
+```bash
+npm run validate:network-dry-run-approvals
+npm run build:network-dry-run-plan -- --approval-id T054-001
+```
+
+Future runner stub refuses execution in T054:
+
+```bash
+npm run run:approved-network-dry-run -- --approval-id T054-001
+```
+
+See [NETWORK_DRY_RUN_APPROVAL_MODEL.md](NETWORK_DRY_RUN_APPROVAL_MODEL.md).

@@ -1759,4 +1759,13 @@ if (intakeCheck.status !== 0) {
   process.exit(intakeCheck.status ?? 1);
 }
 
+const networkApprovalCheck = spawnSync(
+  process.execPath,
+  [path.join(ROOT, "scripts/validate-network-dry-run-approvals.mjs")],
+  { cwd: ROOT, stdio: "inherit" },
+);
+if (networkApprovalCheck.status !== 0) {
+  process.exit(networkApprovalCheck.status ?? 1);
+}
+
 process.exit(0);
