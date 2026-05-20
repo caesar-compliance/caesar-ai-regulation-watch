@@ -5,10 +5,11 @@
 | Field | Value |
 |---|---|
 | Starting main | `98ed630` |
-| Branch | `task/T055-approved-single-source-network-dry-run` |
-| Implementation commit | `b438a18` |
-| PR | *(see final Control Tower report)* |
-| Final main commit | `98ed630` (unchanged until merge) |
+| Branch | `task/T055-approved-single-source-network-dry-run` (deleted after merge) |
+| Implementation commits | `b438a18`, `816442e` |
+| Merge commit | `10bdc4c` (PR #15 squash) |
+| PR | #15 merged |
+| Final main | `10bdc4c` after merge |
 | Generated network outputs | Untracked under `generated/` (gitignored; not committed) |
 
 ## Version / deploy

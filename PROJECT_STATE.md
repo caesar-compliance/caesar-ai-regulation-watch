@@ -6,7 +6,7 @@
 |---|---|
 | **Current version** | `v1.0.8` (implemented on main — T051 + T052 + T053 + T054) |
 | **Live version** | `v1.0.7` — tag `regulation-watch-v1.0.7` |
-| **Status** | T051–T055 on branch; T051–T054 merged to main; T055 adds one-off network dry-run execution; live site remains v1.0.7; tag/deploy/closeout pending future Control Tower approval |
+| **Status** | T051–T055 merged to main; one approved network dry-run executed locally; T056 manual review promotion in progress; live site remains v1.0.7; tag/deploy/closeout pending future Control Tower approval |
 | **Last deployment** | `DEPLOY-20260520-025` — commit `86c9262`, run [26189934284](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26189934284) |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
 | **Phase** | Public Technical MVP + profiles/drilldowns (T051) |
@@ -39,8 +39,8 @@ The **v1.0.8** codebase on main adds T051 richer jurisdiction profiles and regio
 - **T052 source adapter allowlist (merged)** — Schema, draft allowlist, validation, fixture-only parser, `/source-adapters/` page, public JSON export. No live collection; no scheduled crawl.
 - **T053 manual source intake runner (merged)** — `manual-intake-runs.yml`, validation, fixture-first CLI runner (`edpb-publications-rss` pilot), output under `generated/source-intake-candidates/`. No live network; no scheduling; gates closed. PR #13 squash `0469a9e`.
 - **T054 network dry-run approval (merged)** — `network-dry-run-approvals.yml`, validation, planning-only plan generator, guarded runner. Linked to T053-001 / `edpb-publications-rss`. PR #14 squash `78a00be`.
-- **T055 single-source network dry-run (branch)** — `single-network-dry-run-executions.yml` (`T055-001`), validation, guarded runner executed exactly one approved EDPB RSS GET; output under `generated/network-dry-run-candidates/` and `generated/network-dry-run-reports/` (gitignored, not published). No scheduling; gates unchanged.
-- **Recommended next** — T056 manual review promotion pipeline from one network dry-run candidate into a draft regulatory update record (not verified, not client/evidence use).
+- **T055 single-source network dry-run (merged)** — PR #15 squash `10bdc4c`; `single-network-dry-run-executions.yml` (`T055-001`); exactly one approved EDPB RSS GET executed locally; output under `generated/network-dry-run-candidates/` and `generated/network-dry-run-reports/` (local/gitignored, not committed or published). No scheduling; gates unchanged; no tag/deploy/closeout.
+- **T056 manual review promotion (in progress)** — promote one local dry-run candidate into a draft manual-review regulatory update record; not verified; not published.
 
 ### Remaining limitations (v1.0.8)
 

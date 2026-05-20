@@ -1,7 +1,7 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 21 May 2026
-**Current codebase:** v1.0.8 (T051 profiles + drilldowns; T052 allowlist; T053 manual intake; T054 dry-run approval) — tag/deploy pending future approval
+**Current codebase:** v1.0.8 (T051–T055 on main; T056 in progress) — tag/deploy pending future approval
 **Live release:** v1.0.7 (T050) — deployed `DEPLOY-20260520-025`, commit `86c9262`, tag `regulation-watch-v1.0.7`
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
@@ -46,10 +46,10 @@
    - Approval packet `T054-001`; planning-only plan generator; future runner refuses execution.
    - No live network; no scheduling; no publication; gates unchanged; no deploy/tag in T054.
 
-10. **T055 — Execute one approved single-source network dry-run** *(in progress on branch — one EDPB RSS dry-run executed locally)*
-   - Execution registry `T055-001`; exactly one GET; metadata-only `generated/` output; not published; gates unchanged; no deploy/tag.
+10. **T055 — Execute one approved single-source network dry-run** *(merged to main — PR #15, squash `10bdc4c`)*
+   - Execution registry `T055-001`; exactly one GET executed locally; metadata-only `generated/` output; not published; gates unchanged; no deploy/tag.
 
-11. **T056 — Manual review promotion from network dry-run candidate** *(recommended next)*
+11. **T056 — Manual review promotion from network dry-run candidate** *(in progress)*
    - Promote one dry-run candidate into a draft regulatory update YAML record; still not verified; not client/evidence use; no publication until reviewed.
 
 ---

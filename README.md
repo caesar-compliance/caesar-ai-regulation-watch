@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **Status** | v1.0.8 (T051–T055; T051–T054 on main); live site v1.0.7 `DEPLOY-20260520-025` — deploy/tag pending |
+| **Status** | v1.0.8 (T051–T055 on main; T056 in progress); live site v1.0.7 `DEPLOY-20260520-025` — deploy/tag pending |
 | **Hosting** | GitHub Pages — static site (Astro) |
 | **Scope** | AI regulation tracking, country profiles, latest updates, source monitoring, metrics and structured exports |
 | **Safety** | Not legal advice; source transparency and automation confidence labels apply |
@@ -266,12 +266,10 @@ Canonical values, review workflow, and future evidence export shape:
 
 ## Project status
 
-**v1.0.8 (main)** — T051 richer jurisdiction profiles, `/regions/` and `/topics/` drilldowns, JSON exports. T052 source adapter allowlist (`/source-adapters/`). T053 manual source intake runner (merged PR #13, fixture-first). T054 network dry-run approval (merged PR #14, planning-only, [docs/NETWORK_DRY_RUN_APPROVAL_MODEL.md](docs/NETWORK_DRY_RUN_APPROVAL_MODEL.md)) — no live RSS/API collection. Tag `regulation-watch-v1.0.8` and deploy pending future Control Tower approval.
+**v1.0.8 (main)** — T051 richer jurisdiction profiles, `/regions/` and `/topics/` drilldowns, JSON exports. T052 source adapter allowlist (`/source-adapters/`). T053 manual source intake runner (merged PR #13, fixture-first). T054 network dry-run approval (merged PR #14, planning-only). T055 one approved EDPB RSS network dry-run executed locally (merged PR #15, squash `10bdc4c`) — metadata-only `generated/` output; [docs/SINGLE_SOURCE_NETWORK_DRY_RUN.md](docs/SINGLE_SOURCE_NETWORK_DRY_RUN.md). Not published; gates unchanged. Tag `regulation-watch-v1.0.8` and deploy pending future Control Tower approval.
 
 **v1.0.7 (live)** — [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) (`DEPLOY-20260520-025`, tag `regulation-watch-v1.0.7`). T050 map/compare + T049 feed.
 
-**T055 (branch):** One approved EDPB RSS network dry-run executed locally — metadata-only `generated/` output; [docs/SINGLE_SOURCE_NETWORK_DRY_RUN.md](docs/SINGLE_SOURCE_NETWORK_DRY_RUN.md). Not published; gates unchanged.
-
-**Next:** T056 — manual review promotion from one network dry-run candidate into a draft regulatory update record (not verified; not client/evidence use).
+**T056 (in progress):** Manual review promotion from one network dry-run candidate into a draft regulatory update record (not verified; not client/evidence use).
 
 See [PROJECT_STATE.md](PROJECT_STATE.md) and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md).

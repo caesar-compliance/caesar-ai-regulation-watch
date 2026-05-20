@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.8 on main — T051 + T052 + T053 + T054; live v1.0.7 `DEPLOY-20260520-025`)
+**Last updated:** 21 May 2026 (v1.0.8 on main — T051–T055; T056 in progress; live v1.0.7 `DEPLOY-20260520-025`)
 
 ---
 
@@ -230,7 +230,7 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **scripts/run-approved-network-dry-run.mjs** | Guarded one-off network runner (T055) |
 | **generated/network-dry-run-plans/T054-001.json** | Plan output (gitignored) |
 
-## T055 — Single-source network dry-run execution (v1.0.8 branch)
+## T055 — Single-source network dry-run execution (merged to main)
 
 | Path | Purpose |
 |---|---|
