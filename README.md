@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **Status** | v1.0.6 — T049 offline metadata adapter (33 updates: 15 manual seed + 18 metadata adapter); `DEPLOY-20260520-024` deployed and tagged `regulation-watch-v1.0.6` |
+| **Status** | v1.0.7 — T050 choropleth map + jurisdiction comparison; `DEPLOY-20260520-025` |
 | **Hosting** | GitHub Pages — static site (Astro) |
 | **Scope** | AI regulation tracking, country profiles, latest updates, source monitoring, metrics and structured exports |
 | **Safety** | Not legal advice; source transparency and automation confidence labels apply |
@@ -266,4 +266,4 @@ Canonical values, review workflow, and future evidence export shape:
 
 ## Project status
 
-**v1.0.6** — [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) (`DEPLOY-20260520-024`, commit `1e8b7f0`, run [26187837019](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26187837019), tag `regulation-watch-v1.0.6`). T049 offline metadata adapter for regulatory updates feed plus T048 tracker skeleton. 33 updates (`manual_seed` + `offline_metadata_adapter`). Not live scraping. Not legal advice. Not final evidence. Not complete coverage. Evidence gates remain closed. **Next:** T050 choropleth map + compare jurisdictions. See [PROJECT_STATE.md](PROJECT_STATE.md), [NEXT_ACTIONS.md](NEXT_ACTIONS.md), and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md).
+**v1.0.7** — [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) (`DEPLOY-20260520-025`, tag `regulation-watch-v1.0.7` after deploy). T050 choropleth-style tracker map and `/compare/` for 2–4 jurisdictions plus T049 metadata adapter feed (33 updates). Heuristic tracker metadata — not legal advice, not legal certainty, not final evidence. Not complete coverage. Evidence gates remain closed. **Next:** T051 richer country profiles + regional/topic drilldowns. See [PROJECT_STATE.md](PROJECT_STATE.md), [NEXT_ACTIONS.md](NEXT_ACTIONS.md), and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md).

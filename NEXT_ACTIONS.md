@@ -1,7 +1,7 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 20 May 2026
-**Current release:** v1.0.6 (T049 offline metadata adapter) — deployed `DEPLOY-20260520-024` (commit `1e8b7f0`, run [26187837019](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26187837019)); prior live v1.0.5 (`DEPLOY-20260520-023`, tag `regulation-watch-v1.0.5`)
+**Current release:** v1.0.7 (T050 map + compare) — deploy `DEPLOY-20260520-025` in progress; prior live v1.0.6 (`DEPLOY-20260520-024`, tag `regulation-watch-v1.0.6`)
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
 ---
@@ -25,12 +25,12 @@
    - Feed: 33 updates (`manual_seed` 15 + `offline_metadata_adapter` 18); method filter and badges on public pages.
    - Live API/RSS scheduling and fetch adapters remain separate (Phase 2 P2-01).
 
-5. **T050 — Choropleth map + compare jurisdictions** *(in progress on feature branch)*
+5. **T050 — Choropleth map + compare jurisdictions** *(merged; v1.0.7 release/deploy)*
    - Choropleth-style status panel on `/tracker/`; `/compare/` for 2–4 jurisdictions.
-   - Tracker scoring metadata on country status exports; `jurisdiction-comparison.json`.
+   - Tracker scoring metadata; `jurisdiction-comparison.json` export.
    - No GPL map copy; no scraping; gates remain closed.
 
-6. **T051 — Richer country profiles + regional/topic drilldowns** *(recommended next after T050)*
+6. **T051 — Richer country profiles + regional/topic drilldowns** *(next implementation task)*
    - Deeper jurisdiction profile UX from tracker metadata and source registry.
 
 ---
