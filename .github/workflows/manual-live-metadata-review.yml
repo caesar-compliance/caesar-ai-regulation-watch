@@ -39,11 +39,11 @@ jobs:
         run: npm run validate:data
 
       - name: Build live metadata review artifact pack
-        env:
-          LIVE_METADATA_RUN_DATE: $(date -u +%Y-%m-%d)
-          LIVE_METADATA_SUFFIX: ci-${{ github.run_id }}
-          LIVE_METADATA_ARTIFACT_DIR: tmp/live-metadata-review-pack
-        run: npm run monitoring:live-artifact
+        run: |
+          export LIVE_METADATA_RUN_DATE="$(date -u +%Y-%m-%d)"
+          export LIVE_METADATA_SUFFIX="ci-${{ github.run_id }}"
+          export LIVE_METADATA_ARTIFACT_DIR="tmp/live-metadata-review-pack"
+          npm run monitoring:live-artifact
 
       - name: Monitoring policy check
         run: npm run monitoring:policy-check
