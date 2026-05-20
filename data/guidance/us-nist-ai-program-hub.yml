@@ -3,7 +3,8 @@ record_id: policy-us-nist-ai-program-hub
 record_type: policy_framework
 record_origin: manual_sample
 verified_on_source: false
-content_review_status: not_reviewed
+content_review_status: reviewed_content_summary
+last_content_review_id: content-review-policy-us-nist-ai-program-hub
 title: NIST Artificial Intelligence program hub (sample pointer)
 jurisdiction_id: us-federal
 source_id: us-nist-ai-portal

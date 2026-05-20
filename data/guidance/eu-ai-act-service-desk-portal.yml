@@ -3,7 +3,8 @@ record_id: guidance-eu-ai-act-service-desk-portal
 record_type: guidance
 record_origin: manual_sample
 verified_on_source: false
-content_review_status: not_reviewed
+content_review_status: reviewed_content_summary
+last_content_review_id: content-review-guidance-eu-ai-act-service-desk-portal
 title: EU AI Act Service Desk — official portal (sample pointer)
 jurisdiction_id: eu
 source_id: eu-ai-act-service-desk

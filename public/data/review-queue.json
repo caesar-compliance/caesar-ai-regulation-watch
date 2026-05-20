@@ -13,11 +13,11 @@
     "technical_url_unchecked": 28,
     "technical_url_unreachable": 1,
     "redirected_url_needs_review": 1,
-    "content_not_reviewed": 73,
+    "content_not_reviewed": 66,
     "content_review_needs_update": 0,
-    "source_support_unclear": 0,
+    "source_support_unclear": 1,
     "detected_change_needs_content_review": 3,
-    "client_use_not_allowed": 67,
+    "client_use_not_allowed": 73,
     "detected_change_pending_review": 0,
     "watcher_errors": 0,
     "watcher_soft_errors": 0,
@@ -1078,21 +1078,20 @@
       "title": "Regulation (EU) 2024/1689 — Artificial Intelligence Act",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Content summary not human-reviewed. Technical URL reachable after remediation (content review still required). Client use not allowed.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Client use not allowed. Technical URL reachable after remediation (content review still required).",
       "review_reasons": [
         "pending_review",
         "verified_on_source_false",
         "legal_review_not_done",
-        "content_not_reviewed",
-        "technical_url_fixed",
-        "client_use_not_allowed"
+        "client_use_not_allowed",
+        "technical_url_fixed"
       ],
       "official_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689",
       "page_href": "/records/law-eu-ai-act-2024-1689/",
       "missing_official_url": false,
       "verified_on_source_false": true,
       "technical_url_status": "reachable",
-      "content_review_status": "not_reviewed",
+      "content_review_status": "reviewed_content_summary",
       "content_review_result": "partially_matches_source",
       "redirect_detected": false,
       "client_use_allowed": false
@@ -1180,12 +1179,13 @@
       "title": "EDPB — Artificial intelligence documents topic (sample pointer)",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Content summary not human-reviewed. Technical URL not checked or outcome uncertain.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Source support for summary/dates/status is unclear. Client use not allowed. Technical URL not checked or outcome uncertain.",
       "review_reasons": [
         "pending_review",
         "verified_on_source_false",
         "legal_review_not_done",
-        "content_not_reviewed",
+        "source_support_unclear",
+        "client_use_not_allowed",
         "technical_url_unchecked"
       ],
       "official_url": "https://www.edpb.europa.eu/our-work-tools/our-documents/topic/artificial-intelligence_en",
@@ -1193,10 +1193,10 @@
       "missing_official_url": false,
       "verified_on_source_false": true,
       "technical_url_status": null,
-      "content_review_status": "not_reviewed",
-      "content_review_result": null,
+      "content_review_status": "reviewed_content_summary",
+      "content_review_result": "source_support_unclear",
       "redirect_detected": false,
-      "client_use_allowed": null
+      "client_use_allowed": false
     },
     {
       "item_type": "record",
@@ -1204,12 +1204,12 @@
       "title": "EU AI Act Service Desk — official portal (sample pointer)",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Content summary not human-reviewed. Technical URL not checked or outcome uncertain.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Client use not allowed. Technical URL not checked or outcome uncertain.",
       "review_reasons": [
         "pending_review",
         "verified_on_source_false",
         "legal_review_not_done",
-        "content_not_reviewed",
+        "client_use_not_allowed",
         "technical_url_unchecked"
       ],
       "official_url": "https://ai-act-service-desk.ec.europa.eu/",
@@ -1217,10 +1217,10 @@
       "missing_official_url": false,
       "verified_on_source_false": true,
       "technical_url_status": null,
-      "content_review_status": "not_reviewed",
-      "content_review_result": null,
+      "content_review_status": "reviewed_content_summary",
+      "content_review_result": "matches_source_at_high_level",
       "redirect_detected": false,
-      "client_use_allowed": null
+      "client_use_allowed": false
     },
     {
       "item_type": "record",
@@ -1253,12 +1253,12 @@
       "title": "European approach to artificial intelligence (sample pointer)",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Content summary not human-reviewed. Technical URL not checked or outcome uncertain.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Client use not allowed. Technical URL not checked or outcome uncertain.",
       "review_reasons": [
         "pending_review",
         "verified_on_source_false",
         "legal_review_not_done",
-        "content_not_reviewed",
+        "client_use_not_allowed",
         "technical_url_unchecked"
       ],
       "official_url": "https://digital-strategy.ec.europa.eu/en/policies/european-approach-artificial-intelligence",
@@ -1266,10 +1266,10 @@
       "missing_official_url": false,
       "verified_on_source_false": true,
       "technical_url_status": null,
-      "content_review_status": "not_reviewed",
-      "content_review_result": null,
+      "content_review_status": "reviewed_content_summary",
+      "content_review_result": "matches_source_at_high_level",
       "redirect_detected": false,
-      "client_use_allowed": null
+      "client_use_allowed": false
     },
     {
       "item_type": "record",
@@ -1380,12 +1380,12 @@
       "title": "AI Verify Foundation — official site (sample pointer)",
       "jurisdiction_id": "singapore",
       "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Content summary not human-reviewed. Technical URL not checked or outcome uncertain.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Client use not allowed. Technical URL not checked or outcome uncertain.",
       "review_reasons": [
         "pending_review",
         "verified_on_source_false",
         "legal_review_not_done",
-        "content_not_reviewed",
+        "client_use_not_allowed",
         "technical_url_unchecked"
       ],
       "official_url": "https://www.aiverifyfoundation.sg/",
@@ -1393,10 +1393,10 @@
       "missing_official_url": false,
       "verified_on_source_false": true,
       "technical_url_status": null,
-      "content_review_status": "not_reviewed",
-      "content_review_result": null,
+      "content_review_status": "reviewed_content_summary",
+      "content_review_result": "matches_source_at_high_level",
       "redirect_detected": false,
-      "client_use_allowed": null
+      "client_use_allowed": false
     },
     {
       "item_type": "record",
@@ -1456,12 +1456,12 @@
       "title": "UK Government — Introduction to AI assurance (sample pointer)",
       "jurisdiction_id": "uk",
       "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Content summary not human-reviewed. Technical URL not checked or outcome uncertain.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Client use not allowed. Technical URL not checked or outcome uncertain.",
       "review_reasons": [
         "pending_review",
         "verified_on_source_false",
         "legal_review_not_done",
-        "content_not_reviewed",
+        "client_use_not_allowed",
         "technical_url_unchecked"
       ],
       "official_url": "https://www.gov.uk/government/publications/introduction-to-ai-assurance",
@@ -1469,10 +1469,10 @@
       "missing_official_url": false,
       "verified_on_source_false": true,
       "technical_url_status": null,
-      "content_review_status": "not_reviewed",
-      "content_review_result": null,
+      "content_review_status": "reviewed_content_summary",
+      "content_review_result": "matches_source_at_high_level",
       "redirect_detected": false,
-      "client_use_allowed": null
+      "client_use_allowed": false
     },
     {
       "item_type": "record",
@@ -1532,12 +1532,12 @@
       "title": "NIST Artificial Intelligence program hub (sample pointer)",
       "jurisdiction_id": "us-federal",
       "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Content summary not human-reviewed. Technical URL not checked or outcome uncertain.",
+      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Client use not allowed. Technical URL not checked or outcome uncertain.",
       "review_reasons": [
         "pending_review",
         "verified_on_source_false",
         "legal_review_not_done",
-        "content_not_reviewed",
+        "client_use_not_allowed",
         "technical_url_unchecked"
       ],
       "official_url": "https://www.nist.gov/artificial-intelligence",
@@ -1545,10 +1545,10 @@
       "missing_official_url": false,
       "verified_on_source_false": true,
       "technical_url_status": null,
-      "content_review_status": "not_reviewed",
-      "content_review_result": null,
+      "content_review_status": "reviewed_content_summary",
+      "content_review_result": "matches_source_at_high_level",
       "redirect_detected": false,
-      "client_use_allowed": null
+      "client_use_allowed": false
     },
     {
       "item_type": "record",
