@@ -3,10 +3,10 @@
 **Last updated:** 20 May 2026  
 **Prepared for:** Control Tower sign-off before `regulation-watch-v1.0.0` tag  
 **Prerequisite:** v0.9.9 MVP readiness audit complete and deployed  
-**Current RC:** `v1.0.0-rc1` — see [V1_RELEASE_CANDIDATE_DECISION_RECORD.md](V1_RELEASE_CANDIDATE_DECISION_RECORD.md)  
-**Final decision pack:** [V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md)
+**Released:** `v1.0.0` Public Technical MVP — see [V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md) (**APPROVED_WITH_LIMITATIONS**)  
+**Prior RC:** `v1.0.0-rc1` — [V1_RELEASE_CANDIDATE_DECISION_RECORD.md](V1_RELEASE_CANDIDATE_DECISION_RECORD.md)
 
-Use this checklist when promoting from **technical MVP candidate** (v0.9.x / v1.0.0-rc1) to **final v1.0.0**. All items must be explicitly checked or waived by Control Tower with documented reason.
+Use this checklist for **final v1.0.0** promotion and post-release hygiene. Control Tower signed **APPROVED_WITH_LIMITATIONS** on 20 May 2026.
 
 **Status legend:** ✅ pass · ⏳ pending CT review · 🚫 blocked · 📋 post-MVP
 
@@ -18,9 +18,9 @@ Use this checklist when promoting from **technical MVP candidate** (v0.9.x / v1.
 |---|---|
 | **Safety gates** | ✅ pass — policy greps zero; validation enforced |
 | **Technical deploy** | ✅ pass — DEPLOY-20260520-017; tag `regulation-watch-v1.0.0-rc1` → `0765327`; smoke pass |
-| **Public wording** | ✅ pass — conservative MVP candidate labels; disclaimers present |
-| **Source blockers** | ⏳ pending waiver or blocker — Australia, EUR-Lex, EDPB, UNESCO, incomplete content review |
-| **Final v1.0.0** | ⏳ pending CT decision — see [V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md) |
+| **Public wording** | ✅ pass — Public Technical MVP labels; disclaimers present |
+| **Source blockers** | ✅ waived — accepted limitations per [V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md) |
+| **Final v1.0.0** | ✅ **APPROVED_WITH_LIMITATIONS** — Public Technical MVP (20 May 2026) |
 
 ---
 
@@ -139,8 +139,8 @@ Use this checklist when promoting from **technical MVP candidate** (v0.9.x / v1.
 - [ ] ✅ [V1_TECHNICAL_MVP_SCOPE_FREEZE.md](V1_TECHNICAL_MVP_SCOPE_FREEZE.md) created
 - [ ] ✅ [V1_RELEASE_CANDIDATE_DECISION_RECORD.md](V1_RELEASE_CANDIDATE_DECISION_RECORD.md) created
 - [ ] ⏳ [V1_MVP_BLOCKERS_AND_DECISIONS.md](V1_MVP_BLOCKERS_AND_DECISIONS.md) section B items resolved or waived — **pending CT review** (final decision: [V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md))
-- [x] ✅ README / PROJECT_STATE / NEXT_ACTIONS reflect v1.0.0-rc1 scope honestly
-- [x] ✅ [V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md) created — **pending CT sign-off**
+- [x] ✅ README / PROJECT_STATE / NEXT_ACTIONS reflect v1.0.0 Public Technical MVP scope honestly
+- [x] ✅ [V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md) signed — **APPROVED_WITH_LIMITATIONS**
 
 ---
 
@@ -157,15 +157,15 @@ Use this checklist when promoting from **technical MVP candidate** (v0.9.x / v1.
 
 ---
 
-## Control Tower sign-off (final v1.0.0 only)
+## Control Tower sign-off (final v1.0.0)
 
 | Field | Value |
 |---|---|
-| **Sign-off date** | |
-| **Signed by** | |
-| **Decision** | ☐ Proceed final v1.0.0 · ☐ More source verification · ☐ Keep as RC |
-| **Waivers** (section A items, if any) | |
-| **Notes** | |
+| **Sign-off date** | 20 May 2026 |
+| **Signed by** | Artem / Control Tower |
+| **Decision** | **APPROVED_WITH_LIMITATIONS** — Public Technical MVP |
+| **Waivers** (section B blockers) | Australia WAF; EUR-Lex HTTP 202; EDPB 502; UNESCO `check_artifact`; incomplete content review; `verified_on_source: 0` |
+| **Notes** | Final tag `regulation-watch-v1.0.0` on deployed main commit after v1.0.0 deploy + smoke |
 
 ---
 
@@ -191,8 +191,10 @@ For the v0.9.9 technical release candidate pack:
 - [x] ✅ Deploy + smoke + tag `regulation-watch-v1.0.0-rc1` on deployed commit
 - [x] ✅ Control Tower notified with final implementation report
 
-## v1.0.0 final checklist (pending CT)
+## v1.0.0 final checklist (Public Technical MVP)
 
-- [ ] ⏳ [V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md) signed — APPROVED_WITH_LIMITATIONS or NOT_APPROVED_BLOCKERS_REMAIN
-- [ ] ⏳ Source blockers waived or resolved per CT decision
-- [ ] ⏳ Final tag `regulation-watch-v1.0.0` (only if APPROVED_WITH_LIMITATIONS)
+- [x] ✅ [V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md) signed — **APPROVED_WITH_LIMITATIONS**
+- [x] ✅ Source blockers accepted as documented limitations (waived)
+- [x] ✅ Version labels updated to v1.0.0 / package 1.0.0
+- [ ] ⏳ Final deploy + smoke (v1.0.0 labels)
+- [ ] ⏳ Final tag `regulation-watch-v1.0.0` on deployed main commit

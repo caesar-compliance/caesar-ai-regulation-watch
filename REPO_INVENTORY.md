@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 20 May 2026 (v1.0.0-rc1 release candidate)
+**Last updated:** 20 May 2026 (v1.0.0 Public Technical MVP)
 
 ---
 
@@ -15,9 +15,10 @@
 | **ROADMAP.md** | v0.6.1 URL verification + review queue |
 | **CHANGELOG.md** | Semver history |
 | **REPO_INVENTORY.md** | This file |
-| **PROJECT_STATE.md** | v1.0.0-rc1 phase (public technical MVP candidate) |
+| **PROJECT_STATE.md** | v1.0.0 Public Technical MVP (approved with limitations) |
 | **docs/MVP_READINESS_AUDIT.md** | Module readiness assessment (v0.9.9) |
 | **docs/V1_TECHNICAL_MVP_SCOPE_FREEZE.md** | v1.0.0 technical MVP scope freeze |
+| **docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md** | v1.0.0 final Control Tower decision (APPROVED_WITH_LIMITATIONS) |
 | **docs/V1_RELEASE_CANDIDATE_DECISION_RECORD.md** | v1.0.0-rc1 Control Tower decision record |
 | **docs/V1_MVP_BLOCKERS_AND_DECISIONS.md** | v1.0.0 blocker classification |
 | **docs/V1_RELEASE_CANDIDATE_CHECKLIST.md** | Pre-v1.0.0 / RC sign-off checklist |

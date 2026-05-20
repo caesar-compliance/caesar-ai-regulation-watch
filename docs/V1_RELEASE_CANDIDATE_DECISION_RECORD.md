@@ -4,6 +4,8 @@
 **Prepared by:** Implementation agent  
 **For:** Control Tower (ChatGPT/Artem)
 
+**Final status:** Control Tower approved final **v1.0.0** as **Public Technical MVP** with limitations — see [V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md).
+
 ---
 
 ## Release candidate identity

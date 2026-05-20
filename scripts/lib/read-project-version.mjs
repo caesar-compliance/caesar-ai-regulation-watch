@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Read public product version from src/lib/project-version.ts (canonical for site + snapshot).
- * package.json may use npm semver prerelease (e.g. 1.0.0-rc.1) while display uses 1.0.0-rc1.
+ * package.json semver may differ in formatting; public display version is canonical in project-version.ts.
  */
 import fs from "node:fs";
 import path from "node:path";

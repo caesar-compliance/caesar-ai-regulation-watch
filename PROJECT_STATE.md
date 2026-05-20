@@ -9,41 +9,30 @@
 | Field | Value |
 |---|---|
 | **Repository** | `caesar-ai-regulation-watch` |
-| **Current version** | `v1.0.0-rc1` (release candidate — not final v1.0.0) |
-| **Current phase** | Public technical MVP candidate |
-| **Status** | Live on custom domain; v1.0.0-rc1 deployed (`0765327`); tag `regulation-watch-v1.0.0-rc1` |
-| **Working branch** | `main` |
-| **Latest completed task** | v1.0.0 final Control Tower decision pack (docs only — no new features) |
+| **Current version** | `v1.0.0` |
+| **Current phase** | Public Technical MVP |
+| **Status** | Approved with limitations — deploy in progress for final v1.0.0 label |
+| **Control Tower decision** | **APPROVED_WITH_LIMITATIONS** — [docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md) |
+| **Working branch** | `main` (after merge) |
 | **Prior deployment** | `DEPLOY-20260520-017` — v1.0.0-rc1, commit `0765327`, run [26163494827](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26163494827) |
-| **Git tag (live)** | `regulation-watch-v1.0.0-rc1` → `0765327` |
-| **Next recommended step** | Control Tower: sign [docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md) — final v1.0.0 pending decision |
-| **Final v1.0.0 status** | **Pending Control Tower decision** — not approved; no `regulation-watch-v1.0.0` tag |
+| **Prior tag** | `regulation-watch-v1.0.0-rc1` → `0765327` |
+| **Final tag** | `regulation-watch-v1.0.0` — on deployed main commit after final deploy + smoke |
 
 ---
 
-## v1.0.0-rc1 scope (live)
+## v1.0.0 scope (Public Technical MVP)
 
 | Property | Value |
 |---|---|
-| Type | Release candidate — scope freeze + docs + version bump |
+| Type | Public Technical MVP — scope freeze + version label + docs |
 | New features | **None** |
 | New jurisdictions/sources | **None** |
 | Monitoring allowlist expansion | **None** |
 | Scheduled monitoring | **None** |
 | Client / final evidence | **None** — `client_use_allowed: 0`; no final export |
-| Known source limitations | Australia WAF, EUR-Lex HTTP 202, EDPB 502, UNESCO `check_artifact`, `verified_on_source: 0`, incomplete content review |
+| Known source limitations | Australia WAF, EUR-Lex HTTP 202, EDPB 502, UNESCO `check_artifact`, `verified_on_source: 0`, incomplete content review — **accepted limitations** |
 
-**Important:** v1.0.0-rc1 is live. **Final v1.0.0** requires Control Tower sign-off in [docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md).
-
-## v1.0.0 final decision pack (this task)
-
-| Property | Value |
-|---|---|
-| Type | Governance/release docs only |
-| New features | **None** |
-| Docs added | `V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md` |
-| Docs updated | `V1_RELEASE_CANDIDATE_CHECKLIST.md`, `PROJECT_STATE.md`, `NEXT_ACTIONS.md`, `CHANGELOG.md` |
-| Final tag | **Not created** — pending CT decision |
+**Important:** v1.0.0 is **not** a production legal tracker, **not** complete coverage, **not** legal advice, **not** client evidence. See [docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md).
 
 ---
 
@@ -51,11 +40,11 @@
 
 | Area | Verdict |
 |---|---|
-| Public site + custom domain | Operational — public technical MVP candidate |
+| Public site + custom domain | Operational — Public Technical MVP |
 | Data validation + exports | Operational |
 | Governance gates | Enforced (`client_use_allowed: 0`) |
 | Manual monitoring workflow | Operational (v0.9.8) |
-| Final v1.0.0 readiness | **Blocked / pending CT review** — see [docs/V1_MVP_BLOCKERS_AND_DECISIONS.md](docs/V1_MVP_BLOCKERS_AND_DECISIONS.md) |
+| Final v1.0.0 | **Approved with limitations** — source/content gaps accepted as documented limitations |
 
 Full module assessment: [docs/MVP_READINESS_AUDIT.md](docs/MVP_READINESS_AUDIT.md).  
 Scope freeze: [docs/V1_TECHNICAL_MVP_SCOPE_FREEZE.md](docs/V1_TECHNICAL_MVP_SCOPE_FREEZE.md).
