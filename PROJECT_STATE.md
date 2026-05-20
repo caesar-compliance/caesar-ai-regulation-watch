@@ -2,33 +2,16 @@
 
 **Last updated:** 20 May 2026
 
----
-
-## Operational metadata
-
 | Field | Value |
 |---|---|
-| **Current version** | `v1.0.2` (in release) |
-| **Prior live** | v1.0.1 — `489f9e7`; tag `regulation-watch-v1.0.1` |
+| **Current version** | `v1.0.2` |
+| **Status** | Live — `d36909e`; tag `regulation-watch-v1.0.2` |
+| **Deployment** | `DEPLOY-20260520-020` — [26166657168](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26166657168) |
 | **Phase** | Public Technical MVP |
 
----
+## v1.0.2 summary
 
-## v1.0.2 human/browser sprint
-
-| Target | Outcome |
-|---|---|
-| **Canada** | **Improved** — HTTP 200; title confirmed on canada.ca |
-| **Australia** | **Unchanged** — HTML 403/timeout; `pending_official_review` |
-| **EUR-Lex** | **Unchanged** — bot gate; candidate `needs_more_source_review` |
-| **Japan METI** | **Unchanged** — timeout/403 |
-| **Content reviews** | **28 → 36** (exported count) |
-
-No new jurisdictions, monitoring allowlist, `verified_on_source`, or client evidence.
-
----
-
-## Policy baseline
-
-- `client_use_allowed: 0` · `verified_on_source: 0` · `legal_change_claimed: 0`
-- Not legal advice · not complete coverage · not client evidence
+- Canada source/content review **improved** (HTTP 200).
+- Content reviews **36** (was 28).
+- Australia / EUR-Lex / Japan blockers **documented**; not resolved in automated environment.
+- `verified_on_source: 0` · `client_use_allowed: 0` unchanged.
