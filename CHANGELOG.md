@@ -11,6 +11,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.9.6] - 20 May 2026
+
+### Added
+
+- **Cautious live metadata pilot** — allowlist (5 official sources), `scripts/run-live-metadata-pilot.mjs` (`npm run monitoring:live-metadata`), live run + change review pack YAML.
+- **Schemas** — `live-metadata-pilot`, `live-metadata-run`, `change-review-pack`.
+- **Public exports** — `live-metadata-runs.json`, `change-review-packs.json`; snapshot counts; review queue items for metadata review outcomes.
+- **Monitoring page** — live pilot section (allowlist, latest run, warnings).
+
+### Notes
+
+- Max one HEAD/GET per allowlisted source; metadata only; no full legal text; compares to v0.9.5 deterministic baseline; not scheduled broad crawl; `client_use_allowed: 0`; no final evidence export.
+
+---
+
 ## [0.9.5] - 20 May 2026
 
 ### Added

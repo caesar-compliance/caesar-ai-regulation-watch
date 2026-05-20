@@ -1,4 +1,7 @@
 ---
+import fs from "node:fs";
+import path from "node:path";
+import yaml from "js-yaml";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import {
   getWatchers,
@@ -39,20 +42,115 @@ const fetchableConfigs = sourceConfigs.filter((c) => c.allowed_to_fetch);
 const manualConfigs = sourceConfigs.filter((c) => c.adapter_type === "manual_only");
 const packRun = latestWatcherMonitoringRun();
 const packChecks = packRun?.checks ?? [];
+
+function readLiveMetadataFromDisk() {
+  const dir = path.join(process.cwd(), "data/monitoring");
+  if (!fs.existsSync(dir)) return { allowlist: null, run: null, pack: null };
+  const allowlistFile = fs
+    .readdirSync(dir)
+    .filter((f) => f.startsWith("live-metadata-pilot-allowlist-") && f.endsWith(".yml"))
+    .sort()
+    .reverse()[0];
+  const runFile = fs
+    .readdirSync(dir)
+    .filter((f) => f.startsWith("live-metadata-run-") && f.endsWith(".yml"))
+    .sort()
+    .reverse()[0];
+  const packFile = fs
+    .readdirSync(dir)
+    .filter((f) => f.startsWith("change-review-pack-") && f.endsWith(".yml"))
+    .sort()
+    .reverse()[0];
+  const read = (name: string | undefined) =>
+    name ? yaml.load(fs.readFileSync(path.join(dir, name), "utf8")) : null;
+  return {
+    allowlist: read(allowlistFile),
+    run: read(runFile),
+    pack: read(packFile),
+  };
+}
+
+const { allowlist: liveAllowlist, run: liveRun, pack: livePack } = readLiveMetadataFromDisk();
+const liveChecks = liveRun?.checks ?? [];
 ---
 
 <BaseLayout title="Monitoring" currentPath="/monitoring/">
   <h1>Monitoring</h1>
   <p class="lead">
-    Monitoring adapter pack and deterministic local runs for confirmed official sources ({PROJECT_VERSION_LABEL}).
+    Monitoring adapter pack, deterministic local runs, and cautious live metadata pilot for confirmed official sources ({PROJECT_VERSION_LABEL}).
     Not legal advice. Not complete coverage. Not client evidence.
   </p>
 
   <div class="banner banner--review" role="note">
-    <strong>Deterministic local run only.</strong> No scheduled broad crawl. No full legal text storage.
-    Blocked/WAF sources are manual-only. Human review required before any record update. Does not set{" "}
+    <strong>Deterministic local pack + cautious live metadata pilot.</strong> Max one request per allowlisted source;
+    metadata headers/title only; no link crawl; no full legal text storage. Not scheduled broad monitoring.
+    Blocked/WAF sources stay manual-only. Human review required before any record update. Does not set{" "}
     <code>verified_on_source</code> or <code>client_use_allowed</code>.
   </div>
+
+  {
+    liveAllowlist && liveRun ? (
+      <section>
+        <h2>Cautious live metadata pilot ({PROJECT_VERSION_LABEL})</h2>
+        <dl class="meta-grid">
+          <div><dt>Pilot ID</dt><dd class="mono">{liveAllowlist.pilot_id}</dd></div>
+          <div><dt>Allowlisted sources</dt><dd>{liveAllowlist.sources?.length ?? 0} (max 5)</dd></div>
+          <div><dt>Latest run</dt><dd class="mono">{liveRun.run_id}</dd></div>
+          <div><dt>Run mode</dt><dd>{humanizeId(liveRun.run_mode)}</dd></div>
+          <div><dt>Reference baseline</dt><dd class="mono">{liveRun.previous_reference_run_id ?? "—"}</dd></div>
+          <div>
+            <dt>metadata_check_ok</dt>
+            <dd>{liveChecks.filter((c) => c.check_result === "metadata_check_ok").length}</dd>
+          </div>
+          <div>
+            <dt>metadata_changed_needs_review</dt>
+            <dd>{liveChecks.filter((c) => c.check_result === "metadata_changed_needs_review").length}</dd>
+          </div>
+          <div>
+            <dt>metadata_check_failed</dt>
+            <dd>{liveChecks.filter((c) => c.check_result === "metadata_check_failed").length}</dd>
+          </div>
+          <div><dt>client_use_allowed</dt><dd>0</dd></div>
+          <div><dt>final_evidence_allowed</dt><dd>0</dd></div>
+        </dl>
+        <p>
+          <small>
+            <a href="/data/live-metadata-runs.json">live-metadata-runs.json</a>
+            {livePack ? <> · <a href="/data/change-review-packs.json">change-review-packs.json</a></> : null}
+            {" "}· Regenerate: <code>npm run monitoring:live-metadata</code>
+          </small>
+        </p>
+        <h3>Allowlisted sources (one request each)</h3>
+        <ul>
+          {(liveAllowlist.sources ?? []).map((s) => (
+            <li>
+              <span class="mono">{s.source_id}</span> — {s.request_method} · metadata only · no crawl
+            </li>
+          ))}
+        </ul>
+        <h3>Latest live check results</h3>
+        <ul>
+          {liveChecks.map((c) => (
+            <li>
+              <span class="mono">{c.source_id}</span> — {humanizeId(c.check_result)}
+              {c.http_status != null ? ` HTTP ${c.http_status}` : ""}
+              {c.requires_human_review ? " · needs review" : ""}
+            </li>
+          ))}
+        </ul>
+        {livePack ? (
+          <>
+            <h3>Change review pack</h3>
+            <p class="prose">
+              <small>
+                Pack <span class="mono">{livePack.change_review_pack_id}</span> — metadata differences are not legal/regulatory change claims.
+              </small>
+            </p>
+          </>
+        ) : null}
+      </section>
+    ) : null
+  }
 
   <section>
     <h2>Monitoring adapter pack ({PROJECT_VERSION_LABEL})</h2>

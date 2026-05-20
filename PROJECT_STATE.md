@@ -9,16 +9,28 @@
 | Field | Value |
 |---|---|
 | **Repository** | `caesar-ai-regulation-watch` |
-| **Current version** | `v0.9.5` |
-| **Current phase** | Public pilot — monitoring adapter pack + deterministic pack run |
-| **Status** | Live on custom domain; v0.9.5 deployed (`5d43122`) |
-| **Working branch** | `main` |
-| **Latest completed task** | v0.9.5 — monitoring adapter pack + deterministic pack run v095 |
-| **Deployment ID** | `DEPLOY-20260520-012` — commit `5d43122`, run [26160894726](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26160894726) |
-| **Git tag** | `regulation-watch-v0.9.5` (after docs commit) |
-| **Next recommended step** | Control Tower: human browser on blocked sources; optional single-URL live metadata pilot |
+| **Current version** | `v0.9.6` |
+| **Current phase** | Public pilot — cautious live metadata pilot |
+| **Status** | v0.9.6 in progress (branch `agent/v0.9.6-live-metadata-pilot`) |
+| **Working branch** | `agent/v0.9.6-live-metadata-pilot` → merge to `main` |
+| **Latest completed task** | v0.9.6 — cautious live metadata pilot (5 sources, change review pack) |
+| **Prior deployment** | v0.9.5 — `5d43122` / tag `regulation-watch-v0.9.5` @ `9f20cc2` |
+| **Next recommended step** | Deploy v0.9.6; Control Tower human review of live metadata change candidates |
 
 ---
+
+## Cautious live metadata pilot (v0.9.6)
+
+| Metric | Count |
+|---|---|
+| Allowlisted sources | 5 |
+| Live checks | 5 |
+| `metadata_check_ok` | 2 |
+| `metadata_changed_needs_review` | 3 |
+| `metadata_check_failed` | 0 |
+| `client_use_allowed: true` | 0 |
+
+**Latest live run:** `live-metadata-run-2026-05-20-v096` — compared to `monitoring-run-2026-05-20-v095`.
 
 ## Monitoring adapter pack (v0.9.5)
 

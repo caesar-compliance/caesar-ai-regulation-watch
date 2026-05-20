@@ -117,8 +117,17 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **schemas/monitoring-source-config.schema.json** | Monitoring adapter/config pack validation |
 | **data/monitoring/source-configs-2026-05-20-v095.yml** | v0.9.5 adapter pack (15 sources) |
 | **data/monitoring/monitoring-run-2026-05-20-v095.yml** | v0.9.5 deterministic pack run |
+| **schemas/live-metadata-pilot.schema.json** | Live metadata pilot allowlist validation |
+| **schemas/live-metadata-run.schema.json** | Live metadata pilot run validation |
+| **schemas/change-review-pack.schema.json** | Metadata change review pack validation |
+| **data/monitoring/live-metadata-pilot-allowlist-2026-05-20-v096.yml** | v0.9.6 pilot allowlist (max 5 sources) |
+| **data/monitoring/live-metadata-run-2026-05-20-v096.yml** | v0.9.6 live metadata run |
+| **data/monitoring/change-review-pack-2026-05-20-v096.yml** | v0.9.6 change review pack |
 | **scripts/run-monitoring-pack.mjs** | `npm run monitoring:pack` — regenerate pack run |
+| **scripts/run-live-metadata-pilot.mjs** | `npm run monitoring:live-metadata` — cautious live pilot |
 | **public/data/monitoring-source-configs.json** | Static export of adapter configs |
+| **public/data/live-metadata-runs.json** | Static export of live metadata pilot runs |
+| **public/data/change-review-packs.json** | Static export of change review packs |
 | **public/data/watcher-eligibility.json** | Static export of eligibility entries |
 | **data/detected-changes/** | Pending human review diffs |
 | **scripts/run-official-source-watchers.mjs** | `npm run watch:official` |

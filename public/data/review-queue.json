@@ -3,7 +3,7 @@
   "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
   "read_only": true,
   "summary": {
-    "total": 109,
+    "total": 112,
     "pending_review": 103,
     "needs_update": 0,
     "unverified_timeline_events": 10,
@@ -17,7 +17,7 @@
     "content_review_needs_update": 0,
     "source_support_unclear": 2,
     "detected_change_needs_content_review": 3,
-    "client_use_not_allowed": 78,
+    "client_use_not_allowed": 81,
     "detected_change_pending_review": 0,
     "watcher_errors": 0,
     "watcher_soft_errors": 0,
@@ -25,7 +25,10 @@
     "monitoring_manual_or_blocked": 4,
     "monitoring_status_check_failed": 0,
     "monitoring_change_possible": 0,
-    "human_review_required_watcher": 7
+    "live_metadata_change_needs_review": 3,
+    "live_metadata_check_failed": 0,
+    "live_metadata_redirect_changed": 0,
+    "human_review_required_watcher": 10
   },
   "items": [
     {
@@ -2079,6 +2082,72 @@
       "content_review_status": "not_reviewed",
       "content_review_result": "not_checked",
       "recommended_next_action": "keep_pending_review",
+      "redirect_detected": false,
+      "client_use_allowed": false
+    },
+    {
+      "item_type": "live_metadata_review",
+      "item_id": "live-metadata-run-2026-05-20-v096-us-nist-ai-portal",
+      "title": "Live metadata pilot: us-nist-ai-portal (metadata_changed_needs_review)",
+      "jurisdiction_id": "us-federal",
+      "review_status": "needs_human_review",
+      "reason_for_review": "Metadata differs from v0.9.5 baseline (last_modified). Not a legal/regulatory change claim — human review required. Cautious live metadata pilot detected a metadata difference vs v0.9.5 baseline; not a legal change claim. Watcher output requires human review before any record update. Not verified on official source in this repository. Client use not allowed.",
+      "review_reasons": [
+        "live_metadata_change_needs_review",
+        "human_review_required",
+        "verified_on_source_false",
+        "client_use_not_allowed"
+      ],
+      "official_url": "https://www.nist.gov/artificial-intelligence",
+      "page_href": "/monitoring/",
+      "missing_official_url": false,
+      "verified_on_source_false": true,
+      "technical_url_status": "200",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
+    },
+    {
+      "item_type": "live_metadata_review",
+      "item_id": "live-metadata-run-2026-05-20-v096-uk-gov-ai-assurance-intro",
+      "title": "Live metadata pilot: uk-gov-ai-assurance-intro (metadata_changed_needs_review)",
+      "jurisdiction_id": "uk",
+      "review_status": "needs_human_review",
+      "reason_for_review": "Metadata differs from v0.9.5 baseline (etag). Not a legal/regulatory change claim — human review required. Cautious live metadata pilot detected a metadata difference vs v0.9.5 baseline; not a legal change claim. Watcher output requires human review before any record update. Not verified on official source in this repository. Client use not allowed.",
+      "review_reasons": [
+        "live_metadata_change_needs_review",
+        "human_review_required",
+        "verified_on_source_false",
+        "client_use_not_allowed"
+      ],
+      "official_url": "https://www.gov.uk/government/publications/introduction-to-ai-assurance",
+      "page_href": "/monitoring/",
+      "missing_official_url": false,
+      "verified_on_source_false": true,
+      "technical_url_status": "200",
+      "content_review_status": "not_reviewed",
+      "redirect_detected": false,
+      "client_use_allowed": false
+    },
+    {
+      "item_type": "live_metadata_review",
+      "item_id": "live-metadata-run-2026-05-20-v096-unesco-ai-ethics",
+      "title": "Live metadata pilot: unesco-ai-ethics (metadata_changed_needs_review)",
+      "jurisdiction_id": "unesco",
+      "review_status": "needs_human_review",
+      "reason_for_review": "Metadata differs from v0.9.5 baseline (page_title, last_modified, etag). Not a legal/regulatory change claim — human review required. Cautious live metadata pilot detected a metadata difference vs v0.9.5 baseline; not a legal change claim. Watcher output requires human review before any record update. Not verified on official source in this repository. Client use not allowed.",
+      "review_reasons": [
+        "live_metadata_change_needs_review",
+        "human_review_required",
+        "verified_on_source_false",
+        "client_use_not_allowed"
+      ],
+      "official_url": "https://www.unesco.org/en/artificial-intelligence/recommendation-ethics",
+      "page_href": "/monitoring/",
+      "missing_official_url": false,
+      "verified_on_source_false": true,
+      "technical_url_status": "200",
+      "content_review_status": "not_reviewed",
       "redirect_detected": false,
       "client_use_allowed": false
     },
