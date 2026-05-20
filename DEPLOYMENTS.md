@@ -21,6 +21,7 @@ Authoritative log of **public deployment events**. Product version (`vX.Y.Z`) is
 | DEPLOY-20260520-007 | v0.9.0 | 20 May 2026 | `6779c28` | [26132704545](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26132704545) | github-pages | https://regulation-watch.caesar.no/ | custom-domain-root | pass | v0.9.0 hygiene redeploy — live site aligned with tag `regulation-watch-v0.9.0` / docs commit on `main`. |
 | DEPLOY-20260520-008 | v0.9.1 | 20 May 2026 | `8040212` | [26133482897](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26133482897) | github-pages | https://regulation-watch.caesar.no/ | custom-domain-root | pass | Competitor-assisted source discovery — 26 leads, 9 new sources, `/source-discovery/` page. |
 | DEPLOY-20260520-009 | v0.9.2 | 20 May 2026 | `8038f9d` | [26133918817](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26133918817) | github-pages | https://regulation-watch.caesar.no/ | custom-domain-root | pass | Source lead resolution (24/26 confirmed); first content review batch for v0.9.1 records; 16 content reviews exported. |
+| DEPLOY-20260520-010 | v0.9.3 | 20 May 2026 | `b966574` | [26134336862](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26134336862) | github-pages | https://regulation-watch.caesar.no/ | custom-domain-root | pass | Targeted human/browser source verification batch (Australia, EUR-Lex, EDPB); 41 verifications, 19 content reviews exported. |
 
 ---
 

@@ -11,11 +11,11 @@
 | **Repository** | `caesar-ai-regulation-watch` |
 | **Current version** | `v0.9.3` |
 | **Current phase** | Public pilot — targeted source verification |
-| **Status** | Live on custom domain; v0.9.3 deploy pending after merge |
+| **Status** | Live on custom domain; v0.9.3 deployed (`b966574`) |
 | **Working branch** | `main` (after merge) |
 | **Latest completed task** | v0.9.3 — targeted verification batch; Australia pending (WAF); EUR-Lex blocked; EDPB 502 |
-| **Deployment ID** | `DEPLOY-20260520-010` — pending |
-| **Git tag** | `regulation-watch-v0.9.3` — pending after deploy |
+| **Deployment ID** | `DEPLOY-20260520-010` — commit `b966574`, run [26134336862](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26134336862) |
+| **Git tag** | `regulation-watch-v0.9.3` on merge commit (after docs commit) |
 | **Next recommended step** | Control Tower: human browser on industry.gov.au + EUR-Lex when accessible; re-check EDPB when site up |
 
 ---
