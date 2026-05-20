@@ -4,11 +4,11 @@
 
 | Field | Value |
 |---|---|
-| **Current version** | `v1.0.4` |
-| **Status** | Live — tag `regulation-watch-v1.0.4` |
-| **Deployment** | `DEPLOY-20260520-022` — [26168769688](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26168769688) |
+| **Current version** | `v1.0.5` |
+| **Status** | Release candidate — deploy pending |
+| **Deployment** | `DEPLOY-20260520-023` — TBD (after v1.0.5 deploy workflow) |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
-| **Phase** | Public Technical MVP (technical base) → automation-first product target |
+| **Phase** | Public Technical MVP + automation-first tracker skeleton (T048) |
 
 ## Product strategy decision — 20 May 2026
 
@@ -27,9 +27,17 @@ The first full MVP target is a Techieray / The Legal Wire style AI regulation tr
 
 Human review is no longer the foundation of the MVP roadmap. It remains an optional future assurance layer for premium legal, client evidence and Caesar AI Evidence / Governance OS workflows.
 
-The current **v1.0.4** public technical MVP is the **live technical base**. The next product line moves toward automation-first tracking and public intelligence features. See [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md) and [docs/AUTOMATION_FIRST_MVP_ROADMAP.md](docs/AUTOMATION_FIRST_MVP_ROADMAP.md).
+The **v1.0.5** release adds the T048 public tracker skeleton on top of the **v1.0.4** technical base. See [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md) and [docs/AUTOMATION_FIRST_MVP_ROADMAP.md](docs/AUTOMATION_FIRST_MVP_ROADMAP.md).
 
-## v1.0.4 summary (live technical base)
+## v1.0.5 summary (release candidate — T048)
+
+- **Automation-first tracker skeleton** — `/tracker/`, `/updates/`, `/countries/` with metrics, filters, CSS/SVG map skeleton.
+- **Seed data** — 13 country statuses, 15 regulatory updates, 9 topics (`manual_seed` only).
+- **JSON exports** — `country-status.json`, `regulatory-updates.json`, `automation-first-metrics.json`, `tracker-topics.json`.
+- **No scraping** — no competitor data; evidence gates unchanged.
+- **Recommended next** — **T049** source adapter pipeline for updates feed.
+
+## v1.0.4 summary (previous live technical base)
 
 - **Autonomous official-source verification worker** — `npm run source:verify:autonomous`, schema, allowlist, batch export, `/source-verification/` page.
 - **No WAF/bot bypass** — metadata-only fetch, official SPARQL/Cellar attempts, EFTA EEA-Lex official alternative for CELEX identity where EUR-Lex blocked.
@@ -44,11 +52,3 @@ The current **v1.0.4** public technical MVP is the **live technical base**. The 
 ## Documentation rebase (T046)
 
 Strategy docs added/updated 20 May 2026: automation-first charter, first full MVP requirements, reference-driven build policy, automation-first benchmarks and roadmap. Human-review-first positioning removed from root docs; evidence/export gates remain closed unless separately approved.
-
-## T048 — Automation-first tracker skeleton (in progress on feature branch)
-
-- Public pages: `/tracker/`, `/updates/`, `/countries/`
-- Seed data: `data/country-status/`, `data/regulatory-updates/`, `data/topics/`
-- JSON exports: `country-status.json`, `regulatory-updates.json`, `automation-first-metrics.json`, `tracker-topics.json`
-- No scraping, no competitor data, no evidence gates opened
-- Recommended next: **T049** source adapter pipeline for updates feed

@@ -1,35 +1,31 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 20 May 2026
-**Current live technical base:** v1.0.4 — [regulation-watch.caesar.no](https://regulation-watch.caesar.no/)
+**Current release:** v1.0.5 (T048 tracker skeleton) — deploy pending at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/)
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
 ---
 
 ## Immediate Control Tower sequence
 
-1. **T046 — Automation-first documentation rebase** *(this branch)*
-   - Add automation-first product charter and reference-driven build policy.
-   - Update README / PROJECT_STATE / NEXT_ACTIONS.
-   - Update competitor benchmarks and monitoring docs.
-   - Reframe human review as optional future assurance layer.
+1. **T046 — Automation-first documentation rebase** *(merged)*
+   - Automation-first product charter and reference-driven build policy.
+   - Human review reframed as optional future assurance layer.
 
-2. **T047 — Competitor and open-source reference study**
-   - Study Techieray, The Legal Wire, IAPP, DLA Piper, Bird & Bird.
-   - Clone and inspect `delschlangen/ai-legislation-tracker` and `riadeane/airegulationmap` **outside** the repo.
-   - Produce Caesar-native feature map and architecture notes per [REFERENCE_REPO_STUDY_TEMPLATE.md](docs/REFERENCE_REPO_STUDY_TEMPLATE.md).
+2. **T047 — Competitor and open-source reference study** *(merged)*
+   - Reference lab study docs; T048 implementation plan.
 
-3. **T048 — Automation-first tracker skeleton** *(feature branch — pending Control Tower review)*
+3. **T048 — Automation-first tracker skeleton** *(merged to `main`; v1.0.5 release)*
    - Country status + regulatory update YAML seeds and schemas.
    - Public pages: `/tracker/`, `/updates/`, `/countries/` with map skeleton, filters, metrics.
    - JSON exports: `country-status.json`, `regulatory-updates.json`, `automation-first-metrics.json`.
 
 4. **T049 — Source adapter pipeline for updates feed** *(recommended next)*
-   - Connect watchers/monitoring to `regulatory_update` records (no manual seed only).
+   - Connect watchers/monitoring to `regulatory_update` records (beyond manual seed).
    - Classification, duplicate detection, scheduled runs per [AUTOMATION_FIRST_IMPLEMENTATION_BACKLOG.md](docs/AUTOMATION_FIRST_IMPLEMENTATION_BACKLOG.md) Phase 2.
 
 5. **T050 — Choropleth map + compare jurisdictions**
-   - Implement safe official-source adapters using API/RSS/feed-first approach.
+   - Safe official-source adapters using API/RSS/feed-first approach.
    - No WAF/CAPTCHA bypass; no stealth scraping; no full legal/source text storage.
 
 ---

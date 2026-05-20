@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+---
+
+## [1.0.5] - 20 May 2026
+
 ### Added
 
 - **T048 automation-first tracker skeleton** — Country status and regulatory update YAML models with JSON Schema validation; seed data for 13 pilot jurisdictions and 15 source-linked updates; public pages `/tracker/`, `/updates/`, `/countries/` with metrics, filters, and CSS/SVG map skeleton; exports `country-status.json`, `regulatory-updates.json`, `automation-first-metrics.json`, `tracker-topics.json`. No scraping; evidence gates remain closed.
@@ -17,6 +21,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Repository presentation polish** — Updated GitHub About description, added topics (regulatory-intelligence, governance, evidence, source-verification, static-site), polished README top section with clear status table, "What it does" / "What it is not" sections, and updated project status block.
 - **Home and navigation** — Automation-first tracker entry points; jurisdiction profiles show tracker status when seeded.
+- **Product version** — `v1.0.5`.
+
+### Notes
+
+- Manual seed data only (`automation_method: manual_seed`); adapters deferred to T049. Not legal advice. Not complete coverage. `verified_on_source`, `client_use_allowed`, and `final_evidence_allowed` remain closed.
 
 ---
 

@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **Status** | Public Technical MVP technical base (v1.0.4); automation-first product rebase in progress |
+| **Status** | v1.0.5 — automation-first tracker skeleton (T048); manual seed data; deploy pending |
 | **Hosting** | GitHub Pages — static site (Astro) |
 | **Scope** | AI regulation tracking, country profiles, latest updates, source monitoring, metrics and structured exports |
 | **Safety** | Not legal advice; source transparency and automation confidence labels apply |
@@ -266,4 +266,4 @@ Canonical values, review workflow, and future evidence export shape:
 
 ## Project status
 
-**v1.0.4** — Public Technical MVP live at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/). Technical base includes autonomous source verification worker, Pagefind search, and static exports. **Product direction (20 May 2026):** automation-first tracker (map, newsfeed, metrics, scheduled adapters). Human review/evidence is optional future assurance, not the MVP foundation. See [PROJECT_STATE.md](PROJECT_STATE.md), [NEXT_ACTIONS.md](NEXT_ACTIONS.md), and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md).
+**v1.0.5** — T048 automation-first tracker skeleton: `/tracker/`, `/updates/`, `/countries/`, country status seeds, regulatory update feed, metrics exports. Manual seed only — not live automation. Not legal advice. Not complete coverage. Evidence gates remain closed. **Next:** T049 source adapter pipeline. See [PROJECT_STATE.md](PROJECT_STATE.md), [NEXT_ACTIONS.md](NEXT_ACTIONS.md), and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md).
