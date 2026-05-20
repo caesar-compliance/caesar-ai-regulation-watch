@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import {
   getManualSourceIntakeRunEntries,
   getNetworkDryRunApprovalEntries,
+  getSingleNetworkDryRunExecutionEntries,
   getSourceAdapterAllowlistEntries,
   getSource,
 } from "../../lib/data";
@@ -12,6 +13,7 @@ import { PROJECT_VERSION_LABEL } from "../../lib/project-version";
 const adapters = getSourceAdapterAllowlistEntries();
 const intakeRuns = getManualSourceIntakeRunEntries();
 const networkApprovals = getNetworkDryRunApprovalEntries();
+const networkExecutions = getSingleNetworkDryRunExecutionEntries();
 const disabledCount = adapters.filter((a) => a.status === "disabled").length;
 const draftCount = adapters.filter((a) => a.status === "draft").length;
 ---
@@ -203,6 +205,56 @@ const draftCount = adapters.filter((a) => a.status === "draft").length;
                   <span class="mono">{a.dry_run_plan_path}</span>
                 </td>
                 <td>{a.control_tower_approval_required ? "required" : "false"}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Single-source dry-run execution controls</h2>
+    <p>
+      T055 one-off network dry-run execution registry — read-only. Control Tower approval required for each
+      live run. No run buttons. No endpoint preview. No generated candidate preview.
+    </p>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Execution</th>
+            <th>Approval</th>
+            <th>Adapter</th>
+            <th>Status</th>
+            <th>Max requests</th>
+            <th>Max items</th>
+            <th>Schedule</th>
+            <th>Publication</th>
+            <th>Paths</th>
+            <th>CT approval</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            networkExecutions.map((e) => (
+              <tr>
+                <td><span class="mono">{e.execution_id}</span></td>
+                <td><span class="mono">{e.approval_id}</span></td>
+                <td><span class="mono">{e.adapter_id}</span></td>
+                <td>
+                  <span class={`badge badge--status-${e.status}`}>{e.status}</span>
+                </td>
+                <td>{e.max_network_requests}</td>
+                <td>{e.max_items}</td>
+                <td>{e.schedule_enabled ? "enabled" : "false"}</td>
+                <td>{e.legal_text_publication_allowed ? "allowed" : "false"}</td>
+                <td>
+                  <span class="mono">{e.output_path}</span>
+                  <br />
+                  <span class="mono">{e.report_path}</span>
+                </td>
+                <td>required / one-off only</td>
               </tr>
             ))
           }

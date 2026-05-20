@@ -227,8 +227,19 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **docs/NETWORK_DRY_RUN_APPROVAL_MODEL.md** | Planning-only workflow; T055 execution gate |
 | **scripts/validate-network-dry-run-approvals.mjs** | `npm run validate:network-dry-run-approvals` |
 | **scripts/build-network-dry-run-plan.mjs** | `npm run build:network-dry-run-plan` (no network) |
-| **scripts/run-approved-network-dry-run.mjs** | Future runner stub (refuses in T054) |
+| **scripts/run-approved-network-dry-run.mjs** | Guarded one-off network runner (T055) |
 | **generated/network-dry-run-plans/T054-001.json** | Plan output (gitignored) |
+
+## T055 — Single-source network dry-run execution (v1.0.8 branch)
+
+| Path | Purpose |
+|---|---|
+| **schemas/single-network-dry-run-execution.schema.json** | Execution record validation |
+| **data/source-adapters/single-network-dry-run-executions.yml** | Pilot execution `T055-001` |
+| **scripts/validate-single-network-dry-run-executions.mjs** | `npm run validate:single-network-dry-run-executions` |
+| **docs/SINGLE_SOURCE_NETWORK_DRY_RUN.md** | T055 execution model |
+| **generated/network-dry-run-candidates/T054-001.json** | Candidate output (gitignored) |
+| **generated/network-dry-run-reports/T055-001.json** | Dry-run report (gitignored) |
 
 ---
 

@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caesar.no/schemas/caesar-ai-regulation-watch/single-network-dry-run-execution.schema.json",
+  "title": "Caesar AI Regulation Watch — Single network dry-run execution controls",
+  "description": "One-off execution registry for Control Tower-approved network dry-runs. Not scheduled monitoring. Not legal advice.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "single_network_dry_run_executions_id",
+    "generated_at",
+    "product_version",
+    "legal_safe_note",
+    "no_live_collection",
+    "no_scheduled_monitoring",
+    "executions"
+  ],
+  "properties": {
+    "single_network_dry_run_executions_id": {
+      "type": "string",
+      "pattern": "^single-network-dry-run-executions-[0-9]{4}-[0-9]{2}-[0-9]{2}-v[0-9]{3}$"
+    },
+    "generated_at": { "type": "string", "format": "date" },
+    "product_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "legal_safe_note": { "type": "string", "minLength": 1 },
+    "no_live_collection": { "type": "boolean", "const": true },
+    "no_scheduled_monitoring": { "type": "boolean", "const": true },
+    "executions": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/executionRecord" }
+    }
+  },
+  "$defs": {
+    "gateState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verified_on_source",
+        "client_use_allowed",
+        "client_evidence_allowed",
+        "final_evidence_allowed",
+        "legal_change_claimed"
+      ],
+      "properties": {
+        "verified_on_source": { "type": "boolean", "const": false },
+        "client_use_allowed": { "type": "boolean", "const": false },
+        "client_evidence_allowed": { "type": "boolean", "const": false },
+        "final_evidence_allowed": { "type": "boolean", "const": false },
+        "legal_change_claimed": { "type": "boolean", "const": false }
+      }
+    },
+    "executionRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "execution_id",
+        "approval_id",
+        "run_id",
+        "adapter_id",
+        "source_id",
+        "mode",
+        "status",
+        "control_tower_approval_reference",
+        "schedule_enabled",
+        "broad_crawl_allowed",
+        "max_network_requests",
+        "max_items",
+        "max_bytes",
+        "timeout_seconds",
+        "stores_metadata_only",
+        "stores_full_text",
+        "legal_text_publication_allowed",
+        "output_path",
+        "report_path",
+        "gates",
+        "created_at",
+        "updated_at"
+      ],
+      "properties": {
+        "execution_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+        "approval_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+        "run_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+        "adapter_id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+        "source_id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+        "mode": { "type": "string", "const": "one_off_network_dry_run" },
+        "status": {
+          "type": "string",
+          "enum": [
+            "draft",
+            "ready_for_control_tower_review",
+            "control_tower_approved_for_one_off_run",
+            "completed_one_off_run",
+            "rejected"
+          ]
+        },
+        "control_tower_approval_reference": { "type": "string", "minLength": 1 },
+        "schedule_enabled": { "type": "boolean", "const": false },
+        "broad_crawl_allowed": { "type": "boolean", "const": false },
+        "max_network_requests": { "type": "integer", "const": 1 },
+        "max_items": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "max_bytes": { "type": "integer", "minimum": 1, "maximum": 500000 },
+        "timeout_seconds": { "type": "integer", "minimum": 1, "maximum": 20 },
+        "stores_metadata_only": { "type": "boolean", "const": true },
+        "stores_full_text": { "type": "boolean", "const": false },
+        "legal_text_publication_allowed": { "type": "boolean", "const": false },
+        "output_path": {
+          "type": "string",
+          "pattern": "^generated/network-dry-run-candidates/[A-Za-z0-9._-]+\\.json$"
+        },
+        "report_path": {
+          "type": "string",
+          "pattern": "^generated/network-dry-run-reports/[A-Za-z0-9._-]+\\.json$"
+        },
+        "gates": { "$ref": "#/$defs/gateState" },
+        "created_at": { "type": "string", "format": "date" },
+        "updated_at": { "type": "string", "format": "date" }
+      }
+    }
+  }
+}

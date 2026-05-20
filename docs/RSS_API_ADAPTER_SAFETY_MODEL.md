@@ -94,7 +94,10 @@ npm run build:network-dry-run-plan -- --approval-id T054-001
 Future runner stub refuses execution in T054:
 
 ```bash
-npm run run:approved-network-dry-run -- --approval-id T054-001
+npm run run:approved-network-dry-run -- --approval-id T054-001 --execution-id T055-001
+```
+
+T055 executed one approved live dry-run (metadata-only, `generated/` output). See [SINGLE_SOURCE_NETWORK_DRY_RUN.md](SINGLE_SOURCE_NETWORK_DRY_RUN.md).
 ```
 
 See [NETWORK_DRY_RUN_APPROVAL_MODEL.md](NETWORK_DRY_RUN_APPROVAL_MODEL.md).

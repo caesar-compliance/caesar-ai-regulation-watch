@@ -51,23 +51,24 @@ The plan generator **never** calls `fetch`, HTTP clients, or crawlers. It does *
 
 ---
 
-## Future execution (T055 — not in T054)
+## Execution (T055 — implemented)
 
-A future **T055** task may execute **one** approved dry-run only after:
+**T055** executed one approved dry-run for `T054-001` / `T055-001` / `edpb-publications-rss`. See [SINGLE_SOURCE_NETWORK_DRY_RUN.md](SINGLE_SOURCE_NETWORK_DRY_RUN.md).
 
-- Explicit **Control Tower approval**;
-- Approval status `approved_for_future_single_run` with `network_execution_allowed: true` (not set in T054);
-- CLI: `--approval-id`, `--i-understand-this-runs-network`;
+Runtime permission (not stored as `network_execution_allowed` on execution records):
+
+- Control Tower approval in T055 task prompt;
+- CLI: `--approval-id T054-001`, `--execution-id T055-001`, `--i-understand-this-runs-network`;
 - Environment: `CAESAR_ALLOW_SINGLE_NETWORK_DRY_RUN=YES`;
 - **One-off command** — no scheduling, no publication, gates unchanged.
 
-T054 future runner stub (expected safe refusal):
+Safe refusal without env/flag:
 
 ```bash
-npm run run:approved-network-dry-run -- --approval-id T054-001
+npm run run:approved-network-dry-run -- --approval-id T054-001 --execution-id T055-001
 ```
 
-Exits non-zero with: *Network dry-run execution is not enabled in T054; use T055 after Control Tower approval.*
+Future additional runs require new Control Tower approval and a new execution record.
 
 ---
 
