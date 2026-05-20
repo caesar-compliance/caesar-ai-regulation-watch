@@ -11,6 +11,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.9.4] - 20 May 2026
+
+### Added
+
+- **Watcher eligibility model** — `schemas/watcher-eligibility.schema.json`, `data/monitoring/watcher-eligibility-2026-05-20.yml` (15 confirmed/blocked official sources from discovery registry).
+- **Deterministic local monitoring run** — `data/monitoring/monitoring-run-2026-05-20-v094.yml`, `schemas/watcher-monitoring-run.schema.json`.
+- **Public exports** — `public/data/watcher-eligibility.json`; `monitoring-runs.json` extended with `latest_watcher_monitoring_run`.
+- **Monitoring page** — watcher eligibility counts, v0.9.4 run summary, review-queue items for manual/blocked sources.
+
+### Notes
+
+- Monitoring infrastructure expansion only; no broad scraping; no live scheduled monitoring expansion; not legal advice; not complete coverage; `client_use_allowed: 0`; no final evidence export.
+
+---
+
 ## [0.9.3] - 20 May 2026
 
 ### Added

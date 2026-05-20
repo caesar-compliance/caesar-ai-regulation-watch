@@ -53,6 +53,8 @@ const required = [
   "data/review-queue.json",
   "data/content-reviews.json",
   "data/source-discovery-leads.json",
+  "data/watcher-eligibility.json",
+  "monitoring/index.html",
   "data/jurisdictions.json",
   "feeds/changes.xml",
   "pagefind/pagefind.js",

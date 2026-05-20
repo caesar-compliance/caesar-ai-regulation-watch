@@ -110,7 +110,11 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **data/watchers/official-source-watchers.yml** | Watcher config (5 watchers) |
 | **data/snapshots/** | Metadata-only snapshots per source |
 | **data/watcher-runs/** | Watcher run logs |
+| **data/monitoring/** | Watcher eligibility batch + deterministic monitoring runs (v0.9.4) |
 | **data/monitoring-runs/** | Monitoring cycle reports |
+| **schemas/watcher-eligibility.schema.json** | Watcher eligibility validation |
+| **schemas/watcher-monitoring-run.schema.json** | Deterministic monitoring run validation |
+| **public/data/watcher-eligibility.json** | Static export of eligibility entries |
 | **data/detected-changes/** | Pending human review diffs |
 | **scripts/run-official-source-watchers.mjs** | `npm run watch:official` |
 | **scripts/run-monitoring-cycle.mjs** | `npm run monitoring:cycle` |

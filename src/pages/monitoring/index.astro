@@ -7,6 +7,8 @@ import {
   getMonitoringRuns,
   latestMonitoringRun,
   latestMonitoringDiffSummary,
+  getWatcherEligibilityEntries,
+  latestWatcherMonitoringRun,
 } from "../../lib/data";
 import { humanizeId } from "../../lib/format";
 
@@ -19,37 +21,110 @@ const detected = getDetectedChanges();
 const realDetected = detected.filter((d) => !d.simulation);
 const simulatedDetected = detected.filter((d) => d.simulation);
 const enabledWatchers = watchers.filter((w) => w.enabled);
+const eligibility = getWatcherEligibilityEntries();
+const watcherEligible = eligibility.filter(
+  (e) =>
+    e.allowed_to_fetch &&
+    e.monitoring_method === "url_status_check" &&
+    e.watcher_eligibility?.eligible_basic_url_check,
+);
+const manualOnly = eligibility.filter((e) => e.monitoring_method === "manual_only");
+const blocked = eligibility.filter(
+  (e) => e.watcher_eligibility?.blocked_by_waf_or_bot_protection || !e.allowed_to_fetch,
+);
+const v094 = latestWatcherMonitoringRun();
+const v094Checks = v094?.checks ?? [];
 ---
 
 <BaseLayout title="Monitoring" currentPath="/monitoring/">
   <h1>Monitoring</h1>
   <p class="lead">
-    Scheduled monitoring cycle foundation — orchestrates official-source watchers, validation, exports,
-    and site build. Outputs are review-gated; not legal advice.
+    Monitoring readiness for confirmed official sources — watcher eligibility, deterministic local
+    runs, and existing pilot watchers. Not legal advice. Not complete coverage.
   </p>
 
   <div class="banner banner--review" role="note">
-    <strong>Not legal advice.</strong> Monitoring detects possible metadata changes only. Human review
-    required before any record update. Does not set <code>verified_on_source</code> or{" "}
-    <code>client_use_allowed</code>.
+    <strong>Not legal advice.</strong> No broad scraping. Blocked/WAF sources are manual-only.
+    Human review required before any record update. Does not set{" "}
+    <code>verified_on_source</code> or <code>client_use_allowed</code>. Not client evidence.
   </div>
+
+  <section>
+    <h2>Watcher eligibility (v0.9.4)</h2>
+    <dl class="meta-grid">
+      <div><dt>Entries</dt><dd>{eligibility.length}</dd></div>
+      <div><dt>Eligible (url_status_check)</dt><dd>{watcherEligible.length}</dd></div>
+      <div><dt>Manual-only</dt><dd>{manualOnly.length}</dd></div>
+      <div><dt>Blocked / no fetch</dt><dd>{blocked.length}</dd></div>
+    </dl>
+    <p>
+      <small>
+        Data: <code>data/monitoring/watcher-eligibility-2026-05-20.yml</code> ·{" "}
+        <a href="/data/watcher-eligibility.json">JSON export</a>
+      </small>
+    </p>
+  </section>
+
+  {
+    v094 ? (
+      <section>
+        <h2>Latest deterministic monitoring run</h2>
+        <dl class="meta-grid">
+          <div><dt>Run ID</dt><dd class="mono">{v094.monitoring_run_id}</dd></div>
+          <div><dt>Date</dt><dd>{v094.run_date}</dd></div>
+          <div><dt>Mode</dt><dd>{humanizeId(v094.mode)}</dd></div>
+          <div><dt>Status</dt><dd>{humanizeId(v094.overall_status ?? "completed")}</dd></div>
+          <div><dt>Checks</dt><dd>{v094Checks.length}</dd></div>
+          <div><dt>Change detected</dt><dd>{v094.change_detected_count ?? 0}</dd></div>
+          <div>
+            <dt>status_check_ok</dt>
+            <dd>{v094Checks.filter((c) => c.check_result === "status_check_ok").length}</dd>
+          </div>
+          <div>
+            <dt>no_change_snapshot</dt>
+            <dd>
+              {v094Checks.filter((c) => c.check_result === "no_change_snapshot_created").length}
+            </dd>
+          </div>
+          <div>
+            <dt>manual_only_not_checked</dt>
+            <dd>{v094Checks.filter((c) => c.check_result === "manual_only_not_checked").length}</dd>
+          </div>
+          <div>
+            <dt>blocked_not_checked</dt>
+            <dd>{v094Checks.filter((c) => c.check_result === "blocked_not_checked").length}</dd>
+          </div>
+        </dl>
+        <p>
+          <small>
+            <a href="/data/monitoring-runs.json">monitoring-runs.json</a> includes{" "}
+            <code>latest_watcher_monitoring_run</code>.
+          </small>
+        </p>
+        <h3>Check results</h3>
+        <ul>
+          {v094Checks.map((c) => (
+            <li>
+              <span class="mono">{c.source_id}</span> — {humanizeId(c.check_result)}
+              {c.http_status != null ? ` (HTTP ${c.http_status})` : ""}
+              {c.requires_human_review ? " · needs review" : ""}
+            </li>
+          ))}
+        </ul>
+      </section>
+    ) : null
+  }
 
   {
     diffSummary ? (
       <section>
-        <h2>Latest diff summary</h2>
+        <h2>Latest diff summary (cycle)</h2>
         <dl class="meta-grid">
           <div><dt>Meaningful changes</dt><dd>{diffSummary.has_meaningful_changes ? "yes" : "no"}</dd></div>
           <div><dt>Real detected changes (diff)</dt><dd>{diffSummary.new_real_detected_change_count}</dd></div>
           <div><dt>Watcher errors</dt><dd>{diffSummary.has_watcher_errors ? "yes" : "no"}</dd></div>
           <div><dt>Recommended action</dt><dd class="mono">{diffSummary.recommended_action}</dd></div>
         </dl>
-        <p>
-          <small>
-            From <code>data/monitoring-runs/latest-monitoring-diff-summary.json</code> vs last commit.
-            Run <code>npm run monitoring:summary</code> after a cycle.
-          </small>
-        </p>
       </section>
     ) : null
   }
@@ -65,44 +140,8 @@ const enabledWatchers = watchers.filter((w) => w.enabled);
           <div><dt>Overall status</dt><dd>{humanizeId(latest.overall_status ?? "—")}</dd></div>
           <div><dt>Watchers configured</dt><dd>{latest.watchers_configured}</dd></div>
           <div><dt>Watchers checked</dt><dd>{latest.watchers_checked}</dd></div>
-          <div><dt>Watcher successes</dt><dd>{latest.watcher_success_count}</dd></div>
-          <div><dt>Watcher soft errors</dt><dd>{latest.watcher_soft_error_count}</dd></div>
-          <div><dt>Detected changes created</dt><dd>{latest.detected_changes_created}</dd></div>
-          <div><dt>Real detected changes (repo)</dt><dd>{latest.real_detected_changes}</dd></div>
-          <div><dt>Simulated detected changes</dt><dd>{latest.simulated_detected_changes}</dd></div>
-          <div><dt>Validation</dt><dd>{humanizeId(latest.validation_status)}</dd></div>
-          <div><dt>Exports</dt><dd>{humanizeId(latest.exports_status ?? "—")}</dd></div>
-          <div><dt>Build</dt><dd>{humanizeId(latest.build_status)}</dd></div>
           <div><dt>Review queue items</dt><dd>{latest.review_queue_count}</dd></div>
-          {
-            latest.watcher_run_id && (
-              <div>
-                <dt>Watcher run</dt>
-                <dd class="mono">{latest.watcher_run_id}</dd>
-              </div>
-            )
-          }
-          {
-            latest.error_message && (
-              <div>
-                <dt>Error</dt>
-                <dd>{latest.error_message}</dd>
-              </div>
-            )
-          }
         </dl>
-        {
-          latest.phase_notes && latest.phase_notes.length > 0 && (
-            <>
-              <h3>Phase notes</h3>
-              <ul>
-                {latest.phase_notes.map((note) => (
-                  <li>{note}</li>
-                ))}
-              </ul>
-            </>
-          )
-        }
       </section>
     ) : (
       <p>No monitoring cycle reports yet. Run <code>npm run monitoring:cycle</code> locally.</p>
@@ -143,7 +182,7 @@ const enabledWatchers = watchers.filter((w) => w.enabled);
   {
     monitoringRuns.length > 1 && (
       <section>
-        <h2>Monitoring history</h2>
+        <h2>Monitoring cycle history</h2>
         <ul>
           {monitoringRuns.map((r) => (
             <li class="mono">
@@ -157,8 +196,8 @@ const enabledWatchers = watchers.filter((w) => w.enabled);
 
   <p class="prose">
     <small>
-      See <a href="/methodology/">Methodology</a> and repository docs: SCHEDULED_MONITORING_POLICY.md,
-      MONITORING_RUNBOOK.md.
+      See <a href="/methodology/">Methodology</a> and docs: MONITORING_RUNBOOK.md,
+      WATCHER_RELIABILITY_POLICY.md, SCHEDULED_MONITORING_POLICY.md.
     </small>
   </p>
 </BaseLayout>

@@ -3,7 +3,7 @@
 **Global AI regulation monitoring for governance teams** — part of the [Caesar AI Governance Hub](https://github.com/caesar-compliance/caesar-ai-governance-hub) ecosystem.
 
 **Last updated:** 20 May 2026  
-**Status:** v0.9.3 — **public pilot** at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) (targeted human/browser source verification pass; Australia/EUR-Lex/EDPB limitations documented; 24 discovery leads confirmed, 1 pending) (manual `deploy-static-site.yml` with `DEPLOY` gate; site root `/`); deployment log in [DEPLOYMENTS.md](DEPLOYMENTS.md); export-candidate governance review gate (2 reviewed, 0 client-use); evidence export **candidates** only (not final evidence); monitoring cycle; CI validate/build (no backend, database, auth, secrets, or `client_use_allowed: true`)
+**Status:** v0.9.4 — **public pilot** at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) (watcher eligibility for confirmed official sources + deterministic local monitoring run; 12 fetch-eligible, 3 manual/blocked; not complete coverage; 24 discovery leads confirmed, 1 pending) (manual `deploy-static-site.yml` with `DEPLOY` gate; site root `/`); deployment log in [DEPLOYMENTS.md](DEPLOYMENTS.md); export-candidate governance review gate (2 reviewed, 0 client-use); evidence export **candidates** only (not final evidence); monitoring cycle; CI validate/build (no backend, database, auth, secrets, or `client_use_allowed: true`)
 
 ---
 
