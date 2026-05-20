@@ -4,8 +4,8 @@
 
 | Field | Value |
 |---|---|
-| Starting main (after T056 merge + docs) | `290c1ff` |
-| Branch | `task/T057-manual-reviewer-decision-workflow` |
+| Merge commit | `413b87f` (PR #17 squash) |
+| Prior main | `290c1ff` |
 | Draft path | `data/regulatory-updates/drafts/T056-001.yml` |
 | Decision | `T057-001` / `request_changes` |
 
@@ -17,6 +17,12 @@
 - No source verification
 - All gates remain `false`
 - No live network in T057
+
+## Deploy / version
+
+- Package/code lineage: v1.0.8
+- Live site remains v1.0.7
+- No tag; no deploy; no deployment closeout
 
 ## Limitations
 

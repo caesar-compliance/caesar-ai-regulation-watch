@@ -1,7 +1,7 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 21 May 2026
-**Current codebase:** v1.0.8 (T051–T056 on main; T057 in progress) — tag/deploy pending future approval
+**Current codebase:** v1.0.8 (T051–T057 on main; T058 in progress) — tag/deploy pending future approval
 **Live release:** v1.0.7 (T050) — deployed `DEPLOY-20260520-025`, commit `86c9262`, tag `regulation-watch-v1.0.7`
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
@@ -52,11 +52,11 @@
 11. **T056 — Manual review promotion from network dry-run candidate** *(merged to main — PR #16, squash `74e04aa`)*
    - One local generated T055 dry-run candidate promoted to draft under `data/regulatory-updates/drafts/`; draft excluded from public exports; no new live network; not verified; not client/evidence use; no publication.
 
-12. **T057 — Manual reviewer decision workflow for draft update** *(in progress on branch)*
-   - `T057-001` records `request_changes` for `T056-001` draft; internal-draft-only scope; still no publication; gates unchanged; no network.
+12. **T057 — Manual reviewer decision workflow for draft update** *(merged to main — PR #17, squash `413b87f`)*
+   - `T057-001` records `request_changes` for `T056-001` draft; internal-draft-only scope; still no publication; gates unchanged; no live network in T057.
 
-13. **T058 — Draft revision packet after request-changes** *(recommended next)*
-   - Apply safe metadata edits to T056 draft only; still no publication; no source verification; gates unchanged.
+13. **T058 — Draft revision packet after request-changes** *(in progress)*
+   - Apply safe metadata edits to T056 draft after T057 `request_changes`; still no publication; no source verification; gates unchanged.
 
 ---
 

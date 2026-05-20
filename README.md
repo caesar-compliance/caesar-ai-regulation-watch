@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **Status** | v1.0.8 (T051–T056 on main; T057 in progress); live site v1.0.7 `DEPLOY-20260520-025` — deploy/tag pending |
+| **Status** | v1.0.8 (T051–T057 on main; T058 in progress); live site v1.0.7 `DEPLOY-20260520-025` — deploy/tag pending |
 | **Hosting** | GitHub Pages — static site (Astro) |
 | **Scope** | AI regulation tracking, country profiles, latest updates, source monitoring, metrics and structured exports |
 | **Safety** | Not legal advice; source transparency and automation confidence labels apply |
@@ -272,8 +272,8 @@ Canonical values, review workflow, and future evidence export shape:
 
 **T056 (merged):** Manual review promotion from one local generated T055 dry-run candidate into a draft regulatory update record — [docs/MANUAL_REVIEW_PROMOTION_PIPELINE.md](docs/MANUAL_REVIEW_PROMOTION_PIPELINE.md). Draft excluded from public exports; no new live network in T056. Not verified; not exported; not client/evidence use.
 
-**T057 (in progress):** Manual reviewer decision workflow for T056 draft — [docs/MANUAL_REVIEW_DECISION_WORKFLOW.md](docs/MANUAL_REVIEW_DECISION_WORKFLOW.md). Metadata-only decisions; internal-draft-only; no publication or source verification.
+**T057 (merged):** Manual reviewer decision workflow for T056 draft — [docs/MANUAL_REVIEW_DECISION_WORKFLOW.md](docs/MANUAL_REVIEW_DECISION_WORKFLOW.md). `T057-001` / `request_changes`; metadata-only; internal-draft-only; no publication or source verification; no live network in T057.
 
-**Next:** T057 — manual reviewer decision workflow for draft update (still no publication).
+**T058 (in progress):** Draft revision packet after T057 request-changes — safe metadata-only draft edits; still no publication.
 
 See [PROJECT_STATE.md](PROJECT_STATE.md) and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md).

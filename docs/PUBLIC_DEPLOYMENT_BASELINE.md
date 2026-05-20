@@ -1,6 +1,6 @@
 # Public Deployment Baseline
 
-**Phase:** v1.0.7 live — choropleth map + jurisdiction comparison (T050). **v1.0.8 (T051–T056)** — T051–T056 on main; T055 dry-run `generated/` local only; T056 draft promotion merged (not deployed). Tag `regulation-watch-v1.0.8` and deploy pending future Control Tower approval.
+**Phase:** v1.0.7 live — choropleth map + jurisdiction comparison (T050). **v1.0.8 (T051–T057)** — T051–T057 on main; T055 dry-run `generated/` local only; T056 draft and T057 decision merged (not deployed; excluded from public exports). T058 revision in progress. Tag `regulation-watch-v1.0.8` and deploy pending future Control Tower approval.
 
 **Deployment date:** 20 May 2026
 **Status:** Deployed — `DEPLOY-20260520-025`, run [26189934284](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26189934284)

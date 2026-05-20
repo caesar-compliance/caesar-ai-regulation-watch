@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Notes
 
+- T057 merged to main (PR #17, squash `413b87f`). One metadata-only `request_changes` decision (`T057-001`) for T056 draft; draft and decision excluded from public exports; no live network in T057; live site remains v1.0.7; no tag/deploy/closeout in T057.
 - T056 merged to main (PR #16, squash `74e04aa`). One local dry-run candidate promoted to draft manual-review update; draft excluded from public exports; generated network outputs local/gitignored; not published; not source verified; no new live network in T056; live site remains v1.0.7; no tag/deploy/closeout in T056.
 - T055 merged to main (PR #15, squash `10bdc4c`). Exactly one live network GET for EDPB publications RSS executed locally; metadata-only; `generated/` not published; no scheduling; gates unchanged; live site remains v1.0.7; no tag/deploy/closeout in T055.
 - T054 merged to main (PR #14, squash commit `78a00be`). Planning-only dry-run approval; no live network; no scheduling; plan under `generated/network-dry-run-plans/` (gitignored). Live site remains v1.0.7; no tag/deploy/closeout in T054.

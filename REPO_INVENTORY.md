@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.8 — T051–T056 on main; T057 on branch; live v1.0.7 `DEPLOY-20260520-025`)
+**Last updated:** 21 May 2026 (v1.0.8 — T051–T057 on main; T058 in progress; live v1.0.7 `DEPLOY-20260520-025`)
 
 ---
 
@@ -254,7 +254,7 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **docs/MANUAL_REVIEW_PROMOTION_PIPELINE.md** | T056 promotion model |
 | **fixtures/promotion/T054-001-candidate.json** | Fixture candidate when generated output missing |
 
-## T057 — Manual reviewer decision workflow (v1.0.8 branch)
+## T057 — Manual reviewer decision workflow (v1.0.8, merged)
 
 | Path | Purpose |
 |---|---|
