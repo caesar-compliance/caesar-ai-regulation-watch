@@ -1,0 +1,99 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getSourceDiscoveryLeads, getSourceDiscoverySummary } from "../../lib/data";
+import { formatDate, humanizeId } from "../../lib/format";
+
+const leads = getSourceDiscoveryLeads();
+const summary = getSourceDiscoverySummary();
+
+const statusOrder = [
+  "official_source_confirmed",
+  "pending_official_review",
+  "official_source_unclear",
+  "rejected_not_official",
+] as const;
+
+function statusLabel(status: string) {
+  return status.replace(/_/g, " ");
+}
+---
+
+<BaseLayout title="Source discovery" currentPath="/source-discovery/">
+  <h1>Official source discovery</h1>
+  <p class="lead">
+    Competitor-assisted discovery leads for expanding the official source registry. Competitor
+    tracker pages are navigation aids only — never authority sources.
+  </p>
+
+  <div class="banner banner--review" role="note">
+    <strong>Competitor-assisted discovery policy.</strong> Competitor URLs (Techieray, VerifyWise,
+    DLA Piper, IAPP, artificialintelligenceact.eu, etc.) may appear only as{" "}
+    <code>discovered_from_url</code> / discovery references. Caesar records and summaries must be
+    based on independently verified official sources. No competitor text was copied in this batch.
+    Not legal advice. See repository{" "}
+    <code>docs/COMPETITOR_ASSISTED_SOURCE_DISCOVERY_POLICY.md</code>.
+  </div>
+
+  <dl class="meta-grid">
+    <div><dt>Total leads</dt><dd>{summary.total}</dd></div>
+    <div><dt>Official confirmed</dt><dd>{summary.official_source_confirmed}</dd></div>
+    <div><dt>Pending review</dt><dd>{summary.pending_official_review}</dd></div>
+    <div><dt>Unclear</dt><dd>{summary.official_source_unclear}</dd></div>
+    <div><dt>Rejected (not official)</dt><dd>{summary.rejected_not_official}</dd></div>
+    <div><dt>New sources promoted</dt><dd>{summary.promoted_new_sources}</dd></div>
+  </dl>
+
+  <p>
+    <a href="/data/source-discovery-leads.json">source-discovery-leads.json</a> ·{" "}
+    <a href="/sources/">Official sources registry →</a>
+  </p>
+
+  {
+    statusOrder.map((status) => {
+      const group = leads.filter((l) => l.verification_status === status);
+      if (group.length === 0) return null;
+      return (
+        <section>
+          <h2>{statusLabel(status)} ({group.length})</h2>
+          <ul class="card-list">
+            {group.map((lead) => (
+              <li class="card">
+                <strong>{lead.verified_title ?? humanizeId(lead.lead_id)}</strong>
+                <p class="meta">
+                  {lead.jurisdiction_id} · {lead.source_category} · accessed{" "}
+                  {formatDate(lead.access_date)}
+                  {lead.http_status != null ? ` · HTTP ${lead.http_status}` : ""}
+                </p>
+                <p>
+                  <span class="label">Official candidate</span>{" "}
+                  <a href={lead.candidate_official_url} rel="noopener noreferrer">
+                    {lead.candidate_official_url}
+                  </a>
+                </p>
+                <p>
+                  <span class="label">Discovered via</span> ({lead.discovered_from_type}
+                  {lead.competitor_name ? ` — ${lead.competitor_name}` : ""}):{" "}
+                  <a href={lead.discovered_from_url} rel="noopener noreferrer">
+                    {lead.discovered_from_url}
+                  </a>
+                </p>
+                {lead.promoted_source_id && (
+                  <p>
+                    Promoted: <a href={`/sources/${lead.promoted_source_id}/`}>{lead.promoted_source_id}</a>
+                  </p>
+                )}
+                {lead.existing_source_id && (
+                  <p>
+                    Existing registry:{" "}
+                    <a href={`/sources/${lead.existing_source_id}/`}>{lead.existing_source_id}</a>
+                  </p>
+                )}
+                <p class="notes">{lead.notes}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      );
+    })
+  }
+</BaseLayout>

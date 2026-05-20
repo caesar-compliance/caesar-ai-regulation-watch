@@ -1,7 +1,7 @@
 # Third-Party Code and Data Policy — Caesar AI Regulation Watch
 
-**Effective:** 19 May 2026  
-**Version:** v0.3.3  
+**Effective:** 20 May 2026  
+**Version:** v0.9.1 (competitor-assisted discovery addendum)  
 **Status:** Approved for planning; no third-party code imported. v0.3.3 VerifyWise study completed in external sandbox only.
 
 This policy applies to **caesar-ai-regulation-watch** and aligns with [Caesar AI Governance Hub — License and Code Policy](https://github.com/caesar-compliance/caesar-ai-governance-hub/blob/main/research/LICENSE_AND_CODE_POLICY.md).
@@ -72,6 +72,8 @@ If a teammate has seen competitor proprietary code for the same feature, assign 
 **Secondary** (structure hints, gap-finding, not primary truth):
 
 - OECD, IAPP, law-firm matrices, open datasets, commercial trackers.
+
+**Competitor-assisted discovery (v0.9.1):** Public competitor trackers may be used only to find official URLs to verify independently. See [COMPETITOR_ASSISTED_SOURCE_DISCOVERY_POLICY.md](COMPETITOR_ASSISTED_SOURCE_DISCOVERY_POLICY.md). Competitor pages are never authority sources.
 
 Every record must keep `credibility_level`, `official_url`, and review metadata per [docs/TAXONOMY_AND_REVIEW_WORKFLOW.md](TAXONOMY_AND_REVIEW_WORKFLOW.md).
 

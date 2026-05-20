@@ -95,8 +95,8 @@
         "map_note": "Display marker for EU institutional and regulatory coverage. Not a territorial boundary claim and not complete EU legal coverage.\n"
       },
       "counts": {
-        "sources": 5,
-        "records": 2,
+        "sources": 9,
+        "records": 5,
         "changes": 1,
         "timelines": 2
       },
@@ -141,7 +141,7 @@
         "map_note": "National capital display marker; English METI pages are one entry point among many ministries.\n"
       },
       "counts": {
-        "sources": 1,
+        "sources": 2,
         "records": 1,
         "changes": 0,
         "timelines": 0
@@ -210,8 +210,8 @@
         "map_note": "City-state display marker for curated official AI governance sources.\n"
       },
       "counts": {
-        "sources": 2,
-        "records": 1,
+        "sources": 3,
+        "records": 2,
         "changes": 0,
         "timelines": 0
       },
@@ -256,8 +256,8 @@
         "map_note": "National capital display marker for UK federal-level policy coverage. Does not represent devolved administrations or territorial boundaries beyond display purposes.\n"
       },
       "counts": {
-        "sources": 2,
-        "records": 1,
+        "sources": 4,
+        "records": 2,
         "changes": 0,
         "timelines": 1
       },
@@ -302,8 +302,8 @@
         "map_note": "Federal policy display marker only. Does not represent US state/local law or territorial claims.\n"
       },
       "counts": {
-        "sources": 4,
-        "records": 1,
+        "sources": 5,
+        "records": 2,
         "changes": 0,
         "timelines": 1
       },

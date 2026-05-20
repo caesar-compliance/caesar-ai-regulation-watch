@@ -152,6 +152,27 @@
       "notes": "Tracked official primary source for Norway-specific privacy and AI-adjacent regulatory communication. Supports governance review and may affect controls or evidence (e.g. DPIA, transparency to data subjects). Does not cover all Norwegian regulators (e.g. Finanstilsynet) unless added in future registry waves. AI/privacy theme hub (v0.8.9): https://www.datatilsynet.no/regelverk-og-verktoy/rapporter-og-utredninger/kunstig-intelligens/ — used by guidance-datatilsynet-ai-privacy sample record; homepage remains canonical source entry.\n"
     },
     {
+      "source_id": "edpb-ai-topic",
+      "title": "EDPB — Artificial intelligence documents topic",
+      "jurisdiction_id": "eu",
+      "source_type": "regulator",
+      "credibility_level": "official_primary",
+      "official_url": "https://www.edpb.europa.eu/our-work-tools/our-documents/topic/artificial-intelligence_en",
+      "monitoring_scope": "European Data Protection Board topic index for AI-related opinions, guidelines, and documents on the official edpb.europa.eu domain. Complements the general EDPB homepage source (edpb).\n",
+      "expected_update_types": [
+        "new_guidance_documents",
+        "opinion_publications",
+        "links_to_new_official_documents"
+      ],
+      "related_topics": [
+        "gdpr",
+        "ai_and_privacy",
+        "cross_border_enforcement"
+      ],
+      "review_status": "pending_review",
+      "notes": "v0.9.1 addition. IAPP tracker used only as discovery cue; content not copied.\n"
+    },
+    {
       "source_id": "edpb",
       "title": "European Data Protection Board (EDPB)",
       "jurisdiction_id": "eu",
@@ -177,6 +198,27 @@
       "notes": "Tracked official primary source for EU-level data protection guidance that may affect AI governance controls and evidence (e.g. DPIA, lawful basis documentation). Helps identify regulatory changes; does not provide legal advice. EDPB documents often require careful reading to determine applicability to a specific AI system.\n"
     },
     {
+      "source_id": "edps-technology-monitoring",
+      "title": "EDPS — Technology monitoring",
+      "jurisdiction_id": "eu",
+      "source_type": "regulator",
+      "credibility_level": "official_primary",
+      "official_url": "https://www.edps.europa.eu/data-protection/our-work/technology-monitoring_en",
+      "monitoring_scope": "European Data Protection Supervisor technology monitoring work stream, including AI-related oversight topics on official edps.europa.eu pages. Complements edps homepage.\n",
+      "expected_update_types": [
+        "oversight_reports",
+        "technology_monitoring_updates",
+        "links_to_new_official_documents"
+      ],
+      "related_topics": [
+        "eu_institutions",
+        "ai_and_privacy",
+        "technology_oversight"
+      ],
+      "review_status": "pending_review",
+      "notes": "v0.9.1 addition. Manual official-site discovery; independent HTTP 200 on 20 May 2026.\n"
+    },
+    {
       "source_id": "edps",
       "title": "European Data Protection Supervisor (EDPS)",
       "jurisdiction_id": "eu",
@@ -199,6 +241,28 @@
       ],
       "review_status": "pending_review",
       "notes": "Tracked official primary source complementary to EDPB. Supports governance review where EU institutional AI or cross-cutting privacy-AI topics matter. May affect controls or evidence for organizations interacting with EU bodies or benchmarking against EDPS positions. Requires human review before client use.\n"
+    },
+    {
+      "source_id": "eu-ai-act-service-desk",
+      "title": "EU AI Act Service Desk",
+      "jurisdiction_id": "eu",
+      "source_type": "regulator",
+      "credibility_level": "official_primary",
+      "official_url": "https://ai-act-service-desk.ec.europa.eu/",
+      "monitoring_scope": "Official European Commission service desk for the EU AI Act, including implementation support materials, FAQs, and links to official EU legal texts. Scope limited to this ec.europa.eu-hosted desk; not a substitute for EUR-Lex or national implementations.\n",
+      "expected_update_types": [
+        "faq_changes",
+        "implementation_announcements",
+        "links_to_new_official_documents",
+        "guidance_updates"
+      ],
+      "related_topics": [
+        "eu_ai_act",
+        "implementation",
+        "conformity_assessment"
+      ],
+      "review_status": "pending_review",
+      "notes": "Added v0.9.1 via competitor-assisted discovery (competitor URL as lead only). Requires human review before client use. Not legal advice.\n"
     },
     {
       "source_id": "eu-ai-act",
@@ -250,6 +314,27 @@
       ],
       "review_status": "pending_review",
       "notes": "Tracked official primary source for high-level AI Act implementation communications from the Commission. Helps identify regulatory changes that may affect controls or evidence; requires human review before client use. Does not capture all EU agency publications (e.g. ENISA) unless added later.\n"
+    },
+    {
+      "source_id": "eu-digital-strategy-european-approach-ai",
+      "title": "European Commission — European approach to artificial intelligence",
+      "jurisdiction_id": "eu",
+      "source_type": "regulator",
+      "credibility_level": "official_primary",
+      "official_url": "https://digital-strategy.ec.europa.eu/en/policies/european-approach-artificial-intelligence",
+      "monitoring_scope": "Commission digital-strategy policy pages describing the European approach to AI, including links to the AI Act and related initiatives. Distinct from the regulatory-framework-ai hub entry (eu-ai-office).\n",
+      "expected_update_types": [
+        "policy_announcements",
+        "links_to_new_official_documents",
+        "page_structure_or_content_updates"
+      ],
+      "related_topics": [
+        "eu_ai_act",
+        "digital_strategy",
+        "innovation_policy"
+      ],
+      "review_status": "pending_review",
+      "notes": "v0.9.1 registry expansion. Discovery lead referenced DLA Piper tracker URL only to find this official page. Independent verification 200 on 20 May 2026.\n"
     },
     {
       "source_id": "eur-lex",
@@ -318,6 +403,27 @@
       "notes": "English METI entry point only. URL remediated v0.6.2 to surviving English policy index; dedicated AI subdirectory not reachable. Source identity partially confirmed; Japanese-language MIC/Cabinet pages may need separate entries.\n"
     },
     {
+      "source_id": "japan-ppc",
+      "title": "Japan Personal Information Protection Commission (English portal)",
+      "jurisdiction_id": "japan",
+      "source_type": "regulator",
+      "credibility_level": "official_primary",
+      "official_url": "https://www.ppc.go.jp/en/",
+      "monitoring_scope": "Official English portal of Japan's Personal Information Protection Commission, including privacy law administration relevant to AI and personal data. Complements japan-meti-ai industrial policy source.\n",
+      "expected_update_types": [
+        "guidance_updates",
+        "enforcement_announcements",
+        "links_to_new_official_documents"
+      ],
+      "related_topics": [
+        "privacy",
+        "personal_data",
+        "ai_and_privacy"
+      ],
+      "review_status": "pending_review",
+      "notes": "v0.9.1 addition. Independent HTTP 200 on 20 May 2026. Japanese primary texts not copied.\n"
+    },
+    {
       "source_id": "norway-ai-act-implementation",
       "title": "Norwegian Government — AI Act / EEA implementation information",
       "jurisdiction_id": "norway",
@@ -361,6 +467,27 @@
       ],
       "review_status": "pending_review",
       "notes": "Official OECD resource. Informational and comparative; does not create binding obligations in member countries. National law remains authoritative.\n"
+    },
+    {
+      "source_id": "singapore-aiverify-foundation",
+      "title": "AI Verify Foundation",
+      "jurisdiction_id": "singapore",
+      "source_type": "other",
+      "credibility_level": "official_secondary",
+      "official_url": "https://www.aiverifyfoundation.sg/",
+      "monitoring_scope": "Official AI Verify Foundation website for Singapore's AI testing and governance toolkit. Monitor for framework version updates and official announcements on aiverifyfoundation.sg. Coordinate with PDPC/IMDA government sources for policy context; not a legislature.\n",
+      "expected_update_types": [
+        "toolkit_releases",
+        "framework_updates",
+        "official_announcements"
+      ],
+      "related_topics": [
+        "ai_governance",
+        "testing_toolkits",
+        "singapore_ai_policy"
+      ],
+      "review_status": "pending_review",
+      "notes": "v0.9.1 addition. credibility_level official_secondary as industry/government-backed foundation site; human review required before client use.\n"
     },
     {
       "source_id": "singapore-imda-ai",
@@ -424,6 +551,47 @@
       ],
       "review_status": "pending_review",
       "notes": "Official privacy regulator portal. URL remediated v0.6.2: legacy np/eng/main path returned 404; /eng/ is the reachable English entry point. Dedicated ROK AI framework pages should be added when URLs are verified by human reviewers.\n"
+    },
+    {
+      "source_id": "uk-dsit",
+      "title": "UK Department for Science, Innovation and Technology (DSIT)",
+      "jurisdiction_id": "uk",
+      "source_type": "regulator",
+      "credibility_level": "official_primary",
+      "official_url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology",
+      "monitoring_scope": "Official GOV.UK organisation pages for DSIT, including AI policy announcements, consultations, and publications hosted on gov.uk. Complements uk-gov-ai-regulation publication.\n",
+      "expected_update_types": [
+        "policy_announcements",
+        "consultation_launches",
+        "links_to_new_official_documents"
+      ],
+      "related_topics": [
+        "uk_ai_policy",
+        "innovation",
+        "ai_assurance"
+      ],
+      "review_status": "pending_review",
+      "notes": "v0.9.1 addition. Manual verification on gov.uk; not copied from competitor trackers.\n"
+    },
+    {
+      "source_id": "uk-gov-ai-assurance-intro",
+      "title": "UK Government — Introduction to AI assurance",
+      "jurisdiction_id": "uk",
+      "source_type": "other",
+      "credibility_level": "official_primary",
+      "official_url": "https://www.gov.uk/government/publications/introduction-to-ai-assurance",
+      "monitoring_scope": "Official GOV.UK publication introducing AI assurance concepts for UK policy context. Monitor for updates, annexes, or linked official guidance on gov.uk only.\n",
+      "expected_update_types": [
+        "publication_updates",
+        "linked_guidance_changes"
+      ],
+      "related_topics": [
+        "ai_assurance",
+        "uk_ai_policy",
+        "governance"
+      ],
+      "review_status": "pending_review",
+      "notes": "v0.9.1 addition. Independent verification HTTP 200 on 20 May 2026.\n"
     },
     {
       "source_id": "uk-gov-ai-regulation",
@@ -548,6 +716,27 @@
       ],
       "review_status": "pending_review",
       "notes": "Official federal publication source. Automated checks may redirect via unblock subdomain; www.federalregister.gov remains the canonical registry URL. This entry does not automate searches; humans must identify AI-relevant documents and link specific docket URLs separately.\n"
+    },
+    {
+      "source_id": "us-nist-ai-portal",
+      "title": "NIST — Artificial Intelligence",
+      "jurisdiction_id": "us-federal",
+      "source_type": "standards_body",
+      "credibility_level": "official_primary",
+      "official_url": "https://www.nist.gov/artificial-intelligence",
+      "monitoring_scope": "Official NIST.gov AI program hub, including links to the AI Risk Management Framework, workshops, and standards activities. Complements us-nist-ai-rmf (framework-specific page).\n",
+      "expected_update_types": [
+        "program_announcements",
+        "framework_updates",
+        "links_to_new_official_documents"
+      ],
+      "related_topics": [
+        "ai_rmf",
+        "standards",
+        "federal_ai_policy"
+      ],
+      "review_status": "pending_review",
+      "notes": "v0.9.1 addition. OECD dashboard used only as discovery cue; facts from nist.gov.\n"
     },
     {
       "source_id": "us-nist-ai-rmf",

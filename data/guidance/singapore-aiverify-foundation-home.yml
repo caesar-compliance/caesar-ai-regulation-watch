@@ -1,0 +1,21 @@
+# Manual sample — AI Verify Foundation (v0.9.1)
+record_id: policy-singapore-aiverify-foundation-home
+record_type: policy_framework
+record_origin: manual_sample
+verified_on_source: false
+content_review_status: not_reviewed
+title: AI Verify Foundation — official site (sample pointer)
+jurisdiction_id: singapore
+source_id: singapore-aiverify-foundation
+guidance_status: voluntary
+official_url: https://www.aiverifyfoundation.sg/
+summary_for_review: >
+  Minimal pointer to the AI Verify Foundation official website for Singapore's testing
+  and governance toolkit. May support vendor or internal testing discussions; coordinate
+  with PDPC/IMDA government sources for regulatory context.
+affected_topics:
+  - ai_governance
+  - testing_toolkits
+review_status: pending_review
+legal_safe_note: >
+  Manual sample. Foundation site is not legislation. Not legal advice. Human review required.

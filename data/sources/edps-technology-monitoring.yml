@@ -1,0 +1,23 @@
+# Official source — EDPS technology monitoring
+# Promoted from source discovery — 20 May 2026
+
+source_id: edps-technology-monitoring
+title: EDPS — Technology monitoring
+jurisdiction_id: eu
+source_type: regulator
+credibility_level: official_primary
+official_url: https://www.edps.europa.eu/data-protection/our-work/technology-monitoring_en
+monitoring_scope: >
+  European Data Protection Supervisor technology monitoring work stream, including
+  AI-related oversight topics on official edps.europa.eu pages. Complements edps homepage.
+expected_update_types:
+  - oversight_reports
+  - technology_monitoring_updates
+  - links_to_new_official_documents
+related_topics:
+  - eu_institutions
+  - ai_and_privacy
+  - technology_oversight
+review_status: pending_review
+notes: >
+  v0.9.1 addition. Manual official-site discovery; independent HTTP 200 on 20 May 2026.

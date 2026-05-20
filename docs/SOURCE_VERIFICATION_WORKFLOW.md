@@ -1,7 +1,18 @@
 # Source Verification Workflow
 
 **Prepared:** 19 May 2026  
-**Version:** v0.7.0
+**Version:** v0.9.1
+
+---
+
+## Competitor-assisted discovery (v0.9.1)
+
+Before adding URLs to `data/sources/`, use the [COMPETITOR_ASSISTED_SOURCE_DISCOVERY_POLICY.md](./COMPETITOR_ASSISTED_SOURCE_DISCOVERY_POLICY.md) workflow:
+
+1. Log a lead in `data/source-discovery/` with `discovered_from_type` and independent `candidate_official_url`.
+2. Verify HTTP status and page title on the **official** URL only.
+3. Promote to `data/sources/` when `verification_status: official_source_confirmed`.
+4. Run human source identity review per this document before client-facing use.
 
 ---
 

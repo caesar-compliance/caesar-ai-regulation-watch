@@ -83,6 +83,28 @@ function readEvidenceExportCandidates() {
   return { batch, candidates };
 }
 
+function readSourceDiscoveryLeads() {
+  const dir = path.join(ROOT, "data/source-discovery");
+  if (!fs.existsSync(dir)) return { batch: null, leads: [] };
+  const files = fs
+    .readdirSync(dir)
+    .filter((f) => f.endsWith(".yml") || f.endsWith(".yaml"))
+    .sort()
+    .reverse();
+  if (files.length === 0) return { batch: null, leads: [] };
+  const batch = yaml.load(fs.readFileSync(path.join(dir, files[0]), "utf8"));
+  const leads = (batch?.leads ?? []).map((lead) => ({
+    ...lead,
+    source_discovery_batch_id: batch.source_discovery_batch_id,
+    competitor_discovery_only:
+      lead.discovered_from_type === "competitor_tracker",
+    not_authority_source:
+      lead.verification_status === "rejected_not_official" ||
+      lead.discovered_from_type === "competitor_tracker",
+  }));
+  return { batch, leads };
+}
+
 function readEvidenceExportCandidateReviews() {
   const abs = path.join(ROOT, "data/verifications");
   if (!fs.existsSync(abs)) return { batch: null, reviews: [] };
@@ -206,6 +228,8 @@ if (fs.existsSync(monitoringDiffSummaryPath)) {
   }
 }
 const detectedChanges = readDetectedChanges();
+const { batch: sourceDiscoveryBatch, leads: sourceDiscoveryLeads } =
+  readSourceDiscoveryLeads();
 const { batch: evidenceCandidateBatch, candidates: rawEvidenceExportCandidates } =
   readEvidenceExportCandidates();
 const { batch: evidenceCandidateReviewBatch, reviews: evidenceCandidateReviews } =
@@ -822,6 +846,26 @@ const contentReviewSummary = {
 
 const recordsVerifiedOnSource = records.filter((r) => r.verified_on_source === true).length;
 
+const sourceDiscoverySummary = {
+  total: sourceDiscoveryLeads.length,
+  official_source_confirmed: sourceDiscoveryLeads.filter(
+    (l) => l.verification_status === "official_source_confirmed",
+  ).length,
+  pending_official_review: sourceDiscoveryLeads.filter(
+    (l) => l.verification_status === "pending_official_review",
+  ).length,
+  official_source_unclear: sourceDiscoveryLeads.filter(
+    (l) => l.verification_status === "official_source_unclear",
+  ).length,
+  rejected_not_official: sourceDiscoveryLeads.filter(
+    (l) => l.verification_status === "rejected_not_official",
+  ).length,
+  promoted_new_sources: sourceDiscoveryLeads.filter((l) => l.promoted_source_id).length,
+  competitor_tracker_leads: sourceDiscoveryLeads.filter(
+    (l) => l.discovered_from_type === "competitor_tracker",
+  ).length,
+};
+
 const evidenceCandidateSummary = {
   total: evidenceExportCandidates.length,
   ready_for_human_review: evidenceExportCandidates.filter(
@@ -941,6 +985,11 @@ const snapshot = {
       evidenceCandidateSummary.blocked_simulation_only,
     evidence_export_candidates_client_use_allowed:
       evidenceCandidateSummary.client_use_allowed,
+    source_discovery_lead_count: sourceDiscoverySummary.total,
+    source_discovery_confirmed: sourceDiscoverySummary.official_source_confirmed,
+    source_discovery_pending: sourceDiscoverySummary.pending_official_review,
+    source_discovery_unclear: sourceDiscoverySummary.official_source_unclear,
+    source_discovery_rejected: sourceDiscoverySummary.rejected_not_official,
     evidence_export_candidate_reviews_count: evidenceCandidateReviewSummary.total_reviewed_candidates,
     evidence_export_candidate_reviews_governance_only:
       evidenceCandidateReviewSummary.reviewed_for_internal_governance_only,
@@ -976,6 +1025,7 @@ const snapshot = {
     detected_changes: "/data/detected-changes.json",
     evidence_export_candidates: "/data/evidence-export-candidates.json",
     evidence_export_candidate_reviews: "/data/evidence-export-candidate-reviews.json",
+    source_discovery_leads: "/data/source-discovery-leads.json",
   },
   review_notice:
     "All pilot content is curated manual YAML. Human review required before client use.",
@@ -1188,6 +1238,18 @@ writeJson(path.join(PUBLIC_DATA, "evidence-export-candidates.json"), {
   items: evidenceExportCandidates,
 });
 
+writeJson(path.join(PUBLIC_DATA, "source-discovery-leads.json"), {
+  generated_at: generatedAt,
+  disclaimer: DISCLAIMER,
+  competitor_assisted_discovery_only: true,
+  not_authority_sources: true,
+  batch_id: sourceDiscoveryBatch?.source_discovery_batch_id ?? null,
+  legal_safe_note: sourceDiscoveryBatch?.legal_safe_note ?? DISCLAIMER,
+  policy_doc: "/docs/COMPETITOR_ASSISTED_SOURCE_DISCOVERY_POLICY.md",
+  summary: sourceDiscoverySummary,
+  items: sourceDiscoveryLeads,
+});
+
 writeJson(path.join(PUBLIC_DATA, "evidence-export-candidate-reviews.json"), {
   generated_at: generatedAt,
   disclaimer: DISCLAIMER,
@@ -1269,6 +1331,7 @@ console.log("  public/data/monitoring-runs.json");
 console.log("  public/data/detected-changes.json");
 console.log("  public/data/evidence-export-candidates.json");
 console.log("  public/data/evidence-export-candidate-reviews.json");
+console.log(`  ${sourceDiscoveryLeads.length} source discovery lead(s) exported`);
 console.log(`  ${evidenceExportCandidates.length} evidence export candidate(s) exported`);
 console.log("  public/data/regulation-watch-snapshot.json");
 console.log(`  ${watchers.length} watcher(s) configured`);

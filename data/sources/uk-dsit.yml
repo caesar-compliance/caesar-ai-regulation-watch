@@ -1,0 +1,23 @@
+# Official source — UK Department for Science, Innovation and Technology
+# Promoted from source discovery — 20 May 2026
+
+source_id: uk-dsit
+title: UK Department for Science, Innovation and Technology (DSIT)
+jurisdiction_id: uk
+source_type: regulator
+credibility_level: official_primary
+official_url: https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology
+monitoring_scope: >
+  Official GOV.UK organisation pages for DSIT, including AI policy announcements,
+  consultations, and publications hosted on gov.uk. Complements uk-gov-ai-regulation publication.
+expected_update_types:
+  - policy_announcements
+  - consultation_launches
+  - links_to_new_official_documents
+related_topics:
+  - uk_ai_policy
+  - innovation
+  - ai_assurance
+review_status: pending_review
+notes: >
+  v0.9.1 addition. Manual verification on gov.uk; not copied from competitor trackers.

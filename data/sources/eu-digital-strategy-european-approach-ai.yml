@@ -1,0 +1,25 @@
+# Official source — EC Digital Strategy European approach to AI
+# Promoted from source discovery — 20 May 2026
+
+source_id: eu-digital-strategy-european-approach-ai
+title: European Commission — European approach to artificial intelligence
+jurisdiction_id: eu
+source_type: regulator
+credibility_level: official_primary
+official_url: https://digital-strategy.ec.europa.eu/en/policies/european-approach-artificial-intelligence
+monitoring_scope: >
+  Commission digital-strategy policy pages describing the European approach to AI,
+  including links to the AI Act and related initiatives. Distinct from the
+  regulatory-framework-ai hub entry (eu-ai-office).
+expected_update_types:
+  - policy_announcements
+  - links_to_new_official_documents
+  - page_structure_or_content_updates
+related_topics:
+  - eu_ai_act
+  - digital_strategy
+  - innovation_policy
+review_status: pending_review
+notes: >
+  v0.9.1 registry expansion. Discovery lead referenced DLA Piper tracker URL only to
+  find this official page. Independent verification 200 on 20 May 2026.

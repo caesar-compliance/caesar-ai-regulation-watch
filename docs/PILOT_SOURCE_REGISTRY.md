@@ -115,3 +115,23 @@ Expansion is registry-driven; absence here is not a statement that a source is u
 4. Optional validation script (no new package manager without approval).
 
 See [NEXT_ACTIONS.md](../NEXT_ACTIONS.md).
+
+---
+
+## v0.9.1 expansion (competitor-assisted discovery)
+
+**Added 20 May 2026** — nine new official sources via [COMPETITOR_ASSISTED_SOURCE_DISCOVERY_POLICY.md](COMPETITOR_ASSISTED_SOURCE_DISCOVERY_POLICY.md):
+
+| `source_id` | Jurisdiction |
+|---|---|
+| `eu-ai-act-service-desk` | `eu` |
+| `eu-digital-strategy-european-approach-ai` | `eu` |
+| `edpb-ai-topic` | `eu` |
+| `edps-technology-monitoring` | `eu` |
+| `uk-dsit` | `uk` |
+| `uk-gov-ai-assurance-intro` | `uk` |
+| `us-nist-ai-portal` | `us-federal` |
+| `singapore-aiverify-foundation` | `singapore` |
+| `japan-ppc` | `japan` |
+
+Discovery batch: `data/source-discovery/source-discovery-leads-2026-05-20.yml` (24 leads). Public: `/source-discovery/`, `/data/source-discovery-leads.json`. All new entries `review_status: pending_review`.

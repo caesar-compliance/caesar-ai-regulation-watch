@@ -2,7 +2,7 @@
 
 **Last updated:** 20 May 2026
 
-**Current version:** v0.9.0 · **Phase:** public pilot — custom domain · **Branch:** `main` (after merge)
+**Current version:** v0.9.1 · **Phase:** public pilot — source discovery expansion · **Branch:** `main` (after merge)
 
 **Canonical URL:** https://regulation-watch.caesar.no/
 
@@ -10,10 +10,10 @@
 
 ## Immediate priority
 
-1. ~~**Deploy v0.9.0**~~ — Done (`DEPLOY-20260520-007`, run [26132704545](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26132704545), commit `6779c28`).
-2. ~~**Smoke test / hygiene**~~ — Custom domain smoke pass 20 May 2026; see [docs/PUBLIC_DEPLOYMENT_BASELINE.md](docs/PUBLIC_DEPLOYMENT_BASELINE.md).
-3. ~~**Tag**~~ — `regulation-watch-v0.9.0` on `6779c28`.
-4. **EUR-Lex deep pass** — EU AI Act candidate remains `needs_more_source_review`.
+1. ~~**v0.9.1 source discovery**~~ — 24 leads, 9 new sources, policy + `/source-discovery/` page (deploy pending).
+2. **Re-verify pending leads** — White House EO URL (404), Canada responsible-ai (fetch unclear), Australia industry principles (fetch failed).
+3. **EUR-Lex deep pass** — EU AI Act candidate remains `needs_more_source_review`.
+4. **Tag** — `regulation-watch-v0.9.1` after deploy smoke pass.
 
 ---
 

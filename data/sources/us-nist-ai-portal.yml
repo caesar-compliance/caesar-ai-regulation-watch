@@ -1,0 +1,23 @@
+# Official source — NIST Artificial Intelligence program portal
+# Promoted from source discovery — 20 May 2026
+
+source_id: us-nist-ai-portal
+title: NIST — Artificial Intelligence
+jurisdiction_id: us-federal
+source_type: standards_body
+credibility_level: official_primary
+official_url: https://www.nist.gov/artificial-intelligence
+monitoring_scope: >
+  Official NIST.gov AI program hub, including links to the AI Risk Management Framework,
+  workshops, and standards activities. Complements us-nist-ai-rmf (framework-specific page).
+expected_update_types:
+  - program_announcements
+  - framework_updates
+  - links_to_new_official_documents
+related_topics:
+  - ai_rmf
+  - standards
+  - federal_ai_policy
+review_status: pending_review
+notes: >
+  v0.9.1 addition. OECD dashboard used only as discovery cue; facts from nist.gov.

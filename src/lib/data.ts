@@ -1008,6 +1008,74 @@ export function detectedChangesForSource(sourceId: string): DetectedChange[] {
   return getDetectedChanges().filter((d) => d.source_id === sourceId);
 }
 
+export type SourceDiscoveryVerificationStatus =
+  | "pending_official_review"
+  | "official_source_confirmed"
+  | "official_source_unclear"
+  | "rejected_not_official";
+
+export interface SourceDiscoveryLead {
+  lead_id: string;
+  discovered_from_type: "competitor_tracker" | "official_site" | "manual_research";
+  discovered_from_url: string;
+  competitor_name?: string;
+  lead_found_via?: string;
+  candidate_official_url: string;
+  jurisdiction_id: string;
+  source_category: string;
+  official_source_verified: boolean;
+  verification_status: SourceDiscoveryVerificationStatus;
+  verified_title?: string;
+  http_status?: number;
+  access_date: string;
+  promoted_source_id?: string;
+  existing_source_id?: string;
+  notes: string;
+  source_discovery_batch_id?: string;
+}
+
+export interface SourceDiscoveryBatch {
+  source_discovery_batch_id: string;
+  generated_at: string;
+  legal_safe_note: string;
+  leads: SourceDiscoveryLead[];
+}
+
+export function getSourceDiscoveryBatches(): SourceDiscoveryBatch[] {
+  return readYamlDir<SourceDiscoveryBatch>("data/source-discovery").sort((a, b) =>
+    b.generated_at.localeCompare(a.generated_at),
+  );
+}
+
+export function getSourceDiscoveryLeads(): SourceDiscoveryLead[] {
+  const batch = getSourceDiscoveryBatches()[0];
+  if (!batch) return [];
+  return (batch.leads ?? []).map((lead) => ({
+    ...lead,
+    source_discovery_batch_id: batch.source_discovery_batch_id,
+  }));
+}
+
+export function getSourceDiscoverySummary() {
+  const leads = getSourceDiscoveryLeads();
+  return {
+    total: leads.length,
+    official_source_confirmed: leads.filter(
+      (l) => l.verification_status === "official_source_confirmed",
+    ).length,
+    pending_official_review: leads.filter(
+      (l) => l.verification_status === "pending_official_review",
+    ).length,
+    official_source_unclear: leads.filter(
+      (l) => l.verification_status === "official_source_unclear",
+    ).length,
+    rejected_not_official: leads.filter(
+      (l) => l.verification_status === "rejected_not_official",
+    ).length,
+    promoted_new_sources: leads.filter((l) => l.promoted_source_id).length,
+  };
+}
+
 export function getPilotSummary() {
   return {
     jurisdictionCount: getJurisdictions().length,

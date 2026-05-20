@@ -1,0 +1,20 @@
+# Manual sample — EDPB AI topic index (v0.9.1)
+record_id: guidance-edpb-ai-topic-index
+record_type: guidance
+record_origin: manual_sample
+verified_on_source: false
+content_review_status: not_reviewed
+title: EDPB — Artificial intelligence documents topic (sample pointer)
+jurisdiction_id: eu
+source_id: edpb-ai-topic
+guidance_status: guidance
+official_url: https://www.edpb.europa.eu/our-work-tools/our-documents/topic/artificial-intelligence_en
+summary_for_review: >
+  Minimal pointer to the EDPB topic index for AI-related data protection documents.
+  Useful for monitoring new official EDPB outputs; not a complete list of EU AI law.
+affected_topics:
+  - gdpr
+  - ai_and_privacy
+review_status: pending_review
+legal_safe_note: >
+  Manual sample from official index URL. Not legal advice. Content not fully reviewed.

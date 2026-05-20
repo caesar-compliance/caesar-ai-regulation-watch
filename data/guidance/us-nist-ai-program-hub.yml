@@ -1,0 +1,22 @@
+# Manual sample — NIST AI program hub (v0.9.1)
+record_id: policy-us-nist-ai-program-hub
+record_type: policy_framework
+record_origin: manual_sample
+verified_on_source: false
+content_review_status: not_reviewed
+title: NIST Artificial Intelligence program hub (sample pointer)
+jurisdiction_id: us-federal
+source_id: us-nist-ai-portal
+guidance_status: monitoring
+official_url: https://www.nist.gov/artificial-intelligence
+summary_for_review: >
+  Minimal pointer to the official NIST.gov AI program landing page, which links to
+  the AI Risk Management Framework and related standards work. Distinct from the
+  framework-specific record tied to us-nist-ai-rmf.
+affected_topics:
+  - ai_rmf
+  - standards
+  - federal_ai_policy
+review_status: pending_review
+legal_safe_note: >
+  Manual sample; not legal advice. Does not certify NIST alignment for any system.

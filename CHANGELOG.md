@@ -11,6 +11,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.9.1] - 20 May 2026
+
+### Added
+
+- **Competitor-assisted source discovery policy** — `docs/COMPETITOR_ASSISTED_SOURCE_DISCOVERY_POLICY.md`.
+- **Source discovery data layer** — `data/source-discovery/source-discovery-leads-2026-05-20.yml` (26 leads), `schemas/source-discovery-lead.schema.json`.
+- **Registry expansion** — 9 new official sources (EU AI Act Service Desk, EC European approach, EDPB AI topic, EDPS technology monitoring, UK DSIT, UK AI assurance intro, NIST AI portal, Singapore AI Verify Foundation, Japan PPC).
+- **Minimal records** — 6 sample law/guidance/policy pointers from official URLs only (`pending_review`, `verified_on_source: false`).
+- **Public page** — `/source-discovery/` and `public/data/source-discovery-leads.json`.
+
+### Notes
+
+- Competitor trackers used as discovery leads only; no competitor text copied; `client_use_allowed: 0`; no final evidence.
+
+---
+
 ## [0.9.0] - 20 May 2026
 
 ### Added
