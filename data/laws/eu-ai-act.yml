@@ -5,8 +5,8 @@ record_id: law-eu-ai-act-2024-1689
 record_type: law
 record_origin: manual_sample
 verified_on_source: false
-content_review_status: not_reviewed
-last_content_review_id: content-review-law-eu-ai-act-2024-1689
+content_review_status: reviewed_content_summary
+last_content_review_id: content-review-law-eu-ai-act-2024-1689-v092
 title: Regulation (EU) 2024/1689 — Artificial Intelligence Act
 jurisdiction_id: eu
 source_id: eu-ai-act

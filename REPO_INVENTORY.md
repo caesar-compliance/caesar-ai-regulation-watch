@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 20 May 2026 (v0.9.1 source discovery expansion)
+**Last updated:** 20 May 2026 (v0.9.2 source resolution + content review)
 
 ---
 
@@ -15,7 +15,7 @@
 | **ROADMAP.md** | v0.6.1 URL verification + review queue |
 | **CHANGELOG.md** | Semver history |
 | **REPO_INVENTORY.md** | This file |
-| **PROJECT_STATE.md** | v0.9.1 phase (source discovery + custom domain) |
+| **PROJECT_STATE.md** | v0.9.2 phase (source resolution + content review) |
 | **docs/COMPETITOR_ASSISTED_SOURCE_DISCOVERY_POLICY.md** | Competitor-as-lead-only rules (v0.9.1) |
 | **NEXT_ACTIONS.md** | Control Tower URL verification |
 | **docs/SOURCE_VERIFICATION_WORKFLOW.md** | Verification process |

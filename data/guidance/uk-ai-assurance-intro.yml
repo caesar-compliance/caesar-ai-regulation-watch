@@ -3,7 +3,8 @@ record_id: guidance-uk-ai-assurance-intro
 record_type: guidance
 record_origin: manual_sample
 verified_on_source: false
-content_review_status: not_reviewed
+content_review_status: reviewed_content_summary
+last_content_review_id: content-review-guidance-uk-ai-assurance-intro
 title: UK Government — Introduction to AI assurance (sample pointer)
 jurisdiction_id: uk
 source_id: uk-gov-ai-assurance-intro

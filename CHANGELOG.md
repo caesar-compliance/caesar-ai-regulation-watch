@@ -11,6 +11,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.9.2] - 20 May 2026
+
+### Changed
+
+- **Pending source discovery leads** — White House EO lead resolved to Federal Register EO 14110 (official_source_confirmed); Canada responsible-ai confirmed (HTTP 200); Australia industry principles remains pending (industry.gov.au bot/WAF on automated fetch).
+- **EUR-Lex focused pass** — EU AI Act law record and export candidate review notes refreshed; EUR-Lex HTTP 202 limitation unchanged; `needs_more_source_review` retained.
+- **First content review batch for v0.9.1 records** — `data/verifications/content-review-2026-05-20-v092.yml` (6 new minimal records + EUR-Lex follow-up); `content_review_status: reviewed_content_summary` on promoted records; `verified_on_source_after_check` remains false.
+
+### Notes
+
+- Not legal advice; no complete coverage; `client_use_allowed: 0`; no final evidence export.
+
+---
+
 ## [0.9.1] - 20 May 2026
 
 ### Added

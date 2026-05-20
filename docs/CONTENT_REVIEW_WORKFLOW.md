@@ -120,6 +120,15 @@ First human source-access pass on all 9 entries in `data/verifications/content-r
 
 After this batch, regenerate candidates (`npm run generate:evidence-candidates`) and exports before deploy.
 
+## v0.9.2 batch (20 May 2026)
+
+First content review pass on six minimal records from v0.9.1 source discovery (`content-review-2026-05-20-v092.yml`):
+
+- Five records: `matches_source_at_high_level` with `reviewed_content_summary` (EU Service Desk, EC digital strategy, NIST hub, UK AI assurance, AI Verify Foundation).
+- EDPB AI topic index: `source_support_unclear` (HTTP 502 transient during v0.9.2 pass).
+- EUR-Lex follow-up on `law-eu-ai-act-2024-1689`: `partially_matches_source`; EUR-Lex HTTP 202 unchanged.
+- `verified_on_source_after_check` remains **false** on every entry; `client_use_allowed` remains **false**.
+
 ---
 
 ## Related documents

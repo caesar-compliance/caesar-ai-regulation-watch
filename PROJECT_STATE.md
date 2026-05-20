@@ -9,14 +9,14 @@
 | Field | Value |
 |---|---|
 | **Repository** | `caesar-ai-regulation-watch` |
-| **Current version** | `v0.9.1` |
-| **Current phase** | Public pilot — competitor-assisted official source discovery |
-| **Status** | Live on custom domain; v0.9.1 deployed (`8040212`) |
-| **Working branch** | `main` (after merge) |
-| **Latest completed task** | v0.9.1 — 26 discovery leads, 9 new sources, 6 minimal records; deployed |
-| **Deployment ID** | `DEPLOY-20260520-008` — commit `8040212`, run [26133482897](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26133482897) |
-| **Git tag** | `regulation-watch-v0.9.1` on `8040212` |
-| **Next recommended step** | Control Tower: URL re-check for pending/unclear leads; EUR-Lex deep pass |
+| **Current version** | `v0.9.2` |
+| **Current phase** | Public pilot — source resolution and content review |
+| **Status** | Release in progress (branch `agent/v0.9.2-source-resolution-content-review`) |
+| **Working branch** | `agent/v0.9.2-source-resolution-content-review` → merge to `main` |
+| **Latest completed task** | v0.9.2 — resolve pending leads; first content review for v0.9.1 records |
+| **Prior deployment** | `DEPLOY-20260520-008` — v0.9.1 commit `8040212` / docs `2b14b8a` |
+| **Git tag (prior)** | `regulation-watch-v0.9.1` on `8040212` |
+| **Next recommended step** | Control Tower: deploy v0.9.2; human browser pass for Australia industry.gov.au and EUR-Lex |
 
 ---
 
@@ -25,26 +25,35 @@
 | ID type | Example | Use |
 |---|---|---|
 | Work item | `TXXX` | `work-items/` only — not public version |
-| Product version | `v0.9.1` | Site footer, snapshot, `package.json` |
-| Deployment ID | `DEPLOY-20260520-008` | Live — see [DEPLOYMENTS.md](DEPLOYMENTS.md) |
-| Git tag | `regulation-watch-v0.9.1` | Points at deploy commit `8040212` |
+| Product version | `v0.9.2` | Site footer, snapshot, `package.json` |
+| Deployment ID | `DEPLOY-20260520-009` (pending) | See [DEPLOYMENTS.md](DEPLOYMENTS.md) after deploy |
+| Git tag | `regulation-watch-v0.9.2` (pending) | After successful deploy smoke pass |
 
 ---
 
-## Source discovery (v0.9.1)
+## Source discovery (v0.9.2 resolution on v0.9.1 batch)
+
+| Metric | v0.9.1 | After v0.9.2 |
+|---|---|---|
+| Discovery leads | 26 | 26 |
+| Official source confirmed | 22 | 24 |
+| Pending official review | 2 | 1 |
+| Official source unclear | 1 | 0 |
+| Rejected (not official) | 1 | 1 |
+
+**v0.9.2 resolutions:** White House EO → Federal Register EO 14110 confirmed; Canada responsible-ai confirmed; Australia industry principles still pending (WAF).
+
+---
+
+## Content review (v0.9.2)
 
 | Metric | Count |
 |---|---|
-| Discovery leads | 26 |
-| Official source confirmed | 22 |
-| Pending official review | 2 |
-| Official source unclear | 1 |
-| Rejected (not official) | 1 |
-| Promoted new `source_id` | 9 |
-| New sources in registry | 9 |
-| New minimal records | 6 |
-
-Policy: [docs/COMPETITOR_ASSISTED_SOURCE_DISCOVERY_POLICY.md](docs/COMPETITOR_ASSISTED_SOURCE_DISCOVERY_POLICY.md)
+| New batch | `content-review-2026-05-20-v092` |
+| v0.9.1 minimal records reviewed | 6 |
+| EUR-Lex follow-up entry | 1 |
+| `client_use_allowed: true` | 0 |
+| `verified_on_source_after_check: true` | 0 |
 
 ---
 
