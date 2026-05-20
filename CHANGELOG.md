@@ -27,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Notes
 
-- Release candidate on branch `task/T051-rich-country-profiles-drilldowns`. Deployment closeout pending Control Tower approval. Tracker metadata only — not legal advice; evidence gates remain closed.
+- Merged to main (PR #11, squash commit `51de0eb`). Live site remains v1.0.7; tag `regulation-watch-v1.0.8` and deployment closeout pending future Control Tower approval. Tracker metadata only — not legal advice; evidence gates remain closed.
 
 ---
 

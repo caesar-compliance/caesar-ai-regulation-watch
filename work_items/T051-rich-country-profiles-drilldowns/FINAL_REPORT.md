@@ -1,13 +1,13 @@
 # T051 — Final report
 
-**Status:** Implementation complete on branch `task/T051-rich-country-profiles-drilldowns`. Deployment closeout pending Control Tower approval (not deployed to live in this run).
+**Status:** Merged to main (PR #11, squash `51de0eb`). Live site remains v1.0.7. Tag `regulation-watch-v1.0.8`, deploy, and deployment closeout pending future Control Tower approval.
 
 ## Summary
 
 - Richer jurisdiction profile pages with tracker hero, metrics, topic/region drilldown links, safety panel, and compare shortcuts.
 - New `/regions/` and `/topics/` index and detail drilldowns from pilot seeds only.
 - Public JSON: `jurisdiction-profiles.json`, `region-drilldowns.json`, `topic-drilldowns.json`.
-- Product version **v1.0.8** (release candidate).
+- Product version **v1.0.8** on main (not yet deployed).
 
 ## Safety
 

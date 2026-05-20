@@ -1,7 +1,7 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 20 May 2026
-**Current release candidate:** v1.0.8 (T051 profiles + drilldowns) — branch `task/T051-rich-country-profiles-drilldowns`
+**Current codebase:** v1.0.8 (T051 profiles + drilldowns) — merged to main; tag/deploy pending future approval
 **Live release:** v1.0.7 (T050) — deployed `DEPLOY-20260520-025`, commit `86c9262`, tag `regulation-watch-v1.0.7`
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
@@ -31,9 +31,9 @@
    - Tracker scoring metadata; `jurisdiction-comparison.json` export.
    - No GPL map copy; no scraping; gates remain closed.
 
-6. **T051 — Richer country profiles + regional/topic drilldowns** *(implemented — v1.0.8 RC on branch)*
+6. **T051 — Richer country profiles + regional/topic drilldowns** *(merged to main — PR #11)*
    - Richer `/jurisdictions/[id]/` profiles; `/regions/` and `/topics/` drilldowns; JSON exports.
-   - Deploy/tag after Control Tower validation.
+   - Tag `regulation-watch-v1.0.8`, deploy, and closeout pending future Control Tower approval.
 
 7. **T052 — API/RSS source adapter planning + allowlist architecture** *(next)*
    - Manual-gated adapter design; non-scraping by default.
