@@ -1,8 +1,8 @@
 # Public Deployment Baseline
 
-**Phase:** v0.9.6 — cautious live metadata pilot  
+**Phase:** v0.9.7 — live metadata review triage  
 **Deployment date:** 20 May 2026  
-**Status:** Live — custom domain deploy run [26161681675](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26161681675)
+**Status:** Live — custom domain deploy run [26162113701](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26162113701)
 
 ---
 
@@ -11,11 +11,12 @@
 | Field | Value |
 |---|---|
 | **Repository** | [caesar-compliance/caesar-ai-regulation-watch](https://github.com/caesar-compliance/caesar-ai-regulation-watch) |
-| **Product version** | `v0.9.6` |
-| **Deployment ID** | `DEPLOY-20260520-013` (see [DEPLOYMENTS.md](../DEPLOYMENTS.md)) |
-| **Deployed commit** | `644c448` (`merge: v0.9.6 live metadata pilot`) |
-| **Latest workflow run ID** | [26161681675](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26161681675) |
-| **Prior deploy** | v0.9.5 `5d43122` — run [26160894726](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26160894726) |
+| **Product version** | `v0.9.7` |
+| **Deployment ID** | `DEPLOY-20260520-014` (see [DEPLOYMENTS.md](../DEPLOYMENTS.md)) |
+| **Deployed commit** | `aa94d88` (`merge: v0.9.7 live metadata triage`) |
+| **Git tag** | `regulation-watch-v0.9.7` → `aa94d88` (tag equals deployed commit) |
+| **Latest workflow run ID** | [26162113701](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26162113701) |
+| **Prior deploy** | v0.9.6 `644c448` — run [26161681675](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26161681675) |
 | **Workflow** | [Deploy static site](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/workflows/deploy-static-site.yml) |
 | **Trigger** | `workflow_dispatch` with `confirm_disclaimers=DEPLOY` |
 | **Canonical public URL** | https://regulation-watch.caesar.no/ |
@@ -25,24 +26,17 @@
 
 ---
 
-## Smoke-tested URLs (20 May 2026 — v0.9.6)
+## Smoke-tested URLs (20 May 2026 — v0.9.7)
 
 Base `https://regulation-watch.caesar.no/` — see [POST_DEPLOY_SMOKE_TESTS.md](POST_DEPLOY_SMOKE_TESTS.md).
 
 **Verified:**
 
-- Home/footer show **v0.9.6** (no stale v0.5.1 / v0.8.4 / v0.8.3 labels).
-- `/monitoring/` HTTP 200 — **Cautious live metadata pilot** section visible; allowlist **5** sources.
-- `data/live-metadata-runs.json` — run `live-metadata-run-2026-05-20-v096`; `metadata_check_ok: 2`, `metadata_changed_needs_review: 3`, `metadata_check_failed: 0`.
-- `data/change-review-packs.json` — pack `change-review-pack-2026-05-20-v096`.
-- `snapshot.version` = **0.9.6**; `live_metadata_pilot_source_count` = **5**; `live_metadata_client_use_allowed_count` = **0**.
-- Prior v0.9.5 monitoring exports and discovery/content/evidence pages remain HTTP 200.
+- Home/footer show **v0.9.7** (no stale v0.5.1 / v0.8.4 / v0.8.3 labels).
+- `/monitoring/` HTTP 200 — **Live metadata review triage** section; warning metadata change ≠ legal change.
+- `data/metadata-review-triage.json` — batch `metadata-review-triage-2026-05-20-v097`; `benign_metadata_change: 2`, `check_artifact: 1`, `legal_change_claimed: 0`.
+- `data/regulation-watch-snapshot.json` — `version` **0.9.7**; `metadata_review_triage_count` **3**; `legal_change_claimed_count` **0**.
+- Prior v0.9.6 live metadata exports (`live-metadata-runs.json`, `change-review-packs.json`) remain HTTP 200.
+- Review queue: benign triaged NIST/UK GOV items removed; UNESCO `check_artifact` remains.
 
----
-
-## Policy reminders (unchanged)
-
-- Cautious live metadata pilot only — not scheduled broad monitoring; max one request per allowlisted URL.
-- Metadata headers/title only; no full legal text storage; no link crawl; no WAF bypass.
-- Not legal advice; not client evidence; `client_use_allowed: 0`; no final evidence export.
-- Blocked/manual-only unchanged: EUR-Lex CELEX, EDPB AI topic, Australia industry.gov.au (excluded from live allowlist).
+**Not in scope:** scheduled monitoring, legal/regulatory change claims, client evidence, final evidence export.

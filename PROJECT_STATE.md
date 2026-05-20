@@ -11,12 +11,12 @@
 | **Repository** | `caesar-ai-regulation-watch` |
 | **Current version** | `v0.9.7` |
 | **Current phase** | Public pilot — live metadata triage + stable baseline hardening |
-| **Status** | v0.9.7 implementation complete; deploy pending |
-| **Working branch** | `agent/v0.9.7-live-metadata-triage` → merge `main` |
+| **Status** | Live on custom domain; v0.9.7 deployed (`aa94d88`) |
+| **Working branch** | `main` |
 | **Latest completed task** | v0.9.7 — triage 3 live metadata review candidates; comparison policy hardening |
-| **Deployment ID** | (pending v0.9.7 deploy) |
-| **Git tag** | `regulation-watch-v0.9.7` (after deploy on main) |
-| **Next recommended step** | Deploy v0.9.7; optional UNESCO check_artifact human confirm on official page |
+| **Deployment ID** | `DEPLOY-20260520-014` — commit `aa94d88`, run [26162113701](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26162113701) |
+| **Git tag** | `regulation-watch-v0.9.7` → `aa94d88` (matches deployed commit) |
+| **Next recommended step** | Optional UNESCO check_artifact confirm on official page; browser verification on blocked sources |
 
 ---
 
