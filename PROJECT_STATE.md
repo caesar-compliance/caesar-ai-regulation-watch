@@ -44,3 +44,11 @@ The current **v1.0.4** public technical MVP is the **live technical base**. The 
 ## Documentation rebase (T046)
 
 Strategy docs added/updated 20 May 2026: automation-first charter, first full MVP requirements, reference-driven build policy, automation-first benchmarks and roadmap. Human-review-first positioning removed from root docs; evidence/export gates remain closed unless separately approved.
+
+## T048 — Automation-first tracker skeleton (in progress on feature branch)
+
+- Public pages: `/tracker/`, `/updates/`, `/countries/`
+- Seed data: `data/country-status/`, `data/regulatory-updates/`, `data/topics/`
+- JSON exports: `country-status.json`, `regulatory-updates.json`, `automation-first-metrics.json`, `tracker-topics.json`
+- No scraping, no competitor data, no evidence gates opened
+- Recommended next: **T049** source adapter pipeline for updates feed

@@ -1,0 +1,26 @@
+jurisdiction_id: eu
+country_name: European Union
+region: Europe
+status_bucket: adopted
+status_label: Adopted — comprehensive framework
+status_summary: >
+  Pilot tracks the EU AI Act instrument and official EU AI Office / Commission implementation
+  pages. Status reflects curated registry coverage, not a complete EU legal survey.
+last_update_date: "2026-05-15"
+latest_update_id: update-eu-ai-office-guidance-signal-2026-05-15
+source_ids:
+  - eu-ai-act
+  - eu-ai-office
+topic_tags:
+  - eu_ai_act
+  - gpai
+  - risk_management
+confidence_score: medium
+automation_method: manual_seed
+requires_human_review: false
+client_evidence_allowed: false
+final_evidence_allowed: false
+legal_change_claimed: false
+legal_safe_note: >
+  T048 manual seed for automation-first tracker skeleton. Not legal advice. Not complete EU
+  or member-state coverage. Verify instruments and dates on official sources.

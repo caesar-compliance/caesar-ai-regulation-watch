@@ -1,0 +1,23 @@
+update_id: update-japan-meti-ai-portal-2026-05-11
+update_date: "2026-05-11"
+jurisdiction_id: japan
+title: Japan METI AI policy portal — registry seed
+update_type: institutional_update
+summary: >
+  Seed update for METI AI-related official pages tracked in the pilot source registry.
+source_ids:
+  - japan-meti-ai
+source_urls:
+  - https://www.meti.go.jp/policy/it_policy/ai/index.html
+topic_tags:
+  - risk_management
+status_bucket: guidance
+importance: medium
+confidence_score: medium
+automation_method: manual_seed
+requires_human_review: false
+client_evidence_allowed: false
+final_evidence_allowed: false
+legal_change_claimed: false
+legal_safe_note: >
+  T048 manual seed. Not legal advice.

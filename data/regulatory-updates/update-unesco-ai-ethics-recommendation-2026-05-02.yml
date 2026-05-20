@@ -1,0 +1,23 @@
+update_id: update-unesco-ai-ethics-recommendation-2026-05-02
+update_date: "2026-05-02"
+jurisdiction_id: unesco
+title: UNESCO AI ethics recommendation — registry seed
+update_type: guidance
+summary: >
+  Seed update for UNESCO AI ethics recommendation source entry in the pilot registry.
+source_ids:
+  - unesco-ai-ethics
+source_urls:
+  - https://www.unesco.org/en/artificial-intelligence/recommendation-ethics
+topic_tags:
+  - risk_management
+status_bucket: guidance
+importance: low
+confidence_score: high
+automation_method: manual_seed
+requires_human_review: false
+client_evidence_allowed: false
+final_evidence_allowed: false
+legal_change_claimed: false
+legal_safe_note: >
+  T048 manual seed. Non-binding ethics instrument framing. Not legal advice.

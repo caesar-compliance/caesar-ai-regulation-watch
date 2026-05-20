@@ -1,0 +1,22 @@
+jurisdiction_id: norway
+country_name: Norway
+region: Europe
+status_bucket: monitoring
+status_label: Monitoring — EEA implementation context
+status_summary: >
+  Pilot tracks Norway AI Act implementation pages alongside EU context. Reflects curated
+  monitoring, not a standalone national AI code summary.
+last_update_date: "2026-05-06"
+latest_update_id: update-norway-ai-act-implementation-2026-05-06
+source_ids:
+  - norway-ai-act-implementation
+topic_tags:
+  - eu_ai_act
+confidence_score: medium
+automation_method: manual_seed
+requires_human_review: false
+client_evidence_allowed: false
+final_evidence_allowed: false
+legal_change_claimed: false
+legal_safe_note: >
+  T048 manual seed. Not legal advice. EEA/EU interactions require official verification.

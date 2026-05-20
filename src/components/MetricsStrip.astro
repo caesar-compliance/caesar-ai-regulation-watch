@@ -1,0 +1,32 @@
+---
+import type { AutomationFirstMetrics } from "../lib/tracker-data";
+
+interface Props {
+  metrics: AutomationFirstMetrics;
+}
+
+const { metrics } = Astro.props;
+---
+
+<div class="metrics-strip" role="group" aria-label="Automation-first tracker metrics">
+  <div class="metrics-strip__card">
+    <strong>{metrics.jurisdiction_count}</strong>
+    <span>Jurisdictions tracked</span>
+  </div>
+  <div class="metrics-strip__card">
+    <strong>{metrics.adopted_or_enforced_count}</strong>
+    <span>Adopted / enforcement signals</span>
+  </div>
+  <div class="metrics-strip__card">
+    <strong>{metrics.proposed_or_consultation_count}</strong>
+    <span>Proposed / consultation signals</span>
+  </div>
+  <div class="metrics-strip__card">
+    <strong>{metrics.regulatory_update_count}</strong>
+    <span>Regulatory updates (seed)</span>
+  </div>
+  <div class="metrics-strip__card">
+    <strong>{metrics.updates_last_30_days}</strong>
+    <span>Updates (last 30 days)</span>
+  </div>
+</div>

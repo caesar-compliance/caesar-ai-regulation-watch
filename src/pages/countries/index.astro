@@ -1,0 +1,76 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import StatusBucketBadge from "../../components/StatusBucketBadge.astro";
+import TrackerFilterForm from "../../components/TrackerFilterForm.astro";
+import {
+  getTrackerTopics,
+  filterCountryStatuses,
+  getCountryStatuses,
+  groupCountryStatusesByRegion,
+} from "../../lib/tracker-data";
+import { formatDate } from "../../lib/format";
+
+const topics = getTrackerTopics();
+const allStatuses = getCountryStatuses();
+const regions = [...new Set(allStatuses.map((c) => c.region))].sort();
+
+const region = Astro.url.searchParams.get("region");
+const status = Astro.url.searchParams.get("status");
+const topic = Astro.url.searchParams.get("topic");
+
+const filtered = filterCountryStatuses({ region, status, topic });
+const byRegion = groupCountryStatusesByRegion().map((g) => ({
+  ...g,
+  items: g.items.filter((cs) => filtered.some((f) => f.jurisdiction_id === cs.jurisdiction_id)),
+})).filter((g) => g.items.length > 0);
+---
+
+<BaseLayout
+  title="Countries"
+  currentPath="/countries/"
+  description="Jurisdiction regulation status list — automation-first tracker."
+>
+  <h1>Countries &amp; jurisdictions</h1>
+  <p class="lead">
+    Regulation status for pilot jurisdictions in the automation-first tracker. Links go to existing
+    jurisdiction profiles for sources and records.
+  </p>
+
+  <TrackerFilterForm
+    action="/countries/"
+    regions={regions}
+    topics={topics}
+    current={{ region, status, topic }}
+  />
+
+  <p>
+    Showing {filtered.length} of {allStatuses.length} jurisdiction(s).
+  </p>
+
+  {
+    byRegion.map((group) => (
+      <section class="group-section">
+        <h2 class="group-section__title">{group.region}</h2>
+        <ul class="country-status-list">
+          {group.items.map((cs) => (
+            <li class="country-status-list__item">
+              <div class="country-status-list__header">
+                <h3>
+                  <a href={`/jurisdictions/${cs.jurisdiction_id}/`}>{cs.country_name}</a>
+                </h3>
+                <StatusBucketBadge bucket={cs.status_bucket} label={cs.status_label} />
+              </div>
+              <p>{cs.status_summary}</p>
+              <p class="country-status-list__meta">
+                Last update: {formatDate(cs.last_update_date)} · Confidence: {cs.confidence_score}
+              </p>
+              <p class="country-status-list__topics">
+                Topics: {cs.topic_tags.join(", ")}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+</BaseLayout>

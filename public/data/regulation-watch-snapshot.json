@@ -150,7 +150,11 @@
     "evidence_export_candidate_reviews": "/data/evidence-export-candidate-reviews.json",
     "source_discovery_leads": "/data/source-discovery-leads.json",
     "manual_source_verification_intake": "/data/manual-source-verification-intake.json",
-    "autonomous_source_verifications": "/data/autonomous-source-verifications.json"
+    "autonomous_source_verifications": "/data/autonomous-source-verifications.json",
+    "country_status": "/data/country-status.json",
+    "regulatory_updates": "/data/regulatory-updates.json",
+    "automation_first_metrics": "/data/automation-first-metrics.json",
+    "tracker_topics": "/data/tracker-topics.json"
   },
   "review_notice": "All pilot content is curated manual YAML. Human review required before client use."
 }

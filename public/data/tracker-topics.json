@@ -1,0 +1,60 @@
+{
+  "generated_at": "2026-05-20",
+  "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
+  "items": [
+    {
+      "topic_id": "china_genai",
+      "label": "China generative AI",
+      "parent_topic_id": null,
+      "description": "Chinese official materials on generative AI and algorithm governance in the pilot."
+    },
+    {
+      "topic_id": "eu_ai_act",
+      "label": "EU AI Act",
+      "parent_topic_id": "eu_regulation",
+      "description": "Regulation (EU) 2024/1689 and related EU implementation materials in the pilot registry."
+    },
+    {
+      "topic_id": "eu_regulation",
+      "label": "EU regulation",
+      "parent_topic_id": null,
+      "description": "European Union legal and policy instruments tracked in the pilot."
+    },
+    {
+      "topic_id": "gpai",
+      "label": "General-purpose AI",
+      "parent_topic_id": null,
+      "description": "GPAI models, providers, and related official guidance."
+    },
+    {
+      "topic_id": "privacy",
+      "label": "Privacy and data protection",
+      "parent_topic_id": null,
+      "description": "Privacy regulator AI guidance intersecting with automated decision-making."
+    },
+    {
+      "topic_id": "risk_management",
+      "label": "Risk management",
+      "parent_topic_id": null,
+      "description": "AI risk management frameworks and processes referenced by official sources."
+    },
+    {
+      "topic_id": "source_monitoring",
+      "label": "Source monitoring",
+      "parent_topic_id": null,
+      "description": "Official source registry checks and monitoring signals (not legal change claims)."
+    },
+    {
+      "topic_id": "uk_ai_regulation",
+      "label": "UK AI regulation",
+      "parent_topic_id": null,
+      "description": "United Kingdom AI governance and regulator guidance in the pilot."
+    },
+    {
+      "topic_id": "us_federal_ai_policy",
+      "label": "US federal AI policy",
+      "parent_topic_id": null,
+      "description": "United States federal AI-related guidance and policy signals in the pilot registry."
+    }
+  ]
+}

@@ -19,15 +19,16 @@
    - Clone and inspect `delschlangen/ai-legislation-tracker` and `riadeane/airegulationmap` **outside** the repo.
    - Produce Caesar-native feature map and architecture notes per [REFERENCE_REPO_STUDY_TEMPLATE.md](docs/REFERENCE_REPO_STUDY_TEMPLATE.md).
 
-3. **T048 — Automation-first data model**
-   - Create/update schemas for jurisdictions, regulatory updates, source checks, confidence, update types and metrics.
-   - Make update/newsfeed records first-class per [FIRST_FULL_MVP_REQUIREMENTS.md](docs/FIRST_FULL_MVP_REQUIREMENTS.md).
+3. **T048 — Automation-first tracker skeleton** *(feature branch — pending Control Tower review)*
+   - Country status + regulatory update YAML seeds and schemas.
+   - Public pages: `/tracker/`, `/updates/`, `/countries/` with map skeleton, filters, metrics.
+   - JSON exports: `country-status.json`, `regulatory-updates.json`, `automation-first-metrics.json`.
 
-4. **T049 — Public tracker UI architecture**
-   - Plan world map, country profiles, update feed, filters and metrics.
-   - Decide map library and data flow per [UI_UX_VISION.md](docs/UI_UX_VISION.md).
+4. **T049 — Source adapter pipeline for updates feed** *(recommended next)*
+   - Connect watchers/monitoring to `regulatory_update` records (no manual seed only).
+   - Classification, duplicate detection, scheduled runs per [AUTOMATION_FIRST_IMPLEMENTATION_BACKLOG.md](docs/AUTOMATION_FIRST_IMPLEMENTATION_BACKLOG.md) Phase 2.
 
-5. **T050 — First automated update adapters**
+5. **T050 — Choropleth map + compare jurisdictions**
    - Implement safe official-source adapters using API/RSS/feed-first approach.
    - No WAF/CAPTCHA bypass; no stealth scraping; no full legal/source text storage.
 

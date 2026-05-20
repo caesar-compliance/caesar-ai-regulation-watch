@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caesar.no/schemas/caesar-ai-regulation-watch/regulatory-update.schema.json",
+  "title": "Caesar AI Regulation Watch — Regulatory update (automation-first seed)",
+  "description": "Source-linked regulatory update feed item. Not legal advice.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "update_id",
+    "update_date",
+    "jurisdiction_id",
+    "title",
+    "update_type",
+    "summary",
+    "source_ids",
+    "source_urls",
+    "topic_tags",
+    "status_bucket",
+    "importance",
+    "confidence_score",
+    "automation_method",
+    "requires_human_review",
+    "client_evidence_allowed",
+    "final_evidence_allowed",
+    "legal_change_claimed",
+    "legal_safe_note"
+  ],
+  "properties": {
+    "update_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "update_date": { "type": "string", "format": "date" },
+    "jurisdiction_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "title": { "type": "string", "minLength": 1 },
+    "update_type": {
+      "type": "string",
+      "enum": [
+        "law",
+        "proposal",
+        "consultation",
+        "guidance",
+        "enforcement",
+        "institutional_update",
+        "source_monitoring"
+      ]
+    },
+    "summary": { "type": "string", "minLength": 1 },
+    "source_ids": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9_-]*$" },
+      "uniqueItems": true
+    },
+    "source_urls": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "format": "uri" },
+      "uniqueItems": true
+    },
+    "topic_tags": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9_-]*$" },
+      "uniqueItems": true
+    },
+    "status_bucket": {
+      "type": "string",
+      "enum": [
+        "adopted",
+        "proposed",
+        "consultation",
+        "guidance",
+        "enforcement",
+        "monitoring",
+        "no_clear_framework"
+      ]
+    },
+    "importance": {
+      "type": "string",
+      "enum": ["high", "medium", "low"]
+    },
+    "confidence_score": {
+      "type": "string",
+      "enum": ["high", "medium", "low", "blocked"]
+    },
+    "automation_method": {
+      "type": "string",
+      "enum": ["manual_seed", "api", "rss", "official_feed", "official_page", "public_page"]
+    },
+    "requires_human_review": { "type": "boolean" },
+    "client_evidence_allowed": { "type": "boolean" },
+    "final_evidence_allowed": { "type": "boolean" },
+    "legal_change_claimed": { "type": "boolean" },
+    "legal_safe_note": { "type": "string", "minLength": 1 }
+  }
+}

@@ -1,0 +1,88 @@
+---
+import { STATUS_BUCKET_LABELS } from "../lib/tracker-data";
+import type { TrackerTopic } from "../lib/tracker-data";
+
+interface Props {
+  action: string;
+  regions: string[];
+  topics: TrackerTopic[];
+  current: {
+    region?: string | null;
+    status?: string | null;
+    topic?: string | null;
+    update_type?: string | null;
+    jurisdiction_id?: string | null;
+  };
+  showUpdateType?: boolean;
+}
+
+const { action, regions, topics, current, showUpdateType = false } = Astro.props;
+
+const updateTypes = [
+  "law",
+  "proposal",
+  "consultation",
+  "guidance",
+  "enforcement",
+  "institutional_update",
+  "source_monitoring",
+];
+---
+
+<form class="tracker-filters" method="get" action={action}>
+  <fieldset>
+    <legend>Filter</legend>
+    <label>
+      Region
+      <select name="region">
+        <option value="">All regions</option>
+        {regions.map((r) => (
+          <option value={r} selected={current.region === r}>
+            {r}
+          </option>
+        ))}
+      </select>
+    </label>
+    <label>
+      Status
+      <select name="status">
+        <option value="">All statuses</option>
+        {Object.entries(STATUS_BUCKET_LABELS).map(([value, label]) => (
+          <option value={value} selected={current.status === value}>
+            {label}
+          </option>
+        ))}
+      </select>
+    </label>
+    <label>
+      Topic
+      <select name="topic">
+        <option value="">All topics</option>
+        {topics.map((t) => (
+          <option value={t.topic_id} selected={current.topic === t.topic_id}>
+            {t.label}
+          </option>
+        ))}
+      </select>
+    </label>
+    {
+      showUpdateType && (
+        <label>
+          Update type
+          <select name="update_type">
+            <option value="">All types</option>
+            {updateTypes.map((t) => (
+              <option value={t} selected={current.update_type === t}>
+                {t.replace(/_/g, " ")}
+              </option>
+            ))}
+          </select>
+        </label>
+      )
+    }
+    <button type="submit">Apply filters</button>
+    <a class="tracker-filters__clear" href={action}>
+      Clear
+    </a>
+  </fieldset>
+</form>

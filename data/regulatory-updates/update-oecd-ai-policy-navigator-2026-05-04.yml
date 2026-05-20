@@ -1,0 +1,23 @@
+update_id: update-oecd-ai-policy-navigator-2026-05-04
+update_date: "2026-05-04"
+jurisdiction_id: oecd
+title: OECD AI Policy Navigator — repository seed
+update_type: institutional_update
+summary: >
+  Seed update for OECD AI Policy Navigator as an international policy repository entry.
+source_ids:
+  - oecd-ai-policy-navigator
+source_urls:
+  - https://oecd.ai/en/dashboards/overview
+topic_tags:
+  - risk_management
+status_bucket: no_clear_framework
+importance: low
+confidence_score: high
+automation_method: manual_seed
+requires_human_review: false
+client_evidence_allowed: false
+final_evidence_allowed: false
+legal_change_claimed: false
+legal_safe_note: >
+  T048 manual seed. International repository — not national law.

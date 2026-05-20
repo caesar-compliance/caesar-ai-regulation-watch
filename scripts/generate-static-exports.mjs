@@ -378,6 +378,13 @@ const guidance = readYamlDir("data/guidance");
 const changes = readYamlDir("data/changes").sort((a, b) =>
   b.detected_date.localeCompare(a.detected_date),
 );
+const countryStatuses = readYamlDir("data/country-status").sort((a, b) =>
+  a.country_name.localeCompare(b.country_name),
+);
+const regulatoryUpdates = readYamlDir("data/regulatory-updates").sort((a, b) =>
+  b.update_date.localeCompare(a.update_date),
+);
+const trackerTopics = readYamlDir("data/topics").sort((a, b) => a.label.localeCompare(b.label));
 const timelines = readYamlDir("data/timelines");
 function readVerificationDir(prefix) {
   const abs = path.join(ROOT, "data/verifications");
@@ -1578,6 +1585,10 @@ const snapshot = {
     source_discovery_leads: "/data/source-discovery-leads.json",
     manual_source_verification_intake: "/data/manual-source-verification-intake.json",
     autonomous_source_verifications: "/data/autonomous-source-verifications.json",
+    country_status: "/data/country-status.json",
+    regulatory_updates: "/data/regulatory-updates.json",
+    automation_first_metrics: "/data/automation-first-metrics.json",
+    tracker_topics: "/data/tracker-topics.json",
   },
   review_notice:
     "All pilot content is curated manual YAML. Human review required before client use.",
@@ -1968,6 +1979,67 @@ writeJson(path.join(PUBLIC_DATA, "evidence-export-candidate-reviews.json"), {
   items: evidenceCandidateReviews,
 });
 
+writeJson(path.join(PUBLIC_DATA, "country-status.json"), {
+  generated_at: generatedAt,
+  disclaimer: DISCLAIMER,
+  automation_first_seed: true,
+  not_legal_advice: true,
+  items: countryStatuses,
+});
+
+writeJson(path.join(PUBLIC_DATA, "regulatory-updates.json"), {
+  generated_at: generatedAt,
+  disclaimer: DISCLAIMER,
+  automation_first_seed: true,
+  not_legal_advice: true,
+  items: regulatoryUpdates.map((u) => ({
+    ...u,
+    human_review_required: u.requires_human_review !== false,
+    legal_change_claimed: u.legal_change_claimed === true,
+  })),
+});
+
+writeJson(path.join(PUBLIC_DATA, "tracker-topics.json"), {
+  generated_at: generatedAt,
+  disclaimer: DISCLAIMER,
+  items: trackerTopics,
+});
+
+const statusBucketCounts = countryStatuses.reduce((acc, cs) => {
+  acc[cs.status_bucket] = (acc[cs.status_bucket] ?? 0) + 1;
+  return acc;
+}, {});
+const updateTypeCounts = regulatoryUpdates.reduce((acc, u) => {
+  acc[u.update_type] = (acc[u.update_type] ?? 0) + 1;
+  return acc;
+}, {});
+const regionCounts = countryStatuses.reduce((acc, cs) => {
+  acc[cs.region] = (acc[cs.region] ?? 0) + 1;
+  return acc;
+}, {});
+const cutoff30 = new Date();
+cutoff30.setDate(cutoff30.getDate() - 30);
+const updatesLast30Days = regulatoryUpdates.filter(
+  (u) => new Date(u.update_date) >= cutoff30,
+).length;
+
+writeJson(path.join(PUBLIC_DATA, "automation-first-metrics.json"), {
+  generated_at: generatedAt,
+  disclaimer: DISCLAIMER,
+  automation_first_seed: true,
+  not_complete_coverage: true,
+  jurisdiction_count: countryStatuses.length,
+  regulatory_update_count: regulatoryUpdates.length,
+  updates_last_30_days: updatesLast30Days,
+  status_bucket_counts: statusBucketCounts,
+  update_type_counts: updateTypeCounts,
+  region_counts: regionCounts,
+  adopted_or_enforced_count:
+    (statusBucketCounts.adopted ?? 0) + (statusBucketCounts.enforcement ?? 0),
+  proposed_or_consultation_count:
+    (statusBucketCounts.proposed ?? 0) + (statusBucketCounts.consultation ?? 0),
+});
+
 writeJson(path.join(PUBLIC_DATA, "regulation-watch-snapshot.json"), snapshot);
 
 // RSS feed — sample changes only
@@ -2054,6 +2126,12 @@ console.log(
 console.log(
   `  ${manualSourceVerificationIntakes.length} manual source verification intake(s) exported`,
 );
+console.log("  public/data/country-status.json");
+console.log("  public/data/regulatory-updates.json");
+console.log("  public/data/tracker-topics.json");
+console.log("  public/data/automation-first-metrics.json");
+console.log(`  ${countryStatuses.length} country status(es) exported`);
+console.log(`  ${regulatoryUpdates.length} regulatory update(s) exported`);
 console.log("  public/data/regulation-watch-snapshot.json");
 console.log(`  ${watchers.length} watcher(s) configured`);
 console.log(`  ${snapshots.length} snapshot(s) exported`);
