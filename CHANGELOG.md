@@ -9,20 +9,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+---
+
+## [1.0.0] - 20 May 2026
+
 ### Added
 
-- **Final Control Tower decision record** — `docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md` (APPROVED_WITH_LIMITATIONS vs NOT_APPROVED_BLOCKERS_REMAIN; pending CT sign-off).
+- **Final v1.0.0 release** — Public Technical MVP with Control Tower **APPROVED_WITH_LIMITATIONS**.
 
 ### Changed
 
-- **Release candidate checklist** — final v1.0.0 decision summary; rc1 deploy/smoke items marked pass; source blockers and final v1.0.0 pending CT.
-- **Project state** — final v1.0.0 pending Control Tower decision; no final tag.
+- **Control Tower decision** — `docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md` signed APPROVED_WITH_LIMITATIONS (20 May 2026).
+- **Product version** — `v1.0.0` across `project-version.ts`, public snapshot, and project docs; `package.json` `1.0.0`.
+- **Public phase label** — "Public Technical MVP" (not production legal tracker; not client evidence).
+- **Release docs** — PROJECT_STATE, NEXT_ACTIONS, README, REPO_INVENTORY, V1_RELEASE_CANDIDATE_CHECKLIST, scope freeze.
 
 ### Notes
 
-- Governance/docs only — no new features, jurisdictions, monitoring, or data-logic changes.
-- v1.0.0-rc1 remains live at https://regulation-watch.caesar.no/ (`0765327`).
-- No `regulation-watch-v1.0.0` tag until explicit APPROVED_WITH_LIMITATIONS.
+- Public Technical MVP only — no new product features, jurisdictions, or monitoring allowlist expansion.
+- Accepted limitations: Australia WAF, EUR-Lex HTTP 202, EDPB 502, UNESCO `check_artifact`, `verified_on_source: 0`, incomplete content review.
+- Not legal advice; not complete coverage; no client-use evidence; no final evidence export; no caesar-ai-evidence integration.
+- `client_use_allowed: 0`; `final_evidence_allowed: 0`; `legal_change_claimed: 0`; tag after deploy on main.
 
 ---
 

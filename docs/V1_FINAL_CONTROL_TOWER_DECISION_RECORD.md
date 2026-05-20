@@ -3,7 +3,7 @@
 **Date:** 20 May 2026  
 **Prepared by:** Implementation agent  
 **For:** Control Tower (ChatGPT/Artem)  
-**Purpose:** Governance/release decision — whether to approve **final v1.0.0** as a **Public Technical MVP** with documented limitations
+**Purpose:** Governance/release decision — final v1.0.0 approved as **Public Technical MVP** with documented limitations
 
 This document is **not legal advice** and does not authorize client use of any export.
 
@@ -13,50 +13,50 @@ This document is **not legal advice** and does not authorize client use of any e
 
 | Field | Value |
 |---|---|
-| **Candidate** | `v1.0.0-rc1` |
-| **Candidate tag** | `regulation-watch-v1.0.0-rc1` → commit `0765327` |
-| **Proposed final release** | `v1.0.0` |
-| **Proposed final tag** | `regulation-watch-v1.0.0` (only after explicit CT approval) |
+| **Prior candidate** | `v1.0.0-rc1` |
+| **Prior candidate tag** | `regulation-watch-v1.0.0-rc1` → commit `0765327` |
+| **Approved release** | `v1.0.0` |
+| **Approved tag** | `regulation-watch-v1.0.0` (on deployed main commit after final deploy) |
+| **Release type** | **Public Technical MVP** |
 | **Base audit** | v0.9.9 MVP readiness audit |
 | **Public URL** | https://regulation-watch.caesar.no/ |
-| **Deploy record** | `DEPLOY-20260520-017` — commit `0765327`, run [26163494827](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26163494827) |
-| **Tag/deploy alignment** | Tag equals deployed commit |
 | **Scope** | [V1_TECHNICAL_MVP_SCOPE_FREEZE.md](V1_TECHNICAL_MVP_SCOPE_FREEZE.md) — frozen; no feature expansion |
 
 ---
 
-## Decision options (Control Tower)
+## Control Tower decision
 
-| Option | Meaning | When to choose |
-|---|---|---|
-| **APPROVED_WITH_LIMITATIONS** | Approve final `v1.0.0` as **Public Technical MVP** with all limitations documented and accepted; create `regulation-watch-v1.0.0` tag on deployed commit after sign-off | Safety gates green; public wording acceptable; source/content gaps accepted as documented limitations, not hidden blockers |
-| **NOT_APPROVED_BLOCKERS_REMAIN** | Do not create final v1.0.0 tag; remain on `v1.0.0-rc1` or require remediation first | Source verification gaps, incomplete content review, or positioning risk unacceptable for v1.0.0 label |
+| Field | Value |
+|---|---|
+| **Decision date** | 20 May 2026 |
+| **Reviewed by** | Artem / Control Tower |
+| **Decision** | **APPROVED_WITH_LIMITATIONS** |
+| **Approved release** | `regulation-watch-v1.0.0` |
+| **Release type** | Public Technical MVP |
 
----
-
-## Current recommendation
-
-**Pending Control Tower decision.**
-
-The implementation agent does **not** mark APPROVED. Artem/Control Tower must explicitly choose one of the decision options above and complete the sign-off section before any `regulation-watch-v1.0.0` tag is created.
-
-**Implementation agent assessment (non-binding):** Technical safety gates and deploy hygiene support a path to **APPROVED_WITH_LIMITATIONS** if Control Tower accepts the documented source and coverage gaps as **accepted limitations**, not as reasons to withhold the final v1.0.0 label. If EUR-Lex / Australia / EDPB gaps are unacceptable for public v1.0.0 positioning, choose **NOT_APPROVED_BLOCKERS_REMAIN** and keep `v1.0.0-rc1`.
+**Statement:** Control Tower confirms the Public Technical MVP may ship as v1.0.0 with documented limitations, without legal advice, complete coverage, client evidence, final evidence export, or production legal-tracker claims.
 
 ---
 
-## What final v1.0.0 would be (if approved)
+## What v1.0.0 is
 
 - **Public Technical MVP** — first semver `1.0.0` label for the frozen technical MVP scope in [V1_TECHNICAL_MVP_SCOPE_FREEZE.md](V1_TECHNICAL_MVP_SCOPE_FREEZE.md).
-- **Documentation and version label only** — no new product features, jurisdictions, sources, monitoring expansion, or data-logic changes in this decision pack.
-- **Same deployed artifact as rc1** unless a separate docs-only redeploy is run after merge (version string may change from `1.0.0-rc1` to `1.0.0` in labels only).
+- **Official-source-first** — curated registry; human-review gated; monitoring pilot (metadata-only where live).
+- **Documentation and version label** — same frozen product scope as rc1; version labels updated from rc1 to final v1.0.0 after deploy.
 
-## What final v1.0.0 would not be
+## What v1.0.0 is not (non-claims)
 
-- Not legal verification, compliance guarantee, or official interpretation.
-- Not complete global coverage or production legal tracker.
-- Not client-ready evidence or final evidence export.
-- Not caesar-ai-evidence integration.
-- Not removal of human-review or source-verification gaps.
+| Non-claim | Requirement |
+|---|---|
+| **Not legal advice** | Disclaimers on home, disclaimer page, snapshot, candidate pages |
+| **Not complete coverage** | Explicit subset; 13/35 curated registry |
+| **Not production legal tracker** | Pilot/manual monitoring; metadata-only where live |
+| **Not client evidence** | `client_use_allowed: false` everywhere |
+| **No final evidence export** | `final_evidence_allowed: false`; no caesar-ai-evidence writes |
+| **No caesar-ai-evidence integration** | Contract only; no production integration |
+| **Not compliance guarantee** | No regulatory outcome claims |
+| **Not official interpretation** | Official-source-first; human review required |
+| **Not production-ready** | Public Technical MVP label only |
 
 ---
 
@@ -74,10 +74,8 @@ The implementation agent does **not** mark APPROVED. Artem/Control Tower must ex
 | Backend / database / auth | **None** | Static site only |
 | Secrets committed | **None** | — |
 | Simulated evidence candidates | **blocked_simulation_only** | 3 of 5 candidates |
-| CI `validate-and-build` | **Green** | On main at rc1 deploy |
-| Deploy + smoke (rc1) | **Pass** | DEPLOY-20260520-017; tag = deploy commit |
 | `npm run monitoring:policy-check` | **Pass** | Artifact pack policy |
-| Public wording | **Conservative** | Public technical MVP candidate; disclaimers present |
+| Public wording | **Conservative** | Public Technical MVP; disclaimers present |
 
 ---
 
@@ -97,9 +95,9 @@ The implementation agent does **not** mark APPROVED. Artem/Control Tower must ex
 
 ---
 
-## Accepted limitations (for APPROVED_WITH_LIMITATIONS only)
+## Accepted limitations (APPROVED_WITH_LIMITATIONS)
 
-If Control Tower selects **APPROVED_WITH_LIMITATIONS**, the following are **explicitly accepted** as part of the Public Technical MVP positioning — not as defects to be hidden:
+The following are **explicitly accepted** as part of the Public Technical MVP positioning — not as defects to be hidden:
 
 1. **Curated coverage only** — 13 jurisdictions, 35 sources; not complete global legal coverage.
 2. **Human-review gated** — records and exports require professional review; `verified_on_source` remains false on all records until separately verified and approved.
@@ -110,50 +108,20 @@ If Control Tower selects **APPROVED_WITH_LIMITATIONS**, the following are **expl
 7. **No caesar-ai-evidence integration** — no production writes to evidence repo.
 8. **Manual deploy gate** — no auto-deploy on merge; deploy requires `confirm_disclaimers=DEPLOY`.
 
-Waivers for section B items in [V1_MVP_BLOCKERS_AND_DECISIONS.md](V1_MVP_BLOCKERS_AND_DECISIONS.md) must be recorded in the sign-off table if approving final v1.0.0 without resolving them.
+Waivers for section B items in [V1_MVP_BLOCKERS_AND_DECISIONS.md](V1_MVP_BLOCKERS_AND_DECISIONS.md) are accepted for v1.0.0 Public Technical MVP (source verification gaps, incomplete content review, monitoring pilot scope).
 
 ---
 
-## Non-claims (mandatory public positioning)
+## Sign-off (Control Tower)
 
-The Public Technical MVP **must not** claim or imply:
-
-| Non-claim | Requirement |
+| Field | Value |
 |---|---|
-| **Not legal advice** | Disclaimers on home, disclaimer page, snapshot, candidate pages |
-| **Not complete coverage** | Explicit subset; 13/35 curated registry |
-| **Not production legal tracker** | Pilot/manual monitoring; metadata-only where live |
-| **Not client evidence** | `client_use_allowed: false` everywhere |
-| **No final evidence export** | `final_evidence_allowed: false`; no caesar-ai-evidence writes |
-| **No caesar-ai-evidence integration** | Contract only; no production integration |
-| **Not compliance guarantee** | No regulatory outcome claims |
-| **Not official interpretation** | Official-source-first; human review required |
-| **Not production-ready** | Technical MVP candidate / Public Technical MVP label only |
-
----
-
-## Required Control Tower decisions
-
-| # | Decision | Options |
-|---|---|---|
-| 1 | **Final v1.0.0 release** | APPROVED_WITH_LIMITATIONS · NOT_APPROVED_BLOCKERS_REMAIN |
-| 2 | **Accept frozen scope** | [V1_TECHNICAL_MVP_SCOPE_FREEZE.md](V1_TECHNICAL_MVP_SCOPE_FREEZE.md) |
-| 3 | **Accept public wording** | "Public Technical MVP" with limitations (not production-ready) |
-| 4 | **Accept known limitations** | Section above + [V1_MVP_BLOCKERS_AND_DECISIONS.md](V1_MVP_BLOCKERS_AND_DECISIONS.md) section B |
-| 5 | **Confirm no client/final evidence** | `client_use_allowed: 0`; `final_evidence_allowed: 0` |
-| 6 | **Waivers (if any)** | List section B blockers waived for v1.0.0 |
-
----
-
-## Preconditions for final tag (if APPROVED_WITH_LIMITATIONS)
-
-1. Control Tower completes sign-off below with decision **APPROVED_WITH_LIMITATIONS**.
-2. Implementation agent updates version labels to `1.0.0` / `v1.0.0` (if not already done in a separate approved change).
-3. Deploy + smoke pass if version labels or public docs change.
-4. Annotated tag `regulation-watch-v1.0.0` on **deployed** main commit only.
-5. DEPLOYMENTS.md and PUBLIC_DEPLOYMENT_BASELINE.md updated if redeployed.
-
-**Do not create `regulation-watch-v1.0.0` without explicit APPROVED_WITH_LIMITATIONS in this record.**
+| **Review date** | 20 May 2026 |
+| **Reviewed by** | Artem / Control Tower |
+| **Decision** | **APPROVED_WITH_LIMITATIONS** |
+| **Waivers** (section B blockers) | Australia WAF; EUR-Lex HTTP 202; EDPB 502 re-check; UNESCO `check_artifact`; incomplete content review; `verified_on_source: 0`; monitoring pilot scope |
+| **Version label** | `v1.0.0` / tag `regulation-watch-v1.0.0` |
+| **Notes** | Final v1.0.0 is Public Technical MVP only — not production legal tracker, not client evidence, not complete coverage |
 
 ---
 
@@ -165,18 +133,3 @@ The Public Technical MVP **must not** claim or imply:
 - [V1_MVP_BLOCKERS_AND_DECISIONS.md](V1_MVP_BLOCKERS_AND_DECISIONS.md) — blockers classification  
 - [MVP_READINESS_AUDIT.md](MVP_READINESS_AUDIT.md) — module audit  
 - [PUBLIC_DEPLOYMENT_BASELINE.md](PUBLIC_DEPLOYMENT_BASELINE.md) — live baseline  
-
----
-
-## Sign-off (Control Tower — required)
-
-| Field | Value |
-|---|---|
-| **Review date** | |
-| **Reviewed by** | Artem / Control Tower |
-| **Decision** | ☐ **APPROVED_WITH_LIMITATIONS** · ☐ **NOT_APPROVED_BLOCKERS_REMAIN** |
-| **Waivers** (section B blockers, if approving with limitations) | |
-| **Version label after approval** | `v1.0.0` / tag `regulation-watch-v1.0.0` |
-| **Notes** | |
-
-**Statement:** By signing **APPROVED_WITH_LIMITATIONS**, Control Tower confirms the Public Technical MVP may ship as v1.0.0 with documented limitations, without legal advice, complete coverage, client evidence, final evidence export, or production legal-tracker claims.

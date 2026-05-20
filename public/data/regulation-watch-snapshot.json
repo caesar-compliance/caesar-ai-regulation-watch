@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-05-20",
-  "version": "1.0.0-rc1",
+  "version": "1.0.0",
   "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
   "pilot_jurisdictions": [
     "australia",
@@ -87,7 +87,7 @@
     "legal_change_claimed_count": 0,
     "live_metadata_client_use_allowed_count": 0,
     "live_metadata_final_evidence_allowed_count": 0,
-    "monitoring_pack_run_count": 2,
+    "monitoring_pack_run_count": 3,
     "watcher_monitoring_change_detected_count": 0,
     "monitoring_diff_has_meaningful_changes": false,
     "monitoring_diff_recommended_action": "no_pr_needed_artifact_only",

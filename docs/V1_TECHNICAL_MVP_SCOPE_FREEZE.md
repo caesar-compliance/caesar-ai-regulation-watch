@@ -1,7 +1,8 @@
 # v1.0.0 Technical MVP Scope Freeze
 
 **Effective:** 20 May 2026  
-**Release candidate:** `v1.0.0-rc1`  
+**Released version:** `v1.0.0` (Public Technical MVP — approved with limitations)  
+**Prior RC:** `v1.0.0-rc1`  
 **Base version:** `v0.9.9`  
 **Status:** Frozen — no feature expansion without Control Tower approval
 
@@ -54,7 +55,7 @@ This document defines exactly what the **v1.0.0 technical MVP** includes and exc
 
 Use conservative language only:
 
-- **Public technical MVP candidate**
+- **Public Technical MVP**
 - **Official-source-first**
 - **Human-review gated**
 - **Monitoring pilot**

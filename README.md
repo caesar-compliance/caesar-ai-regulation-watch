@@ -3,7 +3,7 @@
 **Global AI regulation monitoring for governance teams** — part of the [Caesar AI Governance Hub](https://github.com/caesar-compliance/caesar-ai-governance-hub) ecosystem.
 
 **Last updated:** 20 May 2026  
-**Status:** v1.0.0-rc1 live — **final v1.0.0 pending Control Tower decision** at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) (see [docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md); scope freeze + RC docs — **no new product features**; known source limitations documented; human-review gated; not legal advice; not complete coverage; not client evidence; no final evidence export; no caesar-ai-evidence integration; `client_use_allowed: 0`)
+**Status:** v1.0.0 **Public Technical MVP** (approved with limitations) at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) — official-source-first; human-review gated; monitoring pilot; metadata-only monitoring where live; **not legal advice**; **not complete coverage**; **not client evidence**; no final evidence export; no caesar-ai-evidence integration; `client_use_allowed: 0` (see [docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md))
 
 ---
 
@@ -216,6 +216,7 @@ Canonical values, review workflow, and future evidence export shape:
 | [docs/V1_MVP_BLOCKERS_AND_DECISIONS.md](docs/V1_MVP_BLOCKERS_AND_DECISIONS.md) | v1.0.0 blocker classification |
 | [docs/V1_TECHNICAL_MVP_SCOPE_FREEZE.md](docs/V1_TECHNICAL_MVP_SCOPE_FREEZE.md) | v1.0.0 technical MVP scope freeze |
 | [docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md) | **Final v1.0.0 decision** — pending CT sign-off |
+| [docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md) | v1.0.0 final Control Tower decision (APPROVED_WITH_LIMITATIONS) |
 | [docs/V1_RELEASE_CANDIDATE_DECISION_RECORD.md](docs/V1_RELEASE_CANDIDATE_DECISION_RECORD.md) | v1.0.0-rc1 Control Tower decision record |
 | [docs/V1_RELEASE_CANDIDATE_CHECKLIST.md](docs/V1_RELEASE_CANDIDATE_CHECKLIST.md) | Pre-v1.0.0 / RC sign-off checklist |
 
