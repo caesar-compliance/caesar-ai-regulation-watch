@@ -22,7 +22,7 @@
 1. **Pre-deploy:** `docs/PUBLIC_RELEASE_CHECKLIST.md`.
 2. **Build parity:** `npm run build:custom-domain` + `npm run verify:dist` (root `/`, no project base path).
 3. **Post-deploy:** smoke tests; update `DEPLOYMENTS.md` and `docs/PUBLIC_DEPLOYMENT_BASELINE.md`.
-4. **Legacy URL** — document whether `https://caesar-compliance.github.io/caesar-ai-regulation-watch/` redirects, works, or 404s.
+4. ~~**Legacy URL**~~ — `https://caesar-compliance.github.io/caesar-ai-regulation-watch/` **301** to custom domain (may use `http://` target; HTTPS works on canonical host).
 
 ---
 
