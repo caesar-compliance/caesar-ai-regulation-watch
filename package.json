@@ -9,6 +9,7 @@
     "validate:source-adapters": "node scripts/validate-source-adapter-allowlist.mjs",
     "validate:manual-source-intake": "node scripts/validate-manual-source-intake-runs.mjs",
     "validate:network-dry-run-approvals": "node scripts/validate-network-dry-run-approvals.mjs",
+    "validate:single-network-dry-run-executions": "node scripts/validate-single-network-dry-run-executions.mjs",
     "build:network-dry-run-plan": "node scripts/build-network-dry-run-plan.mjs",
     "run:approved-network-dry-run": "node scripts/run-approved-network-dry-run.mjs",
     "run:manual-source-intake": "node scripts/run-manual-source-intake.mjs",

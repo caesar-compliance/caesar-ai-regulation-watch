@@ -4,7 +4,7 @@
 
 This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
 
-**Codebase:** v1.0.8 (T051 + T052 + T053 + T054 on main) — tag/deploy pending. **Live:** v1.0.7 at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) — `DEPLOY-20260520-025`, tag `regulation-watch-v1.0.7`. **Next:** T055 one-off network dry-run after explicit Control Tower approval (no network until approved).
+**Codebase:** v1.0.8 (T051–T055 on branch; T051–T054 on main) — tag/deploy pending. **Live:** v1.0.7 at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) — `DEPLOY-20260520-025`, tag `regulation-watch-v1.0.7`. **Next:** T056 manual review promotion from one network dry-run candidate into draft regulatory update (not verified; not published).
 
 **Product direction (20 May 2026):** automation-first global AI regulation tracker — see [docs/AUTOMATION_FIRST_MVP_ROADMAP.md](docs/AUTOMATION_FIRST_MVP_ROADMAP.md) and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md). Human review/evidence is optional future assurance, not the first full MVP foundation.
 

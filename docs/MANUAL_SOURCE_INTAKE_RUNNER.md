@@ -71,7 +71,9 @@ T054 links pilot run `T053-001` to approval packet `T054-001` for a **future** o
 |---|---|
 | Validate approval | `npm run validate:network-dry-run-approvals` |
 | Generate plan | `npm run build:network-dry-run-plan -- --approval-id T054-001` |
-| Future runner (refuses in T054) | `npm run run:approved-network-dry-run -- --approval-id T054-001` |
+| Validate executions | `npm run validate:single-network-dry-run-executions` |
+| Approved one-off network dry-run (T055) | See [SINGLE_SOURCE_NETWORK_DRY_RUN.md](SINGLE_SOURCE_NETWORK_DRY_RUN.md) |
+| Safe refusal (no env/flag) | `npm run run:approved-network-dry-run -- --approval-id T054-001 --execution-id T055-001` |
 
 See [NETWORK_DRY_RUN_APPROVAL_MODEL.md](NETWORK_DRY_RUN_APPROVAL_MODEL.md). Execution remains **T055** after Control Tower approval.
 

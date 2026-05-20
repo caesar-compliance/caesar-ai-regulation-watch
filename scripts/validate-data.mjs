@@ -1768,4 +1768,13 @@ if (networkApprovalCheck.status !== 0) {
   process.exit(networkApprovalCheck.status ?? 1);
 }
 
+const networkExecutionCheck = spawnSync(
+  process.execPath,
+  [path.join(ROOT, "scripts/validate-single-network-dry-run-executions.mjs")],
+  { cwd: ROOT, stdio: "inherit" },
+);
+if (networkExecutionCheck.status !== 0) {
+  process.exit(networkExecutionCheck.status ?? 1);
+}
+
 process.exit(0);

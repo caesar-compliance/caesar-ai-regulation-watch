@@ -67,12 +67,20 @@ After manual fixture intake (T053), a **network dry-run approval packet** may re
 - Plan generator: `npm run build:network-dry-run-plan -- --approval-id T054-001`
 - Plans: `generated/network-dry-run-plans/` (local, gitignored; not `public/data/`)
 
+## Single-source network dry-run execution (T055)
+
+T055 adds `data/source-adapters/single-network-dry-run-executions.yml` (`T055-001`) and executes exactly one approved metadata-only GET for `edpb-publications-rss`. Output stays under `generated/network-dry-run-candidates/` and `generated/network-dry-run-reports/` (gitignored). See [SINGLE_SOURCE_NETWORK_DRY_RUN.md](SINGLE_SOURCE_NETWORK_DRY_RUN.md).
+
+- Validation: `npm run validate:single-network-dry-run-executions`
+- Safe refusal: `npm run run:approved-network-dry-run -- --approval-id T054-001 --execution-id T055-001`
+
 ---
 
 ## Related docs
 
 - [MANUAL_SOURCE_INTAKE_RUNNER.md](MANUAL_SOURCE_INTAKE_RUNNER.md)
 - [NETWORK_DRY_RUN_APPROVAL_MODEL.md](NETWORK_DRY_RUN_APPROVAL_MODEL.md)
+- [SINGLE_SOURCE_NETWORK_DRY_RUN.md](SINGLE_SOURCE_NETWORK_DRY_RUN.md)
 - [RSS_API_ADAPTER_SAFETY_MODEL.md](RSS_API_ADAPTER_SAFETY_MODEL.md)
 - [SCHEDULED_MONITORING_POLICY.md](SCHEDULED_MONITORING_POLICY.md)
 - [WATCHER_RELIABILITY_POLICY.md](WATCHER_RELIABILITY_POLICY.md)

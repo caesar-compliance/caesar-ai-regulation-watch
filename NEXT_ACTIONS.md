@@ -46,8 +46,11 @@
    - Approval packet `T054-001`; planning-only plan generator; future runner refuses execution.
    - No live network; no scheduling; no publication; gates unchanged; no deploy/tag in T054.
 
-10. **T055 — Execute one approved single-source network dry-run** *(recommended next — requires explicit Control Tower approval before any real network request)*
-   - Only after explicit Control Tower approval; one-off CLI; no scheduling; no publication; gates unchanged.
+10. **T055 — Execute one approved single-source network dry-run** *(in progress on branch — one EDPB RSS dry-run executed locally)*
+   - Execution registry `T055-001`; exactly one GET; metadata-only `generated/` output; not published; gates unchanged; no deploy/tag.
+
+11. **T056 — Manual review promotion from network dry-run candidate** *(recommended next)*
+   - Promote one dry-run candidate into a draft regulatory update YAML record; still not verified; not client/evidence use; no publication until reviewed.
 
 ---
 

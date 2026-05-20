@@ -1512,6 +1512,51 @@ export function getNetworkDryRunApprovalEntries(): NetworkDryRunApproval[] {
   return getNetworkDryRunApprovals()?.approvals ?? [];
 }
 
+export interface SingleNetworkDryRunExecution {
+  execution_id: string;
+  approval_id: string;
+  run_id: string;
+  adapter_id: string;
+  source_id: string;
+  mode: string;
+  status: string;
+  control_tower_approval_reference: string;
+  schedule_enabled: boolean;
+  broad_crawl_allowed: boolean;
+  max_network_requests: number;
+  max_items: number;
+  max_bytes: number;
+  timeout_seconds: number;
+  stores_metadata_only: boolean;
+  stores_full_text: boolean;
+  legal_text_publication_allowed: boolean;
+  output_path: string;
+  report_path: string;
+  gates: NetworkDryRunGateState;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface SingleNetworkDryRunExecutionsDoc {
+  single_network_dry_run_executions_id: string;
+  generated_at: string;
+  product_version: string;
+  legal_safe_note: string;
+  no_live_collection: boolean;
+  no_scheduled_monitoring: boolean;
+  executions: SingleNetworkDryRunExecution[];
+}
+
+export function getSingleNetworkDryRunExecutions(): SingleNetworkDryRunExecutionsDoc | null {
+  const file = path.join(ROOT, "data/source-adapters/single-network-dry-run-executions.yml");
+  if (!fs.existsSync(file)) return null;
+  return yaml.load(fs.readFileSync(file, "utf8")) as SingleNetworkDryRunExecutionsDoc;
+}
+
+export function getSingleNetworkDryRunExecutionEntries(): SingleNetworkDryRunExecution[] {
+  return getSingleNetworkDryRunExecutions()?.executions ?? [];
+}
+
 export function getPilotSummary() {
   return {
     jurisdictionCount: getJurisdictions().length,

@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **Status** | v1.0.8 on main (T051 + T052 + T053 + T054); live site v1.0.7 `DEPLOY-20260520-025` — deploy/tag pending |
+| **Status** | v1.0.8 (T051–T055; T051–T054 on main); live site v1.0.7 `DEPLOY-20260520-025` — deploy/tag pending |
 | **Hosting** | GitHub Pages — static site (Astro) |
 | **Scope** | AI regulation tracking, country profiles, latest updates, source monitoring, metrics and structured exports |
 | **Safety** | Not legal advice; source transparency and automation confidence labels apply |
@@ -270,6 +270,8 @@ Canonical values, review workflow, and future evidence export shape:
 
 **v1.0.7 (live)** — [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) (`DEPLOY-20260520-025`, tag `regulation-watch-v1.0.7`). T050 map/compare + T049 feed.
 
-**Next:** T055 — execute one approved single-source network dry-run only after explicit Control Tower approval (one-off command, no scheduling, no publication).
+**T055 (branch):** One approved EDPB RSS network dry-run executed locally — metadata-only `generated/` output; [docs/SINGLE_SOURCE_NETWORK_DRY_RUN.md](docs/SINGLE_SOURCE_NETWORK_DRY_RUN.md). Not published; gates unchanged.
+
+**Next:** T056 — manual review promotion from one network dry-run candidate into a draft regulatory update record (not verified; not client/evidence use).
 
 See [PROJECT_STATE.md](PROJECT_STATE.md) and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md).
