@@ -9,25 +9,37 @@
 | Field | Value |
 |---|---|
 | **Repository** | `caesar-ai-regulation-watch` |
-| **Current version** | `v0.9.6` |
-| **Current phase** | Public pilot — cautious live metadata pilot |
-| **Status** | Live on custom domain; v0.9.6 deployed (`644c448`) |
-| **Working branch** | `main` |
-| **Latest completed task** | v0.9.6 — cautious live metadata pilot (5 sources, change review pack) |
-| **Deployment ID** | `DEPLOY-20260520-013` — commit `644c448`, run [26161681675](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26161681675) |
-| **Git tag** | `regulation-watch-v0.9.6` (after docs commit) |
-| **Next recommended step** | Control Tower human review of 3 live metadata change candidates; browser verification on blocked sources |
+| **Current version** | `v0.9.7` |
+| **Current phase** | Public pilot — live metadata triage + stable baseline hardening |
+| **Status** | v0.9.7 implementation complete; deploy pending |
+| **Working branch** | `agent/v0.9.7-live-metadata-triage` → merge `main` |
+| **Latest completed task** | v0.9.7 — triage 3 live metadata review candidates; comparison policy hardening |
+| **Deployment ID** | (pending v0.9.7 deploy) |
+| **Git tag** | `regulation-watch-v0.9.7` (after deploy on main) |
+| **Next recommended step** | Deploy v0.9.7; optional UNESCO check_artifact human confirm on official page |
 
 ---
 
-## Cautious live metadata pilot (v0.9.6)
+## Live metadata triage (v0.9.7)
+
+| Metric | Count |
+|---|---|
+| Triage items (v0.9.6 candidates) | 3 |
+| `benign_metadata_change` | 2 |
+| `check_artifact` | 1 |
+| `legal_change_claimed` | 0 |
+| Review queue (post-triage live metadata) | 1 |
+
+**Triage batch:** `metadata-review-triage-2026-05-20-v097` — related run `live-metadata-run-2026-05-20-v096`.
+
+## Cautious live metadata pilot (v0.9.6 run, v0.9.7 triage)
 
 | Metric | Count |
 |---|---|
 | Allowlisted sources | 5 |
 | Live checks | 5 |
 | `metadata_check_ok` | 2 |
-| `metadata_changed_needs_review` | 3 |
+| `metadata_changed_needs_review` (raw pilot) | 3 |
 | `metadata_check_failed` | 0 |
 | `client_use_allowed: true` | 0 |
 

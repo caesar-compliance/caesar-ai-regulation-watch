@@ -57,6 +57,7 @@ const required = [
   "monitoring/index.html",
   "data/live-metadata-runs.json",
   "data/change-review-packs.json",
+  "data/metadata-review-triage.json",
   "data/monitoring-source-configs.json",
   "data/monitoring-runs.json",
   "data/jurisdictions.json",

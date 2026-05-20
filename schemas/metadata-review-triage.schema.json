@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caesar.no/schemas/caesar-ai-regulation-watch/metadata-review-triage.schema.json",
+  "title": "Caesar AI Regulation Watch — Live metadata review triage",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "triage_batch_id",
+    "generated_at",
+    "product_version",
+    "related_live_run_id",
+    "legal_safe_note",
+    "no_full_text_storage",
+    "client_use_allowed",
+    "final_evidence_allowed",
+    "legal_change_claimed",
+    "items"
+  ],
+  "properties": {
+    "triage_batch_id": {
+      "type": "string",
+      "pattern": "^metadata-review-triage-[0-9]{4}-[0-9]{2}-[0-9]{2}-v[0-9]{3}$"
+    },
+    "generated_at": { "type": "string", "format": "date" },
+    "product_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "related_live_run_id": {
+      "type": "string",
+      "pattern": "^live-metadata-run-[0-9]{4}-[0-9]{2}-[0-9]{2}-v[0-9]{3}$"
+    },
+    "previous_reference_run_id": {
+      "type": "string",
+      "pattern": "^monitoring-run-[0-9]{4}-[0-9]{2}-[0-9]{2}-v[0-9]{3}$"
+    },
+    "legal_safe_note": { "type": "string", "minLength": 1 },
+    "no_full_text_storage": { "type": "boolean", "const": true },
+    "client_use_allowed": { "type": "boolean", "const": false },
+    "final_evidence_allowed": { "type": "boolean", "const": false },
+    "legal_change_claimed": { "type": "boolean", "const": false },
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/triageItem" }
+    }
+  },
+  "$defs": {
+    "triageItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "triage_id",
+        "source_id",
+        "related_live_run_id",
+        "official_url",
+        "previous_metadata",
+        "current_metadata",
+        "changed_fields",
+        "triage_classification",
+        "human_review_required",
+        "legal_change_claimed",
+        "client_use_allowed",
+        "final_evidence_allowed",
+        "verified_on_source",
+        "reviewer_note",
+        "access_date",
+        "limitations"
+      ],
+      "properties": {
+        "triage_id": {
+          "type": "string",
+          "pattern": "^metadata-triage-[0-9]{4}-[0-9]{2}-[0-9]{2}-[a-z0-9-]+$"
+        },
+        "source_id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+        "related_live_run_id": {
+          "type": "string",
+          "pattern": "^live-metadata-run-[0-9]{4}-[0-9]{2}-[0-9]{2}-v[0-9]{3}$"
+        },
+        "related_review_item_id": { "type": "string" },
+        "official_url": { "type": "string", "format": "uri" },
+        "recheck_http_status": { "type": ["integer", "null"] },
+        "recheck_final_url": { "type": ["string", "null"], "format": "uri" },
+        "recheck_page_title": { "type": ["string", "null"] },
+        "previous_metadata": { "type": "object" },
+        "current_metadata": { "type": "object" },
+        "changed_fields": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "triage_classification": {
+          "type": "string",
+          "enum": [
+            "benign_metadata_change",
+            "source_update_needs_human_review",
+            "check_artifact",
+            "unresolved_needs_review",
+            "no_change_after_recheck"
+          ]
+        },
+        "human_review_required": { "type": "boolean" },
+        "legal_change_claimed": { "type": "boolean", "const": false },
+        "client_use_allowed": { "type": "boolean", "const": false },
+        "final_evidence_allowed": { "type": "boolean", "const": false },
+        "verified_on_source": { "type": "boolean", "const": false },
+        "reviewer_note": { "type": "string", "minLength": 1 },
+        "access_date": { "type": "string", "format": "date" },
+        "limitations": { "type": "string", "minLength": 1 }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "triage_classification": {
+                "enum": [
+                  "source_update_needs_human_review",
+                  "check_artifact",
+                  "unresolved_needs_review"
+                ]
+              }
+            }
+          },
+          "then": { "properties": { "human_review_required": { "const": true } } }
+        },
+        {
+          "if": {
+            "properties": {
+              "triage_classification": {
+                "enum": ["benign_metadata_change", "no_change_after_recheck"]
+              }
+            }
+          },
+          "then": { "properties": { "human_review_required": { "const": false } } }
+        }
+      ]
+    }
+  }
+}

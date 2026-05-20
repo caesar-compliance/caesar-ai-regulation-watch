@@ -61,17 +61,25 @@ function readLiveMetadataFromDisk() {
     .filter((f) => f.startsWith("change-review-pack-") && f.endsWith(".yml"))
     .sort()
     .reverse()[0];
+  const triageFile = fs
+    .readdirSync(dir)
+    .filter((f) => f.startsWith("metadata-review-triage-") && f.endsWith(".yml"))
+    .sort()
+    .reverse()[0];
   const read = (name: string | undefined) =>
     name ? yaml.load(fs.readFileSync(path.join(dir, name), "utf8")) : null;
   return {
     allowlist: read(allowlistFile),
     run: read(runFile),
     pack: read(packFile),
+    triage: read(triageFile),
   };
 }
 
-const { allowlist: liveAllowlist, run: liveRun, pack: livePack } = readLiveMetadataFromDisk();
+const { allowlist: liveAllowlist, run: liveRun, pack: livePack, triage: metadataTriage } =
+  readLiveMetadataFromDisk();
 const liveChecks = liveRun?.checks ?? [];
+const triageItems = metadataTriage?.items ?? [];
 ---
 
 <BaseLayout title="Monitoring" currentPath="/monitoring/">
@@ -147,6 +155,45 @@ const liveChecks = liveRun?.checks ?? [];
               </small>
             </p>
           </>
+        ) : null}
+        {metadataTriage ? (
+          <section>
+            <h3>Live metadata review triage ({PROJECT_VERSION_LABEL})</h3>
+            <div class="banner banner--review" role="note">
+              <strong>Metadata change ≠ legal/regulatory change.</strong> v0.9.7 triage classifies v0.9.6 pilot
+              candidates. No full page text stored. Not client evidence. Not final evidence.
+            </div>
+            <dl class="meta-grid">
+              <div><dt>Triage batch</dt><dd class="mono">{metadataTriage.triage_batch_id}</dd></div>
+              <div><dt>Related live run</dt><dd class="mono">{metadataTriage.related_live_run_id}</dd></div>
+              <div>
+                <dt>benign_metadata_change</dt>
+                <dd>
+                  {triageItems.filter((i) => i.triage_classification === "benign_metadata_change").length}
+                </dd>
+              </div>
+              <div>
+                <dt>check_artifact</dt>
+                <dd>{triageItems.filter((i) => i.triage_classification === "check_artifact").length}</dd>
+              </div>
+              <div><dt>legal_change_claimed</dt><dd>0</dd></div>
+              <div><dt>client_use_allowed</dt><dd>0</dd></div>
+            </dl>
+            <p>
+              <small>
+                <a href="/data/metadata-review-triage.json">metadata-review-triage.json</a>
+              </small>
+            </p>
+            <ul>
+              {triageItems.map((item) => (
+                <li>
+                  <span class="mono">{item.source_id}</span> — {humanizeId(item.triage_classification)}
+                  {item.human_review_required ? " · human review" : " · triaged"}
+                  {item.changed_fields?.length ? ` (${item.changed_fields.join(", ")})` : ""}
+                </li>
+              ))}
+            </ul>
+          </section>
         ) : null}
       </section>
     ) : null

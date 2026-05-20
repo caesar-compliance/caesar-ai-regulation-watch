@@ -1,6 +1,12 @@
-# Watcher diff validation (v0.7.2)
+# Watcher diff validation (v0.9.7)
 
-**Last updated:** 19 May 2026
+**Last updated:** 20 May 2026
+
+## Live metadata triage (v0.9.7)
+
+- Triage export: `public/data/metadata-review-triage.json` (from `data/monitoring/metadata-review-triage-*.yml`).
+- Validates: `legal_change_claimed: false`, `client_use_allowed: false`, `human_review_required` aligned with triage classification.
+- Monitoring page shows triage classifications; metadata change ≠ legal change.
 
 ## Purpose
 

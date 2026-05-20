@@ -53,6 +53,7 @@ const schemas = {
   liveMetadataPilot: loadSchema("live-metadata-pilot.schema.json"),
   liveMetadataRun: loadSchema("live-metadata-run.schema.json"),
   changeReviewPack: loadSchema("change-review-pack.schema.json"),
+  metadataReviewTriage: loadSchema("metadata-review-triage.schema.json"),
 };
 
 const LIVE_METADATA_BLOCKED_SOURCES = new Set([
@@ -596,6 +597,61 @@ if (fs.existsSync(watcherMonitoringDir)) {
           failures.push({
             label: `${label} (policy)`,
             errors: [{ message: "blocked source cannot appear in live metadata run" }],
+          });
+        }
+      }
+    } else if (base.startsWith("metadata-review-triage-")) {
+      check(validate(file, data, schemas.metadataReviewTriage));
+      if (data.legal_change_claimed !== false) {
+        failures.push({
+          label: `${file} (policy)`,
+          errors: [{ message: "metadata review triage batch must have legal_change_claimed: false" }],
+        });
+      }
+      if (data.client_use_allowed !== false || data.final_evidence_allowed !== false) {
+        failures.push({
+          label: `${file} (policy)`,
+          errors: [{ message: "metadata review triage batch must have client_use_allowed/final_evidence_allowed false" }],
+        });
+      }
+      for (const item of data.items ?? []) {
+        const label = `${file} → ${item.source_id ?? item.triage_id ?? "?"}`;
+        if (item.legal_change_claimed !== false) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [{ message: "metadata triage item must have legal_change_claimed: false" }],
+          });
+        }
+        if (item.client_use_allowed !== false || item.final_evidence_allowed !== false) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [{ message: "metadata triage item must have client_use_allowed/final_evidence_allowed false" }],
+          });
+        }
+        if (item.verified_on_source === true) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [{ message: "metadata triage item must have verified_on_source: false" }],
+          });
+        }
+        const needsHuman = [
+          "source_update_needs_human_review",
+          "check_artifact",
+          "unresolved_needs_review",
+        ].includes(item.triage_classification);
+        const benign = ["benign_metadata_change", "no_change_after_recheck"].includes(
+          item.triage_classification,
+        );
+        if (needsHuman && item.human_review_required !== true) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [{ message: "non-benign triage classification requires human_review_required: true" }],
+          });
+        }
+        if (benign && item.human_review_required !== false) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [{ message: "benign triage classification requires human_review_required: false" }],
           });
         }
       }

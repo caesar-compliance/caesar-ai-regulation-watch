@@ -11,6 +11,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.9.7] - 20 May 2026
+
+### Added
+
+- **Live metadata review triage** — `data/monitoring/metadata-review-triage-2026-05-20-v097.yml` classifies 3 v0.9.6 pilot candidates (benign vs check_artifact).
+- **Schema** — `metadata-review-triage.schema.json`; validation policy for `legal_change_claimed`, `human_review_required` by classification.
+- **Public export** — `metadata-review-triage.json`; snapshot triage counts; review queue respects triage (`benign` items removed from queue).
+- **Docs** — `docs/METADATA_COMPARISON_POLICY.md`; hardened comparison in `run-live-metadata-pilot.mjs` (weak headers, title normalization).
+
+### Changed
+
+- **Change review pack v096** — triage notes; `human_review_required: false` for benign NIST/UK GOV items.
+- **Monitoring page** — live metadata triage section with legal-change warning.
+
+### Notes
+
+- Metadata changes are not legal/regulatory change claims; no scheduled crawl; no full legal text; `client_use_allowed: 0`; tag after deploy on main.
+
+---
+
 ## [0.9.6] - 20 May 2026
 
 ### Added
