@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **Status** | v1.0.5 live — automation-first tracker skeleton (T048); manual seed data; `DEPLOY-20260520-023` |
+| **Status** | v1.0.6 — T049 offline metadata adapter (33 updates: 15 manual seed + 18 metadata adapter); `DEPLOY-20260520-024` |
 | **Hosting** | GitHub Pages — static site (Astro) |
 | **Scope** | AI regulation tracking, country profiles, latest updates, source monitoring, metrics and structured exports |
 | **Safety** | Not legal advice; source transparency and automation confidence labels apply |
@@ -266,4 +266,4 @@ Canonical values, review workflow, and future evidence export shape:
 
 ## Project status
 
-**v1.0.5** — Live at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) (`DEPLOY-20260520-023`, tag `regulation-watch-v1.0.5`). T048 tracker skeleton: `/tracker/`, `/updates/`, `/countries/`, country status seeds, regulatory update feed, metrics exports. Manual seed only — not live automation. Not legal advice. Not complete coverage. Evidence gates remain closed. **Next:** T049 source adapter pipeline. See [PROJECT_STATE.md](PROJECT_STATE.md), [NEXT_ACTIONS.md](NEXT_ACTIONS.md), and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md).
+**v1.0.6** — [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) (`DEPLOY-20260520-024`, tag `regulation-watch-v1.0.6` after deploy). T049 offline metadata adapter for regulatory updates feed plus T048 tracker skeleton. 33 updates (`manual_seed` + `offline_metadata_adapter`). Not live scraping. Not legal advice. Not final evidence. Not complete coverage. Evidence gates remain closed. **Next:** T050 choropleth map + compare jurisdictions. See [PROJECT_STATE.md](PROJECT_STATE.md), [NEXT_ACTIONS.md](NEXT_ACTIONS.md), and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md).

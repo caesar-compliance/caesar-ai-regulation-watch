@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 20 May 2026 (v1.0.5 live — T048 tracker skeleton, `DEPLOY-20260520-023`, tag `regulation-watch-v1.0.5`)
+**Last updated:** 20 May 2026 (v1.0.6 — T049 offline metadata adapter, `DEPLOY-20260520-024`, tag `regulation-watch-v1.0.6` after deploy)
 
 ---
 
@@ -48,7 +48,7 @@
 
 See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inventory sections. Sample entities include `record_origin: manual_sample`.
 
-### T048 automation-first tracker (v1.0.5)
+### T048–T049 automation-first tracker (v1.0.5–v1.0.6)
 
 | Directory | Role |
 |-----------|------|
