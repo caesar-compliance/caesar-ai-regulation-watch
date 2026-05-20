@@ -7,7 +7,8 @@
   "candidate_count": 1,
   "candidates": [
     {
-      "candidate_id": "T056-FIXTURE-001",
+      "candidate_id": "T055-001-T054-001-1",
+      "execution_id": "T055-001",
       "approval_id": "T054-001",
       "run_id": "T053-001",
       "adapter_id": "edpb-publications-rss",

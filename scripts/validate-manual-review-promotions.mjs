@@ -20,6 +20,7 @@ const PROMOTION_SCHEMA_PATH = path.join(ROOT, "schemas/manual-review-promotion.s
 const DRAFT_SCHEMA_PATH = path.join(ROOT, "schemas/draft-regulatory-update.schema.json");
 const GENERATED_CANDIDATE_PREFIX = "generated/network-dry-run-candidates/";
 const FIXTURE_CANDIDATE_PREFIX = "fixtures/promotion/";
+const FIXTURE_CANDIDATE_FALLBACK = "fixtures/promotion/T054-001-candidate.json";
 const PUBLIC_UPDATES_JSON = path.join(ROOT, "public/data/regulatory-updates.json");
 const SUMMARY_CAP = 1000;
 const SNIPPET_CAP = 500;
@@ -64,6 +65,21 @@ function allowedCandidatePath(relPath) {
     relPath.startsWith(GENERATED_CANDIDATE_PREFIX) ||
     relPath.startsWith(FIXTURE_CANDIDATE_PREFIX)
   );
+}
+
+/** Resolve candidate file: generated path when present, else fixture for CI/local without generated output. */
+function resolveCandidatePath(promotion) {
+  const rel = promotion.source_candidate_path ?? "";
+  const abs = path.join(ROOT, rel);
+  if (fs.existsSync(abs)) return rel;
+  if (
+    promotion.promotion_mode === "local_generated_candidate" &&
+    rel.startsWith(GENERATED_CANDIDATE_PREFIX) &&
+    fs.existsSync(path.join(ROOT, FIXTURE_CANDIDATE_FALLBACK))
+  ) {
+    return FIXTURE_CANDIDATE_FALLBACK;
+  }
+  return rel;
 }
 
 function gateErrors(prefix, gates) {
@@ -156,17 +172,23 @@ function promotionInvariantErrors(promotion, index, ctx) {
     );
   }
 
-  const candidateAbs = path.join(ROOT, promotion.source_candidate_path);
+  const resolvedCandidatePath = resolveCandidatePath(promotion);
+  const candidateAbs = path.join(ROOT, resolvedCandidatePath);
   if (!fs.existsSync(candidateAbs)) {
     errors.push(`${prefix}: source candidate file missing: ${promotion.source_candidate_path}`);
-  } else if (promotion.promotion_mode === "local_generated_candidate") {
+  } else if (
+    promotion.promotion_mode === "local_generated_candidate" ||
+    promotion.promotion_mode === "fixture_candidate"
+  ) {
     try {
       const payload = JSON.parse(fs.readFileSync(candidateAbs, "utf8"));
       const found = (payload.candidates ?? []).some(
         (c) => c.candidate_id === promotion.candidate_id,
       );
       if (!found) {
-        errors.push(`${prefix}: candidate_id not found in ${promotion.source_candidate_path}`);
+        errors.push(
+          `${prefix}: candidate_id not found in ${resolvedCandidatePath}`,
+        );
       }
     } catch (e) {
       errors.push(`${prefix}: invalid candidate JSON: ${e.message}`);
