@@ -10,9 +10,9 @@
 
 ## Immediate priority
 
-1. **Deploy v0.9.0** — Actions → **Deploy static site** → `confirm_disclaimers: DEPLOY`; record run ID in [DEPLOYMENTS.md](DEPLOYMENTS.md).
-2. **Smoke test** — [docs/POST_DEPLOY_SMOKE_TESTS.md](docs/POST_DEPLOY_SMOKE_TESTS.md) against custom domain; update deployment row and baseline.
-3. **Tag** — `regulation-watch-v0.9.0` after smoke pass.
+1. ~~**Deploy v0.9.0**~~ — Done (`DEPLOY-20260520-007`, run [26132704545](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26132704545), commit `6779c28`).
+2. ~~**Smoke test / hygiene**~~ — Custom domain smoke pass 20 May 2026; see [docs/PUBLIC_DEPLOYMENT_BASELINE.md](docs/PUBLIC_DEPLOYMENT_BASELINE.md).
+3. ~~**Tag**~~ — `regulation-watch-v0.9.0` on `6779c28`.
 4. **EUR-Lex deep pass** — EU AI Act candidate remains `needs_more_source_review`.
 
 ---
