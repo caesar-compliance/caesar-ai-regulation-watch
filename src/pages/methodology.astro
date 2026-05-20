@@ -5,7 +5,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 <BaseLayout title="Methodology" currentPath="/methodology/">
   <h1>Methodology</h1>
   <p class="lead">
-    How Caesar AI Regulation Watch curates pilot data and what this preview site represents.
+    How Caesar AI Regulation Watch curates pilot data. This site is a <strong>public pilot</strong> and{" "}
+    <strong>technical MVP candidate</strong> — official-source-first, human-review gated, not legal advice,
+    not complete coverage, and not client evidence.
   </p>
 
   <div class="prose">
@@ -45,11 +47,18 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       compliance claims — even when marked reviewed.
     </p>
 
-    <h2>Future watchers (not implemented)</h2>
+    <h2>Watcher prototype (manual only)</h2>
     <p>
-      A future phase will monitor approved RSS/HTML sources and produce{" "}
-      <code>record_origin: future_watcher_output</code> change records. Watchers will respect rate limits,
-      robots.txt, and hub approval. Until then, the change feed shows manual samples only.
+      A <strong>manual CLI watcher prototype</strong> (page metadata, RSS, and narrow API adapters) exists for
+      pilot sources. Outputs are <code>pending_review</code> detected changes — not automatic record updates.
+      Watchers respect rate limits and hub policy; they are <strong>not</strong> run on a production schedule and
+      are <strong>not</strong> in CI. The public change feed still includes manual samples; simulated detected
+      changes are clearly marked.
+    </p>
+    <p>
+      Cautious <strong>live metadata checks</strong> (allowlisted official URLs, metadata only) and a{" "}
+      <strong>manual GitHub Actions artifact workflow</strong> support human triage. Metadata deltas are{" "}
+      <strong>not</strong> legal or regulatory change claims.
     </p>
 
     <h2>Global coverage map (v0.5.1)</h2>

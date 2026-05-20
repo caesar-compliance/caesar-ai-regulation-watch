@@ -11,6 +11,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.9.9] - 20 May 2026
+
+### Added
+
+- **MVP readiness audit** — `docs/MVP_READINESS_AUDIT.md` (module-by-module status for technical MVP candidate).
+- **v1.0.0 blockers** — `docs/V1_MVP_BLOCKERS_AND_DECISIONS.md` (must / should / post-MVP classification).
+- **Release candidate checklist** — `docs/V1_RELEASE_CANDIDATE_CHECKLIST.md` (Control Tower sign-off gate).
+
+### Changed
+
+- **Product version** — `v0.9.9` across `package.json`, `project-version.ts`, and project docs.
+- **Public phase label** — "Public pilot · Technical MVP candidate" (not production-ready).
+- **Methodology page** — watcher prototype and live metadata pilot status; conservative MVP candidate wording.
+
+### Notes
+
+- Readiness/audit/release-candidate pack only — no new product features, jurisdictions, or monitoring allowlist expansion.
+- No legal advice; no complete coverage; no client-use evidence; no final evidence export; no caesar-ai-evidence integration.
+- `client_use_allowed: 0`; `legal_change_claimed: 0`; tag after deploy on main.
+
+---
+
 ## [0.9.8] - 20 May 2026
 
 ### Added

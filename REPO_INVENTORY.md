@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 20 May 2026 (v0.9.3 targeted source verification)
+**Last updated:** 20 May 2026 (v0.9.9 MVP readiness audit)
 
 ---
 
@@ -15,7 +15,10 @@
 | **ROADMAP.md** | v0.6.1 URL verification + review queue |
 | **CHANGELOG.md** | Semver history |
 | **REPO_INVENTORY.md** | This file |
-| **PROJECT_STATE.md** | v0.9.3 phase (targeted source verification) |
+| **PROJECT_STATE.md** | v0.9.9 phase (MVP readiness audit / technical RC pack) |
+| **docs/MVP_READINESS_AUDIT.md** | Module readiness assessment (v0.9.9) |
+| **docs/V1_MVP_BLOCKERS_AND_DECISIONS.md** | v1.0.0 blocker classification |
+| **docs/V1_RELEASE_CANDIDATE_CHECKLIST.md** | Pre-v1.0.0 Control Tower checklist |
 | **docs/COMPETITOR_ASSISTED_SOURCE_DISCOVERY_POLICY.md** | Competitor-as-lead-only rules (v0.9.1) |
 | **NEXT_ACTIONS.md** | Control Tower URL verification |
 | **docs/SOURCE_VERIFICATION_WORKFLOW.md** | Verification process |

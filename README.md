@@ -3,7 +3,7 @@
 **Global AI regulation monitoring for governance teams** — part of the [Caesar AI Governance Hub](https://github.com/caesar-compliance/caesar-ai-governance-hub) ecosystem.
 
 **Last updated:** 20 May 2026  
-**Status:** v0.9.8 — **public pilot** at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) (manual-gated **Manual live metadata review** GitHub Actions workflow produces artifact packs for human triage — `workflow_dispatch` only, no schedule, no auto-commit; v0.9.7 triages v0.9.6 live metadata candidates; metadata change is not a legal/regulatory change claim; cautious live metadata pilot for 5 allowlisted official URLs; plus v0.9.5 adapter pack; 3 manual/blocked; not complete coverage; not legal advice) (manual `deploy-static-site.yml` with `DEPLOY` gate; site root `/`); deployment log in [DEPLOYMENTS.md](DEPLOYMENTS.md); export-candidate governance review gate (2 reviewed, 0 client-use); evidence export **candidates** only (not final evidence); CI validate/build (no backend, database, auth, secrets, or `client_use_allowed: true`)
+**Status:** v0.9.9 — **public pilot · technical MVP candidate** at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) (MVP readiness audit + v1.0.0 blocker docs + release candidate checklist — **no new product features**; v0.9.8 manual live metadata artifact workflow; human-review gated; official-source-first; not legal advice; not complete coverage; not client evidence; no final evidence export; no caesar-ai-evidence integration) (manual `deploy-static-site.yml` with `DEPLOY` gate; `client_use_allowed: 0`; CI validate/build)
 
 ---
 
@@ -212,6 +212,9 @@ Canonical values, review workflow, and future evidence export shape:
 | [docs/DECISION_LOG.md](docs/DECISION_LOG.md) | Architecture decisions |
 | [docs/RESEARCH_CONTEXT.md](docs/RESEARCH_CONTEXT.md) | Domain research (preserved) |
 | [CHANGELOG.md](CHANGELOG.md) | Release history |
+| [docs/MVP_READINESS_AUDIT.md](docs/MVP_READINESS_AUDIT.md) | v0.9.9 module readiness assessment |
+| [docs/V1_MVP_BLOCKERS_AND_DECISIONS.md](docs/V1_MVP_BLOCKERS_AND_DECISIONS.md) | v1.0.0 blocker classification |
+| [docs/V1_RELEASE_CANDIDATE_CHECKLIST.md](docs/V1_RELEASE_CANDIDATE_CHECKLIST.md) | Pre-v1.0.0 sign-off checklist |
 
 ---
 
