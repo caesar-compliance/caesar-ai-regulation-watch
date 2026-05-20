@@ -1225,6 +1225,129 @@ table.data-table tr:last-child td {
   font-size: 0.9rem;
 }
 
+.profile-breadcrumb {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  margin-bottom: 1rem;
+}
+
+.profile-hero {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.profile-hero__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.profile-hero__title h1 {
+  margin: 0;
+}
+
+.profile-hero__summary {
+  margin: 0 0 0.5rem;
+}
+
+.profile-hero__meta,
+.profile-hero__links {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  margin: 0.25rem 0;
+}
+
+.profile-topic-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.profile-topic-list a {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius);
+  background: var(--color-accent-soft);
+  font-size: 0.88rem;
+  text-decoration: none;
+}
+
+.safety-panel {
+  background: #fff8e6;
+  border: 1px solid #e9c46a;
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin: 2rem 0;
+}
+
+.safety-panel h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+.safety-panel ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.25rem;
+}
+
+.drilldown-index {
+  list-style: none;
+  margin: 1.5rem 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.drilldown-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+.drilldown-card h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.15rem;
+}
+
+.drilldown-card__meta {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.drilldown-card__buckets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0.5rem 0;
+}
+
+.bucket-distribution {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+}
+
+.bucket-distribution li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 @media (max-width: 640px) {
   .site-header__inner {
     flex-direction: column;

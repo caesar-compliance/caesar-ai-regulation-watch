@@ -12,6 +12,11 @@ import {
   enrichCountryStatuses,
   buildComparisonRows,
 } from "./lib/tracker-scoring.mjs";
+import {
+  buildRegionDrilldowns,
+  buildTopicDrilldowns,
+  buildJurisdictionProfileItems,
+} from "./lib/tracker-drilldown.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const PROJECT_VERSION = readProjectVersion();
@@ -1558,7 +1563,7 @@ const snapshot = {
     unverified_timeline_events: reviewSummary.unverified_timeline_events,
     unverified_records: reviewSummary.unverified_records,
     pending_source_verifications: reviewSummary.pending_source_verifications,
-    exports: 11,
+    exports: 14,
   },
   feeds: {
     changes_rss: "/feeds/changes.xml",
@@ -1595,6 +1600,9 @@ const snapshot = {
     automation_first_metrics: "/data/automation-first-metrics.json",
     tracker_topics: "/data/tracker-topics.json",
     jurisdiction_comparison: "/data/jurisdiction-comparison.json",
+    jurisdiction_profiles: "/data/jurisdiction-profiles.json",
+    region_drilldowns: "/data/region-drilldowns.json",
+    topic_drilldowns: "/data/topic-drilldowns.json",
   },
   review_notice:
     "All pilot content is curated manual YAML. Human review required before client use.",
@@ -2019,6 +2027,54 @@ writeJson(path.join(PUBLIC_DATA, "jurisdiction-comparison.json"), {
   items: jurisdictionComparisonRows,
 });
 
+const recordCountByJurisdiction = records.reduce((acc, r) => {
+  const jid = r.jurisdiction_id;
+  if (jid) acc.set(jid, (acc.get(jid) ?? 0) + 1);
+  return acc;
+}, new Map());
+const timelineCountByJurisdiction = timelines.reduce((acc, t) => {
+  const jid = t.jurisdiction_id;
+  if (jid) acc.set(jid, (acc.get(jid) ?? 0) + 1);
+  return acc;
+}, new Map());
+
+const jurisdictionProfileItems = buildJurisdictionProfileItems(
+  enrichedCountryStatuses,
+  regulatoryUpdates,
+  sourceCountByJurisdiction,
+  recordCountByJurisdiction,
+  timelineCountByJurisdiction,
+);
+
+writeJson(path.join(PUBLIC_DATA, "jurisdiction-profiles.json"), {
+  generated_at: generatedAt,
+  version: PROJECT_VERSION,
+  disclaimer: DISCLAIMER,
+  not_legal_advice: true,
+  not_complete_coverage: true,
+  items: jurisdictionProfileItems,
+});
+
+const regionDrilldowns = buildRegionDrilldowns(countryStatuses, regulatoryUpdates);
+
+writeJson(path.join(PUBLIC_DATA, "region-drilldowns.json"), {
+  generated_at: generatedAt,
+  version: PROJECT_VERSION,
+  disclaimer: DISCLAIMER,
+  region_grouping_note:
+    "Region labels are tracker metadata from pilot seeds — not a legal geography taxonomy.",
+  regions: regionDrilldowns,
+});
+
+const topicDrilldowns = buildTopicDrilldowns(trackerTopics, countryStatuses, regulatoryUpdates);
+
+writeJson(path.join(PUBLIC_DATA, "topic-drilldowns.json"), {
+  generated_at: generatedAt,
+  version: PROJECT_VERSION,
+  disclaimer: DISCLAIMER,
+  topics: topicDrilldowns,
+});
+
 const manualSeedUpdateCount = regulatoryUpdates.filter(
   (u) => u.automation_method === "manual_seed",
 ).length;
@@ -2183,6 +2239,9 @@ console.log("  public/data/regulatory-updates.json");
 console.log("  public/data/tracker-topics.json");
 console.log("  public/data/automation-first-metrics.json");
 console.log("  public/data/jurisdiction-comparison.json");
+console.log("  public/data/jurisdiction-profiles.json");
+console.log("  public/data/region-drilldowns.json");
+console.log("  public/data/topic-drilldowns.json");
 console.log(`  ${countryStatuses.length} country status(es) exported`);
 console.log(`  ${regulatoryUpdates.length} regulatory update(s) exported`);
 console.log("  public/data/regulation-watch-snapshot.json");

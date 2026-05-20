@@ -11,6 +11,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.8] - 20 May 2026
+
+### Added
+
+- **T051 richer jurisdiction profiles** — Status hero, metrics strip, topic links, latest updates, sources, laws/guidance, timelines, safety/gates panel, and compare shortcuts on `/jurisdictions/[id]/`.
+- **T051 region drilldowns** — `/regions/` index and `/regions/[slug]/` detail pages from pilot country-status regions.
+- **T051 topic drilldowns** — `/topics/` index and `/topics/[id]/` detail pages from `data/topics/`.
+- **JSON exports** — `/data/jurisdiction-profiles.json`, `/data/region-drilldowns.json`, `/data/topic-drilldowns.json`.
+- **Nav** — Regions and Topics in main navigation.
+
+### Changed
+
+- **Product version** — `v1.0.8`.
+
+### Notes
+
+- Release candidate on branch `task/T051-rich-country-profiles-drilldowns`. Deployment closeout pending Control Tower approval. Tracker metadata only — not legal advice; evidence gates remain closed.
+
+---
+
 ## [1.0.7] - 20 May 2026
 
 ### Added

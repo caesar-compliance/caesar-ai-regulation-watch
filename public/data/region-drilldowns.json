@@ -1,0 +1,126 @@
+{
+  "generated_at": "2026-05-20",
+  "version": "1.0.8",
+  "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
+  "region_grouping_note": "Region labels are tracker metadata from pilot seeds — not a legal geography taxonomy.",
+  "regions": [
+    {
+      "region": "Asia-Pacific",
+      "slug": "asia-pacific",
+      "jurisdiction_count": 5,
+      "update_count": 8,
+      "status_bucket_counts": {
+        "guidance": 4,
+        "adopted": 1
+      },
+      "topic_tags": [
+        "china_genai",
+        "privacy",
+        "risk_management"
+      ],
+      "jurisdiction_ids": [
+        "australia",
+        "china",
+        "japan",
+        "singapore",
+        "south-korea"
+      ],
+      "latest_update_ids": [
+        "adapter-lead-lead-singapore-aiverify-foundation",
+        "adapter-lead-lead-japan-ppc-en",
+        "adapter-lead-lead-china-cac",
+        "update-japan-meti-ai-portal-2026-05-11",
+        "update-china-cac-genai-registry-2026-05-10",
+        "update-singapore-model-ai-governance-2026-05-09",
+        "update-australia-ai-ethics-framework-2026-05-08",
+        "update-south-korea-pipc-ai-guidance-2026-05-05"
+      ],
+      "route": "/regions/asia-pacific/"
+    },
+    {
+      "region": "Europe",
+      "slug": "europe",
+      "jurisdiction_count": 3,
+      "update_count": 16,
+      "status_bucket_counts": {
+        "adopted": 1,
+        "monitoring": 1,
+        "guidance": 1
+      },
+      "topic_tags": [
+        "eu_ai_act",
+        "gpai",
+        "risk_management",
+        "uk_ai_regulation"
+      ],
+      "jurisdiction_ids": [
+        "eu",
+        "norway",
+        "uk"
+      ],
+      "latest_update_ids": [
+        "adapter-crp-uk-gov-ai-assurance-intro-etag",
+        "adapter-lead-lead-eu-ai-act-service-desk",
+        "adapter-lead-lead-eu-digital-strategy-ai-approach",
+        "adapter-lead-lead-eu-ai-act-eurlex",
+        "adapter-lead-lead-edps-technology-monitoring",
+        "adapter-lead-lead-uk-dsit",
+        "adapter-lead-lead-uk-ico-ai-guidance",
+        "adapter-detected-simulated-edpb-feed-change-2026-05-19"
+      ],
+      "route": "/regions/europe/"
+    },
+    {
+      "region": "International",
+      "slug": "international",
+      "jurisdiction_count": 3,
+      "update_count": 4,
+      "status_bucket_counts": {
+        "no_clear_framework": 2,
+        "guidance": 1
+      },
+      "topic_tags": [
+        "risk_management",
+        "us_federal_ai_policy"
+      ],
+      "jurisdiction_ids": [
+        "g7",
+        "oecd",
+        "unesco"
+      ],
+      "latest_update_ids": [
+        "adapter-crp-unesco-ai-ethics-page-title-last-modified-etag",
+        "update-oecd-ai-policy-navigator-2026-05-04",
+        "update-g7-hiroshima-ai-process-2026-05-03",
+        "update-unesco-ai-ethics-recommendation-2026-05-02"
+      ],
+      "route": "/regions/international/"
+    },
+    {
+      "region": "North America",
+      "slug": "north-america",
+      "jurisdiction_count": 2,
+      "update_count": 5,
+      "status_bucket_counts": {
+        "proposed": 1,
+        "guidance": 1
+      },
+      "topic_tags": [
+        "risk_management",
+        "us_federal_ai_policy"
+      ],
+      "jurisdiction_ids": [
+        "canada",
+        "us-federal"
+      ],
+      "latest_update_ids": [
+        "adapter-crp-us-nist-ai-portal-last-modified",
+        "adapter-lead-lead-us-ai-gov",
+        "adapter-lead-lead-canada-opc-ai",
+        "update-us-federal-register-monitoring-2026-05-19",
+        "update-canada-responsible-ai-policy-2026-05-07"
+      ],
+      "route": "/regions/north-america/"
+    }
+  ]
+}

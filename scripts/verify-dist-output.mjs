@@ -64,7 +64,34 @@ const required = [
   "data/jurisdictions.json",
   "feeds/changes.xml",
   "pagefind/pagefind.js",
+  "regions/index.html",
+  "topics/index.html",
+  "data/jurisdiction-profiles.json",
+  "data/region-drilldowns.json",
+  "data/topic-drilldowns.json",
 ];
+
+const conditionalRequired = [];
+if (fs.existsSync(distPath("data/region-drilldowns.json"))) {
+  try {
+    const regions = JSON.parse(fs.readFileSync(distPath("data/region-drilldowns.json"), "utf8"))
+      .regions ?? [];
+    const europe = regions.find((r) => r.slug === "europe");
+    if (europe) conditionalRequired.push("regions/europe/index.html");
+  } catch {
+    /* validated by main JSON checks */
+  }
+}
+if (fs.existsSync(distPath("data/topic-drilldowns.json"))) {
+  try {
+    const topics = JSON.parse(fs.readFileSync(distPath("data/topic-drilldowns.json"), "utf8"))
+      .topics ?? [];
+    const euAiAct = topics.find((t) => t.topic_id === "eu_ai_act");
+    if (euAiAct) conditionalRequired.push("topics/eu_ai_act/index.html");
+  } catch {
+    /* validated by main JSON checks */
+  }
+}
 
 const staleHtmlPatterns = [
   { label: "Product preview (v0.5.1)", re: /Product preview \(v0\.5\.1\)/ },
@@ -88,8 +115,10 @@ const requiredHtmlChecks = [
   },
 ];
 
+const allRequired = [...required, ...conditionalRequired];
+
 const missing = [];
-for (const rel of required) {
+for (const rel of allRequired) {
   const abs = distPath(rel);
   if (!fs.existsSync(abs)) {
     missing.push({ rel, abs });
@@ -138,7 +167,7 @@ console.log("Dist output verification");
 console.log(`  dist: ${DIST}`);
 console.log(`  astro base (URL prefix): ${base}`);
 console.log(`  project version: ${PROJECT_VERSION} (${PROJECT_VERSION_LABEL})`);
-console.log(`  checked paths: ${required.length}`);
+console.log(`  checked paths: ${allRequired.length} (${conditionalRequired.length} conditional)`);
 
 if (missing.length > 0) {
   console.error(`  missing: ${missing.length}`);

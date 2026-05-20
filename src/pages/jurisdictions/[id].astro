@@ -15,10 +15,20 @@ import {
 } from "../../lib/data";
 import {
   getCountryStatus,
+  getEnrichedCountryStatuses,
   updatesForJurisdiction,
+  getTrackerTopics,
+  AUTOMATION_METHOD_LABELS,
 } from "../../lib/tracker-data";
 import StatusBucketBadge from "../../components/StatusBucketBadge.astro";
 import UpdateFeedCard from "../../components/UpdateFeedCard.astro";
+import {
+  regionSlug,
+  compareRoute,
+  comparePeersFor,
+  relatedJurisdictionsInRegion,
+  CLOSED_LEGAL_FLAGS,
+} from "../../lib/tracker-drilldown";
 import { formatDate, truncate, humanizeId } from "../../lib/format";
 
 export function getStaticPaths() {
@@ -40,12 +50,65 @@ const changes = changesForJurisdiction(jurisdiction.jurisdiction_id);
 const timelines = timelinesForJurisdiction(jurisdiction.jurisdiction_id);
 const coverage = jurisdictionCoverage(jurisdiction.jurisdiction_id);
 const countryStatus = getCountryStatus(jurisdiction.jurisdiction_id);
-const jurisdictionUpdates = updatesForJurisdiction(jurisdiction.jurisdiction_id).slice(0, 5);
+const enriched = getEnrichedCountryStatuses().find(
+  (e) => e.jurisdiction_id === jurisdiction.jurisdiction_id,
+);
+const jurisdictionUpdates = updatesForJurisdiction(jurisdiction.jurisdiction_id);
+const latestUpdates = jurisdictionUpdates.slice(0, 8);
+const topicsById = new Map(getTrackerTopics().map((t) => [t.topic_id, t]));
+const relatedInRegion = relatedJurisdictionsInRegion(
+  jurisdiction.jurisdiction_id,
+  jurisdiction.region,
+);
+const comparePeers = comparePeersFor(jurisdiction.jurisdiction_id, jurisdiction.region);
+const defaultCompare = compareRoute(comparePeers);
+const regionRoute = `/regions/${regionSlug(jurisdiction.region)}/`;
 ---
 
 <BaseLayout title={jurisdiction.name} currentPath="/jurisdictions/">
-  <p><a href="/jurisdictions/">← Jurisdictions</a></p>
-  <h1>{jurisdiction.name}</h1>
+  <nav class="profile-breadcrumb" aria-label="Breadcrumb">
+    <a href="/tracker/">Tracker</a>
+    {" · "}
+    <a href="/countries/">Countries</a>
+    {" · "}
+    <a href={regionRoute}>{jurisdiction.region}</a>
+  </nav>
+
+  {
+    countryStatus ? (
+      <header class="profile-hero">
+        <div class="profile-hero__title">
+          <h1>{jurisdiction.name}</h1>
+          <StatusBucketBadge
+            bucket={countryStatus.status_bucket}
+            label={countryStatus.status_label}
+          />
+        </div>
+        <p class="profile-hero__summary">{countryStatus.status_summary}</p>
+        <p class="profile-hero__meta">
+          Last tracker update: {formatDate(countryStatus.last_update_date)} · Confidence:{" "}
+          {countryStatus.confidence_score} ·{" "}
+          {AUTOMATION_METHOD_LABELS[countryStatus.automation_method] ??
+            countryStatus.automation_method}
+        </p>
+        <p class="profile-hero__links">
+          <a href={regionRoute}>Region: {jurisdiction.region}</a>
+          {" · "}
+          <a href={`/updates/?region=${encodeURIComponent(jurisdiction.region)}`}>
+            Regional updates
+          </a>
+          {" · "}
+          <a href={defaultCompare}>Compare (default peers)</a>
+        </p>
+      </header>
+    ) : (
+      <>
+        <h1>{jurisdiction.name}</h1>
+        <p class="lead">Registry jurisdiction without a T048 country-status seed yet.</p>
+      </>
+    )
+  }
+
   <div class="card__meta" style="margin-bottom: 1rem;">
     <span class="badge badge--type">{jurisdiction.type.replace(/_/g, " ")}</span>
     <span class="badge badge--type">Priority: {jurisdiction.monitoring_priority}</span>
@@ -55,38 +118,215 @@ const jurisdictionUpdates = updatesForJurisdiction(jurisdiction.jurisdiction_id)
   <ReviewBanner reviewStatus={jurisdiction.review_status} />
 
   {
-    countryStatus && (
-      <section class="tracker-section">
-        <h2>Regulation status (tracker seed)</h2>
-        <StatusBucketBadge bucket={countryStatus.status_bucket} label={countryStatus.status_label} />
-        <p>{countryStatus.status_summary}</p>
-        <p class="country-status-list__meta">
-          Last update: {formatDate(countryStatus.last_update_date)} · Automation confidence:{" "}
-          {countryStatus.confidence_score} · Method: {countryStatus.automation_method}
-        </p>
-        {
-          jurisdictionUpdates.length > 0 && (
-            <>
-              <h3>Latest regulatory updates</h3>
-              <div class="update-feed-list">
-                {jurisdictionUpdates.map((u) => (
-                  <UpdateFeedCard update={u} showJurisdiction={false} />
-                ))}
-              </div>
-              <p>
-                <a href="/updates/?region={encodeURIComponent(countryStatus.region)}">
-                  More updates →
-                </a>
-              </p>
-            </>
-          )
-        }
+    enriched && (
+      <section class="metrics-strip" aria-label="Tracker metrics">
+        <div class="metrics-strip__card">
+          <strong>{sources.length}</strong>
+          <span>Sources</span>
+        </div>
+        <div class="metrics-strip__card">
+          <strong>{jurisdictionUpdates.length}</strong>
+          <span>Updates</span>
+        </div>
+        <div class="metrics-strip__card">
+          <strong>{records.length}</strong>
+          <span>Laws &amp; guidance</span>
+        </div>
+        <div class="metrics-strip__card">
+          <strong>{timelines.length}</strong>
+          <span>Timelines</span>
+        </div>
+        <div class="metrics-strip__card">
+          <strong>{enriched.regulation_maturity_score}</strong>
+          <span>Maturity index</span>
+        </div>
+        <div class="metrics-strip__card">
+          <strong>{enriched.activity_score}</strong>
+          <span>Activity index</span>
+        </div>
       </section>
     )
   }
 
-  <section>
-    <h2>Coverage summary</h2>
+  {
+    countryStatus && (
+      <section class="tracker-section">
+        <h2>Topics</h2>
+        <ul class="profile-topic-list">
+          {
+            countryStatus.topic_tags.map((tag) => {
+              const topic = topicsById.get(tag);
+              return (
+                <li>
+                  <a href={`/topics/${tag}/`}>{topic?.label ?? humanizeId(tag)}</a>
+                </li>
+              );
+            })
+          }
+        </ul>
+        <p>
+          <a href={`/countries/?topic=${countryStatus.topic_tags[0] ?? ""}`}>Filter countries</a>
+          {" · "}
+          <a href={`/tracker/?topic=${countryStatus.topic_tags[0] ?? ""}`}>Tracker filter</a>
+        </p>
+      </section>
+    )
+  }
+
+  {
+    latestUpdates.length > 0 && (
+      <section class="tracker-section">
+        <h2>Latest regulatory updates</h2>
+        <div class="update-feed-list">
+          {latestUpdates.map((u) => (
+            <UpdateFeedCard update={u} showJurisdiction={false} />
+          ))}
+        </div>
+        <p>
+          <a href={`/updates/?region=${encodeURIComponent(jurisdiction.region)}`}>
+            More updates in {jurisdiction.region} →
+          </a>
+          {
+            countryStatus &&
+              countryStatus.topic_tags[0] && (
+                <>
+                  {" · "}
+                  <a
+                    href={`/updates/?topic=${encodeURIComponent(countryStatus.topic_tags[0])}`}
+                  >
+                    Updates by topic →
+                  </a>
+                </>
+              )
+          }
+        </p>
+      </section>
+    )
+  }
+
+  <section class="tracker-section">
+    <h2>Official sources ({sources.length})</h2>
+    {
+      sources.length > 0 ? (
+        <ul class="card-list">
+          {sources.map((s) => (
+            <SourceCard source={s} />
+          ))}
+        </ul>
+      ) : (
+        <p>No sources registered.</p>
+      )
+    }
+  </section>
+
+  <section class="tracker-section">
+    <h2>Laws &amp; guidance ({records.length})</h2>
+    {
+      records.length > 0 ? (
+        <ul class="card-list">
+          {records.map((r) => (
+            <RecordCard record={r} />
+          ))}
+        </ul>
+      ) : (
+        <p>No records yet.</p>
+      )
+    }
+  </section>
+
+  {
+    timelines.length > 0 && (
+      <section class="tracker-section">
+        <h2>Timelines ({timelines.length})</h2>
+        <ul>
+          {timelines.map((t) => (
+            <li>
+              <a href={`/timelines/${t.timeline_id}/`}>{t.title}</a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  <section class="safety-panel" role="note" aria-label="Safety and gates">
+    <h2>Safety &amp; gates</h2>
+    <ul>
+      <li>Not legal advice — governance review support only.</li>
+      <li>Not complete global or sub-national coverage.</li>
+      <li>Not final evidence — no client evidence export from this profile.</li>
+      <li>Not verified legal change — tracker metadata and source links only.</li>
+      <li>
+        Gates closed: verified_on_source={String(CLOSED_LEGAL_FLAGS.verified_on_source)},
+        client_use_allowed={String(CLOSED_LEGAL_FLAGS.client_use_allowed)}, final_evidence_allowed=
+        {String(CLOSED_LEGAL_FLAGS.final_evidence_allowed)}, legal_change_claimed=
+        {String(CLOSED_LEGAL_FLAGS.legal_change_claimed)}.
+      </li>
+    </ul>
+    {countryStatus && <p class="card__excerpt"><small>{countryStatus.legal_safe_note}</small></p>}
+  </section>
+
+  <section class="tracker-section">
+    <h2>Compare</h2>
+    <ul>
+      <li>
+        <a href={defaultCompare}>Compare with default peers ({comparePeers.join(", ")})</a>
+      </li>
+      {
+        jurisdiction.jurisdiction_id !== "eu" && (
+          <li>
+            <a href={compareRoute([jurisdiction.jurisdiction_id, "eu"])}>
+              Compare with European Union
+            </a>
+          </li>
+        )
+      }
+      {
+        jurisdiction.jurisdiction_id !== "uk" && (
+          <li>
+            <a href={compareRoute([jurisdiction.jurisdiction_id, "uk"])}>Compare with UK</a>
+          </li>
+        )
+      }
+      {
+        jurisdiction.jurisdiction_id !== "us-federal" && (
+          <li>
+            <a href={compareRoute([jurisdiction.jurisdiction_id, "us-federal"])}>
+              Compare with US Federal
+            </a>
+          </li>
+        )
+      }
+    </ul>
+    <p>
+      <a href="/compare/">Open compare tool →</a>
+    </p>
+  </section>
+
+  {
+    relatedInRegion.length > 0 && (
+      <section class="tracker-section">
+        <h2>Related jurisdictions in {jurisdiction.region}</h2>
+        <ul>
+          {
+            relatedInRegion.map((cs) => (
+              <li>
+                <a href={`/jurisdictions/${cs.jurisdiction_id}/`}>{cs.country_name}</a>
+                {" — "}
+                <StatusBucketBadge bucket={cs.status_bucket} label={cs.status_label} />
+              </li>
+            ))
+          }
+        </ul>
+        <p>
+          <a href={regionRoute}>View {jurisdiction.region} region →</a>
+        </p>
+      </section>
+    )
+  }
+
+  <section class="tracker-section">
+    <h2>Registry coverage</h2>
     <dl class="meta-grid">
       <div><dt>Official sources</dt><dd>{coverage.sources}</dd></div>
       <div><dt>Records</dt><dd>{coverage.records}</dd></div>
@@ -99,7 +339,7 @@ const jurisdictionUpdates = updatesForJurisdiction(jurisdiction.jurisdiction_id)
   </section>
 
   <dl class="meta-grid">
-    <div><dt>Region</dt><dd>{jurisdiction.region}</dd></div>
+    <div><dt>Region</dt><dd><a href={regionRoute}>{jurisdiction.region}</a></dd></div>
     <div><dt>Jurisdiction ID</dt><dd class="mono">{jurisdiction.jurisdiction_id}</dd></div>
     {
       jurisdiction.related_frameworks && jurisdiction.related_frameworks.length > 0 && (
@@ -113,7 +353,7 @@ const jurisdictionUpdates = updatesForJurisdiction(jurisdiction.jurisdiction_id)
 
   {
     jurisdiction.map && (
-      <section>
+      <section class="tracker-section">
         <h2>Map display marker</h2>
         <dl class="meta-grid">
           <div>
@@ -135,7 +375,7 @@ const jurisdictionUpdates = updatesForJurisdiction(jurisdiction.jurisdiction_id)
           <small>{jurisdiction.map.map_note}</small>
         </p>
         <p>
-          <a href="/map/">View on global coverage map →</a>
+          <a href="/map/">View on global coverage map →</a> · <a href="/tracker/">Tracker map →</a>
         </p>
       </section>
     )
@@ -152,55 +392,24 @@ const jurisdictionUpdates = updatesForJurisdiction(jurisdiction.jurisdiction_id)
     ))}
   </ul>
 
-  <h2>Official sources ({sources.length})</h2>
-  {sources.length > 0 ? (
-    <ul class="card-list">
-      {sources.map((s) => (
-        <SourceCard source={s} />
-      ))}
-    </ul>
-  ) : (
-    <p>No sources registered.</p>
-  )}
-
-  <h2>Laws & guidance ({records.length})</h2>
-  {records.length > 0 ? (
-    <ul class="card-list">
-      {records.map((r) => (
-        <RecordCard record={r} />
-      ))}
-    </ul>
-  ) : (
-    <p>No records yet.</p>
-  )}
-
-  <h2>Timelines ({timelines.length})</h2>
   {
-    timelines.length > 0 ? (
-      <ul>
-        {timelines.map((t) => (
-          <li>
-            <a href={`/timelines/${t.timeline_id}/`}>{t.title}</a>
-          </li>
-        ))}
-      </ul>
-    ) : (
-      <p>No timelines for this jurisdiction.</p>
+    changes.length > 0 && (
+      <>
+        <h2>Sample changes ({changes.length})</h2>
+        <ul class="card-list">
+          {changes.map((c) => (
+            <li class="card">
+              <h3><a href={`/changes/${c.change_id}/`}>{c.change_id}</a></h3>
+              <p class="card__excerpt">{truncate(c.change_summary_for_review, 120)}</p>
+              <p class="card__excerpt"><small>{formatDate(c.detected_date)}</small></p>
+            </li>
+          ))}
+        </ul>
+      </>
     )
   }
 
-  <h2>Sample changes ({changes.length})</h2>
-  {changes.length > 0 ? (
-    <ul class="card-list">
-      {changes.map((c) => (
-        <li class="card">
-          <h3><a href={`/changes/${c.change_id}/`}>{c.change_id}</a></h3>
-          <p class="card__excerpt">{truncate(c.change_summary_for_review, 120)}</p>
-          <p class="card__excerpt"><small>{formatDate(c.detected_date)}</small></p>
-        </li>
-      ))}
-    </ul>
-  ) : (
-    <p>No change samples for this jurisdiction.</p>
-  )}
+  <p>
+    <a href="/jurisdictions/">← All jurisdictions</a>
+  </p>
 </BaseLayout>

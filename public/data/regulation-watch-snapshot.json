@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-05-20",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
   "pilot_jurisdictions": [
     "australia",
@@ -119,7 +119,7 @@
     "unverified_timeline_events": 10,
     "unverified_records": 21,
     "pending_source_verifications": 16,
-    "exports": 11
+    "exports": 14
   },
   "feeds": {
     "changes_rss": "/feeds/changes.xml"
@@ -155,7 +155,10 @@
     "regulatory_updates": "/data/regulatory-updates.json",
     "automation_first_metrics": "/data/automation-first-metrics.json",
     "tracker_topics": "/data/tracker-topics.json",
-    "jurisdiction_comparison": "/data/jurisdiction-comparison.json"
+    "jurisdiction_comparison": "/data/jurisdiction-comparison.json",
+    "jurisdiction_profiles": "/data/jurisdiction-profiles.json",
+    "region_drilldowns": "/data/region-drilldowns.json",
+    "topic_drilldowns": "/data/topic-drilldowns.json"
   },
   "review_notice": "All pilot content is curated manual YAML. Human review required before client use."
 }
