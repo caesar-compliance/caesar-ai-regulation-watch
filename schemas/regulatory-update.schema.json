@@ -89,7 +89,15 @@
     },
     "automation_method": {
       "type": "string",
-      "enum": ["manual_seed", "api", "rss", "official_feed", "official_page", "public_page"]
+      "enum": [
+        "manual_seed",
+        "offline_metadata_adapter",
+        "api",
+        "rss",
+        "official_feed",
+        "official_page",
+        "public_page"
+      ]
     },
     "requires_human_review": { "type": "boolean" },
     "client_evidence_allowed": { "type": "boolean" },

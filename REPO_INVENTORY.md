@@ -53,7 +53,8 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | Directory | Role |
 |-----------|------|
 | **data/country-status/** | Per-jurisdiction regulation status seeds (`status_bucket`, source_ids, topic_tags) |
-| **data/regulatory-updates/** | Source-linked update feed seeds (`update_type`, importance, source_urls) |
+| **data/regulatory-updates/** | Manual seed updates + `generated-from-metadata.yml` (`offline_metadata_adapter`, T049) |
+| **scripts/build-regulatory-updates-from-metadata.mjs** | T049 offline adapter — repo metadata → regulatory_update batch |
 | **data/topics/** | Tracker topic tags for filters (distinct from `data/taxonomies/`) |
 
 ---

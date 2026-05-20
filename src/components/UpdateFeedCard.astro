@@ -1,5 +1,6 @@
 ---
 import type { RegulatoryUpdate } from "../lib/tracker-data";
+import { AUTOMATION_METHOD_LABELS } from "../lib/tracker-data";
 import StatusBucketBadge from "./StatusBucketBadge.astro";
 import { formatDate, humanizeId } from "../lib/format";
 
@@ -31,6 +32,9 @@ const { update, showJurisdiction = true } = Astro.props;
     <StatusBucketBadge bucket={update.status_bucket} />
     <span class="badge badge--type">{update.update_type.replace(/_/g, " ")}</span>
     <span class="badge badge--confidence">Confidence: {update.confidence_score}</span>
+    <span class="badge badge--method">
+      {AUTOMATION_METHOD_LABELS[update.automation_method] ?? update.automation_method}
+    </span>
   </div>
   <p class="update-feed-card__topics">
     Topics: {update.topic_tags.map((t) => humanizeId(t)).join(", ")}

@@ -12,11 +12,19 @@ interface Props {
     topic?: string | null;
     update_type?: string | null;
     jurisdiction_id?: string | null;
+    automation_method?: string | null;
   };
   showUpdateType?: boolean;
+  showAutomationMethod?: boolean;
 }
 
-const { action, regions, topics, current, showUpdateType = false } = Astro.props;
+const { action, regions, topics, current, showUpdateType = false, showAutomationMethod = false } =
+  Astro.props;
+
+const automationMethods = [
+  { value: "manual_seed", label: "Manual seed" },
+  { value: "offline_metadata_adapter", label: "Metadata adapter" },
+];
 
 const updateTypes = [
   "law",
@@ -74,6 +82,21 @@ const updateTypes = [
             {updateTypes.map((t) => (
               <option value={t} selected={current.update_type === t}>
                 {t.replace(/_/g, " ")}
+              </option>
+            ))}
+          </select>
+        </label>
+      )
+    }
+    {
+      showAutomationMethod && (
+        <label>
+          Source method
+          <select name="automation_method">
+            <option value="">All methods</option>
+            {automationMethods.map((m) => (
+              <option value={m.value} selected={current.automation_method === m.value}>
+                {m.label}
               </option>
             ))}
           </select>
