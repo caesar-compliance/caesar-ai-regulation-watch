@@ -5,7 +5,8 @@
 | Field | Value |
 |---|---|
 | **Current version** | `v1.0.3` |
-| **Status** | In release — manual verification intake + policy gate |
+| **Status** | Live — `16965d9`; tag `regulation-watch-v1.0.3` |
+| **Deployment** | `DEPLOY-20260520-021` — [26167248912](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26167248912) |
 | **Previous live** | `v1.0.2` — tag `regulation-watch-v1.0.2` → `d36909e` |
 | **Phase** | Public Technical MVP |
 
