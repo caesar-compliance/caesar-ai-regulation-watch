@@ -1,7 +1,7 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 20 May 2026
-**Current release:** v1.0.6 (T049 offline metadata adapter) — deploy `DEPLOY-20260520-024` in progress; prior live v1.0.5 (`DEPLOY-20260520-023`, tag `regulation-watch-v1.0.5`)
+**Current release:** v1.0.6 (T049 offline metadata adapter) — deployed `DEPLOY-20260520-024` (commit `1e8b7f0`, run [26187837019](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26187837019)); prior live v1.0.5 (`DEPLOY-20260520-023`, tag `regulation-watch-v1.0.5`)
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
 ---
@@ -20,7 +20,7 @@
    - Public pages: `/tracker/`, `/updates/`, `/countries/` with map skeleton, filters, metrics.
    - JSON exports: `country-status.json`, `regulatory-updates.json`, `automation-first-metrics.json`.
 
-4. **T049 — Source adapter pipeline for updates feed** *(merged; v1.0.6 release/deploy)*
+4. **T049 — Source adapter pipeline for updates feed** *(merged, released, deployed v1.0.6)*
    - Offline metadata adapter: `npm run build:regulatory-updates` → `data/regulatory-updates/generated-from-metadata.yml`.
    - Feed: 33 updates (`manual_seed` 15 + `offline_metadata_adapter` 18); method filter and badges on public pages.
    - Live API/RSS scheduling and fetch adapters remain separate (Phase 2 P2-01).

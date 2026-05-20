@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Notes
 
 - No live scraping, crawling, or new network adapters. All evidence gates remain closed. Not legal advice. Not final evidence. Not complete coverage. Not verified legal change.
-- **Deployed** 20 May 2026 — `DEPLOY-20260520-024`, commit TBD, run TBD, tag `regulation-watch-v1.0.6`. Public smoke on `/`, `/tracker/`, `/updates/`, `/countries/`, and tracker JSON exports.
+- **Deployed** 20 May 2026 — `DEPLOY-20260520-024`, commit `1e8b7f0`, run [26187837019](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26187837019), tag `regulation-watch-v1.0.6`. Public smoke pass on `/`, `/tracker/`, `/updates/`, `/countries/`, `/data/regulatory-updates.json`, `/data/automation-first-metrics.json`, `/data/regulation-watch-snapshot.json`.
 
 ---
 

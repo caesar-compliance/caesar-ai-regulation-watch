@@ -2,7 +2,7 @@
 
 **Phase:** v1.0.6 — offline metadata adapter for updates feed (T049)
 **Deployment date:** 20 May 2026
-**Status:** Deploy pending — `DEPLOY-20260520-024` (run TBD)
+**Status:** Deployed — `DEPLOY-20260520-024` (run [26187837019](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26187837019))
 
 ---
 
@@ -12,21 +12,23 @@
 |---|---|
 | **Product version** | `v1.0.6` |
 | **Deployment ID** | `DEPLOY-20260520-024` |
-| **Deployed commit** | TBD |
-| **Git tag** | `regulation-watch-v1.0.6` (after successful deploy + smoke) |
+| **Deployed commit** | `1e8b7f0` |
+| **Git tag** | `regulation-watch-v1.0.6` |
 | **Prior deploy** | v1.0.5 `a153043` — [26184820086](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26184820086) |
 | **Public URL** | https://regulation-watch.caesar.no/ |
 | **Deploy workflow** | Deploy static site (`.github/workflows/deploy-static-site.yml`) |
 
 ---
 
-## Expected smoke (post-deploy)
+## Smoke test results
+
+**Result:** pass
 
 All required URLs HTTP **200**:
 
 - `/`, `/tracker/`, `/updates/`, `/countries/`
-- `/data/country-status.json`, `/data/regulatory-updates.json`, `/data/automation-first-metrics.json`, `/data/tracker-topics.json`
-- `/data/regulation-watch-snapshot.json` — `version` **1.0.6**
+- `/data/country-status.json`, `/data/regulatory-updates.json`, `/data/automation-first-metrics.json`, `/data/tracker-topics.json`, `/data/regulation-watch-snapshot.json`
+- `version` **1.0.6** confirmed in snapshot
 
 Conservative disclaimers visible. Metadata adapter wording on tracker surfaces. `manual_seed_count` **15**; `offline_metadata_adapter_count` **18**; total **33** updates. `verified_on_source_count` **0**; `client_use_allowed_count` **0**; `legal_change_claimed_count` **0**.
 

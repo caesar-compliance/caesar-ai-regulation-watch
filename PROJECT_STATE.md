@@ -4,9 +4,9 @@
 
 | Field | Value |
 |---|---|
-| **Current version** | `v1.0.6` (release prep — deploy pending) |
-| **Status** | Release branch — tag `regulation-watch-v1.0.6` after deploy |
-| **Deployment** | `DEPLOY-20260520-024` — run TBD |
+| **Current version** | `v1.0.6` (deployed) |
+| **Status** | Deployed and tagged `regulation-watch-v1.0.6` |
+| **Deployment** | `DEPLOY-20260520-024` — run [26187837019](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26187837019) |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
 | **Phase** | Public Technical MVP + automation-first tracker + offline metadata adapter (T049) |
 
@@ -34,7 +34,7 @@ The **v1.0.6** release adds the T049 offline metadata adapter for the regulatory
 - **Source adapter pipeline (offline)** — `npm run build:regulatory-updates` from repo monitoring/registry metadata; `offline_metadata_adapter` method; `/updates/` method filter; method badges on tracker surfaces.
 - **Feed totals** — 33 regulatory updates (`manual_seed`: 15, `offline_metadata_adapter`: 18); 13 country statuses; 9 topics.
 - **JSON exports** — method counts on `regulatory-updates.json` and `automation-first-metrics.json`.
-- **Deploy** — `DEPLOY-20260520-024`, commit and run TBD until workflow completes; tag `regulation-watch-v1.0.6` after smoke pass.
+- **Deploy** — `DEPLOY-20260520-024`, commit `1e8b7f0`, run [26187837019](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26187837019); tag `regulation-watch-v1.0.6`.
 - **No scraping/crawling** — repo-local metadata only; no competitor data; evidence gates unchanged.
 - **Recommended next** — T050 choropleth map + compare jurisdictions; live API/RSS adapters per Phase 2 backlog.
 
