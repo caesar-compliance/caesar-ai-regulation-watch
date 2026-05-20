@@ -291,6 +291,50 @@ export type ManualSourceVerificationIntakeWithBatch = ManualSourceVerificationIn
   manual_source_verification_intake_batch_id: string;
 };
 
+export type AutonomousVerificationResult =
+  | "machine_verified_identity"
+  | "official_api_verified_identity"
+  | "official_sparql_verified_identity"
+  | "browser_worker_verified_identity"
+  | "official_alternative_verified_identity"
+  | "machine_unverifiable"
+  | "blocked_by_waf_or_bot_gate"
+  | "access_failed"
+  | "needs_human_policy_decision";
+
+export interface AutonomousSourceVerificationEntry {
+  verification_id: string;
+  related_source_id: string;
+  related_record_id?: string;
+  related_candidate_id?: string;
+  official_url: string;
+  verification_strategy: string;
+  verification_result: AutonomousVerificationResult;
+  http_status: number | null;
+  final_url: string | null;
+  visible_or_extracted_title: string | null;
+  official_identifier: string | null;
+  publisher_or_authority: string | null;
+  source_identity_confirmed: boolean;
+  full_instrument_identity_confirmed: boolean;
+  limitations: string;
+  next_action: string;
+  checked_at: string;
+  strategies_attempted?: string[];
+}
+
+export interface AutonomousSourceVerificationBatch {
+  autonomous_source_verification_batch_id: string;
+  run_date: string;
+  verifier_type: string;
+  legal_safe_note: string;
+  verifications: AutonomousSourceVerificationEntry[];
+}
+
+export type AutonomousSourceVerificationWithBatch = AutonomousSourceVerificationEntry & {
+  autonomous_source_verification_batch_id: string;
+};
+
 export type RegulationRecord = (LawRecord | GuidanceRecord) & {
   status: string;
 };
@@ -879,6 +923,35 @@ export function getManualSourceVerificationIntakes(): ManualSourceVerificationIn
     b.intakes.map((intake) => ({
       ...intake,
       manual_source_verification_intake_batch_id: b.manual_source_verification_intake_batch_id,
+    })),
+  );
+}
+
+function autonomousVerificationYamlFiles(): string[] {
+  const abs = path.join(ROOT, "data/verifications");
+  if (!fs.existsSync(abs)) return [];
+  return fs
+    .readdirSync(abs)
+    .filter(
+      (f) =>
+        f.startsWith("autonomous-source-verification-") &&
+        !f.includes("allowlist") &&
+        (f.endsWith(".yml") || f.endsWith(".yaml")),
+    )
+    .map((f) => path.join(abs, f));
+}
+
+export function getAutonomousSourceVerificationBatches(): AutonomousSourceVerificationBatch[] {
+  return autonomousVerificationYamlFiles()
+    .map((f) => yaml.load(fs.readFileSync(f, "utf8")) as AutonomousSourceVerificationBatch)
+    .sort((a, b) => b.run_date.localeCompare(a.run_date));
+}
+
+export function getAutonomousSourceVerifications(): AutonomousSourceVerificationWithBatch[] {
+  return getAutonomousSourceVerificationBatches().flatMap((b) =>
+    b.verifications.map((v) => ({
+      ...v,
+      autonomous_source_verification_batch_id: b.autonomous_source_verification_batch_id,
     })),
   );
 }

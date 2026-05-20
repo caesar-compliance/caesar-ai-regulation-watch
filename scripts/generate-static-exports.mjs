@@ -220,6 +220,55 @@ function readSourceDiscoveryLeads() {
   return { batch, leads };
 }
 
+function readAutonomousSourceVerifications() {
+  const abs = path.join(ROOT, "data/verifications");
+  if (!fs.existsSync(abs)) return { batch: null, verifications: [] };
+  const files = fs
+    .readdirSync(abs)
+    .filter(
+      (f) =>
+        f.startsWith("autonomous-source-verification-") &&
+        !f.includes("allowlist") &&
+        (f.endsWith(".yml") || f.endsWith(".yaml")),
+    )
+    .sort()
+    .reverse();
+  if (files.length === 0) return { batch: null, verifications: [] };
+  const batch = yaml.load(fs.readFileSync(path.join(abs, files[0]), "utf8"));
+  const verifications = (batch?.verifications ?? []).map((v) => ({
+    verification_id: v.verification_id,
+    related_source_id: v.related_source_id,
+    related_record_id: v.related_record_id ?? null,
+    related_candidate_id: v.related_candidate_id ?? null,
+    official_url: v.official_url,
+    verification_strategy: v.verification_strategy,
+    verification_result: v.verification_result,
+    http_status: v.http_status ?? null,
+    final_url: v.final_url ?? null,
+    visible_or_extracted_title: v.visible_or_extracted_title ?? null,
+    official_identifier: v.official_identifier ?? null,
+    publisher_or_authority: v.publisher_or_authority ?? null,
+    source_identity_confirmed: v.source_identity_confirmed,
+    full_instrument_identity_confirmed: v.full_instrument_identity_confirmed,
+    content_not_copied: true,
+    no_full_text_storage: true,
+    no_bypass_attempted: true,
+    client_use_allowed: false,
+    final_evidence_allowed: false,
+    verified_on_source: false,
+    legal_change_claimed: false,
+    limitations: v.limitations,
+    next_action: v.next_action,
+    checked_at: v.checked_at,
+    strategies_attempted: v.strategies_attempted ?? [],
+    legal_safe_note: v.legal_safe_note,
+    autonomous_source_verification_batch_id: batch.autonomous_source_verification_batch_id,
+    not_client_evidence: true,
+    not_legal_advice: true,
+  }));
+  return { batch, verifications };
+}
+
 function readManualSourceVerificationIntake() {
   const abs = path.join(ROOT, "data/verifications");
   if (!fs.existsSync(abs)) return { batch: null, intakes: [] };
@@ -412,6 +461,8 @@ const { batch: evidenceCandidateReviewBatch, reviews: evidenceCandidateReviews }
   readEvidenceExportCandidateReviews();
 const { batch: manualIntakeBatch, intakes: manualSourceVerificationIntakes } =
   readManualSourceVerificationIntake();
+const { batch: autonomousVerificationBatch, verifications: autonomousSourceVerifications } =
+  readAutonomousSourceVerifications();
 const reviewByCandidateId = latestReviewByCandidateId(evidenceCandidateReviews);
 const evidenceExportCandidates = rawEvidenceExportCandidates.map((c) => {
   const review = reviewByCandidateId.get(c.candidate_id);
@@ -1279,6 +1330,40 @@ const watcherMonitoringRunSummary = latestWatcherMonitoringRun
     }
   : null;
 
+const autonomousVerificationSummary = {
+  total: autonomousSourceVerifications.length,
+  machine_verified_identity: autonomousSourceVerifications.filter(
+    (v) => v.verification_result === "machine_verified_identity",
+  ).length,
+  official_api_verified_identity: autonomousSourceVerifications.filter(
+    (v) => v.verification_result === "official_api_verified_identity",
+  ).length,
+  official_sparql_verified_identity: autonomousSourceVerifications.filter(
+    (v) => v.verification_result === "official_sparql_verified_identity",
+  ).length,
+  official_alternative_verified_identity: autonomousSourceVerifications.filter(
+    (v) => v.verification_result === "official_alternative_verified_identity",
+  ).length,
+  browser_worker_verified_identity: autonomousSourceVerifications.filter(
+    (v) => v.verification_result === "browser_worker_verified_identity",
+  ).length,
+  machine_unverifiable: autonomousSourceVerifications.filter(
+    (v) => v.verification_result === "machine_unverifiable",
+  ).length,
+  blocked_by_waf_or_bot_gate: autonomousSourceVerifications.filter(
+    (v) => v.verification_result === "blocked_by_waf_or_bot_gate",
+  ).length,
+  access_failed: autonomousSourceVerifications.filter(
+    (v) => v.verification_result === "access_failed",
+  ).length,
+  source_identity_confirmed_count: autonomousSourceVerifications.filter(
+    (v) => v.source_identity_confirmed === true,
+  ).length,
+  client_use_allowed: 0,
+  final_evidence_allowed: 0,
+  verified_on_source: 0,
+};
+
 const manualIntakeSummary = {
   total: manualSourceVerificationIntakes.length,
   pending_human_browser_input: manualSourceVerificationIntakes.filter(
@@ -1445,6 +1530,12 @@ const snapshot = {
       evidenceCandidateReviewSummary.reviewed_for_internal_governance_only,
     evidence_export_candidate_reviews_needs_source:
       evidenceCandidateReviewSummary.needs_more_source_review,
+    autonomous_source_verification_count: autonomousVerificationSummary.total,
+    machine_verified_identity_count: autonomousVerificationSummary.machine_verified_identity,
+    machine_unverifiable_count: autonomousVerificationSummary.machine_unverifiable,
+    blocked_by_waf_or_bot_gate_count: autonomousVerificationSummary.blocked_by_waf_or_bot_gate,
+    official_alternative_verified_identity_count:
+      autonomousVerificationSummary.official_alternative_verified_identity,
     manual_source_verification_intake_count: manualIntakeSummary.total,
     pending_human_browser_input_count: manualIntakeSummary.pending_human_browser_input,
     verified_on_source_requested_count: manualIntakeSummary.verified_on_source_requested_count,
@@ -1486,6 +1577,7 @@ const snapshot = {
     evidence_export_candidate_reviews: "/data/evidence-export-candidate-reviews.json",
     source_discovery_leads: "/data/source-discovery-leads.json",
     manual_source_verification_intake: "/data/manual-source-verification-intake.json",
+    autonomous_source_verifications: "/data/autonomous-source-verifications.json",
   },
   review_notice:
     "All pilot content is curated manual YAML. Human review required before client use.",
@@ -1833,6 +1925,22 @@ writeJson(path.join(PUBLIC_DATA, "source-discovery-leads.json"), {
   items: sourceDiscoveryLeads,
 });
 
+writeJson(path.join(PUBLIC_DATA, "autonomous-source-verifications.json"), {
+  generated_at: generatedAt,
+  disclaimer: DISCLAIMER,
+  autonomous_worker_only: true,
+  no_waf_bypass: true,
+  no_full_text_storage: true,
+  not_client_evidence: true,
+  not_legal_advice: true,
+  verified_on_source_not_granted: true,
+  batch_id: autonomousVerificationBatch?.autonomous_source_verification_batch_id ?? null,
+  legal_safe_note: autonomousVerificationBatch?.legal_safe_note ?? DISCLAIMER,
+  policy_doc: "/docs/SOURCE_VERIFICATION_WORKFLOW.md",
+  summary: autonomousVerificationSummary,
+  items: autonomousSourceVerifications,
+});
+
 writeJson(path.join(PUBLIC_DATA, "manual-source-verification-intake.json"), {
   generated_at: generatedAt,
   disclaimer: DISCLAIMER,
@@ -1940,6 +2048,9 @@ console.log("  public/data/evidence-export-candidates.json");
 console.log("  public/data/evidence-export-candidate-reviews.json");
 console.log(`  ${sourceDiscoveryLeads.length} source discovery lead(s) exported`);
 console.log(`  ${evidenceExportCandidates.length} evidence export candidate(s) exported`);
+console.log(
+  `  ${autonomousSourceVerifications.length} autonomous source verification(s) exported`,
+);
 console.log(
   `  ${manualSourceVerificationIntakes.length} manual source verification intake(s) exported`,
 );

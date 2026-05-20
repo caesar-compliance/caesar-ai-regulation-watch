@@ -20,6 +20,5 @@ related_topics:
   - connected_industries
 review_status: pending_review
 notes: >
-  English METI entry point only. URL remediated v0.6.2 to surviving English policy index;
-  dedicated AI subdirectory not reachable. Source identity partially confirmed; Japanese-language
-  MIC/Cabinet pages may need separate entries.
+  English METI entry point only. v1.0.4 autonomous worker: primary policy index URL timeout (access_failed);
+  source identity not re-confirmed in machine pass. Japanese-language MIC/Cabinet pages may need separate entries.

@@ -2,7 +2,7 @@
 
 **Prepared:** 19 May 2026  
 **Last updated:** 20 May 2026  
-**Version:** v1.0.3
+**Version:** v1.0.4
 
 ---
 
@@ -93,19 +93,32 @@ Each entry in `data/verifications/*.yml` validates against `schemas/source-verif
 
 ---
 
-## Manual source verification intake (v1.0.3)
+## Autonomous official-source verification (v1.0.4)
 
-When automated URL checks, headless browser fetches, or CI environments are **blocked** (HTTP 403, WAF, EUR-Lex bot gate, timeouts):
+When automated URL checks or environments hit **WAF, bot gates, or timeouts**, run the autonomous worker before asking operators to open pages manually:
 
 | Action | Do | Do not |
 |---|---|---|
-| Route blocked sources | Create or update `manual-source-verification-intake-*.yml` | Loop `npm run check:urls` or watcher retries as primary path |
-| Record observations | Qualified human browser per [MANUAL_SOURCE_VERIFICATION_INTAKE_GUIDE.md](./MANUAL_SOURCE_VERIFICATION_INTAKE_GUIDE.md) | Fabricate titles or paste legal text into YAML |
-| Set `verified_on_source` | Only after Control Tower approval per [VERIFIED_ON_SOURCE_POLICY.md](./VERIFIED_ON_SOURCE_POLICY.md) | Auto-set from intake batch or automated jobs |
+| Run worker | `npm run source:verify:autonomous` (allowlist in `autonomous-source-verification-allowlist-*.yml`) | Bypass WAF, solve CAPTCHA, use stealth proxies |
+| Strategies | Official SPARQL/Cellar, metadata HEAD/GET, official government alternatives | Scrape full legal text or store full HTML |
+| Record results | `autonomous-source-verification-*.yml` + public JSON export | Set `verified_on_source: true` from worker output |
+| Browser worker | Playwright normal rendering (when added) — title/URL/status only | Link crawling, credentialled access, residential proxies |
 
-Public status: `/source-verification/` and `/data/manual-source-verification-intake.json` (no private reviewer notes in export).
+Public status: `/source-verification/` and `/data/autonomous-source-verifications.json`.
 
-**v1.0.3 intake placeholders:** Australia `australia-industry-ai`, EUR-Lex CELEX `law-eu-ai-act-2024-1689`, Japan `japan-meti-ai` — all `pending_human_browser_input`.
+**v1.0.4 allowlist:** Australia `australia-industry-ai`, EUR-Lex CELEX `eu-ai-act` / `law-eu-ai-act-2024-1689`, Japan `japan-meti-ai`.
+
+## Manual source verification intake (supplementary)
+
+Optional human-browser intake when policy requires explicit browser observation beyond autonomous machine attempts:
+
+| Action | Do | Do not |
+|---|---|---|
+| Route | Update `manual-source-verification-intake-*.yml` after autonomous batch documents blockers | Use manual intake as sole path without running autonomous worker |
+| Record observations | Per [MANUAL_SOURCE_VERIFICATION_INTAKE_GUIDE.md](./MANUAL_SOURCE_VERIFICATION_INTAKE_GUIDE.md) | Fabricate titles or paste legal text into YAML |
+| Set `verified_on_source` | Only after Control Tower approval per [VERIFIED_ON_SOURCE_POLICY.md](./VERIFIED_ON_SOURCE_POLICY.md) | Auto-set from intake batch |
+
+Public export: `/data/manual-source-verification-intake.json` (no private reviewer notes).
 
 ---
 
@@ -131,11 +144,12 @@ Public status: `/source-verification/` and `/data/manual-source-verification-int
 | [source-identity-review-2026-05-19.yml](../data/verifications/source-identity-review-2026-05-19.yml) | v0.6.2 source identity batch (`reviewed_source_identity_only`) |
 | [source-verification-2026-05-20-v093.yml](../data/verifications/source-verification-2026-05-20-v093.yml) | v0.9.3 targeted pass — Australia industry.gov.au, EUR-Lex CELEX, EDPB AI topic |
 | [source-verification-2026-05-20-v102.yml](../data/verifications/source-verification-2026-05-20-v102.yml) | v1.0.2 human/browser pass — AU/EUR-Lex/Japan blockers documented |
-| [manual-source-verification-intake-2026-05-20-v103.yml](../data/verifications/manual-source-verification-intake-2026-05-20-v103.yml) | v1.0.3 manual intake placeholders — pending human browser |
+| [autonomous-source-verification-2026-05-20-v103.yml](../data/verifications/autonomous-source-verification-2026-05-20-v103.yml) | v1.0.4 autonomous worker batch |
+| [manual-source-verification-intake-2026-05-20-v103.yml](../data/verifications/manual-source-verification-intake-2026-05-20-v103.yml) | v1.0.3 manual intake placeholders (supplementary) |
 
-Static exports: `/data/verifications.json`, `/data/url-checks.json`, `/data/manual-source-verification-intake.json` (generated at build).
+Static exports: `/data/verifications.json`, `/data/url-checks.json`, `/data/autonomous-source-verifications.json`, `/data/manual-source-verification-intake.json` (generated at build).
 
-Site pages: [/verification/](/verification/) (batch summary) · [/source-verification/](/source-verification/) (manual intake + policy gate).
+Site pages: [/verification/](/verification/) (batch summary) · [/source-verification/](/source-verification/) (autonomous worker + policy gate).
 
 ---
 

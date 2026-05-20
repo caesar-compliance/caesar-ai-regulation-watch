@@ -11,6 +11,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.4] - 20 May 2026
+
+### Added
+
+- **Autonomous official-source verification worker** — `schemas/autonomous-source-verification.schema.json`, allowlist, `scripts/run-autonomous-source-verification.mjs`, `npm run source:verify:autonomous`.
+- **Verification batch** — `autonomous-source-verification-2026-05-20-v103.yml` (Australia, EUR-Lex CELEX, Japan METI).
+- **Public export** — `/data/autonomous-source-verifications.json`, snapshot counts (`autonomous_source_verification_count`, `machine_verified_identity_count`, `blocked_by_waf_or_bot_gate_count`, etc.).
+- **Site** — `/source-verification/` shows autonomous attempts, policy warnings, supplementary manual intake table.
+
+### Changed
+
+- **Source verification workflow** — autonomous machine attempts are primary for blocked sources; manual intake supplementary.
+- **EU AI Act** — EFTA EEA-Lex official alternative confirms CELEX 32024R1689 identity (metadata snippet); EUR-Lex primary URL remains bot-gated.
+- **Product version** — `v1.0.4`.
+
+### Notes
+
+- No WAF bypass, no full text storage, no `verified_on_source: true`, no client/final evidence. Playwright browser worker not enabled in repo yet.
+
+---
+
 ## [1.0.3] - 20 May 2026
 
 ### Added

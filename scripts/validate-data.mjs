@@ -55,6 +55,7 @@ const schemas = {
   changeReviewPack: loadSchema("change-review-pack.schema.json"),
   metadataReviewTriage: loadSchema("metadata-review-triage.schema.json"),
   manualSourceVerificationIntake: loadSchema("manual-source-verification-intake.schema.json"),
+  autonomousSourceVerification: loadSchema("autonomous-source-verification.schema.json"),
 };
 
 const LONG_COPIED_TEXT_PATTERNS = [
@@ -246,6 +247,69 @@ for (const file of listYamlFiles(path.join(ROOT, "data/verifications"))) {
     check(validate(file, data, schemas.sourceVerification));
   } else if (base.startsWith("evidence-export-candidate-review")) {
     check(validate(file, data, schemas.evidenceExportCandidateReview));
+  } else if (base.startsWith("autonomous-source-verification-allowlist")) {
+    continue;
+  } else if (base.startsWith("autonomous-source-verification-")) {
+    check(validate(file, data, schemas.autonomousSourceVerification));
+    for (const v of data.verifications ?? []) {
+      const label = `${file} → ${v.verification_id ?? "?"} (policy)`;
+      if (v.client_use_allowed !== false) {
+        failures.push({
+          label,
+          errors: [{ message: "autonomous verification must have client_use_allowed: false" }],
+        });
+      }
+      if (v.final_evidence_allowed !== false) {
+        failures.push({
+          label,
+          errors: [{ message: "autonomous verification must have final_evidence_allowed: false" }],
+        });
+      }
+      if (v.verified_on_source !== false) {
+        failures.push({
+          label,
+          errors: [{ message: "autonomous verification must have verified_on_source: false" }],
+        });
+      }
+      if (v.legal_change_claimed !== false) {
+        failures.push({
+          label,
+          errors: [{ message: "autonomous verification must have legal_change_claimed: false" }],
+        });
+      }
+      if (v.content_not_copied !== true) {
+        failures.push({
+          label,
+          errors: [{ message: "autonomous verification must have content_not_copied: true" }],
+        });
+      }
+      if (v.no_full_text_storage !== true) {
+        failures.push({
+          label,
+          errors: [{ message: "autonomous verification must have no_full_text_storage: true" }],
+        });
+      }
+      if (v.no_bypass_attempted !== true) {
+        failures.push({
+          label,
+          errors: [{ message: "autonomous verification must have no_bypass_attempted: true" }],
+        });
+      }
+      if (
+        v.full_instrument_identity_confirmed &&
+        !v.source_identity_confirmed
+      ) {
+        failures.push({
+          label,
+          errors: [
+            {
+              message:
+                "full_instrument_identity_confirmed requires source_identity_confirmed: true",
+            },
+          ],
+        });
+      }
+    }
   } else if (base.startsWith("manual-source-verification-intake")) {
     check(validate(file, data, schemas.manualSourceVerificationIntake));
     for (const intake of data.intakes ?? []) {
@@ -339,7 +403,7 @@ for (const file of listYamlFiles(path.join(ROOT, "data/verifications"))) {
       errors: [
         {
           message:
-            "unknown verification file prefix; use source-verification-*, source-identity-review-*, content-review-*, evidence-export-candidate-review-*, manual-source-verification-intake-*, or url-check-*",
+            "unknown verification file prefix; use source-verification-*, source-identity-review-*, content-review-*, evidence-export-candidate-review-*, autonomous-source-verification-*, manual-source-verification-intake-*, or url-check-*",
         },
       ],
     });
@@ -1310,6 +1374,34 @@ for (const file of listYamlFiles(candidateDir)) {
       failures.push({
         label: `${file} → ${c.candidate_id} (referential)`,
         errors: [{ message: `unknown source_item_id (detected_change): ${c.source_item_id}` }],
+      });
+    }
+  }
+}
+
+// Referential integrity (autonomous source verification)
+for (const file of listYamlFiles(path.join(ROOT, "data/verifications"))) {
+  const base = path.basename(file);
+  if (!base.startsWith("autonomous-source-verification-") || base.includes("allowlist")) continue;
+  const batch = readYaml(file);
+  for (const v of batch.verifications ?? []) {
+    const label = `${file} → ${v.verification_id ?? "?"} (referential)`;
+    if (!sourceIds.has(v.related_source_id)) {
+      failures.push({
+        label,
+        errors: [{ message: `unknown related_source_id: ${v.related_source_id}` }],
+      });
+    }
+    if (v.related_record_id && !recordIds.has(v.related_record_id)) {
+      failures.push({
+        label,
+        errors: [{ message: `unknown related_record_id: ${v.related_record_id}` }],
+      });
+    }
+    if (v.related_candidate_id && !candidateIds.has(v.related_candidate_id)) {
+      failures.push({
+        label,
+        errors: [{ message: `unknown related_candidate_id: ${v.related_candidate_id}` }],
       });
     }
   }
