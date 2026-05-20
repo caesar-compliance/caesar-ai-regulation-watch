@@ -1603,6 +1603,7 @@ const snapshot = {
     jurisdiction_profiles: "/data/jurisdiction-profiles.json",
     region_drilldowns: "/data/region-drilldowns.json",
     topic_drilldowns: "/data/topic-drilldowns.json",
+    source_adapter_allowlist: "/data/source-adapter-allowlist.json",
   },
   review_notice:
     "All pilot content is curated manual YAML. Human review required before client use.",
@@ -2075,6 +2076,48 @@ writeJson(path.join(PUBLIC_DATA, "topic-drilldowns.json"), {
   topics: topicDrilldowns,
 });
 
+const sourceAdapterAllowlistDoc = readYamlFile(
+  "data/source-adapters/source-adapter-allowlist.yml",
+);
+
+function buildSourceAdapterAllowlistExport(doc) {
+  const adapters = (doc?.adapters ?? []).map((a) => ({
+    adapter_id: a.adapter_id,
+    source_id: a.source_id,
+    source_name: a.source_name,
+    jurisdiction_ids: a.jurisdiction_ids,
+    region: a.region,
+    source_type: a.source_type,
+    adapter_kind: a.adapter_kind,
+    status: a.status,
+    collection_mode: a.collection_mode,
+    schedule_enabled: a.schedule_enabled,
+    broad_crawl_allowed: a.broad_crawl_allowed,
+    stores_metadata_only: a.stores_metadata_only,
+    source_reference: a.endpoint_url ?? a.source_url ?? null,
+    paywall_login_required: a.paywall_login_required,
+    captcha_or_waf_risk: a.captcha_or_waf_risk,
+    owner_review_required: a.owner_review_required,
+    safety_summary:
+      "Metadata-only; gates closed; no live collection; manual-gated; not legal advice.",
+  }));
+  return {
+    generated_at: doc?.generated_at ?? generatedAt,
+    version: doc?.product_version ?? PROJECT_VERSION,
+    disclaimer: DISCLAIMER,
+    no_live_collection: true,
+    no_scheduled_monitoring: true,
+    not_legal_advice: true,
+    adapter_count: adapters.length,
+    adapters,
+  };
+}
+
+writeJson(
+  path.join(PUBLIC_DATA, "source-adapter-allowlist.json"),
+  buildSourceAdapterAllowlistExport(sourceAdapterAllowlistDoc),
+);
+
 const manualSeedUpdateCount = regulatoryUpdates.filter(
   (u) => u.automation_method === "manual_seed",
 ).length;
@@ -2242,6 +2285,10 @@ console.log("  public/data/jurisdiction-comparison.json");
 console.log("  public/data/jurisdiction-profiles.json");
 console.log("  public/data/region-drilldowns.json");
 console.log("  public/data/topic-drilldowns.json");
+console.log("  public/data/source-adapter-allowlist.json");
+console.log(
+  `  ${sourceAdapterAllowlistDoc?.adapters?.length ?? 0} source adapter allowlist entr(ies)`,
+);
 console.log(`  ${countryStatuses.length} country status(es) exported`);
 console.log(`  ${regulatoryUpdates.length} regulatory update(s) exported`);
 console.log("  public/data/regulation-watch-snapshot.json");

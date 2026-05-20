@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Caesar T052 RSS fixture — sample publications feed</title>
+    <link>https://example.invalid/feed/publications</link>
+    <description>Local fixture only. Not live network data.</description>
+    <language>en</language>
+    <lastBuildDate>Mon, 20 May 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Sample AI governance guideline publication (fixture)</title>
+      <link>https://example.invalid/documents/sample-guideline-2026</link>
+      <guid isPermaLink="true">https://example.invalid/documents/sample-guideline-2026</guid>
+      <pubDate>Mon, 19 May 2026 09:00:00 GMT</pubDate>
+      <description>Metadata-only fixture entry for T052 parser validation. Not legal text.</description>
+      <category>AI</category>
+      <category>data protection</category>
+    </item>
+    <item>
+      <title>Sample consultation notice (fixture)</title>
+      <link>https://example.invalid/consultations/sample-2026</link>
+      <guid>fixture-consultation-2026-05</guid>
+      <pubDate>Fri, 16 May 2026 14:30:00 GMT</pubDate>
+      <description>Second fixture item for RSS metadata normalization tests.</description>
+    </item>
+  </channel>
+</rss>

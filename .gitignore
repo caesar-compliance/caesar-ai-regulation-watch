@@ -2,6 +2,7 @@
 node_modules/
 dist/
 tmp/
+generated/
 .astro/
 # Generated at build time (npm run generate:exports)
 # public/data/ and public/feeds/ are committed after generate for preview deploys

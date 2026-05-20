@@ -6,6 +6,8 @@
   "description": "Read-only static site for Caesar AI Regulation Watch pilot data",
   "scripts": {
     "validate:data": "node scripts/validate-data.mjs",
+    "validate:source-adapters": "node scripts/validate-source-adapter-allowlist.mjs",
+    "build:source-adapter-fixtures": "node scripts/parse-source-adapter-fixture.mjs",
     "build:regulatory-updates": "node scripts/build-regulatory-updates-from-metadata.mjs",
     "generate:evidence-candidates": "node scripts/generate-evidence-export-candidates.mjs",
     "generate:exports": "node scripts/generate-static-exports.mjs",

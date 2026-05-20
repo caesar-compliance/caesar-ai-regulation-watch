@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 20 May 2026 (v1.0.8 on main — T051 merged; live v1.0.7 `DEPLOY-20260520-025`)
+**Last updated:** 20 May 2026 (v1.0.8 on main — T051 merged; T052 allowlist on branch; live v1.0.7 `DEPLOY-20260520-025`)
 
 ---
 
@@ -191,6 +191,21 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **docs/SCHEDULED_MONITORING_POLICY.md** | Monitoring policy |
 | **docs/MONITORING_RUNBOOK.md** | Operator runbook |
 | **docs/WATCHER_PROTOTYPE.md** | Watcher scope and usage |
+
+## T052 — Source adapter allowlist (v1.0.8 branch)
+
+| Path | Role |
+|---|---|
+| **schemas/source-adapter-allowlist.schema.json** | Allowlist entry validation |
+| **data/source-adapters/source-adapter-allowlist.yml** | Draft/disabled pilot adapters (9 entries) |
+| **docs/SOURCE_ADAPTER_ALLOWLIST.md** | Allowlist policy |
+| **docs/RSS_API_ADAPTER_SAFETY_MODEL.md** | RSS/API safety model |
+| **scripts/validate-source-adapter-allowlist.mjs** | `npm run validate:source-adapters` |
+| **scripts/parse-source-adapter-fixture.mjs** | `npm run build:source-adapter-fixtures` |
+| **fixtures/source-adapters/** | Local RSS/Atom XML fixtures (no network) |
+| **generated/source-adapter-fixture-candidates.json** | Build output (gitignored) |
+| **public/data/source-adapter-allowlist.json** | Redacted public export |
+| **src/pages/source-adapters/index.astro** | Read-only registry page |
 
 ---
 

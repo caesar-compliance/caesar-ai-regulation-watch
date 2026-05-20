@@ -1,0 +1,116 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getSourceAdapterAllowlistEntries, getSource } from "../../lib/data";
+import { humanizeId } from "../../lib/format";
+import { PROJECT_VERSION_LABEL } from "../../lib/project-version";
+
+const adapters = getSourceAdapterAllowlistEntries();
+const disabledCount = adapters.filter((a) => a.status === "disabled").length;
+const draftCount = adapters.filter((a) => a.status === "draft").length;
+---
+
+<BaseLayout title="Source adapters" currentPath="/source-adapters/">
+  <h1>Source adapter allowlist</h1>
+  <p class="lead">
+    T052 manual-gated registry for future RSS/API metadata adapters ({PROJECT_VERSION_LABEL}).
+    Read-only planning surface — not live collection, not scheduled monitoring, not legal advice.
+  </p>
+
+  <div class="banner banner--review" role="note">
+    <strong>Draft / disabled — metadata-only.</strong> No “run now” controls. No broad crawl. No full legal
+    text storage. <code>verified_on_source</code>, <code>client_use_allowed</code>,{" "}
+    <code>final_evidence_allowed</code>, and <code>legal_change_claimed</code> remain closed. Future network
+    runs require separate Control Tower approval per adapter.
+  </div>
+
+  <section>
+    <h2>Summary</h2>
+    <dl class="meta-grid">
+      <div><dt>Registered adapters</dt><dd>{adapters.length}</dd></div>
+      <div><dt>Disabled</dt><dd>{disabledCount}</dd></div>
+      <div><dt>Draft</dt><dd>{draftCount}</dd></div>
+      <div><dt>JSON export</dt><dd><a href="/data/source-adapter-allowlist.json">source-adapter-allowlist.json</a></dd></div>
+    </dl>
+    <p>
+      <small>
+        See <code>docs/SOURCE_ADAPTER_ALLOWLIST.md</code> and <code>docs/RSS_API_ADAPTER_SAFETY_MODEL.md</code>.
+        Fixture parser: <code>npm run build:source-adapter-fixtures</code> (local only).
+      </small>
+    </p>
+  </section>
+
+  <section>
+    <h2>Adapter candidates</h2>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Adapter</th>
+            <th>Source</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Collection</th>
+            <th>Jurisdictions</th>
+            <th>Safety</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            adapters.map((a) => {
+              const source = getSource(a.source_id);
+              return (
+                <tr>
+                  <td>
+                    <span class="mono">{a.adapter_id}</span>
+                    <br />
+                    <small>{humanizeId(a.adapter_kind)}</small>
+                  </td>
+                  <td>
+                    {source ? (
+                      <a href={`/sources/${a.source_id}/`}>{a.source_name}</a>
+                    ) : (
+                      a.source_name
+                    )}
+                    <br />
+                    <small class="mono">{a.source_id}</small>
+                  </td>
+                  <td>{humanizeId(a.source_type)}</td>
+                  <td>
+                    <span class={`badge badge--status-${a.status}`}>{a.status}</span>
+                  </td>
+                  <td>
+                    <span class="mono">{a.collection_mode}</span>
+                    {a.schedule_enabled ? (
+                      <span class="badge badge--warn">schedule</span>
+                    ) : (
+                      <span class="badge">no schedule</span>
+                    )}
+                  </td>
+                  <td>{a.jurisdiction_ids.join(", ")}</td>
+                  <td>
+                    <ul class="inline-flags">
+                      <li>metadata only</li>
+                      {a.paywall_login_required ? <li class="warn">paywall</li> : null}
+                      {a.captcha_or_waf_risk ? <li class="warn">WAF risk</li> : null}
+                      {a.broad_crawl_allowed ? <li class="warn">broad crawl</li> : <li>no broad crawl</li>}
+                    </ul>
+                  </td>
+                </tr>
+              );
+            })
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Related</h2>
+    <ul>
+      <li><a href="/sources/">Official sources registry</a></li>
+      <li><a href="/monitoring/">Monitoring (separate pilot)</a></li>
+      <li><a href="/watchers/">Watchers (offline fixtures)</a></li>
+      <li><a href="/exports/">Export samples</a></li>
+    </ul>
+  </section>
+</BaseLayout>

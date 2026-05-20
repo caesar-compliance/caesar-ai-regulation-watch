@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **T052 source adapter allowlist architecture** — `schemas/source-adapter-allowlist.schema.json`, `data/source-adapters/source-adapter-allowlist.yml`, safety docs, `npm run validate:source-adapters`, fixture-only RSS/Atom parser (`npm run build:source-adapter-fixtures`), public export `/data/source-adapter-allowlist.json`, page `/source-adapters/`.
+
+### Notes
+
+- Post-T051 implementation on main/branch; no live source collection; adapters disabled/draft/manual-gated; no deploy/tag in T052.
+
 ---
 
 ## [1.0.8] - 20 May 2026
