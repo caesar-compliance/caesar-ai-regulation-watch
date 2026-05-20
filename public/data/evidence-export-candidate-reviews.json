@@ -57,7 +57,7 @@
       "review_purpose": "governance_export_readiness_only",
       "candidate_review_status": "needs_more_source_review",
       "content_review_id": "content-review-law-eu-ai-act-2024-1689",
-      "governance_review_summary": "Manual sample EU AI Act status-change candidate is understandable and has content review. v0.8.9/v0.9.2: EUR-Lex CELEX URL still returns HTTP 202 (bot protection); full instrument not read. European Commission AI Act overview (HTTP 200) corroborates CELEX 32024R1689 and Regulation (EU) 2024/1689 at high level only — not sufficient to clear source verification gate. v0.9.2 content review batch re-confirmed limitation (content-review-law-eu-ai-act-2024-1689-v092). verified_on_source_after_check remains false. Export-readiness stays needs_more_source_review. Disclaimers present; blocking_reasons empty is pipeline status only.",
+      "governance_review_summary": "Manual sample EU AI Act status-change candidate is understandable and has content review. v0.8.9/v0.9.2/v0.9.3: EUR-Lex CELEX URL still returns HTTP 202 (bot protection); full instrument not read. European Commission AI Act overview (HTTP 200) corroborates CELEX 32024R1689 and Regulation (EU) 2024/1689 at high level only — not sufficient to clear source verification gate. v0.9.3 targeted pass (content-review-law-eu-ai-act-2024-1689-v093, source-verification-2026-05-20-v093) re-confirmed limitation unchanged. verified_on_source_after_check remains false. Export-readiness stays needs_more_source_review. Disclaimers present; blocking_reasons empty is pipeline status only.",
       "checks_performed": [
         "candidate_understandable",
         "content_review_present",
@@ -79,7 +79,7 @@
       "client_use_allowed": false,
       "final_evidence_allowed": false,
       "qualified_advisor_review_required": true,
-      "legal_safe_note": "v0.8.9 governance review refresh: needs_more_source_review — EUR-Lex human browser review still required. EC overview corroboration is not client approval or final evidence. Not legal advice.",
+      "legal_safe_note": "v0.9.3 governance review refresh: needs_more_source_review — EUR-Lex human browser review still required. EC overview corroboration is not client approval or final evidence. Not legal advice.",
       "evidence_export_candidate_review_batch_id": "evidence-export-candidate-review-2026-05-20"
     }
   ]

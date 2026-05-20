@@ -22,3 +22,5 @@ related_topics:
 review_status: pending_review
 notes: >
   v0.9.1 addition. IAPP tracker used only as discovery cue; content not copied.
+  v0.9.3: edpb.europa.eu returned HTTP 502 (topic URL and homepage) from reviewer environment — transient;
+  re-check when site available. Verification: source-verification-2026-05-20-v093.

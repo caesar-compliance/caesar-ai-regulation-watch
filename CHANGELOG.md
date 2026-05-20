@@ -11,6 +11,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.9.3] - 20 May 2026
+
+### Added
+
+- **Targeted source verification batch** — `data/verifications/source-verification-2026-05-20-v093.yml` (Australia industry.gov.au, EUR-Lex CELEX 32024R1689, EDPB AI topic).
+- **v0.9.3 content review follow-up** — `data/verifications/content-review-2026-05-20-v093.yml` (Australia ethics framework record, EU AI Act law, EDPB AI topic index).
+
+### Changed
+
+- **Australia** — discovery lead and registry notes document continued WAF/403 on HTML publication; lead remains `pending_official_review`.
+- **EUR-Lex / EU AI Act** — HTTP 202 bot protection unchanged; export candidate stays `needs_more_source_review`; EC digital-strategy corroboration only.
+- **EDPB AI topic** — HTTP 502 transient outage on edpb.europa.eu in v0.9.3 pass; prior v0.9.1 lead confirmation not re-validated live.
+
+### Notes
+
+- Targeted human/browser verification pass; not legal advice; no complete coverage; `client_use_allowed: 0`; no final evidence export.
+
+---
+
 ## [0.9.2] - 20 May 2026
 
 ### Changed

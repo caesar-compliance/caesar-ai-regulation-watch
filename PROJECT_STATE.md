@@ -9,14 +9,14 @@
 | Field | Value |
 |---|---|
 | **Repository** | `caesar-ai-regulation-watch` |
-| **Current version** | `v0.9.2` |
-| **Current phase** | Public pilot — source resolution and content review |
-| **Status** | Live on custom domain; v0.9.2 deployed (`8038f9d`) |
+| **Current version** | `v0.9.3` |
+| **Current phase** | Public pilot — targeted source verification |
+| **Status** | Live on custom domain; v0.9.3 deploy pending after merge |
 | **Working branch** | `main` (after merge) |
-| **Latest completed task** | v0.9.2 — 24/26 leads confirmed; 16 content reviews; 6 v0.9.1 records reviewed |
-| **Deployment ID** | `DEPLOY-20260520-009` — commit `8038f9d`, run [26133918817](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26133918817) |
-| **Git tag** | `regulation-watch-v0.9.2` on `8038f9d` (pending push after docs commit) |
-| **Next recommended step** | Control Tower: human browser pass for Australia industry.gov.au, EUR-Lex CELEX, EDPB AI topic |
+| **Latest completed task** | v0.9.3 — targeted verification batch; Australia pending (WAF); EUR-Lex blocked; EDPB 502 |
+| **Deployment ID** | `DEPLOY-20260520-010` — pending |
+| **Git tag** | `regulation-watch-v0.9.3` — pending after deploy |
+| **Next recommended step** | Control Tower: human browser on industry.gov.au + EUR-Lex when accessible; re-check EDPB when site up |
 
 ---
 
@@ -41,17 +41,18 @@
 | Official source unclear | 1 | 0 |
 | Rejected (not official) | 1 | 1 |
 
-**v0.9.2 resolutions:** White House EO → Federal Register EO 14110 confirmed; Canada responsible-ai confirmed; Australia industry principles still pending (WAF).
+**v0.9.2 resolutions:** White House EO → Federal Register EO 14110 confirmed; Canada responsible-ai confirmed.
+
+**v0.9.3 targeted verification:** Australia industry principles still `pending_official_review` (WAF/403); EUR-Lex CELEX 32024R1689 still HTTP 202; EDPB AI topic HTTP 502 (transient); EU AI Act candidate still `needs_more_source_review`.
 
 ---
 
-## Content review (v0.9.2)
+## Content review (v0.9.3)
 
 | Metric | Count |
 |---|---|
-| New batch | `content-review-2026-05-20-v092` |
-| v0.9.1 minimal records reviewed | 6 |
-| EUR-Lex follow-up entry | 1 |
+| v0.9.3 batch | `content-review-2026-05-20-v093` (3 entries) |
+| v0.9.3 source verification batch | `source-verification-2026-05-20-v093` (3 entries) |
 | `client_use_allowed: true` | 0 |
 | `verified_on_source_after_check: true` | 0 |
 

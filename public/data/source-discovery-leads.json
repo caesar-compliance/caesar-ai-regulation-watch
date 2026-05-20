@@ -399,7 +399,7 @@
       "verification_status": "pending_official_review",
       "access_date": "2026-05-20",
       "existing_source_id": "australia-industry-ai",
-      "notes": "v0.9.2 re-check: industry.gov.au returns HTTP 403 to automated fetchers (bot/WAF) from this environment; curl also failed (connection). URL is the canonical Department of Industry publication slug per prior registry remediation; public index corroborates official title. Human browser verification still required before confirming official_source_confirmed. Registry URL unchanged.\n",
+      "notes": "v0.9.3 targeted pass: primary HTML publication URL still blocked (curl timeout/HTTP 000; supporting fetch HTTP 403). Alternate slug australias-artificial-intelligence-ethics-principles also unreachable from this environment. Official industry.gov.au PDF assets on same domain reachable as corroboration only (distinct documents). Department of Industry, Science and Resources publication identity plausible via index references but live ethics-principles page not read. Human browser verification still required before official_source_confirmed. Registry canonical URL unchanged. See source-verification-2026-05-20-v093.\n",
       "no_competitor_text_copied": true,
       "no_bulk_extraction": true,
       "source_discovery_batch_id": "source-discovery-leads-2026-05-20",
