@@ -1750,4 +1750,13 @@ if (adapterCheck.status !== 0) {
   process.exit(adapterCheck.status ?? 1);
 }
 
+const intakeCheck = spawnSync(
+  process.execPath,
+  [path.join(ROOT, "scripts/validate-manual-source-intake-runs.mjs")],
+  { cwd: ROOT, stdio: "inherit" },
+);
+if (intakeCheck.status !== 0) {
+  process.exit(intakeCheck.status ?? 1);
+}
+
 process.exit(0);

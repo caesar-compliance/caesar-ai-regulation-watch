@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.8 on main — T051 + T052 merged; live v1.0.7 `DEPLOY-20260520-025`)
+**Last updated:** 21 May 2026 (v1.0.8 on main — T051 + T052 + T053; live v1.0.7 `DEPLOY-20260520-025`)
 
 ---
 
@@ -206,6 +206,17 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **generated/source-adapter-fixture-candidates.json** | Build output (gitignored) |
 | **public/data/source-adapter-allowlist.json** | Redacted public export |
 | **src/pages/source-adapters/index.astro** | Read-only registry page |
+
+## T053 — Manual source intake runner (v1.0.8 on main)
+
+| Path | Role |
+|---|---|
+| **schemas/manual-source-intake-run.schema.json** | Manual intake run validation |
+| **data/source-adapters/manual-intake-runs.yml** | Pilot run `T053-001` (fixture_only) |
+| **docs/MANUAL_SOURCE_INTAKE_RUNNER.md** | Fixture-first workflow |
+| **scripts/validate-manual-source-intake-runs.mjs** | `npm run validate:manual-source-intake` |
+| **scripts/run-manual-source-intake.mjs** | `npm run run:manual-source-intake` (CLI; no network) |
+| **generated/source-intake-candidates/T053-001.json** | Per-run output (gitignored) |
 
 ---
 

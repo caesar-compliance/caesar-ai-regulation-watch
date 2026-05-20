@@ -1,10 +1,15 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { getSourceAdapterAllowlistEntries, getSource } from "../../lib/data";
+import {
+  getManualSourceIntakeRunEntries,
+  getSourceAdapterAllowlistEntries,
+  getSource,
+} from "../../lib/data";
 import { humanizeId } from "../../lib/format";
 import { PROJECT_VERSION_LABEL } from "../../lib/project-version";
 
 const adapters = getSourceAdapterAllowlistEntries();
+const intakeRuns = getManualSourceIntakeRunEntries();
 const disabledCount = adapters.filter((a) => a.status === "disabled").length;
 const draftCount = adapters.filter((a) => a.status === "draft").length;
 ---
@@ -33,8 +38,10 @@ const draftCount = adapters.filter((a) => a.status === "draft").length;
     </dl>
     <p>
       <small>
-        See <code>docs/SOURCE_ADAPTER_ALLOWLIST.md</code> and <code>docs/RSS_API_ADAPTER_SAFETY_MODEL.md</code>.
-        Fixture parser: <code>npm run build:source-adapter-fixtures</code> (local only).
+        See <code>docs/SOURCE_ADAPTER_ALLOWLIST.md</code>, <code>docs/MANUAL_SOURCE_INTAKE_RUNNER.md</code>, and{" "}
+        <code>docs/RSS_API_ADAPTER_SAFETY_MODEL.md</code>. Fixture parser:{" "}
+        <code>npm run build:source-adapter-fixtures</code> (local only). Manual intake:{" "}
+        <code>npm run run:manual-source-intake</code> (CLI only; no run button on this page).
       </small>
     </p>
   </section>
@@ -98,6 +105,49 @@ const draftCount = adapters.filter((a) => a.status === "draft").length;
                 </tr>
               );
             })
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Manual intake runs</h2>
+    <p>
+      T053 fixture-first manual intake registry — read-only. No live collection controls on this page.
+    </p>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Run</th>
+            <th>Adapter</th>
+            <th>Mode</th>
+            <th>Status</th>
+            <th>Network</th>
+            <th>Schedule</th>
+            <th>Output path</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            intakeRuns.map((r) => (
+              <tr>
+                <td><span class="mono">{r.run_id}</span></td>
+                <td>
+                  <span class="mono">{r.adapter_id}</span>
+                  <br />
+                  <small class="mono">{r.source_id}</small>
+                </td>
+                <td><span class="mono">{r.mode}</span></td>
+                <td>
+                  <span class={`badge badge--status-${r.status}`}>{r.status}</span>
+                </td>
+                <td>{r.network_allowed ? "allowed" : "false"}</td>
+                <td>{r.schedule_enabled ? "enabled" : "false"}</td>
+                <td><span class="mono">{r.output_path}</span></td>
+              </tr>
+            ))
           }
         </tbody>
       </table>
