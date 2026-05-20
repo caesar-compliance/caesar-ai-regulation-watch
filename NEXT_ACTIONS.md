@@ -21,7 +21,7 @@
 9. ~~**Deploy v0.9.6**~~ — `DEPLOY-20260520-013` live; tag `regulation-watch-v0.9.6`.
 10. ~~**v0.9.7 live metadata triage**~~ — `metadata-review-triage-2026-05-20-v097`; benign NIST/UK GOV; UNESCO `check_artifact`.
 11. ~~**Deploy v0.9.7**~~ — complete (`DEPLOY-20260520-014`).
-12. **v0.9.8 manual artifact workflow** — merge, deploy, run `manual-live-metadata-review.yml` with `RUN`, smoke test, tag on deployed commit.
+12. ~~**v0.9.8 manual artifact workflow**~~ — deployed `DEPLOY-20260520-015`; workflow test [26162701373](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26162701373); tag `regulation-watch-v0.9.8`.
 13. **Optional Control Tower** — confirm UNESCO page on official source if substantive change suspected (metadata alone insufficient).
 13. **Human browser verification (remaining)** — Australia `industry.gov.au`; EUR-Lex CELEX; EDPB AI topic when stable.
 
