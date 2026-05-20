@@ -1,6 +1,15 @@
-# Monitoring runbook (v0.9.7)
+# Monitoring runbook (v0.9.8)
 
 **Last updated:** 20 May 2026
+
+## v0.9.8 manual-gated live metadata artifact workflow
+
+- **Workflow:** `.github/workflows/manual-live-metadata-review.yml` — `workflow_dispatch` only; input `confirm_live_metadata=RUN` required.
+- **Not** scheduled; **not** auto-commit to `main`; **not** auto-merge; **not** deploy; **not** client or final evidence.
+- **Steps:** `npm ci` → `npm run validate:data` → `npm run monitoring:live-artifact` → `npm run monitoring:policy-check` → upload artifact `live-metadata-review-pack-<run_id>`.
+- **Artifact pack** (under `tmp/live-metadata-review-pack/` locally): `live-metadata-run.json`, `change-review-pack.json`, `metadata-review-summary.md`, `policy-checks.json`, `source-allowlist.json`, `README.md`.
+- **Local:** `npm run monitoring:live-artifact` then `npm run monitoring:policy-check` (writes to `tmp/`, not `public/data/`).
+- **Review:** download artifact from Actions; triage metadata deltas on official URLs; do not treat as legal/regulatory change claims.
 
 ## v0.9.7 live metadata review triage
 
@@ -48,12 +57,26 @@ npm run monitoring:summary
 
 # Cautious live metadata pilot (v0.9.6; one request per allowlisted URL)
 npm run monitoring:live-metadata
+
+# Manual artifact pack to tmp/ (v0.9.8; no public/data writes)
+npm run monitoring:live-artifact
+npm run monitoring:policy-check
 ```
 
 Reports: `data/monitoring-runs/monitoring-cycle-YYYY-MM-DD.yml`  
 Diff summary: `data/monitoring-runs/latest-monitoring-diff-summary.json`
 
 ## GitHub Actions (manual)
+
+### Manual live metadata review (v0.9.8 — preferred for cautious pilot)
+
+1. Open **Actions** → **Manual live metadata review**.
+2. **Run workflow** → set `confirm_live_metadata` to `RUN`.
+3. Download artifact `live-metadata-review-pack-<run_id>` when complete.
+4. Read `metadata-review-summary.md` and `policy-checks.json` before triage.
+5. **No** commits, PRs, merges, or deploy from this workflow.
+
+### Monitoring cycle (watchers — separate)
 
 1. Open **Actions** → **Monitoring cycle**.
 2. **Run workflow** → choose mode: `write`, `dry_run`, or `report_only`.
@@ -62,7 +85,7 @@ Diff summary: `data/monitoring-runs/latest-monitoring-diff-summary.json`
 5. Download artifacts after completion (monitoring + watcher outputs).
 6. **Do not** expect auto-updates on `main` unless you merge a review PR yourself.
 
-**Scheduled runs:** daily 06:00 UTC — **artifacts only**, no PR (see `docs/SCHEDULED_MONITORING_POLICY.md`).
+**Scheduled runs:** daily 06:00 UTC on **Monitoring cycle** only — **artifacts only**, no PR (see `docs/SCHEDULED_MONITORING_POLICY.md`). The v0.9.8 manual live metadata workflow has **no** schedule.
 
 ## Monitoring review PRs (v0.8.1)
 

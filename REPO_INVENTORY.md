@@ -128,6 +128,9 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **docs/METADATA_COMPARISON_POLICY.md** | Live metadata compare + triage policy |
 | **scripts/run-monitoring-pack.mjs** | `npm run monitoring:pack` — regenerate pack run |
 | **scripts/run-live-metadata-pilot.mjs** | `npm run monitoring:live-metadata` — cautious live pilot |
+| **scripts/build-live-metadata-review-artifact.mjs** | `npm run monitoring:live-artifact` — tmp artifact pack (v0.9.8) |
+| **scripts/check-monitoring-policy.mjs** | `npm run monitoring:policy-check` — policy gate |
+| **.github/workflows/manual-live-metadata-review.yml** | Manual live metadata review (workflow_dispatch + RUN) |
 | **public/data/monitoring-source-configs.json** | Static export of adapter configs |
 | **public/data/live-metadata-runs.json** | Static export of live metadata pilot runs |
 | **public/data/change-review-packs.json** | Static export of change review packs |

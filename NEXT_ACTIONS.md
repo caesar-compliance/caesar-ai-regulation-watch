@@ -2,7 +2,7 @@
 
 **Last updated:** 20 May 2026
 
-**Current version:** v0.9.7 · **Phase:** public pilot — live metadata triage · **Branch:** `main` (after merge)
+**Current version:** v0.9.8 · **Phase:** public pilot — manual-gated live metadata artifact review · **Branch:** `main` (after merge)
 
 **Canonical URL:** https://regulation-watch.caesar.no/
 
@@ -20,8 +20,9 @@
 8. ~~**v0.9.6 cautious live metadata pilot**~~ — allowlist v096; live run + change review pack; `npm run monitoring:live-metadata`.
 9. ~~**Deploy v0.9.6**~~ — `DEPLOY-20260520-013` live; tag `regulation-watch-v0.9.6`.
 10. ~~**v0.9.7 live metadata triage**~~ — `metadata-review-triage-2026-05-20-v097`; benign NIST/UK GOV; UNESCO `check_artifact`.
-11. **Deploy v0.9.7** — merge, `build:custom-domain`, deploy workflow, smoke tests, tag on deployed main commit.
-12. **Optional Control Tower** — confirm UNESCO page on official source if substantive change suspected (metadata alone insufficient).
+11. ~~**Deploy v0.9.7**~~ — complete (`DEPLOY-20260520-014`).
+12. **v0.9.8 manual artifact workflow** — merge, deploy, run `manual-live-metadata-review.yml` with `RUN`, smoke test, tag on deployed commit.
+13. **Optional Control Tower** — confirm UNESCO page on official source if substantive change suspected (metadata alone insufficient).
 13. **Human browser verification (remaining)** — Australia `industry.gov.au`; EUR-Lex CELEX; EDPB AI topic when stable.
 
 ---

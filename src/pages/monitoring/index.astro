@@ -96,6 +96,28 @@ const triageItems = metadataTriage?.items ?? [];
     <code>verified_on_source</code> or <code>client_use_allowed</code>.
   </div>
 
+  <section>
+    <h2>Manual artifact review workflow ({PROJECT_VERSION_LABEL})</h2>
+    <p class="prose">
+      GitHub Actions workflow <strong>Manual live metadata review</strong> (<code>manual-live-metadata-review.yml</code>)
+      runs only via <code>workflow_dispatch</code> with confirmation input <code>confirm_live_metadata=RUN</code>.
+      It produces a downloadable artifact pack (JSON/Markdown) for human triage — <strong>no</strong> schedule,{" "}
+      <strong>no</strong> auto-commit to <code>main</code>, <strong>no</strong> auto-merge, <strong>no</strong> deploy,
+      and <strong>no</strong> client or final evidence flags.
+    </p>
+    <dl class="meta-grid">
+      <div><dt>Trigger</dt><dd>workflow_dispatch only</dd></div>
+      <div><dt>Confirmation</dt><dd class="mono">confirm_live_metadata=RUN</dd></div>
+      <div><dt>Artifact pack</dt><dd>live-metadata-run, change-review-pack, policy-checks, summary MD</dd></div>
+      <div><dt>Local equivalent</dt><dd><code>npm run monitoring:live-artifact</code></dd></div>
+    </dl>
+    <p>
+      <small>
+        See <code>docs/MONITORING_RUNBOOK.md</code> — artifact review only; metadata differences are not legal change claims.
+      </small>
+    </p>
+  </section>
+
   {
     liveAllowlist && liveRun ? (
       <section>
