@@ -1,4 +1,4 @@
-# Draft regulatory update — manual review only (T056). NOT published to public/data.
+# Draft regulatory update — manual review only (T056). Revised metadata-only (T058). NOT published to public/data.
 draft_id: T056-001
 update_id: t056-001-draft-edpb-network-dry-run
 title: >-
@@ -15,16 +15,23 @@ topic_ids:
 published_at: '2026-05-12'
 source_published_at: Tue, 12 May 2026 14:00:00 +0200
 summary: >-
-  T056 draft from network dry-run candidate T055-001-T054-001-1. Metadata-only; manual review
-  required. Not verified on source. Not legal advice.
+  Internal draft metadata summary (T058 revision after T057 request_changes). EDPB Board
+  Art. 64 opinion linked to FI SA accreditation draft decision — title and URL from T055 dry-run
+  candidate only. Topic tags and EU jurisdiction require human confirmation before any public use.
+  Source verification required before publication. Not verified on source. Not legal advice.
 status: draft_manual_review
+review_status: revised_after_request_changes
 intake_method: single_source_network_dry_run
 source_execution_id: T055-001
 source_approval_id: T054-001
 source_adapter_id: edpb-publications-rss
 promotion_id: T056-001
 candidate_id: T055-001-T054-001-1
+latest_review_decision_id: T057-001
+latest_revision_id: T058-001
 review_required: true
+source_verification_required_before_publication: true
+topic_jurisdiction_confirmation_required: true
 verified_on_source: false
 client_use_allowed: false
 client_evidence_allowed: false
@@ -35,4 +42,5 @@ public_export_allowed: false
 evidence_export_allowed: false
 notes: >-
   Manual review required before any publication, source verification, client/evidence use, or
-  legal-change claim. Draft excluded from public regulatory-updates export.
+  legal-change claim. Revised after T057 request_changes (T058-001). Draft excluded from public
+  regulatory-updates export.

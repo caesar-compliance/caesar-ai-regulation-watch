@@ -41,7 +41,12 @@ T057 adds **metadata-only reviewer decision records** for draft regulatory updat
 - **No network** — decisions do not trigger fetches or crawls
 - **No public export** — draft and decision identifiers excluded from `public/data/`
 
+## After request_changes
+
+When a decision is `request_changes`, use [DRAFT_REVISION_PACKET_WORKFLOW.md](DRAFT_REVISION_PACKET_WORKFLOW.md) (T058) to record metadata-only draft revisions. T058 does not publish or verify on source.
+
 ## Related
 
+- [DRAFT_REVISION_PACKET_WORKFLOW.md](DRAFT_REVISION_PACKET_WORKFLOW.md) — T058 revision after request_changes
 - [SINGLE_SOURCE_NETWORK_DRY_RUN.md](SINGLE_SOURCE_NETWORK_DRY_RUN.md) — T055 execution lineage
 - [NETWORK_DRY_RUN_APPROVAL_MODEL.md](NETWORK_DRY_RUN_APPROVAL_MODEL.md) — T054 approval lineage

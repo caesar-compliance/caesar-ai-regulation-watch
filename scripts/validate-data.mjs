@@ -1795,4 +1795,13 @@ if (decisionCheck.status !== 0) {
   process.exit(decisionCheck.status ?? 1);
 }
 
+const revisionCheck = spawnSync(
+  process.execPath,
+  [path.join(ROOT, "scripts/validate-draft-regulatory-update-revisions.mjs")],
+  { cwd: ROOT, stdio: "inherit" },
+);
+if (revisionCheck.status !== 0) {
+  process.exit(revisionCheck.status ?? 1);
+}
+
 process.exit(0);

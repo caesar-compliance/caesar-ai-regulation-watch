@@ -47,7 +47,8 @@ Draft updates live under `data/regulatory-updates/drafts/` so they are **not** p
 T055 local generated candidate (gitignored)
   → T056 promotion packet (YAML registry)
     → draft regulatory update (drafts/ only)
-      → future T057+ human reviewer decision (still no auto-publication)
+      → T057 human reviewer decision (still no auto-publication)
+      → T058 draft revision packet after request_changes (metadata-only; still no publication)
 ```
 
 ## Future publication
@@ -60,4 +61,4 @@ Publication to the public updates feed requires a **separate** task with explici
 - copy full legal text;
 - rerun network requests.
 
-See also [MANUAL_REVIEW_DECISION_WORKFLOW.md](MANUAL_REVIEW_DECISION_WORKFLOW.md) (T057), [SINGLE_SOURCE_NETWORK_DRY_RUN.md](SINGLE_SOURCE_NETWORK_DRY_RUN.md), and [NETWORK_DRY_RUN_APPROVAL_MODEL.md](NETWORK_DRY_RUN_APPROVAL_MODEL.md).
+See also [MANUAL_REVIEW_DECISION_WORKFLOW.md](MANUAL_REVIEW_DECISION_WORKFLOW.md) (T057), [DRAFT_REVISION_PACKET_WORKFLOW.md](DRAFT_REVISION_PACKET_WORKFLOW.md) (T058), [SINGLE_SOURCE_NETWORK_DRY_RUN.md](SINGLE_SOURCE_NETWORK_DRY_RUN.md), and [NETWORK_DRY_RUN_APPROVAL_MODEL.md](NETWORK_DRY_RUN_APPROVAL_MODEL.md).

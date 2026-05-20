@@ -55,8 +55,11 @@
 12. **T057 — Manual reviewer decision workflow for draft update** *(merged to main — PR #17, squash `413b87f`)*
    - `T057-001` records `request_changes` for `T056-001` draft; internal-draft-only scope; still no publication; gates unchanged; no live network in T057.
 
-13. **T058 — Draft revision packet after request-changes** *(in progress)*
-   - Apply safe metadata edits to T056 draft after T057 `request_changes`; still no publication; no source verification; gates unchanged.
+13. **T058 — Draft revision packet after request-changes** *(in progress on branch)*
+   - `T058-001` revises T056 draft metadata-only after T057 `request_changes`; still no publication; no source verification; gates unchanged.
+
+14. **T059 — Internal draft promotion readiness gate** *(recommended next)*
+   - Assess whether revised draft is ready for future publication review; still no publication; no source verification claim; gates unchanged.
 
 ---
 

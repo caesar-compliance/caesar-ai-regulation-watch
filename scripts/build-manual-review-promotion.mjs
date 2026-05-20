@@ -163,8 +163,20 @@ function main() {
     process.exit(1);
   }
 
-  const draft = buildDraftFromCandidate(promotion, candidate);
   const outPath = path.join(ROOT, promotion.draft_update_path);
+  if (fs.existsSync(outPath)) {
+    const existing = readYaml(outPath);
+    if (existing?.latest_revision_id) {
+      console.log("PASS: manual review promotion draft unchanged (revision applied)");
+      console.log(`  promotion_id: ${promotionId}`);
+      console.log(`  latest_revision_id: ${existing.latest_revision_id}`);
+      console.log(`  path: ${promotion.draft_update_path}`);
+      console.log(`  mode: skip_overwrite_revised_draft`);
+      return;
+    }
+  }
+
+  const draft = buildDraftFromCandidate(promotion, candidate);
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   const header =
     "# Draft regulatory update — manual review only (T056). NOT published to public/data.\n";
