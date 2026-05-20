@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **Status** | v1.0.8 (T051–T055 on main; T056 in progress); live site v1.0.7 `DEPLOY-20260520-025` — deploy/tag pending |
+| **Status** | v1.0.8 (T051–T056; T051–T055 on main); live site v1.0.7 `DEPLOY-20260520-025` — deploy/tag pending |
 | **Hosting** | GitHub Pages — static site (Astro) |
 | **Scope** | AI regulation tracking, country profiles, latest updates, source monitoring, metrics and structured exports |
 | **Safety** | Not legal advice; source transparency and automation confidence labels apply |
@@ -270,6 +270,8 @@ Canonical values, review workflow, and future evidence export shape:
 
 **v1.0.7 (live)** — [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) (`DEPLOY-20260520-025`, tag `regulation-watch-v1.0.7`). T050 map/compare + T049 feed.
 
-**T056 (in progress):** Manual review promotion from one network dry-run candidate into a draft regulatory update record (not verified; not client/evidence use).
+**T056 (branch):** Manual review promotion from one network dry-run candidate into a draft regulatory update record — [docs/MANUAL_REVIEW_PROMOTION_PIPELINE.md](docs/MANUAL_REVIEW_PROMOTION_PIPELINE.md). Not verified; not exported; not client/evidence use.
+
+**Next:** T057 — manual reviewer decision workflow for draft update (still no publication).
 
 See [PROJECT_STATE.md](PROJECT_STATE.md) and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md).

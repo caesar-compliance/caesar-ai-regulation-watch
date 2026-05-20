@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caesar.no/schemas/caesar-ai-regulation-watch/manual-review-promotion.schema.json",
+  "title": "Caesar AI Regulation Watch — Manual review promotion packet",
+  "description": "Promotes one local network dry-run candidate into a draft manual-review regulatory update. Not published. Not legal advice.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "manual_review_promotions_id",
+    "generated_at",
+    "product_version",
+    "legal_safe_note",
+    "no_live_collection",
+    "no_scheduled_monitoring",
+    "promotions"
+  ],
+  "properties": {
+    "manual_review_promotions_id": {
+      "type": "string",
+      "pattern": "^manual-review-promotions-[0-9]{4}-[0-9]{2}-[0-9]{2}-v[0-9]{3}$"
+    },
+    "generated_at": { "type": "string", "format": "date" },
+    "product_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "legal_safe_note": { "type": "string", "minLength": 1 },
+    "no_live_collection": { "type": "boolean", "const": true },
+    "no_scheduled_monitoring": { "type": "boolean", "const": true },
+    "promotions": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/promotionRecord" }
+    }
+  },
+  "$defs": {
+    "gateState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verified_on_source",
+        "client_use_allowed",
+        "client_evidence_allowed",
+        "final_evidence_allowed",
+        "legal_change_claimed"
+      ],
+      "properties": {
+        "verified_on_source": { "type": "boolean", "const": false },
+        "client_use_allowed": { "type": "boolean", "const": false },
+        "client_evidence_allowed": { "type": "boolean", "const": false },
+        "final_evidence_allowed": { "type": "boolean", "const": false },
+        "legal_change_claimed": { "type": "boolean", "const": false }
+      }
+    },
+    "safetyFlags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metadata_only",
+        "stores_full_text",
+        "publication_allowed",
+        "public_export_allowed",
+        "requires_human_review",
+        "source_verification_required_before_publication"
+      ],
+      "properties": {
+        "metadata_only": { "type": "boolean", "const": true },
+        "stores_full_text": { "type": "boolean", "const": false },
+        "publication_allowed": { "type": "boolean", "const": false },
+        "public_export_allowed": { "type": "boolean", "const": false },
+        "requires_human_review": { "type": "boolean", "const": true },
+        "source_verification_required_before_publication": { "type": "boolean", "const": true }
+      }
+    },
+    "promotionFields": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "url",
+        "published_at",
+        "summary_snippet",
+        "jurisdiction_ids",
+        "detected_topics",
+        "source_name"
+      ],
+      "properties": {
+        "title": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "url": { "type": "string", "format": "uri" },
+        "published_at": { "type": "string", "minLength": 1 },
+        "summary_snippet": { "type": ["string", "null"], "maxLength": 500 },
+        "jurisdiction_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "pattern": "^[a-z][a-z0-9_-]*$" }
+        },
+        "detected_topics": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "source_name": { "type": "string", "minLength": 1 }
+      }
+    },
+    "promotionRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "promotion_id",
+        "source_execution_id",
+        "source_approval_id",
+        "source_run_id",
+        "source_adapter_id",
+        "source_id",
+        "candidate_id",
+        "source_candidate_path",
+        "status",
+        "review_required",
+        "reviewer_role",
+        "promotion_mode",
+        "draft_update_path",
+        "created_at",
+        "updated_at",
+        "fields",
+        "gates",
+        "safety"
+      ],
+      "properties": {
+        "promotion_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+        "source_execution_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+        "source_approval_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+        "source_run_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+        "source_adapter_id": { "type": "string", "pattern": "^[a-z][a-z0-9_-]*$" },
+        "source_id": { "type": "string", "pattern": "^[a-z][a-z0-9_-]*$" },
+        "candidate_id": { "type": "string", "minLength": 1 },
+        "source_candidate_path": { "type": "string", "minLength": 1 },
+        "status": {
+          "type": "string",
+          "enum": [
+            "draft",
+            "needs_human_review",
+            "rejected",
+            "approved_for_draft_record"
+          ]
+        },
+        "review_required": { "type": "boolean", "const": true },
+        "reviewer_role": { "type": "string", "minLength": 1 },
+        "promotion_mode": {
+          "type": "string",
+          "enum": ["local_generated_candidate", "fixture_candidate"]
+        },
+        "draft_update_path": { "type": "string", "minLength": 1 },
+        "created_at": { "type": "string", "format": "date" },
+        "updated_at": { "type": "string", "format": "date" },
+        "fields": { "$ref": "#/$defs/promotionFields" },
+        "gates": { "$ref": "#/$defs/gateState" },
+        "safety": { "$ref": "#/$defs/safetyFlags" }
+      }
+    }
+  }
+}

@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **T056 manual review promotion pipeline** — `schemas/manual-review-promotion.schema.json`, `schemas/draft-regulatory-update.schema.json`, `data/source-adapters/manual-review-promotions.yml` (`T056-001`), draft `data/regulatory-updates/drafts/T056-001.yml`, `npm run validate:manual-review-promotions`, `npm run build:manual-review-promotion`, [docs/MANUAL_REVIEW_PROMOTION_PIPELINE.md](docs/MANUAL_REVIEW_PROMOTION_PIPELINE.md), manual review section on `/source-adapters/`. Draft excluded from public exports; gates unchanged; no new network request.
 - **T055 single-source network dry-run execution** — `schemas/single-network-dry-run-execution.schema.json`, `data/source-adapters/single-network-dry-run-executions.yml` (`T055-001`), `npm run validate:single-network-dry-run-executions`, guarded `npm run run:approved-network-dry-run` (one approved EDPB RSS GET when env/flags present), [docs/SINGLE_SOURCE_NETWORK_DRY_RUN.md](docs/SINGLE_SOURCE_NETWORK_DRY_RUN.md), execution controls on `/source-adapters/`. Output under `generated/network-dry-run-candidates/` and `generated/network-dry-run-reports/` (gitignored; not `public/data/`).
 - **T054 network dry-run approval architecture** — `schemas/network-dry-run-approval.schema.json`, `data/source-adapters/network-dry-run-approvals.yml` (pilot `T054-001` linked to `T053-001`), `npm run validate:network-dry-run-approvals`, `npm run build:network-dry-run-plan`, guarded `npm run run:approved-network-dry-run` (refuses in T054), [docs/NETWORK_DRY_RUN_APPROVAL_MODEL.md](docs/NETWORK_DRY_RUN_APPROVAL_MODEL.md), network approval section on `/source-adapters/`.
 - **T053 manual source intake runner** — `schemas/manual-source-intake-run.schema.json`, `data/source-adapters/manual-intake-runs.yml` (pilot `T053-001` / `edpb-publications-rss`), `npm run validate:manual-source-intake`, `npm run run:manual-source-intake` (fixture-only CLI), [docs/MANUAL_SOURCE_INTAKE_RUNNER.md](docs/MANUAL_SOURCE_INTAKE_RUNNER.md), manual intake section on `/source-adapters/`.
@@ -18,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Notes
 
+- T056 branch: one local dry-run candidate promoted to draft manual-review update; not published; not source verified; no live network in T056.
 - T055 merged to main (PR #15, squash `10bdc4c`). Exactly one live network GET for EDPB publications RSS executed locally; metadata-only; `generated/` not published; no scheduling; gates unchanged; live site remains v1.0.7; no tag/deploy/closeout in T055.
 - T054 merged to main (PR #14, squash commit `78a00be`). Planning-only dry-run approval; no live network; no scheduling; plan under `generated/network-dry-run-plans/` (gitignored). Live site remains v1.0.7; no tag/deploy/closeout in T054.
 - T053 merged to main (PR #13, squash commit `0469a9e`). Fixture-first intake; no live network; no scheduling; output under `generated/source-intake-candidates/` (gitignored). Live site remains v1.0.7; no tag/deploy/closeout in T053.

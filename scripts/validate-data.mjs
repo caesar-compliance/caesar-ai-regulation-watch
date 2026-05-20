@@ -1777,4 +1777,13 @@ if (networkExecutionCheck.status !== 0) {
   process.exit(networkExecutionCheck.status ?? 1);
 }
 
+const promotionCheck = spawnSync(
+  process.execPath,
+  [path.join(ROOT, "scripts/validate-manual-review-promotions.mjs")],
+  { cwd: ROOT, stdio: "inherit" },
+);
+if (promotionCheck.status !== 0) {
+  process.exit(promotionCheck.status ?? 1);
+}
+
 process.exit(0);
