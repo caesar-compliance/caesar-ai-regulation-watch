@@ -2,50 +2,54 @@
 
 **Last updated:** 20 May 2026
 
-**Current version:** v0.9.8 · **Phase:** public pilot — manual-gated live metadata artifact review · **Branch:** `main` (after merge)
+**Current version:** v0.9.9 · **Phase:** public pilot · technical MVP candidate · **Branch:** `main` (after merge)
 
 **Canonical URL:** https://regulation-watch.caesar.no/
 
 ---
 
-## Immediate priority
+## Immediate priority (Control Tower)
 
-1. ~~**v0.9.2 source lead resolution**~~ — White House EO → Federal Register; Canada confirmed; Australia pending (WAF).
-2. ~~**v0.9.2 content review batch**~~ — six v0.9.1 minimal records + EUR-Lex follow-up in `content-review-2026-05-20-v092.yml`.
-3. ~~**Deploy and tag**~~ — `DEPLOY-20260520-009` live; tag `regulation-watch-v0.9.2` after docs commit.
-4. ~~**v0.9.3 targeted verification pass**~~ — batch `source-verification-2026-05-20-v093` + `content-review-2026-05-20-v093`; limitations documented.
-5. ~~**v0.9.4 watcher eligibility**~~ — `watcher-eligibility-2026-05-20` (15 entries); deterministic `monitoring-run-2026-05-20-v094`.
-6. ~~**v0.9.5 monitoring adapter pack**~~ — `source-configs-2026-05-20-v095`; `monitoring-run-2026-05-20-v095`; `npm run monitoring:pack`.
-7. ~~**Deploy v0.9.5**~~ — `DEPLOY-20260520-012` live; tag `regulation-watch-v0.9.5`.
-8. ~~**v0.9.6 cautious live metadata pilot**~~ — allowlist v096; live run + change review pack; `npm run monitoring:live-metadata`.
-9. ~~**Deploy v0.9.6**~~ — `DEPLOY-20260520-013` live; tag `regulation-watch-v0.9.6`.
-10. ~~**v0.9.7 live metadata triage**~~ — `metadata-review-triage-2026-05-20-v097`; benign NIST/UK GOV; UNESCO `check_artifact`.
-11. ~~**Deploy v0.9.7**~~ — complete (`DEPLOY-20260520-014`).
-12. ~~**v0.9.8 manual artifact workflow**~~ — deployed `DEPLOY-20260520-015`; workflow test [26162701373](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26162701373); tag `regulation-watch-v0.9.8`.
-13. **Optional Control Tower** — confirm UNESCO page on official source if substantive change suspected (metadata alone insufficient).
-13. **Human browser verification (remaining)** — Australia `industry.gov.au`; EUR-Lex CELEX; EDPB AI topic when stable.
+1. **Review MVP readiness audit** — [docs/MVP_READINESS_AUDIT.md](docs/MVP_READINESS_AUDIT.md).
+2. **Decide v1.0.0 path** — proceed to release candidate, more source verification, or continued technical expansion ([docs/V1_MVP_BLOCKERS_AND_DECISIONS.md](docs/V1_MVP_BLOCKERS_AND_DECISIONS.md)).
+3. **Complete v1.0.0 checklist when ready** — [docs/V1_RELEASE_CANDIDATE_CHECKLIST.md](docs/V1_RELEASE_CANDIDATE_CHECKLIST.md).
+4. **Optional** — UNESCO `check_artifact` confirm on official source; Australia / EUR-Lex / EDPB human browser verification.
+
+---
+
+## Completed (v0.9.x)
+
+- v0.9.8 manual artifact workflow — deployed `DEPLOY-20260520-015`; tag `regulation-watch-v0.9.8`.
+- v0.9.7 live metadata triage — benign NIST/UK GOV; UNESCO `check_artifact`.
+- v0.9.6 cautious live metadata pilot — 5 allowlisted URLs.
+- v0.9.5 monitoring adapter pack — deterministic pack run v095.
+- v0.9.4 watcher eligibility — 15 entries.
+- v0.9.3 targeted verification — Australia, EUR-Lex, EDPB documented.
+- v0.9.2 content review batch — v0.9.1 records.
+- v0.9.1 source discovery — 26 leads.
 
 ---
 
 ## Deployment (ongoing)
 
-1. **Pre-deploy:** `docs/PUBLIC_RELEASE_CHECKLIST.md`.
-2. **Build parity:** `npm run build:custom-domain` + `npm run verify:dist` (root `/`, no project base path).
+1. **Pre-deploy:** [docs/PUBLIC_RELEASE_CHECKLIST.md](docs/PUBLIC_RELEASE_CHECKLIST.md) and [docs/V1_RELEASE_CANDIDATE_CHECKLIST.md](docs/V1_RELEASE_CANDIDATE_CHECKLIST.md) (for v1.0.0).
+2. **Build parity:** `npm run build:custom-domain` + `npm run verify:dist`.
 3. **Post-deploy:** smoke tests; update `DEPLOYMENTS.md` and `docs/PUBLIC_DEPLOYMENT_BASELINE.md`.
+4. **Tag:** annotated tag on **deployed** main commit only.
 
 ---
 
 ## Commands
 
 ```bash
-npm run build                    # local / CI (root base path)
-npm run build:custom-domain      # production custom domain (parity with deploy workflow)
-npm run verify:dist              # after build:custom-domain
+npm run build:custom-domain
+npm run verify:dist
 npm run validate:data
 npm run generate:evidence-candidates
 npm run generate:exports
-npm run monitoring:pack          # regenerate deterministic pack run YAML
-npm run monitoring:live-metadata # cautious live pilot (network; max 5 URLs)
+npm run monitoring:pack
+npm run monitoring:live-artifact    # local artifact pack (tmp/)
+npm run monitoring:policy-check
 ```
 
 ---
@@ -55,5 +59,7 @@ npm run monitoring:live-metadata # cautious live pilot (network; max 5 URLs)
 - Final evidence export to caesar-ai-evidence
 - `client_use_allowed: true` on candidates or reviews
 - Auto-deploy on every merge to `main`
+- New jurisdictions or monitoring allowlist expansion (without Control Tower approval)
+- Production-ready / complete coverage / legal advice claims
 
 See [ROADMAP.md](ROADMAP.md), [DEPLOYMENTS.md](DEPLOYMENTS.md), and [docs/PUBLIC_DEPLOYMENT_BASELINE.md](docs/PUBLIC_DEPLOYMENT_BASELINE.md).
