@@ -9,6 +9,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Final Control Tower decision record** — `docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md` (APPROVED_WITH_LIMITATIONS vs NOT_APPROVED_BLOCKERS_REMAIN; pending CT sign-off).
+
+### Changed
+
+- **Release candidate checklist** — final v1.0.0 decision summary; rc1 deploy/smoke items marked pass; source blockers and final v1.0.0 pending CT.
+- **Project state** — final v1.0.0 pending Control Tower decision; no final tag.
+
+### Notes
+
+- Governance/docs only — no new features, jurisdictions, monitoring, or data-logic changes.
+- v1.0.0-rc1 remains live at https://regulation-watch.caesar.no/ (`0765327`).
+- No `regulation-watch-v1.0.0` tag until explicit APPROVED_WITH_LIMITATIONS.
+
 ---
 
 ## [1.0.0-rc1] - 20 May 2026

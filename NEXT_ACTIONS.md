@@ -12,10 +12,12 @@
 
 ## Immediate priority (Control Tower)
 
-1. **Review RC decision record** — [docs/V1_RELEASE_CANDIDATE_DECISION_RECORD.md](docs/V1_RELEASE_CANDIDATE_DECISION_RECORD.md).
-2. **Review scope freeze** — [docs/V1_TECHNICAL_MVP_SCOPE_FREEZE.md](docs/V1_TECHNICAL_MVP_SCOPE_FREEZE.md).
-3. **Decide final v1.0.0 path** — approve final v1.0.0, require source verification first, or keep as RC ([docs/V1_MVP_BLOCKERS_AND_DECISIONS.md](docs/V1_MVP_BLOCKERS_AND_DECISIONS.md)).
-4. **Optional** — UNESCO `check_artifact` confirm on official source; Australia / EUR-Lex / EDPB human browser verification.
+1. **Sign final decision record** — [docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md) (`APPROVED_WITH_LIMITATIONS` or `NOT_APPROVED_BLOCKERS_REMAIN`).
+2. **Review RC decision record** — [docs/V1_RELEASE_CANDIDATE_DECISION_RECORD.md](docs/V1_RELEASE_CANDIDATE_DECISION_RECORD.md).
+3. **Review scope freeze** — [docs/V1_TECHNICAL_MVP_SCOPE_FREEZE.md](docs/V1_TECHNICAL_MVP_SCOPE_FREEZE.md).
+4. **If APPROVED_WITH_LIMITATIONS** — authorize final `regulation-watch-v1.0.0` tag on deployed commit; version label bump if separate change approved.
+5. **If NOT_APPROVED** — keep `v1.0.0-rc1`; complete source blockers per [docs/V1_MVP_BLOCKERS_AND_DECISIONS.md](docs/V1_MVP_BLOCKERS_AND_DECISIONS.md) section B.
+6. **Optional** — UNESCO `check_artifact` confirm; Australia / EUR-Lex / EDPB human browser verification.
 
 ---
 

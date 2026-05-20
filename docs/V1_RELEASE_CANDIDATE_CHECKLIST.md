@@ -3,11 +3,24 @@
 **Last updated:** 20 May 2026  
 **Prepared for:** Control Tower sign-off before `regulation-watch-v1.0.0` tag  
 **Prerequisite:** v0.9.9 MVP readiness audit complete and deployed  
-**Current RC:** `v1.0.0-rc1` — see [V1_RELEASE_CANDIDATE_DECISION_RECORD.md](V1_RELEASE_CANDIDATE_DECISION_RECORD.md)
+**Current RC:** `v1.0.0-rc1` — see [V1_RELEASE_CANDIDATE_DECISION_RECORD.md](V1_RELEASE_CANDIDATE_DECISION_RECORD.md)  
+**Final decision pack:** [V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md)
 
 Use this checklist when promoting from **technical MVP candidate** (v0.9.x / v1.0.0-rc1) to **final v1.0.0**. All items must be explicitly checked or waived by Control Tower with documented reason.
 
 **Status legend:** ✅ pass · ⏳ pending CT review · 🚫 blocked · 📋 post-MVP
+
+---
+
+## Final v1.0.0 decision summary (20 May 2026)
+
+| Area | Status |
+|---|---|
+| **Safety gates** | ✅ pass — policy greps zero; validation enforced |
+| **Technical deploy** | ✅ pass — DEPLOY-20260520-017; tag `regulation-watch-v1.0.0-rc1` → `0765327`; smoke pass |
+| **Public wording** | ✅ pass — conservative MVP candidate labels; disclaimers present |
+| **Source blockers** | ⏳ pending waiver or blocker — Australia, EUR-Lex, EDPB, UNESCO, incomplete content review |
+| **Final v1.0.0** | ⏳ pending CT decision — see [V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md) |
 
 ---
 
@@ -26,38 +39,38 @@ Use this checklist when promoting from **technical MVP candidate** (v0.9.x / v1.
 
 ## Deploy and smoke
 
-- [ ] ⏳ `deploy-static-site.yml` run with `confirm_disclaimers=DEPLOY` (v1.0.0-rc1)
-- [ ] ⏳ Deployed commit SHA recorded in DEPLOYMENTS.md
-- [ ] ⏳ Deploy run ID recorded
-- [ ] ⏳ Public smoke tests pass — [POST_DEPLOY_SMOKE_TESTS.md](POST_DEPLOY_SMOKE_TESTS.md)
+- [x] ✅ `deploy-static-site.yml` run with `confirm_disclaimers=DEPLOY` (v1.0.0-rc1)
+- [x] ✅ Deployed commit SHA recorded in DEPLOYMENTS.md
+- [x] ✅ Deploy run ID recorded
+- [x] ✅ Public smoke tests pass — [POST_DEPLOY_SMOKE_TESTS.md](POST_DEPLOY_SMOKE_TESTS.md)
 
 ### Required smoke URLs (HTTP 200)
 
-- [ ] ⏳ https://regulation-watch.caesar.no/
-- [ ] ⏳ https://regulation-watch.caesar.no/monitoring/
-- [ ] ⏳ https://regulation-watch.caesar.no/source-discovery/
-- [ ] ⏳ https://regulation-watch.caesar.no/content-review/
-- [ ] ⏳ https://regulation-watch.caesar.no/evidence-export-candidates/
-- [ ] ⏳ https://regulation-watch.caesar.no/exports/
-- [ ] ⏳ https://regulation-watch.caesar.no/methodology/
-- [ ] ⏳ https://regulation-watch.caesar.no/disclaimer/
-- [ ] ⏳ https://regulation-watch.caesar.no/search/
-- [ ] ⏳ https://regulation-watch.caesar.no/data/regulation-watch-snapshot.json
-- [ ] ⏳ https://regulation-watch.caesar.no/data/live-metadata-runs.json
-- [ ] ⏳ https://regulation-watch.caesar.no/data/change-review-packs.json
-- [ ] ⏳ https://regulation-watch.caesar.no/data/metadata-review-triage.json
-- [ ] ⏳ https://regulation-watch.caesar.no/data/monitoring-source-configs.json
-- [ ] ⏳ https://regulation-watch.caesar.no/data/monitoring-runs.json
-- [ ] ⏳ https://regulation-watch.caesar.no/feeds/changes.xml
-- [ ] ⏳ https://regulation-watch.caesar.no/pagefind/pagefind.js
+- [x] ✅ https://regulation-watch.caesar.no/
+- [x] ✅ https://regulation-watch.caesar.no/monitoring/
+- [x] ✅ https://regulation-watch.caesar.no/source-discovery/
+- [x] ✅ https://regulation-watch.caesar.no/content-review/
+- [x] ✅ https://regulation-watch.caesar.no/evidence-export-candidates/
+- [x] ✅ https://regulation-watch.caesar.no/exports/
+- [x] ✅ https://regulation-watch.caesar.no/methodology/
+- [x] ✅ https://regulation-watch.caesar.no/disclaimer/
+- [x] ✅ https://regulation-watch.caesar.no/search/
+- [x] ✅ https://regulation-watch.caesar.no/data/regulation-watch-snapshot.json
+- [x] ✅ https://regulation-watch.caesar.no/data/live-metadata-runs.json
+- [x] ✅ https://regulation-watch.caesar.no/data/change-review-packs.json
+- [x] ✅ https://regulation-watch.caesar.no/data/metadata-review-triage.json
+- [x] ✅ https://regulation-watch.caesar.no/data/monitoring-source-configs.json
+- [x] ✅ https://regulation-watch.caesar.no/data/monitoring-runs.json
+- [x] ✅ https://regulation-watch.caesar.no/feeds/changes.xml
+- [x] ✅ https://regulation-watch.caesar.no/pagefind/pagefind.js
 
 ### Smoke content checks
 
-- [ ] ⏳ Home/footer show correct product version (v1.0.0-rc1)
-- [ ] ⏳ No stale labels (v0.5.1 product preview, v0.8.4 footer, v0.8.3 pipeline)
-- [ ] ⏳ No `/caesar-ai-regulation-watch/` base path in custom-domain HTML
-- [ ] ⏳ Snapshot `version` matches deployed product version (`1.0.0-rc1`)
-- [ ] ⏳ Disclaimers visible (not legal advice, not complete coverage)
+- [x] ✅ Home/footer show correct product version (v1.0.0-rc1)
+- [x] ✅ No stale labels (v0.5.1 product preview, v0.8.4 footer, v0.8.3 pipeline)
+- [x] ✅ No `/caesar-ai-regulation-watch/` base path in custom-domain HTML
+- [x] ✅ Snapshot `version` matches deployed product version (`1.0.0-rc1`)
+- [x] ✅ Disclaimers visible (not legal advice, not complete coverage)
 
 ---
 
@@ -108,13 +121,13 @@ Use this checklist when promoting from **technical MVP candidate** (v0.9.x / v1.
 
 ## Release hygiene
 
-- [ ] ⏳ Merge commit on `main` recorded
-- [ ] ⏳ Deploy commit equals tag commit (or tag points to deployed commit per hub standard)
-- [ ] ⏳ Annotated tag `regulation-watch-v1.0.0-rc1` created **after** successful deploy and smoke
-- [ ] ⏳ DEPLOYMENTS.md row added (DEPLOY-20260520-017)
-- [ ] ⏳ docs/PUBLIC_DEPLOYMENT_BASELINE.md updated
-- [ ] ⏳ CHANGELOG.md v1.0.0-rc1 section complete
-- [ ] ⏳ Remote branches cleaned — ideally only `origin/main`
+- [x] ✅ Merge commit on `main` recorded
+- [x] ✅ Deploy commit equals tag commit (or tag points to deployed commit per hub standard)
+- [x] ✅ Annotated tag `regulation-watch-v1.0.0-rc1` created **after** successful deploy and smoke
+- [x] ✅ DEPLOYMENTS.md row added (DEPLOY-20260520-017)
+- [x] ✅ docs/PUBLIC_DEPLOYMENT_BASELINE.md updated
+- [x] ✅ CHANGELOG.md v1.0.0-rc1 section complete
+- [x] ✅ Remote branches cleaned — ideally only `origin/main`
 - [ ] ✅ No existing tags moved or deleted
 - [ ] ✅ `main` branch not deleted
 
@@ -125,8 +138,9 @@ Use this checklist when promoting from **technical MVP candidate** (v0.9.x / v1.
 - [ ] ✅ [MVP_READINESS_AUDIT.md](MVP_READINESS_AUDIT.md) reviewed for v1.0.0-rc1
 - [ ] ✅ [V1_TECHNICAL_MVP_SCOPE_FREEZE.md](V1_TECHNICAL_MVP_SCOPE_FREEZE.md) created
 - [ ] ✅ [V1_RELEASE_CANDIDATE_DECISION_RECORD.md](V1_RELEASE_CANDIDATE_DECISION_RECORD.md) created
-- [ ] ⏳ [V1_MVP_BLOCKERS_AND_DECISIONS.md](V1_MVP_BLOCKERS_AND_DECISIONS.md) section A items resolved or waived — **pending CT review**
-- [ ] ⏳ README / PROJECT_STATE / NEXT_ACTIONS reflect v1.0.0-rc1 scope honestly
+- [ ] ⏳ [V1_MVP_BLOCKERS_AND_DECISIONS.md](V1_MVP_BLOCKERS_AND_DECISIONS.md) section B items resolved or waived — **pending CT review** (final decision: [V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md))
+- [x] ✅ README / PROJECT_STATE / NEXT_ACTIONS reflect v1.0.0-rc1 scope honestly
+- [x] ✅ [V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md) created — **pending CT sign-off**
 
 ---
 
@@ -171,8 +185,14 @@ For the v0.9.9 technical release candidate pack:
 
 ## v1.0.0-rc1 checklist (this release)
 
-- [ ] ⏳ Version bumped to 1.0.0-rc1 / package 1.0.0-rc.1
-- [ ] ⏳ Scope freeze and decision record created
-- [ ] ⏳ CI green on feature branch and main
-- [ ] ⏳ Deploy + smoke + tag `regulation-watch-v1.0.0-rc1` on deployed commit
-- [ ] ⏳ Control Tower notified with final implementation report
+- [x] ✅ Version bumped to 1.0.0-rc1 / package 1.0.0-rc.1
+- [x] ✅ Scope freeze and decision record created
+- [x] ✅ CI green on feature branch and main
+- [x] ✅ Deploy + smoke + tag `regulation-watch-v1.0.0-rc1` on deployed commit
+- [x] ✅ Control Tower notified with final implementation report
+
+## v1.0.0 final checklist (pending CT)
+
+- [ ] ⏳ [V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md) signed — APPROVED_WITH_LIMITATIONS or NOT_APPROVED_BLOCKERS_REMAIN
+- [ ] ⏳ Source blockers waived or resolved per CT decision
+- [ ] ⏳ Final tag `regulation-watch-v1.0.0` (only if APPROVED_WITH_LIMITATIONS)
