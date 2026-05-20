@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 20 May 2026 (v1.0.5 — T048 automation-first tracker skeleton merged to `main`)
+**Last updated:** 20 May 2026 (v1.0.5 live — T048 tracker skeleton, `DEPLOY-20260520-023`, tag `regulation-watch-v1.0.5`)
 
 ---
 
