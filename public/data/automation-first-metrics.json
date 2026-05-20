@@ -4,8 +4,10 @@
   "automation_first_seed": true,
   "not_complete_coverage": true,
   "jurisdiction_count": 13,
-  "regulatory_update_count": 15,
-  "updates_last_30_days": 15,
+  "regulatory_update_count": 33,
+  "manual_seed_update_count": 15,
+  "offline_metadata_adapter_update_count": 18,
+  "updates_last_30_days": 33,
   "status_bucket_counts": {
     "guidance": 7,
     "proposed": 1,
@@ -14,9 +16,9 @@
     "monitoring": 1
   },
   "update_type_counts": {
-    "source_monitoring": 2,
-    "guidance": 6,
-    "institutional_update": 5,
+    "source_monitoring": 8,
+    "institutional_update": 16,
+    "guidance": 7,
     "law": 1,
     "proposal": 1
   },

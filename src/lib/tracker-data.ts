@@ -77,6 +77,8 @@ export interface TrackerTopic {
 export interface AutomationFirstMetrics {
   jurisdiction_count: number;
   regulatory_update_count: number;
+  manual_seed_update_count?: number;
+  offline_metadata_adapter_update_count?: number;
   updates_last_30_days: number;
   status_bucket_counts: Record<string, number>;
   update_type_counts: Record<string, number>;
@@ -85,6 +87,16 @@ export interface AutomationFirstMetrics {
   proposed_or_consultation_count: number;
 }
 
+export const AUTOMATION_METHOD_LABELS: Record<string, string> = {
+  manual_seed: "Manual seed",
+  offline_metadata_adapter: "Metadata adapter",
+  api: "API",
+  rss: "RSS",
+  official_feed: "Official feed",
+  official_page: "Official page",
+  public_page: "Public page",
+};
+
 function readYamlDir<T>(dir: string): T[] {
   const abs = path.join(ROOT, dir);
   if (!fs.existsSync(abs)) return [];
@@ -92,6 +104,26 @@ function readYamlDir<T>(dir: string): T[] {
     .readdirSync(abs)
     .filter((f) => f.endsWith(".yml") || f.endsWith(".yaml"))
     .map((f) => yaml.load(fs.readFileSync(path.join(abs, f), "utf8")) as T);
+}
+
+function expandRegulatoryUpdateFile(data: unknown): RegulatoryUpdate[] {
+  if (!data || typeof data !== "object") return [];
+  const record = data as Record<string, unknown>;
+  if (Array.isArray(record.items)) return record.items as RegulatoryUpdate[];
+  if (typeof record.update_id === "string") return [data as RegulatoryUpdate];
+  return [];
+}
+
+function readRegulatoryUpdatesDir(): RegulatoryUpdate[] {
+  const abs = path.join(ROOT, "data/regulatory-updates");
+  if (!fs.existsSync(abs)) return [];
+  const records: RegulatoryUpdate[] = [];
+  for (const f of fs.readdirSync(abs)) {
+    if (!f.endsWith(".yml") && !f.endsWith(".yaml")) continue;
+    const data = yaml.load(fs.readFileSync(path.join(abs, f), "utf8"));
+    records.push(...expandRegulatoryUpdateFile(data));
+  }
+  return records;
 }
 
 export function getCountryStatuses(): CountryStatus[] {
@@ -105,7 +137,7 @@ export function getCountryStatus(jurisdictionId: string): CountryStatus | undefi
 }
 
 export function getRegulatoryUpdates(): RegulatoryUpdate[] {
-  return readYamlDir<RegulatoryUpdate>("data/regulatory-updates").sort((a, b) =>
+  return readRegulatoryUpdatesDir().sort((a, b) =>
     b.update_date.localeCompare(a.update_date),
   );
 }
@@ -140,9 +172,17 @@ export function getAutomationFirstMetrics(): AutomationFirstMetrics {
   const updates_last_30_days = updates.filter(
     (u) => new Date(u.update_date) >= cutoff,
   ).length;
+  const manual_seed_update_count = updates.filter(
+    (u) => u.automation_method === "manual_seed",
+  ).length;
+  const offline_metadata_adapter_update_count = updates.filter(
+    (u) => u.automation_method === "offline_metadata_adapter",
+  ).length;
   return {
     jurisdiction_count: statuses.length,
     regulatory_update_count: updates.length,
+    manual_seed_update_count,
+    offline_metadata_adapter_update_count,
     updates_last_30_days,
     status_bucket_counts,
     update_type_counts,
@@ -198,6 +238,7 @@ export function filterRegulatoryUpdates(opts: {
   topic?: string | null;
   updateType?: string | null;
   jurisdictionId?: string | null;
+  automationMethod?: string | null;
 }): RegulatoryUpdate[] {
   const statusByJurisdiction = new Map(
     getCountryStatuses().map((cs) => [cs.jurisdiction_id, cs]),
@@ -205,6 +246,7 @@ export function filterRegulatoryUpdates(opts: {
   return getRegulatoryUpdates().filter((u) => {
     if (opts.jurisdictionId && u.jurisdiction_id !== opts.jurisdictionId) return false;
     if (opts.updateType && u.update_type !== opts.updateType) return false;
+    if (opts.automationMethod && u.automation_method !== opts.automationMethod) return false;
     if (opts.topic && !u.topic_tags.includes(opts.topic)) return false;
     if (opts.status && u.status_bucket !== opts.status) return false;
     if (opts.region) {

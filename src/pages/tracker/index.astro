@@ -10,6 +10,7 @@ import {
   filterCountryStatuses,
   filterRegulatoryUpdates,
   getCountryStatuses,
+  getRegulatoryUpdates,
 } from "../../lib/tracker-data";
 
 const metrics = getAutomationFirstMetrics();
@@ -22,10 +23,17 @@ const status = Astro.url.searchParams.get("status");
 const topic = Astro.url.searchParams.get("topic");
 
 const filteredStatuses = filterCountryStatuses({ region, status, topic });
+const allUpdates = getRegulatoryUpdates();
+const adapterCount = allUpdates.filter(
+  (u) => u.automation_method === "offline_metadata_adapter",
+).length;
+const automationMethod = Astro.url.searchParams.get("automation_method");
+
 const latestUpdates = filterRegulatoryUpdates({
   region,
   status,
   topic,
+  automationMethod,
 }).slice(0, 8);
 ---
 
@@ -42,9 +50,9 @@ const latestUpdates = filterRegulatoryUpdates({
   </p>
 
   <div class="banner banner--automation" role="note">
-    <strong>Technical tracker seed.</strong> Manual YAML seeds only; no scraping; no competitor
-    data. Evidence and client-use gates remain closed. Human review is optional for future premium
-    workflows, not required for this public skeleton.
+    <strong>Technical tracker pilot.</strong> Manual seeds plus {adapterCount} offline metadata
+    adapter record(s) from repository monitoring data — no live scraping. Evidence and client-use
+    gates remain closed. Human review is optional for future premium workflows.
   </div>
 
   <MetricsStrip metrics={metrics} />

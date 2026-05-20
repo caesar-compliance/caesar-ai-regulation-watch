@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **T049 source adapter pipeline (offline)** — `scripts/build-regulatory-updates-from-metadata.mjs` generates `regulatory_update` candidates from repository monitoring/registry metadata (`offline_metadata_adapter`); `npm run build:regulatory-updates`; feed filter by automation method; JSON export method counts.
+
+### Notes
+
+- No live scraping or new network adapters. All evidence gates remain closed. Manual seeds retained.
+
 ---
 
 ## [1.0.5] - 20 May 2026

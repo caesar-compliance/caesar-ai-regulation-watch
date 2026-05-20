@@ -7,6 +7,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import yaml from "js-yaml";
 import { readProjectVersion } from "./lib/read-project-version.mjs";
+import { loadRegulatoryUpdates } from "./lib/load-regulatory-updates.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const PROJECT_VERSION = readProjectVersion();
@@ -381,7 +382,7 @@ const changes = readYamlDir("data/changes").sort((a, b) =>
 const countryStatuses = readYamlDir("data/country-status").sort((a, b) =>
   a.country_name.localeCompare(b.country_name),
 );
-const regulatoryUpdates = readYamlDir("data/regulatory-updates").sort((a, b) =>
+const regulatoryUpdates = loadRegulatoryUpdates(ROOT).sort((a, b) =>
   b.update_date.localeCompare(a.update_date),
 );
 const trackerTopics = readYamlDir("data/topics").sort((a, b) => a.label.localeCompare(b.label));
@@ -1987,11 +1988,20 @@ writeJson(path.join(PUBLIC_DATA, "country-status.json"), {
   items: countryStatuses,
 });
 
+const manualSeedUpdateCount = regulatoryUpdates.filter(
+  (u) => u.automation_method === "manual_seed",
+).length;
+const offlineAdapterUpdateCount = regulatoryUpdates.filter(
+  (u) => u.automation_method === "offline_metadata_adapter",
+).length;
+
 writeJson(path.join(PUBLIC_DATA, "regulatory-updates.json"), {
   generated_at: generatedAt,
   disclaimer: DISCLAIMER,
   automation_first_seed: true,
   not_legal_advice: true,
+  manual_seed_count: manualSeedUpdateCount,
+  offline_metadata_adapter_count: offlineAdapterUpdateCount,
   items: regulatoryUpdates.map((u) => ({
     ...u,
     human_review_required: u.requires_human_review !== false,
@@ -2030,6 +2040,8 @@ writeJson(path.join(PUBLIC_DATA, "automation-first-metrics.json"), {
   not_complete_coverage: true,
   jurisdiction_count: countryStatuses.length,
   regulatory_update_count: regulatoryUpdates.length,
+  manual_seed_update_count: manualSeedUpdateCount,
+  offline_metadata_adapter_update_count: offlineAdapterUpdateCount,
   updates_last_30_days: updatesLast30Days,
   status_bucket_counts: statusBucketCounts,
   update_type_counts: updateTypeCounts,

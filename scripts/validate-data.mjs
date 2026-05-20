@@ -9,6 +9,10 @@ import { fileURLToPath } from "node:url";
 import yaml from "js-yaml";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
+import {
+  expandRegulatoryUpdateFile,
+  listRegulatoryUpdateFiles,
+} from "./lib/load-regulatory-updates.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SCHEMAS_DIR = path.join(ROOT, "schemas");
@@ -185,10 +189,13 @@ for (const file of listYamlFiles(path.join(ROOT, "data/country-status"))) {
   check(validate(file, data, schemas.countryStatus));
 }
 
-// Regulatory updates (T048 automation-first seed)
-for (const file of listYamlFiles(path.join(ROOT, "data/regulatory-updates"))) {
+// Regulatory updates (manual_seed + offline_metadata_adapter batch)
+for (const file of listRegulatoryUpdateFiles(ROOT)) {
   const data = readYaml(file);
-  check(validate(file, data, schemas.regulatoryUpdate));
+  const items = expandRegulatoryUpdateFile(data);
+  for (const u of items) {
+    check(validate(`${file}#${u.update_id}`, u, schemas.regulatoryUpdate));
+  }
 }
 
 // Tracker topics (T048)
@@ -1570,9 +1577,12 @@ for (const file of listYamlFiles(path.join(ROOT, "data/guidance"))) {
 const topicIds = new Set(
   listYamlFiles(path.join(ROOT, "data/topics")).map((f) => readYaml(f).topic_id),
 );
-const updateIds = new Set(
-  listYamlFiles(path.join(ROOT, "data/regulatory-updates")).map((f) => readYaml(f).update_id),
-);
+const updateIds = new Set();
+for (const file of listRegulatoryUpdateFiles(ROOT)) {
+  for (const u of expandRegulatoryUpdateFile(readYaml(file))) {
+    if (u?.update_id) updateIds.add(u.update_id);
+  }
+}
 const countryStatusJurisdictionIds = new Set();
 
 for (const file of listYamlFiles(path.join(ROOT, "data/country-status"))) {
@@ -1630,55 +1640,65 @@ for (const file of listYamlFiles(path.join(ROOT, "data/country-status"))) {
 }
 
 const seenUpdateIds = new Set();
-for (const file of listYamlFiles(path.join(ROOT, "data/regulatory-updates"))) {
-  const u = readYaml(file);
-  if (seenUpdateIds.has(u.update_id)) {
-    failures.push({
-      label: `${file} (duplicate)`,
-      errors: [{ message: `duplicate update_id: ${u.update_id}` }],
-    });
-  } else {
+for (const file of listRegulatoryUpdateFiles(ROOT)) {
+  for (const u of expandRegulatoryUpdateFile(readYaml(file))) {
+    const label = `${file}#${u.update_id}`;
+    if (seenUpdateIds.has(u.update_id)) {
+      failures.push({
+        label: `${label} (duplicate)`,
+        errors: [{ message: `duplicate update_id: ${u.update_id}` }],
+      });
+      continue;
+    }
     seenUpdateIds.add(u.update_id);
-  }
-  if (!jurisdictionIds.has(u.jurisdiction_id)) {
-    failures.push({
-      label: `${file} (referential)`,
-      errors: [{ message: `unknown jurisdiction_id: ${u.jurisdiction_id}` }],
-    });
-  }
-  for (const sid of u.source_ids ?? []) {
-    if (!sourceIds.has(sid)) {
+    if (!jurisdictionIds.has(u.jurisdiction_id)) {
       failures.push({
-        label: `${file} (referential)`,
-        errors: [{ message: `unknown source_id: ${sid}` }],
+        label: `${label} (referential)`,
+        errors: [{ message: `unknown jurisdiction_id: ${u.jurisdiction_id}` }],
       });
     }
-  }
-  for (const tag of u.topic_tags ?? []) {
-    if (!topicIds.has(tag)) {
+    for (const sid of u.source_ids ?? []) {
+      if (!sourceIds.has(sid)) {
+        failures.push({
+          label: `${label} (referential)`,
+          errors: [{ message: `unknown source_id: ${sid}` }],
+        });
+      }
+    }
+    for (const tag of u.topic_tags ?? []) {
+      if (!topicIds.has(tag)) {
+        failures.push({
+          label: `${label} (referential)`,
+          errors: [{ message: `unknown topic_tag: ${tag}` }],
+        });
+      }
+    }
+    if (!u.source_urls?.length) {
       failures.push({
-        label: `${file} (referential)`,
-        errors: [{ message: `unknown topic_tag: ${tag}` }],
+        label: `${label} (policy)`,
+        errors: [{ message: "regulatory update requires at least one source_url" }],
       });
     }
-  }
-  if (!u.source_urls?.length) {
-    failures.push({
-      label: `${file} (policy)`,
-      errors: [{ message: "regulatory update requires at least one source_url" }],
-    });
-  }
-  for (const gate of [
-    "requires_human_review",
-    "client_evidence_allowed",
-    "final_evidence_allowed",
-    "legal_change_claimed",
-  ]) {
-    if (u[gate] !== false) {
-      failures.push({
-        label: `${file} (policy)`,
-        errors: [{ message: `regulatory update ${gate} must be false for T048 seed` }],
-      });
+    if (u.automation_method === "offline_metadata_adapter") {
+      if (!u.legal_safe_note?.includes("offline metadata adapter")) {
+        failures.push({
+          label: `${label} (policy)`,
+          errors: [{ message: "offline_metadata_adapter update must document adapter in legal_safe_note" }],
+        });
+      }
+    }
+    for (const gate of [
+      "requires_human_review",
+      "client_evidence_allowed",
+      "final_evidence_allowed",
+      "legal_change_claimed",
+    ]) {
+      if (u[gate] !== false) {
+        failures.push({
+          label: `${label} (policy)`,
+          errors: [{ message: `regulatory update ${gate} must remain false` }],
+        });
+      }
     }
   }
 }

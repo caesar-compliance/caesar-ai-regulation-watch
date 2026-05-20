@@ -23,8 +23,16 @@ const { metrics } = Astro.props;
   </div>
   <div class="metrics-strip__card">
     <strong>{metrics.regulatory_update_count}</strong>
-    <span>Regulatory updates (seed)</span>
+    <span>Regulatory updates</span>
   </div>
+  {
+    metrics.offline_metadata_adapter_update_count != null && (
+      <div class="metrics-strip__card">
+        <strong>{metrics.offline_metadata_adapter_update_count}</strong>
+        <span>Metadata adapter updates</span>
+      </div>
+    )
+  }
   <div class="metrics-strip__card">
     <strong>{metrics.updates_last_30_days}</strong>
     <span>Updates (last 30 days)</span>

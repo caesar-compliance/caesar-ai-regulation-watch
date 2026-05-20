@@ -51,7 +51,7 @@
 | P2-07 | **Compare jurisdictions** — 2–5 country delta view | P2 | Techieray / DLA Piper |
 | P2-08 | **Edition snapshots** — quarterly `metric_snapshot` baseline | P2 | DLA Piper edition model |
 | P2-09 | **Staleness alerts** — 90-day source re-check flags | P1 | riadeane `STALENESS_DAYS` pattern |
-| P2-10 | **Monitoring integration** — detected-changes → regulatory_update pipeline | P1 | Bridge v1.0.4 monitoring artifacts |
+| P2-10 | **Monitoring integration** — detected-changes → regulatory_update pipeline | P1 | **T049 (in progress):** `offline_metadata_adapter` from repo-local metadata; no live fetch |
 
 **Exit criteria:** ≥5 adapters run in CI schedule; feed updates without manual YAML edits for those sources.
 

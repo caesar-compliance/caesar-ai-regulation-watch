@@ -36,7 +36,8 @@ The **v1.0.5** release is **live** on [regulation-watch.caesar.no](https://regul
 - **JSON exports** — `country-status.json`, `regulatory-updates.json`, `automation-first-metrics.json`, `tracker-topics.json`.
 - **Deployed** — commit `a153043`, tag `regulation-watch-v1.0.5`, deploy run [26184820086](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26184820086).
 - **No scraping** — no competitor data; evidence gates unchanged.
-- **Recommended next** — **T049** source adapter pipeline for updates feed.
+- **T049 (feature branch)** — Offline metadata adapter pipeline for regulatory updates feed (`offline_metadata_adapter`); live API/RSS adapters still deferred.
+- **Recommended next** — T050 choropleth map + compare jurisdictions; live source adapters per Phase 2 backlog.
 
 ### Remaining limitations (v1.0.5)
 

@@ -20,9 +20,10 @@
    - Public pages: `/tracker/`, `/updates/`, `/countries/` with map skeleton, filters, metrics.
    - JSON exports: `country-status.json`, `regulatory-updates.json`, `automation-first-metrics.json`.
 
-4. **T049 — Source adapter pipeline for updates feed** *(recommended next)*
-   - Connect watchers/monitoring to `regulatory_update` records (beyond manual seed).
-   - Classification, duplicate detection, scheduled runs per [AUTOMATION_FIRST_IMPLEMENTATION_BACKLOG.md](docs/AUTOMATION_FIRST_IMPLEMENTATION_BACKLOG.md) Phase 2.
+4. **T049 — Source adapter pipeline for updates feed** *(in progress on feature branch)*
+   - Offline metadata adapter: `npm run build:regulatory-updates` → `data/regulatory-updates/generated-from-metadata.yml`.
+   - Inputs: detected-changes, changes, monitoring review packs/triage, source-discovery leads (repo-local only).
+   - Live API/RSS scheduling and fetch adapters remain separate (Phase 2 P2-01).
 
 5. **T050 — Choropleth map + compare jurisdictions**
    - Safe official-source adapters using API/RSS/feed-first approach.
