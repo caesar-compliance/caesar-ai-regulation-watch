@@ -19,8 +19,6 @@ related_topics:
   - responsible_ai
 review_status: pending_review
 notes: >
-  Official federal policy publication. URL remediated v0.6.2: legacy ethics-framework slug
-  returned 404; canonical page is Australia's AI Ethics Principles. v0.9.2–v0.9.3: industry.gov.au
-  HTML publication blocked to automated/headless fetch (403/timeout); human browser verification still
-  required. v0.9.3 verification batch: source-verification-2026-05-20-v093. National privacy guidance
+  Official federal policy publication. Canonical page is Australia's AI Ethics Principles. v1.0.4 autonomous worker:
+  primary URL and official PDF alternate timeout (access_failed); identity not confirmed. National privacy guidance
   tracked separately via OAIC entry.

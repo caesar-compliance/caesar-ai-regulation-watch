@@ -102,7 +102,12 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | Pattern | Role |
 |---|---|
 | **content-review-*.yml** | Human content review batches (summary, dates, detected changes) |
-| **manual-source-verification-intake-*.yml** | Human browser intake for blocked official sources (v1.0.3) |
+| **autonomous-source-verification-allowlist-*.yml** | Allowlist for autonomous verification worker (v1.0.4) |
+| **autonomous-source-verification-*.yml** | Autonomous machine verification results batch (v1.0.4) |
+| **schemas/autonomous-source-verification.schema.json** | Autonomous verification batch schema |
+| **scripts/run-autonomous-source-verification.mjs** | Autonomous worker CLI (`npm run source:verify:autonomous`) |
+| **public/data/autonomous-source-verifications.json** | Public autonomous verification export |
+| **manual-source-verification-intake-*.yml** | Supplementary human browser intake for blocked sources (v1.0.3) |
 | **docs/CONTENT_REVIEW_WORKFLOW.md** | Process |
 | **docs/MANUAL_SOURCE_VERIFICATION_INTAKE_GUIDE.md** | Reviewer guide for intake observations |
 | **docs/VERIFIED_ON_SOURCE_POLICY.md** | Control Tower gate for `verified_on_source: true` |

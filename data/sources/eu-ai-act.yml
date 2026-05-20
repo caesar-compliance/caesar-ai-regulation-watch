@@ -25,7 +25,6 @@ related_topics:
   - conformity_assessment
 review_status: pending_review
 notes: >
-  Tracked official primary source for the AI Act instrument. Helps identify
-  regulatory changes visible on EUR-Lex; supports governance review of whether
-  internal registers or policies may need refresh. Not legal advice. Automated
-  monitoring not active in v0.2 — registry definition only.
+  Tracked official primary source for the AI Act instrument. v1.0.4 autonomous worker: EUR-Lex HTTP 202 bot gate;
+  CELLAR SPARQL has no CELEX 32024R1689 binding in pass; official EFTA EEA-Lex factsheet confirms instrument identity
+  (metadata only, official_alternative). verified_on_source remains false. Not legal advice.

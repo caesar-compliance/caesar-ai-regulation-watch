@@ -4,21 +4,19 @@
 
 | Field | Value |
 |---|---|
-| **Current version** | `v1.0.3` |
-| **Status** | Live — `16965d9`; tag `regulation-watch-v1.0.3` |
-| **Deployment** | `DEPLOY-20260520-021` — [26167248912](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26167248912) |
-| **Previous live** | `v1.0.2` — tag `regulation-watch-v1.0.2` → `d36909e` |
+| **Current version** | `v1.0.4` |
+| **Status** | In progress — autonomous source verification worker on branch `agent/v1.0.3-autonomous-source-verification-worker` |
+| **Previous live** | `v1.0.3` — tag `regulation-watch-v1.0.3` (manual intake) |
 | **Phase** | Public Technical MVP |
 
-## v1.0.3 summary
+## v1.0.4 summary (in progress)
 
-- **Manual source verification intake** — schema, batch, public export, `/source-verification/` page.
-- **`verified_on_source` policy gate** — [VERIFIED_ON_SOURCE_POLICY.md](docs/VERIFIED_ON_SOURCE_POLICY.md); no `verified_on_source: true` in this release.
-- **Australia / EUR-Lex / Japan** — intake placeholders `pending_human_browser_input`; automated blockers documented, not retried.
+- **Autonomous official-source verification worker** — `npm run source:verify:autonomous`, schema, allowlist, batch export, `/source-verification/` page refresh.
+- **No WAF/bot bypass** — metadata-only fetch, official SPARQL/Cellar attempts, EFTA EEA-Lex official alternative for CELEX identity where EUR-Lex blocked.
+- **Browser worker** — not bundled (Playwright pending); documented in workflow.
 - `verified_on_source: 0` · `client_use_allowed: 0` · `final_evidence_allowed: 0` unchanged.
 
-## v1.0.2 summary (previous live)
+## v1.0.3 summary (previous live)
 
-- Canada source/content review **improved** (HTTP 200).
-- Content reviews **36** (was 28).
-- Australia / EUR-Lex / Japan blockers **documented** in v1.0.2 verification batch.
+- Manual source verification intake — supplementary placeholders for blocked sources.
+- Australia / EUR-Lex / Japan blockers documented; autonomous worker replaces manual-only primary path in v1.0.4.

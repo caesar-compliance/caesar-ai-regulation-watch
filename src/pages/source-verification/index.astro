@@ -2,145 +2,162 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { PROJECT_VERSION_LABEL } from "../../lib/project-version";
 import {
+  getAutonomousSourceVerificationBatches,
+  getAutonomousSourceVerifications,
   getManualSourceVerificationIntakeBatches,
   getManualSourceVerificationIntakes,
   getRecords,
 } from "../../lib/data";
 import { formatDate, humanizeId } from "../../lib/format";
 
-const batches = getManualSourceVerificationIntakeBatches();
-const intakes = getManualSourceVerificationIntakes();
+const autonomousBatches = getAutonomousSourceVerificationBatches();
+const autonomous = getAutonomousSourceVerifications();
+const manualBatches = getManualSourceVerificationIntakeBatches();
+const manualIntakes = getManualSourceVerificationIntakes();
 const records = getRecords();
 
-const pending = intakes.filter((i) => i.intake_status === "pending_human_browser_input");
-const verifiedOnSourceApproved = intakes.filter((i) => i.verified_on_source_approved).length;
 const recordsVerifiedOnSource = records.filter((r) => r.verified_on_source === true).length;
+const blocked = autonomous.filter((v) => v.verification_result === "blocked_by_waf_or_bot_gate");
+const machineOk = autonomous.filter(
+  (v) =>
+    v.verification_result === "official_alternative_verified_identity" ||
+    v.verification_result === "official_sparql_verified_identity" ||
+    v.verification_result === "official_api_verified_identity" ||
+    v.verification_result === "machine_verified_identity",
+);
 
-function pageHref(intake: (typeof intakes)[0]) {
-  if (intake.related_record_id) return `/records/${intake.related_record_id}/`;
-  return `/sources/${intake.related_source_id}/`;
+function pageHref(v: (typeof autonomous)[0]) {
+  if (v.related_record_id) return `/records/${v.related_record_id}/`;
+  return `/sources/${v.related_source_id}/`;
 }
 ---
 
-<BaseLayout title="Manual source verification" currentPath="/source-verification/">
-  <h1>Manual source verification intake</h1>
+<BaseLayout title="Source verification" currentPath="/source-verification/">
+  <h1>Official source verification</h1>
   <p class="lead">
-    Structured human-browser intake for official sources blocked by WAF, bot gates, or environment
-    limits. Supports future Control Tower decisions on <code>verified_on_source</code> — does not set
-    it automatically.
+    Autonomous machine verification attempts on priority blocked official sources — conservative,
+    lawful, no WAF bypass. Does not set <code>verified_on_source</code> or enable client/final evidence.
   </p>
 
   <div class="banner banner--review" role="note">
-    <strong>{PROJECT_VERSION_LABEL}.</strong> Batch:{" "}
-    {batches[0]?.manual_source_verification_intake_batch_id ?? "—"}. Intake entries: {intakes.length}.
-    Pending human browser: {pending.length}. <code>verified_on_source_approved</code>:{" "}
-    {verifiedOnSourceApproved} (expected 0). Registry records with{" "}
-    <code>verified_on_source: true</code>: {recordsVerifiedOnSource} (expected 0). Not legal advice.
-    Not client evidence.
+    <strong>{PROJECT_VERSION_LABEL} policy gate.</strong> Autonomous batch:{" "}
+    {autonomousBatches[0]?.autonomous_source_verification_batch_id ?? "—"}. Attempts:{" "}
+    {autonomous.length}. Machine identity confirmed: {machineOk.length}. Blocked/WAF: {blocked.length}.
+    Registry <code>verified_on_source: true</code> count: {recordsVerifiedOnSource} (expected 0). Not legal
+    advice. Not client evidence.
   </div>
 
   <section>
-    <h2>Policy gate</h2>
+    <h2>Autonomous worker policy</h2>
+    <ul>
+      <li>Allowed: official APIs, SPARQL, metadata-only HEAD/GET, official alternatives on government domains.</li>
+      <li>Not allowed: WAF/bot bypass, CAPTCHA solving, stealth proxies, full HTML/legal text storage, link crawling.</li>
+      <li>
+        <code>verified_on_source</code> remains false unless Control Tower approves per{" "}
+        <a href="/docs/VERIFIED_ON_SOURCE_POLICY.md">VERIFIED_ON_SOURCE_POLICY.md</a>.
+      </li>
+      <li>
+        Run locally: <code>npm run source:verify:autonomous</code> · Workflow:{" "}
+        <a href="/docs/SOURCE_VERIFICATION_WORKFLOW.md">SOURCE_VERIFICATION_WORKFLOW.md</a>
+      </li>
+    </ul>
     <p>
-      <code>verified_on_source: true</code> is not allowed by default. It requires explicit Control
-      Tower approval, a completed manual intake with official identity confirmation, and compliance
-      with <a href="/docs/VERIFIED_ON_SOURCE_POLICY.md">VERIFIED_ON_SOURCE_POLICY.md</a> (repository
-      docs). This intake workflow does <strong>not</strong> create final evidence or enable client
-      use.
-    </p>
-    <p>
-      Reviewer guide:{" "}
-      <a href="/docs/MANUAL_SOURCE_VERIFICATION_INTAKE_GUIDE.md"
-        >MANUAL_SOURCE_VERIFICATION_INTAKE_GUIDE.md</a
-      >
-      · <a href="/verification/">Automated &amp; batch verification →</a>
+      <a href="/data/autonomous-source-verifications.json">autonomous-source-verifications.json</a> ·{" "}
+      <a href="/data/regulation-watch-snapshot.json">regulation-watch-snapshot.json</a> ·{" "}
+      <a href="/verification/">Batch verification history →</a>
     </p>
   </section>
 
-  <dl class="meta-grid">
-    <div><dt>Batches</dt><dd>{batches.length}</dd></div>
-    <div><dt>Total intakes</dt><dd>{intakes.length}</dd></div>
-    <div><dt>Pending human browser</dt><dd>{pending.length}</dd></div>
-    <div><dt>Source identity confirmed</dt><dd>{intakes.filter((i) => i.source_identity_confirmed).length}</dd></div>
-    <div><dt>verified_on_source requested</dt><dd>{intakes.filter((i) => i.verified_on_source_requested).length}</dd></div>
-    <div><dt>client_use_allowed</dt><dd>{intakes.filter((i) => i.client_use_allowed).length}</dd></div>
-  </dl>
-
-  <p>
-    <a href="/data/manual-source-verification-intake.json">manual-source-verification-intake.json</a>{" "}
-    · <a href="/data/regulation-watch-snapshot.json">regulation-watch-snapshot.json</a>
-  </p>
-
-  <h2>Blockers — human browser required</h2>
-  {
-    pending.length > 0 ? (
-      <ul class="card-list">
-        {pending.map((intake) => (
-          <li class="card">
-            <a href={pageHref(intake)}>{intake.related_source_id}</a>
-            <p class="card__excerpt">
-              {humanizeId(intake.verification_target)} · {humanizeId(intake.access_method)} ·{" "}
-              {formatDate(intake.access_date)}
-            </p>
-            <p class="card__excerpt">{intake.limitations}</p>
-            <p>
-              <a href={intake.official_url} target="_blank" rel="noopener noreferrer">
-                Official URL ↗
-              </a>
-            </p>
-            <p>
-              <strong>Page loaded:</strong>{" "}
-              {intake.browser_observation.page_loaded === null
-                ? "not recorded"
-                : intake.browser_observation.page_loaded
-                  ? "yes"
-                  : "no"}
-            </p>
-          </li>
-        ))}
-      </ul>
-    ) : (
-      <p class="card__excerpt">No pending intakes in the latest batch.</p>
-    )
-  }
-
-  <h2>All intake entries</h2>
+  <h2>Autonomous verification results</h2>
   <table class="data-table">
     <thead>
       <tr>
-        <th>Source / record</th>
-        <th>Status</th>
-        <th>Target</th>
-        <th>Access</th>
+        <th>Source</th>
+        <th>Result</th>
+        <th>Strategy</th>
+        <th>HTTP</th>
+        <th>Title / identifier</th>
         <th>Identity</th>
         <th>Instrument</th>
-        <th>On source approved</th>
-        <th>Next action</th>
+        <th>Checked</th>
       </tr>
     </thead>
     <tbody>
       {
-        intakes.map((intake) => (
+        autonomous.map((v) => (
           <tr>
             <td>
-              <a href={pageHref(intake)}>{intake.related_source_id}</a>
-              {intake.related_record_id && (
+              <a href={pageHref(v)}>{v.related_source_id}</a>
+            </td>
+            <td>{humanizeId(v.verification_result)}</td>
+            <td>{humanizeId(v.verification_strategy)}</td>
+            <td>{v.http_status ?? "—"}</td>
+            <td>
+              {v.visible_or_extracted_title ?? v.official_identifier ?? "—"}
+              {v.final_url && v.final_url !== v.official_url && (
                 <>
                   <br />
-                  <span class="muted">{intake.related_record_id}</span>
+                  <span class="muted">Final: {v.final_url}</span>
                 </>
               )}
             </td>
-            <td>{humanizeId(intake.intake_status)}</td>
-            <td>{humanizeId(intake.verification_target)}</td>
-            <td>{humanizeId(intake.access_method)}</td>
-            <td>{intake.source_identity_confirmed ? "Yes" : "No"}</td>
-            <td>{intake.full_instrument_identity_confirmed ? "Yes" : "No"}</td>
-            <td>{intake.verified_on_source_approved ? "Yes" : "No"}</td>
-            <td>{humanizeId(intake.next_action)}</td>
+            <td>{v.source_identity_confirmed ? "Yes" : "No"}</td>
+            <td>{v.full_instrument_identity_confirmed ? "Yes" : "No"}</td>
+            <td>{formatDate(v.checked_at.slice(0, 10))}</td>
           </tr>
         ))
       }
     </tbody>
   </table>
+
+  {
+    autonomous.map((v) => (
+      <details class="card">
+        <summary>{v.related_source_id} — limitations</summary>
+        <p>{v.limitations}</p>
+        <p>
+          <strong>Next:</strong> {humanizeId(v.next_action)}
+        </p>
+        <p>
+          <a href={v.official_url} target="_blank" rel="noopener noreferrer">
+            Primary official URL ↗
+          </a>
+        </p>
+      </details>
+    ))
+  }
+
+  <h2>Manual intake (supplementary)</h2>
+  <p class="card__excerpt">
+    Optional human-browser intake records for the same blockers when policy requires explicit browser
+    observation. Does not replace autonomous attempts.
+  </p>
+  <p>
+    <a href="/data/manual-source-verification-intake.json">manual-source-verification-intake.json</a> · Pending:{" "}
+    {manualIntakes.filter((i) => i.intake_status === "pending_human_browser_input").length}
+  </p>
+  {
+    manualBatches.length > 0 && (
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Source</th>
+            <th>Intake status</th>
+            <th>Next action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            manualIntakes.map((intake) => (
+              <tr>
+                <td>{intake.related_source_id}</td>
+                <td>{humanizeId(intake.intake_status)}</td>
+                <td>{humanizeId(intake.next_action)}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    )
+  }
 </BaseLayout>

@@ -1,0 +1,57 @@
+# Autonomous official-source verification allowlist — v1.0.4 worker
+# Priority blocked sources from v1.0.2 pass. No competitor URLs.
+
+autonomous_source_verification_allowlist_id: autonomous-source-verification-allowlist-2026-05-20-v103
+generated_at: "2026-05-20"
+legal_safe_note: >
+  Allowlist for conservative autonomous verification worker. Official URLs and known official
+  machine-readable alternatives only. No WAF bypass. No full legal text storage. Not client evidence.
+
+sources:
+  - allowlist_entry_id: allow-eu-ai-act-eurlex
+    related_source_id: eu-ai-act
+    related_record_id: law-eu-ai-act-2024-1689
+    related_candidate_id: candidate-change-sample-eu-ai-act-status-change
+    official_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689
+    expected_celex: "32024R1689"
+    jurisdiction_id: eu
+    strategy_priority:
+      - official_sparql
+      - official_api
+      - metadata_fetch
+      - official_alternative
+    official_alternatives:
+      - url: https://www.efta.int/eea-lex/32024r1689
+        authority: European Free Trade Association (EEA-Lex factsheet)
+        purpose: official_eea_lex_celex_metadata_only
+      - url: https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai
+        authority: European Commission digital-strategy
+        purpose: corroboration_only_not_instrument_verification
+    notes: EUR-Lex primary; CELLAR SPARQL and Publications Office REST; EFTA EEA-Lex as official alternative.
+
+  - allowlist_entry_id: allow-australia-industry-ai-principles
+    related_source_id: australia-industry-ai
+    related_record_id: policy-australia-ai-ethics-framework
+    official_url: https://www.industry.gov.au/publications/australias-ai-ethics-principles
+    jurisdiction_id: australia
+    strategy_priority:
+      - metadata_fetch
+      - official_pdf
+      - browser_worker
+      - official_alternative
+    official_alternatives:
+      - url: https://www.industry.gov.au/sites/default/files/2024-09/australias-ai-ethics-principles.pdf
+        authority: Department of Industry, Science and Resources (Australia)
+        purpose: official_pdf_metadata_if_reachable
+    notes: industry.gov.au WAF/timeout blocker in prior passes.
+
+  - allowlist_entry_id: allow-japan-meti-ai
+    related_source_id: japan-meti-ai
+    official_url: https://www.meti.go.jp/english/policy/index.html
+    jurisdiction_id: japan
+    strategy_priority:
+      - metadata_fetch
+      - browser_worker
+      - official_alternative
+    official_alternatives: []
+    notes: METI English policy index; prior timeout/403 in automated passes.
