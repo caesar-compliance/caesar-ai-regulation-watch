@@ -1,0 +1,32 @@
+---
+import { STATUS_BUCKET_LABELS, type StatusBucket } from "../lib/tracker-data";
+
+const buckets: StatusBucket[] = [
+  "adopted",
+  "enforcement",
+  "guidance",
+  "proposed",
+  "consultation",
+  "monitoring",
+  "no_clear_framework",
+];
+---
+
+<aside class="choropleth-legend" aria-label="Status bucket legend">
+  <h3 class="choropleth-legend__title">Status legend</h3>
+  <ul class="choropleth-legend__list">
+    {
+      buckets.map((bucket) => (
+        <li>
+          <span class={`choropleth-legend__swatch choropleth-legend__swatch--${bucket}`} />
+          <span class="choropleth-legend__label">{STATUS_BUCKET_LABELS[bucket]}</span>
+        </li>
+      ))
+    }
+  </ul>
+  <p class="choropleth-legend__note">
+    Tile color reflects <strong>status_bucket</strong> from pilot tracker metadata. Maturity and
+    activity bars are Caesar tracker indices (0–100) — not legal advice and not verified legal
+    change.
+  </p>
+</aside>

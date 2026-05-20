@@ -8,6 +8,10 @@ import { fileURLToPath } from "node:url";
 import yaml from "js-yaml";
 import { readProjectVersion } from "./lib/read-project-version.mjs";
 import { loadRegulatoryUpdates } from "./lib/load-regulatory-updates.mjs";
+import {
+  enrichCountryStatuses,
+  buildComparisonRows,
+} from "./lib/tracker-scoring.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const PROJECT_VERSION = readProjectVersion();
@@ -1590,6 +1594,7 @@ const snapshot = {
     regulatory_updates: "/data/regulatory-updates.json",
     automation_first_metrics: "/data/automation-first-metrics.json",
     tracker_topics: "/data/tracker-topics.json",
+    jurisdiction_comparison: "/data/jurisdiction-comparison.json",
   },
   review_notice:
     "All pilot content is curated manual YAML. Human review required before client use.",
@@ -1980,12 +1985,38 @@ writeJson(path.join(PUBLIC_DATA, "evidence-export-candidate-reviews.json"), {
   items: evidenceCandidateReviews,
 });
 
+const sourceCountByJurisdiction = sources.reduce((acc, s) => {
+  const jid = s.jurisdiction_id;
+  if (jid) acc.set(jid, (acc.get(jid) ?? 0) + 1);
+  return acc;
+}, new Map());
+
+const enrichedCountryStatuses = enrichCountryStatuses(countryStatuses, regulatoryUpdates);
+const jurisdictionComparisonRows = buildComparisonRows(
+  enrichedCountryStatuses,
+  sourceCountByJurisdiction,
+);
+
 writeJson(path.join(PUBLIC_DATA, "country-status.json"), {
   generated_at: generatedAt,
   disclaimer: DISCLAIMER,
   automation_first_seed: true,
   not_legal_advice: true,
-  items: countryStatuses,
+  not_verified_legal_change: true,
+  scoring_note:
+    "regulation_maturity_score and activity_score are tracker metadata indices from pilot seeds — not legal certainty.",
+  items: enrichedCountryStatuses,
+});
+
+writeJson(path.join(PUBLIC_DATA, "jurisdiction-comparison.json"), {
+  generated_at: generatedAt,
+  disclaimer: DISCLAIMER,
+  not_legal_advice: true,
+  not_complete_coverage: true,
+  compare_max: 4,
+  scoring_note:
+    "Comparison fields are derived from tracker metadata only. Not legal advice. Not verified legal change.",
+  items: jurisdictionComparisonRows,
 });
 
 const manualSeedUpdateCount = regulatoryUpdates.filter(
@@ -2050,6 +2081,15 @@ writeJson(path.join(PUBLIC_DATA, "automation-first-metrics.json"), {
     (statusBucketCounts.adopted ?? 0) + (statusBucketCounts.enforcement ?? 0),
   proposed_or_consultation_count:
     (statusBucketCounts.proposed ?? 0) + (statusBucketCounts.consultation ?? 0),
+  choropleth_map_available: true,
+  compare_route: "/compare/",
+  average_regulation_maturity_score:
+    enrichedCountryStatuses.length > 0
+      ? Math.round(
+          enrichedCountryStatuses.reduce((s, c) => s + c.regulation_maturity_score, 0) /
+            enrichedCountryStatuses.length,
+        )
+      : 0,
 });
 
 writeJson(path.join(PUBLIC_DATA, "regulation-watch-snapshot.json"), snapshot);
@@ -2142,6 +2182,7 @@ console.log("  public/data/country-status.json");
 console.log("  public/data/regulatory-updates.json");
 console.log("  public/data/tracker-topics.json");
 console.log("  public/data/automation-first-metrics.json");
+console.log("  public/data/jurisdiction-comparison.json");
 console.log(`  ${countryStatuses.length} country status(es) exported`);
 console.log(`  ${regulatoryUpdates.length} regulatory update(s) exported`);
 console.log("  public/data/regulation-watch-snapshot.json");

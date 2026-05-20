@@ -29,5 +29,8 @@
     "International": 3
   },
   "adopted_or_enforced_count": 2,
-  "proposed_or_consultation_count": 1
+  "proposed_or_consultation_count": 1,
+  "choropleth_map_available": true,
+  "compare_route": "/compare/",
+  "average_regulation_maturity_score": 52
 }

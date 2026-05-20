@@ -3,6 +3,8 @@
   "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
   "automation_first_seed": true,
   "not_legal_advice": true,
+  "not_verified_legal_change": true,
+  "scoring_note": "regulation_maturity_score and activity_score are tracker metadata indices from pilot seeds — not legal certainty.",
   "items": [
     {
       "jurisdiction_id": "australia",
@@ -26,7 +28,15 @@
       "client_evidence_allowed": false,
       "final_evidence_allowed": false,
       "legal_change_claimed": false,
-      "legal_safe_note": "T048 manual seed. Not legal advice. Verify on official sources before relying on summaries.\n"
+      "legal_safe_note": "T048 manual seed. Not legal advice. Verify on official sources before relying on summaries.\n",
+      "regulation_maturity_score": 54,
+      "activity_score": 45,
+      "automation_signal_count": 1,
+      "latest_update_count": 1,
+      "status_weight": 68,
+      "comparison_summary": "Australia: Guidance — standards-led approach (guidance); 1 tracker update(s); maturity index 54/100 from pilot metadata — not legal advice.",
+      "manual_seed_update_count": 1,
+      "offline_metadata_adapter_update_count": 0
     },
     {
       "jurisdiction_id": "canada",
@@ -50,7 +60,15 @@
       "client_evidence_allowed": false,
       "final_evidence_allowed": false,
       "legal_change_claimed": false,
-      "legal_safe_note": "T048 manual seed. Not legal advice. Bill status must be verified on official sources.\n"
+      "legal_safe_note": "T048 manual seed. Not legal advice. Bill status must be verified on official sources.\n",
+      "regulation_maturity_score": 45,
+      "activity_score": 55,
+      "automation_signal_count": 2,
+      "latest_update_count": 2,
+      "status_weight": 52,
+      "comparison_summary": "Canada: Proposed — federal bill context (proposed); 2 tracker update(s); maturity index 45/100 from pilot metadata — not legal advice.",
+      "manual_seed_update_count": 1,
+      "offline_metadata_adapter_update_count": 1
     },
     {
       "jurisdiction_id": "china",
@@ -74,7 +92,15 @@
       "client_evidence_allowed": false,
       "final_evidence_allowed": false,
       "legal_change_claimed": false,
-      "legal_safe_note": "T048 manual seed. Not legal advice. Not complete China coverage. Verify on official sources.\n"
+      "legal_safe_note": "T048 manual seed. Not legal advice. Not complete China coverage. Verify on official sources.\n",
+      "regulation_maturity_score": 72,
+      "activity_score": 55,
+      "automation_signal_count": 2,
+      "latest_update_count": 2,
+      "status_weight": 88,
+      "comparison_summary": "China: Adopted — targeted measures (adopted); 2 tracker update(s); maturity index 72/100 from pilot metadata — not legal advice.",
+      "manual_seed_update_count": 1,
+      "offline_metadata_adapter_update_count": 1
     },
     {
       "jurisdiction_id": "eu",
@@ -100,7 +126,15 @@
       "client_evidence_allowed": false,
       "final_evidence_allowed": false,
       "legal_change_claimed": false,
-      "legal_safe_note": "T048 manual seed for automation-first tracker skeleton. Not legal advice. Not complete EU or member-state coverage. Verify instruments and dates on official sources.\n"
+      "legal_safe_note": "T048 manual seed for automation-first tracker skeleton. Not legal advice. Not complete EU or member-state coverage. Verify instruments and dates on official sources.\n",
+      "regulation_maturity_score": 81,
+      "activity_score": 90,
+      "automation_signal_count": 9,
+      "latest_update_count": 9,
+      "status_weight": 88,
+      "comparison_summary": "European Union: Adopted — comprehensive framework (adopted); 9 tracker update(s); maturity index 81/100 from pilot metadata — not legal advice.",
+      "manual_seed_update_count": 2,
+      "offline_metadata_adapter_update_count": 7
     },
     {
       "jurisdiction_id": "g7",
@@ -123,7 +157,15 @@
       "client_evidence_allowed": false,
       "final_evidence_allowed": false,
       "legal_change_claimed": false,
-      "legal_safe_note": "T048 manual seed. Not legal advice. Non-binding international process framing only.\n"
+      "legal_safe_note": "T048 manual seed. Not legal advice. Non-binding international process framing only.\n",
+      "regulation_maturity_score": 17,
+      "activity_score": 45,
+      "automation_signal_count": 1,
+      "latest_update_count": 1,
+      "status_weight": 18,
+      "comparison_summary": "G7 (Hiroshima AI Process): International — voluntary process (no_clear_framework); 1 tracker update(s); maturity index 17/100 from pilot metadata — not legal advice.",
+      "manual_seed_update_count": 1,
+      "offline_metadata_adapter_update_count": 0
     },
     {
       "jurisdiction_id": "japan",
@@ -147,7 +189,15 @@
       "client_evidence_allowed": false,
       "final_evidence_allowed": false,
       "legal_change_claimed": false,
-      "legal_safe_note": "T048 manual seed. Not legal advice. Verify on official sources.\n"
+      "legal_safe_note": "T048 manual seed. Not legal advice. Verify on official sources.\n",
+      "regulation_maturity_score": 57,
+      "activity_score": 55,
+      "automation_signal_count": 2,
+      "latest_update_count": 2,
+      "status_weight": 68,
+      "comparison_summary": "Japan: Guidance — METI / PPC portals (guidance); 2 tracker update(s); maturity index 57/100 from pilot metadata — not legal advice.",
+      "manual_seed_update_count": 1,
+      "offline_metadata_adapter_update_count": 1
     },
     {
       "jurisdiction_id": "norway",
@@ -170,7 +220,15 @@
       "client_evidence_allowed": false,
       "final_evidence_allowed": false,
       "legal_change_claimed": false,
-      "legal_safe_note": "T048 manual seed. Not legal advice. EEA/EU interactions require official verification.\n"
+      "legal_safe_note": "T048 manual seed. Not legal advice. EEA/EU interactions require official verification.\n",
+      "regulation_maturity_score": 41,
+      "activity_score": 65,
+      "automation_signal_count": 3,
+      "latest_update_count": 3,
+      "status_weight": 42,
+      "comparison_summary": "Norway: Monitoring — EEA implementation context (monitoring); 3 tracker update(s); maturity index 41/100 from pilot metadata — not legal advice.",
+      "manual_seed_update_count": 2,
+      "offline_metadata_adapter_update_count": 1
     },
     {
       "jurisdiction_id": "oecd",
@@ -193,7 +251,15 @@
       "client_evidence_allowed": false,
       "final_evidence_allowed": false,
       "legal_change_claimed": false,
-      "legal_safe_note": "T048 manual seed. Not legal advice. International repository — not national law.\n"
+      "legal_safe_note": "T048 manual seed. Not legal advice. International repository — not national law.\n",
+      "regulation_maturity_score": 17,
+      "activity_score": 45,
+      "automation_signal_count": 1,
+      "latest_update_count": 1,
+      "status_weight": 18,
+      "comparison_summary": "OECD (policy navigator): International — principles repository (no_clear_framework); 1 tracker update(s); maturity index 17/100 from pilot metadata — not legal advice.",
+      "manual_seed_update_count": 1,
+      "offline_metadata_adapter_update_count": 0
     },
     {
       "jurisdiction_id": "singapore",
@@ -217,7 +283,15 @@
       "client_evidence_allowed": false,
       "final_evidence_allowed": false,
       "legal_change_claimed": false,
-      "legal_safe_note": "T048 manual seed. Not legal advice. Verify on official sources.\n"
+      "legal_safe_note": "T048 manual seed. Not legal advice. Verify on official sources.\n",
+      "regulation_maturity_score": 57,
+      "activity_score": 55,
+      "automation_signal_count": 2,
+      "latest_update_count": 2,
+      "status_weight": 68,
+      "comparison_summary": "Singapore: Guidance — model governance toolkit (guidance); 2 tracker update(s); maturity index 57/100 from pilot metadata — not legal advice.",
+      "manual_seed_update_count": 1,
+      "offline_metadata_adapter_update_count": 1
     },
     {
       "jurisdiction_id": "south-korea",
@@ -240,7 +314,15 @@
       "client_evidence_allowed": false,
       "final_evidence_allowed": false,
       "legal_change_claimed": false,
-      "legal_safe_note": "T048 manual seed. Not legal advice. Verify on official sources.\n"
+      "legal_safe_note": "T048 manual seed. Not legal advice. Verify on official sources.\n",
+      "regulation_maturity_score": 54,
+      "activity_score": 45,
+      "automation_signal_count": 1,
+      "latest_update_count": 1,
+      "status_weight": 68,
+      "comparison_summary": "South Korea: Guidance — PIPC AI materials (guidance); 1 tracker update(s); maturity index 54/100 from pilot metadata — not legal advice.",
+      "manual_seed_update_count": 1,
+      "offline_metadata_adapter_update_count": 0
     },
     {
       "jurisdiction_id": "unesco",
@@ -263,7 +345,15 @@
       "client_evidence_allowed": false,
       "final_evidence_allowed": false,
       "legal_change_claimed": false,
-      "legal_safe_note": "T048 manual seed. Not legal advice. Non-binding ethics framing — verify official text.\n"
+      "legal_safe_note": "T048 manual seed. Not legal advice. Non-binding ethics framing — verify official text.\n",
+      "regulation_maturity_score": 57,
+      "activity_score": 55,
+      "automation_signal_count": 2,
+      "latest_update_count": 2,
+      "status_weight": 68,
+      "comparison_summary": "UNESCO: International — ethics recommendation (guidance); 2 tracker update(s); maturity index 57/100 from pilot metadata — not legal advice.",
+      "manual_seed_update_count": 1,
+      "offline_metadata_adapter_update_count": 1
     },
     {
       "jurisdiction_id": "uk",
@@ -287,7 +377,15 @@
       "client_evidence_allowed": false,
       "final_evidence_allowed": false,
       "legal_change_claimed": false,
-      "legal_safe_note": "T048 manual seed. Not legal advice. Not complete UK coverage. Verify on official sources.\n"
+      "legal_safe_note": "T048 manual seed. Not legal advice. Not complete UK coverage. Verify on official sources.\n",
+      "regulation_maturity_score": 63,
+      "activity_score": 75,
+      "automation_signal_count": 4,
+      "latest_update_count": 4,
+      "status_weight": 68,
+      "comparison_summary": "United Kingdom: Guidance — sector-led framework (guidance); 4 tracker update(s); maturity index 63/100 from pilot metadata — not legal advice.",
+      "manual_seed_update_count": 1,
+      "offline_metadata_adapter_update_count": 3
     },
     {
       "jurisdiction_id": "us-federal",
@@ -311,7 +409,15 @@
       "client_evidence_allowed": false,
       "final_evidence_allowed": false,
       "legal_change_claimed": false,
-      "legal_safe_note": "T048 manual seed. Not legal advice. US state and sector rules not fully tracked. Verify on official sources.\n"
+      "legal_safe_note": "T048 manual seed. Not legal advice. US state and sector rules not fully tracked. Verify on official sources.\n",
+      "regulation_maturity_score": 60,
+      "activity_score": 65,
+      "automation_signal_count": 3,
+      "latest_update_count": 3,
+      "status_weight": 68,
+      "comparison_summary": "United States (federal): Guidance — agency-led signals (guidance); 3 tracker update(s); maturity index 60/100 from pilot metadata — not legal advice.",
+      "manual_seed_update_count": 1,
+      "offline_metadata_adapter_update_count": 2
     }
   ]
 }

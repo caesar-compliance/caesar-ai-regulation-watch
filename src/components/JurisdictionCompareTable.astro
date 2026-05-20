@@ -1,0 +1,105 @@
+---
+import type { EnrichedCountryStatus } from "../lib/tracker-data";
+import { STATUS_BUCKET_LABELS, AUTOMATION_METHOD_LABELS } from "../lib/tracker-data";
+import StatusBucketBadge from "./StatusBucketBadge.astro";
+import { formatDate } from "../lib/format";
+import { sourcesForJurisdiction } from "../lib/data";
+
+interface Props {
+  selected: EnrichedCountryStatus[];
+}
+
+const { selected } = Astro.props;
+
+const rows = [
+  { key: "region", label: "Region" },
+  { key: "status", label: "Status bucket" },
+  { key: "maturity", label: "Maturity index — heuristic (0–100)" },
+  { key: "activity", label: "Activity index — heuristic (0–100)" },
+  { key: "last_update", label: "Last update date" },
+  { key: "updates", label: "Tracker updates" },
+  { key: "methods", label: "Automation methods" },
+  { key: "sources", label: "Registry sources" },
+  { key: "topics", label: "Topics" },
+] as const;
+---
+
+{
+  selected.length === 0 ? (
+    <p>Select 2–4 jurisdictions above to compare tracker metadata side by side.</p>
+  ) : (
+    <div class="compare-table-wrap">
+      <table class="compare-table">
+        <caption class="compare-table__caption">
+          Jurisdiction comparison — tracker metadata only (not legal advice)
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Field</th>
+            {selected.map((cs) => (
+              <th scope="col">
+                <a href={`/jurisdictions/${cs.jurisdiction_id}/`}>{cs.country_name}</a>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr>
+              <th scope="row">{row.label}</th>
+              {selected.map((cs) => {
+                const sources = sourcesForJurisdiction(cs.jurisdiction_id);
+                return (
+                  <td>
+                    {row.key === "region" && cs.region}
+                    {row.key === "status" && (
+                      <StatusBucketBadge bucket={cs.status_bucket} label={cs.status_label} />
+                    )}
+                    {row.key === "maturity" && cs.regulation_maturity_score}
+                    {row.key === "activity" && cs.activity_score}
+                    {row.key === "last_update" && formatDate(cs.last_update_date)}
+                    {row.key === "updates" && cs.latest_update_count}
+                    {row.key === "methods" && (
+                      <span>
+                        {cs.manual_seed_update_count > 0 &&
+                          `${cs.manual_seed_update_count} ${AUTOMATION_METHOD_LABELS.manual_seed}`}
+                        {cs.manual_seed_update_count > 0 &&
+                          cs.offline_metadata_adapter_update_count > 0 &&
+                          " · "}
+                        {cs.offline_metadata_adapter_update_count > 0 &&
+                          `${cs.offline_metadata_adapter_update_count} ${AUTOMATION_METHOD_LABELS.offline_metadata_adapter}`}
+                        {cs.latest_update_count === 0 && "—"}
+                      </span>
+                    )}
+                    {row.key === "sources" && (
+                      <ul class="compare-table__sources">
+                        {sources.slice(0, 5).map((s) => (
+                          <li>
+                            <a href={`/sources/${s.source_id}/`}>{s.title}</a>
+                          </li>
+                        ))}
+                        {sources.length > 5 && (
+                          <li>
+                            <em>+{sources.length - 5} more in registry</em>
+                          </li>
+                        )}
+                      </ul>
+                    )}
+                    {row.key === "topics" && cs.topic_tags.join(", ")}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <ul class="compare-summaries">
+        {selected.map((cs) => (
+          <li>
+            <strong>{cs.country_name}:</strong> {cs.comparison_summary}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}

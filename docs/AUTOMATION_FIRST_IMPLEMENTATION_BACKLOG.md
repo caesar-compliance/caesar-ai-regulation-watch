@@ -47,11 +47,11 @@
 | P2-03 | **Duplicate detection** — same URL/title/hash jurisdiction | P0 | |
 | P2-04 | **Timelines** — link updates to milestone timelines | P1 | Extend existing `/timelines/` |
 | P2-05 | **Better search** — structured feed search + Pagefind sync | P1 | |
-| P2-06 | **Map choropleth** — full status coloring from `country_status` | P1 | riadeane-inspired UX, Caesar data |
-| P2-07 | **Compare jurisdictions** — 2–5 country delta view | P2 | Techieray / DLA Piper |
+| P2-06 | **Map choropleth** — full status coloring from `country_status` | P1 | **T050 (in progress):** Caesar-native regional panel + tiles; no GPL map |
+| P2-07 | **Compare jurisdictions** — 2–5 country delta view | P2 | **T050 (in progress):** `/compare/` for 2–4 pilot jurisdictions |
 | P2-08 | **Edition snapshots** — quarterly `metric_snapshot` baseline | P2 | DLA Piper edition model |
 | P2-09 | **Staleness alerts** — 90-day source re-check flags | P1 | riadeane `STALENESS_DAYS` pattern |
-| P2-10 | **Monitoring integration** — detected-changes → regulatory_update pipeline | P1 | **T049 (in progress):** `offline_metadata_adapter` from repo-local metadata; no live fetch |
+| P2-10 | **Monitoring integration** — detected-changes → regulatory_update pipeline | P1 | **T049 (deployed v1.0.6):** `offline_metadata_adapter` from repo-local metadata; no live fetch |
 
 **Exit criteria:** ≥5 adapters run in CI schedule; feed updates without manual YAML edits for those sources.
 

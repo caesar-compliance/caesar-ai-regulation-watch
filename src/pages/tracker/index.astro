@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import MetricsStrip from "../../components/MetricsStrip.astro";
-import TrackerRegionMap from "../../components/TrackerRegionMap.astro";
+import TrackerChoroplethMap from "../../components/TrackerChoroplethMap.astro";
 import TrackerFilterForm from "../../components/TrackerFilterForm.astro";
 import UpdateFeedCard from "../../components/UpdateFeedCard.astro";
 import {
@@ -11,11 +11,13 @@ import {
   filterRegulatoryUpdates,
   getCountryStatuses,
   getRegulatoryUpdates,
+  getEnrichedCountryStatuses,
 } from "../../lib/tracker-data";
 
 const metrics = getAutomationFirstMetrics();
 const topics = getTrackerTopics();
 const allStatuses = getCountryStatuses();
+const enrichedStatuses = getEnrichedCountryStatuses();
 const regions = [...new Set(allStatuses.map((c) => c.region))].sort();
 
 const region = Astro.url.searchParams.get("region");
@@ -44,9 +46,8 @@ const latestUpdates = filterRegulatoryUpdates({
 >
   <h1>Global AI regulation tracker</h1>
   <p class="lead">
-    Automation-first public tracker skeleton (T048). Source-linked jurisdiction status and
-    regulatory update feed from curated pilot data — not legal advice and not complete global
-    coverage.
+    Automation-first public tracker with choropleth-style status panel (T050) and source-linked
+    updates from curated pilot data — not legal advice and not complete global coverage.
   </p>
 
   <div class="banner banner--automation" role="note">
@@ -68,8 +69,16 @@ const latestUpdates = filterRegulatoryUpdates({
   </section>
 
   <section class="tracker-section">
-    <h2>Regional status map (skeleton)</h2>
-    <TrackerRegionMap items={filteredStatuses.length ? filteredStatuses : allStatuses} />
+    <h2>Regulation status map</h2>
+    <TrackerChoroplethMap
+      items={
+        filteredStatuses.length
+          ? enrichedStatuses.filter((e) =>
+              filteredStatuses.some((f) => f.jurisdiction_id === e.jurisdiction_id),
+            )
+          : enrichedStatuses
+      }
+    />
   </section>
 
   <section class="tracker-section">
@@ -94,9 +103,12 @@ const latestUpdates = filterRegulatoryUpdates({
     <h2>
       Country status list
       <a href="/countries/" class="tracker-section__more">All countries →</a>
+      <a href="/compare/" class="tracker-section__more">Compare →</a>
     </h2>
     <p>
-      Showing {filteredStatuses.length} of {allStatuses.length} pilot jurisdictions.
+      Showing {filteredStatuses.length} of {allStatuses.length} pilot jurisdictions. Average maturity
+      index {metrics.average_regulation_maturity_score ?? "—"} (heuristic tracker metadata — not
+      legal certainty).
     </p>
   </section>
 </BaseLayout>

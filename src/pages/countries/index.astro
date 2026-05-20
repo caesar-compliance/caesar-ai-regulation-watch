@@ -6,6 +6,7 @@ import {
   getTrackerTopics,
   filterCountryStatuses,
   getCountryStatuses,
+  getEnrichedCountryStatuses,
   groupCountryStatusesByRegion,
 } from "../../lib/tracker-data";
 import { formatDate } from "../../lib/format";
@@ -19,10 +20,15 @@ const status = Astro.url.searchParams.get("status");
 const topic = Astro.url.searchParams.get("topic");
 
 const filtered = filterCountryStatuses({ region, status, topic });
-const byRegion = groupCountryStatusesByRegion().map((g) => ({
-  ...g,
-  items: g.items.filter((cs) => filtered.some((f) => f.jurisdiction_id === cs.jurisdiction_id)),
-})).filter((g) => g.items.length > 0);
+const enrichedById = new Map(
+  getEnrichedCountryStatuses().map((e) => [e.jurisdiction_id, e]),
+);
+const byRegion = groupCountryStatusesByRegion()
+  .map((g) => ({
+    ...g,
+    items: g.items.filter((cs) => filtered.some((f) => f.jurisdiction_id === cs.jurisdiction_id)),
+  }))
+  .filter((g) => g.items.length > 0);
 ---
 
 <BaseLayout
@@ -32,8 +38,9 @@ const byRegion = groupCountryStatusesByRegion().map((g) => ({
 >
   <h1>Countries &amp; jurisdictions</h1>
   <p class="lead">
-    Regulation status for pilot jurisdictions in the automation-first tracker. Links go to existing
-    jurisdiction profiles for sources and records.
+    Regulation status for pilot jurisdictions in the automation-first tracker. Maturity and activity
+    indices are tracker metadata — not legal advice. <a href="/compare/">Compare jurisdictions</a> or
+    see the <a href="/tracker/">status map</a>.
   </p>
 
   <TrackerFilterForm
@@ -52,7 +59,9 @@ const byRegion = groupCountryStatusesByRegion().map((g) => ({
       <section class="group-section">
         <h2 class="group-section__title">{group.region}</h2>
         <ul class="country-status-list">
-          {group.items.map((cs) => (
+          {group.items.map((cs) => {
+            const enriched = enrichedById.get(cs.jurisdiction_id);
+            return (
             <li class="country-status-list__item">
               <div class="country-status-list__header">
                 <h3>
@@ -61,6 +70,14 @@ const byRegion = groupCountryStatusesByRegion().map((g) => ({
                 <StatusBucketBadge bucket={cs.status_bucket} label={cs.status_label} />
               </div>
               <p>{cs.status_summary}</p>
+              {
+                enriched && (
+                  <p class="country-status-list__scores">
+                    Maturity index {enriched.regulation_maturity_score} · Activity{" "}
+                    {enriched.activity_score} · {enriched.latest_update_count} tracker update(s)
+                  </p>
+                )
+              }
               <p class="country-status-list__meta">
                 Last update: {formatDate(cs.last_update_date)} · Confidence: {cs.confidence_score}
               </p>
@@ -68,7 +85,8 @@ const byRegion = groupCountryStatusesByRegion().map((g) => ({
                 Topics: {cs.topic_tags.join(", ")}
               </p>
             </li>
-          ))}
+            );
+          })}
         </ul>
       </section>
     ))
