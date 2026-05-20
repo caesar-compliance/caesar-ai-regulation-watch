@@ -11,11 +11,11 @@
 | **Repository** | `caesar-ai-regulation-watch` |
 | **Current version** | `v1.0.0-rc1` (release candidate — not final v1.0.0) |
 | **Current phase** | Public technical MVP candidate |
-| **Status** | Live on custom domain; v0.9.9 deployed (`950441f`); v1.0.0-rc1 pending deploy |
-| **Working branch** | `main` (after merge) |
-| **Latest completed task** | v1.0.0-rc1 — scope freeze + RC decision record + release candidate docs |
-| **Prior deployment** | `DEPLOY-20260520-016` — v0.9.9, commit `950441f`, run [26163138385](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26163138385) |
-| **Git tag (live)** | `regulation-watch-v0.9.9` → `950441f` |
+| **Status** | Live on custom domain; v1.0.0-rc1 deployed (`0765327`); tag `regulation-watch-v1.0.0-rc1` |
+| **Working branch** | `main` |
+| **Latest completed task** | v1.0.0-rc1 — public technical MVP release candidate deploy + smoke |
+| **Prior deployment** | `DEPLOY-20260520-017` — v1.0.0-rc1, commit `0765327`, run [26163494827](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26163494827) |
+| **Git tag (live)** | `regulation-watch-v1.0.0-rc1` → `0765327` |
 | **Next recommended step** | Control Tower: review [docs/V1_RELEASE_CANDIDATE_DECISION_RECORD.md](docs/V1_RELEASE_CANDIDATE_DECISION_RECORD.md) and decide final v1.0.0 vs keep RC |
 
 ---
