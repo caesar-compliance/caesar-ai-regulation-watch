@@ -9,41 +9,45 @@
 | Field | Value |
 |---|---|
 | **Repository** | `caesar-ai-regulation-watch` |
-| **Current version** | `v0.9.9` |
-| **Current phase** | Public pilot · **Technical MVP candidate** (readiness audit pack) |
-| **Status** | Live on custom domain; v0.9.8 deployed (`535f635`); v0.9.9 pending deploy |
+| **Current version** | `v1.0.0-rc1` (release candidate — not final v1.0.0) |
+| **Current phase** | Public technical MVP candidate |
+| **Status** | Live on custom domain; v0.9.9 deployed (`950441f`); v1.0.0-rc1 pending deploy |
 | **Working branch** | `main` (after merge) |
-| **Latest completed task** | v0.9.9 — MVP readiness audit + technical release candidate documentation |
-| **Prior deployment** | `DEPLOY-20260520-015` — v0.9.8, commit `535f635`, run [26162703420](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26162703420) |
-| **Git tag (live)** | `regulation-watch-v0.9.8` → `535f635` |
-| **Next recommended step** | Control Tower: review [docs/MVP_READINESS_AUDIT.md](docs/MVP_READINESS_AUDIT.md) and decide v1.0.0 RC vs more source verification |
+| **Latest completed task** | v1.0.0-rc1 — scope freeze + RC decision record + release candidate docs |
+| **Prior deployment** | `DEPLOY-20260520-016` — v0.9.9, commit `950441f`, run [26163138385](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26163138385) |
+| **Git tag (live)** | `regulation-watch-v0.9.9` → `950441f` |
+| **Next recommended step** | Control Tower: review [docs/V1_RELEASE_CANDIDATE_DECISION_RECORD.md](docs/V1_RELEASE_CANDIDATE_DECISION_RECORD.md) and decide final v1.0.0 vs keep RC |
 
 ---
 
-## v0.9.9 scope (this release)
+## v1.0.0-rc1 scope (this release)
 
 | Property | Value |
 |---|---|
-| Type | Readiness audit / technical release candidate pack |
+| Type | Release candidate — scope freeze + docs + version bump |
 | New features | **None** |
 | New jurisdictions/sources | **None** |
 | Monitoring allowlist expansion | **None** |
 | Scheduled monitoring | **None** |
-| Docs added | `MVP_READINESS_AUDIT.md`, `V1_MVP_BLOCKERS_AND_DECISIONS.md`, `V1_RELEASE_CANDIDATE_CHECKLIST.md` |
+| Docs added | `V1_TECHNICAL_MVP_SCOPE_FREEZE.md`, `V1_RELEASE_CANDIDATE_DECISION_RECORD.md` |
+| Docs updated | `V1_RELEASE_CANDIDATE_CHECKLIST.md`, project state docs |
+
+**Important:** v1.0.0-rc1 is a **release candidate**, not final v1.0.0. Control Tower sign-off required before final tag.
 
 ---
 
-## MVP readiness summary (v0.9.9 audit)
+## MVP readiness summary (v0.9.9 audit base)
 
 | Area | Verdict |
 |---|---|
-| Public site + custom domain | Operational — technical MVP candidate |
+| Public site + custom domain | Operational — public technical MVP candidate |
 | Data validation + exports | Operational |
 | Governance gates | Enforced (`client_use_allowed: 0`) |
 | Manual monitoring workflow | Operational (v0.9.8) |
-| v1.0.0 readiness | **Blocked** — see [docs/V1_MVP_BLOCKERS_AND_DECISIONS.md](docs/V1_MVP_BLOCKERS_AND_DECISIONS.md) |
+| Final v1.0.0 readiness | **Blocked / pending CT review** — see [docs/V1_MVP_BLOCKERS_AND_DECISIONS.md](docs/V1_MVP_BLOCKERS_AND_DECISIONS.md) |
 
-Full module assessment: [docs/MVP_READINESS_AUDIT.md](docs/MVP_READINESS_AUDIT.md).
+Full module assessment: [docs/MVP_READINESS_AUDIT.md](docs/MVP_READINESS_AUDIT.md).  
+Scope freeze: [docs/V1_TECHNICAL_MVP_SCOPE_FREEZE.md](docs/V1_TECHNICAL_MVP_SCOPE_FREEZE.md).
 
 ---
 

@@ -6,13 +6,14 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { readProjectVersion, readProjectVersionLabel } from "./lib/read-project-version.mjs";
+import { readProjectVersion, readProjectVersionLabel, readProjectPhaseLabel } from "./lib/read-project-version.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = path.join(ROOT, "dist");
 const base = process.env.ASTRO_BASE_PATH || "/";
 const PROJECT_VERSION = readProjectVersion();
 const PROJECT_VERSION_LABEL = readProjectVersionLabel();
+const PROJECT_PHASE_LABEL = readProjectPhaseLabel();
 
 function distPath(rel) {
   return path.join(DIST, rel.replace(/^\//, ""));
@@ -74,7 +75,7 @@ const staleHtmlPatterns = [
 const requiredHtmlChecks = [
   {
     rel: "index.html",
-    mustInclude: [PROJECT_VERSION_LABEL, "Public pilot"],
+    mustInclude: [PROJECT_VERSION_LABEL, PROJECT_PHASE_LABEL],
   },
   {
     rel: "evidence-export-candidates/index.html",

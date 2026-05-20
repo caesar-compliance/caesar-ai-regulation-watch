@@ -1,4 +1,4 @@
 /** Single source for public pilot version labels (site + JSON snapshot). */
-export const PROJECT_VERSION = "0.9.9";
-export const PROJECT_VERSION_LABEL = `v${PROJECT_VERSION}`;
-export const PROJECT_PHASE_LABEL = "Public pilot · Technical MVP candidate";
+export const PROJECT_VERSION = "1.0.0-rc1";
+export const PROJECT_VERSION_LABEL = "v1.0.0-rc1";
+export const PROJECT_PHASE_LABEL = "Public technical MVP candidate";
