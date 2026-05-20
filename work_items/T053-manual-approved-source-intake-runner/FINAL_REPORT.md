@@ -6,10 +6,10 @@
 |---|---|
 | Starting main | `d373957` |
 | Branch | `task/T053-manual-approved-source-intake-runner` |
-| Implementation commit | *(filled after commit)* |
-| PR | *(filled after gh pr create)* |
-| Final main commit | unchanged until merge |
-| Working tree clean | *(after commit)* |
+| Implementation commit | `c7c9c2b` |
+| PR | https://github.com/caesar-compliance/caesar-ai-regulation-watch/pull/13 |
+| Final main commit | `d373957` (unchanged until merge) |
+| Working tree clean | yes |
 
 ## Version / deploy
 
