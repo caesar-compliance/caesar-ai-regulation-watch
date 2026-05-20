@@ -2,7 +2,7 @@
 
 **Last updated:** 20 May 2026
 
-**Current version:** v0.9.5 · **Phase:** public pilot — monitoring adapter pack · **Branch:** `agent/v0.9.5-monitoring-adapter-pilot` (pre-merge)
+**Current version:** v0.9.5 · **Phase:** public pilot — monitoring adapter pack · **Branch:** `main` (after merge)
 
 **Canonical URL:** https://regulation-watch.caesar.no/
 
@@ -16,7 +16,7 @@
 4. ~~**v0.9.3 targeted verification pass**~~ — batch `source-verification-2026-05-20-v093` + `content-review-2026-05-20-v093`; limitations documented.
 5. ~~**v0.9.4 watcher eligibility**~~ — `watcher-eligibility-2026-05-20` (15 entries); deterministic `monitoring-run-2026-05-20-v094`.
 6. ~~**v0.9.5 monitoring adapter pack**~~ — `source-configs-2026-05-20-v095`; `monitoring-run-2026-05-20-v095`; `npm run monitoring:pack`.
-7. **Deploy v0.9.5** — merge, `build:custom-domain`, workflow_dispatch deploy, tag `regulation-watch-v0.9.5`.
+7. ~~**Deploy v0.9.5**~~ — `DEPLOY-20260520-012` live; tag `regulation-watch-v0.9.5`.
 8. **Human browser verification (remaining)** — Australia `industry.gov.au` ethics principles HTML (WAF); EUR-Lex CELEX 32024R1689; EDPB AI topic when stable HTTP 200.
 9. **Optional:** cautious live metadata fetch for one fetchable config (single URL; no crawl).
 

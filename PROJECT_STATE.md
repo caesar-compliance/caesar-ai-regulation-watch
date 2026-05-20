@@ -11,12 +11,12 @@
 | **Repository** | `caesar-ai-regulation-watch` |
 | **Current version** | `v0.9.5` |
 | **Current phase** | Public pilot — monitoring adapter pack + deterministic pack run |
-| **Status** | Release in progress (branch `agent/v0.9.5-monitoring-adapter-pilot`) |
-| **Working branch** | `agent/v0.9.5-monitoring-adapter-pilot` |
-| **Latest completed task** | v0.9.5 — monitoring source config pack + `monitoring-run-2026-05-20-v095` |
-| **Deployment ID** | Pending post-merge deploy |
-| **Git tag** | Pending `regulation-watch-v0.9.5` |
-| **Next recommended step** | Deploy v0.9.5; Control Tower human browser on blocked sources |
+| **Status** | Live on custom domain; v0.9.5 deployed (`5d43122`) |
+| **Working branch** | `main` |
+| **Latest completed task** | v0.9.5 — monitoring adapter pack + deterministic pack run v095 |
+| **Deployment ID** | `DEPLOY-20260520-012` — commit `5d43122`, run [26160894726](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26160894726) |
+| **Git tag** | `regulation-watch-v0.9.5` (after docs commit) |
+| **Next recommended step** | Control Tower: human browser on blocked sources; optional single-URL live metadata pilot |
 
 ---
 
