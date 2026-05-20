@@ -9,16 +9,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+---
+
+## [1.0.7] - 20 May 2026
+
 ### Added
 
-- **T050 choropleth-style tracker map** — Regional status panel with colored jurisdiction tiles, maturity/activity indices, and legend on `/tracker/`.
-- **T050 compare jurisdictions** — `/compare/` for 2–4 pilot jurisdictions; side-by-side tracker metadata table with source links.
+- **T050 choropleth-style tracker map** — Regional status panel with colored jurisdiction tiles, heuristic maturity/activity indices, and legend on `/tracker/`.
+- **T050 compare jurisdictions** — `/compare/` for 2–4 pilot jurisdictions; side-by-side tracker metadata table with source links; max-4 selection notice.
 - **Tracker scoring metadata** — `regulation_maturity_score`, `activity_score`, `status_weight`, `comparison_summary` on enriched country status exports.
-- **JSON export** — `/data/jurisdiction-comparison.json`; scoring fields on `/data/country-status.json`.
+- **JSON export** — `/data/jurisdiction-comparison.json`; scoring fields on `/data/country-status.json`; `choropleth_map_available` and `compare_route` on metrics.
+
+### Changed
+
+- **Product version** — `v1.0.7`.
 
 ### Notes
 
-- Caesar-native Astro/CSS/SVG only; no GPL map libraries. Not legal advice; evidence gates remain closed.
+- Caesar-native Astro/CSS/SVG only; no GPL map libraries. Heuristic tracker metadata — not legal advice, not legal certainty, not final evidence. Evidence gates remain closed.
+- **Deployed** 20 May 2026 — `DEPLOY-20260520-025`, commit TBD, run TBD, tag `regulation-watch-v1.0.7`. Public smoke on `/`, `/tracker/`, `/updates/`, `/countries/`, `/compare/`, and tracker JSON exports.
 
 ---
 

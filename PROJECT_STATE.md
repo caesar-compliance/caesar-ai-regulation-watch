@@ -4,11 +4,11 @@
 
 | Field | Value |
 |---|---|
-| **Current version** | `v1.0.6` (deployed) |
-| **Status** | Deployed and tagged `regulation-watch-v1.0.6` |
-| **Deployment** | `DEPLOY-20260520-024` — run [26187837019](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26187837019) |
+| **Current version** | `v1.0.7` (release prep — deploy pending) |
+| **Status** | Release branch — tag `regulation-watch-v1.0.7` after deploy |
+| **Deployment** | `DEPLOY-20260520-025` — run TBD |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
-| **Phase** | Public Technical MVP + automation-first tracker + offline metadata adapter (T049) |
+| **Phase** | Public Technical MVP + tracker map/compare (T050) |
 
 ## Product strategy decision — 20 May 2026
 
@@ -27,47 +27,38 @@ The first full MVP target is a Techieray / The Legal Wire style AI regulation tr
 
 Human review is no longer the foundation of the MVP roadmap. It remains an optional future assurance layer for premium legal, client evidence and Caesar AI Evidence / Governance OS workflows.
 
-The **v1.0.6** release adds the T049 offline metadata adapter for the regulatory updates feed on top of the **v1.0.5** tracker skeleton. See [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md) and [docs/AUTOMATION_FIRST_MVP_ROADMAP.md](docs/AUTOMATION_FIRST_MVP_ROADMAP.md).
+The **v1.0.7** release adds T050 choropleth-style tracker map and jurisdiction comparison on top of the **v1.0.6** offline metadata adapter feed. See [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md) and [docs/AUTOMATION_FIRST_MVP_ROADMAP.md](docs/AUTOMATION_FIRST_MVP_ROADMAP.md).
 
-## v1.0.6 summary (T049 — offline metadata adapter)
+## v1.0.7 summary (T050 — map + compare)
 
-- **Source adapter pipeline (offline)** — `npm run build:regulatory-updates` from repo monitoring/registry metadata; `offline_metadata_adapter` method; `/updates/` method filter; method badges on tracker surfaces.
-- **Feed totals** — 33 regulatory updates (`manual_seed`: 15, `offline_metadata_adapter`: 18); 13 country statuses; 9 topics.
-- **JSON exports** — method counts on `regulatory-updates.json` and `automation-first-metrics.json`.
-- **Deploy** — `DEPLOY-20260520-024`, commit `1e8b7f0`, run [26187837019](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26187837019); tag `regulation-watch-v1.0.6`.
-- **No scraping/crawling** — repo-local metadata only; no competitor data; evidence gates unchanged.
-- **Recommended next** — T051 richer country profile pages and regional/topic drilldowns; live API/RSS adapters per Phase 2 backlog.
+- **Choropleth-style tracker map** — `/tracker/` regional status panel with legend; heuristic maturity/activity indices on jurisdiction tiles.
+- **Compare jurisdictions** — `/compare/` for 2–4 pilot jurisdictions; side-by-side tracker metadata; max-4 selection notice.
+- **JSON exports** — enriched `country-status.json`, `jurisdiction-comparison.json`, `automation-first-metrics.json` with `compare_route` and scoring fields.
+- **Deploy** — `DEPLOY-20260520-025`, commit and run TBD until workflow completes; tag `regulation-watch-v1.0.7` after smoke pass.
+- **No scraping/crawling** — Caesar-native CSS/SVG only; no GPL map libraries; evidence gates unchanged.
+- **Recommended next** — T051 richer country profile pages and regional/topic drilldowns.
 
-## T050 in progress (feature branch)
+### Remaining limitations (v1.0.7)
 
-- **Choropleth-style map** — `/tracker/` status panel with legend and maturity/activity indices (pilot metadata).
-- **Compare jurisdictions** — `/compare/` for 2–4 jurisdictions.
-- **Not deployed** — implementation on `feature/T050-choropleth-map-compare-jurisdictions`; live site remains v1.0.6 until release task.
-
-### Remaining limitations (v1.0.6 live + T050 branch)
-
-- Offline metadata adapter only — not live API/RSS fetch automation.
+- Heuristic tracker metadata only — not legal certainty or compliance scoring.
 - Abstract regional panel — not precise geographic choropleth.
+- Offline metadata adapter only — not live API/RSS fetch automation.
 - 13 pilot jurisdictions — not complete global coverage.
 - Not legal advice; not final evidence; not verified legal change; `verified_on_source`, `client_use_allowed`, `final_evidence_allowed`, and `legal_change_claimed` remain closed.
 
+## v1.0.6 summary (previous live — T049)
+
+- **Source adapter pipeline (offline)** — 33 regulatory updates (`manual_seed`: 15, `offline_metadata_adapter`: 18).
+- **Deployed** — commit `1e8b7f0`, tag `regulation-watch-v1.0.6`, deploy run [26187837019](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26187837019).
+
 ## v1.0.5 summary (previous live — T048)
 
-- **Automation-first tracker skeleton** — `/tracker/`, `/updates/`, `/countries/` with metrics, filters, CSS/SVG map skeleton.
-- **Seed data** — 13 country statuses, 15 regulatory updates, 9 topics (`manual_seed` only).
-- **Deployed** — commit `a153043`, tag `regulation-watch-v1.0.5`, deploy run [26184820086](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26184820086).
+- **Automation-first tracker skeleton** — `/tracker/`, `/updates/`, `/countries/`.
+- **Deployed** — commit `a153043`, tag `regulation-watch-v1.0.5`.
 
 ## v1.0.4 summary (previous live technical base)
 
-- **Autonomous official-source verification worker** — `npm run source:verify:autonomous`, schema, allowlist, batch export, `/source-verification/` page.
-- **No WAF/bot bypass** — metadata-only fetch, official SPARQL/Cellar attempts, EFTA EEA-Lex official alternative for CELEX identity where EUR-Lex blocked.
-- **Browser worker** — not bundled (Playwright pending); documented in workflow.
-- `verified_on_source: 0` · `client_use_allowed: 0` · `final_evidence_allowed: 0` unchanged.
-
-## v1.0.3 summary (previous live)
-
-- Manual source verification intake — supplementary placeholders for blocked sources.
-- Australia / EUR-Lex / Japan blockers documented; autonomous worker replaces manual-only primary path in v1.0.4.
+- **Autonomous official-source verification worker** — metadata-only fetch; evidence gates unchanged.
 
 ## Documentation rebase (T046)
 

@@ -1,8 +1,8 @@
 # Public Deployment Baseline
 
-**Phase:** v1.0.6 — offline metadata adapter for updates feed (T049)
+**Phase:** v1.0.7 — choropleth map + jurisdiction comparison (T050)
 **Deployment date:** 20 May 2026
-**Status:** Deployed — `DEPLOY-20260520-024` (run [26187837019](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26187837019))
+**Status:** Deploy pending — `DEPLOY-20260520-025` (run TBD)
 
 ---
 
@@ -10,47 +10,49 @@
 
 | Field | Value |
 |---|---|
-| **Product version** | `v1.0.6` |
-| **Deployment ID** | `DEPLOY-20260520-024` |
-| **Deployed commit** | `1e8b7f0` |
-| **Git tag** | `regulation-watch-v1.0.6` |
-| **Prior deploy** | v1.0.5 `a153043` — [26184820086](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26184820086) |
+| **Product version** | `v1.0.7` |
+| **Deployment ID** | `DEPLOY-20260520-025` |
+| **Deployed commit** | TBD |
+| **Git tag** | `regulation-watch-v1.0.7` (after successful deploy + smoke) |
+| **Prior deploy** | v1.0.6 `1e8b7f0` — [26187837019](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26187837019) |
 | **Public URL** | https://regulation-watch.caesar.no/ |
 | **Deploy workflow** | Deploy static site (`.github/workflows/deploy-static-site.yml`) |
 
 ---
 
-## Smoke test results
+## Expected smoke (post-deploy)
 
-**Result:** pass
+**Result:** pending
 
 All required URLs HTTP **200**:
 
-- `/`, `/tracker/`, `/updates/`, `/countries/`
-- `/data/country-status.json`, `/data/regulatory-updates.json`, `/data/automation-first-metrics.json`, `/data/tracker-topics.json`, `/data/regulation-watch-snapshot.json`
-- `version` **1.0.6** confirmed in snapshot
+- `/`, `/tracker/`, `/updates/`, `/countries/`, `/compare/`
+- `/compare/?ids=eu&ids=uk&ids=us-federal`
+- `/data/country-status.json`, `/data/regulatory-updates.json`, `/data/jurisdiction-comparison.json`, `/data/automation-first-metrics.json`, `/data/regulation-watch-snapshot.json`
+- `version` **1.0.7** confirmed in snapshot
 
-Conservative disclaimers visible. Metadata adapter wording on tracker surfaces. `manual_seed_count` **15**; `offline_metadata_adapter_count` **18**; total **33** updates. `verified_on_source_count` **0**; `client_use_allowed_count` **0**; `legal_change_claimed_count` **0**.
+Conservative disclaimers visible. Choropleth map and legend on `/tracker/`. Heuristic maturity/activity wording. `verified_on_source_count` **0**; `client_use_allowed_count` **0**; `legal_change_claimed_count` **0**.
 
-## v1.0.6 scope (T049)
+## v1.0.7 scope (T050)
 
 | Area | Result |
 |---|---|
-| **Offline adapter** | `npm run build:regulatory-updates` from repo-local monitoring/registry metadata |
-| **Feed** | 33 updates with method filter; badges distinguish `manual_seed` vs `offline_metadata_adapter` |
+| **Choropleth panel** | Regional status tiles colored by `status_bucket`; legend; maturity/activity indices |
+| **Compare** | `/compare/` for 2–4 jurisdictions; `jurisdiction-comparison.json` export |
 | **Automation** | No scraping, crawling, or live network adapters |
 
 ## Remaining limitations
 
-- **Offline metadata adapter only** — not live API/RSS fetch (Phase 2).
-- **CSS/SVG map skeleton** — not full choropleth (T050).
+- **Heuristic tracker metadata only** — not legal certainty or compliance scoring.
+- **Abstract regional panel** — not precise geographic choropleth.
 - **13 pilot jurisdictions** — not complete global coverage.
+- **Offline metadata adapter only** — not live API/RSS fetch (Phase 2).
 - **Not legal advice** — not final evidence; not verified legal change; evidence/client/final gates remain closed.
 
 Not legal advice. Not client evidence. Not complete coverage.
 
 ---
 
-## Previous baseline (v1.0.5)
+## Previous baseline (v1.0.6)
 
-See [DEPLOYMENTS.md](../DEPLOYMENTS.md) row `DEPLOY-20260520-023` for v1.0.5 T048 tracker skeleton deploy details.
+See [DEPLOYMENTS.md](../DEPLOYMENTS.md) row `DEPLOY-20260520-024` for v1.0.6 T049 offline metadata adapter deploy details.
