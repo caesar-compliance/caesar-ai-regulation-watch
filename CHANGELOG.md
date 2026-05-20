@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **Repository presentation polish** — Updated GitHub About description, added topics (regulatory-intelligence, governance, evidence, source-verification, static-site), polished README top section with clear status table, "What it does" / "What it is not" sections, and updated project status block.
+
 ---
 
 ## [1.0.4] - 20 May 2026
