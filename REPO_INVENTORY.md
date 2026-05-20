@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.8 on main — T051 + T052 + T053 + T054 branch; live v1.0.7 `DEPLOY-20260520-025`)
+**Last updated:** 21 May 2026 (v1.0.8 on main — T051 + T052 + T053 + T054; live v1.0.7 `DEPLOY-20260520-025`)
 
 ---
 
@@ -218,7 +218,7 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **scripts/run-manual-source-intake.mjs** | `npm run run:manual-source-intake` (CLI; no network) |
 | **generated/source-intake-candidates/T053-001.json** | Per-run output (gitignored) |
 
-## T054 — Network dry-run approval architecture (v1.0.8 branch)
+## T054 — Network dry-run approval architecture (v1.0.8 on main)
 
 | Path | Role |
 |---|---|

@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **Status** | v1.0.8 on main (T051 + T052 + T053; T054 in PR); live site v1.0.7 `DEPLOY-20260520-025` — deploy/tag pending |
+| **Status** | v1.0.8 on main (T051 + T052 + T053 + T054); live site v1.0.7 `DEPLOY-20260520-025` — deploy/tag pending |
 | **Hosting** | GitHub Pages — static site (Astro) |
 | **Scope** | AI regulation tracking, country profiles, latest updates, source monitoring, metrics and structured exports |
 | **Safety** | Not legal advice; source transparency and automation confidence labels apply |
@@ -266,10 +266,10 @@ Canonical values, review workflow, and future evidence export shape:
 
 ## Project status
 
-**v1.0.8 (main)** — T051 richer jurisdiction profiles, `/regions/` and `/topics/` drilldowns, JSON exports. T052 source adapter allowlist (`/source-adapters/`). T053 manual source intake runner (merged PR #13, fixture-first, [docs/MANUAL_SOURCE_INTAKE_RUNNER.md](docs/MANUAL_SOURCE_INTAKE_RUNNER.md)) — no live RSS/API collection. Tag `regulation-watch-v1.0.8` and deploy pending future Control Tower approval.
+**v1.0.8 (main)** — T051 richer jurisdiction profiles, `/regions/` and `/topics/` drilldowns, JSON exports. T052 source adapter allowlist (`/source-adapters/`). T053 manual source intake runner (merged PR #13, fixture-first). T054 network dry-run approval (merged PR #14, planning-only, [docs/NETWORK_DRY_RUN_APPROVAL_MODEL.md](docs/NETWORK_DRY_RUN_APPROVAL_MODEL.md)) — no live RSS/API collection. Tag `regulation-watch-v1.0.8` and deploy pending future Control Tower approval.
 
 **v1.0.7 (live)** — [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) (`DEPLOY-20260520-025`, tag `regulation-watch-v1.0.7`). T050 map/compare + T049 feed.
 
-**Next:** T054 — approved single-source network dry-run design (manual-only, explicit Control Tower approval, no scheduling, no publication).
+**Next:** T055 — execute one approved single-source network dry-run only after explicit Control Tower approval (one-off command, no scheduling, no publication).
 
 See [PROJECT_STATE.md](PROJECT_STATE.md) and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md).

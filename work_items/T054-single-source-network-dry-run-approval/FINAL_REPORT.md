@@ -5,17 +5,23 @@
 | Field | Value |
 |---|---|
 | Starting main | `39f44e9` |
-| Branch | `task/T054-single-source-network-dry-run-approval` |
-| Implementation commits | `9ab65dd`, `b11b3c5` |
-| PR | https://github.com/caesar-compliance/caesar-ai-regulation-watch/pull/14 |
-| Final main commit | `39f44e9` (unchanged until merge) |
-| Working tree clean | yes (post-commit) |
+| Branch | `task/T054-single-source-network-dry-run-approval` (deleted after merge) |
+| Implementation commits | `9ab65dd`, `b11b3c5`, `525ce4e` |
+| Squash merge | `78a00be` (PR #14) |
+| PR | https://github.com/caesar-compliance/caesar-ai-regulation-watch/pull/14 (merged) |
+| Final main commit | `78a00be` (+ post-merge docs cleanup if any) |
+| Working tree clean | yes (post-merge) |
 
 ## Version / deploy
 
 - Package: `1.0.8` (unchanged)
 - Live: `v1.0.7` (`regulation-watch-v1.0.7`)
-- No deploy, no tag, no deployment closeout in T054
+- Merged to main; no deploy, no tag, no deployment closeout in T054
+
+## Unicode pre-merge check
+
+- PASS: no bidi control characters in T054 target files
+- No cleanup commit required
 
 ## Pilot
 
