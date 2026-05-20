@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 20 May 2026 (v1.0.8 on main — T051 merged; T052 allowlist on branch; live v1.0.7 `DEPLOY-20260520-025`)
+**Last updated:** 21 May 2026 (v1.0.8 on main — T051 + T052 merged; live v1.0.7 `DEPLOY-20260520-025`)
 
 ---
 
@@ -192,7 +192,7 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **docs/MONITORING_RUNBOOK.md** | Operator runbook |
 | **docs/WATCHER_PROTOTYPE.md** | Watcher scope and usage |
 
-## T052 — Source adapter allowlist (v1.0.8 branch)
+## T052 — Source adapter allowlist (v1.0.8 on main)
 
 | Path | Role |
 |---|---|

@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Notes
 
-- Post-T051 implementation on main/branch; no live source collection; adapters disabled/draft/manual-gated; no deploy/tag in T052.
+- Merged to main (PR #12, squash commit `f3d2055`). Live site remains v1.0.7; tag `regulation-watch-v1.0.8` and deployment closeout pending future Control Tower approval. No live source collection; adapters disabled/draft/manual-gated; no deploy/tag in T052.
 
 ---
 

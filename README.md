@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **Status** | v1.0.8 on main (T051 merged); live site v1.0.7 `DEPLOY-20260520-025` — deploy/tag pending |
+| **Status** | v1.0.8 on main (T051 + T052 merged); live site v1.0.7 `DEPLOY-20260520-025` — deploy/tag pending |
 | **Hosting** | GitHub Pages — static site (Astro) |
 | **Scope** | AI regulation tracking, country profiles, latest updates, source monitoring, metrics and structured exports |
 | **Safety** | Not legal advice; source transparency and automation confidence labels apply |
@@ -266,10 +266,10 @@ Canonical values, review workflow, and future evidence export shape:
 
 ## Project status
 
-**v1.0.8 (main)** — T051 richer jurisdiction profiles, `/regions/` and `/topics/` drilldowns, and JSON exports (`jurisdiction-profiles.json`, `region-drilldowns.json`, `topic-drilldowns.json`). Merged to main; tag `regulation-watch-v1.0.8` and deploy pending future Control Tower approval.
+**v1.0.8 (main)** — T051 richer jurisdiction profiles, `/regions/` and `/topics/` drilldowns, JSON exports (`jurisdiction-profiles.json`, `region-drilldowns.json`, `topic-drilldowns.json`). T052 source adapter allowlist architecture (`/source-adapters/`, [docs/SOURCE_ADAPTER_ALLOWLIST.md](docs/SOURCE_ADAPTER_ALLOWLIST.md)). Merged to main; tag `regulation-watch-v1.0.8` and deploy pending future Control Tower approval. No live collection.
 
 **v1.0.7 (live)** — [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) (`DEPLOY-20260520-025`, tag `regulation-watch-v1.0.7`). T050 map/compare + T049 feed.
 
-**T052 (branch)** — Source adapter allowlist architecture: `npm run validate:source-adapters`, `npm run build:source-adapter-fixtures`, `/source-adapters/`, [docs/SOURCE_ADAPTER_ALLOWLIST.md](docs/SOURCE_ADAPTER_ALLOWLIST.md). No live collection. **Next after merge:** T053 manual approved intake runner.
+**Next:** T053 — manual approved source intake runner (fixture-first, one official RSS/API source, still disabled by default, no scheduling).
 
 See [PROJECT_STATE.md](PROJECT_STATE.md) and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md).

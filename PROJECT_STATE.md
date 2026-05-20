@@ -4,9 +4,9 @@
 
 | Field | Value |
 |---|---|
-| **Current version** | `v1.0.8` (implemented on main — T051 merged) |
+| **Current version** | `v1.0.8` (implemented on main — T051 + T052 merged) |
 | **Live version** | `v1.0.7` — tag `regulation-watch-v1.0.7` |
-| **Status** | T051 merged to main; T052 allowlist architecture in progress on branch; tag/deploy/closeout pending future Control Tower approval |
+| **Status** | T051 and T052 merged to main; live site remains v1.0.7; tag/deploy/closeout pending future Control Tower approval |
 | **Last deployment** | `DEPLOY-20260520-025` — commit `86c9262`, run [26189934284](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26189934284) |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
 | **Phase** | Public Technical MVP + profiles/drilldowns (T051) |
@@ -36,7 +36,7 @@ The **v1.0.8** codebase on main adds T051 richer jurisdiction profiles and regio
 - **Region drilldowns** — `/regions/` and `/regions/[slug]/` from pilot region metadata.
 - **Topic drilldowns** — `/topics/` and `/topics/[id]/` from `data/topics/`.
 - **JSON exports** — `jurisdiction-profiles.json`, `region-drilldowns.json`, `topic-drilldowns.json`.
-- **T052 source adapter allowlist (branch)** — Schema, draft allowlist, validation, fixture-only parser, `/source-adapters/` page, public JSON export. No live collection; no scheduled crawl.
+- **T052 source adapter allowlist (merged)** — Schema, draft allowlist, validation, fixture-only parser, `/source-adapters/` page, public JSON export. No live collection; no scheduled crawl.
 - **Recommended next** — T053 manual approved source intake runner (fixture-first, one official RSS/API, still disabled by default).
 
 ### Remaining limitations (v1.0.8)

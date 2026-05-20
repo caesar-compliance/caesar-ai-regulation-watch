@@ -5,17 +5,17 @@
 | Field | Value |
 |---|---|
 | Starting main | `3cb86e0` |
-| Branch | `task/T052-api-rss-allowlist-architecture` |
-| Implementation commit | `80b7a9e` |
-| PR | https://github.com/caesar-compliance/caesar-ai-regulation-watch/pull/12 |
-| Main unchanged until merge | yes |
-| Working tree clean | yes (after commit) |
+| Branch | `task/T052-api-rss-allowlist-architecture` (deleted after merge) |
+| Squash merge commit | `f3d2055` |
+| PR | https://github.com/caesar-compliance/caesar-ai-regulation-watch/pull/12 (merged) |
+| Merged to main | 21 May 2026 |
+| Working tree clean | yes (post-merge) |
 
 ## Version / deploy
 
 - Package: `1.0.8` (unchanged)
 - Live: `v1.0.7` (`regulation-watch-v1.0.7`)
-- No deploy, no tag, no merge in T052
+- Merged to main; no deploy, no tag, no deployment closeout in T052
 
 ## Files changed (30 files)
 
