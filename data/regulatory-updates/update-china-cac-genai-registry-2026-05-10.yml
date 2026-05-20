@@ -1,0 +1,24 @@
+update_id: update-china-cac-genai-registry-2026-05-10
+update_date: "2026-05-10"
+jurisdiction_id: china
+title: CAC generative AI measures — registry anchor
+update_type: law
+summary: >
+  Seed update links to the generative AI interim measures source entry and sample law record
+  context. Does not reproduce measure text.
+source_ids:
+  - china-cac-generative-ai
+source_urls:
+  - http://www.cac.gov.cn/
+topic_tags:
+  - china_genai
+status_bucket: adopted
+importance: high
+confidence_score: medium
+automation_method: manual_seed
+requires_human_review: false
+client_evidence_allowed: false
+final_evidence_allowed: false
+legal_change_claimed: false
+legal_safe_note: >
+  T048 manual seed. Points to official registry URLs. Not legal advice.

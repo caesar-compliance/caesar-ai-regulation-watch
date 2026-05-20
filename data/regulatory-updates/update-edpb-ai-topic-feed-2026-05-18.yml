@@ -1,0 +1,25 @@
+update_id: update-edpb-ai-topic-feed-2026-05-18
+update_date: "2026-05-18"
+jurisdiction_id: eu
+title: EDPB AI topic index — feed monitoring seed
+update_type: source_monitoring
+summary: >
+  Seed update referencing the EDPB AI topic feed watcher in the technical MVP. Monitoring
+  signal for official publications list changes, not a legal change claim.
+source_ids:
+  - edpb-ai-topic
+source_urls:
+  - https://www.edpb.europa.eu/our-work-tools/our-documents/topic/artificial-intelligence_en
+topic_tags:
+  - eu_ai_act
+  - source_monitoring
+status_bucket: adopted
+importance: medium
+confidence_score: high
+automation_method: manual_seed
+requires_human_review: false
+client_evidence_allowed: false
+final_evidence_allowed: false
+legal_change_claimed: false
+legal_safe_note: >
+  T048 manual seed. Watcher/fixture context only. Not legal advice.

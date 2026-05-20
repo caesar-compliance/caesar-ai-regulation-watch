@@ -1,0 +1,22 @@
+jurisdiction_id: south-korea
+country_name: South Korea
+region: Asia-Pacific
+status_bucket: guidance
+status_label: Guidance — PIPC AI materials
+status_summary: >
+  Pilot tracks PIPC AI guidance in the registry. Seed reflects official page monitoring scope
+  only.
+last_update_date: "2026-05-05"
+latest_update_id: update-south-korea-pipc-ai-guidance-2026-05-05
+source_ids:
+  - south-korea-pipc
+topic_tags:
+  - privacy
+confidence_score: medium
+automation_method: manual_seed
+requires_human_review: false
+client_evidence_allowed: false
+final_evidence_allowed: false
+legal_change_claimed: false
+legal_safe_note: >
+  T048 manual seed. Not legal advice. Verify on official sources.

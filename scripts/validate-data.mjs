@@ -56,6 +56,9 @@ const schemas = {
   metadataReviewTriage: loadSchema("metadata-review-triage.schema.json"),
   manualSourceVerificationIntake: loadSchema("manual-source-verification-intake.schema.json"),
   autonomousSourceVerification: loadSchema("autonomous-source-verification.schema.json"),
+  countryStatus: loadSchema("country-status.schema.json"),
+  regulatoryUpdate: loadSchema("regulatory-update.schema.json"),
+  topic: loadSchema("topic.schema.json"),
 };
 
 const LONG_COPIED_TEXT_PATTERNS = [
@@ -174,6 +177,24 @@ for (const file of listYamlFiles(path.join(ROOT, "data/guidance"))) {
 for (const file of listYamlFiles(path.join(ROOT, "data/changes"))) {
   const data = readYaml(file);
   check(validate(file, data, schemas.change));
+}
+
+// Country status (T048 automation-first seed)
+for (const file of listYamlFiles(path.join(ROOT, "data/country-status"))) {
+  const data = readYaml(file);
+  check(validate(file, data, schemas.countryStatus));
+}
+
+// Regulatory updates (T048 automation-first seed)
+for (const file of listYamlFiles(path.join(ROOT, "data/regulatory-updates"))) {
+  const data = readYaml(file);
+  check(validate(file, data, schemas.regulatoryUpdate));
+}
+
+// Tracker topics (T048)
+for (const file of listYamlFiles(path.join(ROOT, "data/topics"))) {
+  const data = readYaml(file);
+  check(validate(file, data, schemas.topic));
 }
 
 // Taxonomies
@@ -1541,6 +1562,142 @@ for (const file of listYamlFiles(path.join(ROOT, "data/guidance"))) {
             "verified_on_source true requires content_review_status reviewed_content_summary with documented batch",
         },
       ],
+    });
+  }
+}
+
+// T048 — tracker referential integrity and policy gates
+const topicIds = new Set(
+  listYamlFiles(path.join(ROOT, "data/topics")).map((f) => readYaml(f).topic_id),
+);
+const updateIds = new Set(
+  listYamlFiles(path.join(ROOT, "data/regulatory-updates")).map((f) => readYaml(f).update_id),
+);
+const countryStatusJurisdictionIds = new Set();
+
+for (const file of listYamlFiles(path.join(ROOT, "data/country-status"))) {
+  const cs = readYaml(file);
+  const label = path.basename(file);
+  if (countryStatusJurisdictionIds.has(cs.jurisdiction_id)) {
+    failures.push({
+      label: `${file} (duplicate)`,
+      errors: [{ message: `duplicate jurisdiction_id in country-status: ${cs.jurisdiction_id}` }],
+    });
+  } else {
+    countryStatusJurisdictionIds.add(cs.jurisdiction_id);
+  }
+  if (!jurisdictionIds.has(cs.jurisdiction_id)) {
+    failures.push({
+      label: `${file} (referential)`,
+      errors: [{ message: `unknown jurisdiction_id: ${cs.jurisdiction_id}` }],
+    });
+  }
+  for (const sid of cs.source_ids ?? []) {
+    if (!sourceIds.has(sid)) {
+      failures.push({
+        label: `${file} (referential)`,
+        errors: [{ message: `unknown source_id: ${sid}` }],
+      });
+    }
+  }
+  for (const tag of cs.topic_tags ?? []) {
+    if (!topicIds.has(tag)) {
+      failures.push({
+        label: `${file} (referential)`,
+        errors: [{ message: `unknown topic_tag: ${tag}` }],
+      });
+    }
+  }
+  if (cs.latest_update_id && !updateIds.has(cs.latest_update_id)) {
+    failures.push({
+      label: `${file} (referential)`,
+      errors: [{ message: `unknown latest_update_id: ${cs.latest_update_id}` }],
+    });
+  }
+  for (const gate of [
+    "requires_human_review",
+    "client_evidence_allowed",
+    "final_evidence_allowed",
+    "legal_change_claimed",
+  ]) {
+    if (cs[gate] !== false) {
+      failures.push({
+        label: `${file} (policy)`,
+        errors: [{ message: `country-status ${gate} must be false for T048 seed` }],
+      });
+    }
+  }
+}
+
+const seenUpdateIds = new Set();
+for (const file of listYamlFiles(path.join(ROOT, "data/regulatory-updates"))) {
+  const u = readYaml(file);
+  if (seenUpdateIds.has(u.update_id)) {
+    failures.push({
+      label: `${file} (duplicate)`,
+      errors: [{ message: `duplicate update_id: ${u.update_id}` }],
+    });
+  } else {
+    seenUpdateIds.add(u.update_id);
+  }
+  if (!jurisdictionIds.has(u.jurisdiction_id)) {
+    failures.push({
+      label: `${file} (referential)`,
+      errors: [{ message: `unknown jurisdiction_id: ${u.jurisdiction_id}` }],
+    });
+  }
+  for (const sid of u.source_ids ?? []) {
+    if (!sourceIds.has(sid)) {
+      failures.push({
+        label: `${file} (referential)`,
+        errors: [{ message: `unknown source_id: ${sid}` }],
+      });
+    }
+  }
+  for (const tag of u.topic_tags ?? []) {
+    if (!topicIds.has(tag)) {
+      failures.push({
+        label: `${file} (referential)`,
+        errors: [{ message: `unknown topic_tag: ${tag}` }],
+      });
+    }
+  }
+  if (!u.source_urls?.length) {
+    failures.push({
+      label: `${file} (policy)`,
+      errors: [{ message: "regulatory update requires at least one source_url" }],
+    });
+  }
+  for (const gate of [
+    "requires_human_review",
+    "client_evidence_allowed",
+    "final_evidence_allowed",
+    "legal_change_claimed",
+  ]) {
+    if (u[gate] !== false) {
+      failures.push({
+        label: `${file} (policy)`,
+        errors: [{ message: `regulatory update ${gate} must be false for T048 seed` }],
+      });
+    }
+  }
+}
+
+const seenTopicIds = new Set();
+for (const file of listYamlFiles(path.join(ROOT, "data/topics"))) {
+  const t = readYaml(file);
+  if (seenTopicIds.has(t.topic_id)) {
+    failures.push({
+      label: `${file} (duplicate)`,
+      errors: [{ message: `duplicate topic_id: ${t.topic_id}` }],
+    });
+  } else {
+    seenTopicIds.add(t.topic_id);
+  }
+  if (t.parent_topic_id && !topicIds.has(t.parent_topic_id)) {
+    failures.push({
+      label: `${file} (referential)`,
+      errors: [{ message: `unknown parent_topic_id: ${t.parent_topic_id}` }],
     });
   }
 }

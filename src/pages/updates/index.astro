@@ -1,0 +1,66 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import TrackerFilterForm from "../../components/TrackerFilterForm.astro";
+import UpdateFeedCard from "../../components/UpdateFeedCard.astro";
+import {
+  getTrackerTopics,
+  getCountryStatuses,
+  filterRegulatoryUpdates,
+  getRegulatoryUpdates,
+} from "../../lib/tracker-data";
+
+const topics = getTrackerTopics();
+const regions = [...new Set(getCountryStatuses().map((c) => c.region))].sort();
+const allUpdates = getRegulatoryUpdates();
+
+const region = Astro.url.searchParams.get("region");
+const status = Astro.url.searchParams.get("status");
+const topic = Astro.url.searchParams.get("topic");
+const updateType = Astro.url.searchParams.get("update_type");
+
+const filtered = filterRegulatoryUpdates({ region, status, topic, updateType });
+---
+
+<BaseLayout
+  title="Regulatory updates"
+  currentPath="/updates/"
+  description="Source-linked regulatory update feed — automation-first tracker skeleton."
+>
+  <h1>Regulatory updates</h1>
+  <p class="lead">
+    Chronological feed of source-linked regulatory update seeds. Each item points to official or
+    authoritative URLs in the pilot registry. Not legal advice; not a claim that law has changed
+    unless explicitly verified elsewhere.
+  </p>
+
+  <div class="banner banner--automation" role="note">
+    <strong>Seed feed only.</strong> `legal_change_claimed` is false on all T048 items. Automation
+    adapters will populate this feed in a later phase.
+  </div>
+
+  <TrackerFilterForm
+    action="/updates/"
+    regions={regions}
+    topics={topics}
+    current={{ region, status, topic, update_type: updateType }}
+    showUpdateType={true}
+  />
+
+  <p class="feed-count">
+    Showing {filtered.length} of {allUpdates.length} update(s).
+  </p>
+
+  {
+    filtered.length === 0 ? (
+      <p>No updates match the current filters.</p>
+    ) : (
+      <div class="update-feed-list">
+        {filtered.map((u) => (
+          <article id={u.update_id}>
+            <UpdateFeedCard update={u} />
+          </article>
+        ))}
+      </div>
+    )
+  }
+</BaseLayout>

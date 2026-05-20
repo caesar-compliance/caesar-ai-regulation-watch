@@ -1,0 +1,4 @@
+topic_id: source_monitoring
+label: Source monitoring
+parent_topic_id: null
+description: Official source registry checks and monitoring signals (not legal change claims).

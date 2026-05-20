@@ -1,0 +1,49 @@
+---
+import type { RegulatoryUpdate } from "../lib/tracker-data";
+import StatusBucketBadge from "./StatusBucketBadge.astro";
+import { formatDate, humanizeId } from "../lib/format";
+
+interface Props {
+  update: RegulatoryUpdate;
+  showJurisdiction?: boolean;
+}
+
+const { update, showJurisdiction = true } = Astro.props;
+---
+
+<article class="update-feed-card">
+  <header class="update-feed-card__header">
+    <time datetime={update.update_date}>{formatDate(update.update_date)}</time>
+    {showJurisdiction && (
+      <a href={`/jurisdictions/${update.jurisdiction_id}/`} class="update-feed-card__jurisdiction">
+        {humanizeId(update.jurisdiction_id)}
+      </a>
+    )}
+    <span class={`badge badge--importance badge--importance-${update.importance}`}>
+      {update.importance}
+    </span>
+  </header>
+  <h3 class="update-feed-card__title">
+    <a href={`/updates/#${update.update_id}`}>{update.title}</a>
+  </h3>
+  <p class="update-feed-card__summary">{update.summary}</p>
+  <div class="update-feed-card__meta">
+    <StatusBucketBadge bucket={update.status_bucket} />
+    <span class="badge badge--type">{update.update_type.replace(/_/g, " ")}</span>
+    <span class="badge badge--confidence">Confidence: {update.confidence_score}</span>
+  </div>
+  <p class="update-feed-card__topics">
+    Topics: {update.topic_tags.map((t) => humanizeId(t)).join(", ")}
+  </p>
+  <ul class="update-feed-card__sources">
+    {
+      update.source_urls.map((url, i) => (
+        <li>
+          <a href={url} rel="noopener noreferrer">
+            {update.source_ids[i] ? humanizeId(update.source_ids[i]) : "Official source"}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</article>

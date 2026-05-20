@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 20 May 2026 (v1.0.0 Public Technical MVP)
+**Last updated:** 20 May 2026 (v1.0.4 technical base + T048 tracker skeleton on feature branch)
 
 ---
 
@@ -48,6 +48,14 @@
 
 See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inventory sections. Sample entities include `record_origin: manual_sample`.
 
+### T048 automation-first tracker (feature branch)
+
+| Directory | Role |
+|-----------|------|
+| **data/country-status/** | Per-jurisdiction regulation status seeds (`status_bucket`, source_ids, topic_tags) |
+| **data/regulatory-updates/** | Source-linked update feed seeds (`update_type`, importance, source_urls) |
+| **data/topics/** | Tracker topic tags for filters (distinct from `data/taxonomies/`) |
+
 ---
 
 ## mappings/ & exports/
@@ -69,6 +77,9 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **law.schema.json** | Law samples (+ `record_origin`) |
 | **guidance.schema.json** | Guidance samples |
 | **change.schema.json** | Change samples |
+| **country-status.schema.json** | T048 country regulation status |
+| **regulatory-update.schema.json** | T048 regulatory update feed items |
+| **topic.schema.json** | T048 tracker topic tags |
 | **change-control-mapping.schema.json** | Control mapping items |
 | **change-evidence-mapping.schema.json** | Evidence mapping items |
 | **taxonomy.schema.json** | Taxonomy files |

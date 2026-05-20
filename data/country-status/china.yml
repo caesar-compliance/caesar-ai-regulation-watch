@@ -1,0 +1,23 @@
+jurisdiction_id: china
+country_name: China
+region: Asia-Pacific
+status_bucket: adopted
+status_label: Adopted — targeted measures
+status_summary: >
+  Pilot tracks official CAC generative AI and related registry entries. Seed status reflects
+  curated sources only, not all Chinese AI rules.
+last_update_date: "2026-05-10"
+latest_update_id: update-china-cac-genai-registry-2026-05-10
+source_ids:
+  - china-cac-generative-ai
+  - china-cac
+topic_tags:
+  - china_genai
+confidence_score: medium
+automation_method: manual_seed
+requires_human_review: false
+client_evidence_allowed: false
+final_evidence_allowed: false
+legal_change_claimed: false
+legal_safe_note: >
+  T048 manual seed. Not legal advice. Not complete China coverage. Verify on official sources.

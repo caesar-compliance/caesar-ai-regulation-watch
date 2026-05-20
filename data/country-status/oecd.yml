@@ -1,0 +1,22 @@
+jurisdiction_id: oecd
+country_name: OECD (policy navigator)
+region: International
+status_bucket: no_clear_framework
+status_label: International — principles repository
+status_summary: >
+  OECD AI Policy Navigator is tracked as an international policy repository, not national
+  binding AI legislation.
+last_update_date: "2026-05-04"
+latest_update_id: update-oecd-ai-policy-navigator-2026-05-04
+source_ids:
+  - oecd-ai-policy-navigator
+topic_tags:
+  - risk_management
+confidence_score: high
+automation_method: manual_seed
+requires_human_review: false
+client_evidence_allowed: false
+final_evidence_allowed: false
+legal_change_claimed: false
+legal_safe_note: >
+  T048 manual seed. Not legal advice. International repository — not national law.

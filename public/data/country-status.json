@@ -1,0 +1,317 @@
+{
+  "generated_at": "2026-05-20",
+  "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
+  "automation_first_seed": true,
+  "not_legal_advice": true,
+  "items": [
+    {
+      "jurisdiction_id": "australia",
+      "country_name": "Australia",
+      "region": "Asia-Pacific",
+      "status_bucket": "guidance",
+      "status_label": "Guidance — standards-led approach",
+      "status_summary": "Pilot tracks Australian government AI ethics and industry AI pages in the source registry. Seed does not assert a single comprehensive federal AI statute.\n",
+      "last_update_date": "2026-05-08",
+      "latest_update_id": "update-australia-ai-ethics-framework-2026-05-08",
+      "source_ids": [
+        "australia-industry-ai",
+        "australia-oaic-ai"
+      ],
+      "topic_tags": [
+        "risk_management"
+      ],
+      "confidence_score": "low",
+      "automation_method": "manual_seed",
+      "requires_human_review": false,
+      "client_evidence_allowed": false,
+      "final_evidence_allowed": false,
+      "legal_change_claimed": false,
+      "legal_safe_note": "T048 manual seed. Not legal advice. Verify on official sources before relying on summaries.\n"
+    },
+    {
+      "jurisdiction_id": "canada",
+      "country_name": "Canada",
+      "region": "North America",
+      "status_bucket": "proposed",
+      "status_label": "Proposed — federal bill context",
+      "status_summary": "Pilot tracks responsible AI policy pages; AIDA / Bill C-27 context appears in registry notes as proposed federal direction, not enacted comprehensive AI law in this seed.\n",
+      "last_update_date": "2026-05-07",
+      "latest_update_id": "update-canada-responsible-ai-policy-2026-05-07",
+      "source_ids": [
+        "canada-responsible-ai",
+        "canada-opc-ai"
+      ],
+      "topic_tags": [
+        "risk_management"
+      ],
+      "confidence_score": "low",
+      "automation_method": "manual_seed",
+      "requires_human_review": false,
+      "client_evidence_allowed": false,
+      "final_evidence_allowed": false,
+      "legal_change_claimed": false,
+      "legal_safe_note": "T048 manual seed. Not legal advice. Bill status must be verified on official sources.\n"
+    },
+    {
+      "jurisdiction_id": "china",
+      "country_name": "China",
+      "region": "Asia-Pacific",
+      "status_bucket": "adopted",
+      "status_label": "Adopted — targeted measures",
+      "status_summary": "Pilot tracks official CAC generative AI and related registry entries. Seed status reflects curated sources only, not all Chinese AI rules.\n",
+      "last_update_date": "2026-05-10",
+      "latest_update_id": "update-china-cac-genai-registry-2026-05-10",
+      "source_ids": [
+        "china-cac-generative-ai",
+        "china-cac"
+      ],
+      "topic_tags": [
+        "china_genai"
+      ],
+      "confidence_score": "medium",
+      "automation_method": "manual_seed",
+      "requires_human_review": false,
+      "client_evidence_allowed": false,
+      "final_evidence_allowed": false,
+      "legal_change_claimed": false,
+      "legal_safe_note": "T048 manual seed. Not legal advice. Not complete China coverage. Verify on official sources.\n"
+    },
+    {
+      "jurisdiction_id": "eu",
+      "country_name": "European Union",
+      "region": "Europe",
+      "status_bucket": "adopted",
+      "status_label": "Adopted — comprehensive framework",
+      "status_summary": "Pilot tracks the EU AI Act instrument and official EU AI Office / Commission implementation pages. Status reflects curated registry coverage, not a complete EU legal survey.\n",
+      "last_update_date": "2026-05-15",
+      "latest_update_id": "update-eu-ai-office-guidance-signal-2026-05-15",
+      "source_ids": [
+        "eu-ai-act",
+        "eu-ai-office"
+      ],
+      "topic_tags": [
+        "eu_ai_act",
+        "gpai",
+        "risk_management"
+      ],
+      "confidence_score": "medium",
+      "automation_method": "manual_seed",
+      "requires_human_review": false,
+      "client_evidence_allowed": false,
+      "final_evidence_allowed": false,
+      "legal_change_claimed": false,
+      "legal_safe_note": "T048 manual seed for automation-first tracker skeleton. Not legal advice. Not complete EU or member-state coverage. Verify instruments and dates on official sources.\n"
+    },
+    {
+      "jurisdiction_id": "g7",
+      "country_name": "G7 (Hiroshima AI Process)",
+      "region": "International",
+      "status_bucket": "no_clear_framework",
+      "status_label": "International — voluntary process",
+      "status_summary": "G7 Hiroshima AI Process pages are tracked as international coordination signals, not enforceable law in this seed.\n",
+      "last_update_date": "2026-05-03",
+      "latest_update_id": "update-g7-hiroshima-ai-process-2026-05-03",
+      "source_ids": [
+        "g7-hiroshima-ai-process"
+      ],
+      "topic_tags": [
+        "us_federal_ai_policy"
+      ],
+      "confidence_score": "high",
+      "automation_method": "manual_seed",
+      "requires_human_review": false,
+      "client_evidence_allowed": false,
+      "final_evidence_allowed": false,
+      "legal_change_claimed": false,
+      "legal_safe_note": "T048 manual seed. Not legal advice. Non-binding international process framing only.\n"
+    },
+    {
+      "jurisdiction_id": "japan",
+      "country_name": "Japan",
+      "region": "Asia-Pacific",
+      "status_bucket": "guidance",
+      "status_label": "Guidance — METI / PPC portals",
+      "status_summary": "Pilot tracks METI and PPC AI-related official pages. Seed status is registry-based, not a claim of comprehensive enacted AI law.\n",
+      "last_update_date": "2026-05-11",
+      "latest_update_id": "update-japan-meti-ai-portal-2026-05-11",
+      "source_ids": [
+        "japan-meti-ai",
+        "japan-ppc"
+      ],
+      "topic_tags": [
+        "risk_management"
+      ],
+      "confidence_score": "medium",
+      "automation_method": "manual_seed",
+      "requires_human_review": false,
+      "client_evidence_allowed": false,
+      "final_evidence_allowed": false,
+      "legal_change_claimed": false,
+      "legal_safe_note": "T048 manual seed. Not legal advice. Verify on official sources.\n"
+    },
+    {
+      "jurisdiction_id": "norway",
+      "country_name": "Norway",
+      "region": "Europe",
+      "status_bucket": "monitoring",
+      "status_label": "Monitoring — EEA implementation context",
+      "status_summary": "Pilot tracks Norway AI Act implementation pages alongside EU context. Reflects curated monitoring, not a standalone national AI code summary.\n",
+      "last_update_date": "2026-05-06",
+      "latest_update_id": "update-norway-ai-act-implementation-2026-05-06",
+      "source_ids": [
+        "norway-ai-act-implementation"
+      ],
+      "topic_tags": [
+        "eu_ai_act"
+      ],
+      "confidence_score": "medium",
+      "automation_method": "manual_seed",
+      "requires_human_review": false,
+      "client_evidence_allowed": false,
+      "final_evidence_allowed": false,
+      "legal_change_claimed": false,
+      "legal_safe_note": "T048 manual seed. Not legal advice. EEA/EU interactions require official verification.\n"
+    },
+    {
+      "jurisdiction_id": "oecd",
+      "country_name": "OECD (policy navigator)",
+      "region": "International",
+      "status_bucket": "no_clear_framework",
+      "status_label": "International — principles repository",
+      "status_summary": "OECD AI Policy Navigator is tracked as an international policy repository, not national binding AI legislation.\n",
+      "last_update_date": "2026-05-04",
+      "latest_update_id": "update-oecd-ai-policy-navigator-2026-05-04",
+      "source_ids": [
+        "oecd-ai-policy-navigator"
+      ],
+      "topic_tags": [
+        "risk_management"
+      ],
+      "confidence_score": "high",
+      "automation_method": "manual_seed",
+      "requires_human_review": false,
+      "client_evidence_allowed": false,
+      "final_evidence_allowed": false,
+      "legal_change_claimed": false,
+      "legal_safe_note": "T048 manual seed. Not legal advice. International repository — not national law.\n"
+    },
+    {
+      "jurisdiction_id": "singapore",
+      "country_name": "Singapore",
+      "region": "Asia-Pacific",
+      "status_bucket": "guidance",
+      "status_label": "Guidance — model governance toolkit",
+      "status_summary": "Pilot tracks PDPC/IMDA AI governance and AI Verify foundation pages. Reflects official guidance signals, not a single AI statute label.\n",
+      "last_update_date": "2026-05-09",
+      "latest_update_id": "update-singapore-model-ai-governance-2026-05-09",
+      "source_ids": [
+        "singapore-pdpc-ai",
+        "singapore-imda-ai"
+      ],
+      "topic_tags": [
+        "risk_management"
+      ],
+      "confidence_score": "medium",
+      "automation_method": "manual_seed",
+      "requires_human_review": false,
+      "client_evidence_allowed": false,
+      "final_evidence_allowed": false,
+      "legal_change_claimed": false,
+      "legal_safe_note": "T048 manual seed. Not legal advice. Verify on official sources.\n"
+    },
+    {
+      "jurisdiction_id": "south-korea",
+      "country_name": "South Korea",
+      "region": "Asia-Pacific",
+      "status_bucket": "guidance",
+      "status_label": "Guidance — PIPC AI materials",
+      "status_summary": "Pilot tracks PIPC AI guidance in the registry. Seed reflects official page monitoring scope only.\n",
+      "last_update_date": "2026-05-05",
+      "latest_update_id": "update-south-korea-pipc-ai-guidance-2026-05-05",
+      "source_ids": [
+        "south-korea-pipc"
+      ],
+      "topic_tags": [
+        "privacy"
+      ],
+      "confidence_score": "medium",
+      "automation_method": "manual_seed",
+      "requires_human_review": false,
+      "client_evidence_allowed": false,
+      "final_evidence_allowed": false,
+      "legal_change_claimed": false,
+      "legal_safe_note": "T048 manual seed. Not legal advice. Verify on official sources.\n"
+    },
+    {
+      "jurisdiction_id": "unesco",
+      "country_name": "UNESCO",
+      "region": "International",
+      "status_bucket": "guidance",
+      "status_label": "International — ethics recommendation",
+      "status_summary": "UNESCO AI ethics recommendation materials are tracked as soft international guidance in the pilot registry.\n",
+      "last_update_date": "2026-05-02",
+      "latest_update_id": "update-unesco-ai-ethics-recommendation-2026-05-02",
+      "source_ids": [
+        "unesco-ai-ethics"
+      ],
+      "topic_tags": [
+        "risk_management"
+      ],
+      "confidence_score": "high",
+      "automation_method": "manual_seed",
+      "requires_human_review": false,
+      "client_evidence_allowed": false,
+      "final_evidence_allowed": false,
+      "legal_change_claimed": false,
+      "legal_safe_note": "T048 manual seed. Not legal advice. Non-binding ethics framing — verify official text.\n"
+    },
+    {
+      "jurisdiction_id": "uk",
+      "country_name": "United Kingdom",
+      "region": "Europe",
+      "status_bucket": "guidance",
+      "status_label": "Guidance — sector-led framework",
+      "status_summary": "Pilot tracks UK government AI regulation approach and regulator guidance pages. No single comprehensive UK AI statute is represented in the seed data.\n",
+      "last_update_date": "2026-05-12",
+      "latest_update_id": "update-uk-gov-ai-regulation-page-2026-05-12",
+      "source_ids": [
+        "uk-gov-ai-regulation",
+        "uk-dsit"
+      ],
+      "topic_tags": [
+        "uk_ai_regulation"
+      ],
+      "confidence_score": "medium",
+      "automation_method": "manual_seed",
+      "requires_human_review": false,
+      "client_evidence_allowed": false,
+      "final_evidence_allowed": false,
+      "legal_change_claimed": false,
+      "legal_safe_note": "T048 manual seed. Not legal advice. Not complete UK coverage. Verify on official sources.\n"
+    },
+    {
+      "jurisdiction_id": "us-federal",
+      "country_name": "United States (federal)",
+      "region": "North America",
+      "status_bucket": "guidance",
+      "status_label": "Guidance — agency-led signals",
+      "status_summary": "Pilot tracks selected federal AI policy portals (NIST, AI.gov, Federal Register API fixture). Does not represent all US federal AI rules or state law.\n",
+      "last_update_date": "2026-05-19",
+      "latest_update_id": "update-us-federal-register-monitoring-2026-05-19",
+      "source_ids": [
+        "us-nist-ai-rmf",
+        "us-federal-register"
+      ],
+      "topic_tags": [
+        "us_federal_ai_policy"
+      ],
+      "confidence_score": "medium",
+      "automation_method": "manual_seed",
+      "requires_human_review": false,
+      "client_evidence_allowed": false,
+      "final_evidence_allowed": false,
+      "legal_change_claimed": false,
+      "legal_safe_note": "T048 manual seed. Not legal advice. US state and sector rules not fully tracked. Verify on official sources.\n"
+    }
+  ]
+}

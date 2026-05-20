@@ -1,0 +1,94 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MetricsStrip from "../../components/MetricsStrip.astro";
+import TrackerRegionMap from "../../components/TrackerRegionMap.astro";
+import TrackerFilterForm from "../../components/TrackerFilterForm.astro";
+import UpdateFeedCard from "../../components/UpdateFeedCard.astro";
+import {
+  getAutomationFirstMetrics,
+  getTrackerTopics,
+  filterCountryStatuses,
+  filterRegulatoryUpdates,
+  getCountryStatuses,
+} from "../../lib/tracker-data";
+
+const metrics = getAutomationFirstMetrics();
+const topics = getTrackerTopics();
+const allStatuses = getCountryStatuses();
+const regions = [...new Set(allStatuses.map((c) => c.region))].sort();
+
+const region = Astro.url.searchParams.get("region");
+const status = Astro.url.searchParams.get("status");
+const topic = Astro.url.searchParams.get("topic");
+
+const filteredStatuses = filterCountryStatuses({ region, status, topic });
+const latestUpdates = filterRegulatoryUpdates({
+  region,
+  status,
+  topic,
+}).slice(0, 8);
+---
+
+<BaseLayout
+  title="Global tracker"
+  currentPath="/tracker/"
+  description="Automation-first AI regulation tracker skeleton — map, country status, and source-linked updates."
+>
+  <h1>Global AI regulation tracker</h1>
+  <p class="lead">
+    Automation-first public tracker skeleton (T048). Source-linked jurisdiction status and
+    regulatory update feed from curated pilot data — not legal advice and not complete global
+    coverage.
+  </p>
+
+  <div class="banner banner--automation" role="note">
+    <strong>Technical tracker seed.</strong> Manual YAML seeds only; no scraping; no competitor
+    data. Evidence and client-use gates remain closed. Human review is optional for future premium
+    workflows, not required for this public skeleton.
+  </div>
+
+  <MetricsStrip metrics={metrics} />
+
+  <section class="tracker-section">
+    <h2>Filters</h2>
+    <TrackerFilterForm
+      action="/tracker/"
+      regions={regions}
+      topics={topics}
+      current={{ region, status, topic }}
+    />
+  </section>
+
+  <section class="tracker-section">
+    <h2>Regional status map (skeleton)</h2>
+    <TrackerRegionMap items={filteredStatuses.length ? filteredStatuses : allStatuses} />
+  </section>
+
+  <section class="tracker-section">
+    <h2>
+      Latest updates
+      <a href="/updates/" class="tracker-section__more">Full feed →</a>
+    </h2>
+    {
+      latestUpdates.length === 0 ? (
+        <p>No updates match the current filters.</p>
+      ) : (
+        <div class="update-feed-list">
+          {latestUpdates.map((u) => (
+            <UpdateFeedCard update={u} />
+          ))}
+        </div>
+      )
+    }
+  </section>
+
+  <section class="tracker-section">
+    <h2>
+      Country status list
+      <a href="/countries/" class="tracker-section__more">All countries →</a>
+    </h2>
+    <p>
+      Showing {filteredStatuses.length} of {allStatuses.length} pilot jurisdictions.
+    </p>
+  </section>
+</BaseLayout>

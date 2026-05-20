@@ -1,0 +1,23 @@
+update_id: update-australia-ai-ethics-framework-2026-05-08
+update_date: "2026-05-08"
+jurisdiction_id: australia
+title: Australia AI ethics framework — official page seed
+update_type: guidance
+summary: >
+  Seed update for Australian government AI ethics framework materials in the pilot registry.
+source_ids:
+  - australia-industry-ai
+source_urls:
+  - https://www.industry.gov.au/publications/australias-ai-ethics-principles
+topic_tags:
+  - risk_management
+status_bucket: guidance
+importance: medium
+confidence_score: low
+automation_method: manual_seed
+requires_human_review: false
+client_evidence_allowed: false
+final_evidence_allowed: false
+legal_change_claimed: false
+legal_safe_note: >
+  T048 manual seed. Not legal advice. Official URL may require human browser verification.

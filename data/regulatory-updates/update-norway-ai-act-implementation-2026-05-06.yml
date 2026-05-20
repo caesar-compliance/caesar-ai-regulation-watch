@@ -1,0 +1,24 @@
+update_id: update-norway-ai-act-implementation-2026-05-06
+update_date: "2026-05-06"
+jurisdiction_id: norway
+title: Norway EU AI Act implementation pages — monitoring seed
+update_type: institutional_update
+summary: >
+  Seed update for Norway implementation guidance pages linked to EEA/EU AI Act context in
+  the registry.
+source_ids:
+  - norway-ai-act-implementation
+source_urls:
+  - https://www.regjeringen.no/en/topics/business-and-industry/artificial-intelligence/id3020592/
+topic_tags:
+  - eu_ai_act
+status_bucket: monitoring
+importance: medium
+confidence_score: medium
+automation_method: manual_seed
+requires_human_review: false
+client_evidence_allowed: false
+final_evidence_allowed: false
+legal_change_claimed: false
+legal_safe_note: >
+  T048 manual seed. Not legal advice. EEA implementation requires official verification.

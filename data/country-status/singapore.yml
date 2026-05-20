@@ -1,0 +1,23 @@
+jurisdiction_id: singapore
+country_name: Singapore
+region: Asia-Pacific
+status_bucket: guidance
+status_label: Guidance — model governance toolkit
+status_summary: >
+  Pilot tracks PDPC/IMDA AI governance and AI Verify foundation pages. Reflects official
+  guidance signals, not a single AI statute label.
+last_update_date: "2026-05-09"
+latest_update_id: update-singapore-model-ai-governance-2026-05-09
+source_ids:
+  - singapore-pdpc-ai
+  - singapore-imda-ai
+topic_tags:
+  - risk_management
+confidence_score: medium
+automation_method: manual_seed
+requires_human_review: false
+client_evidence_allowed: false
+final_evidence_allowed: false
+legal_change_claimed: false
+legal_safe_note: >
+  T048 manual seed. Not legal advice. Verify on official sources.

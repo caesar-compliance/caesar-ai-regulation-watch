@@ -1,0 +1,23 @@
+update_id: update-south-korea-pipc-ai-guidance-2026-05-05
+update_date: "2026-05-05"
+jurisdiction_id: south-korea
+title: South Korea PIPC AI guidance index — registry seed
+update_type: guidance
+summary: >
+  Seed update for PIPC AI guidance materials in the official source registry.
+source_ids:
+  - south-korea-pipc
+source_urls:
+  - https://www.pipc.go.kr/eng/user/ltn/newRules.do
+topic_tags:
+  - privacy
+status_bucket: guidance
+importance: medium
+confidence_score: medium
+automation_method: manual_seed
+requires_human_review: false
+client_evidence_allowed: false
+final_evidence_allowed: false
+legal_change_claimed: false
+legal_safe_note: >
+  T048 manual seed. Not legal advice.

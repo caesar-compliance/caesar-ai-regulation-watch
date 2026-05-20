@@ -1,0 +1,25 @@
+update_id: update-eu-ai-office-guidance-signal-2026-05-15
+update_date: "2026-05-15"
+jurisdiction_id: eu
+title: EU AI Office portal — implementation guidance index (monitoring seed)
+update_type: guidance
+summary: >
+  Seed update pointing to the EU AI Office / Commission AI framework pages in the official
+  source registry. Describes a monitoring signal only; does not assert a new legal obligation.
+source_ids:
+  - eu-ai-office
+source_urls:
+  - https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai
+topic_tags:
+  - eu_ai_act
+  - gpai
+status_bucket: adopted
+importance: high
+confidence_score: medium
+automation_method: manual_seed
+requires_human_review: false
+client_evidence_allowed: false
+final_evidence_allowed: false
+legal_change_claimed: false
+legal_safe_note: >
+  T048 manual seed. Source-linked monitoring placeholder. Not legal advice. Not a legal change claim.

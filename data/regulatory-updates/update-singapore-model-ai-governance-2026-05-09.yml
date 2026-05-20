@@ -1,0 +1,23 @@
+update_id: update-singapore-model-ai-governance-2026-05-09
+update_date: "2026-05-09"
+jurisdiction_id: singapore
+title: Singapore Model AI Governance Framework — PDPC seed
+update_type: guidance
+summary: >
+  Seed update referencing PDPC model AI governance materials in the official source registry.
+source_ids:
+  - singapore-pdpc-ai
+source_urls:
+  - https://www.pdpc.gov.sg/help-and-resources/ai-and-data-innovation
+topic_tags:
+  - risk_management
+status_bucket: guidance
+importance: medium
+confidence_score: medium
+automation_method: manual_seed
+requires_human_review: false
+client_evidence_allowed: false
+final_evidence_allowed: false
+legal_change_claimed: false
+legal_safe_note: >
+  T048 manual seed. Not legal advice.

@@ -1,0 +1,31 @@
+{
+  "generated_at": "2026-05-20",
+  "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
+  "automation_first_seed": true,
+  "not_complete_coverage": true,
+  "jurisdiction_count": 13,
+  "regulatory_update_count": 15,
+  "updates_last_30_days": 15,
+  "status_bucket_counts": {
+    "guidance": 7,
+    "proposed": 1,
+    "adopted": 2,
+    "no_clear_framework": 2,
+    "monitoring": 1
+  },
+  "update_type_counts": {
+    "source_monitoring": 2,
+    "guidance": 6,
+    "institutional_update": 5,
+    "law": 1,
+    "proposal": 1
+  },
+  "region_counts": {
+    "Asia-Pacific": 5,
+    "North America": 2,
+    "Europe": 3,
+    "International": 3
+  },
+  "adopted_or_enforced_count": 2,
+  "proposed_or_consultation_count": 1
+}

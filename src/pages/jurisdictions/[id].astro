@@ -13,6 +13,12 @@ import {
   timelinesForJurisdiction,
   jurisdictionCoverage,
 } from "../../lib/data";
+import {
+  getCountryStatus,
+  updatesForJurisdiction,
+} from "../../lib/tracker-data";
+import StatusBucketBadge from "../../components/StatusBucketBadge.astro";
+import UpdateFeedCard from "../../components/UpdateFeedCard.astro";
 import { formatDate, truncate, humanizeId } from "../../lib/format";
 
 export function getStaticPaths() {
@@ -33,6 +39,8 @@ const records = recordsForJurisdiction(jurisdiction.jurisdiction_id);
 const changes = changesForJurisdiction(jurisdiction.jurisdiction_id);
 const timelines = timelinesForJurisdiction(jurisdiction.jurisdiction_id);
 const coverage = jurisdictionCoverage(jurisdiction.jurisdiction_id);
+const countryStatus = getCountryStatus(jurisdiction.jurisdiction_id);
+const jurisdictionUpdates = updatesForJurisdiction(jurisdiction.jurisdiction_id).slice(0, 5);
 ---
 
 <BaseLayout title={jurisdiction.name} currentPath="/jurisdictions/">
@@ -45,6 +53,37 @@ const coverage = jurisdictionCoverage(jurisdiction.jurisdiction_id);
   </div>
 
   <ReviewBanner reviewStatus={jurisdiction.review_status} />
+
+  {
+    countryStatus && (
+      <section class="tracker-section">
+        <h2>Regulation status (tracker seed)</h2>
+        <StatusBucketBadge bucket={countryStatus.status_bucket} label={countryStatus.status_label} />
+        <p>{countryStatus.status_summary}</p>
+        <p class="country-status-list__meta">
+          Last update: {formatDate(countryStatus.last_update_date)} · Automation confidence:{" "}
+          {countryStatus.confidence_score} · Method: {countryStatus.automation_method}
+        </p>
+        {
+          jurisdictionUpdates.length > 0 && (
+            <>
+              <h3>Latest regulatory updates</h3>
+              <div class="update-feed-list">
+                {jurisdictionUpdates.map((u) => (
+                  <UpdateFeedCard update={u} showJurisdiction={false} />
+                ))}
+              </div>
+              <p>
+                <a href="/updates/?region={encodeURIComponent(countryStatus.region)}">
+                  More updates →
+                </a>
+              </p>
+            </>
+          )
+        }
+      </section>
+    )
+  }
 
   <section>
     <h2>Coverage summary</h2>

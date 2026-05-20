@@ -1,0 +1,23 @@
+jurisdiction_id: uk
+country_name: United Kingdom
+region: Europe
+status_bucket: guidance
+status_label: Guidance — sector-led framework
+status_summary: >
+  Pilot tracks UK government AI regulation approach and regulator guidance pages. No single
+  comprehensive UK AI statute is represented in the seed data.
+last_update_date: "2026-05-12"
+latest_update_id: update-uk-gov-ai-regulation-page-2026-05-12
+source_ids:
+  - uk-gov-ai-regulation
+  - uk-dsit
+topic_tags:
+  - uk_ai_regulation
+confidence_score: medium
+automation_method: manual_seed
+requires_human_review: false
+client_evidence_allowed: false
+final_evidence_allowed: false
+legal_change_claimed: false
+legal_safe_note: >
+  T048 manual seed. Not legal advice. Not complete UK coverage. Verify on official sources.

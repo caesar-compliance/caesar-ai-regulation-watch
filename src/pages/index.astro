@@ -4,6 +4,8 @@ import JurisdictionCard from "../components/JurisdictionCard.astro";
 import DevelopersPanel from "../components/DevelopersPanel.astro";
 import { getJurisdictions, getChanges, getPilotSummary } from "../lib/data";
 import { getReviewQueueSummary } from "../lib/review-queue";
+import { getAutomationFirstMetrics } from "../lib/tracker-data";
+import MetricsStrip from "../components/MetricsStrip.astro";
 import { formatDate, truncate } from "../lib/format";
 import { PROJECT_PHASE_LABEL, PROJECT_VERSION_LABEL } from "../lib/project-version";
 
@@ -11,14 +13,24 @@ const summary = getPilotSummary();
 const reviewSummary = getReviewQueueSummary();
 const jurisdictions = getJurisdictions();
 const recentChanges = getChanges().slice(0, 3);
+const trackerMetrics = getAutomationFirstMetrics();
 ---
 
 <BaseLayout title="Home" currentPath="/">
   <h1>Caesar AI Regulation Watch</h1>
   <p class="lead">
-    Official-source-first monitoring of AI-related laws and guidance for governance teams. Helps identify
-    tracked regulatory changes that may require internal review.
+    Automation-first AI regulation tracker (skeleton) with source-linked jurisdiction status and
+    regulatory updates. Technical pilot base — not legal advice and not complete global coverage.
   </p>
+
+  <div class="banner banner--automation" role="note">
+    <strong>Automation-first tracker (T048).</strong> Explore the{" "}
+    <a href="/tracker/">global tracker</a>, <a href="/updates/">updates feed</a>, and{" "}
+    <a href="/countries/">country status</a> pages. Human review and evidence export remain optional
+    future layers — not required for this public skeleton.
+  </div>
+
+  <MetricsStrip metrics={trackerMetrics} />
 
   <div class="banner banner--review" role="note">
     <strong>
@@ -54,6 +66,18 @@ const recentChanges = getChanges().slice(0, 3);
 
   <h2>Explore the registry</h2>
   <div class="nav-cards">
+    <div class="nav-card nav-card--accent">
+      <a href="/tracker/">Global tracker</a>
+      <p>Map skeleton, metrics, filters, and latest updates (T048)</p>
+    </div>
+    <div class="nav-card">
+      <a href="/updates/">Regulatory updates</a>
+      <p>Source-linked update feed with filters</p>
+    </div>
+    <div class="nav-card">
+      <a href="/countries/">Country status</a>
+      <p>Jurisdiction status badges and summaries</p>
+    </div>
     <div class="nav-card">
       <a href="/jurisdictions/">Jurisdictions</a>
       <p>13 jurisdictions grouped by region — incremental global coverage</p>
