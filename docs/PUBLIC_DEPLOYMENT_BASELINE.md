@@ -1,6 +1,7 @@
 # Public Deployment Baseline
 
-**Phase:** v1.0.7 — choropleth map + jurisdiction comparison (T050)
+**Phase:** v1.0.7 live — choropleth map + jurisdiction comparison (T050). **v1.0.8 (T051)** release candidate on branch `task/T051-rich-country-profiles-drilldowns` — deploy pending Control Tower.
+
 **Deployment date:** 20 May 2026
 **Status:** Deployed — `DEPLOY-20260520-025`, run [26189934284](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26189934284)
 

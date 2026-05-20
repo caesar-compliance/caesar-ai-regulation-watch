@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 20 May 2026 (v1.0.7 — T050 map + compare, `DEPLOY-20260520-025`, commit `86c9262`, tag `regulation-watch-v1.0.7`)
+**Last updated:** 20 May 2026 (v1.0.8 RC — T051 profiles + drilldowns; live v1.0.7 `DEPLOY-20260520-025`)
 
 ---
 
@@ -60,6 +60,19 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **src/components/TrackerChoroplethMap.astro** | T050 choropleth-style status panel |
 | **src/pages/compare/** | T050 jurisdiction comparison |
 | **data/topics/** | Tracker topic tags for filters (distinct from `data/taxonomies/`) |
+
+### T051 profiles + drilldowns (v1.0.8 RC)
+
+| Path | Role |
+|------|------|
+| **src/lib/tracker-drilldown.ts** | Region/topic aggregates, slug helper, profile export builders |
+| **scripts/lib/tracker-drilldown.mjs** | Mirror for static JSON exports |
+| **src/pages/regions/** | Region index + `[slug]` drilldown pages |
+| **src/pages/topics/** | Topic index + `[id]` drilldown pages |
+| **src/pages/jurisdictions/[id].astro** | Richer jurisdiction profile (T051) |
+| **public/data/jurisdiction-profiles.json** | Profile export (generated) |
+| **public/data/region-drilldowns.json** | Region drilldown export (generated) |
+| **public/data/topic-drilldowns.json** | Topic drilldown export (generated) |
 
 ---
 

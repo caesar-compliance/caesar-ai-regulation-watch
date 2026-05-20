@@ -4,11 +4,12 @@
 
 | Field | Value |
 |---|---|
-| **Current version** | `v1.0.7` (deployed) |
-| **Status** | Deployed — tag `regulation-watch-v1.0.7` |
-| **Deployment** | `DEPLOY-20260520-025` — commit `86c9262`, run [26189934284](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26189934284) |
+| **Current version** | `v1.0.8` (release candidate — T051) |
+| **Live version** | `v1.0.7` — tag `regulation-watch-v1.0.7` |
+| **Status** | T051 implemented on branch; deploy pending Control Tower |
+| **Last deployment** | `DEPLOY-20260520-025` — commit `86c9262`, run [26189934284](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26189934284) |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
-| **Phase** | Public Technical MVP + tracker map/compare (T050) |
+| **Phase** | Public Technical MVP + profiles/drilldowns (T051) |
 
 ## Product strategy decision — 20 May 2026
 
@@ -27,18 +28,32 @@ The first full MVP target is a Techieray / The Legal Wire style AI regulation tr
 
 Human review is no longer the foundation of the MVP roadmap. It remains an optional future assurance layer for premium legal, client evidence and Caesar AI Evidence / Governance OS workflows.
 
-The **v1.0.7** release adds T050 choropleth-style tracker map and jurisdiction comparison on top of the **v1.0.6** offline metadata adapter feed. See [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md) and [docs/AUTOMATION_FIRST_MVP_ROADMAP.md](docs/AUTOMATION_FIRST_MVP_ROADMAP.md).
+The **v1.0.8** release candidate adds T051 richer jurisdiction profiles and regional/topic drilldowns on top of **v1.0.7** map/compare. See [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md) and [docs/AUTOMATION_FIRST_MVP_ROADMAP.md](docs/AUTOMATION_FIRST_MVP_ROADMAP.md).
 
-## v1.0.7 summary (T050 — map + compare)
+## v1.0.8 summary (T051 — profiles + drilldowns)
+
+- **Jurisdiction profiles** — `/jurisdictions/[id]/` tracker hero, metrics, topics, updates, sources, laws/guidance, timelines, safety panel, compare links.
+- **Region drilldowns** — `/regions/` and `/regions/[slug]/` from pilot region metadata.
+- **Topic drilldowns** — `/topics/` and `/topics/[id]/` from `data/topics/`.
+- **JSON exports** — `jurisdiction-profiles.json`, `region-drilldowns.json`, `topic-drilldowns.json`.
+- **Recommended next** — T052 API/RSS source adapter planning + allowlist architecture (manual-gated).
+
+### Remaining limitations (v1.0.8)
+
+- 13 pilot jurisdictions — not complete global coverage.
+- Tracker metadata only — not legal advice or verified legal change.
+- Simplified map unchanged from T050.
+- No live API/RSS adapters yet.
+- Evidence gates remain closed.
+
+## v1.0.7 summary (T050 — map + compare) — live
 
 - **Choropleth-style tracker map** — `/tracker/` regional status panel with legend; heuristic maturity/activity indices on jurisdiction tiles.
 - **Compare jurisdictions** — `/compare/` for 2–4 pilot jurisdictions; side-by-side tracker metadata; max-4 selection notice.
 - **JSON exports** — enriched `country-status.json`, `jurisdiction-comparison.json`, `automation-first-metrics.json` with `compare_route` and scoring fields.
 - **Deploy** — `DEPLOY-20260520-025`, commit `86c9262`, run [26189934284](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26189934284), tag `regulation-watch-v1.0.7`; public smoke pass on `/`, `/tracker/`, `/updates/`, `/countries/`, `/compare/`, `/compare/?ids=eu&ids=uk&ids=us-federal`, and tracker JSON exports.
 - **No scraping/crawling** — Caesar-native CSS/SVG only; no GPL map libraries; evidence gates unchanged.
-- **Recommended next** — T051 richer country profile pages and regional/topic drilldowns.
-
-### Remaining limitations (v1.0.7)
+### Remaining limitations (v1.0.7 — live)
 
 - Heuristic tracker metadata only — not legal certainty or compliance scoring.
 - Simplified choropleth-style map — not full precise geographic coverage.

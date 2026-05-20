@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **Status** | v1.0.7 — T050 choropleth map + jurisdiction comparison; `DEPLOY-20260520-025`, tag `regulation-watch-v1.0.7` |
+| **Status** | v1.0.8 RC — T051 profiles + region/topic drilldowns (branch); live v1.0.7 `DEPLOY-20260520-025` |
 | **Hosting** | GitHub Pages — static site (Astro) |
 | **Scope** | AI regulation tracking, country profiles, latest updates, source monitoring, metrics and structured exports |
 | **Safety** | Not legal advice; source transparency and automation confidence labels apply |
@@ -266,4 +266,6 @@ Canonical values, review workflow, and future evidence export shape:
 
 ## Project status
 
-**v1.0.7** — [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) (`DEPLOY-20260520-025`, commit `86c9262`, tag `regulation-watch-v1.0.7`). T050 choropleth-style tracker map and `/compare/` for 2–4 jurisdictions plus T049 metadata adapter feed (33 updates). Heuristic tracker metadata — not legal advice, not legal certainty, not final evidence. Simplified map — not full geographic coverage. Compare limited to 4 jurisdictions. 13 pilot jurisdictions. Evidence gates remain closed. **Next:** T051 richer country profiles + regional/topic drilldowns. See [PROJECT_STATE.md](PROJECT_STATE.md), [NEXT_ACTIONS.md](NEXT_ACTIONS.md), and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md).
+**v1.0.8 (RC)** — T051 richer jurisdiction profiles, `/regions/` and `/topics/` drilldowns, and JSON exports (`jurisdiction-profiles.json`, `region-drilldowns.json`, `topic-drilldowns.json`). Deploy pending Control Tower.
+
+**v1.0.7 (live)** — [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) (`DEPLOY-20260520-025`, tag `regulation-watch-v1.0.7`). T050 map/compare + T049 feed. **Next:** T052 API/RSS adapter planning. See [PROJECT_STATE.md](PROJECT_STATE.md) and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md).

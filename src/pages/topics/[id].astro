@@ -1,0 +1,166 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import StatusBucketBadge from "../../components/StatusBucketBadge.astro";
+import UpdateFeedCard from "../../components/UpdateFeedCard.astro";
+import {
+  getTopicSummary,
+  sourcesForTopicTags,
+  compareRoute,
+  regionSlug,
+} from "../../lib/tracker-drilldown";
+import {
+  getCountryStatuses,
+  getRegulatoryUpdate,
+  getTrackerTopics,
+  STATUS_BUCKET_LABELS,
+} from "../../lib/tracker-data";
+import SourceCard from "../../components/SourceCard.astro";
+import { formatDate } from "../../lib/format";
+
+export function getStaticPaths() {
+  return getTrackerTopics().map((t) => ({ params: { id: t.topic_id } }));
+}
+
+const { id } = Astro.params;
+const topicMeta = getTrackerTopics().find((t) => t.topic_id === id);
+if (!topicMeta) {
+  return Astro.redirect("/topics/");
+}
+
+const summary = getTopicSummary(id!)!;
+const statuses = getCountryStatuses()
+  .filter((cs) => cs.topic_tags.includes(id!))
+  .sort((a, b) => a.country_name.localeCompare(b.country_name));
+const latestUpdates = summary.latest_update_ids
+  .map((uid) => getRegulatoryUpdate(uid))
+  .filter((u): u is NonNullable<typeof u> => Boolean(u));
+const relatedSources = sourcesForTopicTags([id!]).slice(0, 12);
+const compareExample =
+  summary.jurisdiction_ids.length >= 2
+    ? compareRoute(summary.jurisdiction_ids.slice(0, Math.min(4, summary.jurisdiction_ids.length)))
+    : null;
+---
+
+<BaseLayout title={topicMeta.label} currentPath="/topics/">
+  <p><a href="/topics/">← Topics</a></p>
+  <h1>{topicMeta.label}</h1>
+  {topicMeta.description && <p class="lead">{topicMeta.description}</p>}
+
+  <section class="metrics-strip" aria-label="Topic metrics">
+    <div class="metrics-strip__card">
+      <strong>{summary.jurisdiction_count}</strong>
+      <span>Jurisdictions</span>
+    </div>
+    <div class="metrics-strip__card">
+      <strong>{summary.update_count}</strong>
+      <span>Updates</span>
+    </div>
+    <div class="metrics-strip__card">
+      <strong>{summary.regions.length}</strong>
+      <span>Regions</span>
+    </div>
+  </section>
+
+  <section class="tracker-section">
+    <h2>Status distribution</h2>
+    <ul class="bucket-distribution">
+      {
+        Object.entries(summary.status_bucket_counts).map(([bucket, count]) => (
+          <li>
+            <StatusBucketBadge
+              bucket={bucket as keyof typeof STATUS_BUCKET_LABELS}
+              label={STATUS_BUCKET_LABELS[bucket as keyof typeof STATUS_BUCKET_LABELS] ?? bucket}
+            />
+            <span>{count}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="tracker-section">
+    <h2>Jurisdictions</h2>
+    <ul class="country-status-list">
+      {
+        statuses.map((cs) => (
+          <li class="country-status-list__item">
+            <div class="country-status-list__header">
+              <h3>
+                <a href={`/jurisdictions/${cs.jurisdiction_id}/`}>{cs.country_name}</a>
+              </h3>
+              <StatusBucketBadge bucket={cs.status_bucket} label={cs.status_label} />
+            </div>
+            <p class="country-status-list__meta">
+              {cs.region} · Last update {formatDate(cs.last_update_date)}
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+    <p>
+      <a href={`/countries/?topic=${encodeURIComponent(id!)}`}>Countries filtered by topic →</a>
+      {" · "}
+      <a href={`/tracker/?topic=${encodeURIComponent(id!)}`}>Tracker filtered by topic →</a>
+    </p>
+  </section>
+
+  {
+    latestUpdates.length > 0 && (
+      <section class="tracker-section">
+        <h2>Latest regulatory updates</h2>
+        <div class="update-feed-list">
+          {latestUpdates.map((u) => (
+            <UpdateFeedCard update={u} />
+          ))}
+        </div>
+        <p>
+          <a href={`/updates/?topic=${encodeURIComponent(id!)}`}>All updates for this topic →</a>
+        </p>
+      </section>
+    )
+  }
+
+  <section class="tracker-section">
+    <h2>Region distribution</h2>
+    <ul>
+      {
+        summary.regions.map((r) => (
+          <li>
+            <a href={`/regions/${regionSlug(r)}/`}>
+              {r}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  {
+    relatedSources.length > 0 && (
+      <section class="tracker-section">
+        <h2>Related sources ({relatedSources.length})</h2>
+        <ul class="card-list">
+          {relatedSources.map((s) => (
+            <SourceCard source={s} />
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  {
+    compareExample && (
+      <section class="tracker-section">
+        <h2>Compare</h2>
+        <p>
+          <a href={compareExample}>Compare jurisdictions tagged with this topic</a>
+        </p>
+      </section>
+    )
+  }
+
+  <p>
+    <a href={`/updates/?topic=${encodeURIComponent(id!)}`}>Updates</a> ·{" "}
+    <a href="/regions/">Regions</a>
+  </p>
+</BaseLayout>

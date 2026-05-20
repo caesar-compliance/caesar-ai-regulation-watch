@@ -20,7 +20,7 @@
         "responsible_ai"
       ],
       "review_status": "pending_review",
-      "notes": "Official federal policy publication. URL remediated v0.6.2: legacy ethics-framework slug returned 404; canonical page is Australia's AI Ethics Principles. v0.9.2–v0.9.3: industry.gov.au HTML publication blocked to automated/headless fetch (403/timeout); human browser verification still required. v0.9.3 verification batch: source-verification-2026-05-20-v093. National privacy guidance tracked separately via OAIC entry.\n"
+      "notes": "Official federal policy publication. Canonical page is Australia's AI Ethics Principles. v1.0.4 autonomous worker: primary URL and official PDF alternate timeout (access_failed); identity not confirmed. National privacy guidance tracked separately via OAIC entry.\n"
     },
     {
       "source_id": "australia-oaic-ai",
@@ -287,7 +287,7 @@
         "conformity_assessment"
       ],
       "review_status": "pending_review",
-      "notes": "Tracked official primary source for the AI Act instrument. Helps identify regulatory changes visible on EUR-Lex; supports governance review of whether internal registers or policies may need refresh. Not legal advice. Automated monitoring not active in v0.2 — registry definition only.\n"
+      "notes": "Tracked official primary source for the AI Act instrument. v1.0.4 autonomous worker: EUR-Lex HTTP 202 bot gate; CELLAR SPARQL has no CELEX 32024R1689 binding in pass; official EFTA EEA-Lex factsheet confirms instrument identity (metadata only, official_alternative). verified_on_source remains false. Not legal advice.\n"
     },
     {
       "source_id": "eu-ai-office",
@@ -400,7 +400,7 @@
         "connected_industries"
       ],
       "review_status": "pending_review",
-      "notes": "English METI entry point only. URL remediated v0.6.2 to surviving English policy index; dedicated AI subdirectory not reachable. Source identity partially confirmed; Japanese-language MIC/Cabinet pages may need separate entries.\n"
+      "notes": "English METI entry point only. v1.0.4 autonomous worker: primary policy index URL timeout (access_failed); source identity not re-confirmed in machine pass. Japanese-language MIC/Cabinet pages may need separate entries.\n"
     },
     {
       "source_id": "japan-ppc",

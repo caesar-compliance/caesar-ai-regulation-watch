@@ -1,0 +1,64 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import StatusBucketBadge from "../../components/StatusBucketBadge.astro";
+import { buildRegionSummaries } from "../../lib/tracker-drilldown";
+import { STATUS_BUCKET_LABELS } from "../../lib/tracker-data";
+import { humanizeId } from "../../lib/format";
+
+const regions = buildRegionSummaries();
+---
+
+<BaseLayout
+  title="Regions"
+  currentPath="/regions/"
+  description="Regional drilldowns for pilot AI regulation tracker jurisdictions."
+>
+  <h1>Regions</h1>
+  <p class="lead">
+    Groupings are tracker metadata from pilot jurisdiction seeds — not a legal geography taxonomy.
+    Not legal advice. Not complete global coverage.
+  </p>
+
+  <div class="banner banner--automation" role="note">
+    <strong>Tracker metadata only.</strong> Region labels reflect curated registry fields, not
+    verified jurisdictional boundaries or harmonised legal status across members.
+  </div>
+
+  <ul class="drilldown-index">
+    {
+      regions.map((r) => (
+        <li class="drilldown-card">
+          <h2>
+            <a href={r.route}>{r.region}</a>
+          </h2>
+          <p class="drilldown-card__meta">
+            {r.jurisdiction_count} jurisdiction(s) · {r.update_count} regulatory update(s)
+          </p>
+          <div class="drilldown-card__buckets">
+            {Object.entries(r.status_bucket_counts).map(([bucket, count]) => (
+              <span class="drilldown-card__bucket">
+                <StatusBucketBadge
+                  bucket={bucket as keyof typeof STATUS_BUCKET_LABELS}
+                  label={`${STATUS_BUCKET_LABELS[bucket as keyof typeof STATUS_BUCKET_LABELS] ?? bucket} (${count})`}
+                />
+              </span>
+            ))}
+          </div>
+          <p class="drilldown-card__topics">
+            Topics: {r.topic_tags.map((t) => humanizeId(t)).join(", ") || "—"}
+          </p>
+          <p>
+            <a href={r.route}>Region detail →</a>
+            {" · "}
+            <a href={`/updates/?region=${encodeURIComponent(r.region)}`}>Updates in region →</a>
+          </p>
+        </li>
+      ))
+    }
+  </ul>
+
+  <p>
+    <a href="/tracker/">Tracker map</a> · <a href="/countries/">Countries</a> ·{" "}
+    <a href="/topics/">Topics</a>
+  </p>
+</BaseLayout>

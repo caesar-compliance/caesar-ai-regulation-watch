@@ -399,7 +399,7 @@
       "verification_status": "pending_official_review",
       "access_date": "2026-05-20",
       "existing_source_id": "australia-industry-ai",
-      "notes": "v0.9.3 targeted pass: primary HTML publication URL blocked (curl timeout/HTTP 000; supporting fetch HTTP 403). v1.0.1 re-check: canonical HTML still timeout. v1.0.2 human/browser sprint: automated timeout; browser fetch HTTP 403 on ethics-principles HTML — unchanged pending_official_review. Official industry.gov.au PDF paths also unreachable from this environment. Human browser on official site still required before official_source_confirmed. See source-verification-2026-05-20-v102.\n",
+      "notes": "v0.9.3 targeted pass: primary HTML publication URL blocked (curl timeout/HTTP 000; supporting fetch HTTP 403). v1.0.2 human/browser sprint: automated timeout; browser fetch HTTP 403 on ethics-principles HTML. v1.0.4 autonomous worker: primary URL timeout; official PDF alternate timeout — access_failed, no identity confirmed. pending_official_review unchanged. See autonomous-source-verification-2026-05-20-v103.\n",
       "no_competitor_text_copied": true,
       "no_bulk_extraction": true,
       "source_discovery_batch_id": "source-discovery-leads-2026-05-20",
