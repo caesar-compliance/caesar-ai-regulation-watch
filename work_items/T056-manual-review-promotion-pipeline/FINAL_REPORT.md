@@ -5,16 +5,16 @@
 | Field | Value |
 |---|---|
 | Starting main (after T055) | `39d81f1` |
-| Branch | `task/T056-manual-review-promotion-pipeline` |
-| Implementation commit | *(see Control Tower final report)* |
-| PR | *(see Control Tower final report)* |
+| Merge commit (squash PR #16) | `74e04aa` |
+| Branch | `task/T056-manual-review-promotion-pipeline` (deleted after merge) |
+| PR | #16 — merged squash |
 
 ## Local T055 generated output
 
 | Check | Result |
 |---|---|
-| `generated/network-dry-run-candidates/T054-001.json` | Present |
-| `generated/network-dry-run-reports/T055-001.json` | Present |
+| `generated/network-dry-run-candidates/T054-001.json` | Present locally (gitignored; not committed) |
+| `generated/network-dry-run-reports/T055-001.json` | Present locally (gitignored; not committed) |
 | Network rerun in T056 | No |
 
 ## Pilot promotion
@@ -33,7 +33,8 @@
 - No publication to `public/data`
 - No full legal text storage
 - All gates remain `false`
-- No live network request in T056
+- No new live network request in T056
+- No deploy, tag, or deployment closeout
 
 ## Limitations
 

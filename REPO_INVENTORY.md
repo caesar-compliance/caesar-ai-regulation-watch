@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.8 — T051–T055 on main; T056 on branch; live v1.0.7 `DEPLOY-20260520-025`)
+**Last updated:** 21 May 2026 (v1.0.8 — T051–T056 on main; T057 in progress; live v1.0.7 `DEPLOY-20260520-025`)
 
 ---
 
@@ -241,7 +241,7 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **generated/network-dry-run-candidates/T054-001.json** | Candidate output (gitignored) |
 | **generated/network-dry-run-reports/T055-001.json** | Dry-run report (gitignored) |
 
-## T056 — Manual review promotion pipeline (v1.0.8 branch)
+## T056 — Manual review promotion pipeline (v1.0.8, merged)
 
 | Path | Purpose |
 |---|---|

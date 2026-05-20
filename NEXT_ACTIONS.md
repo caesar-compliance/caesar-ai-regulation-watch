@@ -1,7 +1,7 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 21 May 2026
-**Current codebase:** v1.0.8 (T051–T055 on main; T056 in progress) — tag/deploy pending future approval
+**Current codebase:** v1.0.8 (T051–T056 on main; T057 in progress) — tag/deploy pending future approval
 **Live release:** v1.0.7 (T050) — deployed `DEPLOY-20260520-025`, commit `86c9262`, tag `regulation-watch-v1.0.7`
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
@@ -49,11 +49,14 @@
 10. **T055 — Execute one approved single-source network dry-run** *(merged to main — PR #15, squash `10bdc4c`)*
    - Execution registry `T055-001`; exactly one GET executed locally; metadata-only `generated/` output; not published; gates unchanged; no deploy/tag.
 
-11. **T056 — Manual review promotion from network dry-run candidate** *(in progress on branch)*
-   - Promote one dry-run candidate into a draft regulatory update YAML record under `data/regulatory-updates/drafts/`; still not verified; not client/evidence use; no publication until reviewed.
+11. **T056 — Manual review promotion from network dry-run candidate** *(merged to main — PR #16, squash `74e04aa`)*
+   - One local generated T055 dry-run candidate promoted to draft under `data/regulatory-updates/drafts/`; draft excluded from public exports; no new live network; not verified; not client/evidence use; no publication.
 
-12. **T057 — Manual reviewer decision workflow for draft update** *(recommended next)*
-   - Approve/reject/request-changes metadata only for `T056-001` draft; still no publication; gates unchanged.
+12. **T057 — Manual reviewer decision workflow for draft update** *(in progress)*
+   - Approve/reject/request-changes metadata only for `T056-001` draft; internal-draft-only scope; still no publication; gates unchanged.
+
+13. **T058 — Draft revision packet after request-changes** *(recommended next)*
+   - Apply safe metadata edits to T056 draft only; still no publication; no source verification; gates unchanged.
 
 ---
 
