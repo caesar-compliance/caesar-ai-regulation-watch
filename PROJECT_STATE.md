@@ -11,11 +11,12 @@
 | **Repository** | `caesar-ai-regulation-watch` |
 | **Current version** | `v0.9.4` |
 | **Current phase** | Public pilot — watcher eligibility + deterministic monitoring run |
-| **Status** | v0.9.4 in progress (deploy pending after merge) |
-| **Working branch** | `agent/v0.9.4-watcher-expansion-confirmed-sources` |
-| **Latest completed task** | v0.9.4 — watcher eligibility for 15 confirmed/blocked sources; local monitoring run v094 |
-| **Prior deploy** | v0.9.3 `b966574` (docs commit `17f4dc3` on main — deploy/tag mismatch noted) |
-| **Next recommended step** | Control Tower: deploy v0.9.4; human browser on blocked sources (Australia, EUR-Lex, EDPB) |
+| **Status** | Live on custom domain; v0.9.4 deployed (`7029059`) |
+| **Working branch** | `main` |
+| **Latest completed task** | v0.9.4 — watcher eligibility + deterministic monitoring run v094 |
+| **Deployment ID** | `DEPLOY-20260520-011` — commit `7029059`, run [26160434304](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26160434304) |
+| **Git tag** | `regulation-watch-v0.9.4` (after docs commit) |
+| **Next recommended step** | Control Tower: human browser on blocked sources; optional pilot watcher expansion |
 
 ---
 
