@@ -50,7 +50,16 @@ const schemas = {
   watcherEligibility: loadSchema("watcher-eligibility.schema.json"),
   watcherMonitoringRun: loadSchema("watcher-monitoring-run.schema.json"),
   monitoringSourceConfig: loadSchema("monitoring-source-config.schema.json"),
+  liveMetadataPilot: loadSchema("live-metadata-pilot.schema.json"),
+  liveMetadataRun: loadSchema("live-metadata-run.schema.json"),
+  changeReviewPack: loadSchema("change-review-pack.schema.json"),
 };
+
+const LIVE_METADATA_BLOCKED_SOURCES = new Set([
+  "eu-ai-act",
+  "edpb-ai-topic",
+  "australia-industry-ai",
+]);
 
 const COMPETITOR_DISCOVERY_HOST_PATTERNS = [
   /techieray\.com/i,
@@ -492,6 +501,118 @@ if (fs.existsSync(watcherMonitoringDir)) {
           failures.push({
             label: `${label} (policy)`,
             errors: [{ message: "blocked/manual_only checks cannot report change_detected true" }],
+          });
+        }
+      }
+    } else if (base.startsWith("live-metadata-pilot-allowlist-")) {
+      check(validate(file, data, schemas.liveMetadataPilot));
+      const sources = data.sources ?? [];
+      if (sources.length > 5) {
+        failures.push({
+          label: `${file} (policy)`,
+          errors: [{ message: "live metadata pilot allowlist must have at most 5 sources" }],
+        });
+      }
+      if (data.client_use_allowed !== false || data.final_evidence_allowed !== false) {
+        failures.push({
+          label: `${file} (policy)`,
+          errors: [{ message: "live metadata pilot allowlist batch must have client/final evidence false" }],
+        });
+      }
+      if (data.no_crawl !== true || data.no_full_text_storage !== true) {
+        failures.push({
+          label: `${file} (policy)`,
+          errors: [{ message: "live metadata pilot allowlist must have no_crawl and no_full_text_storage true" }],
+        });
+      }
+      for (const s of sources) {
+        const label = `${file} → ${s.source_id ?? "?"}`;
+        if (LIVE_METADATA_BLOCKED_SOURCES.has(s.source_id)) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [{ message: "blocked/manual source cannot be in live metadata pilot allowlist" }],
+          });
+        }
+        if (s.client_use_allowed !== false || s.final_evidence_allowed !== false) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [{ message: "live metadata pilot source must have client_use_allowed/final_evidence_allowed false" }],
+          });
+        }
+        if (s.verified_on_source === true) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [{ message: "live metadata pilot source must have verified_on_source: false" }],
+          });
+        }
+        if (s.no_crawl !== true || s.no_full_text_storage !== true) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [{ message: "live metadata pilot source must have no_crawl and no_full_text_storage true" }],
+          });
+        }
+        if (s.max_requests_per_run !== 1) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [{ message: "live metadata pilot source must have max_requests_per_run: 1" }],
+          });
+        }
+        if (isCompetitorDiscoveryUrl(s.official_url)) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [{ message: "competitor URL cannot be in live metadata pilot allowlist" }],
+          });
+        }
+      }
+    } else if (base.startsWith("live-metadata-run-")) {
+      check(validate(file, data, schemas.liveMetadataRun));
+      if (data.client_use_allowed !== false || data.final_evidence_allowed !== false) {
+        failures.push({
+          label: `${file} (policy)`,
+          errors: [{ message: "live metadata run must have client_use_allowed and final_evidence_allowed false" }],
+        });
+      }
+      if ((data.checks ?? []).length > 5) {
+        failures.push({
+          label: `${file} (policy)`,
+          errors: [{ message: "live metadata run must have at most 5 checks" }],
+        });
+      }
+      for (const chk of data.checks ?? []) {
+        const label = `${file} → ${chk.source_id ?? "?"}`;
+        if (chk.client_use_allowed !== false || chk.final_evidence_allowed !== false) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [{ message: "live metadata check must have client_use_allowed/final_evidence_allowed false" }],
+          });
+        }
+        if (chk.verified_on_source === true) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [{ message: "live metadata check must have verified_on_source: false" }],
+          });
+        }
+        if (LIVE_METADATA_BLOCKED_SOURCES.has(chk.source_id)) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [{ message: "blocked source cannot appear in live metadata run" }],
+          });
+        }
+      }
+    } else if (base.startsWith("change-review-pack-")) {
+      check(validate(file, data, schemas.changeReviewPack));
+      if (data.client_use_allowed !== false || data.final_evidence_allowed !== false) {
+        failures.push({
+          label: `${file} (policy)`,
+          errors: [{ message: "change review pack must have client_use_allowed and final_evidence_allowed false" }],
+        });
+      }
+      for (const r of data.reviews ?? []) {
+        const label = `${file} → ${r.source_id ?? "?"}`;
+        if (r.client_use_allowed !== false || r.final_evidence_allowed !== false) {
+          failures.push({
+            label: `${label} (policy)`,
+            errors: [{ message: "change review pack entry must have client_use_allowed/final_evidence_allowed false" }],
           });
         }
       }

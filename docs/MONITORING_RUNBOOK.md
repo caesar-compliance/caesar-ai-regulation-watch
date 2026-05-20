@@ -1,6 +1,15 @@
-# Monitoring runbook (v0.9.5)
+# Monitoring runbook (v0.9.6)
 
 **Last updated:** 20 May 2026
+
+## v0.9.6 cautious live metadata pilot
+
+- Allowlist (max 5): `data/monitoring/live-metadata-pilot-allowlist-2026-05-20-v096.yml`.
+- Live run: `data/monitoring/live-metadata-run-2026-05-20-v096.yml` (one HEAD/GET per source; metadata only; no body storage).
+- Change review pack: `data/monitoring/change-review-pack-2026-05-20-v096.yml` (not a legal change claim).
+- CLI: `npm run monitoring:live-metadata` (network required; compares to `monitoring-run-2026-05-20-v095`).
+- Public: `/data/live-metadata-runs.json`, `/data/change-review-packs.json`, `/monitoring/` pilot section.
+- **Not** scheduled monitoring; **not** broad crawl; blocked sources (EUR-Lex, EDPB, Australia WAF) excluded from allowlist.
 
 ## v0.9.5 monitoring adapter pack + deterministic pack run
 
@@ -29,6 +38,9 @@ npm run monitoring:report
 
 # Diff summary vs last commit (for PR gating / local triage)
 npm run monitoring:summary
+
+# Cautious live metadata pilot (v0.9.6; one request per allowlisted URL)
+npm run monitoring:live-metadata
 ```
 
 Reports: `data/monitoring-runs/monitoring-cycle-YYYY-MM-DD.yml`  

@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caesar.no/schemas/caesar-ai-regulation-watch/live-metadata-run.schema.json",
+  "title": "Caesar AI Regulation Watch — Live metadata pilot run",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "run_mode",
+    "run_date",
+    "run_timestamp",
+    "product_version",
+    "pilot_id",
+    "legal_safe_note",
+    "no_crawl",
+    "no_full_text_storage",
+    "no_competitor_source",
+    "client_use_allowed",
+    "final_evidence_allowed",
+    "overall_status",
+    "checks"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "pattern": "^live-metadata-run-[0-9]{4}-[0-9]{2}-[0-9]{2}-v[0-9]{3}$"
+    },
+    "run_mode": { "type": "string", "const": "cautious_live_metadata_pilot" },
+    "run_date": { "type": "string", "format": "date" },
+    "run_timestamp": { "type": "string", "format": "date-time" },
+    "product_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "pilot_id": {
+      "type": "string",
+      "pattern": "^live-metadata-pilot-[0-9]{4}-[0-9]{2}-[0-9]{2}-v[0-9]{3}$"
+    },
+    "previous_reference_run_id": {
+      "type": "string",
+      "pattern": "^monitoring-run-[0-9]{4}-[0-9]{2}-[0-9]{2}-v[0-9]{3}$"
+    },
+    "legal_safe_note": { "type": "string", "minLength": 1 },
+    "no_crawl": { "type": "boolean", "const": true },
+    "no_full_text_storage": { "type": "boolean", "const": true },
+    "no_competitor_source": { "type": "boolean", "const": true },
+    "client_use_allowed": { "type": "boolean", "const": false },
+    "final_evidence_allowed": { "type": "boolean", "const": false },
+    "overall_status": {
+      "type": "string",
+      "enum": ["completed", "partial", "failed"]
+    },
+    "change_detected_count": { "type": "integer", "minimum": 0 },
+    "requires_human_review_count": { "type": "integer", "minimum": 0 },
+    "checks": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 5,
+      "items": { "$ref": "#/$defs/liveMetadataCheck" }
+    }
+  },
+  "$defs": {
+    "liveMetadataCheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "official_url",
+        "final_url",
+        "request_method",
+        "http_status",
+        "check_result",
+        "change_detected",
+        "requires_human_review",
+        "checked_at",
+        "client_use_allowed",
+        "final_evidence_allowed",
+        "verified_on_source",
+        "notes"
+      ],
+      "properties": {
+        "source_id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+        "official_url": { "type": "string", "format": "uri" },
+        "final_url": { "type": ["string", "null"], "format": "uri" },
+        "request_method": { "type": "string", "enum": ["HEAD", "GET"] },
+        "http_status": { "type": ["integer", "null"], "minimum": 100, "maximum": 599 },
+        "content_type": { "type": ["string", "null"] },
+        "content_length": { "type": ["integer", "null"], "minimum": 0 },
+        "last_modified": { "type": ["string", "null"] },
+        "etag": { "type": ["string", "null"] },
+        "page_title": { "type": ["string", "null"] },
+        "metadata_hash": { "type": ["string", "null"] },
+        "check_result": {
+          "type": "string",
+          "enum": [
+            "metadata_check_ok",
+            "metadata_changed_needs_review",
+            "metadata_check_failed",
+            "redirect_changed_needs_review"
+          ]
+        },
+        "change_detected": { "type": "boolean" },
+        "previous_reference_run_id": {
+          "type": "string",
+          "pattern": "^monitoring-run-[0-9]{4}-[0-9]{2}-[0-9]{2}-v[0-9]{3}$"
+        },
+        "requires_human_review": { "type": "boolean" },
+        "checked_at": { "type": "string", "format": "date-time" },
+        "client_use_allowed": { "type": "boolean", "const": false },
+        "final_evidence_allowed": { "type": "boolean", "const": false },
+        "verified_on_source": { "type": "boolean", "const": false },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}

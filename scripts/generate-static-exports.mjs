@@ -93,6 +93,54 @@ function readWatcherMonitoringRuns() {
     );
 }
 
+function readLiveMetadataRuns() {
+  const dir = path.join(ROOT, "data/monitoring");
+  if (!fs.existsSync(dir)) return [];
+  return fs
+    .readdirSync(dir)
+    .filter(
+      (f) =>
+        f.startsWith("live-metadata-run-") && (f.endsWith(".yml") || f.endsWith(".yaml")),
+    )
+    .map((f) => yaml.load(fs.readFileSync(path.join(dir, f), "utf8")))
+    .filter((r) => r?.run_id)
+    .sort((a, b) => b.run_date.localeCompare(a.run_date) || b.run_id.localeCompare(a.run_id));
+}
+
+function readLiveMetadataPilotAllowlist() {
+  const dir = path.join(ROOT, "data/monitoring");
+  if (!fs.existsSync(dir)) return null;
+  const files = fs
+    .readdirSync(dir)
+    .filter(
+      (f) =>
+        f.startsWith("live-metadata-pilot-allowlist-") &&
+        (f.endsWith(".yml") || f.endsWith(".yaml")),
+    )
+    .sort()
+    .reverse();
+  if (files.length === 0) return null;
+  return yaml.load(fs.readFileSync(path.join(dir, files[0]), "utf8"));
+}
+
+function readChangeReviewPacks() {
+  const dir = path.join(ROOT, "data/monitoring");
+  if (!fs.existsSync(dir)) return [];
+  return fs
+    .readdirSync(dir)
+    .filter(
+      (f) =>
+        f.startsWith("change-review-pack-") && (f.endsWith(".yml") || f.endsWith(".yaml")),
+    )
+    .map((f) => yaml.load(fs.readFileSync(path.join(dir, f), "utf8")))
+    .filter((p) => p?.change_review_pack_id)
+    .sort(
+      (a, b) =>
+        b.generated_at.localeCompare(a.generated_at) ||
+        b.change_review_pack_id.localeCompare(a.change_review_pack_id),
+    );
+}
+
 function readMonitoringSourceConfigs() {
   const dir = path.join(ROOT, "data/monitoring");
   if (!fs.existsSync(dir)) return { batch: null, configs: [] };
@@ -271,6 +319,11 @@ const watcherMonitoringRuns = readWatcherMonitoringRuns();
 const latestWatcherMonitoringRun = watcherMonitoringRuns[0] ?? null;
 const { batch: monitoringSourceConfigBatch, configs: monitoringSourceConfigs } =
   readMonitoringSourceConfigs();
+const liveMetadataRuns = readLiveMetadataRuns();
+const latestLiveMetadataRun = liveMetadataRuns[0] ?? null;
+const liveMetadataPilotAllowlist = readLiveMetadataPilotAllowlist();
+const changeReviewPacks = readChangeReviewPacks();
+const latestChangeReviewPack = changeReviewPacks[0] ?? null;
 const monitoringDiffSummaryPath = path.join(
   ROOT,
   "data/monitoring-runs/latest-monitoring-diff-summary.json",
@@ -430,6 +483,12 @@ const REASON_LABELS = {
     "Deterministic monitoring run reported status_check_failed for this source.",
   monitoring_change_possible:
     "Monitoring run flagged possible change; human review required before record update.",
+  live_metadata_change_needs_review:
+    "Cautious live metadata pilot detected a metadata difference vs v0.9.5 baseline; not a legal change claim.",
+  live_metadata_check_failed:
+    "Cautious live metadata pilot fetch failed; human corroboration on official source required.",
+  live_metadata_redirect_changed:
+    "Cautious live metadata pilot: redirect/final URL differs from allowlisted URL; confirm canonical destination.",
   snapshot_changed: "New metadata snapshot differs from previous; confirm on official source.",
   human_review_required: "Watcher output requires human review before any record update.",
 };
@@ -729,6 +788,40 @@ function buildReviewQueue() {
     }
   }
 
+  if (latestLiveMetadataRun) {
+    for (const chk of latestLiveMetadataRun.checks ?? []) {
+      if (!chk.requires_human_review) continue;
+      const src = sourceById[chk.source_id];
+      const review_reasons = mergeReasons(
+        chk.check_result === "metadata_check_failed"
+          ? ["live_metadata_check_failed"]
+          : chk.check_result === "redirect_changed_needs_review"
+            ? ["live_metadata_redirect_changed"]
+            : chk.check_result === "metadata_changed_needs_review"
+              ? ["live_metadata_change_needs_review"]
+              : [],
+        ["human_review_required", "verified_on_source_false", "client_use_not_allowed"],
+      );
+      items.push({
+        item_type: "live_metadata_review",
+        item_id: `${latestLiveMetadataRun.run_id}-${chk.source_id}`,
+        title: `Live metadata pilot: ${chk.source_id} (${chk.check_result})`,
+        jurisdiction_id: src?.jurisdiction_id ?? "eu",
+        review_status: "needs_human_review",
+        reason_for_review: `${chk.notes ?? ""} ${reasonText(review_reasons)}`.trim(),
+        review_reasons,
+        official_url: chk.official_url ?? src?.official_url ?? null,
+        page_href: "/monitoring/",
+        missing_official_url: !chk.official_url && !src?.official_url,
+        verified_on_source_false: true,
+        technical_url_status: chk.http_status != null ? String(chk.http_status) : null,
+        content_review_status: "not_reviewed",
+        redirect_detected: chk.check_result === "redirect_changed_needs_review",
+        client_use_allowed: false,
+      });
+    }
+  }
+
   if (latestWatcherMonitoringRun) {
     for (const chk of latestWatcherMonitoringRun.checks ?? []) {
       const needsQueue =
@@ -854,6 +947,9 @@ const reviewSummary = {
   monitoring_manual_or_blocked: countReason("monitoring_manual_or_blocked"),
   monitoring_status_check_failed: countReason("monitoring_status_check_failed"),
   monitoring_change_possible: countReason("monitoring_change_possible"),
+  live_metadata_change_needs_review: countReason("live_metadata_change_needs_review"),
+  live_metadata_check_failed: countReason("live_metadata_check_failed"),
+  live_metadata_redirect_changed: countReason("live_metadata_redirect_changed"),
   human_review_required_watcher: countReason("human_review_required"),
 };
 
@@ -1023,6 +1119,37 @@ const monitoringSourceConfigSummary = {
     .length,
 };
 
+const liveMetadataRunSummary = latestLiveMetadataRun
+  ? {
+      run_id: latestLiveMetadataRun.run_id,
+      run_date: latestLiveMetadataRun.run_date,
+      product_version: latestLiveMetadataRun.product_version ?? null,
+      run_mode: latestLiveMetadataRun.run_mode,
+      overall_status: latestLiveMetadataRun.overall_status ?? "completed",
+      pilot_id: latestLiveMetadataRun.pilot_id ?? null,
+      checks_total: latestLiveMetadataRun.checks?.length ?? 0,
+      metadata_check_ok: (latestLiveMetadataRun.checks ?? []).filter(
+        (c) => c.check_result === "metadata_check_ok",
+      ).length,
+      metadata_changed_needs_review: (latestLiveMetadataRun.checks ?? []).filter(
+        (c) => c.check_result === "metadata_changed_needs_review",
+      ).length,
+      metadata_check_failed: (latestLiveMetadataRun.checks ?? []).filter(
+        (c) => c.check_result === "metadata_check_failed",
+      ).length,
+      redirect_changed_needs_review: (latestLiveMetadataRun.checks ?? []).filter(
+        (c) => c.check_result === "redirect_changed_needs_review",
+      ).length,
+      change_detected_count: latestLiveMetadataRun.change_detected_count ?? 0,
+      requires_human_review_count: latestLiveMetadataRun.requires_human_review_count ?? 0,
+      client_use_allowed: (latestLiveMetadataRun.checks ?? []).filter((c) => c.client_use_allowed)
+        .length,
+      final_evidence_allowed: (latestLiveMetadataRun.checks ?? []).filter(
+        (c) => c.final_evidence_allowed,
+      ).length,
+    }
+  : null;
+
 const watcherMonitoringRunSummary = latestWatcherMonitoringRun
   ? {
       monitoring_run_id: latestWatcherMonitoringRun.monitoring_run_id,
@@ -1162,6 +1289,14 @@ const snapshot = {
     latest_watcher_monitoring_run_status:
       latestWatcherMonitoringRun?.overall_status ?? null,
     monitoring_source_config_count: monitoringSourceConfigSummary.total,
+    live_metadata_pilot_source_count: liveMetadataPilotAllowlist?.sources?.length ?? 0,
+    latest_live_metadata_run_id: latestLiveMetadataRun?.run_id ?? null,
+    metadata_check_ok_count: liveMetadataRunSummary?.metadata_check_ok ?? 0,
+    metadata_change_needs_review_count:
+      liveMetadataRunSummary?.metadata_changed_needs_review ?? 0,
+    metadata_check_failed_count: liveMetadataRunSummary?.metadata_check_failed ?? 0,
+    live_metadata_client_use_allowed_count: 0,
+    live_metadata_final_evidence_allowed_count: 0,
     monitoring_pack_run_count: watcherMonitoringRuns.length,
     watcher_monitoring_change_detected_count:
       watcherMonitoringRunSummary?.change_detected_count ?? 0,
@@ -1215,6 +1350,8 @@ const snapshot = {
     watcher_runs: "/data/watcher-runs.json",
     monitoring_runs: "/data/monitoring-runs.json",
     monitoring_source_configs: "/data/monitoring-source-configs.json",
+    live_metadata_runs: "/data/live-metadata-runs.json",
+    change_review_packs: "/data/change-review-packs.json",
     watcher_eligibility: "/data/watcher-eligibility.json",
     detected_changes: "/data/detected-changes.json",
     evidence_export_candidates: "/data/evidence-export-candidates.json",
@@ -1419,6 +1556,59 @@ writeJson(path.join(PUBLIC_DATA, "monitoring-runs.json"), {
   },
 });
 
+writeJson(path.join(PUBLIC_DATA, "live-metadata-runs.json"), {
+  generated_at: generatedAt,
+  disclaimer: DISCLAIMER,
+  cautious_live_pilot_only: true,
+  not_scheduled_monitoring: true,
+  metadata_only_no_body_storage: true,
+  not_client_evidence: true,
+  not_legal_advice: true,
+  items: liveMetadataRuns,
+  latest: latestLiveMetadataRun,
+  allowlist: liveMetadataPilotAllowlist
+    ? {
+        pilot_id: liveMetadataPilotAllowlist.pilot_id,
+        sources: liveMetadataPilotAllowlist.sources ?? [],
+      }
+    : null,
+  summary: liveMetadataRunSummary ?? {
+    checks_total: 0,
+    metadata_check_ok: 0,
+    metadata_changed_needs_review: 0,
+    metadata_check_failed: 0,
+    client_use_allowed: 0,
+    final_evidence_allowed: 0,
+  },
+});
+
+writeJson(path.join(PUBLIC_DATA, "change-review-packs.json"), {
+  generated_at: generatedAt,
+  disclaimer: DISCLAIMER,
+  not_legal_change_claim: true,
+  human_review_required: true,
+  not_client_evidence: true,
+  items: changeReviewPacks,
+  latest: latestChangeReviewPack,
+  summary: latestChangeReviewPack
+    ? {
+        reviews_total: latestChangeReviewPack.reviews?.length ?? 0,
+        no_change_observed: (latestChangeReviewPack.reviews ?? []).filter(
+          (r) => r.review_status === "no_change_observed",
+        ).length,
+        metadata_change_needs_review: (latestChangeReviewPack.reviews ?? []).filter(
+          (r) => r.review_status === "metadata_change_needs_review",
+        ).length,
+        check_failed_needs_review: (latestChangeReviewPack.reviews ?? []).filter(
+          (r) => r.review_status === "check_failed_needs_review",
+        ).length,
+        redirect_changed_needs_review: (latestChangeReviewPack.reviews ?? []).filter(
+          (r) => r.review_status === "redirect_changed_needs_review",
+        ).length,
+      }
+    : null,
+});
+
 writeJson(path.join(PUBLIC_DATA, "monitoring-source-configs.json"), {
   generated_at: generatedAt,
   disclaimer: DISCLAIMER,
@@ -1562,6 +1752,8 @@ console.log("  public/data/monitoring-runs.json");
 console.log("  public/data/watcher-eligibility.json");
 console.log(`  ${watcherEligibilityEntries.length} watcher eligibility entr(ies)`);
 console.log(`  ${monitoringSourceConfigs.length} monitoring source config(s)`);
+console.log(`  ${liveMetadataRuns.length} live metadata run(s)`);
+console.log(`  ${changeReviewPacks.length} change review pack(s)`);
 console.log(`  ${watcherMonitoringRuns.length} watcher monitoring run(s)`);
 console.log("  public/data/detected-changes.json");
 console.log("  public/data/evidence-export-candidates.json");
