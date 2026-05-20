@@ -27,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Notes
 
 - Caesar-native Astro/CSS/SVG only; no GPL map libraries. Heuristic tracker metadata — not legal advice, not legal certainty, not final evidence. Evidence gates remain closed.
-- **Deployed** 20 May 2026 — `DEPLOY-20260520-025`, commit TBD, run TBD, tag `regulation-watch-v1.0.7`. Public smoke on `/`, `/tracker/`, `/updates/`, `/countries/`, `/compare/`, and tracker JSON exports.
+- **Deployed** 20 May 2026 — `DEPLOY-20260520-025`, commit `86c9262`, run [26189934284](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26189934284), tag `regulation-watch-v1.0.7`. Public smoke pass on `/`, `/tracker/`, `/updates/`, `/countries/`, `/compare/`, `/compare/?ids=eu&ids=uk&ids=us-federal`, `/data/country-status.json`, `/data/jurisdiction-comparison.json`, `/data/automation-first-metrics.json`, `/data/regulation-watch-snapshot.json`.
 
 ---
 

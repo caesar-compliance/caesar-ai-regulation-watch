@@ -4,9 +4,9 @@
 
 | Field | Value |
 |---|---|
-| **Current version** | `v1.0.7` (release prep — deploy pending) |
-| **Status** | Release branch — tag `regulation-watch-v1.0.7` after deploy |
-| **Deployment** | `DEPLOY-20260520-025` — run TBD |
+| **Current version** | `v1.0.7` (deployed) |
+| **Status** | Deployed — tag `regulation-watch-v1.0.7` |
+| **Deployment** | `DEPLOY-20260520-025` — commit `86c9262`, run [26189934284](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26189934284) |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
 | **Phase** | Public Technical MVP + tracker map/compare (T050) |
 
@@ -34,14 +34,15 @@ The **v1.0.7** release adds T050 choropleth-style tracker map and jurisdiction c
 - **Choropleth-style tracker map** — `/tracker/` regional status panel with legend; heuristic maturity/activity indices on jurisdiction tiles.
 - **Compare jurisdictions** — `/compare/` for 2–4 pilot jurisdictions; side-by-side tracker metadata; max-4 selection notice.
 - **JSON exports** — enriched `country-status.json`, `jurisdiction-comparison.json`, `automation-first-metrics.json` with `compare_route` and scoring fields.
-- **Deploy** — `DEPLOY-20260520-025`, commit and run TBD until workflow completes; tag `regulation-watch-v1.0.7` after smoke pass.
+- **Deploy** — `DEPLOY-20260520-025`, commit `86c9262`, run [26189934284](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26189934284), tag `regulation-watch-v1.0.7`; public smoke pass on `/`, `/tracker/`, `/updates/`, `/countries/`, `/compare/`, `/compare/?ids=eu&ids=uk&ids=us-federal`, and tracker JSON exports.
 - **No scraping/crawling** — Caesar-native CSS/SVG only; no GPL map libraries; evidence gates unchanged.
 - **Recommended next** — T051 richer country profile pages and regional/topic drilldowns.
 
 ### Remaining limitations (v1.0.7)
 
 - Heuristic tracker metadata only — not legal certainty or compliance scoring.
-- Abstract regional panel — not precise geographic choropleth.
+- Simplified choropleth-style map — not full precise geographic coverage.
+- Compare limited to 4 jurisdictions.
 - Offline metadata adapter only — not live API/RSS fetch automation.
 - 13 pilot jurisdictions — not complete global coverage.
 - Not legal advice; not final evidence; not verified legal change; `verified_on_source`, `client_use_allowed`, `final_evidence_allowed`, and `legal_change_claimed` remain closed.
