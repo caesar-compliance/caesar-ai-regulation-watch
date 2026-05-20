@@ -1,6 +1,6 @@
 # RSS / API adapter safety model
 
-**Task:** T052  
+**Tasks:** T052 (allowlist + fixture parser); T053 (manual intake runner)
 **Status:** Architecture and offline validation only — **no live adapters enabled**
 
 ---
@@ -62,3 +62,20 @@ npm run build:source-adapter-fixtures
 | `legal_text_publication_allowed` | `false` |
 
 Future live runs require **separate Control Tower approval** per adapter and per runbook — not implied by T052 merge.
+
+---
+
+## Manual intake runner (T053)
+
+T053 adds a **run registry** (`manual-intake-runs.yml`) and CLI runner that writes per-run candidate JSON under `generated/source-intake-candidates/`. Default mode is `fixture_only`; network flags stay false unless a future approved single manual run is configured.
+
+```bash
+npm run validate:manual-source-intake
+npm run run:manual-source-intake -- --run-id T053-001 --fixture fixtures/source-adapters/rss-sample.xml
+```
+
+- Pilot adapter: `edpb-publications-rss` (official EDPB RSS; no WAF/paywall flags in allowlist).
+- Rejects `--network` / `--allow-network` at CLI.
+- Does **not** publish candidates to `public/data/` or enable scheduling.
+
+See [MANUAL_SOURCE_INTAKE_RUNNER.md](MANUAL_SOURCE_INTAKE_RUNNER.md).

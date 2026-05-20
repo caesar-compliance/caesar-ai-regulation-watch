@@ -1,7 +1,7 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 20 May 2026
-**Current codebase:** v1.0.8 (T051 profiles + drilldowns; T052 allowlist) — merged to main; tag/deploy pending future approval
+**Current codebase:** v1.0.8 (T051 profiles + drilldowns; T052 allowlist; T053 manual intake) — tag/deploy pending future approval
 **Live release:** v1.0.7 (T050) — deployed `DEPLOY-20260520-025`, commit `86c9262`, tag `regulation-watch-v1.0.7`
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
@@ -39,8 +39,11 @@
    - Allowlist schema, draft registry, validation, fixture-only parser, `/source-adapters/` page.
    - No live collection; no scheduled crawl; gates remain closed; no deploy/tag in T052.
 
-8. **T053 — Manual approved source intake runner** *(recommended next)*
-   - One official RSS/API source; fixture-first; manual approval; still disabled by default.
+8. **T053 — Manual approved source intake runner** *(in progress / PR)*
+   - Pilot `edpb-publications-rss`; fixture-first CLI; `manual-intake-runs.yml`; no live network.
+
+9. **T054 — Approved single-source network dry-run design** *(recommended next)*
+   - Manual-only network dry-run spec; explicit Control Tower approval; no scheduling; no publication.
 
 ---
 

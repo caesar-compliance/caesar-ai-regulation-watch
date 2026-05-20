@@ -7,6 +7,8 @@
   "scripts": {
     "validate:data": "node scripts/validate-data.mjs",
     "validate:source-adapters": "node scripts/validate-source-adapter-allowlist.mjs",
+    "validate:manual-source-intake": "node scripts/validate-manual-source-intake-runs.mjs",
+    "run:manual-source-intake": "node scripts/run-manual-source-intake.mjs",
     "build:source-adapter-fixtures": "node scripts/parse-source-adapter-fixture.mjs",
     "build:regulatory-updates": "node scripts/build-regulatory-updates-from-metadata.mjs",
     "generate:evidence-candidates": "node scripts/generate-evidence-export-candidates.mjs",

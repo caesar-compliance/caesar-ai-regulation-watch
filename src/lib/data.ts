@@ -1416,6 +1416,48 @@ export function getSourceAdapterAllowlistEntries(): SourceAdapterAllowlistEntry[
   return getSourceAdapterAllowlist()?.adapters ?? [];
 }
 
+export interface ManualSourceIntakeRun {
+  run_id: string;
+  adapter_id: string;
+  source_id: string;
+  mode: string;
+  status: string;
+  approval_required: boolean;
+  network_allowed: boolean;
+  schedule_enabled: boolean;
+  stores_metadata_only: boolean;
+  stores_full_text: boolean;
+  output_path: string;
+  verified_on_source: boolean;
+  client_use_allowed: boolean;
+  client_evidence_allowed: boolean;
+  final_evidence_allowed: boolean;
+  legal_change_claimed: boolean;
+  notes?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ManualSourceIntakeRunsDoc {
+  manual_source_intake_runs_id: string;
+  generated_at: string;
+  product_version: string;
+  legal_safe_note: string;
+  no_live_collection: boolean;
+  no_scheduled_monitoring: boolean;
+  runs: ManualSourceIntakeRun[];
+}
+
+export function getManualSourceIntakeRuns(): ManualSourceIntakeRunsDoc | null {
+  const file = path.join(ROOT, "data/source-adapters/manual-intake-runs.yml");
+  if (!fs.existsSync(file)) return null;
+  return yaml.load(fs.readFileSync(file, "utf8")) as ManualSourceIntakeRunsDoc;
+}
+
+export function getManualSourceIntakeRunEntries(): ManualSourceIntakeRun[] {
+  return getManualSourceIntakeRuns()?.runs ?? [];
+}
+
 export function getPilotSummary() {
   return {
     jurisdictionCount: getJurisdictions().length,

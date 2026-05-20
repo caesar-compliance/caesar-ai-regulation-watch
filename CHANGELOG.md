@@ -11,11 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **T053 manual source intake runner** — `schemas/manual-source-intake-run.schema.json`, `data/source-adapters/manual-intake-runs.yml` (pilot `T053-001` / `edpb-publications-rss`), `npm run validate:manual-source-intake`, `npm run run:manual-source-intake` (fixture-only CLI), [docs/MANUAL_SOURCE_INTAKE_RUNNER.md](docs/MANUAL_SOURCE_INTAKE_RUNNER.md), manual intake section on `/source-adapters/`.
 - **T052 source adapter allowlist architecture** — `schemas/source-adapter-allowlist.schema.json`, `data/source-adapters/source-adapter-allowlist.yml`, safety docs, `npm run validate:source-adapters`, fixture-only RSS/Atom parser (`npm run build:source-adapter-fixtures`), public export `/data/source-adapter-allowlist.json`, page `/source-adapters/`.
 
 ### Notes
 
-- Merged to main (PR #12, squash commit `f3d2055`). Live site remains v1.0.7; tag `regulation-watch-v1.0.8` and deployment closeout pending future Control Tower approval. No live source collection; adapters disabled/draft/manual-gated; no deploy/tag in T052.
+- T053: fixture-first intake; no live network; no scheduling; output under `generated/source-intake-candidates/` (gitignored). Live site remains v1.0.7; no tag/deploy/closeout in T053.
+- T052 merged to main (PR #12, squash commit `f3d2055`). No live source collection; adapters disabled/draft/manual-gated.
 
 ---
 

@@ -1,7 +1,7 @@
 # Source adapter allowlist
 
-**Task:** T052 — API/RSS source adapter planning + allowlist architecture  
-**Version:** v1.0.8 (post-T051 on main; not deployed as v1.0.8 until Control Tower approves)
+**Tasks:** T052 — allowlist architecture; T053 — manual intake runner
+**Version:** v1.0.8 (post-T051/T052 on main; not deployed as v1.0.8 until Control Tower approves)
 
 ---
 
@@ -49,8 +49,19 @@ Before any adapter moves toward a manual network run:
 
 ---
 
+## Manual intake runs (T053)
+
+After an adapter is registered here, a **manual intake run** may reference it in `data/source-adapters/manual-intake-runs.yml`. T053 adds one pilot run (`T053-001` → `edpb-publications-rss`) with `fixture_only` mode. See [MANUAL_SOURCE_INTAKE_RUNNER.md](MANUAL_SOURCE_INTAKE_RUNNER.md).
+
+- Validation: `npm run validate:manual-source-intake`
+- Fixture runner: `npm run run:manual-source-intake -- --run-id T053-001 --fixture fixtures/source-adapters/rss-sample.xml`
+- Output: `generated/source-intake-candidates/` (local, gitignored; not `public/data/`)
+
+---
+
 ## Related docs
 
+- [MANUAL_SOURCE_INTAKE_RUNNER.md](MANUAL_SOURCE_INTAKE_RUNNER.md)
 - [RSS_API_ADAPTER_SAFETY_MODEL.md](RSS_API_ADAPTER_SAFETY_MODEL.md)
 - [SCHEDULED_MONITORING_POLICY.md](SCHEDULED_MONITORING_POLICY.md)
 - [WATCHER_RELIABILITY_POLICY.md](WATCHER_RELIABILITY_POLICY.md)

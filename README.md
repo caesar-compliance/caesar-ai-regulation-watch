@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **Status** | v1.0.8 on main (T051 + T052 merged); live site v1.0.7 `DEPLOY-20260520-025` — deploy/tag pending |
+| **Status** | v1.0.8 on main (T051 + T052 + T053); live site v1.0.7 `DEPLOY-20260520-025` — deploy/tag pending |
 | **Hosting** | GitHub Pages — static site (Astro) |
 | **Scope** | AI regulation tracking, country profiles, latest updates, source monitoring, metrics and structured exports |
 | **Safety** | Not legal advice; source transparency and automation confidence labels apply |
@@ -266,7 +266,7 @@ Canonical values, review workflow, and future evidence export shape:
 
 ## Project status
 
-**v1.0.8 (main)** — T051 richer jurisdiction profiles, `/regions/` and `/topics/` drilldowns, JSON exports (`jurisdiction-profiles.json`, `region-drilldowns.json`, `topic-drilldowns.json`). T052 source adapter allowlist architecture (`/source-adapters/`, [docs/SOURCE_ADAPTER_ALLOWLIST.md](docs/SOURCE_ADAPTER_ALLOWLIST.md)). Merged to main; tag `regulation-watch-v1.0.8` and deploy pending future Control Tower approval. No live collection.
+**v1.0.8 (main)** — T051 richer jurisdiction profiles, `/regions/` and `/topics/` drilldowns, JSON exports (`jurisdiction-profiles.json`, `region-drilldowns.json`, `topic-drilldowns.json`). T052 source adapter allowlist (`/source-adapters/`, [docs/SOURCE_ADAPTER_ALLOWLIST.md](docs/SOURCE_ADAPTER_ALLOWLIST.md)). T053 manual source intake runner (fixture-first, [docs/MANUAL_SOURCE_INTAKE_RUNNER.md](docs/MANUAL_SOURCE_INTAKE_RUNNER.md)) — no live RSS/API collection. Tag `regulation-watch-v1.0.8` and deploy pending future Control Tower approval.
 
 **v1.0.7 (live)** — [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) (`DEPLOY-20260520-025`, tag `regulation-watch-v1.0.7`). T050 map/compare + T049 feed.
 

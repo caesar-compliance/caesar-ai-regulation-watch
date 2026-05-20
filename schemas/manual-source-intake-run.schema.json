@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caesar.no/schemas/caesar-ai-regulation-watch/manual-source-intake-run.schema.json",
+  "title": "Caesar AI Regulation Watch — Manual source intake runs",
+  "description": "Manual-gated intake run registry. Fixture-first by default. Not live collection. Not legal advice.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "manual_source_intake_runs_id",
+    "generated_at",
+    "product_version",
+    "legal_safe_note",
+    "no_live_collection",
+    "no_scheduled_monitoring",
+    "runs"
+  ],
+  "properties": {
+    "manual_source_intake_runs_id": {
+      "type": "string",
+      "pattern": "^manual-source-intake-runs-[0-9]{4}-[0-9]{2}-[0-9]{2}-v[0-9]{3}$"
+    },
+    "generated_at": { "type": "string", "format": "date" },
+    "product_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "legal_safe_note": { "type": "string", "minLength": 1 },
+    "no_live_collection": { "type": "boolean", "const": true },
+    "no_scheduled_monitoring": { "type": "boolean", "const": true },
+    "runs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/intakeRun" }
+    }
+  },
+  "$defs": {
+    "intakeRun": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "run_id",
+        "adapter_id",
+        "source_id",
+        "mode",
+        "status",
+        "approval_required",
+        "network_allowed",
+        "schedule_enabled",
+        "stores_metadata_only",
+        "stores_full_text",
+        "output_path",
+        "verified_on_source",
+        "client_use_allowed",
+        "client_evidence_allowed",
+        "final_evidence_allowed",
+        "legal_change_claimed",
+        "created_at",
+        "updated_at"
+      ],
+      "properties": {
+        "run_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+        "adapter_id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+        "source_id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+        "mode": {
+          "type": "string",
+          "enum": ["fixture_only", "manual_network_disabled", "manual_network_approved"]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "draft",
+            "ready_for_manual_review",
+            "approved_for_single_manual_run",
+            "completed_fixture_only",
+            "rejected"
+          ]
+        },
+        "approval_required": { "type": "boolean", "const": true },
+        "network_allowed": { "type": "boolean" },
+        "schedule_enabled": { "type": "boolean", "const": false },
+        "stores_metadata_only": { "type": "boolean", "const": true },
+        "stores_full_text": { "type": "boolean", "const": false },
+        "output_path": {
+          "type": "string",
+          "pattern": "^generated/source-intake-candidates/[A-Za-z0-9._-]+\\.json$"
+        },
+        "verified_on_source": { "type": "boolean", "const": false },
+        "client_use_allowed": { "type": "boolean", "const": false },
+        "client_evidence_allowed": { "type": "boolean", "const": false },
+        "final_evidence_allowed": { "type": "boolean", "const": false },
+        "legal_change_claimed": { "type": "boolean", "const": false },
+        "notes": { "type": "string" },
+        "created_at": { "type": "string", "format": "date" },
+        "updated_at": { "type": "string", "format": "date" }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "mode": { "const": "manual_network_approved" } },
+            "required": ["mode"]
+          },
+          "then": {
+            "properties": { "status": { "const": "approved_for_single_manual_run" } }
+          }
+        },
+        {
+          "if": {
+            "properties": { "status": { "const": "approved_for_single_manual_run" } },
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "mode": { "const": "manual_network_approved" },
+              "network_allowed": { "const": true }
+            }
+          }
+        },
+        {
+          "if": {
+            "not": {
+              "allOf": [
+                {
+                  "properties": { "mode": { "const": "manual_network_approved" } },
+                  "required": ["mode"]
+                },
+                {
+                  "properties": { "status": { "const": "approved_for_single_manual_run" } },
+                  "required": ["status"]
+                }
+              ]
+            }
+          },
+          "then": {
+            "properties": { "network_allowed": { "const": false } }
+          }
+        }
+      ]
+    }
+  }
+}
