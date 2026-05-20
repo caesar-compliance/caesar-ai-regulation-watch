@@ -86,7 +86,28 @@ function readWatcherMonitoringRuns() {
     )
     .map((f) => yaml.load(fs.readFileSync(path.join(dir, f), "utf8")))
     .filter((r) => r?.monitoring_run_id)
-    .sort((a, b) => b.run_date.localeCompare(a.run_date));
+    .sort(
+      (a, b) =>
+        b.run_date.localeCompare(a.run_date) ||
+        b.monitoring_run_id.localeCompare(a.monitoring_run_id),
+    );
+}
+
+function readMonitoringSourceConfigs() {
+  const dir = path.join(ROOT, "data/monitoring");
+  if (!fs.existsSync(dir)) return { batch: null, configs: [] };
+  const files = fs
+    .readdirSync(dir)
+    .filter((f) => f.startsWith("source-configs-") && (f.endsWith(".yml") || f.endsWith(".yaml")))
+    .sort()
+    .reverse();
+  if (files.length === 0) return { batch: null, configs: [] };
+  const batch = yaml.load(fs.readFileSync(path.join(dir, files[0]), "utf8"));
+  const configs = (batch?.configs ?? []).map((c) => ({
+    ...c,
+    monitoring_source_config_batch_id: batch.monitoring_source_config_batch_id,
+  }));
+  return { batch, configs };
 }
 
 function readDetectedChanges() {
@@ -248,6 +269,8 @@ const { batch: watcherEligibilityBatch, entries: watcherEligibilityEntries } =
   readWatcherEligibility();
 const watcherMonitoringRuns = readWatcherMonitoringRuns();
 const latestWatcherMonitoringRun = watcherMonitoringRuns[0] ?? null;
+const { batch: monitoringSourceConfigBatch, configs: monitoringSourceConfigs } =
+  readMonitoringSourceConfigs();
 const monitoringDiffSummaryPath = path.join(
   ROOT,
   "data/monitoring-runs/latest-monitoring-diff-summary.json",
@@ -713,6 +736,7 @@ function buildReviewQueue() {
         chk.check_result === "blocked_not_checked" ||
         chk.check_result === "manual_only_not_checked" ||
         chk.check_result === "status_check_failed" ||
+        chk.check_result === "fetch_failed_needs_review" ||
         chk.change_detected === true;
       if (!needsQueue) continue;
       const src = sourceById[chk.source_id];
@@ -986,18 +1010,38 @@ const watcherEligibilitySummary = {
     .length,
 };
 
+const monitoringSourceConfigSummary = {
+  total: monitoringSourceConfigs.length,
+  fetchable_count: monitoringSourceConfigs.filter((c) => c.allowed_to_fetch === true).length,
+  manual_only_count: monitoringSourceConfigs.filter((c) => c.adapter_type === "manual_only").length,
+  blocked_or_not_fetched_count: monitoringSourceConfigs.filter(
+    (c) => c.allowed_to_fetch === false || c.fetch_scope === "not_fetched",
+  ).length,
+  client_use_allowed: monitoringSourceConfigs.filter((c) => c.client_use_allowed).length,
+  final_evidence_allowed: monitoringSourceConfigs.filter((c) => c.final_evidence_allowed).length,
+  verified_on_source_true: monitoringSourceConfigs.filter((c) => c.verified_on_source === true)
+    .length,
+};
+
 const watcherMonitoringRunSummary = latestWatcherMonitoringRun
   ? {
       monitoring_run_id: latestWatcherMonitoringRun.monitoring_run_id,
       run_date: latestWatcherMonitoringRun.run_date,
+      product_version: latestWatcherMonitoringRun.product_version ?? null,
       mode: latestWatcherMonitoringRun.mode,
       overall_status: latestWatcherMonitoringRun.overall_status ?? "completed",
       checks_total: latestWatcherMonitoringRun.checks?.length ?? 0,
       status_check_ok: (latestWatcherMonitoringRun.checks ?? []).filter(
         (c) => c.check_result === "status_check_ok",
       ).length,
+      metadata_snapshot_created: (latestWatcherMonitoringRun.checks ?? []).filter(
+        (c) => c.check_result === "metadata_snapshot_created",
+      ).length,
       no_change_snapshot_created: (latestWatcherMonitoringRun.checks ?? []).filter(
         (c) => c.check_result === "no_change_snapshot_created",
+      ).length,
+      fetch_failed_needs_review: (latestWatcherMonitoringRun.checks ?? []).filter(
+        (c) => c.check_result === "fetch_failed_needs_review",
       ).length,
       manual_only_not_checked: (latestWatcherMonitoringRun.checks ?? []).filter(
         (c) => c.check_result === "manual_only_not_checked",
@@ -1117,6 +1161,8 @@ const snapshot = {
       latestWatcherMonitoringRun?.monitoring_run_id ?? null,
     latest_watcher_monitoring_run_status:
       latestWatcherMonitoringRun?.overall_status ?? null,
+    monitoring_source_config_count: monitoringSourceConfigSummary.total,
+    monitoring_pack_run_count: watcherMonitoringRuns.length,
     watcher_monitoring_change_detected_count:
       watcherMonitoringRunSummary?.change_detected_count ?? 0,
     monitoring_diff_has_meaningful_changes:
@@ -1168,6 +1214,7 @@ const snapshot = {
     snapshots: "/data/snapshots.json",
     watcher_runs: "/data/watcher-runs.json",
     monitoring_runs: "/data/monitoring-runs.json",
+    monitoring_source_configs: "/data/monitoring-source-configs.json",
     watcher_eligibility: "/data/watcher-eligibility.json",
     detected_changes: "/data/detected-changes.json",
     evidence_export_candidates: "/data/evidence-export-candidates.json",
@@ -1363,9 +1410,26 @@ writeJson(path.join(PUBLIC_DATA, "monitoring-runs.json"), {
     latest_watcher_monitoring_run_status:
       latestWatcherMonitoringRun?.overall_status ?? null,
     watcher_monitoring_run_count: watcherMonitoringRuns.length,
+    monitoring_source_config_count: monitoringSourceConfigSummary.total,
     has_meaningful_changes: latestMonitoringDiffSummary?.has_meaningful_changes ?? null,
     ...watcherMonitoringRunSummary,
+    blocked_or_manual_count:
+      (watcherMonitoringRunSummary?.blocked_not_checked ?? 0) +
+      (watcherMonitoringRunSummary?.manual_only_not_checked ?? 0),
   },
+});
+
+writeJson(path.join(PUBLIC_DATA, "monitoring-source-configs.json"), {
+  generated_at: generatedAt,
+  disclaimer: DISCLAIMER,
+  not_complete_coverage: true,
+  not_client_evidence: true,
+  deterministic_local_only: true,
+  batch_id: monitoringSourceConfigBatch?.monitoring_source_config_batch_id ?? null,
+  product_version: monitoringSourceConfigBatch?.product_version ?? PROJECT_VERSION,
+  legal_safe_note: monitoringSourceConfigBatch?.legal_safe_note ?? DISCLAIMER,
+  summary: monitoringSourceConfigSummary,
+  items: monitoringSourceConfigs,
 });
 
 writeJson(path.join(PUBLIC_DATA, "watcher-eligibility.json"), {
@@ -1497,6 +1561,7 @@ console.log("  public/data/watcher-runs.json");
 console.log("  public/data/monitoring-runs.json");
 console.log("  public/data/watcher-eligibility.json");
 console.log(`  ${watcherEligibilityEntries.length} watcher eligibility entr(ies)`);
+console.log(`  ${monitoringSourceConfigs.length} monitoring source config(s)`);
 console.log(`  ${watcherMonitoringRuns.length} watcher monitoring run(s)`);
 console.log("  public/data/detected-changes.json");
 console.log("  public/data/evidence-export-candidates.json");

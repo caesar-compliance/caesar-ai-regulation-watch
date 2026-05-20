@@ -11,6 +11,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.9.5] - 20 May 2026
+
+### Added
+
+- **Monitoring adapter/config pack** — `schemas/monitoring-source-config.schema.json`, `data/monitoring/source-configs-2026-05-20-v095.yml` (15 sources: 12 fetchable static_page adapters + 3 manual/blocked).
+- **Deterministic monitoring pack run** — `data/monitoring/monitoring-run-2026-05-20-v095.yml`, `scripts/run-monitoring-pack.mjs` (`npm run monitoring:pack`).
+- **Public export** — `public/data/monitoring-source-configs.json`; extended `monitoring-runs.json` summary counts.
+- **Monitoring page** — v0.9.5 adapter pack, latest pack run metrics, blocked/manual-only section.
+- **Snapshots policy note** — `data/monitoring/snapshots/README.md`.
+
+### Changed
+
+- **watcher-monitoring-run schema** — `adapter_type`, `fetch_scope`, `metadata_snapshot_created`, `fetch_failed_needs_review`, `product_version`, config batch link.
+
+### Notes
+
+- Deterministic local run only; no scheduled broad crawl; no full legal text storage; not legal advice; `client_use_allowed: 0`; no final evidence export.
+
+---
+
 ## [0.9.4] - 20 May 2026
 
 ### Added

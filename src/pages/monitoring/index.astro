@@ -9,8 +9,10 @@ import {
   latestMonitoringDiffSummary,
   getWatcherEligibilityEntries,
   latestWatcherMonitoringRun,
+  getMonitoringSourceConfigs,
 } from "../../lib/data";
 import { humanizeId } from "../../lib/format";
+import { PROJECT_VERSION_LABEL } from "../../lib/project-version";
 
 const monitoringRuns = getMonitoringRuns();
 const latest = latestMonitoringRun();
@@ -22,6 +24,7 @@ const realDetected = detected.filter((d) => !d.simulation);
 const simulatedDetected = detected.filter((d) => d.simulation);
 const enabledWatchers = watchers.filter((w) => w.enabled);
 const eligibility = getWatcherEligibilityEntries();
+const sourceConfigs = getMonitoringSourceConfigs();
 const watcherEligible = eligibility.filter(
   (e) =>
     e.allowed_to_fetch &&
@@ -32,25 +35,60 @@ const manualOnly = eligibility.filter((e) => e.monitoring_method === "manual_onl
 const blocked = eligibility.filter(
   (e) => e.watcher_eligibility?.blocked_by_waf_or_bot_protection || !e.allowed_to_fetch,
 );
-const v094 = latestWatcherMonitoringRun();
-const v094Checks = v094?.checks ?? [];
+const fetchableConfigs = sourceConfigs.filter((c) => c.allowed_to_fetch);
+const manualConfigs = sourceConfigs.filter((c) => c.adapter_type === "manual_only");
+const packRun = latestWatcherMonitoringRun();
+const packChecks = packRun?.checks ?? [];
 ---
 
 <BaseLayout title="Monitoring" currentPath="/monitoring/">
   <h1>Monitoring</h1>
   <p class="lead">
-    Monitoring readiness for confirmed official sources — watcher eligibility, deterministic local
-    runs, and existing pilot watchers. Not legal advice. Not complete coverage.
+    Monitoring adapter pack and deterministic local runs for confirmed official sources ({PROJECT_VERSION_LABEL}).
+    Not legal advice. Not complete coverage. Not client evidence.
   </p>
 
   <div class="banner banner--review" role="note">
-    <strong>Not legal advice.</strong> No broad scraping. Blocked/WAF sources are manual-only.
-    Human review required before any record update. Does not set{" "}
-    <code>verified_on_source</code> or <code>client_use_allowed</code>. Not client evidence.
+    <strong>Deterministic local run only.</strong> No scheduled broad crawl. No full legal text storage.
+    Blocked/WAF sources are manual-only. Human review required before any record update. Does not set{" "}
+    <code>verified_on_source</code> or <code>client_use_allowed</code>.
   </div>
 
   <section>
-    <h2>Watcher eligibility (v0.9.4)</h2>
+    <h2>Monitoring adapter pack ({PROJECT_VERSION_LABEL})</h2>
+    <dl class="meta-grid">
+      <div><dt>Source configs</dt><dd>{sourceConfigs.length}</dd></div>
+      <div><dt>Fetchable (adapter)</dt><dd>{fetchableConfigs.length}</dd></div>
+      <div><dt>Manual-only configs</dt><dd>{manualConfigs.length}</dd></div>
+      <div><dt>Static page adapters</dt><dd>{sourceConfigs.filter((c) => c.adapter_type === "static_page").length}</dd></div>
+    </dl>
+    <p>
+      <small>
+        Data: <code>data/monitoring/source-configs-2026-05-20-v095.yml</code> ·{" "}
+        <a href="/data/monitoring-source-configs.json">JSON export</a>
+      </small>
+    </p>
+    <h3>Adapter configs (fetchable)</h3>
+    <ul>
+      {fetchableConfigs.map((c) => (
+        <li>
+          <span class="mono">{c.source_id}</span> — {humanizeId(c.adapter_type)} / {humanizeId(c.fetch_scope)} /{" "}
+          {humanizeId(c.monitoring_method)}
+        </li>
+      ))}
+    </ul>
+    <h3>Blocked / manual-only</h3>
+    <ul>
+      {manualConfigs.map((c) => (
+        <li>
+          <span class="mono">{c.source_id}</span> — {humanizeId(c.adapter_type)} ({humanizeId(c.fetch_scope)})
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section>
+    <h2>Watcher eligibility (v0.9.4 batch)</h2>
     <dl class="meta-grid">
       <div><dt>Entries</dt><dd>{eligibility.length}</dd></div>
       <div><dt>Eligible (url_status_check)</dt><dd>{watcherEligible.length}</dd></div>
@@ -59,54 +97,53 @@ const v094Checks = v094?.checks ?? [];
     </dl>
     <p>
       <small>
-        Data: <code>data/monitoring/watcher-eligibility-2026-05-20.yml</code> ·{" "}
-        <a href="/data/watcher-eligibility.json">JSON export</a>
+        <a href="/data/watcher-eligibility.json">watcher-eligibility.json</a>
       </small>
     </p>
   </section>
 
   {
-    v094 ? (
+    packRun ? (
       <section>
-        <h2>Latest deterministic monitoring run</h2>
+        <h2>Latest monitoring pack run ({packRun.product_version ?? PROJECT_VERSION_LABEL})</h2>
         <dl class="meta-grid">
-          <div><dt>Run ID</dt><dd class="mono">{v094.monitoring_run_id}</dd></div>
-          <div><dt>Date</dt><dd>{v094.run_date}</dd></div>
-          <div><dt>Mode</dt><dd>{humanizeId(v094.mode)}</dd></div>
-          <div><dt>Status</dt><dd>{humanizeId(v094.overall_status ?? "completed")}</dd></div>
-          <div><dt>Checks</dt><dd>{v094Checks.length}</dd></div>
-          <div><dt>Change detected</dt><dd>{v094.change_detected_count ?? 0}</dd></div>
+          <div><dt>Run ID</dt><dd class="mono">{packRun.monitoring_run_id}</dd></div>
+          <div><dt>Date</dt><dd>{packRun.run_date}</dd></div>
+          <div><dt>Mode</dt><dd>{humanizeId(packRun.mode)}</dd></div>
+          <div><dt>Config batch</dt><dd class="mono">{packRun.monitoring_source_config_batch_id ?? "—"}</dd></div>
+          <div><dt>Checks</dt><dd>{packChecks.length}</dd></div>
+          <div><dt>Change detected</dt><dd>{packRun.change_detected_count ?? 0}</dd></div>
+          <div><dt>Needs human review</dt><dd>{packRun.requires_human_review_count ?? packChecks.filter((c) => c.requires_human_review).length}</dd></div>
           <div>
-            <dt>status_check_ok</dt>
-            <dd>{v094Checks.filter((c) => c.check_result === "status_check_ok").length}</dd>
+            <dt>metadata_snapshot_created</dt>
+            <dd>{packChecks.filter((c) => c.check_result === "metadata_snapshot_created").length}</dd>
           </div>
           <div>
             <dt>no_change_snapshot</dt>
-            <dd>
-              {v094Checks.filter((c) => c.check_result === "no_change_snapshot_created").length}
-            </dd>
-          </div>
-          <div>
-            <dt>manual_only_not_checked</dt>
-            <dd>{v094Checks.filter((c) => c.check_result === "manual_only_not_checked").length}</dd>
+            <dd>{packChecks.filter((c) => c.check_result === "no_change_snapshot_created").length}</dd>
           </div>
           <div>
             <dt>blocked_not_checked</dt>
-            <dd>{v094Checks.filter((c) => c.check_result === "blocked_not_checked").length}</dd>
+            <dd>{packChecks.filter((c) => c.check_result === "blocked_not_checked").length}</dd>
+          </div>
+          <div>
+            <dt>manual_only_not_checked</dt>
+            <dd>{packChecks.filter((c) => c.check_result === "manual_only_not_checked").length}</dd>
           </div>
         </dl>
         <p>
           <small>
-            <a href="/data/monitoring-runs.json">monitoring-runs.json</a> includes{" "}
-            <code>latest_watcher_monitoring_run</code>.
+            <a href="/data/monitoring-runs.json">monitoring-runs.json</a> · Regenerate locally:{" "}
+            <code>npm run monitoring:pack</code>
           </small>
         </p>
         <h3>Check results</h3>
         <ul>
-          {v094Checks.map((c) => (
+          {packChecks.map((c) => (
             <li>
               <span class="mono">{c.source_id}</span> — {humanizeId(c.check_result)}
-              {c.http_status != null ? ` (HTTP ${c.http_status})` : ""}
+              {c.adapter_type ? ` (${c.adapter_type})` : ""}
+              {c.http_status != null ? ` HTTP ${c.http_status}` : ""}
               {c.requires_human_review ? " · needs review" : ""}
             </li>
           ))}
@@ -196,8 +233,8 @@ const v094Checks = v094?.checks ?? [];
 
   <p class="prose">
     <small>
-      See <a href="/methodology/">Methodology</a> and docs: MONITORING_RUNBOOK.md,
-      WATCHER_RELIABILITY_POLICY.md, SCHEDULED_MONITORING_POLICY.md.
+      See <a href="/methodology/">Methodology</a> and docs: MONITORING_RUNBOOK.md, SOURCE_ADAPTERS.md,
+      SNAPSHOT_AND_DIFF_POLICY.md.
     </small>
   </p>
 </BaseLayout>

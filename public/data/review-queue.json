@@ -3,21 +3,21 @@
   "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
   "read_only": true,
   "summary": {
-    "total": 125,
-    "pending_review": 118,
+    "total": 109,
+    "pending_review": 103,
     "needs_update": 0,
     "unverified_timeline_events": 10,
-    "unverified_records": 27,
-    "pending_source_verifications": 15,
+    "unverified_records": 21,
+    "pending_source_verifications": 14,
     "missing_official_url": 0,
-    "technical_url_unchecked": 45,
+    "technical_url_unchecked": 29,
     "technical_url_unreachable": 1,
     "redirected_url_needs_review": 1,
-    "content_not_reviewed": 73,
+    "content_not_reviewed": 66,
     "content_review_needs_update": 0,
-    "source_support_unclear": 3,
+    "source_support_unclear": 2,
     "detected_change_needs_content_review": 3,
-    "client_use_not_allowed": 79,
+    "client_use_not_allowed": 78,
     "detected_change_pending_review": 0,
     "watcher_errors": 0,
     "watcher_soft_errors": 0,
@@ -458,26 +458,6 @@
     },
     {
       "item_type": "source",
-      "item_id": "edpb-ai-topic",
-      "title": "EDPB — Artificial intelligence documents topic",
-      "jurisdiction_id": "eu",
-      "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Technical URL not checked or outcome uncertain.",
-      "review_reasons": [
-        "pending_review",
-        "technical_url_unchecked"
-      ],
-      "official_url": "https://www.edpb.europa.eu/our-work-tools/our-documents/topic/artificial-intelligence_en",
-      "page_href": "/sources/edpb-ai-topic/",
-      "missing_official_url": false,
-      "verified_on_source_false": false,
-      "technical_url_status": null,
-      "content_review_status": null,
-      "redirect_detected": false,
-      "client_use_allowed": null
-    },
-    {
-      "item_type": "source",
       "item_id": "edpb",
       "title": "European Data Protection Board (EDPB)",
       "jurisdiction_id": "eu",
@@ -498,26 +478,6 @@
       "content_review_status": "not_reviewed",
       "redirect_detected": false,
       "client_use_allowed": false
-    },
-    {
-      "item_type": "source",
-      "item_id": "edps-technology-monitoring",
-      "title": "EDPS — Technology monitoring",
-      "jurisdiction_id": "eu",
-      "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Technical URL not checked or outcome uncertain.",
-      "review_reasons": [
-        "pending_review",
-        "technical_url_unchecked"
-      ],
-      "official_url": "https://www.edps.europa.eu/data-protection/our-work/technology-monitoring_en",
-      "page_href": "/sources/edps-technology-monitoring/",
-      "missing_official_url": false,
-      "verified_on_source_false": false,
-      "technical_url_status": null,
-      "content_review_status": null,
-      "redirect_detected": false,
-      "client_use_allowed": null
     },
     {
       "item_type": "source",
@@ -584,26 +544,6 @@
     },
     {
       "item_type": "source",
-      "item_id": "eu-ai-act-service-desk",
-      "title": "EU AI Act Service Desk",
-      "jurisdiction_id": "eu",
-      "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Technical URL not checked or outcome uncertain.",
-      "review_reasons": [
-        "pending_review",
-        "technical_url_unchecked"
-      ],
-      "official_url": "https://ai-act-service-desk.ec.europa.eu/",
-      "page_href": "/sources/eu-ai-act-service-desk/",
-      "missing_official_url": false,
-      "verified_on_source_false": false,
-      "technical_url_status": null,
-      "content_review_status": null,
-      "redirect_detected": false,
-      "client_use_allowed": null
-    },
-    {
-      "item_type": "source",
       "item_id": "eu-ai-act",
       "title": "EU Artificial Intelligence Act — EUR-Lex",
       "jurisdiction_id": "eu",
@@ -647,26 +587,6 @@
       "content_review_status": "not_reviewed",
       "redirect_detected": false,
       "client_use_allowed": false
-    },
-    {
-      "item_type": "source",
-      "item_id": "eu-digital-strategy-european-approach-ai",
-      "title": "European Commission — European approach to artificial intelligence",
-      "jurisdiction_id": "eu",
-      "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Technical URL not checked or outcome uncertain.",
-      "review_reasons": [
-        "pending_review",
-        "technical_url_unchecked"
-      ],
-      "official_url": "https://digital-strategy.ec.europa.eu/en/policies/european-approach-artificial-intelligence",
-      "page_href": "/sources/eu-digital-strategy-european-approach-ai/",
-      "missing_official_url": false,
-      "verified_on_source_false": false,
-      "technical_url_status": null,
-      "content_review_status": null,
-      "redirect_detected": false,
-      "client_use_allowed": null
     },
     {
       "item_type": "source",
@@ -777,26 +697,6 @@
     },
     {
       "item_type": "source",
-      "item_id": "japan-ppc",
-      "title": "Japan Personal Information Protection Commission (English portal)",
-      "jurisdiction_id": "japan",
-      "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Technical URL not checked or outcome uncertain.",
-      "review_reasons": [
-        "pending_review",
-        "technical_url_unchecked"
-      ],
-      "official_url": "https://www.ppc.go.jp/en/",
-      "page_href": "/sources/japan-ppc/",
-      "missing_official_url": false,
-      "verified_on_source_false": false,
-      "technical_url_status": null,
-      "content_review_status": null,
-      "redirect_detected": false,
-      "client_use_allowed": null
-    },
-    {
-      "item_type": "source",
       "item_id": "norway-ai-act-implementation",
       "title": "Norwegian Government — AI Act / EEA implementation information",
       "jurisdiction_id": "norway",
@@ -840,26 +740,6 @@
       "content_review_status": "not_reviewed",
       "redirect_detected": false,
       "client_use_allowed": false
-    },
-    {
-      "item_type": "source",
-      "item_id": "singapore-aiverify-foundation",
-      "title": "AI Verify Foundation",
-      "jurisdiction_id": "singapore",
-      "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Technical URL not checked or outcome uncertain.",
-      "review_reasons": [
-        "pending_review",
-        "technical_url_unchecked"
-      ],
-      "official_url": "https://www.aiverifyfoundation.sg/",
-      "page_href": "/sources/singapore-aiverify-foundation/",
-      "missing_official_url": false,
-      "verified_on_source_false": false,
-      "technical_url_status": null,
-      "content_review_status": null,
-      "redirect_detected": false,
-      "client_use_allowed": null
     },
     {
       "item_type": "source",
@@ -963,46 +843,6 @@
       ],
       "official_url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology",
       "page_href": "/sources/uk-dsit/",
-      "missing_official_url": false,
-      "verified_on_source_false": false,
-      "technical_url_status": null,
-      "content_review_status": null,
-      "redirect_detected": false,
-      "client_use_allowed": null
-    },
-    {
-      "item_type": "source",
-      "item_id": "uk-dsit",
-      "title": "UK Department for Science, Innovation and Technology (DSIT)",
-      "jurisdiction_id": "uk",
-      "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Technical URL not checked or outcome uncertain.",
-      "review_reasons": [
-        "pending_review",
-        "technical_url_unchecked"
-      ],
-      "official_url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology",
-      "page_href": "/sources/uk-dsit/",
-      "missing_official_url": false,
-      "verified_on_source_false": false,
-      "technical_url_status": null,
-      "content_review_status": null,
-      "redirect_detected": false,
-      "client_use_allowed": null
-    },
-    {
-      "item_type": "source",
-      "item_id": "uk-gov-ai-assurance-intro",
-      "title": "UK Government — Introduction to AI assurance",
-      "jurisdiction_id": "uk",
-      "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Technical URL not checked or outcome uncertain.",
-      "review_reasons": [
-        "pending_review",
-        "technical_url_unchecked"
-      ],
-      "official_url": "https://www.gov.uk/government/publications/introduction-to-ai-assurance",
-      "page_href": "/sources/uk-gov-ai-assurance-intro/",
       "missing_official_url": false,
       "verified_on_source_false": false,
       "technical_url_status": null,
@@ -1188,26 +1028,6 @@
     },
     {
       "item_type": "source",
-      "item_id": "us-nist-ai-portal",
-      "title": "NIST — Artificial Intelligence",
-      "jurisdiction_id": "us-federal",
-      "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Technical URL not checked or outcome uncertain.",
-      "review_reasons": [
-        "pending_review",
-        "technical_url_unchecked"
-      ],
-      "official_url": "https://www.nist.gov/artificial-intelligence",
-      "page_href": "/sources/us-nist-ai-portal/",
-      "missing_official_url": false,
-      "verified_on_source_false": false,
-      "technical_url_status": null,
-      "content_review_status": null,
-      "redirect_detected": false,
-      "client_use_allowed": null
-    },
-    {
-      "item_type": "source",
       "item_id": "us-nist-ai-rmf",
       "title": "NIST — AI Risk Management Framework",
       "jurisdiction_id": "us-federal",
@@ -1363,31 +1183,6 @@
       "title": "EDPB — Artificial intelligence documents topic (sample pointer)",
       "jurisdiction_id": "eu",
       "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Content summary not human-reviewed. Source support for summary/dates/status is unclear. Technical URL not checked or outcome uncertain.",
-      "review_reasons": [
-        "pending_review",
-        "verified_on_source_false",
-        "legal_review_not_done",
-        "content_not_reviewed",
-        "source_support_unclear",
-        "technical_url_unchecked"
-      ],
-      "official_url": "https://www.edpb.europa.eu/our-work-tools/our-documents/topic/artificial-intelligence_en",
-      "page_href": "/records/guidance-edpb-ai-topic-index/",
-      "missing_official_url": false,
-      "verified_on_source_false": true,
-      "technical_url_status": null,
-      "content_review_status": "not_reviewed",
-      "content_review_result": "source_support_unclear",
-      "redirect_detected": false,
-      "client_use_allowed": false
-    },
-    {
-      "item_type": "record",
-      "item_id": "guidance-edpb-ai-topic-index",
-      "title": "EDPB — Artificial intelligence documents topic (sample pointer)",
-      "jurisdiction_id": "eu",
-      "review_status": "pending_review",
       "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Source support for summary/dates/status is unclear. Client use not allowed. Technical URL not checked or outcome uncertain.",
       "review_reasons": [
         "pending_review",
@@ -1404,30 +1199,6 @@
       "technical_url_status": null,
       "content_review_status": "reviewed_content_summary",
       "content_review_result": "source_support_unclear",
-      "redirect_detected": false,
-      "client_use_allowed": false
-    },
-    {
-      "item_type": "record",
-      "item_id": "guidance-eu-ai-act-service-desk-portal",
-      "title": "EU AI Act Service Desk — official portal (sample pointer)",
-      "jurisdiction_id": "eu",
-      "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Content summary not human-reviewed. Technical URL not checked or outcome uncertain.",
-      "review_reasons": [
-        "pending_review",
-        "verified_on_source_false",
-        "legal_review_not_done",
-        "content_not_reviewed",
-        "technical_url_unchecked"
-      ],
-      "official_url": "https://ai-act-service-desk.ec.europa.eu/",
-      "page_href": "/records/guidance-eu-ai-act-service-desk-portal/",
-      "missing_official_url": false,
-      "verified_on_source_false": true,
-      "technical_url_status": null,
-      "content_review_status": "not_reviewed",
-      "content_review_result": "matches_source_at_high_level",
       "redirect_detected": false,
       "client_use_allowed": false
     },
@@ -1477,30 +1248,6 @@
       "technical_url_status": "reachable",
       "content_review_status": "not_reviewed",
       "content_review_result": "partially_matches_source",
-      "redirect_detected": false,
-      "client_use_allowed": false
-    },
-    {
-      "item_type": "record",
-      "item_id": "policy-eu-digital-strategy-ai-approach",
-      "title": "European approach to artificial intelligence (sample pointer)",
-      "jurisdiction_id": "eu",
-      "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Content summary not human-reviewed. Technical URL not checked or outcome uncertain.",
-      "review_reasons": [
-        "pending_review",
-        "verified_on_source_false",
-        "legal_review_not_done",
-        "content_not_reviewed",
-        "technical_url_unchecked"
-      ],
-      "official_url": "https://digital-strategy.ec.europa.eu/en/policies/european-approach-artificial-intelligence",
-      "page_href": "/records/policy-eu-digital-strategy-ai-approach/",
-      "missing_official_url": false,
-      "verified_on_source_false": true,
-      "technical_url_status": null,
-      "content_review_status": "not_reviewed",
-      "content_review_result": "matches_source_at_high_level",
       "redirect_detected": false,
       "client_use_allowed": false
     },
@@ -1637,30 +1384,6 @@
       "title": "AI Verify Foundation — official site (sample pointer)",
       "jurisdiction_id": "singapore",
       "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Content summary not human-reviewed. Technical URL not checked or outcome uncertain.",
-      "review_reasons": [
-        "pending_review",
-        "verified_on_source_false",
-        "legal_review_not_done",
-        "content_not_reviewed",
-        "technical_url_unchecked"
-      ],
-      "official_url": "https://www.aiverifyfoundation.sg/",
-      "page_href": "/records/policy-singapore-aiverify-foundation-home/",
-      "missing_official_url": false,
-      "verified_on_source_false": true,
-      "technical_url_status": null,
-      "content_review_status": "not_reviewed",
-      "content_review_result": "matches_source_at_high_level",
-      "redirect_detected": false,
-      "client_use_allowed": false
-    },
-    {
-      "item_type": "record",
-      "item_id": "policy-singapore-aiverify-foundation-home",
-      "title": "AI Verify Foundation — official site (sample pointer)",
-      "jurisdiction_id": "singapore",
-      "review_status": "pending_review",
       "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Client use not allowed. Technical URL not checked or outcome uncertain.",
       "review_reasons": [
         "pending_review",
@@ -1737,30 +1460,6 @@
       "title": "UK Government — Introduction to AI assurance (sample pointer)",
       "jurisdiction_id": "uk",
       "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Content summary not human-reviewed. Technical URL not checked or outcome uncertain.",
-      "review_reasons": [
-        "pending_review",
-        "verified_on_source_false",
-        "legal_review_not_done",
-        "content_not_reviewed",
-        "technical_url_unchecked"
-      ],
-      "official_url": "https://www.gov.uk/government/publications/introduction-to-ai-assurance",
-      "page_href": "/records/guidance-uk-ai-assurance-intro/",
-      "missing_official_url": false,
-      "verified_on_source_false": true,
-      "technical_url_status": null,
-      "content_review_status": "not_reviewed",
-      "content_review_result": "matches_source_at_high_level",
-      "redirect_detected": false,
-      "client_use_allowed": false
-    },
-    {
-      "item_type": "record",
-      "item_id": "guidance-uk-ai-assurance-intro",
-      "title": "UK Government — Introduction to AI assurance (sample pointer)",
-      "jurisdiction_id": "uk",
-      "review_status": "pending_review",
       "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Client use not allowed. Technical URL not checked or outcome uncertain.",
       "review_reasons": [
         "pending_review",
@@ -1828,30 +1527,6 @@
       "technical_url_status": "reachable",
       "content_review_status": "not_reviewed",
       "content_review_result": null,
-      "redirect_detected": false,
-      "client_use_allowed": false
-    },
-    {
-      "item_type": "record",
-      "item_id": "policy-us-nist-ai-program-hub",
-      "title": "NIST Artificial Intelligence program hub (sample pointer)",
-      "jurisdiction_id": "us-federal",
-      "review_status": "pending_review",
-      "reason_for_review": "Editorial review_status is not reviewed. Not verified on official source in this repository. Legal/content verification on official source not completed. Content summary not human-reviewed. Technical URL not checked or outcome uncertain.",
-      "review_reasons": [
-        "pending_review",
-        "verified_on_source_false",
-        "legal_review_not_done",
-        "content_not_reviewed",
-        "technical_url_unchecked"
-      ],
-      "official_url": "https://www.nist.gov/artificial-intelligence",
-      "page_href": "/records/policy-us-nist-ai-program-hub/",
-      "missing_official_url": false,
-      "verified_on_source_false": true,
-      "technical_url_status": null,
-      "content_review_status": "not_reviewed",
-      "content_review_result": "matches_source_at_high_level",
       "redirect_detected": false,
       "client_use_allowed": false
     },
@@ -2410,10 +2085,10 @@
     {
       "item_type": "source",
       "item_id": "canada-responsible-ai",
-      "title": "Monitoring review: canada-responsible-ai (status_check_ok)",
+      "title": "Monitoring review: canada-responsible-ai (metadata_snapshot_created)",
       "jurisdiction_id": "canada",
       "review_status": "needs_human_review",
-      "reason_for_review": "Discovery pass HTTP 200; eligibility flags manual_review_required and excluded_unstable due to intermittent CI reachability. Human review if automated check fails in future cycles.\n Watcher eligibility marks source manual-only or blocked; automated fetch not performed. Watcher output requires human review before any record update. Not verified on official source in this repository. Client use not allowed.",
+      "reason_for_review": "Discovery HTTP 200; eligibility flags unstable CI path — human review if future fetch fails. Watcher eligibility marks source manual-only or blocked; automated fetch not performed. Watcher output requires human review before any record update. Not verified on official source in this repository. Client use not allowed.",
       "review_reasons": [
         "monitoring_manual_or_blocked",
         "human_review_required",
@@ -2432,10 +2107,10 @@
     {
       "item_type": "source",
       "item_id": "eu-ai-act",
-      "title": "Monitoring review: eu-ai-act (blocked_not_checked)",
+      "title": "Monitoring review: eu-ai-act (manual_only_not_checked)",
       "jurisdiction_id": "eu",
       "review_status": "needs_human_review",
-      "reason_for_review": "v0.9.3 verification HTTP 202 / bot challenge; allowed_to_fetch false. Not checked in v0.9.4 automated path.\n Watcher eligibility marks source manual-only or blocked; automated fetch not performed. Watcher output requires human review before any record update. Not verified on official source in this repository. Client use not allowed.",
+      "reason_for_review": "EUR-Lex bot challenge; allowed_to_fetch false; not checked in automated path. Watcher eligibility marks source manual-only or blocked; automated fetch not performed. Watcher output requires human review before any record update. Not verified on official source in this repository. Client use not allowed.",
       "review_reasons": [
         "monitoring_manual_or_blocked",
         "human_review_required",
@@ -2457,7 +2132,7 @@
       "title": "Monitoring review: edpb-ai-topic (manual_only_not_checked)",
       "jurisdiction_id": "eu",
       "review_status": "needs_human_review",
-      "reason_for_review": "v0.9.3 verification HTTP 502; allowed_to_fetch false. Re-check when edpb.europa.eu stable; use edpb RSS watcher meanwhile.\n Watcher eligibility marks source manual-only or blocked; automated fetch not performed. Watcher output requires human review before any record update. Not verified on official source in this repository. Client use not allowed.",
+      "reason_for_review": "v0.9.3 HTTP 502; manual re-check when stable; edpb RSS watcher separate. Watcher eligibility marks source manual-only or blocked; automated fetch not performed. Watcher output requires human review before any record update. Not verified on official source in this repository. Client use not allowed.",
       "review_reasons": [
         "monitoring_manual_or_blocked",
         "human_review_required",
@@ -2476,10 +2151,10 @@
     {
       "item_type": "source",
       "item_id": "australia-industry-ai",
-      "title": "Monitoring review: australia-industry-ai (blocked_not_checked)",
+      "title": "Monitoring review: australia-industry-ai (manual_only_not_checked)",
       "jurisdiction_id": "australia",
       "review_status": "needs_human_review",
-      "reason_for_review": "WAF/bot protection per v0.9.3; lead pending_official_review; allowed_to_fetch false. No fake success recorded.\n Watcher eligibility marks source manual-only or blocked; automated fetch not performed. Watcher output requires human review before any record update. Not verified on official source in this repository. Client use not allowed.",
+      "reason_for_review": "WAF/bot protection; pending_official_review; no fake success. Watcher eligibility marks source manual-only or blocked; automated fetch not performed. Watcher output requires human review before any record update. Not verified on official source in this repository. Client use not allowed.",
       "review_reasons": [
         "monitoring_manual_or_blocked",
         "human_review_required",
@@ -2739,27 +2414,6 @@
         "technical_url_unchecked"
       ],
       "official_url": "https://www.regjeringen.no/en/topics/business-and-industry/ai/id3015480/",
-      "page_href": "/verification/",
-      "missing_official_url": false,
-      "verified_on_source_false": true,
-      "technical_url_status": null,
-      "content_review_status": "not_reviewed",
-      "redirect_detected": false,
-      "client_use_allowed": false
-    },
-    {
-      "item_type": "source_verification",
-      "item_id": "verify-eu-ai-act-eurlex-celex-v093",
-      "title": "Source verification: law-eu-ai-act-2024-1689",
-      "jurisdiction_id": "eu",
-      "review_status": "needs_human_review",
-      "reason_for_review": "Human source verification uncertain. Content summary not human-reviewed. Client use not allowed. Technical URL not checked or outcome uncertain.",
-      "review_reasons": [
-        "content_not_reviewed",
-        "client_use_not_allowed",
-        "technical_url_unchecked"
-      ],
-      "official_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689",
       "page_href": "/verification/",
       "missing_official_url": false,
       "verified_on_source_false": true,

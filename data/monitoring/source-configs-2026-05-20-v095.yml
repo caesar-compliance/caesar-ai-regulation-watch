@@ -1,0 +1,262 @@
+# Monitoring source adapter/config pack — v0.9.5
+# Maps watcher-eligible confirmed official sources to safe adapter settings.
+# Deterministic local monitoring only; no broad scraping; not legal advice.
+
+monitoring_source_config_batch_id: source-configs-2026-05-20-v095
+generated_at: "2026-05-20"
+access_date: "2026-05-20"
+product_version: "0.9.5"
+watcher_eligibility_batch_id: watcher-eligibility-2026-05-20
+legal_safe_note: >
+  v0.9.5 monitoring adapter/config pack for confirmed official sources from watcher-eligibility-2026-05-20.
+  Metadata-only fetch scopes; no full legal text storage; no competitor sources. Human review required for
+  any detected change. Does not authorise client use or final evidence export.
+no_broad_scraping: true
+no_competitor_source: true
+client_use_allowed: false
+final_evidence_allowed: false
+
+configs:
+  - source_id: eu-digital-strategy-european-approach-ai
+    jurisdiction_id: eu
+    official_url: https://digital-strategy.ec.europa.eu/en/policies/european-approach-artificial-intelligence
+    monitoring_method: url_status_check
+    adapter_type: static_page
+    allowed_to_fetch: true
+    fetch_scope: metadata_only
+    diff_policy: title_date_url_only
+    rate_limit_note: Single GET; 20s timeout; no link crawl; respect EC site policies.
+    no_broad_scraping: true
+    no_competitor_source: true
+    client_use_allowed: false
+    final_evidence_allowed: false
+    verified_on_source: false
+    limitations: Landing metadata only; not EUR-Lex instrument text.
+
+  - source_id: eu-ai-act-service-desk
+    jurisdiction_id: eu
+    official_url: https://ai-act-service-desk.ec.europa.eu/
+    monitoring_method: url_status_check
+    adapter_type: static_page
+    allowed_to_fetch: true
+    fetch_scope: metadata_only
+    diff_policy: title_date_url_only
+    rate_limit_note: Single GET homepage; no authenticated portal areas.
+    no_broad_scraping: true
+    no_competitor_source: true
+    client_use_allowed: false
+    final_evidence_allowed: false
+    verified_on_source: false
+    limitations: Service desk landing metadata only.
+
+  - source_id: eu-ai-office
+    jurisdiction_id: eu
+    official_url: https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai
+    monitoring_method: page_metadata_check
+    adapter_type: static_page
+    allowed_to_fetch: true
+    fetch_scope: metadata_only
+    diff_policy: metadata_only
+    rate_limit_note: Existing watcher-eu-ai-office scope; content hash metadata; no body storage.
+    no_broad_scraping: true
+    no_competitor_source: true
+    client_use_allowed: false
+    final_evidence_allowed: false
+    verified_on_source: false
+    limitations: Uses existing data/snapshots/eu-ai-office/ pointers for offline diff.
+
+  - source_id: us-nist-ai-portal
+    jurisdiction_id: us-federal
+    official_url: https://www.nist.gov/artificial-intelligence
+    monitoring_method: url_status_check
+    adapter_type: static_page
+    allowed_to_fetch: true
+    fetch_scope: metadata_only
+    diff_policy: title_date_url_only
+    rate_limit_note: Single GET nist.gov hub; no document bulk fetch.
+    no_broad_scraping: true
+    no_competitor_source: true
+    client_use_allowed: false
+    final_evidence_allowed: false
+    verified_on_source: false
+    limitations: Program hub page only.
+
+  - source_id: us-ai-gov
+    jurisdiction_id: us-federal
+    official_url: https://www.ai.gov/
+    monitoring_method: url_status_check
+    adapter_type: static_page
+    allowed_to_fetch: true
+    fetch_scope: metadata_only
+    diff_policy: title_date_url_only
+    rate_limit_note: Single GET; metadata/title only.
+    no_broad_scraping: true
+    no_competitor_source: true
+    client_use_allowed: false
+    final_evidence_allowed: false
+    verified_on_source: false
+    limitations: Federal policy portal landing.
+
+  - source_id: canada-responsible-ai
+    jurisdiction_id: canada
+    official_url: https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai.html
+    monitoring_method: url_status_check
+    adapter_type: static_page
+    allowed_to_fetch: true
+    fetch_scope: metadata_only
+    diff_policy: title_date_url_only
+    rate_limit_note: Single GET; soft_fail on network reset; no retry storm.
+    no_broad_scraping: true
+    no_competitor_source: true
+    client_use_allowed: false
+    final_evidence_allowed: false
+    verified_on_source: false
+    requires_human_review: true
+    limitations: Intermittent CI reachability; human corroboration if automated check fails.
+
+  - source_id: uk-gov-ai-assurance-intro
+    jurisdiction_id: uk
+    official_url: https://www.gov.uk/government/publications/introduction-to-ai-assurance
+    monitoring_method: url_status_check
+    adapter_type: static_page
+    allowed_to_fetch: true
+    fetch_scope: metadata_only
+    diff_policy: title_date_url_only
+    rate_limit_note: Single GOV.UK publication URL.
+    no_broad_scraping: true
+    no_competitor_source: true
+    client_use_allowed: false
+    final_evidence_allowed: false
+    verified_on_source: false
+    limitations: Publication page metadata; not PDF body fetch.
+
+  - source_id: singapore-pdpc-ai
+    jurisdiction_id: singapore
+    official_url: https://www.pdpc.gov.sg/help-and-resources/2020/01/model-ai-governance-framework
+    monitoring_method: url_status_check
+    adapter_type: static_page
+    allowed_to_fetch: true
+    fetch_scope: metadata_only
+    diff_policy: title_date_url_only
+    rate_limit_note: Single framework URL.
+    no_broad_scraping: true
+    no_competitor_source: true
+    client_use_allowed: false
+    final_evidence_allowed: false
+    verified_on_source: false
+    limitations: PDPC framework page metadata only.
+
+  - source_id: japan-ppc
+    jurisdiction_id: japan
+    official_url: https://www.ppc.go.jp/en/
+    monitoring_method: url_status_check
+    adapter_type: static_page
+    allowed_to_fetch: true
+    fetch_scope: metadata_only
+    diff_policy: title_date_url_only
+    rate_limit_note: English homepage only; no subsite crawl.
+    no_broad_scraping: true
+    no_competitor_source: true
+    client_use_allowed: false
+    final_evidence_allowed: false
+    verified_on_source: false
+    limitations: PPC English portal homepage.
+
+  - source_id: norway-ai-act-implementation
+    jurisdiction_id: norway
+    official_url: https://www.regjeringen.no/en/whats-new/gjor-norge-klar-for-trygg-og-innovativ-ki-bruk/id3093081/
+    monitoring_method: url_status_check
+    adapter_type: static_page
+    allowed_to_fetch: true
+    fetch_scope: metadata_only
+    diff_policy: title_date_url_only
+    rate_limit_note: Single regjeringen.no communication URL.
+    no_broad_scraping: true
+    no_competitor_source: true
+    client_use_allowed: false
+    final_evidence_allowed: false
+    verified_on_source: false
+    limitations: Single implementation communication page.
+
+  - source_id: datatilsynet
+    jurisdiction_id: norway
+    official_url: https://www.datatilsynet.no/
+    monitoring_method: page_metadata_check
+    adapter_type: static_page
+    allowed_to_fetch: true
+    fetch_scope: metadata_only
+    diff_policy: metadata_only
+    rate_limit_note: Existing watcher-datatilsynet scope; homepage metadata hash.
+    no_broad_scraping: true
+    no_competitor_source: true
+    client_use_allowed: false
+    final_evidence_allowed: false
+    verified_on_source: false
+    limitations: Uses data/snapshots/datatilsynet/ for offline compare.
+
+  - source_id: unesco-ai-ethics
+    jurisdiction_id: unesco
+    official_url: https://www.unesco.org/en/artificial-intelligence/recommendation-ethics
+    monitoring_method: url_status_check
+    adapter_type: static_page
+    allowed_to_fetch: true
+    fetch_scope: metadata_only
+    diff_policy: title_date_url_only
+    rate_limit_note: Single UNESCO recommendation landing URL.
+    no_broad_scraping: true
+    no_competitor_source: true
+    client_use_allowed: false
+    final_evidence_allowed: false
+    verified_on_source: false
+    limitations: Soft-law landing page metadata.
+
+  - source_id: eu-ai-act
+    jurisdiction_id: eu
+    official_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689
+    monitoring_method: manual_only
+    adapter_type: manual_only
+    allowed_to_fetch: false
+    fetch_scope: not_fetched
+    diff_policy: no_text_storage
+    rate_limit_note: No automated fetch; EUR-Lex bot challenge (HTTP 202).
+    no_broad_scraping: true
+    no_competitor_source: true
+    client_use_allowed: false
+    final_evidence_allowed: false
+    verified_on_source: false
+    not_fetched_this_run: true
+    limitations: Manual browser review only; no WAF bypass.
+
+  - source_id: edpb-ai-topic
+    jurisdiction_id: eu
+    official_url: https://www.edpb.europa.eu/our-work-tools/our-documents/topic/artificial-intelligence_en
+    monitoring_method: manual_only
+    adapter_type: manual_only
+    allowed_to_fetch: false
+    fetch_scope: not_fetched
+    diff_policy: no_text_storage
+    rate_limit_note: No fetch while HTTP 502; use edpb RSS watcher for feed monitoring.
+    no_broad_scraping: true
+    no_competitor_source: true
+    client_use_allowed: false
+    final_evidence_allowed: false
+    verified_on_source: false
+    not_fetched_this_run: true
+    limitations: Topic index unstable in v0.9.3 pass.
+
+  - source_id: australia-industry-ai
+    jurisdiction_id: australia
+    official_url: https://www.industry.gov.au/publications/australias-ai-ethics-principles
+    monitoring_method: manual_only
+    adapter_type: manual_only
+    allowed_to_fetch: false
+    fetch_scope: not_fetched
+    diff_policy: no_text_storage
+    rate_limit_note: No automated fetch; industry.gov.au WAF blocks bots.
+    no_broad_scraping: true
+    no_competitor_source: true
+    client_use_allowed: false
+    final_evidence_allowed: false
+    verified_on_source: false
+    not_fetched_this_run: true
+    limitations: Lead pending_official_review; human browser required.
