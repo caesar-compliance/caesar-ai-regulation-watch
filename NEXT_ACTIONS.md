@@ -2,7 +2,7 @@
 
 **Last updated:** 20 May 2026
 
-**Current version:** v0.9.6 · **Phase:** public pilot — cautious live metadata pilot · **Branch:** merge `agent/v0.9.6-live-metadata-pilot` → `main`
+**Current version:** v0.9.6 · **Phase:** public pilot — cautious live metadata pilot · **Branch:** `main`
 
 **Canonical URL:** https://regulation-watch.caesar.no/
 
@@ -18,7 +18,7 @@
 6. ~~**v0.9.5 monitoring adapter pack**~~ — `source-configs-2026-05-20-v095`; `monitoring-run-2026-05-20-v095`; `npm run monitoring:pack`.
 7. ~~**Deploy v0.9.5**~~ — `DEPLOY-20260520-012` live; tag `regulation-watch-v0.9.5`.
 8. ~~**v0.9.6 cautious live metadata pilot**~~ — allowlist v096; live run + change review pack; `npm run monitoring:live-metadata`.
-9. **Deploy v0.9.6** — merge, CI, custom-domain deploy, tag `regulation-watch-v0.9.6`.
+9. ~~**Deploy v0.9.6**~~ — `DEPLOY-20260520-013` live; tag `regulation-watch-v0.9.6`.
 10. **Control Tower review** — triage 3 `metadata_changed_needs_review` items (US NIST last-modified; UK etag; UNESCO title/headers); not legal change claims.
 11. **Human browser verification (remaining)** — Australia `industry.gov.au`; EUR-Lex CELEX; EDPB AI topic when stable.
 

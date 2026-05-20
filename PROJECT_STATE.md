@@ -11,11 +11,12 @@
 | **Repository** | `caesar-ai-regulation-watch` |
 | **Current version** | `v0.9.6` |
 | **Current phase** | Public pilot — cautious live metadata pilot |
-| **Status** | v0.9.6 in progress (branch `agent/v0.9.6-live-metadata-pilot`) |
-| **Working branch** | `agent/v0.9.6-live-metadata-pilot` → merge to `main` |
+| **Status** | Live on custom domain; v0.9.6 deployed (`644c448`) |
+| **Working branch** | `main` |
 | **Latest completed task** | v0.9.6 — cautious live metadata pilot (5 sources, change review pack) |
-| **Prior deployment** | v0.9.5 — `5d43122` / tag `regulation-watch-v0.9.5` @ `9f20cc2` |
-| **Next recommended step** | Deploy v0.9.6; Control Tower human review of live metadata change candidates |
+| **Deployment ID** | `DEPLOY-20260520-013` — commit `644c448`, run [26161681675](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26161681675) |
+| **Git tag** | `regulation-watch-v0.9.6` (after docs commit) |
+| **Next recommended step** | Control Tower human review of 3 live metadata change candidates; browser verification on blocked sources |
 
 ---
 
