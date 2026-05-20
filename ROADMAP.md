@@ -4,7 +4,7 @@
 
 This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
 
-**Current release:** v1.0.7 (T050 map + compare) at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) — `DEPLOY-20260520-025` (deploy in progress). **Next:** T051 richer country profiles + regional/topic drilldowns.
+**Current release:** v1.0.7 (T050 map + compare) at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) — `DEPLOY-20260520-025`, commit `86c9262`, tag `regulation-watch-v1.0.7`. **Next:** T051 richer country profiles + regional/topic drilldowns.
 
 **Product direction (20 May 2026):** automation-first global AI regulation tracker — see [docs/AUTOMATION_FIRST_MVP_ROADMAP.md](docs/AUTOMATION_FIRST_MVP_ROADMAP.md) and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md). Human review/evidence is optional future assurance, not the first full MVP foundation.
 

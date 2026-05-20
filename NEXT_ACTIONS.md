@@ -1,7 +1,7 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 20 May 2026
-**Current release:** v1.0.7 (T050 map + compare) — deploy `DEPLOY-20260520-025` in progress; prior live v1.0.6 (`DEPLOY-20260520-024`, tag `regulation-watch-v1.0.6`)
+**Current release:** v1.0.7 (T050 map + compare) — deployed `DEPLOY-20260520-025`, commit `86c9262`, tag `regulation-watch-v1.0.7`; prior live v1.0.6 (`DEPLOY-20260520-024`, tag `regulation-watch-v1.0.6`)
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
 ---
@@ -25,7 +25,7 @@
    - Feed: 33 updates (`manual_seed` 15 + `offline_metadata_adapter` 18); method filter and badges on public pages.
    - Live API/RSS scheduling and fetch adapters remain separate (Phase 2 P2-01).
 
-5. **T050 — Choropleth map + compare jurisdictions** *(merged; v1.0.7 release/deploy)*
+5. **T050 — Choropleth map + compare jurisdictions** *(merged, released, deployed v1.0.7)*
    - Choropleth-style status panel on `/tracker/`; `/compare/` for 2–4 jurisdictions.
    - Tracker scoring metadata; `jurisdiction-comparison.json` export.
    - No GPL map copy; no scraping; gates remain closed.

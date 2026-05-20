@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 20 May 2026 (v1.0.7 — T050 map + compare, `DEPLOY-20260520-025`, tag `regulation-watch-v1.0.7` after deploy)
+**Last updated:** 20 May 2026 (v1.0.7 — T050 map + compare, `DEPLOY-20260520-025`, commit `86c9262`, tag `regulation-watch-v1.0.7`)
 
 ---
 
