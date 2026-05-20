@@ -1,15 +1,15 @@
 # Caesar AI Regulation Watch
 
-> Public tracker for AI laws, regulatory guidance, source verification, and evidence export readiness.
+> Automation-first global AI regulation tracker and news intelligence dashboard.
 
 **Live site:** [regulation-watch.caesar.no](https://regulation-watch.caesar.no/)
 
 | | |
 |---|---|
-| **Status** | Public Technical MVP (v1.0.4) |
+| **Status** | Public Technical MVP technical base (v1.0.4); automation-first product rebase in progress |
 | **Hosting** | GitHub Pages — static site (Astro) |
-| **Scope** | AI regulation, guidance, source review, evidence export candidates |
-| **Safety** | Source review and publication gates apply — not legal advice |
+| **Scope** | AI regulation tracking, country profiles, latest updates, source monitoring, metrics and structured exports |
+| **Safety** | Not legal advice; source transparency and automation confidence labels apply |
 
 Part of the [Caesar AI Governance Hub](https://github.com/caesar-compliance/caesar-ai-governance-hub) ecosystem.
 
@@ -17,31 +17,39 @@ Part of the [Caesar AI Governance Hub](https://github.com/caesar-compliance/caes
 
 ## What it does
 
-- Tracks **AI regulation and official guidance** across jurisdictions.
-- Separates **source verification** from publication readiness — nothing is marked verified without review.
-- Supports **evidence and export planning** for downstream governance workflows.
-- Keeps public data **static and reviewable** — no runtime backend.
+- Tracks **AI law, regulatory guidance, consultations, enforcement and official policy signals** across jurisdictions.
+- Presents regulation status through a **world map**, country profiles, **update feed**, filters and metrics.
+- Monitors official and authoritative sources using **automation-first adapters** where safe and permitted.
+- Publishes **structured JSON/RSS/API-ready exports** for downstream use.
+- Shows **source links, detection metadata and confidence labels** instead of unsupported legal conclusions.
+- Keeps public data **static and build-time generated** (Astro) — no runtime backend in the technical base.
 - Fits the **Caesar AI Governance ecosystem** (Evidence, Scan, Vendor Watch, Governance OS).
 
 ## What it is not
 
-- **Not legal advice** — outputs support review, not compliance guarantees.
-- **Not a complete legal database** — coverage grows incrementally by curated source registry.
-- **Not an automated scraping product** — ingestion is policy-gated and human-reviewed.
+- **Not legal advice** — outputs support awareness and review, not compliance guarantees.
+- **Not a complete legal database** — coverage grows incrementally by curated source registry and automation.
+- **Not a competitor content mirror** — benchmarks inform Caesar-native implementation only.
+- **Not a broad uncontrolled scraping product** — ingestion follows [docs/REFERENCE_DRIVEN_BUILD_POLICY.md](docs/REFERENCE_DRIVEN_BUILD_POLICY.md) and monitoring policy.
+- **Not a client evidence product** in the first full MVP.
+
+## Human review and evidence (future optional layer)
+
+Human review is an **optional future assurance layer** for premium legal/evidence workflows. It is **not** the foundation of the first full MVP. The core product direction is automated tracking, updates, metrics, filtering and source-linked country intelligence. Evidence export and `verified_on_source` gates remain closed unless Control Tower approves separately.
 
 ---
 
 ## What this product is
 
-**Caesar AI Regulation Watch** helps teams monitor AI-related laws, official guidance, and authoritative regulatory sources across jurisdictions. It is designed to:
+**Caesar AI Regulation Watch** automatically tracks AI-related laws, official guidance, and authoritative regulatory signals across jurisdictions. It is designed to:
 
 - track **official and authoritative sources** (not unofficial commentary as primary truth);
-- help **identify regulatory changes** that may require governance review;
-- maintain **jurisdiction profiles**, timelines, and change history;
-- **map changes to controls and evidence** for structured governance workflows;
-- export structured records for **Caesar AI Evidence** and future **Caesar AI Governance OS** integration.
+- surface **latest updates** in a newsfeed-style feed with filters and metrics;
+- maintain **jurisdiction profiles**, map coverage, timelines, and change history;
+- publish **machine-readable exports** (JSON, RSS) for tools and integrators;
+- optionally connect to **controls, evidence and Governance OS** in later assurance phases.
 
-It is **not** legal advice, **not** a compliance guarantee, and **not** a claim of complete global legal coverage. Coverage grows incrementally by curated source registry and human review.
+It is **not** legal advice, **not** a compliance guarantee, and **not** a claim of complete global legal coverage. Coverage grows through curated registry and scheduled automation where source policy allows.
 
 ---
 
@@ -50,20 +58,18 @@ It is **not** legal advice, **not** a compliance guarantee, and **not** a claim 
 At maturity, Caesar AI Regulation Watch becomes a public intelligence layer and data product:
 
 ```text
-Global map / globe
-  → jurisdiction profiles (country, region, bloc)
-    → official source registry
-      → law & guidance records
-        → regulatory timelines & change history
-          → status labels & source credibility
-            → AI-assisted summaries (reviewed)
-              → affected controls & affected evidence
-                → RSS / JSON API / export
-                  → public website (regulation-watch.caesar.no)
-                    → Caesar AI Governance OS regulatory inbox
+Official sources / feeds / APIs
+  → automated detection & classification
+    → regulatory updates & country status
+      → global map + country profiles + newsfeed
+        → filters, metrics, timelines
+          → JSON / RSS / API exports
+            → public website (regulation-watch.caesar.no)
+              → optional human/evidence assurance layer
+                → future Caesar AI Governance OS regulatory inbox
 ```
 
-**Positioning:** Open tools for turning AI regulatory change into governance evidence — not another static AI Act checklist.
+**Positioning:** Automation-first global AI regulation tracker and news intelligence — Techieray / Legal Wire style public product with Caesar-native automation, transparency and governance integration later.
 
 ---
 
@@ -120,7 +126,9 @@ We study product patterns from these resources; we do **not** copy their code, U
 | Resource | URL |
 |---|---|
 | Techieray Global AI Regulation Tracker | https://www.techieray.com/GlobalAIRegulationTracker |
+| The Legal Wire AI Regulation Tracker | https://thelegalwire.ai/ai-regulation-tracker/ |
 | VerifyWise Global AI Regulations Tracker | https://verifywise.ai/global-ai-regulations |
+| AI regulation map (open source, GPL reference) | https://github.com/riadeane/airegulationmap |
 | DLA Piper AI Laws of the World | https://intelligence.dlapiper.com/artificial-intelligence |
 | OECD AI Policy Navigator | https://oecd.ai/en/dashboards/overview |
 | IAPP Global AI Law and Policy Tracker | https://iapp.org/resources/article/global-ai-legislation-tracker |
@@ -128,7 +136,7 @@ We study product patterns from these resources; we do **not** copy their code, U
 | artificialintelligenceact.eu | https://artificialintelligenceact.eu/ |
 | Fairly Regulation and Policy Tracker | https://github.com/fairlyAI/fairly-regulation-policy-tracker |
 
-Details: [docs/COMPETITOR_BENCHMARKS.md](docs/COMPETITOR_BENCHMARKS.md). Competitor features are **benchmark inputs only** — see [docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md](docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md) and [docs/COMPETITOR_ASSISTED_SOURCE_DISCOVERY_POLICY.md](docs/COMPETITOR_ASSISTED_SOURCE_DISCOVERY_POLICY.md) (v0.9.1).
+Details: [docs/COMPETITOR_BENCHMARKS.md](docs/COMPETITOR_BENCHMARKS.md) · [docs/COMPETITOR_OPEN_SOURCE_BENCHMARKS_AUTOMATION_FIRST.md](docs/COMPETITOR_OPEN_SOURCE_BENCHMARKS_AUTOMATION_FIRST.md). Competitor features are **benchmark inputs only** — see [docs/REFERENCE_DRIVEN_BUILD_POLICY.md](docs/REFERENCE_DRIVEN_BUILD_POLICY.md), [docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md](docs/THIRD_PARTY_CODE_AND_DATA_POLICY.md) and [docs/COMPETITOR_ASSISTED_SOURCE_DISCOVERY_POLICY.md](docs/COMPETITOR_ASSISTED_SOURCE_DISCOVERY_POLICY.md).
 
 ---
 
@@ -184,8 +192,8 @@ npm run build              # dist/ + Pagefind search index
 npm run preview            # serve dist/
 ```
 
-**Pages:** home, search, jurisdictions, sources, source discovery, records, changes, exports, methodology, disclaimer.  
-**Data:** `/data/*.json`, `/feeds/changes.xml` (generated; sample-only).  
+**Pages:** home, search, jurisdictions, sources, source discovery, records, changes, exports, methodology, disclaimer.
+**Data:** `/data/*.json`, `/feeds/changes.xml` (generated; sample-only).
 **Product preview only** — supports governance review, not legal advice.
 
 ## Third-party acceleration plan (v0.3.2)
@@ -217,6 +225,10 @@ Canonical values, review workflow, and future evidence export shape:
 
 | Document | Purpose |
 |---|---|
+| [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md) | Automation-first product north star (T046) |
+| [docs/FIRST_FULL_MVP_REQUIREMENTS.md](docs/FIRST_FULL_MVP_REQUIREMENTS.md) | First full MVP requirements |
+| [docs/AUTOMATION_FIRST_MVP_ROADMAP.md](docs/AUTOMATION_FIRST_MVP_ROADMAP.md) | Post-rebase phased roadmap |
+| [docs/REFERENCE_DRIVEN_BUILD_POLICY.md](docs/REFERENCE_DRIVEN_BUILD_POLICY.md) | Reference-driven build and license rules |
 | [docs/PILOT_SOURCE_REGISTRY.md](docs/PILOT_SOURCE_REGISTRY.md) | Pilot EU/Norway registry guide |
 | [docs/SAMPLE_RECORDS_GUIDE.md](docs/SAMPLE_RECORDS_GUIDE.md) | Manual sample law/guidance/change records |
 | [docs/TAXONOMY_AND_REVIEW_WORKFLOW.md](docs/TAXONOMY_AND_REVIEW_WORKFLOW.md) | Taxonomies and review statuses |
@@ -254,4 +266,4 @@ Canonical values, review workflow, and future evidence export shape:
 
 ## Project status
 
-**v1.0.4** — Public Technical MVP live at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/). Autonomous source verification worker, source review gates, evidence export candidates, Pagefind search. Data is curated YAML; no unreviewed automation. See [PROJECT_STATE.md](PROJECT_STATE.md) and [NEXT_ACTIONS.md](NEXT_ACTIONS.md).
+**v1.0.4** — Public Technical MVP live at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/). Technical base includes autonomous source verification worker, Pagefind search, and static exports. **Product direction (20 May 2026):** automation-first tracker (map, newsfeed, metrics, scheduled adapters). Human review/evidence is optional future assurance, not the MVP foundation. See [PROJECT_STATE.md](PROJECT_STATE.md), [NEXT_ACTIONS.md](NEXT_ACTIONS.md), and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md).

@@ -1,7 +1,7 @@
 # Competitor-Assisted Official Source Discovery Policy
 
-**Effective:** 20 May 2026  
-**Version:** v0.9.1  
+**Effective:** 20 May 2026
+**Version:** v0.9.1
 **Status:** Active for `caesar-ai-regulation-watch` source registry expansion.
 
 ---
