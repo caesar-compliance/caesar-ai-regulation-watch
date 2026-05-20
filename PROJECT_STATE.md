@@ -13,14 +13,15 @@
 | **Current phase** | Public technical MVP candidate |
 | **Status** | Live on custom domain; v1.0.0-rc1 deployed (`0765327`); tag `regulation-watch-v1.0.0-rc1` |
 | **Working branch** | `main` |
-| **Latest completed task** | v1.0.0-rc1 — public technical MVP release candidate deploy + smoke |
+| **Latest completed task** | v1.0.0 final Control Tower decision pack (docs only — no new features) |
 | **Prior deployment** | `DEPLOY-20260520-017` — v1.0.0-rc1, commit `0765327`, run [26163494827](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26163494827) |
 | **Git tag (live)** | `regulation-watch-v1.0.0-rc1` → `0765327` |
-| **Next recommended step** | Control Tower: review [docs/V1_RELEASE_CANDIDATE_DECISION_RECORD.md](docs/V1_RELEASE_CANDIDATE_DECISION_RECORD.md) and decide final v1.0.0 vs keep RC |
+| **Next recommended step** | Control Tower: sign [docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md) — final v1.0.0 pending decision |
+| **Final v1.0.0 status** | **Pending Control Tower decision** — not approved; no `regulation-watch-v1.0.0` tag |
 
 ---
 
-## v1.0.0-rc1 scope (this release)
+## v1.0.0-rc1 scope (live)
 
 | Property | Value |
 |---|---|
@@ -29,10 +30,20 @@
 | New jurisdictions/sources | **None** |
 | Monitoring allowlist expansion | **None** |
 | Scheduled monitoring | **None** |
-| Docs added | `V1_TECHNICAL_MVP_SCOPE_FREEZE.md`, `V1_RELEASE_CANDIDATE_DECISION_RECORD.md` |
-| Docs updated | `V1_RELEASE_CANDIDATE_CHECKLIST.md`, project state docs |
+| Client / final evidence | **None** — `client_use_allowed: 0`; no final export |
+| Known source limitations | Australia WAF, EUR-Lex HTTP 202, EDPB 502, UNESCO `check_artifact`, `verified_on_source: 0`, incomplete content review |
 
-**Important:** v1.0.0-rc1 is a **release candidate**, not final v1.0.0. Control Tower sign-off required before final tag.
+**Important:** v1.0.0-rc1 is live. **Final v1.0.0** requires Control Tower sign-off in [docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md](docs/V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md).
+
+## v1.0.0 final decision pack (this task)
+
+| Property | Value |
+|---|---|
+| Type | Governance/release docs only |
+| New features | **None** |
+| Docs added | `V1_FINAL_CONTROL_TOWER_DECISION_RECORD.md` |
+| Docs updated | `V1_RELEASE_CANDIDATE_CHECKLIST.md`, `PROJECT_STATE.md`, `NEXT_ACTIONS.md`, `CHANGELOG.md` |
+| Final tag | **Not created** — pending CT decision |
 
 ---
 
