@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **Status** | v1.0.8 (T051–T057 on main; T058 in progress); live site v1.0.7 `DEPLOY-20260520-025` — deploy/tag pending |
+| **Status** | v1.0.8 (T051–T058 on main; T059 in progress); live site v1.0.7 `DEPLOY-20260520-025` — deploy/tag pending |
 | **Hosting** | GitHub Pages — static site (Astro) |
 | **Scope** | AI regulation tracking, country profiles, latest updates, source monitoring, metrics and structured exports |
 | **Safety** | Not legal advice; source transparency and automation confidence labels apply |
@@ -274,6 +274,8 @@ Canonical values, review workflow, and future evidence export shape:
 
 **T057 (merged):** Manual reviewer decision workflow for T056 draft — [docs/MANUAL_REVIEW_DECISION_WORKFLOW.md](docs/MANUAL_REVIEW_DECISION_WORKFLOW.md). `T057-001` / `request_changes`; metadata-only; internal-draft-only; no publication or source verification; no live network in T057.
 
-**T058 (in progress):** Draft revision packet after T057 request-changes — [docs/DRAFT_REVISION_PACKET_WORKFLOW.md](docs/DRAFT_REVISION_PACKET_WORKFLOW.md). `T058-001` revises T056 draft metadata-only; still no publication or source verification.
+**T058 (merged):** Draft revision packet after T057 request-changes — [docs/DRAFT_REVISION_PACKET_WORKFLOW.md](docs/DRAFT_REVISION_PACKET_WORKFLOW.md). PR #18 squash `3e5dce8`; `T058-001` revises T056 draft metadata-only; excluded from public exports; no live network in T058.
+
+**T059 (in progress):** Internal draft readiness gate — [docs/INTERNAL_DRAFT_READINESS_GATE.md](docs/INTERNAL_DRAFT_READINESS_GATE.md). Assesses revised T056 draft; not ready for publication review; next step source verification checklist packet.
 
 See [PROJECT_STATE.md](PROJECT_STATE.md) and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md).

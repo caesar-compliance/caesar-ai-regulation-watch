@@ -5,10 +5,13 @@
 | Field | Value |
 |---|---|
 | Starting main (after T057 merge + docs) | `7d0d6d1` |
-| Branch | `task/T058-draft-revision-packet` |
+| Merge commit (PR #18 squash) | `3e5dce8` |
+| Branch | `task/T058-draft-revision-packet` (merged, deleted) |
 | Draft path | `data/regulatory-updates/drafts/T056-001.yml` |
 | Decision | `T057-001` / `request_changes` |
 | Revision | `T058-001` / `draft_revision_applied` |
+| Live site | v1.0.7 — no deploy/tag/closeout in T058 |
+| No live network | T058 did not run approved network dry-run |
 
 ## Changed fields
 

@@ -1,7 +1,7 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 21 May 2026
-**Current codebase:** v1.0.8 (T051–T057 on main; T058 in progress) — tag/deploy pending future approval
+**Current codebase:** v1.0.8 (T051–T058 on main; T059 in progress) — tag/deploy pending future approval
 **Live release:** v1.0.7 (T050) — deployed `DEPLOY-20260520-025`, commit `86c9262`, tag `regulation-watch-v1.0.7`
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
@@ -55,11 +55,11 @@
 12. **T057 — Manual reviewer decision workflow for draft update** *(merged to main — PR #17, squash `413b87f`)*
    - `T057-001` records `request_changes` for `T056-001` draft; internal-draft-only scope; still no publication; gates unchanged; no live network in T057.
 
-13. **T058 — Draft revision packet after request-changes** *(in progress on branch)*
-   - `T058-001` revises T056 draft metadata-only after T057 `request_changes`; still no publication; no source verification; gates unchanged.
+13. **T058 — Draft revision packet after request-changes** *(merged to main — PR #18, squash `3e5dce8`)*
+   - `T058-001` revises T056 draft metadata-only after T057 `request_changes`; T056/T057/T058 excluded from public exports; no live network in T058; gates unchanged; no tag/deploy/closeout.
 
-14. **T059 — Internal draft promotion readiness gate** *(recommended next)*
-   - Assess whether revised draft is ready for future publication review; still no publication; no source verification claim; gates unchanged.
+14. **T059 — Internal draft promotion readiness gate** *(in progress)*
+   - Assess revised T056 draft readiness for future publication review; record blockers; still no publication; no source verification claim; gates unchanged.
 
 ---
 
