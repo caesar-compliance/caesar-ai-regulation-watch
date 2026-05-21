@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **T067 publication gate decision capture** — `schemas/publication-gate-decision.schema.json`, `T067-001` approve_for_publication_staging; `/publication-gate/` decision section; [docs/PUBLICATION_GATE_DECISION_CAPTURE.md](docs/PUBLICATION_GATE_DECISION_CAPTURE.md); internal staging only; no publication; gates unchanged.
 
+### Deployed
+
+- 21 May 2026 — `DEPLOY-20260521-033`, commit `a13de3c`, run [26231604878](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26231604878), tag `regulation-watch-v1.0.15`. Snapshot version 1.0.15; gate counts 0.
+
 ---
 
 ## [1.0.14] - 21 May 2026

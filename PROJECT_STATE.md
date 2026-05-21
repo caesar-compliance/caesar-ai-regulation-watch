@@ -5,9 +5,9 @@
 | Field | Value |
 |---|---|
 | **Current version** | `v1.0.15` (T067 — publication gate decision capture) |
-| **Live version** | `v1.0.14` — tag `regulation-watch-v1.0.14` (v1.0.15 deploy pending) |
-| **Status** | T067 merged to main; v1.0.15 deploy ready; live still v1.0.14 |
-| **Last deployment** | `DEPLOY-20260521-032` — commit `c542e1d`, run [26230646170](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26230646170) |
+| **Live version** | `v1.0.15` — tag `regulation-watch-v1.0.15` |
+| **Status** | T067 merged and deployed; live site v1.0.15 |
+| **Last deployment** | `DEPLOY-20260521-033` — commit `a13de3c`, run [26231604878](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26231604878) |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
 | **Phase** | Public Technical MVP + profiles/drilldowns (T051) |
 
