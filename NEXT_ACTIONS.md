@@ -1,8 +1,8 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 21 May 2026
-**Current codebase:** v1.0.24 (T051–T075C) — live `DEPLOY-20260521-042`, commit `8124799`, tag `regulation-watch-v1.0.24`
-**Live release:** v1.0.24 — deployed 21 May 2026
+**Current codebase:** v1.0.25 (T051–T075D) — release prep; prior live `DEPLOY-20260521-042`, commit `8124799`, tag `regulation-watch-v1.0.24`
+**Live release:** v1.0.24 — deployed 21 May 2026 (v1.0.25 deploy pending)
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
 ---
@@ -112,10 +112,13 @@
 32. **T075C — Offline source pilot reviewer UI** *(merged ff `b46a1af`; deployed v1.0.24 — `DEPLOY-20260521-042`)*
    - Review candidate export, `/source-pilot/review/` filters, enhanced `/source-pilot/`; fixture-only; no network.
 
-33. **T075D — Offline review decision packet/export** *(in progress on branch `task/T075D-offline-review-decision-packets`)*
-   - Operator decision packet from fixture review candidates; still no network; gates closed.
+33. **T075D — Offline review decision packet/export** *(merged ff `e6fa1ff`; release v1.0.25; deploy pending)*
+   - Decision packet export, `/source-pilot/decision-packets/` UI; fixture-only; gates closed.
 
-34. **T076 — Explicit controlled network check** *(after Control Tower approval)*
+34. **T075E — Offline export/report polish** *(recommended when Supabase credentials unavailable)*
+   - Operator handoff polish for decision packet exports; no network; no Supabase apply.
+
+35. **T076 — Explicit controlled network check** *(after Control Tower approval)*
    - Single allowlisted source network check; not broad crawl.
 
 ---

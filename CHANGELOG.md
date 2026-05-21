@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+---
+
+## [1.0.25] - 21 May 2026
+
 ### Added
 
 - **T075D offline source pilot decision packets** — `source-pilot-decision-packets.json`, build/validate scripts, `/source-pilot/decision-packets/` operator UI with checklist and placeholder decisions. Fixture-only; gates remain closed.
@@ -16,6 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - **automation-runtime** — status `source_pilot_decision_packets_ready` (offline decision packet export; not live monitoring).
+
+### Merged
+
+- Fast-forward merge `e6fa1ff` — T075D offline source pilot decision packets.
 
 ---
 

@@ -1,8 +1,8 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (T075D offline decision packets — branch)
+**Last updated:** 21 May 2026 (T075D offline decision packets — v1.0.25)
 
-## T075D — Offline review decision packets (branch)
+## T075D — Offline review decision packets (v1.0.25)
 
 | Path | Role |
 |---|---|
