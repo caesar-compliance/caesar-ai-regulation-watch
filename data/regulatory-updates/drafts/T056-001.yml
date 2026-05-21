@@ -31,10 +31,13 @@ latest_review_decision_id: T057-001
 latest_revision_id: T058-001
 latest_readiness_gate_id: T059-001
 readiness_result: not_ready_for_publication_review
-next_required_step: final_legal_review_packet
+next_required_step: final_legal_reviewer_decision
 latest_source_verification_result_id: T061-001
 source_verification_result: partial_pass_needs_follow_up
+latest_final_legal_review_packet_id: T062-001
+final_legal_review_status: pending_final_legal_review
 final_source_verification_completed: false
+final_legal_approval_completed: false
 final_legal_approval_required: true
 review_required: true
 source_verification_required_before_publication: true

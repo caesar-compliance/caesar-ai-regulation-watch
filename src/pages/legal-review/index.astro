@@ -1,0 +1,317 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getFinalLegalReviewCockpitCase } from "../../lib/data";
+import { humanizeId } from "../../lib/format";
+import { PROJECT_VERSION_LABEL } from "../../lib/project-version";
+
+const PACKET_ID = "T062-001";
+const cockpit = getFinalLegalReviewCockpitCase(PACKET_ID);
+
+if (!cockpit) {
+  throw new Error(`Final legal review cockpit case missing: ${PACKET_ID}`);
+}
+
+const {
+  packet,
+  draft,
+  result,
+  checklist,
+  promotion,
+  decision,
+  revision,
+  readinessGate,
+  execution,
+  approval,
+} = cockpit;
+
+const timeline = [
+  {
+    step: "T055",
+    label: "Single-source network dry-run",
+    id: execution?.execution_id ?? draft?.source_execution_id,
+    status: execution?.status,
+    detail: approval ? `Approval ${approval.approval_id}` : null,
+  },
+  {
+    step: "T056",
+    label: "Manual review promotion",
+    id: promotion?.promotion_id ?? draft?.promotion_id,
+    status: promotion?.status,
+    detail: promotion?.draft_update_path,
+  },
+  {
+    step: "T057",
+    label: "Reviewer decision",
+    id: decision?.decision_id ?? draft?.latest_review_decision_id,
+    status: decision?.decision,
+    detail: decision?.decision_scope,
+  },
+  {
+    step: "T058",
+    label: "Draft revision packet",
+    id: revision?.revision_id ?? draft?.latest_revision_id,
+    status: revision?.revision_status,
+    detail: draft?.review_status,
+  },
+  {
+    step: "T059",
+    label: "Internal draft readiness gate",
+    id: readinessGate?.readiness_id ?? draft?.latest_readiness_gate_id,
+    status: readinessGate?.readiness_result ?? draft?.readiness_result,
+    detail: readinessGate?.next_required_step ?? draft?.next_required_step,
+  },
+  {
+    step: "T060",
+    label: "Source verification checklist",
+    id: checklist?.checklist_id ?? packet.checklist_id,
+    status: checklist?.status,
+    detail: checklist?.next_required_step,
+  },
+  {
+    step: "T061",
+    label: "Source verification result",
+    id: result?.result_id ?? packet.source_verification_result_id,
+    status: result?.result_status ?? "—",
+    detail: result?.overall_result ?? draft?.source_verification_result,
+  },
+  {
+    step: "T062",
+    label: "Final legal review packet",
+    id: packet.packet_id,
+    status: packet.packet_status,
+    detail: packet.next_required_step,
+  },
+];
+
+const itemCounts = { pending: 0, needs_follow_up: 0, blocked: 0, local_metadata_available: 0 };
+for (const item of packet.legal_review_items) {
+  if (itemCounts[item.status] !== undefined) itemCounts[item.status] += 1;
+}
+---
+
+<BaseLayout
+  title="Final Legal Review Packet"
+  description="Internal final legal review packet — not approved, not published, not verified on source."
+  currentPath="/legal-review/"
+>
+  <h1>Final Legal Review Packet</h1>
+  <p class="lead">
+    Internal pre-publication legal review ({PROJECT_VERSION_LABEL}). Read-only metadata — no approve,
+    publish, or source verification controls.
+  </p>
+
+  <div class="status-cards">
+    <div class="status-card status-card--pending">
+      <strong>Packet status</strong>
+      <code>{packet.packet_status}</code>
+    </div>
+    <div class="status-card status-card--blocked">
+      <strong>Source verified</strong>
+      <span>No — not verified on source</span>
+    </div>
+    <div class="status-card status-card--blocked">
+      <strong>Published</strong>
+      <span>No — not published</span>
+    </div>
+    <div class="status-card status-card--blocked">
+      <strong>Gates</strong>
+      <span>Closed — client/evidence/legal-change gates false</span>
+    </div>
+  </div>
+
+  <div class="banner banner--review" role="note">
+    <strong>Not approved.</strong> Not published. Not final source verification. Not legal advice. Packet{" "}
+    <code>{packet.packet_id}</code> — review stage <code>{packet.review_stage}</code>.
+  </div>
+
+  <section>
+    <h2>Draft under review</h2>
+    <dl class="meta-grid">
+      <div><dt>Draft ID</dt><dd><span class="mono">{packet.draft_update_id}</span></dd></div>
+      <div><dt>Draft path</dt><dd><span class="mono">{packet.draft_update_path}</span></dd></div>
+      <div><dt>Source URL</dt><dd>
+        {
+          draft ? (
+            <a href={draft.source_url} rel="noopener noreferrer">{draft.source_url}</a>
+          ) : (
+            "—"
+          )
+        }
+      </dd></div>
+      <div><dt>Review status</dt><dd>{draft ? humanizeId(draft.review_status) : "—"}</dd></div>
+      <div><dt>Final legal review</dt><dd><span class="mono">{draft?.final_legal_review_status ?? packet.packet_status}</span></dd></div>
+      <div><dt>Next required step</dt><dd><span class="mono">{packet.next_required_step}</span></dd></div>
+    </dl>
+    {
+      draft && (
+        <>
+          <h3>Draft metadata (internal only)</h3>
+          <dl class="meta-grid">
+            <div><dt>Title</dt><dd>{draft.title}</dd></div>
+            <div><dt>Status</dt><dd>{humanizeId(draft.status)}</dd></div>
+            <div><dt>Published (metadata)</dt><dd>{draft.source_published_at ?? draft.published_at}</dd></div>
+            <div><dt>Jurisdictions</dt><dd>{draft.jurisdiction_ids.join(", ")}</dd></div>
+            <div><dt>Topics</dt><dd>{draft.topic_ids.join(", ")}</dd></div>
+          </dl>
+          <p class="card__excerpt">{draft.summary}</p>
+        </>
+      )
+    }
+  </section>
+
+  {
+    result && (
+      <section>
+        <h2>Source verification result (T061)</h2>
+        <p>
+          Item-level manual checks from result <code>{result.result_id}</code> — not final source
+          verification.
+        </p>
+        <dl class="meta-grid">
+          <div><dt>Overall result</dt><dd><span class="mono">{result.overall_result}</span></dd></div>
+          <div><dt>Result status</dt><dd><span class="mono">{result.result_status}</span></dd></div>
+          <div><dt>Final verification completed</dt><dd>No</dd></div>
+        </dl>
+      </section>
+    )
+  }
+
+  <section>
+    <h2>Pipeline timeline</h2>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Step</th>
+            <th>Stage</th>
+            <th>Record</th>
+            <th>Status</th>
+            <th>Detail</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            timeline.map((row) => (
+              <tr>
+                <td><span class="mono">{row.step}</span></td>
+                <td>{row.label}</td>
+                <td><span class="mono">{row.id ?? "—"}</span></td>
+                <td>{row.status ? humanizeId(String(row.status)) : "—"}</td>
+                <td><span class="mono">{row.detail ?? "—"}</span></td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Legal review checklist</h2>
+    <p>
+      Item counts: pending {itemCounts.pending}, needs follow-up {itemCounts.needs_follow_up}, blocked{" "}
+      {itemCounts.blocked}, local metadata {itemCounts.local_metadata_available}. No item approved for
+      publication.
+    </p>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Status</th>
+            <th>Reviewer role</th>
+            <th>Note</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            packet.legal_review_items.map((item) => (
+              <tr>
+                <td><span class="mono">{item.item_id}</span></td>
+                <td>
+                  <span class={`badge badge--status-${item.status}`}>{item.status}</span>
+                </td>
+                <td><span class="mono">{item.reviewer_role}</span></td>
+                <td>{item.note ?? "—"}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Blockers</h2>
+    <ul>
+      {packet.blockers_remaining.map((b) => <li>{b}</li>)}
+    </ul>
+    {
+      result && result.blockers_remaining.length > 0 && (
+        <>
+          <h3>Source verification blockers ({result.result_id})</h3>
+          <ul>
+            {result.blockers_remaining.map((b) => <li>{b}</li>)}
+          </ul>
+        </>
+      )
+    }
+  </section>
+
+  <section>
+    <h2>Gates and safety</h2>
+    <dl class="meta-grid">
+      <div><dt>verified_on_source</dt><dd>false</dd></div>
+      <div><dt>client_use_allowed</dt><dd>false</dd></div>
+      <div><dt>client_evidence_allowed</dt><dd>false</dd></div>
+      <div><dt>final_evidence_allowed</dt><dd>false</dd></div>
+      <div><dt>legal_change_claimed</dt><dd>false</dd></div>
+      <div><dt>publication_allowed</dt><dd>false</dd></div>
+      <div><dt>public_export_allowed</dt><dd>false</dd></div>
+      <div><dt>evidence_export_allowed</dt><dd>false</dd></div>
+      <div><dt>final_legal_approval_completed</dt><dd>false</dd></div>
+      <div><dt>final_source_verification_completed</dt><dd>false</dd></div>
+      <div><dt>metadata_only</dt><dd>true</dd></div>
+      <div><dt>stores_full_text</dt><dd>false</dd></div>
+      <div><dt>requires_final_approval_before_publication</dt><dd>true</dd></div>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Related</h2>
+    <ul>
+      <li><a href="/source-verification/">Source verification cockpit</a></li>
+      <li><a href="/source-adapters/">Source adapters pipeline</a></li>
+      <li><a href="/updates/">Public regulatory updates feed</a></li>
+      <li><a href="/tracker/">Automation-first tracker</a></li>
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .status-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    gap: 0.75rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .status-card {
+    padding: 0.75rem 1rem;
+    border-radius: 0.375rem;
+    border: 1px solid var(--border, #ccc);
+    background: var(--surface, #f8f8f8);
+  }
+  .status-card strong {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.25rem;
+  }
+  .status-card--pending code {
+    color: var(--accent-warn, #8a6d00);
+  }
+  .status-card--blocked span {
+    color: var(--accent-danger, #a00);
+  }
+</style>

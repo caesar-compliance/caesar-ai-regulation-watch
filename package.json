@@ -1,7 +1,7 @@
 {
   "name": "caesar-ai-regulation-watch",
   "type": "module",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "private": true,
   "description": "Read-only static site for Caesar AI Regulation Watch pilot data",
   "scripts": {
@@ -16,12 +16,14 @@
     "validate:internal-draft-readiness-gates": "node scripts/validate-internal-draft-readiness-gates.mjs",
     "validate:source-verification-checklists": "node scripts/validate-source-verification-checklists.mjs",
     "validate:source-verification-results": "node scripts/validate-source-verification-results.mjs",
+    "validate:final-legal-review-packets": "node scripts/validate-final-legal-review-packets.mjs",
     "build:manual-review-promotion": "node scripts/build-manual-review-promotion.mjs",
     "build:manual-review-decision-summary": "node scripts/build-manual-review-decision-summary.mjs",
     "build:draft-revision-summary": "node scripts/build-draft-revision-summary.mjs",
     "build:internal-draft-readiness-summary": "node scripts/build-internal-draft-readiness-summary.mjs",
     "build:source-verification-summary": "node scripts/build-source-verification-summary.mjs",
     "build:source-verification-result-summary": "node scripts/build-source-verification-result-summary.mjs",
+    "build:final-legal-review-packet-summary": "node scripts/build-final-legal-review-packet-summary.mjs",
     "build:network-dry-run-plan": "node scripts/build-network-dry-run-plan.mjs",
     "run:approved-network-dry-run": "node scripts/run-approved-network-dry-run.mjs",
     "run:manual-source-intake": "node scripts/run-manual-source-intake.mjs",

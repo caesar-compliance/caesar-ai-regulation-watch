@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.9 live — T061; `DEPLOY-20260521-027`)
+**Last updated:** 21 May 2026 (v1.0.10 codebase — T062; live v1.0.9)
 
 ---
 
@@ -308,6 +308,17 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **scripts/validate-source-verification-results.mjs** | `npm run validate:source-verification-results` |
 | **scripts/build-source-verification-result-summary.mjs** | `npm run build:source-verification-result-summary` |
 | **docs/SOURCE_VERIFICATION_RESULT_CAPTURE.md** | T061 model |
+
+## T062 — Final legal review packet UI (v1.0.10)
+
+| Path | Purpose |
+|---|---|
+| **schemas/final-legal-review-packet.schema.json** | Packet validation |
+| **data/source-adapters/final-legal-review-packets.yml** | Pilot packet `T062-001` |
+| **scripts/validate-final-legal-review-packets.mjs** | `npm run validate:final-legal-review-packets` |
+| **scripts/build-final-legal-review-packet-summary.mjs** | `npm run build:final-legal-review-packet-summary` |
+| **src/pages/legal-review/index.astro** | Packet UI |
+| **docs/FINAL_LEGAL_REVIEW_PACKET_UI.md** | T062 model |
 
 ---
 

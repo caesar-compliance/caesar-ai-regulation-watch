@@ -1831,4 +1831,13 @@ if (resultCheck.status !== 0) {
   process.exit(resultCheck.status ?? 1);
 }
 
+const legalPacketCheck = spawnSync(
+  process.execPath,
+  [path.join(ROOT, "scripts/validate-final-legal-review-packets.mjs")],
+  { cwd: ROOT, stdio: "inherit" },
+);
+if (legalPacketCheck.status !== 0) {
+  process.exit(legalPacketCheck.status ?? 1);
+}
+
 process.exit(0);
