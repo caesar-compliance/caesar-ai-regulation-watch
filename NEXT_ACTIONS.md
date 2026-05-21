@@ -1,8 +1,8 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 21 May 2026
-**Current codebase:** v1.0.25 (T051–T075D) — live `DEPLOY-20260521-043`, commit `0f8091d`, tag `regulation-watch-v1.0.25`
-**Live release:** v1.0.25 — deployed 21 May 2026
+**Current codebase:** v1.0.26 (T051–T075E) — release prep on `main` after merge `a9b11ac`
+**Live release:** v1.0.25 — deployed 21 May 2026 (`DEPLOY-20260521-043`; v1.0.26 deploy pending)
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
 ---
@@ -107,7 +107,7 @@
    - Pilot registry (2 sources), fixture dry-run, `/source-pilot/`, public status JSON; no network; no Supabase apply.
 
 31. **T075B — Runtime DB source pilot connection** *(recommended when Supabase credentials available)*
-   - Persist pilot snapshots/detected changes to runtime DB when credentials exist.
+   - Persist pilot snapshots, review candidates, decision packets, and operator handoff to runtime DB when credentials exist.
 
 32. **T075C — Offline source pilot reviewer UI** *(merged ff `b46a1af`; deployed v1.0.24 — `DEPLOY-20260521-042`)*
    - Review candidate export, `/source-pilot/review/` filters, enhanced `/source-pilot/`; fixture-only; no network.
@@ -115,7 +115,7 @@
 33. **T075D — Offline review decision packet/export** *(merged ff `e6fa1ff`; deployed v1.0.25 — `DEPLOY-20260521-043`)*
    - Decision packet export, `/source-pilot/decision-packets/` UI; fixture-only; gates closed.
 
-34. **T075E — Offline export/report polish** *(branch `task/T075E-offline-operator-handoff-export`)*
+34. **T075E — Offline export/report polish** *(merged ff `a9b11ac`; release v1.0.26 pending deploy)*
    - Operator handoff JSON + report + `/source-pilot/operator-handoff/`; fixture-only; no network; no Supabase apply.
 
 35. **T076 — Explicit controlled network check** *(after Control Tower approval)*

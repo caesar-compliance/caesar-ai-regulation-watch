@@ -216,7 +216,7 @@
     "runtime_db_health_json": "/data/runtime-db-health.json",
     "automation_runtime_manifest_json": "/data/automation-runtime-manifest.json",
     "handoff_markdown_report": "/reports/source-pilot-operator-handoff.md",
-    "manifest_version": "1.0.25"
+    "manifest_version": "1.0.26"
   },
   "public_note": "T075E offline operator handoff export. Metadata-only summary of fixture source pilot (2 sources, review candidates, decision packets). Supabase not configured; network and ingestion disabled; all evidence and publication gates closed."
 }

@@ -1,6 +1,6 @@
 generated_batch_id: regulatory-updates-generated-from-metadata
 generated_at: '2026-05-21'
-product_version: 1.0.25
+product_version: 1.0.26
 automation_method: offline_metadata_adapter
 legal_safe_note: >-
   T049 offline metadata adapter. Generated from repository monitoring/registry metadata only. Not verified on official

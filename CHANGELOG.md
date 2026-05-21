@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+---
+
+## [1.0.26] - 21 May 2026
+
 ### Added
 
 - **T075E offline source pilot operator handoff** — `source-pilot-operator-handoff.json`, markdown report, build/validate scripts, `/source-pilot/operator-handoff/` summary UI. Fixture-only chain summary; gates remain closed.
@@ -16,6 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - **automation-runtime** — status `source_pilot_operator_handoff_ready` (offline operator handoff export; not live monitoring).
+
+### Merged
+
+- Fast-forward merge `a9b11ac` — T075E offline source pilot operator handoff.
 
 ---
 

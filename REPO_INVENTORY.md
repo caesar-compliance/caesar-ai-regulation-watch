@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (T075E offline operator handoff — branch)
+**Last updated:** 21 May 2026 (T075E offline operator handoff — v1.0.26)
 
 ## T075E — Offline operator handoff export
 
