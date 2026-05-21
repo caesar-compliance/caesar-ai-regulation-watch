@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caesar.no/schemas/caesar-ai-regulation-watch/source-pilot-status.schema.json",
+  "title": "Caesar AI Regulation Watch — Source pilot status export",
+  "description": "Public-safe source pilot dry-run status. Metadata only. No secrets or legal text.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "status",
+    "checked_at",
+    "source_count",
+    "sources",
+    "latest_fixture_snapshot_at",
+    "detected_metadata_changes_count",
+    "runtime_flags",
+    "gates",
+    "public_note"
+  ],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["framework_ready", "dry_run_complete", "error"]
+    },
+    "checked_at": { "type": "string", "format": "date-time" },
+    "source_count": { "type": "integer", "minimum": 0 },
+    "sources": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/sourceStatus" }
+    },
+    "latest_fixture_snapshot_at": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "detected_metadata_changes_count": { "type": "integer", "minimum": 0 },
+    "runtime_flags": { "$ref": "#/$defs/runtimeFlags" },
+    "gates": { "$ref": "#/$defs/gates" },
+    "public_note": { "type": "string", "minLength": 1 }
+  },
+  "$defs": {
+    "runtimeFlags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "live_ingestion_enabled",
+        "scheduled_monitoring_enabled",
+        "network_execution_enabled"
+      ],
+      "properties": {
+        "live_ingestion_enabled": { "type": "boolean", "const": false },
+        "scheduled_monitoring_enabled": { "type": "boolean", "const": false },
+        "network_execution_enabled": { "type": "boolean", "const": false }
+      }
+    },
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verified_on_source",
+        "client_use_allowed",
+        "client_evidence_allowed",
+        "final_evidence_allowed",
+        "legal_change_claimed",
+        "publication_allowed",
+        "public_export_allowed"
+      ],
+      "properties": {
+        "verified_on_source": { "type": "boolean", "const": false },
+        "client_use_allowed": { "type": "boolean", "const": false },
+        "client_evidence_allowed": { "type": "boolean", "const": false },
+        "final_evidence_allowed": { "type": "boolean", "const": false },
+        "legal_change_claimed": { "type": "boolean", "const": false },
+        "publication_allowed": { "type": "boolean", "const": false },
+        "public_export_allowed": { "type": "boolean", "const": false }
+      }
+    },
+    "sourceStatus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "source_name",
+        "monitoring_status",
+        "adapter_type",
+        "official_url",
+        "fixture_snapshot_version",
+        "item_count",
+        "metadata_hash",
+        "allowed_for_network_check",
+        "stores_metadata_only"
+      ],
+      "properties": {
+        "source_id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+        "source_name": { "type": "string", "minLength": 1 },
+        "monitoring_status": {
+          "type": "string",
+          "enum": ["design_ready", "manual_only", "disabled"]
+        },
+        "adapter_type": { "type": "string", "minLength": 1 },
+        "official_url": { "type": "string", "format": "uri" },
+        "fixture_snapshot_version": { "type": "string", "minLength": 1 },
+        "item_count": { "type": "integer", "minimum": 0 },
+        "metadata_hash": { "type": "string", "minLength": 8 },
+        "allowed_for_network_check": { "type": "boolean", "const": false },
+        "stores_metadata_only": { "type": "boolean", "const": true }
+      }
+    }
+  }
+}

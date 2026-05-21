@@ -26,6 +26,7 @@
       "enum": [
         "design_ready",
         "backend_bootstrap_ready",
+        "source_pilot_framework_ready",
         "bootstrap_ready",
         "live_disabled",
         "live_pilot"

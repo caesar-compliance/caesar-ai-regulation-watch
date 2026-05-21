@@ -1,0 +1,58 @@
+# Controlled source pilot registry — T075A (metadata-only, offline/manual)
+# No live network execution. No full legal text storage. Control Tower approval required for network checks.
+
+source_pilot_registry_id: source-pilot-registry-2026-05-21-v075a
+generated_at: "2026-05-21"
+legal_safe_note: >
+  T075A controlled source pilot framework only. Registry entries are design-ready or manual-only.
+  Metadata-only snapshots from local fixtures; no live ingestion; no scheduled monitoring.
+  Evidence and publication gates remain closed.
+no_live_ingestion: true
+no_scheduled_monitoring: true
+no_network_execution: true
+
+sources:
+  - source_id: edpb-publications-rss
+    source_name: European Data Protection Board (EDPB) — publications RSS
+    jurisdiction: eu
+    source_type: rss
+    official_url: https://www.edpb.europa.eu/feed/publications_en
+    monitoring_status: manual_only
+    adapter_type: rss_metadata_fixture
+    allowed_for_manual_check: true
+    allowed_for_network_check: false
+    stores_full_text: false
+    stores_metadata_only: true
+    notes: >
+      First controlled runtime pilot candidate. Aligns with T052/T053 edpb-publications-rss adapter.
+      Fixture-only dry-run until Supabase runtime and explicit network approval (T076+).
+    safety_flags:
+      verified_on_source: false
+      client_use_allowed: false
+      client_evidence_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+
+  - source_id: edps-news-rss
+    source_name: European Data Protection Supervisor (EDPS) — news RSS
+    jurisdiction: eu
+    source_type: rss
+    official_url: https://www.edps.europa.eu/feed/news_en
+    monitoring_status: design_ready
+    adapter_type: rss_metadata_fixture
+    allowed_for_manual_check: true
+    allowed_for_network_check: false
+    stores_full_text: false
+    stores_metadata_only: true
+    notes: >
+      Second pilot candidate for runtime framework validation. Disabled for network until approved.
+    safety_flags:
+      verified_on_source: false
+      client_use_allowed: false
+      client_evidence_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false

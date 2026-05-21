@@ -6,6 +6,8 @@
   "description": "Read-only static site for Caesar AI Regulation Watch pilot data",
   "scripts": {
     "validate:automation-runtime": "node scripts/validate-automation-runtime.mjs",
+    "validate:source-pilot-registry": "node scripts/validate-source-pilot-registry.mjs",
+    "validate:source-pilot-status": "node scripts/validate-source-pilot-status.mjs",
     "validate:runtime-db-health": "node scripts/validate-runtime-db-health.mjs",
     "runtime:db:health": "node scripts/runtime/check-runtime-db-health.mjs",
     "runtime:supabase:apply": "node scripts/runtime/apply-supabase-schema.mjs",
@@ -56,6 +58,8 @@
     "build:regulatory-updates": "node scripts/build-regulatory-updates-from-metadata.mjs",
     "generate:evidence-candidates": "node scripts/generate-evidence-export-candidates.mjs",
     "build:automation-runtime-manifest": "node scripts/build-automation-runtime-manifest.mjs",
+    "build:source-pilot-status": "node scripts/runtime/source-pilot/build-source-pilot-snapshot.mjs",
+    "runtime:source-pilot:dry-run": "node scripts/runtime/source-pilot/run-source-pilot-dry-run.mjs",
     "generate:exports": "node scripts/generate-static-exports.mjs",
     "dev": "astro dev",
     "build:site": "astro build",

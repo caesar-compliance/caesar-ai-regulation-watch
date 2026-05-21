@@ -9,7 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **T075A controlled source pilot framework** — `source-pilot-registry.yml`, fixture adapter dry-run, public `source-pilot-status.json`, `/source-pilot/`, validators. Metadata-only; network and ingestion remain disabled.
+
+### Changed
+
+- **automation-runtime** — status `source_pilot_framework_ready` (framework only; not live monitoring).
+
 ---
+
 
 ## [1.0.22] - 21 May 2026
 

@@ -103,8 +103,14 @@
 29. **T074 — Backend bootstrap & runtime health** *(merged ff `5371b52`; deployed v1.0.22 — `DEPLOY-20260521-040`)*
    - Runtime env template, DB health export, `/runtime-health/`, schema apply helper; cron removed from monitoring workflow; still no scheduled monitoring; no Supabase migration applied; live status `not_configured`.
 
-30. **T075 — Controlled runtime source pilot** *(next after T074 deploy + Supabase configured)*
-   - First allowlisted source check against runtime DB when credentials and Control Tower approval exist.
+30. **T075A — Controlled source pilot framework** *(branch `task/T075A-controlled-source-pilot-framework`)*
+   - Pilot registry, fixture dry-run, `/source-pilot/`, public status JSON; no network; no Supabase apply.
+
+31. **T075B — Runtime DB source pilot connection** *(after T075A merge + Supabase configured)*
+   - Persist pilot snapshots/detected changes to runtime DB when credentials exist.
+
+32. **T076 — Explicit controlled network check** *(after Control Tower approval)*
+   - Single allowlisted source network check; not broad crawl.
 
 ---
 

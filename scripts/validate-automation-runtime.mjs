@@ -24,6 +24,15 @@ const RUNTIME_HEALTH_SCRIPTS = [
   path.join(ROOT, "scripts/runtime/apply-supabase-schema.mjs"),
   path.join(ROOT, "schemas/runtime-db-health.schema.json"),
 ];
+const SOURCE_PILOT_FILES = [
+  path.join(ROOT, "data/runtime/source-pilot-registry.yml"),
+  path.join(ROOT, "schemas/source-pilot-registry.schema.json"),
+  path.join(ROOT, "schemas/source-pilot-status.schema.json"),
+  path.join(ROOT, "scripts/validate-source-pilot-registry.mjs"),
+  path.join(ROOT, "scripts/validate-source-pilot-status.mjs"),
+  path.join(ROOT, "scripts/runtime/source-pilot/build-source-pilot-snapshot.mjs"),
+  path.join(ROOT, "scripts/runtime/source-pilot/run-source-pilot-dry-run.mjs"),
+];
 const MONITORING_WORKFLOW = path.join(ROOT, ".github/workflows/monitoring-cycle.yml");
 
 const ajv = new Ajv({ allErrors: true, strict: false, validateSchema: false });
@@ -92,6 +101,12 @@ function main() {
   for (const file of RUNTIME_HEALTH_SCRIPTS) {
     if (!fs.existsSync(file)) {
       errors.push(`Missing runtime health file: ${file}`);
+    }
+  }
+
+  for (const file of SOURCE_PILOT_FILES) {
+    if (!fs.existsSync(file)) {
+      errors.push(`Missing source pilot file: ${file}`);
     }
   }
 

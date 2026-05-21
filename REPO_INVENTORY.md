@@ -1,6 +1,20 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.22 live — T074 deployed `DEPLOY-20260521-040`)
+**Last updated:** 21 May 2026 (v1.0.22 live — T075A source pilot framework on branch)
+
+## T075A — Controlled source pilot framework (branch)
+
+| Path | Role |
+|---|---|
+| **data/runtime/source-pilot-registry.yml** | Allowlisted pilot sources (metadata-only) |
+| **schemas/source-pilot-registry.schema.json** | Registry schema |
+| **schemas/source-pilot-status.schema.json** | Public status export schema |
+| **scripts/validate-source-pilot-registry.mjs** | Registry validator |
+| **scripts/validate-source-pilot-status.mjs** | Status export validator |
+| **scripts/runtime/source-pilot/** | Fixture adapter, snapshot build, dry-run |
+| **fixtures/runtime/source-pilot/** | Local metadata snapshot fixtures |
+| **public/data/source-pilot-status.json** | Public pilot readiness export |
+| **src/pages/source-pilot/index.astro** | Operator source pilot page |
 
 ## T074 — Backend bootstrap & runtime health (v1.0.22)
 
