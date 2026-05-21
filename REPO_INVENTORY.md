@@ -61,6 +61,19 @@
 | **public/data/runtime-db-health.json** | Public safe DB health metadata |
 | **src/pages/runtime-health/index.astro** | Operator runtime health page |
 
+## T076A — Free services onboarding pack
+
+| Path | Role |
+|---|---|
+| **docs/runtime/FREE_SERVICES_ARCHITECTURE.md** | Account A free-tier architecture (no emails) |
+| **docs/runtime/EXTERNAL_SERVICE_ONBOARDING_CHECKLIST.md** | Artem external service setup checklist |
+| **.env.cloudflare.example** | Cloudflare placeholders (copy to `.env.cloudflare.local`) |
+| **scripts/runtime/check-service-credentials.mjs** | Local credential presence check (no values printed) |
+| **scripts/validate-runtime-services-readiness.mjs** | Readiness JSON validator |
+| **schemas/runtime-services-readiness.schema.json** | Readiness export schema |
+| **public/data/runtime-services-readiness.json** | Public safe services readiness metadata |
+| **src/pages/runtime-services/index.astro** | Operator services onboarding page |
+
 ## T073 — Automation runtime foundation (v1.0.21)
 
 | Path | Role |

@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **T076A free services onboarding pack** — `docs/runtime/` architecture + checklist, `.env.cloudflare.example`, `runtime:services:check`, `runtime-services-readiness.json`, `/runtime-services/` page. Account A alignment; credential presence only; no migration or Worker deploy.
+
+### Changed
+
+- **automation-runtime** — status `services_onboarding_ready`.
+
 ---
 
 ## [1.0.26] - 21 May 2026

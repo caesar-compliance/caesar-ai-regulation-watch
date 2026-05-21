@@ -30,6 +30,7 @@
         "source_pilot_reviewer_ready",
         "source_pilot_decision_packets_ready",
         "source_pilot_operator_handoff_ready",
+        "services_onboarding_ready",
         "bootstrap_ready",
         "live_disabled",
         "live_pilot"

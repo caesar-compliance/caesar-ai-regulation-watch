@@ -118,7 +118,13 @@
 34. **T075E — Offline export/report polish** *(merged ff `a9b11ac`; deployed v1.0.26 — `DEPLOY-20260521-044`)*
    - Operator handoff JSON + report + `/source-pilot/operator-handoff/`; fixture-only; no network; no Supabase apply.
 
-35. **T076 — Explicit controlled network check** *(after Control Tower approval)*
+35. **T076A — Free services setup pack** *(branch `task/T076A-free-services-setup-pack`)*
+   - Account A onboarding docs, env examples, `runtime:services:check`, `/runtime-services/`; no migration; no Worker deploy.
+
+36. **T075B — Runtime DB source pilot connection** *(when Supabase credentials in `.env.runtime.local`)*
+   - Persist pilot chain to runtime DB.
+
+37. **T076 — Explicit controlled network check** *(after Control Tower approval)*
    - Single allowlisted source network check; not broad crawl.
 
 ---

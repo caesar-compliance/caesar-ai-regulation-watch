@@ -24,6 +24,15 @@ const RUNTIME_HEALTH_SCRIPTS = [
   path.join(ROOT, "scripts/runtime/apply-supabase-schema.mjs"),
   path.join(ROOT, "schemas/runtime-db-health.schema.json"),
 ];
+const SERVICES_ONBOARDING_FILES = [
+  path.join(ROOT, "docs/runtime/FREE_SERVICES_ARCHITECTURE.md"),
+  path.join(ROOT, "docs/runtime/EXTERNAL_SERVICE_ONBOARDING_CHECKLIST.md"),
+  path.join(ROOT, ".env.cloudflare.example"),
+  path.join(ROOT, "scripts/runtime/check-service-credentials.mjs"),
+  path.join(ROOT, "scripts/validate-runtime-services-readiness.mjs"),
+  path.join(ROOT, "schemas/runtime-services-readiness.schema.json"),
+  path.join(ROOT, "src/pages/runtime-services/index.astro"),
+];
 const SOURCE_PILOT_FILES = [
   path.join(ROOT, "data/runtime/source-pilot-registry.yml"),
   path.join(ROOT, "schemas/source-pilot-registry.schema.json"),
@@ -110,6 +119,12 @@ function main() {
   for (const file of RUNTIME_HEALTH_SCRIPTS) {
     if (!fs.existsSync(file)) {
       errors.push(`Missing runtime health file: ${file}`);
+    }
+  }
+
+  for (const file of SERVICES_ONBOARDING_FILES) {
+    if (!fs.existsSync(file)) {
+      errors.push(`Missing services onboarding file: ${file}`);
     }
   }
 

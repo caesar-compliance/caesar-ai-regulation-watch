@@ -1,0 +1,143 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+import yaml from "js-yaml";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { PROJECT_VERSION_LABEL } from "../../lib/project-version";
+
+const readinessPath = path.join(
+  process.cwd(),
+  "public/data/runtime-services-readiness.json",
+);
+const runtimePath = path.join(process.cwd(), "data/runtime/automation-runtime.yml");
+
+const readiness = fs.existsSync(readinessPath)
+  ? (JSON.parse(fs.readFileSync(readinessPath, "utf8")) as Record<string, unknown>)
+  : null;
+
+const runtime = fs.existsSync(runtimePath)
+  ? (yaml.load(fs.readFileSync(runtimePath, "utf8")) as Record<string, unknown>)
+  : null;
+
+const r = (readiness?.readiness as Record<string, boolean>) ?? {};
+const safety = (readiness?.safety_flags as Record<string, boolean>) ?? {};
+const localFiles = (readiness?.local_env_files as Record<string, boolean>) ?? {};
+const services = (readiness?.services as { service: string; role: string; fields: { key: string; present: boolean }[] }[]) ?? [];
+
+function serviceFields(name: string) {
+  const svc = services.find((s) => s.service === name);
+  return svc?.fields ?? [];
+}
+---
+
+<BaseLayout
+  title="Runtime services"
+  currentPath="/runtime-services/"
+  description="Free-tier external services onboarding readiness — credential presence only, no secrets."
+>
+  <h1>Runtime services onboarding</h1>
+  <p class="lead">
+    Secret-safe setup pack ({PROJECT_VERSION_LABEL}). Shows whether local env files define
+    required fields — <strong>not</strong> live connectivity, Worker deploy, or Supabase migration status.
+  </p>
+
+  <div class="banner banner--review" role="note">
+    <strong>Account A only.</strong> Regulation Watch uses hub Account A (
+    Supabase <code>caesar-regulation-watch-dev</code>, regulation-watch worker). No emails, tokens,
+    keys, or database hosts on this page. See <code>docs/runtime/</code> locally.
+  </div>
+
+  <section>
+    <h2>Readiness summary</h2>
+    <dl class="meta-grid">
+      <div><dt>export_status</dt><dd><strong>{readiness?.status ?? "unknown"}</strong></dd></div>
+      <div><dt>runtime_status</dt><dd><span class="mono">{runtime?.status ?? "—"}</span></dd></div>
+      <div><dt>account_allocation</dt><dd><span class="mono">{readiness?.account_allocation ?? "account_a"}</span></dd></div>
+      <div><dt>checked_at</dt><dd><span class="mono">{readiness?.checked_at ?? "—"}</span></dd></div>
+      <div><dt>supabase_required_ready</dt><dd>{r.supabase_required_ready ? "yes" : "no"}</dd></div>
+      <div><dt>supabase_optional_ready</dt><dd>{r.supabase_optional_ready ? "yes" : "no"}</dd></div>
+      <div><dt>cloudflare_ready</dt><dd>{r.cloudflare_ready ? "yes" : "no"}</dd></div>
+      <div><dt>github_optional_ready</dt><dd>{r.github_optional_ready ? "yes" : "no"}</dd></div>
+      <div><dt>uptime_manual_setup_required</dt><dd>{r.uptime_manual_setup_required ? "yes" : "no"}</dd></div>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Local env files (presence only)</h2>
+    <ul>
+      <li><code>.env.runtime.local</code> — {localFiles.env_runtime_local ? "found" : "missing"}</li>
+      <li><code>.env.cloudflare.local</code> — {localFiles.env_cloudflare_local ? "found" : "missing"}</li>
+      <li><code>.env.github.local</code> — {localFiles.env_github_local ? "found" : "missing"}</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Supabase fields</h2>
+    <ul>
+      {serviceFields("supabase").map((f) => (
+        <li><code>{f.key}</code> — {f.present ? "present" : "missing"}</li>
+      ))}
+    </ul>
+  </section>
+
+  <section>
+    <h2>Cloudflare fields</h2>
+    <ul>
+      {serviceFields("cloudflare").map((f) => (
+        <li><code>{f.key}</code> — {f.present ? "present" : "missing"}</li>
+      ))}
+    </ul>
+  </section>
+
+  <section>
+    <h2>GitHub (optional)</h2>
+    <ul>
+      {serviceFields("github").map((f) => (
+        <li><code>{f.key}</code> — {f.present ? "present" : "missing"}</li>
+      ))}
+    </ul>
+  </section>
+
+  <section>
+    <h2>Uptime monitoring</h2>
+    <p>
+      External uptime (e.g. UptimeRobot) is configured manually by the operator. The repo does not
+      store uptime API keys.
+    </p>
+    <ul>
+      {serviceFields("uptimerobot").map((f) => (
+        <li><code>{f.key}</code> — {f.present ? "present" : "missing"}</li>
+      ))}
+    </ul>
+  </section>
+
+  <section>
+    <h2>Safety flags (must stay disabled)</h2>
+    <dl class="meta-grid">
+      <div><dt>live_ingestion_enabled</dt><dd>false</dd></div>
+      <div><dt>scheduled_monitoring_enabled</dt><dd>false</dd></div>
+      <div><dt>network_execution_enabled</dt><dd>false</dd></div>
+      <div><dt>regwatch_apply_supabase_schema</dt><dd>{safety.regwatch_apply_supabase_schema === false ? "false" : "UNSAFE"}</dd></div>
+      <div><dt>cloudflare_enable_worker_deploy</dt><dd>{safety.cloudflare_enable_worker_deploy === false ? "false" : "UNSAFE"}</dd></div>
+      <div><dt>cloudflare_enable_cron_trigger</dt><dd>{safety.cloudflare_enable_cron_trigger === false ? "false" : "UNSAFE"}</dd></div>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Next action</h2>
+    <p>{readiness?.next_required_action ?? "Run npm run runtime:services:check after creating local env files."}</p>
+    <p>{readiness?.public_note ?? ""}</p>
+  </section>
+
+  <section>
+    <h2>Related</h2>
+    <ul>
+      <li><a href="/runtime-health/">Runtime health</a></li>
+      <li><a href="/automation/">Automation runtime</a></li>
+      <li><a href="/source-pilot/operator-handoff/">Source pilot operator handoff</a></li>
+      <li><a href="/data/runtime-services-readiness.json">runtime-services-readiness.json</a></li>
+      <li><a href="/data/runtime-db-health.json">runtime-db-health.json</a></li>
+      <li><a href="/data/automation-runtime-manifest.json">automation-runtime-manifest.json</a></li>
+    </ul>
+  </section>
+</BaseLayout>

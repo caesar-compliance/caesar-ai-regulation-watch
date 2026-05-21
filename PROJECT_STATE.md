@@ -6,7 +6,7 @@
 |---|---|
 | **Current version** | `v1.0.26` (T075E deployed) |
 | **Live version** | `v1.0.26` — tag `regulation-watch-v1.0.26` |
-| **Status** | T075E deployed: offline source pilot operator handoff (fixture-only); Supabase `not_configured`; live ingestion disabled |
+| **Status** | T076A branch: free services onboarding pack (`services_onboarding_ready`); live v1.0.26 (T075E); Supabase `not_configured`; live ingestion disabled |
 | **Last deployment** | `DEPLOY-20260521-044` — commit `c7c6165`, run [26245087509](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26245087509) |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
 | **Phase** | Public Technical MVP + profiles/drilldowns (T051) |
