@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+---
+
+## [1.0.24] - 21 May 2026
+
 ### Added
 
 - **T075C offline source pilot reviewer UI** — `source-pilot-review-candidates.json`, build/validate scripts, `/source-pilot/review/` filter table, enhanced `/source-pilot/` overview. Fixture-only; gates remain closed.

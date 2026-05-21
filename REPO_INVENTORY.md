@@ -1,8 +1,8 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (T075C offline reviewer UI on branch)
+**Last updated:** 21 May 2026 (T075C offline reviewer UI v1.0.24)
 
-## T075C — Offline source pilot reviewer UI (branch)
+## T075C — Offline source pilot reviewer UI (v1.0.24)
 
 | Path | Role |
 |---|---|

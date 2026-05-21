@@ -4,7 +4,7 @@
 
 This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
 
-**Codebase:** v1.0.23 (T075A live); T075C offline reviewer UI on branch. **Live:** v1.0.23 at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/). **Next:** T075C merge → T075B when Supabase configured → T076 explicit network check after approval.
+**Codebase:** v1.0.24 (T075C merged). **Live:** v1.0.23 at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) until T075C deploy. **Next:** T075C deploy → T075B when Supabase configured → T076 explicit network check after approval.
 
 **Product direction (20 May 2026):** automation-first global AI regulation tracker — see [docs/AUTOMATION_FIRST_MVP_ROADMAP.md](docs/AUTOMATION_FIRST_MVP_ROADMAP.md) and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md). Human review/evidence is optional future assurance, not the first full MVP foundation.
 

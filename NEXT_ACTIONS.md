@@ -1,8 +1,8 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 21 May 2026
-**Current codebase:** v1.0.23 (T051–T075A) — live `DEPLOY-20260521-041`, commit `0024497`, tag `regulation-watch-v1.0.23`
-**Live release:** v1.0.23 — deployed 21 May 2026
+**Current codebase:** v1.0.24 (T051–T075C merged) — live `DEPLOY-20260521-041`, commit `0024497`, tag `regulation-watch-v1.0.23`
+**Live release:** v1.0.23 — deployed 21 May 2026 (v1.0.24 deploy pending)
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
 ---
@@ -109,10 +109,13 @@
 31. **T075B — Runtime DB source pilot connection** *(recommended when Supabase credentials available)*
    - Persist pilot snapshots/detected changes to runtime DB when credentials exist.
 
-32. **T075C — Offline source pilot reviewer UI** *(branch `task/T075C-offline-source-pilot-reviewer-ui` — pending merge)*
+32. **T075C — Offline source pilot reviewer UI** *(merged ff `b46a1af`; release v1.0.24 — deploy pending)*
    - Review candidate export, `/source-pilot/review/` filters, enhanced `/source-pilot/`; fixture-only; no network.
 
-33. **T076 — Explicit controlled network check** *(after Control Tower approval)*
+33. **T075D — Offline review decision packet/export** *(recommended when Supabase credentials unavailable)*
+   - Operator decision packet from fixture review candidates; still no network; gates closed.
+
+34. **T076 — Explicit controlled network check** *(after Control Tower approval)*
    - Single allowlisted source network check; not broad crawl.
 
 ---
