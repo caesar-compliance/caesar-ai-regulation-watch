@@ -2,7 +2,7 @@
 
 ## Status
 
-- In progress on branch `task/T071-public-update-release-decision` (v1.0.19).
+- Merged to main (PR #31 squash `e871b02`); v1.0.19 deploy ready; live still v1.0.18 until deploy completes.
 
 ## Delivered
 

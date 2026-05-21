@@ -6,7 +6,7 @@
 |---|---|
 | **Current version** | `v1.0.19` (T071 — public update release decision) |
 | **Live version** | `v1.0.18` — tag `regulation-watch-v1.0.18` (until v1.0.19 deploy) |
-| **Status** | T071 implemented; deploy pending |
+| **Status** | T071 merged to main; v1.0.19 deploy ready; live still v1.0.18 until deploy |
 | **Last deployment** | `DEPLOY-20260521-036` — commit `d3a0653`, run [26234369673](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26234369673) |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
 | **Phase** | Public Technical MVP + profiles/drilldowns (T051) |
