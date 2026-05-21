@@ -4,6 +4,7 @@ import { getPublicExportReleaseGateCockpitCase } from "../../lib/data";
 import { PROJECT_VERSION_LABEL } from "../../lib/project-version";
 
 const GATE_ID = "T069-001";
+const DECISION_ID = "T070-001";
 const cockpit = getPublicExportReleaseGateCockpitCase(GATE_ID);
 
 if (!cockpit) {
@@ -15,8 +16,12 @@ const {
   stagingPreview,
   publicationGateDecision,
   publicationGatePacket,
+  publicExportApprovalDecision,
   draft,
 } = cockpit;
+
+const approvalDecision = publicExportApprovalDecision;
+const proposedRoute = gate.candidate_metadata.proposed_route;
 
 const readyItems = gate.release_gate_items.filter(
   (i) => i.status === "ready_for_approval_review",
@@ -41,6 +46,17 @@ const blockedItems = gate.release_gate_items.filter((i) => i.status === "blocked
     public/data. Not client/evidence ready. All publication, public export, and evidence gates
     remain closed. No verified legal-change claim.
   </div>
+
+  {
+    approvalDecision && (
+      <div class="banner banner--warn" role="alert">
+        <strong>Non-public preview artifact only.</strong> Decision{" "}
+        <code>{approvalDecision.decision_id}</code> —{" "}
+        <code>{approvalDecision.decision}</code>. Does not publish. Does not add to public/data.
+        Public export and client/evidence remain blocked.
+      </div>
+    )
+  }
 
   <div class="status-cards">
     <div class="status-card status-card--pending">
@@ -81,6 +97,54 @@ const blockedItems = gate.release_gate_items.filter((i) => i.status === "blocked
     </dl>
     <p>{gate.gate_summary}</p>
   </section>
+
+  {
+    approvalDecision && (
+      <section>
+        <h2>Public export approval decision</h2>
+        <dl class="meta-grid">
+          <div><dt>Decision ID</dt><dd><span class="mono">{approvalDecision.decision_id}</span></dd></div>
+          <div><dt>Decision</dt><dd><span class="mono">{approvalDecision.decision}</span></dd></div>
+          <div><dt>Status</dt><dd><span class="mono">{approvalDecision.decision_status}</span></dd></div>
+          <div><dt>Release gate</dt><dd><span class="mono">{approvalDecision.release_gate_id}</span></dd></div>
+          <div><dt>Preview artifact</dt><dd><span class="mono">{approvalDecision.non_public_preview_artifact_path}</span></dd></div>
+          <div><dt>Next step</dt><dd><span class="mono">{approvalDecision.next_required_step}</span></dd></div>
+          <div><dt>publication_allowed</dt><dd>false</dd></div>
+          <div><dt>public_export_allowed</dt><dd>false</dd></div>
+          <div><dt>client_use_allowed</dt><dd>false</dd></div>
+          <div><dt>evidence_export_allowed</dt><dd>false</dd></div>
+        </dl>
+        <p>{approvalDecision.decision_summary}</p>
+        <h3>Preview limitations</h3>
+        <ul>
+          {approvalDecision.preview_limitations.map((l) => <li>{l}</li>)}
+        </ul>
+        <h3>Blockers remaining</h3>
+        <ul>
+          {approvalDecision.blockers_remaining.map((b) => <li>{b}</li>)}
+        </ul>
+      </section>
+    )
+  }
+
+  {
+    approvalDecision && stagingPreview && (
+      <section>
+        <h2>Non-public preview artifact</h2>
+        <p class="card__excerpt">
+          Metadata-only candidate for a future public update — preview artifact path only. Not a
+          live public update page.
+        </p>
+        <dl class="meta-grid">
+          <div><dt>Proposed public update ID</dt><dd><span class="mono">{gate.candidate_metadata.proposed_public_update_id}</span></dd></div>
+          <div><dt>Proposed route</dt><dd><span class="mono">{proposedRoute}</span> (not generated — disabled)</dd></div>
+          <div><dt>Title</dt><dd>{stagingPreview.preview_title}</dd></div>
+          <div><dt>Summary</dt><dd>{stagingPreview.preview_summary}</dd></div>
+          <div><dt>Status</dt><dd><span class="mono">non_public_export_preview</span></dd></div>
+        </dl>
+      </section>
+    )
+  }
 
   <section>
     <h2>Candidate metadata</h2>
@@ -176,8 +240,19 @@ const blockedItems = gate.release_gate_items.filter((i) => i.status === "blocked
         <span class="mono">T069</span> — Public export release gate <code>{gate.gate_id}</code> (
         <span class="mono">{gate.gate_result}</span>)
       </li>
+      {
+        approvalDecision && (
+          <li>
+            <span class="mono">T070</span> — Public export approval decision{" "}
+            <code>{approvalDecision.decision_id}</code> (
+            <span class="mono">{approvalDecision.decision}</span>)
+          </li>
+        )
+      }
       <li>
-        <span class="mono">Next</span> — <code>{gate.next_required_step}</code> (not completed)
+        <span class="mono">Next</span> —{" "}
+        <code>{approvalDecision?.next_required_step ?? gate.next_required_step}</code> (not
+        completed)
       </li>
     </ol>
     {
@@ -228,6 +303,15 @@ const blockedItems = gate.release_gate_items.filter((i) => i.status === "blocked
   }
   .status-card--blocked span {
     color: var(--accent-danger, #a00);
+  }
+  .banner--warn {
+    border-color: var(--accent-warn, #8a6d00);
+    background: color-mix(in srgb, var(--accent-warn, #8a6d00) 8%, transparent);
+    margin-bottom: 1.25rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.375rem;
+    border-width: 1px;
+    border-style: solid;
   }
   .banner--danger {
     border-color: var(--accent-danger, #a00);

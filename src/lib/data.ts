@@ -1952,6 +1952,17 @@ export interface DraftRegulatoryUpdate {
   publication_allowed: boolean;
   public_export_allowed: boolean;
   evidence_export_allowed: boolean;
+  latest_public_export_release_gate_id?: string;
+  public_export_release_gate_status?: string;
+  public_export_release_gate_result?: string;
+  public_export_gate_ready?: boolean;
+  ready_for_public_export_approval?: boolean;
+  proposed_public_update_id?: string;
+  latest_public_export_approval_decision_id?: string;
+  public_export_approval_decision?: string;
+  public_export_approval_status?: string;
+  non_public_export_preview_allowed?: boolean;
+  non_public_export_preview_artifact_path?: string;
 }
 
 export type FinalLegalReviewItemStatus =
@@ -2418,11 +2429,64 @@ export interface PublicExportReleaseGatesDoc {
   gates: PublicExportReleaseGate[];
 }
 
+export interface PublicExportApprovalDecisionSafety {
+  non_public_export_preview_allowed: boolean;
+  non_public_export_preview_created: boolean;
+  publication_allowed: boolean;
+  public_export_allowed: boolean;
+  evidence_export_allowed: boolean;
+  client_use_allowed: boolean;
+  metadata_only: boolean;
+  stores_full_text: boolean;
+  requires_public_update_release_decision: boolean;
+  requires_separate_client_evidence_approval: boolean;
+}
+
+export interface PublicExportApprovalDecision {
+  decision_id: string;
+  release_gate_id: string;
+  staging_preview_id: string;
+  publication_gate_decision_id: string;
+  draft_update_id: string;
+  draft_update_path: string;
+  decision_scope: string;
+  decision_status: string;
+  decision: string;
+  decision_summary: string;
+  non_public_preview_artifact_path: string;
+  preview_limitations: string[];
+  blockers_remaining: string[];
+  next_required_step: string;
+  decided_by_role: string;
+  decided_at: string;
+  created_at: string;
+  updated_at: string;
+  gates: {
+    verified_on_source: boolean;
+    client_use_allowed: boolean;
+    client_evidence_allowed: boolean;
+    final_evidence_allowed: boolean;
+    legal_change_claimed: boolean;
+  };
+  safety: PublicExportApprovalDecisionSafety;
+}
+
+export interface PublicExportApprovalDecisionsDoc {
+  public_export_approval_decisions_id: string;
+  generated_at: string;
+  product_version: string;
+  legal_safe_note: string;
+  no_live_collection: boolean;
+  no_scheduled_monitoring: boolean;
+  decisions: PublicExportApprovalDecision[];
+}
+
 export interface PublicExportReleaseGateCockpitCase {
   gate: PublicExportReleaseGate;
   stagingPreview: PublicationStagingPreview | null;
   publicationGateDecision: PublicationGateDecision | null;
   publicationGatePacket: PublicationGatePacket | null;
+  publicExportApprovalDecision: PublicExportApprovalDecision | null;
   draft: DraftRegulatoryUpdate | null;
 }
 
@@ -2724,6 +2788,22 @@ export function getPublicExportReleaseGate(
   return getPublicExportReleaseGateEntries().find((g) => g.gate_id === gateId);
 }
 
+export function getPublicExportApprovalDecisions(): PublicExportApprovalDecisionsDoc | null {
+  const file = path.join(ROOT, "data/source-adapters/public-export-approval-decisions.yml");
+  if (!fs.existsSync(file)) return null;
+  return yaml.load(fs.readFileSync(file, "utf8")) as PublicExportApprovalDecisionsDoc;
+}
+
+export function getPublicExportApprovalDecisionEntries(): PublicExportApprovalDecision[] {
+  return getPublicExportApprovalDecisions()?.decisions ?? [];
+}
+
+export function getPublicExportApprovalDecision(
+  decisionId: string,
+): PublicExportApprovalDecision | undefined {
+  return getPublicExportApprovalDecisionEntries().find((d) => d.decision_id === decisionId);
+}
+
 export function getPublicExportReleaseGateCockpitCase(
   gateId: string,
 ): PublicExportReleaseGateCockpitCase | null {
@@ -2737,11 +2817,21 @@ export function getPublicExportReleaseGateCockpitCase(
     getPublicationGatePacket(gate.publication_gate_packet_id) ?? null;
   const draft = getDraftRegulatoryUpdate(gate.draft_update_path);
 
+  const publicExportApprovalDecision =
+    getPublicExportApprovalDecisionEntries().find(
+      (d) => d.release_gate_id === gateId,
+    ) ??
+    (draft?.latest_public_export_approval_decision_id
+      ? getPublicExportApprovalDecision(draft.latest_public_export_approval_decision_id)
+      : undefined) ??
+    null;
+
   return {
     gate,
     stagingPreview,
     publicationGateDecision,
     publicationGatePacket,
+    publicExportApprovalDecision,
     draft: draft ?? null,
   };
 }

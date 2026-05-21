@@ -17,6 +17,9 @@ const {
   publicExportReleaseGate,
   draft,
 } = cockpit;
+
+const hasPublicExportApproval =
+  draft?.latest_public_export_approval_decision_id === "T070-001";
 ---
 
 <BaseLayout
@@ -167,6 +170,19 @@ const {
           <strong>Public export release gate created.</strong> Gate{" "}
           <code>{publicExportReleaseGate.gate_id}</code> — ready for approval review only. Public
           export still false. Not added to public/data.
+        </div>
+        <p><a href="/public-export-gate/">Open Public Export Release Gate →</a></p>
+      </section>
+    )
+  }
+
+  {
+    hasPublicExportApproval && (
+      <section>
+        <h2>Public export approval decision</h2>
+        <div class="banner banner--warn" role="note">
+          <strong>Public export approval decision recorded.</strong> Decision <code>T070-001</code> —
+          non-public preview artifact approved. Public export still false.
         </div>
         <p><a href="/public-export-gate/">Open Public Export Release Gate →</a></p>
       </section>

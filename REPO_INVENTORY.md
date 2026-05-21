@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.17 live — T069; `DEPLOY-20260521-035`)
+**Last updated:** 21 May 2026 (v1.0.18 codebase — T070; live v1.0.17)
 
 ---
 
@@ -394,6 +394,17 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **scripts/validate-public-export-release-gates.mjs** | `npm run validate:public-export-release-gates` |
 | **scripts/build-public-export-release-gate-summary.mjs** | `npm run build:public-export-release-gate-summary` |
 | **docs/PUBLIC_EXPORT_RELEASE_GATE.md** | T069 model |
+
+## T070 — Public export approval decision (v1.0.18)
+
+| Path | Purpose |
+|---|---|
+| **schemas/public-export-approval-decision.schema.json** | Approval decision validation |
+| **data/source-adapters/public-export-approval-decisions.yml** | Pilot decision `T070-001` |
+| **scripts/validate-public-export-approval-decisions.mjs** | `npm run validate:public-export-approval-decisions` |
+| **scripts/build-public-export-approval-decision-summary.mjs** | `npm run build:public-export-approval-decision-summary` |
+| **scripts/build-non-public-export-preview.mjs** | `npm run build:non-public-export-preview` |
+| **docs/PUBLIC_EXPORT_APPROVAL_DECISION.md** | T070 model |
 
 ---
 

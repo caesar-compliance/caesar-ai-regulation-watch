@@ -174,6 +174,24 @@
     },
     "public_export_gate_ready": { "type": "boolean" },
     "ready_for_public_export_approval": { "type": "boolean" },
+    "latest_public_export_approval_decision_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+    "public_export_approval_decision": {
+      "type": "string",
+      "enum": [
+        "approve_non_public_export_preview",
+        "request_changes",
+        "reject"
+      ]
+    },
+    "public_export_approval_status": {
+      "type": "string",
+      "enum": ["recorded", "superseded"]
+    },
+    "non_public_export_preview_allowed": { "type": "boolean" },
+    "non_public_export_preview_artifact_path": {
+      "type": "string",
+      "pattern": "^generated/public-export-preview/"
+    },
     "proposed_public_update_id": { "type": "string", "minLength": 1 },
     "final_legal_review_status": {
       "type": "string",
