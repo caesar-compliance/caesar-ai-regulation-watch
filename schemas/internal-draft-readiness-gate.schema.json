@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caesar.no/schemas/caesar-ai-regulation-watch/internal-draft-readiness-gate.schema.json",
+  "title": "Caesar AI Regulation Watch — Internal draft readiness gate",
+  "description": "Internal readiness assessment after draft revision. Not publication. Not source verification.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "internal_draft_readiness_gates_id",
+    "generated_at",
+    "product_version",
+    "legal_safe_note",
+    "no_live_collection",
+    "no_scheduled_monitoring",
+    "gates"
+  ],
+  "properties": {
+    "internal_draft_readiness_gates_id": {
+      "type": "string",
+      "pattern": "^internal-draft-readiness-gates-[0-9]{4}-[0-9]{2}-[0-9]{2}-v[0-9]{3}$"
+    },
+    "generated_at": { "type": "string", "format": "date" },
+    "product_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "legal_safe_note": { "type": "string", "minLength": 1 },
+    "no_live_collection": { "type": "boolean", "const": true },
+    "no_scheduled_monitoring": { "type": "boolean", "const": true },
+    "gates": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/readinessGateRecord" }
+    }
+  },
+  "$defs": {
+    "gateState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verified_on_source",
+        "client_use_allowed",
+        "client_evidence_allowed",
+        "final_evidence_allowed",
+        "legal_change_claimed"
+      ],
+      "properties": {
+        "verified_on_source": { "type": "boolean", "const": false },
+        "client_use_allowed": { "type": "boolean", "const": false },
+        "client_evidence_allowed": { "type": "boolean", "const": false },
+        "final_evidence_allowed": { "type": "boolean", "const": false },
+        "legal_change_claimed": { "type": "boolean", "const": false }
+      }
+    },
+    "safetyFlags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "publication_allowed",
+        "public_export_allowed",
+        "evidence_export_allowed",
+        "source_verification_completed",
+        "metadata_only",
+        "stores_full_text",
+        "requires_source_verification_before_publication",
+        "requires_legal_review_before_publication",
+        "requires_separate_publication_approval"
+      ],
+      "properties": {
+        "publication_allowed": { "type": "boolean", "const": false },
+        "public_export_allowed": { "type": "boolean", "const": false },
+        "evidence_export_allowed": { "type": "boolean", "const": false },
+        "source_verification_completed": { "type": "boolean", "const": false },
+        "metadata_only": { "type": "boolean", "const": true },
+        "stores_full_text": { "type": "boolean", "const": false },
+        "requires_source_verification_before_publication": { "type": "boolean", "const": true },
+        "requires_legal_review_before_publication": { "type": "boolean", "const": true },
+        "requires_separate_publication_approval": { "type": "boolean", "const": true }
+      }
+    },
+    "readinessGateRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "readiness_id",
+        "draft_update_id",
+        "draft_update_path",
+        "source_promotion_id",
+        "source_decision_id",
+        "source_revision_id",
+        "gate_status",
+        "gate_scope",
+        "readiness_result",
+        "readiness_summary",
+        "blockers",
+        "satisfied_conditions",
+        "next_required_step",
+        "reviewer_followup_required",
+        "created_at",
+        "updated_at",
+        "gates",
+        "safety"
+      ],
+      "properties": {
+        "readiness_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+        "draft_update_id": { "type": "string" },
+        "draft_update_path": { "type": "string" },
+        "source_promotion_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+        "source_decision_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+        "source_revision_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+        "gate_status": {
+          "type": "string",
+          "enum": ["recorded", "superseded"]
+        },
+        "gate_scope": {
+          "type": "string",
+          "const": "internal_draft_readiness_only"
+        },
+        "readiness_result": {
+          "type": "string",
+          "enum": [
+            "not_ready_for_publication_review",
+            "ready_for_source_verification_checklist",
+            "ready_for_future_publication_review",
+            "rejected"
+          ]
+        },
+        "readiness_summary": { "type": "string", "maxLength": 1000 },
+        "blockers": {
+          "type": "array",
+          "items": { "type": "string", "maxLength": 500 }
+        },
+        "satisfied_conditions": {
+          "type": "array",
+          "items": { "type": "string", "maxLength": 500 }
+        },
+        "next_required_step": { "type": "string", "minLength": 1 },
+        "reviewer_followup_required": { "type": "boolean", "const": true },
+        "created_at": { "type": "string", "format": "date" },
+        "updated_at": { "type": "string", "format": "date" },
+        "gates": { "$ref": "#/$defs/gateState" },
+        "safety": { "$ref": "#/$defs/safetyFlags" }
+      }
+    }
+  }
+}

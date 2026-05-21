@@ -48,5 +48,6 @@ When a decision is `request_changes`, use [DRAFT_REVISION_PACKET_WORKFLOW.md](DR
 ## Related
 
 - [DRAFT_REVISION_PACKET_WORKFLOW.md](DRAFT_REVISION_PACKET_WORKFLOW.md) — T058 revision after request_changes
+- [INTERNAL_DRAFT_READINESS_GATE.md](INTERNAL_DRAFT_READINESS_GATE.md) — T059 readiness after revision
 - [SINGLE_SOURCE_NETWORK_DRY_RUN.md](SINGLE_SOURCE_NETWORK_DRY_RUN.md) — T055 execution lineage
 - [NETWORK_DRY_RUN_APPROVAL_MODEL.md](NETWORK_DRY_RUN_APPROVAL_MODEL.md) — T054 approval lineage

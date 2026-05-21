@@ -49,7 +49,10 @@ T055 local generated candidate (gitignored)
     → draft regulatory update (drafts/ only)
       → T057 human reviewer decision (still no auto-publication)
       → T058 draft revision packet after request_changes (metadata-only; still no publication)
+      → T059 internal draft readiness gate (not ready for publication review)
 ```
+
+See [INTERNAL_DRAFT_READINESS_GATE.md](INTERNAL_DRAFT_READINESS_GATE.md) for T059.
 
 ## Future publication
 

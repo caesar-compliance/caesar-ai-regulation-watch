@@ -1718,6 +1718,59 @@ export function getDraftRegulatoryUpdateRevisionEntries(): DraftRegulatoryUpdate
   return getDraftRegulatoryUpdateRevisions()?.revisions ?? [];
 }
 
+export interface InternalDraftReadinessSafety {
+  publication_allowed: boolean;
+  public_export_allowed: boolean;
+  evidence_export_allowed: boolean;
+  source_verification_completed: boolean;
+  metadata_only: boolean;
+  stores_full_text: boolean;
+  requires_source_verification_before_publication: boolean;
+  requires_legal_review_before_publication: boolean;
+  requires_separate_publication_approval: boolean;
+}
+
+export interface InternalDraftReadinessGate {
+  readiness_id: string;
+  draft_update_id: string;
+  draft_update_path: string;
+  source_promotion_id: string;
+  source_decision_id: string;
+  source_revision_id: string;
+  gate_status: string;
+  gate_scope: string;
+  readiness_result: string;
+  readiness_summary: string;
+  blockers: string[];
+  satisfied_conditions: string[];
+  next_required_step: string;
+  reviewer_followup_required: boolean;
+  created_at: string;
+  updated_at: string;
+  gates: NetworkDryRunGateState;
+  safety: InternalDraftReadinessSafety;
+}
+
+export interface InternalDraftReadinessGatesDoc {
+  internal_draft_readiness_gates_id: string;
+  generated_at: string;
+  product_version: string;
+  legal_safe_note: string;
+  no_live_collection: boolean;
+  no_scheduled_monitoring: boolean;
+  gates: InternalDraftReadinessGate[];
+}
+
+export function getInternalDraftReadinessGates(): InternalDraftReadinessGatesDoc | null {
+  const file = path.join(ROOT, "data/source-adapters/internal-draft-readiness-gates.yml");
+  if (!fs.existsSync(file)) return null;
+  return yaml.load(fs.readFileSync(file, "utf8")) as InternalDraftReadinessGatesDoc;
+}
+
+export function getInternalDraftReadinessGateEntries(): InternalDraftReadinessGate[] {
+  return getInternalDraftReadinessGates()?.gates ?? [];
+}
+
 export function getPilotSummary() {
   return {
     jurisdictionCount: getJurisdictions().length,

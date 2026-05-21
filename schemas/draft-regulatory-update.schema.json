@@ -32,7 +32,12 @@
     "review_status",
     "latest_review_decision_id",
     "latest_revision_id",
+    "latest_readiness_gate_id",
+    "readiness_result",
+    "next_required_step",
     "source_verification_required_before_publication",
+    "legal_review_required_before_publication",
+    "separate_publication_approval_required",
     "topic_jurisdiction_confirmation_required",
     "notes"
   ],
@@ -67,7 +72,19 @@
     },
     "latest_review_decision_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
     "latest_revision_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+    "latest_readiness_gate_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+    "readiness_result": {
+      "type": "string",
+      "enum": [
+        "not_ready_for_publication_review",
+        "ready_for_source_verification_checklist",
+        "ready_for_future_publication_review"
+      ]
+    },
+    "next_required_step": { "type": "string", "minLength": 1 },
     "source_verification_required_before_publication": { "type": "boolean", "const": true },
+    "legal_review_required_before_publication": { "type": "boolean", "const": true },
+    "separate_publication_approval_required": { "type": "boolean", "const": true },
     "topic_jurisdiction_confirmation_required": { "type": "boolean", "const": true },
     "intake_method": { "type": "string", "const": "single_source_network_dry_run" },
     "source_execution_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
