@@ -13,6 +13,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **T071 public update release decision** — `schemas/public-update-release-decision.schema.json`, `T071-001` hold decision; `/public-export-gate/` release decision UI; [docs/PUBLIC_UPDATE_RELEASE_DECISION.md](docs/PUBLIC_UPDATE_RELEASE_DECISION.md); publication held; no public route/data; gates unchanged.
 
+### Merged
+
+- PR #31 — squash merge `e871b02`.
+
+### Deployed
+
+- 21 May 2026 — `DEPLOY-20260521-037`, commit `2f987d8`, run [26235173843](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26235173843), tag `regulation-watch-v1.0.19`. Snapshot version 1.0.19; gate counts 0; publication held pending explicit release approval.
+
 ---
 
 ## [1.0.18] - 21 May 2026
