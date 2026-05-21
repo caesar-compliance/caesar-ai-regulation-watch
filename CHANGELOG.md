@@ -26,9 +26,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fast-forward merge `5371b52` — T074 backend bootstrap runtime health.
 
-### Not deployed
+### Deployed
 
-- Pending static deploy after release tag.
+- 21 May 2026 — `DEPLOY-20260521-040`, commit `2b7bdd4`, run [26239052890](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26239052890), tag `regulation-watch-v1.0.22`. `/runtime-health/` live; runtime DB health `not_configured`; live ingestion still disabled.
 
 ---
 

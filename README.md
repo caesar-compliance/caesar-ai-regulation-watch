@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **Status** | v1.0.21 live — T073 deployed `DEPLOY-20260521-039` tag `regulation-watch-v1.0.21` |
+| **Status** | v1.0.22 live — T074 deployed `DEPLOY-20260521-040` tag `regulation-watch-v1.0.22` |
 | **Automation** | `/automation/` — runtime scaffold; live ingestion disabled ([docs/AUTOMATION_RUNTIME_STRATEGY.md](docs/AUTOMATION_RUNTIME_STRATEGY.md)) |
 | **Hosting** | GitHub Pages — static site (Astro) |
 | **Scope** | AI regulation tracking, country profiles, latest updates, source monitoring, metrics and structured exports |
