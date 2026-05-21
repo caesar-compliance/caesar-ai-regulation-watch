@@ -1858,4 +1858,13 @@ if (legalRevisionResponseCheck.status !== 0) {
   process.exit(legalRevisionResponseCheck.status ?? 1);
 }
 
+const reviewerRecheckCheck = spawnSync(
+  process.execPath,
+  [path.join(ROOT, "scripts/validate-final-reviewer-rechecks.mjs")],
+  { cwd: ROOT, stdio: "inherit" },
+);
+if (reviewerRecheckCheck.status !== 0) {
+  process.exit(reviewerRecheckCheck.status ?? 1);
+}
+
 process.exit(0);

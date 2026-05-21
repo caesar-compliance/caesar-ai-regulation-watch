@@ -1,7 +1,7 @@
 {
   "name": "caesar-ai-regulation-watch",
   "type": "module",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "private": true,
   "description": "Read-only static site for Caesar AI Regulation Watch pilot data",
   "scripts": {
@@ -19,6 +19,7 @@
     "validate:final-legal-review-packets": "node scripts/validate-final-legal-review-packets.mjs",
     "validate:final-legal-review-decisions": "node scripts/validate-final-legal-review-decisions.mjs",
     "validate:final-legal-review-revision-responses": "node scripts/validate-final-legal-review-revision-responses.mjs",
+    "validate:final-reviewer-rechecks": "node scripts/validate-final-reviewer-rechecks.mjs",
     "build:manual-review-promotion": "node scripts/build-manual-review-promotion.mjs",
     "build:manual-review-decision-summary": "node scripts/build-manual-review-decision-summary.mjs",
     "build:draft-revision-summary": "node scripts/build-draft-revision-summary.mjs",
@@ -28,6 +29,7 @@
     "build:final-legal-review-packet-summary": "node scripts/build-final-legal-review-packet-summary.mjs",
     "build:final-legal-review-decision-summary": "node scripts/build-final-legal-review-decision-summary.mjs",
     "build:final-legal-review-revision-response-summary": "node scripts/build-final-legal-review-revision-response-summary.mjs",
+    "build:final-reviewer-recheck-summary": "node scripts/build-final-reviewer-recheck-summary.mjs",
     "build:network-dry-run-plan": "node scripts/build-network-dry-run-plan.mjs",
     "run:approved-network-dry-run": "node scripts/run-approved-network-dry-run.mjs",
     "run:manual-source-intake": "node scripts/run-manual-source-intake.mjs",

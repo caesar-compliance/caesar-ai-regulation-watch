@@ -1919,9 +1919,13 @@ export interface DraftRegulatoryUpdate {
   latest_final_legal_review_packet_id?: string;
   latest_final_legal_review_decision_id?: string;
   latest_final_legal_review_response_id?: string;
+  latest_final_reviewer_recheck_id?: string;
   final_legal_review_decision?: string;
   final_legal_review_status?: string;
   final_legal_review_response_status?: string;
+  final_reviewer_recheck_status?: string;
+  final_reviewer_recheck_result?: string;
+  ready_for_publication_gate_review?: boolean;
   conservative_summary_revision_applied?: boolean;
   readiness_result?: string;
   next_required_step?: string;
@@ -2102,10 +2106,69 @@ export interface FinalLegalReviewRevisionResponsesDoc {
   responses: FinalLegalReviewRevisionResponse[];
 }
 
+export type FinalReviewerRecheckItemStatus =
+  | "accepted_for_internal_recheck"
+  | "still_blocked"
+  | "needs_follow_up";
+
+export interface FinalReviewerRecheckReviewedItem {
+  item_id: string;
+  prior_status: string;
+  recheck_status: FinalReviewerRecheckItemStatus;
+  recheck_note: string;
+}
+
+export interface FinalReviewerRecheckSafety {
+  publication_allowed: boolean;
+  public_export_allowed: boolean;
+  evidence_export_allowed: boolean;
+  final_legal_approval_completed: boolean;
+  final_source_verification_completed: boolean;
+  ready_for_publication_gate_review: boolean;
+  metadata_only: boolean;
+  stores_full_text: boolean;
+  requires_separate_publication_approval: boolean;
+  requires_separate_evidence_approval: boolean;
+}
+
+export interface FinalReviewerRecheck {
+  recheck_id: string;
+  response_id: string;
+  decision_id: string;
+  packet_id: string;
+  draft_update_id: string;
+  draft_update_path: string;
+  source_verification_result_id: string;
+  recheck_scope: string;
+  recheck_status: string;
+  recheck_result: string;
+  recheck_summary: string;
+  reviewed_response_items: FinalReviewerRecheckReviewedItem[];
+  remaining_blockers: string[];
+  next_required_step: string;
+  checked_by_role: string;
+  checked_at: string;
+  created_at: string;
+  updated_at: string;
+  gates: NetworkDryRunGateState;
+  safety: FinalReviewerRecheckSafety;
+}
+
+export interface FinalReviewerRechecksDoc {
+  final_reviewer_rechecks_id: string;
+  generated_at: string;
+  product_version: string;
+  legal_safe_note: string;
+  no_live_collection: boolean;
+  no_scheduled_monitoring: boolean;
+  rechecks: FinalReviewerRecheck[];
+}
+
 export interface FinalLegalReviewCockpitCase {
   packet: FinalLegalReviewPacket;
   finalLegalDecision: FinalLegalReviewDecision | null;
   revisionResponse: FinalLegalReviewRevisionResponse | null;
+  reviewerRecheck: FinalReviewerRecheck | null;
   draft: DraftRegulatoryUpdate | null;
   result: SourceVerificationResult | null;
   checklist: SourceVerificationChecklist | null;
@@ -2254,6 +2317,22 @@ export function getFinalLegalReviewRevisionResponse(
   );
 }
 
+export function getFinalReviewerRechecks(): FinalReviewerRechecksDoc | null {
+  const file = path.join(ROOT, "data/source-adapters/final-reviewer-rechecks.yml");
+  if (!fs.existsSync(file)) return null;
+  return yaml.load(fs.readFileSync(file, "utf8")) as FinalReviewerRechecksDoc;
+}
+
+export function getFinalReviewerRecheckEntries(): FinalReviewerRecheck[] {
+  return getFinalReviewerRechecks()?.rechecks ?? [];
+}
+
+export function getFinalReviewerRecheck(
+  recheckId: string,
+): FinalReviewerRecheck | undefined {
+  return getFinalReviewerRecheckEntries().find((r) => r.recheck_id === recheckId);
+}
+
 export function getFinalLegalReviewCockpitCase(
   packetId: string,
 ): FinalLegalReviewCockpitCase | null {
@@ -2298,10 +2377,18 @@ export function getFinalLegalReviewCockpitCase(
       : undefined) ??
     null;
 
+  const reviewerRecheck =
+    getFinalReviewerRecheckEntries().find((r) => r.packet_id === packetId) ??
+    (draft?.latest_final_reviewer_recheck_id
+      ? getFinalReviewerRecheck(draft.latest_final_reviewer_recheck_id)
+      : undefined) ??
+    null;
+
   return {
     packet,
     finalLegalDecision,
     revisionResponse,
+    reviewerRecheck,
     draft,
     result,
     checklist: checklist ?? null,

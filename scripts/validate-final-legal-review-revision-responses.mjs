@@ -170,11 +170,20 @@ function responseInvariantErrors(response, index, ctx) {
       if (draft.final_legal_review_response_status !== response.response_status) {
         errors.push(`${prefix}: draft final_legal_review_response_status must match response`);
       }
-      if (draft.final_legal_review_status !== "revision_response_recorded") {
-        errors.push(`${prefix}: draft final_legal_review_status must be revision_response_recorded`);
+      const allowedLegalStatuses = ["revision_response_recorded", "reviewer_recheck_recorded"];
+      if (!allowedLegalStatuses.includes(draft.final_legal_review_status)) {
+        errors.push(
+          `${prefix}: draft final_legal_review_status must be revision_response_recorded or reviewer_recheck_recorded`,
+        );
       }
-      if (draft.next_required_step !== "final_legal_reviewer_recheck") {
+      const hasRecheck = Boolean(draft.latest_final_reviewer_recheck_id);
+      if (!hasRecheck && draft.next_required_step !== "final_legal_reviewer_recheck") {
         errors.push(`${prefix}: draft next_required_step must be final_legal_reviewer_recheck`);
+      }
+      if (hasRecheck && draft.next_required_step !== "publication_gate_packet") {
+        errors.push(
+          `${prefix}: draft next_required_step must be publication_gate_packet after reviewer re-check`,
+        );
       }
       errors.push(...gateErrors(response.draft_update_path, draft));
       if (draft.publication_allowed !== false || draft.public_export_allowed !== false) {

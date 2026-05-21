@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.12 live — T064; `DEPLOY-20260521-030`)
+**Last updated:** 21 May 2026 (v1.0.13 dev — T065; live v1.0.12 `DEPLOY-20260521-030`)
 
 ---
 
@@ -339,6 +339,16 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **scripts/validate-final-legal-review-revision-responses.mjs** | `npm run validate:final-legal-review-revision-responses` |
 | **scripts/build-final-legal-review-revision-response-summary.mjs** | `npm run build:final-legal-review-revision-response-summary` |
 | **docs/FINAL_LEGAL_REVIEW_REVISION_RESPONSE.md** | T064 model |
+
+## T065 — Final reviewer re-check packet (v1.0.13)
+
+| Path | Purpose |
+|---|---|
+| **schemas/final-reviewer-recheck.schema.json** | Re-check validation |
+| **data/source-adapters/final-reviewer-rechecks.yml** | Pilot re-check `T065-001` |
+| **scripts/validate-final-reviewer-rechecks.mjs** | `npm run validate:final-reviewer-rechecks` |
+| **scripts/build-final-reviewer-recheck-summary.mjs** | `npm run build:final-reviewer-recheck-summary` |
+| **docs/FINAL_REVIEWER_RECHECK_PACKET.md** | T065 model |
 
 ---
 

@@ -186,6 +186,7 @@ function packetInvariantErrors(packet, index, ctx) {
         "pending_final_legal_review",
         "request_changes_recorded",
         "revision_response_recorded",
+        "reviewer_recheck_recorded",
         "reject_recorded",
         "approve_internal_review_only_recorded",
       ];

@@ -17,6 +17,7 @@ const {
   packet,
   finalLegalDecision,
   revisionResponse,
+  reviewerRecheck,
   draft,
   result,
   checklist,
@@ -97,7 +98,14 @@ const timeline = [
     label: "Legal review revision response",
     id: revisionResponse?.response_id ?? draft?.latest_final_legal_review_response_id,
     status: revisionResponse?.response_status ?? draft?.final_legal_review_response_status,
-    detail: revisionResponse?.next_required_step ?? draft?.next_required_step,
+    detail: revisionResponse?.next_required_step ?? "final_legal_reviewer_recheck",
+  },
+  {
+    step: "T065",
+    label: "Final reviewer re-check",
+    id: reviewerRecheck?.recheck_id ?? draft?.latest_final_reviewer_recheck_id,
+    status: reviewerRecheck?.recheck_result ?? draft?.final_reviewer_recheck_result,
+    detail: reviewerRecheck?.next_required_step ?? draft?.next_required_step,
   },
 ];
 
@@ -105,6 +113,17 @@ const addressedChangeCounts = { addressed_metadata_only: 0, partially_addressed:
 for (const change of revisionResponse?.addressed_changes ?? []) {
   if (addressedChangeCounts[change.status] !== undefined) {
     addressedChangeCounts[change.status] += 1;
+  }
+}
+
+const recheckItemCounts = {
+  accepted_for_internal_recheck: 0,
+  still_blocked: 0,
+  needs_follow_up: 0,
+};
+for (const item of reviewerRecheck?.reviewed_response_items ?? []) {
+  if (recheckItemCounts[item.recheck_status] !== undefined) {
+    recheckItemCounts[item.recheck_status] += 1;
   }
 }
 
@@ -138,6 +157,10 @@ for (const item of packet.legal_review_items) {
       <strong>Revision response</strong>
       <code>{revisionResponse?.response_status ?? draft?.final_legal_review_response_status ?? "—"}</code>
     </div>
+    <div class="status-card status-card--pending">
+      <strong>Reviewer re-check</strong>
+      <code>{reviewerRecheck?.recheck_result ?? draft?.final_reviewer_recheck_result ?? "—"}</code>
+    </div>
     <div class="status-card status-card--blocked">
       <strong>Source verified</strong>
       <span>No — not verified on source</span>
@@ -155,7 +178,15 @@ for (const item of packet.legal_review_items) {
   <div class="banner banner--review" role="note">
     <strong>Not approved.</strong> Not published. Not final source verification. Not legal advice.
     {
-      revisionResponse && (
+      reviewerRecheck && (
+        <>
+          {" "}Re-check <code>{reviewerRecheck.recheck_id}</code> recorded — internal next step toward publication
+          gate only; not publication approval.
+        </>
+      )
+    }
+    {
+      revisionResponse && !reviewerRecheck && (
         <>
           {" "}Revision response <code>{revisionResponse.response_id}</code> ready for reviewer re-check — not
           ready for publication.
@@ -183,7 +214,8 @@ for (const item of packet.legal_review_items) {
       <div><dt>Final legal review</dt><dd><span class="mono">{draft?.final_legal_review_status ?? packet.packet_status}</span></dd></div>
       <div><dt>Revision response</dt><dd><span class="mono">{revisionResponse?.response_status ?? draft?.final_legal_review_response_status ?? "—"}</span></dd></div>
       <div><dt>Legal reviewer decision</dt><dd><span class="mono">{finalLegalDecision?.decision ?? draft?.final_legal_review_decision ?? "—"}</span></dd></div>
-      <div><dt>Next required step</dt><dd><span class="mono">{revisionResponse?.next_required_step ?? draft?.next_required_step ?? packet.next_required_step}</span></dd></div>
+      <div><dt>Reviewer re-check</dt><dd><span class="mono">{reviewerRecheck?.recheck_result ?? draft?.final_reviewer_recheck_result ?? "—"}</span></dd></div>
+      <div><dt>Next required step</dt><dd><span class="mono">{reviewerRecheck?.next_required_step ?? draft?.next_required_step ?? packet.next_required_step}</span></dd></div>
     </dl>
     {
       draft && (
@@ -277,6 +309,74 @@ for (const item of packet.legal_review_items) {
         <h3>Approval limitations ({finalLegalDecision.approval_limitations.length})</h3>
         <ul>
           {finalLegalDecision.approval_limitations.map((l) => <li>{l}</li>)}
+        </ul>
+      </section>
+    )
+  }
+
+  {
+    reviewerRecheck && (
+      <section>
+        <h2>Final reviewer re-check (T065)</h2>
+        <div class="banner banner--warn" role="note">
+          <strong>Internal next-step only.</strong> <code>ready_for_publication_gate_review</code> is not
+          publication approval. Publication, public export, client/evidence use, and legal-change claim remain
+          blocked.
+        </div>
+        <p>
+          Re-check <code>{reviewerRecheck.recheck_id}</code> of response{" "}
+          <code>{reviewerRecheck.response_id}</code> — conservative internal re-check record. Not final legal
+          approval. Not final source verification. Not legal advice.
+        </p>
+        <dl class="meta-grid">
+          <div><dt>Re-check result</dt><dd><span class="mono">{reviewerRecheck.recheck_result}</span></dd></div>
+          <div><dt>Re-check scope</dt><dd><span class="mono">{reviewerRecheck.recheck_scope}</span></dd></div>
+          <div><dt>Re-check status</dt><dd><span class="mono">{reviewerRecheck.recheck_status}</span></dd></div>
+          <div><dt>Checked by</dt><dd><span class="mono">{reviewerRecheck.checked_by_role}</span> at {reviewerRecheck.checked_at}</dd></div>
+          <div><dt>Next required step</dt><dd><span class="mono">{reviewerRecheck.next_required_step}</span></dd></div>
+          <div><dt>Ready for publication gate</dt><dd>{reviewerRecheck.safety.ready_for_publication_gate_review ? "Yes (internal only)" : "No"}</dd></div>
+          <div><dt>Final legal approval</dt><dd>false</dd></div>
+          <div><dt>Source verification final</dt><dd>false</dd></div>
+          <div><dt>Publication allowed</dt><dd>false</dd></div>
+          <div><dt>Public export</dt><dd>false</dd></div>
+          <div><dt>Evidence export</dt><dd>false</dd></div>
+          <div><dt>verified_on_source</dt><dd>false</dd></div>
+        </dl>
+        <p class="card__excerpt">{reviewerRecheck.recheck_summary}</p>
+        <h3>
+          Reviewed response items ({reviewerRecheck.reviewed_response_items.length}) — accepted{" "}
+          {recheckItemCounts.accepted_for_internal_recheck}, blocked {recheckItemCounts.still_blocked}, follow-up{" "}
+          {recheckItemCounts.needs_follow_up}
+        </h3>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Prior status</th>
+                <th>Re-check status</th>
+                <th>Note</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                reviewerRecheck.reviewed_response_items.map((item) => (
+                  <tr>
+                    <td><span class="mono">{item.item_id}</span></td>
+                    <td><span class="mono">{item.prior_status}</span></td>
+                    <td>
+                      <span class={`badge badge--status-${item.recheck_status}`}>{item.recheck_status}</span>
+                    </td>
+                    <td>{item.recheck_note}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+        <h3>Remaining blockers ({reviewerRecheck.remaining_blockers.length})</h3>
+        <ul>
+          {reviewerRecheck.remaining_blockers.map((b) => <li>{b}</li>)}
         </ul>
       </section>
     )
@@ -447,5 +547,9 @@ for (const item of packet.legal_review_items) {
   }
   .status-card--blocked span {
     color: var(--accent-danger, #a00);
+  }
+  .banner--warn {
+    border-color: var(--accent-warn, #8a6d00);
+    background: color-mix(in srgb, var(--accent-warn, #8a6d00) 8%, transparent);
   }
 </style>
