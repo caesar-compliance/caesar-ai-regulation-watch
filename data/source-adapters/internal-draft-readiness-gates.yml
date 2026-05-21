@@ -1,0 +1,58 @@
+# Internal draft readiness gates — T059 pilot (metadata only, not published)
+# Assesses whether a revised draft may proceed toward future publication review workflows.
+
+internal_draft_readiness_gates_id: internal-draft-readiness-gates-2026-05-21-v108
+generated_at: 2026-05-21
+product_version: 1.0.8
+legal_safe_note: >
+  T059 internal draft readiness gate registry. Records conservative readiness assessment
+  after draft revision. Not publication approval. Not source verification. Not legal advice.
+  Evidence and legal gates remain closed.
+no_live_collection: true
+no_scheduled_monitoring: true
+
+gates:
+  - readiness_id: T059-001
+    draft_update_id: t056-001-draft-edpb-network-dry-run
+    draft_update_path: data/regulatory-updates/drafts/T056-001.yml
+    source_promotion_id: T056-001
+    source_decision_id: T057-001
+    source_revision_id: T058-001
+    gate_status: recorded
+    gate_scope: internal_draft_readiness_only
+    readiness_result: not_ready_for_publication_review
+    readiness_summary: >-
+      Conservative metadata-only readiness assessment for revised T056 draft after T058-001.
+      Draft has promotion, reviewer decision, and revision records but source verification,
+      final legal review, and publication approval remain incomplete. Not ready for publication
+      review. No legal conclusion. No full legal text stored.
+    blockers:
+      - source verification not completed
+      - final legal review not completed
+      - publication approval not granted
+      - client/evidence use not allowed
+    satisfied_conditions:
+      - metadata-only draft exists
+      - manual review decision exists
+      - draft revision packet exists
+      - public export exclusion confirmed
+    next_required_step: source_verification_checklist_packet
+    reviewer_followup_required: true
+    created_at: 2026-05-21
+    updated_at: 2026-05-21
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      client_evidence_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+    safety:
+      publication_allowed: false
+      public_export_allowed: false
+      evidence_export_allowed: false
+      source_verification_completed: false
+      metadata_only: true
+      stores_full_text: false
+      requires_source_verification_before_publication: true
+      requires_legal_review_before_publication: true
+      requires_separate_publication_approval: true

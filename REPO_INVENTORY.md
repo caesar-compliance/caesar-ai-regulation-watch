@@ -277,6 +277,17 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **docs/DRAFT_REVISION_PACKET_WORKFLOW.md** | T058 revision model |
 | **generated/draft-revisions/T058-001.json** | Local summary (gitignored) |
 
+## T059 — Internal draft readiness gate (v1.0.8 branch)
+
+| Path | Purpose |
+|---|---|
+| **schemas/internal-draft-readiness-gate.schema.json** | Readiness gate validation |
+| **data/source-adapters/internal-draft-readiness-gates.yml** | Pilot gate `T059-001` |
+| **scripts/validate-internal-draft-readiness-gates.mjs** | `npm run validate:internal-draft-readiness-gates` |
+| **scripts/build-internal-draft-readiness-summary.mjs** | `npm run build:internal-draft-readiness-summary` |
+| **docs/INTERNAL_DRAFT_READINESS_GATE.md** | T059 readiness model |
+| **generated/internal-draft-readiness/T059-001.json** | Local summary (gitignored) |
+
 ---
 
 ## data/timelines/ (v0.5.0)

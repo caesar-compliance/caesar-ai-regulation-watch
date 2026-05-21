@@ -1804,4 +1804,13 @@ if (revisionCheck.status !== 0) {
   process.exit(revisionCheck.status ?? 1);
 }
 
+const readinessCheck = spawnSync(
+  process.execPath,
+  [path.join(ROOT, "scripts/validate-internal-draft-readiness-gates.mjs")],
+  { cwd: ROOT, stdio: "inherit" },
+);
+if (readinessCheck.status !== 0) {
+  process.exit(readinessCheck.status ?? 1);
+}
+
 process.exit(0);

@@ -52,3 +52,4 @@ Publication, source verification, and client/evidence use require separate futur
 
 - [MANUAL_REVIEW_DECISION_WORKFLOW.md](MANUAL_REVIEW_DECISION_WORKFLOW.md) — T057 decision lineage
 - [MANUAL_REVIEW_PROMOTION_PIPELINE.md](MANUAL_REVIEW_PROMOTION_PIPELINE.md) — T056 promotion lineage
+- [INTERNAL_DRAFT_READINESS_GATE.md](INTERNAL_DRAFT_READINESS_GATE.md) — T059 readiness assessment after revision

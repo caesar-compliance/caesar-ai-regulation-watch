@@ -7,6 +7,7 @@ import {
   getManualReviewPromotionEntries,
   getManualReviewDecisionEntries,
   getDraftRegulatoryUpdateRevisionEntries,
+  getInternalDraftReadinessGateEntries,
   getSourceAdapterAllowlistEntries,
   getSource,
 } from "../../lib/data";
@@ -20,6 +21,7 @@ const networkExecutions = getSingleNetworkDryRunExecutionEntries();
 const manualReviewPromotions = getManualReviewPromotionEntries();
 const manualReviewDecisions = getManualReviewDecisionEntries();
 const draftRevisions = getDraftRegulatoryUpdateRevisionEntries();
+const readinessGates = getInternalDraftReadinessGateEntries();
 const disabledCount = adapters.filter((a) => a.status === "disabled").length;
 const draftCount = adapters.filter((a) => a.status === "draft").length;
 ---
@@ -416,6 +418,58 @@ const draftCount = adapters.filter((a) => a.status === "draft").length;
                 <td>{r.reviewer_followup_required ? "required" : "false"}</td>
                 <td>{r.safety.publication_allowed ? "allowed" : "false"}</td>
                 <td>{r.safety.source_verification_completed ? "completed" : "false"}</td>
+                <td>
+                  <span class="mono">verified/client/evidence/legal: false</span>
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Internal draft readiness gates</h2>
+    <p>
+      T059 readiness registry — read-only. No approve, publish, or source-verification controls.
+      Records conservative readiness after draft revision; does not claim source verification.
+    </p>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Readiness</th>
+            <th>Draft</th>
+            <th>Result</th>
+            <th>Next step</th>
+            <th>Blockers</th>
+            <th>Source verification</th>
+            <th>Publication</th>
+            <th>Gates</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            readinessGates.map((g) => (
+              <tr>
+                <td>
+                  <span class="mono">{g.readiness_id}</span>
+                  <br />
+                  <small>{g.gate_status}</small>
+                </td>
+                <td>
+                  <span class="mono">{g.draft_update_id}</span>
+                  <br />
+                  <small class="mono">{g.draft_update_path}</small>
+                </td>
+                <td>
+                  <span class={`badge badge--status-${g.readiness_result}`}>{g.readiness_result}</span>
+                </td>
+                <td><span class="mono">{g.next_required_step}</span></td>
+                <td>{(g.blockers ?? []).length}</td>
+                <td>{g.safety.source_verification_completed ? "completed" : "false"}</td>
+                <td>{g.safety.publication_allowed ? "allowed" : "false"}</td>
                 <td>
                   <span class="mono">verified/client/evidence/legal: false</span>
                 </td>
