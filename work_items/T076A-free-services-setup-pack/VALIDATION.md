@@ -19,7 +19,8 @@ find scripts ops src -name "*.mjs" -o -name "*.js" | xargs -I{} node --check {}
 Security:
 
 ```bash
-git grep -n "nazzarkoartem@gmail.com\|nazarko.law@gmail.com" -- ':!.local/*' || true
+# Substitute <account-a-email> / <account-b-email> from hub .local/ when running locally; do not commit literals.
+git grep -n "<account-a-email>\|<account-b-email>" -- ':!.local/*' || true
 grep -R "SUPABASE_SERVICE_ROLE_KEY=.*[A-Za-z0-9]" . --exclude-dir=node_modules --exclude-dir=.git --exclude=".env*.example" || true
 grep -R "CLOUDFLARE_API_TOKEN=.*[A-Za-z0-9]" . --exclude-dir=node_modules --exclude-dir=.git --exclude=".env*.example" || true
 git check-ignore -v .env.runtime.local .env.cloudflare.local 2>/dev/null || true
