@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.9 on main — T061 merged `71bd4ef`; live v1.0.8)
+**Last updated:** 21 May 2026 (v1.0.9 live — T061; `DEPLOY-20260521-027`)
 
 ---
 
@@ -299,7 +299,7 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **src/pages/source-verification/index.astro** | Cockpit UI |
 | **docs/SOURCE_VERIFICATION_COCKPIT.md** | T060 model |
 
-## T061 — Source verification result capture (v1.0.9, merged)
+## T061 — Source verification result capture (v1.0.9, deployed)
 
 | Path | Purpose |
 |---|---|

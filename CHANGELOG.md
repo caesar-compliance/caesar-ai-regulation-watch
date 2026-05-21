@@ -24,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Notes
 
-- T061 merged to main (PR #21 squash `71bd4ef`). Item-level manual verification results `T061-001`; `verified_on_source` false; live remains v1.0.8 until deploy.
+- T061 merged and deployed v1.0.9 (PR #21 squash `71bd4ef`; deploy `DEPLOY-20260521-027` commit `df2d8d5`). Result `T061-001` item-level manual checks; gates closed; snapshot counts 0.
 - T060 merged and deployed v1.0.8 (PR #20 squash `d05f846`; deploy `DEPLOY-20260521-026` commit `299464a`). Source verification cockpit; checklist pending; gates closed.
 - T059 merged to main (PR #19, squash `d25247d`). Internal draft readiness gate `T059-001` for revised T056 draft; result `not_ready_for_publication_review`; no publication; no source verification claim; live site remains v1.0.7; no tag/deploy/closeout in T059.
 - T058 merged to main (PR #18, squash `3e5dce8`). One metadata-only draft revision (`T058-001`) after T057 `request_changes`; T056 draft, T057 decision, and T058 revision excluded from public exports; no live network in T058; live site remains v1.0.7; no tag/deploy/closeout in T058.
@@ -34,6 +34,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - T054 merged to main (PR #14, squash commit `78a00be`). Planning-only dry-run approval; no live network; no scheduling; plan under `generated/network-dry-run-plans/` (gitignored). Live site remains v1.0.7; no tag/deploy/closeout in T054.
 - T053 merged to main (PR #13, squash commit `0469a9e`). Fixture-first intake; no live network; no scheduling; output under `generated/source-intake-candidates/` (gitignored). Live site remains v1.0.7; no tag/deploy/closeout in T053.
 - T052 merged to main (PR #12, squash commit `f3d2055`). No live source collection; adapters disabled/draft/manual-gated.
+
+---
+
+## [1.0.9] - 21 May 2026
+
+### Added
+
+- **T061 source verification result capture** — `T061-001` item-level manual pass/needs-follow-up results; `/source-verification/` results table; `verified_on_source` remains false.
+
+### Notes
+
+- **Deployed** 21 May 2026 — `DEPLOY-20260521-027`, commit `df2d8d5`, run [26227191257](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26227191257), tag `regulation-watch-v1.0.9`. Snapshot version 1.0.9; gate counts 0.
 
 ---
 
