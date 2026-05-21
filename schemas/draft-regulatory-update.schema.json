@@ -108,9 +108,21 @@
     },
     "final_source_verification_completed": { "type": "boolean", "const": false },
     "latest_final_legal_review_packet_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+    "latest_final_legal_review_decision_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+    "final_legal_review_decision": {
+      "type": "string",
+      "enum": ["request_changes", "reject", "approve_internal_review_only"]
+    },
     "final_legal_review_status": {
       "type": "string",
-      "enum": ["pending_final_legal_review", "blocked", "superseded"]
+      "enum": [
+        "pending_final_legal_review",
+        "request_changes_recorded",
+        "reject_recorded",
+        "approve_internal_review_only_recorded",
+        "blocked",
+        "superseded"
+      ]
     },
     "final_legal_approval_completed": { "type": "boolean", "const": false },
     "final_legal_approval_required": { "type": "boolean", "const": true },

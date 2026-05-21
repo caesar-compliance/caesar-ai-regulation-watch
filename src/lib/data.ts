@@ -1917,6 +1917,8 @@ export interface DraftRegulatoryUpdate {
   latest_source_verification_result_id?: string;
   source_verification_result?: SourceVerificationOverallResult;
   latest_final_legal_review_packet_id?: string;
+  latest_final_legal_review_decision_id?: string;
+  final_legal_review_decision?: string;
   final_legal_review_status?: string;
   readiness_result?: string;
   next_required_step?: string;
@@ -2001,8 +2003,52 @@ export interface SourceVerificationCockpitCase {
   approval: NetworkDryRunApproval | null;
 }
 
+export interface FinalLegalReviewDecisionSafety {
+  publication_allowed: boolean;
+  public_export_allowed: boolean;
+  evidence_export_allowed: boolean;
+  final_legal_approval_completed: boolean;
+  final_source_verification_completed: boolean;
+  metadata_only: boolean;
+  stores_full_text: boolean;
+  requires_separate_publication_approval: boolean;
+  requires_separate_evidence_approval: boolean;
+}
+
+export interface FinalLegalReviewDecision {
+  decision_id: string;
+  packet_id: string;
+  draft_update_id: string;
+  draft_update_path: string;
+  source_verification_result_id: string;
+  reviewer_role: string;
+  decision_scope: string;
+  decision: string;
+  decision_status: string;
+  decision_summary: string;
+  required_changes: string[];
+  approval_limitations: string[];
+  next_required_step: string;
+  decided_at: string;
+  created_at: string;
+  updated_at: string;
+  gates: NetworkDryRunGateState;
+  safety: FinalLegalReviewDecisionSafety;
+}
+
+export interface FinalLegalReviewDecisionsDoc {
+  final_legal_review_decisions_id: string;
+  generated_at: string;
+  product_version: string;
+  legal_safe_note: string;
+  no_live_collection: boolean;
+  no_scheduled_monitoring: boolean;
+  decisions: FinalLegalReviewDecision[];
+}
+
 export interface FinalLegalReviewCockpitCase {
   packet: FinalLegalReviewPacket;
+  finalLegalDecision: FinalLegalReviewDecision | null;
   draft: DraftRegulatoryUpdate | null;
   result: SourceVerificationResult | null;
   checklist: SourceVerificationChecklist | null;
@@ -2114,6 +2160,22 @@ export function getFinalLegalReviewPacket(
   return getFinalLegalReviewPacketEntries().find((p) => p.packet_id === packetId);
 }
 
+export function getFinalLegalReviewDecisions(): FinalLegalReviewDecisionsDoc | null {
+  const file = path.join(ROOT, "data/source-adapters/final-legal-review-decisions.yml");
+  if (!fs.existsSync(file)) return null;
+  return yaml.load(fs.readFileSync(file, "utf8")) as FinalLegalReviewDecisionsDoc;
+}
+
+export function getFinalLegalReviewDecisionEntries(): FinalLegalReviewDecision[] {
+  return getFinalLegalReviewDecisions()?.decisions ?? [];
+}
+
+export function getFinalLegalReviewDecision(
+  decisionId: string,
+): FinalLegalReviewDecision | undefined {
+  return getFinalLegalReviewDecisionEntries().find((d) => d.decision_id === decisionId);
+}
+
 export function getFinalLegalReviewCockpitCase(
   packetId: string,
 ): FinalLegalReviewCockpitCase | null {
@@ -2144,8 +2206,16 @@ export function getFinalLegalReviewCockpitCase(
     ? getNetworkDryRunApprovalEntries().find((a) => a.approval_id === draft.source_approval_id)
     : undefined;
 
+  const finalLegalDecision =
+    getFinalLegalReviewDecisionEntries().find((d) => d.packet_id === packetId) ??
+    (draft?.latest_final_legal_review_decision_id
+      ? getFinalLegalReviewDecision(draft.latest_final_legal_review_decision_id)
+      : undefined) ??
+    null;
+
   return {
     packet,
+    finalLegalDecision,
     draft,
     result,
     checklist: checklist ?? null,
