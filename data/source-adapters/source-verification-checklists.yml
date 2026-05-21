@@ -1,0 +1,71 @@
+# Source verification checklists — T060 pilot (metadata only, not published, not verified)
+# Structured internal checklist for manual source URL verification before any publication review.
+
+source_verification_checklists_id: source-verification-checklists-2026-05-21-v108
+generated_at: 2026-05-21
+product_version: 1.0.8
+legal_safe_note: >
+  T060 source verification checklist registry. Prepares manual source checks for internal draft
+  updates. Not verified on source. Not publication approval. Not legal advice. Evidence gates closed.
+no_live_collection: true
+no_scheduled_monitoring: true
+
+checklists:
+  - checklist_id: T060-001
+    draft_update_id: t056-001-draft-edpb-network-dry-run
+    draft_update_path: data/regulatory-updates/drafts/T056-001.yml
+    source_readiness_gate_id: T059-001
+    source_adapter_id: edpb-publications-rss
+    source_id: edpb
+    source_url: >-
+      https://www.edpb.europa.eu/our-work-tools/our-documents/opinion-board-art-64/opinion-132026-draft-decision-office-data_en
+    status: pending_source_verification
+    verification_scope: internal_source_check_only
+    checklist_items:
+      - item_key: source_url_accessibility_check
+        status: pending
+        notes: Manual browser or approved network check required; no automated pass in T060.
+      - item_key: source_identity_match_check
+        status: pending
+        notes: EDPB publisher identity not manually confirmed on source URL.
+      - item_key: publication_date_match_check
+        status: local_data_present
+        notes: Draft carries source_published_at from T055 dry-run metadata only; not verified on source.
+      - item_key: title_match_check
+        status: local_data_present
+        notes: Draft title present from T055 candidate metadata; not verified on source page.
+      - item_key: summary_rewrite_check
+        status: pending
+        notes: Internal summary rewrite and legal-safe wording require human review.
+      - item_key: topic_jurisdiction_confirmation_check
+        status: pending
+        notes: EU jurisdiction and topic tags require explicit human confirmation.
+      - item_key: no_full_text_storage_check
+        status: local_data_present
+        notes: Draft and checklist safety flags confirm metadata_only and stores_full_text false.
+      - item_key: public_export_exclusion_check
+        status: local_data_present
+        notes: Draft excluded from public regulatory-updates export; internal pipeline only.
+    blockers:
+      - source not manually verified
+      - legal review not completed
+      - publication approval not granted
+    next_required_step: manual_source_url_check
+    created_at: 2026-05-21
+    updated_at: 2026-05-21
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      client_evidence_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+    safety:
+      verified_on_source: false
+      publication_allowed: false
+      public_export_allowed: false
+      client_use_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+      source_verification_completed: false
+      metadata_only: true
+      stores_full_text: false

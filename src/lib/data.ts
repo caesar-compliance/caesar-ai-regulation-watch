@@ -1771,6 +1771,177 @@ export function getInternalDraftReadinessGateEntries(): InternalDraftReadinessGa
   return getInternalDraftReadinessGates()?.gates ?? [];
 }
 
+export type SourceVerificationChecklistItemStatus =
+  | "pending"
+  | "local_data_present"
+  | "blocked";
+
+export type SourceVerificationChecklistItemKey =
+  | "source_url_accessibility_check"
+  | "source_identity_match_check"
+  | "publication_date_match_check"
+  | "title_match_check"
+  | "summary_rewrite_check"
+  | "topic_jurisdiction_confirmation_check"
+  | "no_full_text_storage_check"
+  | "public_export_exclusion_check";
+
+export interface SourceVerificationChecklistItem {
+  item_key: SourceVerificationChecklistItemKey;
+  status: SourceVerificationChecklistItemStatus;
+  notes?: string;
+}
+
+export interface SourceVerificationChecklistSafety {
+  verified_on_source: boolean;
+  publication_allowed: boolean;
+  public_export_allowed: boolean;
+  client_use_allowed: boolean;
+  final_evidence_allowed: boolean;
+  legal_change_claimed: boolean;
+  source_verification_completed: boolean;
+  metadata_only: boolean;
+  stores_full_text: boolean;
+}
+
+export interface SourceVerificationChecklist {
+  checklist_id: string;
+  draft_update_id: string;
+  draft_update_path: string;
+  source_readiness_gate_id?: string;
+  source_adapter_id: string;
+  source_id: string;
+  source_url: string;
+  status: string;
+  verification_scope: string;
+  checklist_items: SourceVerificationChecklistItem[];
+  blockers: string[];
+  next_required_step: string;
+  created_at: string;
+  updated_at: string;
+  gates: NetworkDryRunGateState;
+  safety: SourceVerificationChecklistSafety;
+}
+
+export interface SourceVerificationChecklistsDoc {
+  source_verification_checklists_id: string;
+  generated_at: string;
+  product_version: string;
+  legal_safe_note: string;
+  no_live_collection: boolean;
+  no_scheduled_monitoring: boolean;
+  checklists: SourceVerificationChecklist[];
+}
+
+export interface DraftRegulatoryUpdate {
+  draft_id: string;
+  update_id: string;
+  title: string;
+  source_url: string;
+  source_id: string;
+  jurisdiction_ids: string[];
+  topic_ids: string[];
+  published_at: string;
+  source_published_at?: string;
+  summary: string;
+  status: string;
+  review_status: string;
+  intake_method: string;
+  source_execution_id?: string;
+  source_approval_id?: string;
+  source_adapter_id: string;
+  promotion_id?: string;
+  candidate_id?: string;
+  latest_review_decision_id?: string;
+  latest_revision_id?: string;
+  latest_readiness_gate_id?: string;
+  readiness_result?: string;
+  next_required_step?: string;
+  verified_on_source: boolean;
+  client_use_allowed: boolean;
+  client_evidence_allowed: boolean;
+  final_evidence_allowed: boolean;
+  legal_change_claimed: boolean;
+  publication_allowed: boolean;
+  public_export_allowed: boolean;
+  evidence_export_allowed: boolean;
+}
+
+export interface SourceVerificationCockpitCase {
+  checklist: SourceVerificationChecklist;
+  draft: DraftRegulatoryUpdate | null;
+  promotion: ManualReviewPromotion | null;
+  decision: ManualReviewDecision | null;
+  revision: DraftRegulatoryUpdateRevision | null;
+  readinessGate: InternalDraftReadinessGate | null;
+  execution: SingleNetworkDryRunExecution | null;
+  approval: NetworkDryRunApproval | null;
+}
+
+export function getSourceVerificationChecklists(): SourceVerificationChecklistsDoc | null {
+  const file = path.join(ROOT, "data/source-adapters/source-verification-checklists.yml");
+  if (!fs.existsSync(file)) return null;
+  return yaml.load(fs.readFileSync(file, "utf8")) as SourceVerificationChecklistsDoc;
+}
+
+export function getSourceVerificationChecklistEntries(): SourceVerificationChecklist[] {
+  return getSourceVerificationChecklists()?.checklists ?? [];
+}
+
+export function getSourceVerificationChecklist(
+  checklistId: string,
+): SourceVerificationChecklist | undefined {
+  return getSourceVerificationChecklistEntries().find((c) => c.checklist_id === checklistId);
+}
+
+export function getDraftRegulatoryUpdate(relPath: string): DraftRegulatoryUpdate | null {
+  return readYamlFile<DraftRegulatoryUpdate>(relPath);
+}
+
+export function getSourceVerificationCockpitCase(
+  checklistId: string,
+): SourceVerificationCockpitCase | null {
+  const checklist = getSourceVerificationChecklist(checklistId);
+  if (!checklist) return null;
+
+  const draft = getDraftRegulatoryUpdate(checklist.draft_update_path);
+  const promotion = getManualReviewPromotionEntries().find(
+    (p) => p.draft_update_path === checklist.draft_update_path,
+  );
+  const decision = promotion
+    ? getManualReviewDecisionEntries().find((d) => d.promotion_id === promotion.promotion_id)
+    : undefined;
+  const revision = decision
+    ? getDraftRegulatoryUpdateRevisionEntries().find(
+        (r) => r.source_decision_id === decision.decision_id,
+      )
+    : undefined;
+  const readinessGate = checklist.source_readiness_gate_id
+    ? getInternalDraftReadinessGateEntries().find(
+        (g) => g.readiness_id === checklist.source_readiness_gate_id,
+      )
+    : undefined;
+  const execution = draft?.source_execution_id
+    ? getSingleNetworkDryRunExecutionEntries().find(
+        (e) => e.execution_id === draft.source_execution_id,
+      )
+    : undefined;
+  const approval = draft?.source_approval_id
+    ? getNetworkDryRunApprovalEntries().find((a) => a.approval_id === draft.source_approval_id)
+    : undefined;
+
+  return {
+    checklist,
+    draft,
+    promotion: promotion ?? null,
+    decision: decision ?? null,
+    revision: revision ?? null,
+    readinessGate: readinessGate ?? null,
+    execution: execution ?? null,
+    approval: approval ?? null,
+  };
+}
+
 export function getPilotSummary() {
   return {
     jurisdictionCount: getJurisdictions().length,

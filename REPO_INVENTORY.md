@@ -288,6 +288,17 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **docs/INTERNAL_DRAFT_READINESS_GATE.md** | T059 readiness model |
 | **generated/internal-draft-readiness/T059-001.json** | Local summary (gitignored) |
 
+## T060 — Source verification cockpit (v1.0.8, in progress)
+
+| Path | Purpose |
+|---|---|
+| **schemas/source-verification-checklist.schema.json** | Checklist validation |
+| **data/source-adapters/source-verification-checklists.yml** | Pilot checklist `T060-001` |
+| **scripts/validate-source-verification-checklists.mjs** | `npm run validate:source-verification-checklists` |
+| **scripts/build-source-verification-summary.mjs** | `npm run build:source-verification-summary` |
+| **src/pages/source-verification/index.astro** | Cockpit UI |
+| **docs/SOURCE_VERIFICATION_COCKPIT.md** | T060 model |
+
 ---
 
 ## data/timelines/ (v0.5.0)

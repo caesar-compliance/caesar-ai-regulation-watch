@@ -1,163 +1,226 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { PROJECT_VERSION_LABEL } from "../../lib/project-version";
 import {
-  getAutonomousSourceVerificationBatches,
-  getAutonomousSourceVerifications,
-  getManualSourceVerificationIntakeBatches,
-  getManualSourceVerificationIntakes,
-  getRecords,
+  getSourceVerificationCockpitCase,
+  getSourceVerificationChecklistEntries,
 } from "../../lib/data";
-import { formatDate, humanizeId } from "../../lib/format";
+import { humanizeId } from "../../lib/format";
+import { PROJECT_VERSION_LABEL } from "../../lib/project-version";
 
-const autonomousBatches = getAutonomousSourceVerificationBatches();
-const autonomous = getAutonomousSourceVerifications();
-const manualBatches = getManualSourceVerificationIntakeBatches();
-const manualIntakes = getManualSourceVerificationIntakes();
-const records = getRecords();
+const CHECKLIST_ID = "T060-001";
+const cockpit = getSourceVerificationCockpitCase(CHECKLIST_ID);
+const allChecklists = getSourceVerificationChecklistEntries();
 
-const recordsVerifiedOnSource = records.filter((r) => r.verified_on_source === true).length;
-const blocked = autonomous.filter((v) => v.verification_result === "blocked_by_waf_or_bot_gate");
-const machineOk = autonomous.filter(
-  (v) =>
-    v.verification_result === "official_alternative_verified_identity" ||
-    v.verification_result === "official_sparql_verified_identity" ||
-    v.verification_result === "official_api_verified_identity" ||
-    v.verification_result === "machine_verified_identity",
-);
+if (!cockpit) {
+  throw new Error(`Source verification cockpit case missing: ${CHECKLIST_ID}`);
+}
 
-function pageHref(v: (typeof autonomous)[0]) {
-  if (v.related_record_id) return `/records/${v.related_record_id}/`;
-  return `/sources/${v.related_source_id}/`;
+const { checklist, draft, promotion, decision, revision, readinessGate, execution, approval } =
+  cockpit;
+
+const timeline = [
+  {
+    step: "T055",
+    label: "Single-source network dry-run",
+    id: execution?.execution_id ?? draft?.source_execution_id,
+    status: execution?.status,
+    detail: approval ? `Approval ${approval.approval_id}` : null,
+  },
+  {
+    step: "T056",
+    label: "Manual review promotion",
+    id: promotion?.promotion_id ?? draft?.promotion_id,
+    status: promotion?.status,
+    detail: promotion?.draft_update_path,
+  },
+  {
+    step: "T057",
+    label: "Reviewer decision",
+    id: decision?.decision_id ?? draft?.latest_review_decision_id,
+    status: decision?.decision,
+    detail: decision?.decision_scope,
+  },
+  {
+    step: "T058",
+    label: "Draft revision packet",
+    id: revision?.revision_id ?? draft?.latest_revision_id,
+    status: revision?.revision_status,
+    detail: draft?.review_status,
+  },
+  {
+    step: "T059",
+    label: "Internal draft readiness gate",
+    id: readinessGate?.readiness_id ?? draft?.latest_readiness_gate_id,
+    status: readinessGate?.readiness_result ?? draft?.readiness_result,
+    detail: readinessGate?.next_required_step ?? draft?.next_required_step,
+  },
+  {
+    step: "T060",
+    label: "Source verification checklist",
+    id: checklist.checklist_id,
+    status: checklist.status,
+    detail: checklist.next_required_step,
+  },
+];
+
+const itemCounts = { pending: 0, local_data_present: 0, blocked: 0 };
+for (const item of checklist.checklist_items) {
+  if (itemCounts[item.status] !== undefined) itemCounts[item.status] += 1;
 }
 ---
 
-<BaseLayout title="Source verification" currentPath="/source-verification/">
-  <h1>Official source verification</h1>
+<BaseLayout
+  title="Source Verification Cockpit"
+  description="Internal draft source verification checklist — not verified, not published, not legal advice."
+  currentPath="/source-verification/"
+>
+  <h1>Source Verification Cockpit</h1>
   <p class="lead">
-    Autonomous machine verification attempts on priority blocked official sources — conservative,
-    lawful, no WAF bypass. Does not set <code>verified_on_source</code> or enable client/final evidence.
+    Internal automation pipeline view for draft source verification ({PROJECT_VERSION_LABEL}). Read-only
+    metadata — no run controls, no network actions, no publication.
   </p>
 
   <div class="banner banner--review" role="note">
-    <strong>{PROJECT_VERSION_LABEL} policy gate.</strong> Autonomous batch:{" "}
-    {autonomousBatches[0]?.autonomous_source_verification_batch_id ?? "—"}. Attempts:{" "}
-    {autonomous.length}. Machine identity confirmed: {machineOk.length}. Blocked/WAF: {blocked.length}.
-    Registry <code>verified_on_source: true</code> count: {recordsVerifiedOnSource} (expected 0). Not legal
-    advice. Not client evidence.
+    <strong>Not verified on source.</strong> Not published. Not legal advice. All evidence and client gates
+    remain closed. Checklist status: <code>{checklist.status}</code>. Verification scope:{" "}
+    <code>{checklist.verification_scope}</code>.
   </div>
 
   <section>
-    <h2>Autonomous worker policy</h2>
-    <ul>
-      <li>Allowed: official APIs, SPARQL, metadata-only HEAD/GET, official alternatives on government domains.</li>
-      <li>Not allowed: WAF/bot bypass, CAPTCHA solving, stealth proxies, full HTML/legal text storage, link crawling.</li>
-      <li>
-        <code>verified_on_source</code> remains false unless Control Tower approves per{" "}
-        <a href="/docs/VERIFIED_ON_SOURCE_POLICY.md">VERIFIED_ON_SOURCE_POLICY.md</a>.
-      </li>
-      <li>
-        Run locally: <code>npm run source:verify:autonomous</code> · Workflow:{" "}
-        <a href="/docs/SOURCE_VERIFICATION_WORKFLOW.md">SOURCE_VERIFICATION_WORKFLOW.md</a>
-      </li>
-    </ul>
-    <p>
-      <a href="/data/autonomous-source-verifications.json">autonomous-source-verifications.json</a> ·{" "}
-      <a href="/data/regulation-watch-snapshot.json">regulation-watch-snapshot.json</a> ·{" "}
-      <a href="/verification/">Batch verification history →</a>
-    </p>
+    <h2>Case — {checklist.draft_update_id}</h2>
+    <dl class="meta-grid">
+      <div><dt>Checklist</dt><dd><span class="mono">{checklist.checklist_id}</span></dd></div>
+      <div><dt>Draft path</dt><dd><span class="mono">{checklist.draft_update_path}</span></dd></div>
+      <div><dt>Source adapter</dt><dd><span class="mono">{checklist.source_adapter_id}</span></dd></div>
+      <div><dt>Source</dt><dd><span class="mono">{checklist.source_id}</span></dd></div>
+      <div><dt>Source URL</dt><dd><a href={checklist.source_url} rel="noopener noreferrer">{checklist.source_url}</a></dd></div>
+      <div><dt>Next step</dt><dd><span class="mono">{checklist.next_required_step}</span></dd></div>
+    </dl>
+    {
+      draft && (
+        <>
+          <h3>Draft metadata (internal only)</h3>
+          <dl class="meta-grid">
+            <div><dt>Title</dt><dd>{draft.title}</dd></div>
+            <div><dt>Review status</dt><dd>{humanizeId(draft.review_status)}</dd></div>
+            <div><dt>Status</dt><dd>{humanizeId(draft.status)}</dd></div>
+            <div><dt>Published (metadata)</dt><dd>{draft.source_published_at ?? draft.published_at}</dd></div>
+            <div><dt>Jurisdictions</dt><dd>{draft.jurisdiction_ids.join(", ")}</dd></div>
+            <div><dt>Topics</dt><dd>{draft.topic_ids.join(", ")}</dd></div>
+          </dl>
+          <p class="card__excerpt">{draft.summary}</p>
+        </>
+      )
+    }
   </section>
 
-  <h2>Autonomous verification results</h2>
-  <table class="data-table">
-    <thead>
-      <tr>
-        <th>Source</th>
-        <th>Result</th>
-        <th>Strategy</th>
-        <th>HTTP</th>
-        <th>Title / identifier</th>
-        <th>Identity</th>
-        <th>Instrument</th>
-        <th>Checked</th>
-      </tr>
-    </thead>
-    <tbody>
-      {
-        autonomous.map((v) => (
-          <tr>
-            <td>
-              <a href={pageHref(v)}>{v.related_source_id}</a>
-            </td>
-            <td>{humanizeId(v.verification_result)}</td>
-            <td>{humanizeId(v.verification_strategy)}</td>
-            <td>{v.http_status ?? "—"}</td>
-            <td>
-              {v.visible_or_extracted_title ?? v.official_identifier ?? "—"}
-              {v.final_url && v.final_url !== v.official_url && (
-                <>
-                  <br />
-                  <span class="muted">Final: {v.final_url}</span>
-                </>
-              )}
-            </td>
-            <td>{v.source_identity_confirmed ? "Yes" : "No"}</td>
-            <td>{v.full_instrument_identity_confirmed ? "Yes" : "No"}</td>
-            <td>{formatDate(v.checked_at.slice(0, 10))}</td>
-          </tr>
-        ))
-      }
-    </tbody>
-  </table>
-
-  {
-    autonomous.map((v) => (
-      <details class="card">
-        <summary>{v.related_source_id} — limitations</summary>
-        <p>{v.limitations}</p>
-        <p>
-          <strong>Next:</strong> {humanizeId(v.next_action)}
-        </p>
-        <p>
-          <a href={v.official_url} target="_blank" rel="noopener noreferrer">
-            Primary official URL ↗
-          </a>
-        </p>
-      </details>
-    ))
-  }
-
-  <h2>Manual intake (supplementary)</h2>
-  <p class="card__excerpt">
-    Optional human-browser intake records for the same blockers when policy requires explicit browser
-    observation. Does not replace autonomous attempts.
-  </p>
-  <p>
-    <a href="/data/manual-source-verification-intake.json">manual-source-verification-intake.json</a> · Pending:{" "}
-    {manualIntakes.filter((i) => i.intake_status === "pending_human_browser_input").length}
-  </p>
-  {
-    manualBatches.length > 0 && (
+  <section>
+    <h2>Pipeline timeline</h2>
+    <div class="table-wrap">
       <table class="data-table">
         <thead>
           <tr>
-            <th>Source</th>
-            <th>Intake status</th>
-            <th>Next action</th>
+            <th>Step</th>
+            <th>Stage</th>
+            <th>Record</th>
+            <th>Status</th>
+            <th>Detail</th>
           </tr>
         </thead>
         <tbody>
           {
-            manualIntakes.map((intake) => (
+            timeline.map((row) => (
               <tr>
-                <td>{intake.related_source_id}</td>
-                <td>{humanizeId(intake.intake_status)}</td>
-                <td>{humanizeId(intake.next_action)}</td>
+                <td><span class="mono">{row.step}</span></td>
+                <td>{row.label}</td>
+                <td><span class="mono">{row.id ?? "—"}</span></td>
+                <td>{row.status ? humanizeId(String(row.status)) : "—"}</td>
+                <td><span class="mono">{row.detail ?? "—"}</span></td>
               </tr>
             ))
           }
         </tbody>
       </table>
-    )
-  }
+    </div>
+  </section>
+
+  <section>
+    <h2>Checklist items</h2>
+    <p>
+      Item counts: pending {itemCounts.pending}, local data {itemCounts.local_data_present}, blocked{" "}
+      {itemCounts.blocked}. No item marked passed or verified.
+    </p>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Status</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            checklist.checklist_items.map((item) => (
+              <tr>
+                <td><span class="mono">{item.item_key}</span></td>
+                <td>
+                  <span class={`badge badge--status-${item.status}`}>{item.status}</span>
+                </td>
+                <td>{item.notes ?? "—"}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Blockers</h2>
+    <ul>
+      {checklist.blockers.map((b) => <li>{b}</li>)}
+    </ul>
+    {
+      readinessGate && readinessGate.blockers.length > 0 && (
+        <>
+          <h3>Readiness gate blockers ({readinessGate.readiness_id})</h3>
+          <ul>
+            {readinessGate.blockers.map((b) => <li>{b}</li>)}
+          </ul>
+        </>
+      )
+    }
+  </section>
+
+  <section>
+    <h2>Safety and gates</h2>
+    <dl class="meta-grid">
+      <div><dt>verified_on_source</dt><dd>false</dd></div>
+      <div><dt>client_use_allowed</dt><dd>false</dd></div>
+      <div><dt>client_evidence_allowed</dt><dd>false</dd></div>
+      <div><dt>final_evidence_allowed</dt><dd>false</dd></div>
+      <div><dt>legal_change_claimed</dt><dd>false</dd></div>
+      <div><dt>publication_allowed</dt><dd>false</dd></div>
+      <div><dt>public_export_allowed</dt><dd>false</dd></div>
+      <div><dt>source_verification_completed</dt><dd>false</dd></div>
+      <div><dt>metadata_only</dt><dd>true</dd></div>
+      <div><dt>stores_full_text</dt><dd>false</dd></div>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Registry</h2>
+    <p>Registered checklists: {allChecklists.length} (pilot).</p>
+  </section>
+
+  <section>
+    <h2>Related</h2>
+    <ul>
+      <li><a href="/source-adapters/">Source adapters pipeline</a></li>
+      <li><a href="/updates/">Public regulatory updates feed</a></li>
+      <li><a href="/tracker/">Automation-first tracker</a></li>
+      <li><a href="/verification/">Batch verification history (separate)</a></li>
+    </ul>
+  </section>
 </BaseLayout>
