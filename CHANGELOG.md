@@ -21,6 +21,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **automation-runtime** — status `source_pilot_reviewer_ready` (offline reviewer export; not live monitoring).
 
+### Merged
+
+- Fast-forward merge `b46a1af` — T075C offline source pilot reviewer UI.
+
+### Deployed
+
+- 21 May 2026 — `DEPLOY-20260521-042`, commit `8124799`, run [26242929134](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26242929134), tag `regulation-watch-v1.0.24`. `/source-pilot/review/` live; fixture-only review candidates; runtime flags remain disabled; DB health `not_configured`.
+
 ---
 
 ## [1.0.23] - 21 May 2026

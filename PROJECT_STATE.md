@@ -4,10 +4,10 @@
 
 | Field | Value |
 |---|---|
-| **Current version** | `v1.0.24` (T075C merged; deploy pending) |
-| **Live version** | `v1.0.23` — tag `regulation-watch-v1.0.23` (until T075C deploy) |
-| **Status** | T075C merged to main: offline source pilot reviewer UI (fixture-only); Supabase `not_configured`; live ingestion disabled |
-| **Last deployment** | `DEPLOY-20260521-041` — commit `0024497`, run [26242192121](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26242192121) |
+| **Current version** | `v1.0.24` (T075C deployed) |
+| **Live version** | `v1.0.24` — tag `regulation-watch-v1.0.24` |
+| **Status** | T075C live: offline source pilot reviewer UI (fixture-only); Supabase `not_configured`; live ingestion disabled |
+| **Last deployment** | `DEPLOY-20260521-042` — commit `8124799`, run [26242929134](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26242929134) |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
 | **Phase** | Public Technical MVP + profiles/drilldowns (T051) |
 
