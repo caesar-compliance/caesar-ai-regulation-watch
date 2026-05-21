@@ -5,8 +5,9 @@
 - **Branch:** `task/T075E-offline-operator-handoff-export`
 - **Accepted commit:** `a9b11ac`
 - **Merged:** fast-forward to `main` at `a9b11ac` (21 May 2026)
-- **Released:** `v1.0.26` — release commit pending, tag `regulation-watch-v1.0.26` pending
-- **Deployed:** pending — static GitHub Pages deploy after release tag
+- **Released:** `v1.0.26` — release commit `c7c6165`, tag `regulation-watch-v1.0.26`
+- **Deployed:** `DEPLOY-20260521-044` — run [26245087509](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26245087509), deployed commit `c7c6165`
+- **Docs tip after tag:** closeout docs commit on `main` (post-deploy; tag remains on release commit per repo convention)
 
 ## Delivered
 
@@ -34,7 +35,12 @@
 - `monitoring-cycle.yml` — `workflow_dispatch` only (no cron)
 - No fix commit required on feature branch
 
+## Live smoke (21 May 2026)
+
+All routes HTTP 200: `/`, `/automation/`, `/runtime-health/`, `/source-pilot/`, `/source-pilot/review/`, `/source-pilot/decision-packets/`, `/source-pilot/operator-handoff/`, manifest, runtime-db-health, source-pilot-status, source-pilot-review-candidates, source-pilot-decision-packets, source-pilot-operator-handoff.json, source-pilot-operator-handoff.md, regulation-watch-snapshot. Live manifest version `1.0.26`; status `source_pilot_operator_handoff_ready`; `verified_on_source_approved_count` 0; DB health `not_configured`.
+
 ## Next
 
 - **T075B** — connect pilot snapshots/review candidates/decision packets/operator handoff to Supabase runtime when credentials available
 - **T076+** — explicit controlled network check after Control Tower approval
+- If Supabase credentials unavailable: pause offline-chain expansion; prepare Supabase/Cloudflare free-service setup checklist

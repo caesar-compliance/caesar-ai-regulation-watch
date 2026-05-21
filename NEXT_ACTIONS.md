@@ -1,8 +1,8 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 21 May 2026
-**Current codebase:** v1.0.26 (T051–T075E) — release prep on `main` after merge `a9b11ac`
-**Live release:** v1.0.25 — deployed 21 May 2026 (`DEPLOY-20260521-043`; v1.0.26 deploy pending)
+**Current codebase:** v1.0.26 (T051–T075E) — live `DEPLOY-20260521-044`, commit `c7c6165`, tag `regulation-watch-v1.0.26`
+**Live release:** v1.0.26 — deployed 21 May 2026
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
 ---
@@ -115,7 +115,7 @@
 33. **T075D — Offline review decision packet/export** *(merged ff `e6fa1ff`; deployed v1.0.25 — `DEPLOY-20260521-043`)*
    - Decision packet export, `/source-pilot/decision-packets/` UI; fixture-only; gates closed.
 
-34. **T075E — Offline export/report polish** *(merged ff `a9b11ac`; release v1.0.26 pending deploy)*
+34. **T075E — Offline export/report polish** *(merged ff `a9b11ac`; deployed v1.0.26 — `DEPLOY-20260521-044`)*
    - Operator handoff JSON + report + `/source-pilot/operator-handoff/`; fixture-only; no network; no Supabase apply.
 
 35. **T076 — Explicit controlled network check** *(after Control Tower approval)*

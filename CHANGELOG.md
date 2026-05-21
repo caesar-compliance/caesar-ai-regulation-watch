@@ -25,6 +25,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fast-forward merge `a9b11ac` — T075E offline source pilot operator handoff.
 
+### Deployed
+
+- 21 May 2026 — `DEPLOY-20260521-044`, commit `c7c6165`, run [26245087509](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26245087509), tag `regulation-watch-v1.0.26`. `/source-pilot/operator-handoff/` live; fixture-only operator handoff; runtime flags remain disabled; DB health `not_configured`.
+
 ---
 
 ## [1.0.25] - 21 May 2026
