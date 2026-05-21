@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.10 codebase — T062; live v1.0.9)
+**Last updated:** 21 May 2026 (v1.0.10 live — T062; `DEPLOY-20260521-028`)
 
 ---
 
@@ -309,7 +309,7 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **scripts/build-source-verification-result-summary.mjs** | `npm run build:source-verification-result-summary` |
 | **docs/SOURCE_VERIFICATION_RESULT_CAPTURE.md** | T061 model |
 
-## T062 — Final legal review packet UI (v1.0.10)
+## T062 — Final legal review packet UI (v1.0.10, deployed)
 
 | Path | Purpose |
 |---|---|

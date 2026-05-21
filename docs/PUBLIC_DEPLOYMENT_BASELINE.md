@@ -1,6 +1,6 @@
 # Public Deployment Baseline
 
-**Phase:** v1.0.9 live — T062 merged (`9befed0`); v1.0.10 deploy pending. `/legal-review/` packet `T062-001`; gates closed.
+**Phase:** v1.0.10 live — T062 deployed 21 May 2026 (`DEPLOY-20260521-028`, commit `1f77822`, tag `regulation-watch-v1.0.10`). `/legal-review/` packet `T062-001`; pending only; gates closed.
 
 **Deployment date:** 20 May 2026
 **Status:** Deployed — `DEPLOY-20260520-025`, run [26189934284](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26189934284)
