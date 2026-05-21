@@ -25,6 +25,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fast-forward merge `67e2792` — T076A free services onboarding pack.
 
+### Deployed
+
+- 21 May 2026 — `DEPLOY-20260521-045`, commit `af8ade3`, run [26249193877](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26249193877), tag `regulation-watch-v1.0.27`. `/runtime-services/` live; services readiness `onboarding_incomplete`; runtime flags disabled; DB health `not_configured`; no Worker deploy; no Supabase migration.
+
 ---
 
 ## [1.0.26] - 21 May 2026
