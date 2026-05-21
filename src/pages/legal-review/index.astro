@@ -31,6 +31,8 @@ const {
   approval,
 } = cockpit;
 
+const hasStagingPreview = draft?.latest_publication_staging_preview_id === "T068-001";
+
 const timeline = [
   {
     step: "T055",
@@ -521,6 +523,19 @@ for (const item of packet.legal_review_items) {
   </section>
 
   {
+    hasStagingPreview && (
+      <section>
+        <h2>Publication staging preview</h2>
+        <div class="banner banner--review" role="note">
+          <strong>Publication staging preview generated.</strong> Preview <code>T068-001</code> —
+          internal only. Not a public regulatory update. Not published.
+        </div>
+        <p><a href="/publication-staging/">Open Publication Staging Preview →</a></p>
+      </section>
+    )
+  }
+
+  {
     publicationGatePacket && (
       <section>
         <h2>Publication gate</h2>
@@ -551,6 +566,7 @@ for (const item of packet.legal_review_items) {
   <section>
     <h2>Related</h2>
     <ul>
+      <li><a href="/publication-staging/">Publication staging preview</a></li>
       <li><a href="/publication-gate/">Publication gate packet</a></li>
       <li><a href="/source-verification/">Source verification cockpit</a></li>
       <li><a href="/source-adapters/">Source adapters pipeline</a></li>

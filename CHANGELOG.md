@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.16] - 21 May 2026
+
+### Added
+
+- **T068 publication staging preview UI** — `schemas/publication-staging-preview.schema.json`, `T068-001` preview; `/publication-staging/`; [docs/PUBLICATION_STAGING_PREVIEW_UI.md](docs/PUBLICATION_STAGING_PREVIEW_UI.md); internal preview only; no public export; gates unchanged.
+
+---
+
 ## [1.0.15] - 21 May 2026
 
 ### Added

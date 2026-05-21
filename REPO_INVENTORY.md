@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.15 live — T067; `DEPLOY-20260521-033`)
+**Last updated:** 21 May 2026 (v1.0.16 — T068; live v1.0.15)
 
 ---
 
@@ -370,6 +370,19 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **scripts/validate-publication-gate-decisions.mjs** | `npm run validate:publication-gate-decisions` |
 | **scripts/build-publication-gate-decision-summary.mjs** | `npm run build:publication-gate-decision-summary` |
 | **docs/PUBLICATION_GATE_DECISION_CAPTURE.md** | T067 model |
+
+---
+
+## T068 — Publication staging preview UI (v1.0.16)
+
+| Path | Purpose |
+|---|---|
+| **schemas/publication-staging-preview.schema.json** | Staging preview validation |
+| **data/source-adapters/publication-staging-previews.yml** | Pilot preview `T068-001` |
+| **src/pages/publication-staging/index.astro** | Internal staging preview UI |
+| **scripts/validate-publication-staging-previews.mjs** | `npm run validate:publication-staging-previews` |
+| **scripts/build-publication-staging-preview-summary.mjs** | `npm run build:publication-staging-preview-summary` |
+| **docs/PUBLICATION_STAGING_PREVIEW_UI.md** | T068 model |
 
 ---
 

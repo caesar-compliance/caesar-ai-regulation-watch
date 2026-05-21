@@ -13,6 +13,7 @@ if (!cockpit) {
 const {
   publicationGatePacket: packet,
   publicationGateDecision,
+  publicationStagingPreview,
   reviewerRecheck,
   revisionResponse,
   finalLegalDecision,
@@ -118,7 +119,14 @@ const timeline = [
     label: "Publication gate decision",
     id: publicationGateDecision?.decision_id ?? draft?.latest_publication_gate_decision_id,
     status: publicationGateDecision?.decision ?? draft?.publication_gate_decision,
-    detail: publicationGateDecision?.next_required_step ?? draft?.next_required_step,
+    detail: publicationGateDecision?.next_required_step ?? "publication_staging_preview",
+  },
+  {
+    step: "T068",
+    label: "Publication staging preview",
+    id: publicationStagingPreview?.preview_id ?? draft?.latest_publication_staging_preview_id,
+    status: publicationStagingPreview?.preview_status ?? draft?.publication_staging_preview_status,
+    detail: publicationStagingPreview?.next_required_step ?? draft?.next_required_step,
   },
 ];
 
@@ -349,9 +357,24 @@ for (const item of packet.publication_gate_items) {
     </dl>
   </section>
 
+  {
+    publicationStagingPreview && (
+      <section>
+        <h2>Publication staging preview</h2>
+        <div class="banner banner--warn" role="note">
+          <strong>Publication staging preview generated.</strong> Preview{" "}
+          <code>{publicationStagingPreview.preview_id}</code> — internal only, not a public
+          regulatory update. Not published. Public export still blocked.
+        </div>
+        <p><a href="/publication-staging/">Open Publication Staging Preview →</a></p>
+      </section>
+    )
+  }
+
   <section>
     <h2>Related</h2>
     <ul>
+      <li><a href="/publication-staging/">Publication staging preview</a></li>
       <li><a href="/legal-review/">Final legal review packet</a></li>
       <li><a href="/source-verification/">Source verification cockpit</a></li>
       <li><a href="/source-adapters/">Source adapters pipeline</a></li>

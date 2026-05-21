@@ -219,8 +219,30 @@ function decisionInvariantErrors(decision, index, ctx) {
       if (draft.publication_gate_decision_status !== decision.decision_status) {
         errors.push(`${prefix}: draft publication_gate_decision_status must match decision_status`);
       }
-      if (draft.next_required_step !== "publication_staging_preview") {
-        errors.push(`${prefix}: draft next_required_step must be publication_staging_preview`);
+      const allowedDraftNextAfterDecision = [
+        "publication_staging_preview",
+        "public_export_release_gate",
+      ];
+      if (!allowedDraftNextAfterDecision.includes(draft.next_required_step)) {
+        errors.push(
+          `${prefix}: draft next_required_step must be publication_staging_preview or public_export_release_gate`,
+        );
+      }
+      if (
+        draft.next_required_step === "public_export_release_gate" &&
+        draft.staging_preview_created !== true
+      ) {
+        errors.push(
+          `${prefix}: draft public_export_release_gate requires staging_preview_created true`,
+        );
+      }
+      if (
+        draft.next_required_step === "publication_staging_preview" &&
+        draft.staging_preview_created === true
+      ) {
+        errors.push(
+          `${prefix}: draft with staging_preview_created must advance to public_export_release_gate`,
+        );
       }
       if (
         decision.decision === "approve_for_publication_staging" &&

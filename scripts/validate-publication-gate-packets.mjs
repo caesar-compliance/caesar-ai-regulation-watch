@@ -230,18 +230,29 @@ function packetInvariantErrors(packet, index, ctx) {
       const allowedDraftNextSteps = [
         "publication_gate_decision_capture",
         "publication_staging_preview",
+        "public_export_release_gate",
       ];
       if (!allowedDraftNextSteps.includes(draft.next_required_step)) {
         errors.push(
-          `${prefix}: draft next_required_step must be publication_gate_decision_capture or publication_staging_preview`,
+          `${prefix}: draft next_required_step must be publication_gate_decision_capture, publication_staging_preview, or public_export_release_gate`,
         );
       }
       if (
         draft.latest_publication_gate_decision_id &&
-        draft.next_required_step !== "publication_staging_preview"
+        !["publication_staging_preview", "public_export_release_gate"].includes(
+          draft.next_required_step,
+        )
       ) {
         errors.push(
-          `${prefix}: draft with publication gate decision must have next_required_step publication_staging_preview`,
+          `${prefix}: draft with publication gate decision must have next_required_step publication_staging_preview or public_export_release_gate`,
+        );
+      }
+      if (
+        draft.next_required_step === "public_export_release_gate" &&
+        draft.staging_preview_created !== true
+      ) {
+        errors.push(
+          `${prefix}: draft public_export_release_gate requires staging_preview_created true`,
         );
       }
       errors.push(...gateErrors(packet.draft_update_path, draft));

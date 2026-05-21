@@ -1932,6 +1932,11 @@ export interface DraftRegulatoryUpdate {
   publication_gate_decision?: string;
   publication_gate_decision_status?: string;
   publication_staging_allowed?: boolean;
+  latest_publication_staging_preview_id?: string;
+  publication_staging_preview_status?: string;
+  publication_staging_preview_route?: string;
+  staging_preview_created?: boolean;
+  noindex_requested?: boolean;
   ready_for_publication_gate_review?: boolean;
   conservative_summary_revision_applied?: boolean;
   readiness_result?: string;
@@ -2275,9 +2280,72 @@ export interface PublicationGateDecisionsDoc {
   decisions: PublicationGateDecision[];
 }
 
+export interface PublicationStagingPreviewMetadata {
+  source_url: string;
+  jurisdiction_ids: string[];
+  topic_ids: string[];
+  source_id: string;
+  source_adapter_id: string;
+}
+
+export interface PublicationStagingPreviewSafety {
+  staging_preview_created: boolean;
+  publication_allowed: boolean;
+  public_export_allowed: boolean;
+  evidence_export_allowed: boolean;
+  client_use_allowed: boolean;
+  metadata_only: boolean;
+  stores_full_text: boolean;
+  noindex_requested: boolean;
+  requires_public_export_approval: boolean;
+  requires_publication_release_approval: boolean;
+  requires_client_evidence_approval: boolean;
+}
+
+export interface PublicationStagingPreview {
+  preview_id: string;
+  publication_gate_decision_id: string;
+  publication_gate_packet_id: string;
+  draft_update_id: string;
+  draft_update_path: string;
+  preview_scope: string;
+  preview_status: string;
+  preview_route: string;
+  preview_title: string;
+  preview_summary: string;
+  preview_metadata: PublicationStagingPreviewMetadata;
+  staging_limitations: string[];
+  blockers_remaining: string[];
+  next_required_step: string;
+  created_at: string;
+  updated_at: string;
+  gates: NetworkDryRunGateState;
+  safety: PublicationStagingPreviewSafety;
+}
+
+export interface PublicationStagingPreviewsDoc {
+  publication_staging_previews_id: string;
+  generated_at: string;
+  product_version: string;
+  legal_safe_note: string;
+  no_live_collection: boolean;
+  no_scheduled_monitoring: boolean;
+  previews: PublicationStagingPreview[];
+}
+
+export interface PublicationStagingCockpitCase {
+  preview: PublicationStagingPreview;
+  publicationGateDecision: PublicationGateDecision | null;
+  publicationGatePacket: PublicationGatePacket | null;
+  draft: DraftRegulatoryUpdate | null;
+  result: SourceVerificationResult | null;
+  checklist: SourceVerificationChecklist | null;
+}
+
 export interface PublicationGateCockpitCase {
   publicationGatePacket: PublicationGatePacket;
   publicationGateDecision: PublicationGateDecision | null;
+  publicationStagingPreview: PublicationStagingPreview | null;
   reviewerRecheck: FinalReviewerRecheck | null;
   revisionResponse: FinalLegalReviewRevisionResponse | null;
   finalLegalDecision: FinalLegalReviewDecision | null;
@@ -2496,6 +2564,55 @@ export function getPublicationGateDecision(
   return getPublicationGateDecisionEntries().find((d) => d.decision_id === decisionId);
 }
 
+export function getPublicationStagingPreviews(): PublicationStagingPreviewsDoc | null {
+  const file = path.join(ROOT, "data/source-adapters/publication-staging-previews.yml");
+  if (!fs.existsSync(file)) return null;
+  return yaml.load(fs.readFileSync(file, "utf8")) as PublicationStagingPreviewsDoc;
+}
+
+export function getPublicationStagingPreviewEntries(): PublicationStagingPreview[] {
+  return getPublicationStagingPreviews()?.previews ?? [];
+}
+
+export function getPublicationStagingPreview(
+  previewId: string,
+): PublicationStagingPreview | undefined {
+  return getPublicationStagingPreviewEntries().find((p) => p.preview_id === previewId);
+}
+
+export function getPublicationStagingCockpitCase(
+  previewId: string,
+): PublicationStagingCockpitCase | null {
+  const preview = getPublicationStagingPreview(previewId);
+  if (!preview) return null;
+
+  const publicationGateDecision =
+    getPublicationGateDecision(preview.publication_gate_decision_id) ?? null;
+  const publicationGatePacket =
+    getPublicationGatePacket(preview.publication_gate_packet_id) ?? null;
+  const draft = getDraftRegulatoryUpdate(preview.draft_update_path);
+  const result =
+    publicationGatePacket
+      ? (getSourceVerificationResult(publicationGatePacket.source_verification_result_id) ??
+        null)
+      : null;
+  const legalPacket = publicationGatePacket
+    ? (getFinalLegalReviewPacket(publicationGatePacket.legal_review_packet_id) ?? null)
+    : null;
+  const checklist = legalPacket
+    ? (getSourceVerificationChecklist(legalPacket.checklist_id) ?? null)
+    : null;
+
+  return {
+    preview,
+    publicationGateDecision,
+    publicationGatePacket,
+    draft,
+    result,
+    checklist: checklist ?? null,
+  };
+}
+
 export function getPublicationGateCockpitCase(
   packetId: string,
 ): PublicationGateCockpitCase | null {
@@ -2551,9 +2668,19 @@ export function getPublicationGateCockpitCase(
       : undefined) ??
     null;
 
+  const publicationStagingPreview =
+    getPublicationStagingPreviewEntries().find(
+      (p) => p.publication_gate_packet_id === packetId,
+    ) ??
+    (draft?.latest_publication_staging_preview_id
+      ? getPublicationStagingPreview(draft.latest_publication_staging_preview_id)
+      : undefined) ??
+    null;
+
   return {
     publicationGatePacket,
     publicationGateDecision,
+    publicationStagingPreview,
     reviewerRecheck,
     revisionResponse,
     finalLegalDecision,
