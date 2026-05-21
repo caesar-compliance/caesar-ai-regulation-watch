@@ -49,7 +49,12 @@ latest_publication_gate_decision_id: T067-001
 publication_gate_decision: approve_for_publication_staging
 publication_gate_decision_status: recorded
 publication_staging_allowed: true
-next_required_step: publication_staging_preview
+latest_publication_staging_preview_id: T068-001
+publication_staging_preview_status: generated_internal_preview
+publication_staging_preview_route: /publication-staging/
+staging_preview_created: true
+noindex_requested: true
+next_required_step: public_export_release_gate
 ready_for_publication_gate_review: true
 conservative_summary_revision_applied: true
 final_source_verification_completed: false

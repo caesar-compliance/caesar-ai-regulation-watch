@@ -151,6 +151,14 @@
       "enum": ["recorded", "superseded"]
     },
     "publication_staging_allowed": { "type": "boolean" },
+    "latest_publication_staging_preview_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+    "publication_staging_preview_status": {
+      "type": "string",
+      "enum": ["generated_internal_preview", "superseded", "blocked"]
+    },
+    "publication_staging_preview_route": { "type": "string", "minLength": 1 },
+    "staging_preview_created": { "type": "boolean" },
+    "noindex_requested": { "type": "boolean" },
     "final_legal_review_status": {
       "type": "string",
       "enum": [

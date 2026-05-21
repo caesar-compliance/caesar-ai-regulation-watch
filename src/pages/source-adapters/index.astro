@@ -570,7 +570,11 @@ const draftCount = adapters.filter((a) => a.status === "draft").length;
       </div>
       <div>
         <dt>Next step</dt>
-        <dd><span class="mono">publication_staging_preview</span></dd>
+        <dd><span class="mono">public_export_release_gate</span></dd>
+      </div>
+      <div>
+        <dt>Staging preview</dt>
+        <dd><span class="mono">T068-001</span> — generated_internal_preview</dd>
       </div>
       <div>
         <dt>Internal staging</dt>
@@ -585,8 +589,18 @@ const draftCount = adapters.filter((a) => a.status === "draft").length;
   </section>
 
   <section>
+    <h2>Publication staging preview (T068)</h2>
+    <div class="banner banner--review" role="note">
+      <strong>Staging preview generated.</strong> Preview <code>T068-001</code> — internal only.
+      Public export still blocked. Not published.
+    </div>
+    <p><a href="/publication-staging/">Open Publication Staging Preview →</a></p>
+  </section>
+
+  <section>
     <h2>Related</h2>
     <ul>
+      <li><a href="/publication-staging/">Publication staging preview</a></li>
       <li><a href="/publication-gate/">Publication gate packet</a></li>
       <li><a href="/legal-review/">Final legal review packet</a></li>
       <li><a href="/source-verification/">Source verification cockpit</a></li>

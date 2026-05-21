@@ -1885,4 +1885,13 @@ if (publicationGateDecisionCheck.status !== 0) {
   process.exit(publicationGateDecisionCheck.status ?? 1);
 }
 
+const publicationStagingPreviewCheck = spawnSync(
+  process.execPath,
+  [path.join(ROOT, "scripts/validate-publication-staging-previews.mjs")],
+  { cwd: ROOT, stdio: "inherit" },
+);
+if (publicationStagingPreviewCheck.status !== 0) {
+  process.exit(publicationStagingPreviewCheck.status ?? 1);
+}
+
 process.exit(0);

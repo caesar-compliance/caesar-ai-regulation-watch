@@ -173,6 +173,9 @@ function readinessInvariantErrors(gate, index, ctx) {
       if (draft.latest_publication_gate_decision_id) {
         allowedDraftNextSteps.push("publication_staging_preview");
       }
+      if (draft.staging_preview_created === true || draft.latest_publication_staging_preview_id) {
+        allowedDraftNextSteps.push("public_export_release_gate");
+      }
       if (!allowedDraftNextSteps.includes(draft.next_required_step)) {
         errors.push(
           `${prefix}: draft next_required_step must be one of ${allowedDraftNextSteps.join(", ")}`,

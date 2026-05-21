@@ -1,0 +1,73 @@
+# Publication staging previews — T068 pilot (metadata only, not published)
+# Internal staging preview only. Not public regulatory update. Not public export.
+
+publication_staging_previews_id: publication-staging-previews-2026-05-21-v116
+generated_at: 2026-05-21
+product_version: 1.0.16
+legal_safe_note: >
+  T068 publication staging preview registry. Internal-labelled preview only — not publication,
+  not public export, not client/evidence use. No verified legal-change claim.
+no_live_collection: true
+no_scheduled_monitoring: true
+
+previews:
+  - preview_id: T068-001
+    publication_gate_decision_id: T067-001
+    publication_gate_packet_id: T066-001
+    draft_update_id: t056-001-draft-edpb-network-dry-run
+    draft_update_path: data/regulatory-updates/drafts/T056-001.yml
+    preview_scope: internal_publication_staging_preview
+    preview_status: generated_internal_preview
+    preview_route: /publication-staging/
+    preview_title: >-
+      Opinion 13/2026 on the draft decision of the Office of the Data Protection Ombudsman (FI SA)
+      regarding the approval of the requirement for accreditation of a certification body pursuant to
+      Article 43(3) GDPR
+    preview_summary: >-
+      Internal metadata-only staging preview (T068). EDPB Board Art. 64 opinion linked to FI SA
+      accreditation draft decision — title and URL from dry-run candidate only. Not verified on
+      source. Not legal advice. Not a public regulatory update. No public release. Public export and
+      client/evidence gates remain closed.
+    preview_metadata:
+      source_url: >-
+        https://www.edpb.europa.eu/our-work-tools/our-documents/opinion-board-art-64/opinion-132026-draft-decision-office-data_en
+      jurisdiction_ids:
+        - eu
+      topic_ids:
+        - source_monitoring
+      source_id: edpb
+      source_adapter_id: edpb-publications-rss
+    staging_limitations:
+      - internal staging preview only
+      - not a public regulatory update
+      - not included in public/data/regulatory-updates.json
+      - no public export approval granted
+      - no client/evidence use granted
+      - no verified legal-change claim
+    blockers_remaining:
+      - public export release gate not completed
+      - publication release approval not granted
+      - client/evidence gates remain closed
+      - verified_on_source remains false
+      - legal_change_claimed remains false
+    next_required_step: public_export_release_gate
+    created_at: 2026-05-21
+    updated_at: 2026-05-21
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      client_evidence_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+    safety:
+      staging_preview_created: true
+      publication_allowed: false
+      public_export_allowed: false
+      evidence_export_allowed: false
+      client_use_allowed: false
+      metadata_only: true
+      stores_full_text: false
+      noindex_requested: true
+      requires_public_export_approval: true
+      requires_publication_release_approval: true
+      requires_client_evidence_approval: true

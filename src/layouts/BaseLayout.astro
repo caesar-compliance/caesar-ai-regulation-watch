@@ -6,12 +6,14 @@ interface Props {
   title: string;
   description?: string;
   currentPath?: string;
+  noindex?: boolean;
 }
 
 const {
   title,
   description = "Official-source-first AI regulation monitoring for governance review.",
   currentPath = "",
+  noindex = false,
 } = Astro.props;
 const fullTitle =
   title === "Home" ? "Caesar AI Regulation Watch" : `${title} · Caesar AI Regulation Watch`;
@@ -39,6 +41,7 @@ const nav = [
   { href: "/source-verification/", label: "Source cockpit" },
   { href: "/legal-review/", label: "Legal review" },
   { href: "/publication-gate/", label: "Publication gate" },
+  { href: "/publication-staging/", label: "Staging preview" },
   { href: "/content-review/", label: "Content Review" },
   { href: "/exports/", label: "Exports" },
   { href: "/evidence-export-candidates/", label: "Export candidates" },
@@ -60,6 +63,7 @@ const footerLinks = [
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <title>{fullTitle}</title>
   </head>
   <body>
