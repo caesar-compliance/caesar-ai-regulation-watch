@@ -1,8 +1,8 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.21 live — T073; T074 branch pending)
+**Last updated:** 21 May 2026 (v1.0.22 codebase — T074 merged; live v1.0.21 until deploy)
 
-## T074 — Backend bootstrap & runtime health (branch)
+## T074 — Backend bootstrap & runtime health (v1.0.22)
 
 | Path | Role |
 |---|---|

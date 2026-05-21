@@ -1,8 +1,8 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 21 May 2026
-**Current codebase:** v1.0.21 (T051–T073) — live `DEPLOY-20260521-039`, commit `13149e8`, tag `regulation-watch-v1.0.21`
-**Live release:** v1.0.21 — deployed 21 May 2026
+**Current codebase:** v1.0.22 (T051–T074) — merged `5371b52`; deploy pending
+**Live release:** v1.0.21 — `DEPLOY-20260521-039`, commit `13149e8`, tag `regulation-watch-v1.0.21`
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
 ---
@@ -100,10 +100,10 @@
 28. **T073 — Automation runtime foundation** *(merged, deployed v1.0.21 — PR #33)*
    - Runtime config, Supabase schema plan, Cloudflare Worker scaffold, `/automation/`, manifest; no live ingestion.
 
-29. **T074 — Backend bootstrap & runtime health** *(branch — pending merge)*
-   - Runtime env template, DB health export, `/runtime-health/`, schema apply helper; cron removed from monitoring workflow; still no scheduled monitoring.
+29. **T074 — Backend bootstrap & runtime health** *(merged to main — ff `5371b52`; deploy v1.0.22 pending)*
+   - Runtime env template, DB health export, `/runtime-health/`, schema apply helper; cron removed from monitoring workflow; still no scheduled monitoring; no Supabase migration applied.
 
-30. **T075 — Controlled runtime source pilot** *(next after T074 merge + Supabase)*
+30. **T075 — Controlled runtime source pilot** *(next after T074 deploy + Supabase configured)*
    - First allowlisted source check against runtime DB when credentials and Control Tower approval exist.
 
 ---

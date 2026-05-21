@@ -7,7 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased] - T074 backend bootstrap
+## [Unreleased]
+
+---
+
+## [1.0.22] - 21 May 2026
 
 ### Added
 
@@ -18,9 +22,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **monitoring-cycle.yml** — cron schedule removed; `workflow_dispatch` only; schedule guard retained.
 - **automation-runtime** — status `backend_bootstrap_ready`; scheduled/live/network flags remain false.
 
+### Merged
+
+- Fast-forward merge `5371b52` — T074 backend bootstrap runtime health.
+
 ### Not deployed
 
-- T074 branch work; no version bump until Control Tower release.
+- Pending static deploy after release tag.
 
 ---
 
