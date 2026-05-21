@@ -73,7 +73,7 @@
 
 19. **T064 — Legal review revision response UI** *(merged, deployed v1.0.12 — PR #24)*
 
-20. **T065 — Final reviewer re-check packet** *(in progress)*
+20. **T065 — Final reviewer re-check packet** *(merged to main — PR #25, deploy ready v1.0.13)*
    - `T065-001` re-check; ready for publication gate review internally only; gates false.
 
 21. **T066 — Publication gate packet UI** *(next)*
