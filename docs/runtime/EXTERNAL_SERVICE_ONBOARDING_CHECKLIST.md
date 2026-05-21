@@ -16,29 +16,33 @@ Do **not** paste emails, tokens, keys, or database URLs into tracked repo files 
    - `SUPABASE_URL`
    - `SUPABASE_PROJECT_REF`
    - `SUPABASE_DB_URL` (Postgres connection string, session mode)
-4. Optionally copy `SUPABASE_ANON_KEY` and `SUPABASE_SERVICE_ROLE_KEY` if needed for local scripts.
-5. Paste **only** into `.env.runtime.local` (never commit):
+4. Copy **new API keys** (Settings → API → API Keys):
+   - `SUPABASE_PUBLISHABLE_KEY` (`sb_publishable_...`) — safe for client-side use when needed
+   - `SUPABASE_SECRET_KEY` (`sb_secret_...`) — **server/local scripts only; never commit or paste into tracked files**
+5. Set `SUPABASE_API_KEY_MODE=new` in `.env.runtime.local`.
+6. Legacy `SUPABASE_ANON_KEY` / `SUPABASE_SERVICE_ROLE_KEY` are **optional fallback only** for older tooling.
+7. Paste **only** into `.env.runtime.local` (never commit):
 
 ```bash
 cp .env.runtime.example .env.runtime.local
 # edit .env.runtime.local locally
 ```
 
-6. Keep safety flags **false**:
+8. Keep safety flags **false**:
 
    - `REGWATCH_APPLY_SUPABASE_SCHEMA=false` until you intend to apply schema manually
    - `REGWATCH_ENABLE_LIVE_INGESTION=false`
    - `REGWATCH_ENABLE_SCHEDULED_MONITORING=false`
    - `REGWATCH_ENABLE_NETWORK_EXECUTION=false`
 
-7. Verify presence (no secret values printed):
+9. Verify presence (no secret values printed; checker reports prefix type only):
 
 ```bash
 npm run runtime:services:check
 npm run validate:runtime-services-readiness
 ```
 
-8. When ready for connectivity check (still no migration unless you set apply flag):
+10. When ready for connectivity check (still no migration unless you set apply flag):
 
 ```bash
 npm run runtime:db:health

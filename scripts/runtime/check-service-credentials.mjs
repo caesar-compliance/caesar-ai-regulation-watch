@@ -12,6 +12,7 @@ import {
   SERVICE_ENV_FILES,
   SERVICE_ENV_ROOT,
 } from "./lib/load-service-env.mjs";
+import { analyzeSupabaseApiKeys } from "./lib/supabase-api-keys.mjs";
 import { runtimeSafetySnapshot } from "./lib/runtime-safety.mjs";
 
 const OUTPUT = path.join(
@@ -19,8 +20,20 @@ const OUTPUT = path.join(
   "public/data/runtime-services-readiness.json",
 );
 
-const SUPABASE_REQUIRED = ["SUPABASE_URL", "SUPABASE_PROJECT_REF", "SUPABASE_DB_URL"];
-const SUPABASE_OPTIONAL = ["SUPABASE_ANON_KEY", "SUPABASE_SERVICE_ROLE_KEY"];
+const SUPABASE_PROJECT_REQUIRED = [
+  "SUPABASE_PROJECT_NAME",
+  "SUPABASE_URL",
+  "SUPABASE_PROJECT_REF",
+  "SUPABASE_DB_URL",
+  "SUPABASE_SCHEMA",
+];
+const SUPABASE_KEY_FIELDS = [
+  "SUPABASE_API_KEY_MODE",
+  "SUPABASE_PUBLISHABLE_KEY",
+  "SUPABASE_SECRET_KEY",
+  "SUPABASE_ANON_KEY",
+  "SUPABASE_SERVICE_ROLE_KEY",
+];
 const CLOUDFLARE_REQUIRED = [
   "CLOUDFLARE_ACCOUNT_ID",
   "CLOUDFLARE_API_TOKEN",
@@ -90,7 +103,7 @@ function assertSafetyDisabled(safetyFlags) {
   return errors;
 }
 
-function printPresenceReport(files, services) {
+function printPresenceReport(files, services, supabaseKeys) {
   console.log("Runtime services credential check (values not shown)");
   for (const [name, exists] of Object.entries(files)) {
     const file =
@@ -101,17 +114,39 @@ function printPresenceReport(files, services) {
           : SERVICE_ENV_FILES.github;
     console.log(`  ${file}: ${exists ? "found" : "missing"}`);
   }
+  console.log("  [supabase_api_keys]");
+  console.log(`    supabase_key_mode: ${supabaseKeys.supabase_key_mode}`);
+  for (const [key, prefix] of Object.entries(supabaseKeys.key_prefix_types)) {
+    const present = supabaseKeys[
+      key === "SUPABASE_PUBLISHABLE_KEY"
+        ? "supabase_publishable_key_present"
+        : key === "SUPABASE_SECRET_KEY"
+          ? "supabase_secret_key_present"
+          : key === "SUPABASE_ANON_KEY"
+            ? "supabase_legacy_anon_key_present"
+            : "supabase_legacy_service_role_key_present"
+    ];
+    console.log(
+      `    ${key}: ${present ? "present" : "missing"} (prefix: ${prefix})`,
+    );
+  }
   for (const svc of services) {
     console.log(`  [${svc.service}]`);
     for (const row of svc.fields) {
       console.log(`    ${row.key}: ${row.present ? "present" : "missing"}`);
     }
   }
+  for (const w of supabaseKeys.warnings) {
+    console.warn(`  WARN: ${w}`);
+  }
 }
 
-function buildNextAction(readiness) {
-  if (!readiness.supabase_required_ready) {
-    return "Copy .env.runtime.example to .env.runtime.local and add Supabase credentials for Account A project caesar-regulation-watch-dev (hub policy). Do not commit local env files.";
+function buildNextAction(readiness, supabaseKeys) {
+  if (!readiness.supabase_project_ready) {
+    return "Copy .env.runtime.example to .env.runtime.local and add Supabase project fields for Account A project caesar-regulation-watch-dev (hub policy). Do not commit local env files.";
+  }
+  if (!supabaseKeys.new_keys_ready) {
+    return "Set SUPABASE_API_KEY_MODE=new and fill SUPABASE_PUBLISHABLE_KEY (sb_publishable_...) and SUPABASE_SECRET_KEY (sb_secret_...) in .env.runtime.local. Legacy anon/service_role keys are optional fallback only.";
   }
   if (!readiness.cloudflare_ready) {
     return "Copy .env.cloudflare.example to .env.cloudflare.local and add Cloudflare Account A token and worker name. Keep CLOUDFLARE_ENABLE_WORKER_DEPLOY=false until Control Tower approves deploy.";
@@ -119,7 +154,30 @@ function buildNextAction(readiness) {
   if (readiness.uptime_manual_setup_required) {
     return "Create UptimeRobot (or equivalent) free account and add HTTP monitors for public Regulation Watch URLs listed in docs/runtime/EXTERNAL_SERVICE_ONBOARDING_CHECKLIST.md.";
   }
-  return "Local credential placeholders present. Next: npm run runtime:db:health, then T075B runtime DB connection when approved — still no Worker deploy or network execution.";
+  return "Local credentials present with safety disabled. Ready for manual schema review and manual worker review — still no deploy, migration, or network execution.";
+}
+
+function resolveStatus({
+  safetyErrors,
+  supabaseProjectReady,
+  newKeysReady,
+  cloudflareReady,
+}) {
+  if (safetyErrors.length > 0) return "unsafe_local_flags";
+  if (supabaseProjectReady && newKeysReady && cloudflareReady) {
+    return "ready_for_manual_worker_review";
+  }
+  if (supabaseProjectReady && newKeysReady) {
+    return "ready_for_manual_schema_review";
+  }
+  if (
+    supabaseProjectReady ||
+    newKeysReady ||
+    cloudflareReady
+  ) {
+    return "partial";
+  }
+  return "onboarding_incomplete";
 }
 
 function main() {
@@ -127,15 +185,25 @@ function main() {
   const safetyFlags = collectSafetyFlags(runtime, cloudflare);
   const safetyErrors = assertSafetyDisabled(safetyFlags);
   const runtimeSafety = runtimeSafetySnapshot(runtime);
+  const supabaseKeys = analyzeSupabaseApiKeys(runtime);
 
-  const supabaseRequiredRows = fieldRows(runtime, SUPABASE_REQUIRED);
-  const supabaseOptionalRows = fieldRows(runtime, SUPABASE_OPTIONAL);
+  const supabaseProjectRows = fieldRows(runtime, SUPABASE_PROJECT_REQUIRED);
+  const supabaseKeyRows = fieldRows(runtime, SUPABASE_KEY_FIELDS);
   const cloudflareRows = fieldRows(cloudflare, CLOUDFLARE_REQUIRED);
   const githubRows = fieldRows(github, GITHUB_OPTIONAL);
 
+  const supabaseProjectReady = allPresent(supabaseProjectRows);
+
   const readiness = {
-    supabase_required_ready: allPresent(supabaseRequiredRows),
-    supabase_optional_ready: allPresent(supabaseOptionalRows),
+    supabase_project_ready: supabaseProjectReady,
+    supabase_new_keys_ready: supabaseKeys.new_keys_ready,
+    supabase_legacy_keys_ready: supabaseKeys.legacy_keys_ready,
+    supabase_key_mode: supabaseKeys.supabase_key_mode,
+    supabase_publishable_key_present: supabaseKeys.supabase_publishable_key_present,
+    supabase_secret_key_present: supabaseKeys.supabase_secret_key_present,
+    supabase_legacy_anon_key_present: supabaseKeys.supabase_legacy_anon_key_present,
+    supabase_legacy_service_role_key_present:
+      supabaseKeys.supabase_legacy_service_role_key_present,
     cloudflare_ready: allPresent(cloudflareRows),
     github_optional_ready: anyPresent(githubRows),
     uptime_manual_setup_required: true,
@@ -145,7 +213,7 @@ function main() {
     {
       service: "supabase",
       role: "required",
-      fields: [...supabaseRequiredRows, ...supabaseOptionalRows],
+      fields: [...supabaseProjectRows, ...supabaseKeyRows],
     },
     {
       service: "cloudflare",
@@ -164,21 +232,12 @@ function main() {
     },
   ];
 
-  let status = "onboarding_incomplete";
-  if (safetyErrors.length > 0) {
-    status = "unsafe_local_flags";
-  } else if (
-    readiness.supabase_required_ready &&
-    readiness.cloudflare_ready
-  ) {
-    status = "local_credentials_ready";
-  } else if (
-    readiness.supabase_required_ready ||
-    readiness.cloudflare_ready ||
-    readiness.github_optional_ready
-  ) {
-    status = "partial";
-  }
+  const status = resolveStatus({
+    safetyErrors,
+    supabaseProjectReady,
+    newKeysReady: supabaseKeys.new_keys_ready,
+    cloudflareReady: readiness.cloudflare_ready,
+  });
 
   const payload = {
     status,
@@ -187,6 +246,12 @@ function main() {
     live_ingestion_enabled: runtimeSafety.live_ingestion_enabled,
     scheduled_monitoring_enabled: runtimeSafety.scheduled_monitoring_enabled,
     network_execution_enabled: runtimeSafety.network_execution_enabled,
+    supabase_key_mode: supabaseKeys.supabase_key_mode,
+    supabase_publishable_key_present: supabaseKeys.supabase_publishable_key_present,
+    supabase_secret_key_present: supabaseKeys.supabase_secret_key_present,
+    supabase_legacy_anon_key_present: supabaseKeys.supabase_legacy_anon_key_present,
+    supabase_legacy_service_role_key_present:
+      supabaseKeys.supabase_legacy_service_role_key_present,
     readiness,
     services,
     safety_flags: safetyFlags,
@@ -195,15 +260,15 @@ function main() {
       env_cloudflare_local: files.cloudflare,
       env_github_local: files.github,
     },
-    next_required_action: buildNextAction(readiness),
+    next_required_action: buildNextAction(readiness, supabaseKeys),
     public_note:
-      "Metadata-only services onboarding readiness. No emails, tokens, keys, database URLs, or hosts in this export. Exact account emails live only in hub .local/ files and ignored local env.",
+      "Metadata-only services onboarding readiness. No emails, tokens, keys, database URLs, or hosts in this export. Prefer sb_publishable_/sb_secret_ keys; legacy JWT keys are optional fallback only.",
   };
 
   fs.mkdirSync(path.dirname(OUTPUT), { recursive: true });
   fs.writeFileSync(OUTPUT, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
   console.log(`Wrote ${OUTPUT}`);
-  printPresenceReport(files, services);
+  printPresenceReport(files, services, supabaseKeys);
 
   if (safetyErrors.length > 0) {
     console.error("check-service-credentials: FAILED — unsafe local flags");

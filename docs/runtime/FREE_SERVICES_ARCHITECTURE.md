@@ -31,6 +31,9 @@ Account B (Agent Ledger, Incident Atlas) is **not** used for Regulation Watch.
 
 ## Secret handling
 
+- **Supabase API keys (preferred):** `SUPABASE_PUBLISHABLE_KEY` (`sb_publishable_...`) and `SUPABASE_SECRET_KEY` (`sb_secret_...`) with `SUPABASE_API_KEY_MODE=new`.
+- **Legacy fallback (optional):** `SUPABASE_ANON_KEY` / `SUPABASE_SERVICE_ROLE_KEY` (JWT) only when needed for older scripts — not primary.
+- **Never** use `SUPABASE_SECRET_KEY` in browser/client-side code or tracked docs.
 - Exact account emails and credentials live **only** in hub ignored `.local/` files and repo-ignored `.env.*.local` files.
 - Tracked docs and public JSON exports are **metadata-only** — no emails, tokens, keys, or database URLs.
 - Agents must read hub policy + local map locally; they must **not** copy emails from `.local/` into tracked Regulation Watch files.

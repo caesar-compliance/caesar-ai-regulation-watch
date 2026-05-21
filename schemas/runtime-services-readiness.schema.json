@@ -12,6 +12,11 @@
     "live_ingestion_enabled",
     "scheduled_monitoring_enabled",
     "network_execution_enabled",
+    "supabase_key_mode",
+    "supabase_publishable_key_present",
+    "supabase_secret_key_present",
+    "supabase_legacy_anon_key_present",
+    "supabase_legacy_service_role_key_present",
     "readiness",
     "services",
     "safety_flags",
@@ -25,7 +30,9 @@
       "enum": [
         "onboarding_incomplete",
         "partial",
-        "local_credentials_ready",
+        "ready_for_manual_schema_review",
+        "ready_for_manual_worker_review",
+        "local_credentials_present_safety_disabled",
         "unsafe_local_flags"
       ]
     },
@@ -34,19 +41,42 @@
     "live_ingestion_enabled": { "type": "boolean", "const": false },
     "scheduled_monitoring_enabled": { "type": "boolean", "const": false },
     "network_execution_enabled": { "type": "boolean", "const": false },
+    "supabase_key_mode": {
+      "type": "string",
+      "enum": ["new", "legacy", "missing", "mixed"]
+    },
+    "supabase_publishable_key_present": { "type": "boolean" },
+    "supabase_secret_key_present": { "type": "boolean" },
+    "supabase_legacy_anon_key_present": { "type": "boolean" },
+    "supabase_legacy_service_role_key_present": { "type": "boolean" },
     "readiness": {
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "supabase_required_ready",
-        "supabase_optional_ready",
+        "supabase_project_ready",
+        "supabase_new_keys_ready",
+        "supabase_legacy_keys_ready",
+        "supabase_key_mode",
+        "supabase_publishable_key_present",
+        "supabase_secret_key_present",
+        "supabase_legacy_anon_key_present",
+        "supabase_legacy_service_role_key_present",
         "cloudflare_ready",
         "github_optional_ready",
         "uptime_manual_setup_required"
       ],
       "properties": {
-        "supabase_required_ready": { "type": "boolean" },
-        "supabase_optional_ready": { "type": "boolean" },
+        "supabase_project_ready": { "type": "boolean" },
+        "supabase_new_keys_ready": { "type": "boolean" },
+        "supabase_legacy_keys_ready": { "type": "boolean" },
+        "supabase_key_mode": {
+          "type": "string",
+          "enum": ["new", "legacy", "missing", "mixed"]
+        },
+        "supabase_publishable_key_present": { "type": "boolean" },
+        "supabase_secret_key_present": { "type": "boolean" },
+        "supabase_legacy_anon_key_present": { "type": "boolean" },
+        "supabase_legacy_service_role_key_present": { "type": "boolean" },
         "cloudflare_ready": { "type": "boolean" },
         "github_optional_ready": { "type": "boolean" },
         "uptime_manual_setup_required": { "type": "boolean", "const": true }
