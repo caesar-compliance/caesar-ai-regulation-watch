@@ -224,10 +224,11 @@ function decisionInvariantErrors(decision, index, ctx) {
         "public_export_release_gate",
         "public_export_approval_decision",
         "public_update_release_decision",
+        "explicit_publication_release_approval",
       ];
       if (!allowedDraftNextAfterDecision.includes(draft.next_required_step)) {
         errors.push(
-          `${prefix}: draft next_required_step must be publication_staging_preview, public_export_release_gate, public_export_approval_decision, or public_update_release_decision`,
+          `${prefix}: draft next_required_step must be publication_staging_preview, public_export_release_gate, public_export_approval_decision, public_update_release_decision, or explicit_publication_release_approval`,
         );
       }
       if (

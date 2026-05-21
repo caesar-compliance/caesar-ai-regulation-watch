@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * Validate public export approval decision records.
- * Cross-checks T069 gate, T068 preview, T067 decision, draft, and safety invariants. No network.
+ * Validate public update release decision records.
+ * Cross-checks T070 approval, T069 gate, T068 preview, draft, and safety invariants. No network.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -13,12 +13,15 @@ import addFormats from "ajv-formats";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DECISIONS_PATH = path.join(
   ROOT,
+  "data/source-adapters/public-update-release-decisions.yml",
+);
+const EXPORT_APPROVAL_PATH = path.join(
+  ROOT,
   "data/source-adapters/public-export-approval-decisions.yml",
 );
 const GATES_PATH = path.join(ROOT, "data/source-adapters/public-export-release-gates.yml");
 const PREVIEWS_PATH = path.join(ROOT, "data/source-adapters/publication-staging-previews.yml");
-const PUB_DECISIONS_PATH = path.join(ROOT, "data/source-adapters/publication-gate-decisions.yml");
-const SCHEMA_PATH = path.join(ROOT, "schemas/public-export-approval-decision.schema.json");
+const SCHEMA_PATH = path.join(ROOT, "schemas/public-update-release-decision.schema.json");
 const DRAFT_SCHEMA_PATH = path.join(ROOT, "schemas/draft-regulatory-update.schema.json");
 const PUBLIC_UPDATES_JSON = path.join(ROOT, "public/data/regulatory-updates.json");
 const PUBLIC_SNAPSHOT_JSON = path.join(ROOT, "public/data/regulation-watch-snapshot.json");
@@ -45,10 +48,11 @@ const PUBLIC_LEAK_NEEDLES = [
   "T068-001",
   "T069-001",
   "T070-001",
+  "T071-001",
   "t056-001-draft-edpb-network-dry-run",
   "update-edpb-t056-001",
-  "internal_public_export_approval_decision_only",
-  "approve_non_public_export_preview",
+  "internal_public_update_release_decision_only",
+  "hold_publication_pending_explicit_release_approval",
 ];
 
 const FORBIDDEN_CLAIM_PHRASES = [
@@ -59,6 +63,8 @@ const FORBIDDEN_CLAIM_PHRASES = [
   /\bevidence-ready\b/i,
   /verified\s+legal\s+change/i,
   /public\s+regulatory\s+update\s+published/i,
+  /publication\s+released/i,
+  /public\s+route\s+created/i,
 ];
 
 const ajv = new Ajv({ allErrors: true, strict: false, validateSchema: false });
@@ -122,6 +128,8 @@ function safetyErrors(prefix, safety, decision) {
     "public_export_allowed",
     "evidence_export_allowed",
     "client_use_allowed",
+    "public_update_route_created",
+    "public_data_inclusion_allowed",
   ];
   for (const key of alwaysFalse) {
     if (safety?.[key] !== false) {
@@ -134,9 +142,9 @@ function safetyErrors(prefix, safety, decision) {
   if (safety?.stores_full_text !== false) {
     errors.push(`${prefix}: safety.stores_full_text must be false`);
   }
-  if (safety?.requires_public_update_release_decision !== true) {
+  if (safety?.requires_explicit_publication_release_approval !== true) {
     errors.push(
-      `${prefix}: safety.requires_public_update_release_decision must be true`,
+      `${prefix}: safety.requires_explicit_publication_release_approval must be true`,
     );
   }
   if (safety?.requires_separate_client_evidence_approval !== true) {
@@ -145,16 +153,16 @@ function safetyErrors(prefix, safety, decision) {
     );
   }
 
-  if (decision.decision === "approve_non_public_export_preview") {
-    if (safety?.non_public_export_preview_allowed !== true) {
+  if (decision.decision === "hold_publication_pending_explicit_release_approval") {
+    if (safety?.public_update_release_decision_recorded !== true) {
       errors.push(
-        `${prefix}: safety.non_public_export_preview_allowed must be true for approve_non_public_export_preview`,
+        `${prefix}: safety.public_update_release_decision_recorded must be true for hold decision`,
       );
     }
-    errors.push(...gateErrors(`${prefix} (preview approval)`, decision.gates));
-  } else if (safety?.non_public_export_preview_allowed === true) {
+    errors.push(...gateErrors(`${prefix} (hold decision)`, decision.gates));
+  } else if (safety?.public_update_release_decision_recorded === true) {
     errors.push(
-      `${prefix}: safety.non_public_export_preview_allowed must be false unless decision is approve_non_public_export_preview`,
+      `${prefix}: safety.public_update_release_decision_recorded must be false unless decision is hold_publication_pending_explicit_release_approval`,
     );
   }
 
@@ -165,8 +173,8 @@ function forbiddenClaimErrors(prefix, decision) {
   const errors = [];
   const texts = [
     decision.decision_summary,
-    ...(decision.preview_limitations ?? []),
-    ...(decision.blockers_remaining ?? []),
+    ...(decision.hold_reasons ?? []),
+    ...(decision.release_requirements_remaining ?? []),
   ];
   for (const text of texts) {
     if (!text || typeof text !== "string") continue;
@@ -187,24 +195,46 @@ function decisionInvariantErrors(decision, index, ctx) {
   const prefix = `decisions[${index}] (${decision?.decision_id ?? "?"})`;
   const errors = [];
 
-  if (decision.decision_scope !== "internal_public_export_approval_decision_only") {
+  if (decision.decision_scope !== "internal_public_update_release_decision_only") {
     errors.push(
-      `${prefix}: decision_scope must be internal_public_export_approval_decision_only`,
+      `${prefix}: decision_scope must be internal_public_update_release_decision_only`,
     );
   }
   if (decision.decision_status !== "recorded") {
     errors.push(`${prefix}: decision_status must be recorded`);
   }
-  if (decision.decision !== "approve_non_public_export_preview") {
-    errors.push(`${prefix}: decision must be approve_non_public_export_preview`);
+  if (decision.decision !== "hold_publication_pending_explicit_release_approval") {
+    errors.push(
+      `${prefix}: decision must be hold_publication_pending_explicit_release_approval`,
+    );
   }
-  if (decision.next_required_step !== "public_update_release_decision") {
-    errors.push(`${prefix}: next_required_step must be public_update_release_decision`);
+  if (decision.next_required_step !== "explicit_publication_release_approval") {
+    errors.push(`${prefix}: next_required_step must be explicit_publication_release_approval`);
   }
 
   errors.push(...gateErrors(prefix, decision.gates));
   errors.push(...safetyErrors(prefix, decision.safety, decision));
   errors.push(...forbiddenClaimErrors(prefix, decision));
+
+  const exportApproval = ctx.exportApprovalById.get(decision.public_export_approval_decision_id);
+  if (!exportApproval) {
+    errors.push(
+      `${prefix}: unknown public_export_approval_decision_id ${decision.public_export_approval_decision_id}`,
+    );
+  } else {
+    if (exportApproval.release_gate_id !== decision.release_gate_id) {
+      errors.push(`${prefix}: release_gate_id must match export approval decision`);
+    }
+    if (exportApproval.staging_preview_id !== decision.staging_preview_id) {
+      errors.push(`${prefix}: staging_preview_id must match export approval decision`);
+    }
+    if (exportApproval.draft_update_id !== decision.draft_update_id) {
+      errors.push(`${prefix}: draft_update_id must match export approval decision`);
+    }
+    if (exportApproval.draft_update_path !== decision.draft_update_path) {
+      errors.push(`${prefix}: draft_update_path must match export approval decision`);
+    }
+  }
 
   const gate = ctx.gateById.get(decision.release_gate_id);
   if (!gate) {
@@ -213,29 +243,20 @@ function decisionInvariantErrors(decision, index, ctx) {
     if (gate.staging_preview_id !== decision.staging_preview_id) {
       errors.push(`${prefix}: staging_preview_id must match release gate`);
     }
-    if (gate.publication_gate_decision_id !== decision.publication_gate_decision_id) {
-      errors.push(`${prefix}: publication_gate_decision_id must match release gate`);
-    }
     if (gate.draft_update_id !== decision.draft_update_id) {
       errors.push(`${prefix}: draft_update_id must match release gate`);
     }
-    if (gate.draft_update_path !== decision.draft_update_path) {
-      errors.push(`${prefix}: draft_update_path must match release gate`);
+    if (gate.candidate_metadata.proposed_public_update_id !== decision.proposed_public_update_id) {
+      errors.push(`${prefix}: proposed_public_update_id must match gate candidate_metadata`);
+    }
+    if (gate.candidate_metadata.proposed_route !== decision.proposed_route) {
+      errors.push(`${prefix}: proposed_route must match gate candidate_metadata`);
     }
   }
 
   const preview = ctx.previewById.get(decision.staging_preview_id);
   if (!preview) {
     errors.push(`${prefix}: unknown staging_preview_id ${decision.staging_preview_id}`);
-  } else if (preview.publication_gate_decision_id !== decision.publication_gate_decision_id) {
-    errors.push(`${prefix}: publication_gate_decision_id must match staging preview`);
-  }
-
-  const pubDecision = ctx.pubDecisionById.get(decision.publication_gate_decision_id);
-  if (!pubDecision) {
-    errors.push(
-      `${prefix}: unknown publication_gate_decision_id ${decision.publication_gate_decision_id}`,
-    );
   }
 
   const draftPath = path.join(ROOT, decision.draft_update_path);
@@ -249,38 +270,39 @@ function decisionInvariantErrors(decision, index, ctx) {
       if (draft.update_id !== decision.draft_update_id) {
         errors.push(`${prefix}: draft_update_id must match draft update_id`);
       }
-      if (draft.latest_public_export_approval_decision_id !== decision.decision_id) {
+      if (draft.latest_public_update_release_decision_id !== decision.decision_id) {
         errors.push(
-          `${prefix}: draft latest_public_export_approval_decision_id must be ${decision.decision_id}`,
+          `${prefix}: draft latest_public_update_release_decision_id must be ${decision.decision_id}`,
         );
       }
-      if (draft.public_export_approval_decision !== decision.decision) {
-        errors.push(`${prefix}: draft public_export_approval_decision must match decision`);
+      if (draft.public_update_release_decision !== decision.decision) {
+        errors.push(`${prefix}: draft public_update_release_decision must match decision`);
       }
-      if (draft.public_export_approval_status !== decision.decision_status) {
-        errors.push(`${prefix}: draft public_export_approval_status must match decision_status`);
-      }
-      if (draft.non_public_export_preview_allowed !== true) {
-        errors.push(`${prefix}: draft non_public_export_preview_allowed must be true`);
-      }
-      if (
-        draft.non_public_export_preview_artifact_path !==
-        decision.non_public_preview_artifact_path
-      ) {
-        errors.push(`${prefix}: draft preview artifact path must match decision`);
-      }
-      const allowedDraftNextSteps = [decision.next_required_step];
-      if (draft.latest_public_update_release_decision_id) {
-        allowedDraftNextSteps.push("explicit_publication_release_approval");
-      }
-      if (!allowedDraftNextSteps.includes(draft.next_required_step)) {
+      if (draft.public_update_release_decision_status !== decision.decision_status) {
         errors.push(
-          `${prefix}: draft next_required_step must match decision or explicit_publication_release_approval after release decision`,
+          `${prefix}: draft public_update_release_decision_status must match decision_status`,
         );
       }
-      errors.push(...gateErrors(decision.draft_update_path, draft));
+      if (draft.public_update_release_decision_recorded !== true) {
+        errors.push(`${prefix}: draft public_update_release_decision_recorded must be true`);
+      }
+      if (draft.proposed_public_update_id !== decision.proposed_public_update_id) {
+        errors.push(`${prefix}: draft proposed_public_update_id must match decision`);
+      }
+      if (draft.proposed_public_update_route !== decision.proposed_route) {
+        errors.push(`${prefix}: draft proposed_public_update_route must match proposed_route`);
+      }
+      if (draft.next_required_step !== decision.next_required_step) {
+        errors.push(`${prefix}: draft next_required_step must match decision`);
+      }
       if (draft.publication_allowed !== false || draft.public_export_allowed !== false) {
         errors.push(`${prefix}: draft must not allow publication or public export`);
+      }
+      if (draft.public_data_inclusion_allowed !== false) {
+        errors.push(`${prefix}: draft public_data_inclusion_allowed must be false`);
+      }
+      if (draft.public_update_route_created !== false) {
+        errors.push(`${prefix}: draft public_update_route_created must be false`);
       }
       if (draft.evidence_export_allowed !== false) {
         errors.push(`${prefix}: draft evidence_export_allowed must be false`);
@@ -288,9 +310,7 @@ function decisionInvariantErrors(decision, index, ctx) {
       if (draft.client_use_allowed !== false) {
         errors.push(`${prefix}: draft client_use_allowed must be false`);
       }
-      if (draft.verified_on_source !== false) {
-        errors.push(`${prefix}: draft verified_on_source must remain false`);
-      }
+      errors.push(...gateErrors(decision.draft_update_path, draft));
     }
   }
 
@@ -300,21 +320,21 @@ function decisionInvariantErrors(decision, index, ctx) {
 function main() {
   const doc = normalizeDates(readYaml(DECISIONS_PATH));
   if (!validateDecisionsDoc(doc)) {
-    console.error("Schema validation failed for public-export-approval-decisions.yml");
+    console.error("Schema validation failed for public-update-release-decisions.yml");
     for (const err of validateDecisionsDoc.errors ?? []) {
       console.error(`  ${err.instancePath}: ${err.message}`);
     }
     process.exit(1);
   }
 
+  const exportApprovalDoc = readYaml(EXPORT_APPROVAL_PATH);
   const gatesDoc = readYaml(GATES_PATH);
   const previewsDoc = readYaml(PREVIEWS_PATH);
-  const pubDecisionsDoc = readYaml(PUB_DECISIONS_PATH);
 
   const ctx = {
+    exportApprovalById: indexById(exportApprovalDoc.decisions, "decision_id"),
     gateById: indexById(gatesDoc.gates, "gate_id"),
     previewById: indexById(previewsDoc.previews, "preview_id"),
-    pubDecisionById: indexById(pubDecisionsDoc.decisions, "decision_id"),
   };
 
   const allErrors = [];
@@ -328,7 +348,7 @@ function main() {
     for (const needle of PUBLIC_LEAK_NEEDLES) {
       if (exported.includes(needle)) {
         allErrors.push(
-          `public export must not contain internal approval identifiers (${needle}) in ${file}`,
+          `public export must not contain internal release identifiers (${needle}) in ${file}`,
         );
       }
     }
@@ -341,14 +361,14 @@ function main() {
   }
 
   if (allErrors.length > 0) {
-    console.error("Public export approval decision validation failed:\n");
+    console.error("Public update release decision validation failed:\n");
     for (const err of allErrors) {
       console.error(`  ${err}`);
     }
     process.exit(1);
   }
 
-  console.log("PASS: public export approval decisions validated");
+  console.log("PASS: public update release decisions validated");
   console.log(`  decisions: ${doc.decisions.length}`);
   console.log(`  file: ${DECISIONS_PATH}`);
 }

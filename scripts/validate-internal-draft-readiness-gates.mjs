@@ -182,6 +182,9 @@ function readinessInvariantErrors(gate, index, ctx) {
       if (draft.latest_public_export_approval_decision_id) {
         allowedDraftNextSteps.push("public_update_release_decision");
       }
+      if (draft.latest_public_update_release_decision_id) {
+        allowedDraftNextSteps.push("explicit_publication_release_approval");
+      }
       if (!allowedDraftNextSteps.includes(draft.next_required_step)) {
         errors.push(
           `${prefix}: draft next_required_step must be one of ${allowedDraftNextSteps.join(", ")}`,

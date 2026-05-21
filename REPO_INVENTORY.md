@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.18 live — T070; `DEPLOY-20260521-036`)
+**Last updated:** 21 May 2026 (v1.0.19 codebase — T071; live v1.0.18)
 
 ---
 
@@ -405,6 +405,16 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **scripts/build-public-export-approval-decision-summary.mjs** | `npm run build:public-export-approval-decision-summary` |
 | **scripts/build-non-public-export-preview.mjs** | `npm run build:non-public-export-preview` |
 | **docs/PUBLIC_EXPORT_APPROVAL_DECISION.md** | T070 model |
+
+## T071 — Public update release decision (v1.0.19)
+
+| Path | Purpose |
+|---|---|
+| **schemas/public-update-release-decision.schema.json** | Release decision validation |
+| **data/source-adapters/public-update-release-decisions.yml** | Pilot decision `T071-001` |
+| **scripts/validate-public-update-release-decisions.mjs** | `npm run validate:public-update-release-decisions` |
+| **scripts/build-public-update-release-decision-summary.mjs** | `npm run build:public-update-release-decision-summary` |
+| **docs/PUBLIC_UPDATE_RELEASE_DECISION.md** | T071 model |
 
 ---
 

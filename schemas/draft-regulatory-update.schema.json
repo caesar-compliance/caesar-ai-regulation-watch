@@ -192,6 +192,24 @@
       "type": "string",
       "pattern": "^generated/public-export-preview/"
     },
+    "latest_public_update_release_decision_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+    "public_update_release_decision": {
+      "type": "string",
+      "enum": [
+        "hold_publication_pending_explicit_release_approval",
+        "approve_publication_release",
+        "reject_publication_release",
+        "request_changes"
+      ]
+    },
+    "public_update_release_decision_status": {
+      "type": "string",
+      "enum": ["recorded", "superseded"]
+    },
+    "public_update_release_decision_recorded": { "type": "boolean" },
+    "proposed_public_update_route": { "type": "string", "pattern": "^/updates/" },
+    "public_data_inclusion_allowed": { "type": "boolean" },
+    "public_update_route_created": { "type": "boolean" },
     "proposed_public_update_id": { "type": "string", "minLength": 1 },
     "final_legal_review_status": {
       "type": "string",

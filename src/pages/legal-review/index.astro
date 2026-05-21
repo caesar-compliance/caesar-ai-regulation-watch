@@ -35,6 +35,8 @@ const hasStagingPreview = draft?.latest_publication_staging_preview_id === "T068
 const hasPublicExportGate = draft?.latest_public_export_release_gate_id === "T069-001";
 const hasPublicExportApproval =
   draft?.latest_public_export_approval_decision_id === "T070-001";
+const hasPublicUpdateReleaseDecision =
+  draft?.latest_public_update_release_decision_id === "T071-001";
 
 const timeline = [
   {
@@ -558,6 +560,19 @@ for (const item of packet.legal_review_items) {
         <div class="banner banner--review" role="note">
           <strong>Non-public export preview approved.</strong> Decision <code>T070-001</code> —
           no publication yet. Public export and client/evidence remain blocked.
+        </div>
+        <p><a href="/public-export-gate/">Open Public Export Release Gate →</a></p>
+      </section>
+    )
+  }
+
+  {
+    hasPublicUpdateReleaseDecision && (
+      <section>
+        <h2>Public update release decision</h2>
+        <div class="banner banner--review" role="note">
+          <strong>Release decision recorded — no publication yet.</strong> Decision{" "}
+          <code>T071-001</code> — publication held; explicit approval required.
         </div>
         <p><a href="/public-export-gate/">Open Public Export Release Gate →</a></p>
       </section>

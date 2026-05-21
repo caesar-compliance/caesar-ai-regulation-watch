@@ -2481,12 +2481,67 @@ export interface PublicExportApprovalDecisionsDoc {
   decisions: PublicExportApprovalDecision[];
 }
 
+export interface PublicUpdateReleaseDecisionSafety {
+  public_update_release_decision_recorded: boolean;
+  publication_allowed: boolean;
+  public_export_allowed: boolean;
+  evidence_export_allowed: boolean;
+  client_use_allowed: boolean;
+  public_update_route_created: boolean;
+  public_data_inclusion_allowed: boolean;
+  metadata_only: boolean;
+  stores_full_text: boolean;
+  requires_explicit_publication_release_approval: boolean;
+  requires_separate_client_evidence_approval: boolean;
+}
+
+export interface PublicUpdateReleaseDecision {
+  decision_id: string;
+  public_export_approval_decision_id: string;
+  release_gate_id: string;
+  staging_preview_id: string;
+  draft_update_id: string;
+  draft_update_path: string;
+  proposed_public_update_id: string;
+  proposed_route: string;
+  decision_scope: string;
+  decision_status: string;
+  decision: string;
+  decision_summary: string;
+  hold_reasons: string[];
+  release_requirements_remaining: string[];
+  next_required_step: string;
+  decided_by_role: string;
+  decided_at: string;
+  created_at: string;
+  updated_at: string;
+  gates: {
+    verified_on_source: boolean;
+    client_use_allowed: boolean;
+    client_evidence_allowed: boolean;
+    final_evidence_allowed: boolean;
+    legal_change_claimed: boolean;
+  };
+  safety: PublicUpdateReleaseDecisionSafety;
+}
+
+export interface PublicUpdateReleaseDecisionsDoc {
+  public_update_release_decisions_id: string;
+  generated_at: string;
+  product_version: string;
+  legal_safe_note: string;
+  no_live_collection: boolean;
+  no_scheduled_monitoring: boolean;
+  decisions: PublicUpdateReleaseDecision[];
+}
+
 export interface PublicExportReleaseGateCockpitCase {
   gate: PublicExportReleaseGate;
   stagingPreview: PublicationStagingPreview | null;
   publicationGateDecision: PublicationGateDecision | null;
   publicationGatePacket: PublicationGatePacket | null;
   publicExportApprovalDecision: PublicExportApprovalDecision | null;
+  publicUpdateReleaseDecision: PublicUpdateReleaseDecision | null;
   draft: DraftRegulatoryUpdate | null;
 }
 
@@ -2804,6 +2859,22 @@ export function getPublicExportApprovalDecision(
   return getPublicExportApprovalDecisionEntries().find((d) => d.decision_id === decisionId);
 }
 
+export function getPublicUpdateReleaseDecisions(): PublicUpdateReleaseDecisionsDoc | null {
+  const file = path.join(ROOT, "data/source-adapters/public-update-release-decisions.yml");
+  if (!fs.existsSync(file)) return null;
+  return yaml.load(fs.readFileSync(file, "utf8")) as PublicUpdateReleaseDecisionsDoc;
+}
+
+export function getPublicUpdateReleaseDecisionEntries(): PublicUpdateReleaseDecision[] {
+  return getPublicUpdateReleaseDecisions()?.decisions ?? [];
+}
+
+export function getPublicUpdateReleaseDecision(
+  decisionId: string,
+): PublicUpdateReleaseDecision | undefined {
+  return getPublicUpdateReleaseDecisionEntries().find((d) => d.decision_id === decisionId);
+}
+
 export function getPublicExportReleaseGateCockpitCase(
   gateId: string,
 ): PublicExportReleaseGateCockpitCase | null {
@@ -2826,12 +2897,22 @@ export function getPublicExportReleaseGateCockpitCase(
       : undefined) ??
     null;
 
+  const publicUpdateReleaseDecision =
+    getPublicUpdateReleaseDecisionEntries().find(
+      (d) => d.release_gate_id === gateId,
+    ) ??
+    (draft?.latest_public_update_release_decision_id
+      ? getPublicUpdateReleaseDecision(draft.latest_public_update_release_decision_id)
+      : undefined) ??
+    null;
+
   return {
     gate,
     stagingPreview,
     publicationGateDecision,
     publicationGatePacket,
     publicExportApprovalDecision,
+    publicUpdateReleaseDecision,
     draft: draft ?? null,
   };
 }

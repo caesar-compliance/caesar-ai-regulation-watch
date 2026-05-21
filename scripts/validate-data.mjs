@@ -1912,4 +1912,13 @@ if (publicExportApprovalDecisionCheck.status !== 0) {
   process.exit(publicExportApprovalDecisionCheck.status ?? 1);
 }
 
+const publicUpdateReleaseDecisionCheck = spawnSync(
+  process.execPath,
+  [path.join(ROOT, "scripts/validate-public-update-release-decisions.mjs")],
+  { cwd: ROOT, stdio: "inherit" },
+);
+if (publicUpdateReleaseDecisionCheck.status !== 0) {
+  process.exit(publicUpdateReleaseDecisionCheck.status ?? 1);
+}
+
 process.exit(0);
