@@ -1,8 +1,8 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 21 May 2026
-**Current codebase:** v1.0.8 (T051–T059 on main; T060 next) — tag/deploy pending after T060
-**Live release:** v1.0.7 (T050) — deployed `DEPLOY-20260520-025`, commit `86c9262`, tag `regulation-watch-v1.0.7`
+**Current codebase:** v1.0.8 (T051–T060) — live `DEPLOY-20260521-026`, commit `299464a`, tag `regulation-watch-v1.0.8`
+**Live release:** v1.0.8 — deployed 21 May 2026
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
 ---
@@ -61,8 +61,11 @@
 14. **T059 — Internal draft promotion readiness gate** *(merged to main — PR #19, squash `d25247d`)*
    - `T059-001` assesses revised T056 draft; `not_ready_for_publication_review`; next step source verification checklist; no tag/deploy yet.
 
-15. **T060 — Source verification cockpit + checklist** *(in progress)*
-   - `/source-verification/` cockpit; checklist `T060-001`; pending verification only; no publication; gates unchanged.
+15. **T060 — Source verification cockpit + checklist** *(merged, deployed v1.0.8 — PR #20)*
+   - `/source-verification/` cockpit; checklist `T060-001`; pending verification only; gates unchanged.
+
+16. **T061 — Manual source URL verification result capture** *(next)*
+   - Record pass/fail per checklist item; keep `verified_on_source` false until final legal approval.
 
 ---
 

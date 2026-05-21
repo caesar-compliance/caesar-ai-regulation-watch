@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Notes
 
-- T060 merged to main (PR #20, squash `d05f846`). Source verification cockpit and checklist `T060-001`; not verified; not published; live site remains v1.0.7 until deploy.
+- T060 merged and deployed v1.0.8 (PR #20 squash `d05f846`; deploy `DEPLOY-20260521-026` commit `299464a`). Source verification cockpit; checklist pending; gates closed.
 - T059 merged to main (PR #19, squash `d25247d`). Internal draft readiness gate `T059-001` for revised T056 draft; result `not_ready_for_publication_review`; no publication; no source verification claim; live site remains v1.0.7; no tag/deploy/closeout in T059.
 - T058 merged to main (PR #18, squash `3e5dce8`). One metadata-only draft revision (`T058-001`) after T057 `request_changes`; T056 draft, T057 decision, and T058 revision excluded from public exports; no live network in T058; live site remains v1.0.7; no tag/deploy/closeout in T058.
 - T057 merged to main (PR #17, squash `413b87f`). One metadata-only `request_changes` decision (`T057-001`) for T056 draft; draft and decision excluded from public exports; no live network in T057; live site remains v1.0.7; no tag/deploy/closeout in T057.
@@ -51,7 +51,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Notes
 
-- Merged to main (PR #11, squash commit `51de0eb`). Live site remains v1.0.7; tag `regulation-watch-v1.0.8` and deployment closeout pending future Control Tower approval. Tracker metadata only — not legal advice; evidence gates remain closed.
+- **Deployed** 21 May 2026 — `DEPLOY-20260521-026`, commit `299464a`, run [26226676314](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26226676314), tag `regulation-watch-v1.0.8`. Smoke pass on `/`, `/tracker/`, `/updates/`, `/source-adapters/`, `/source-verification/`; snapshot version 1.0.8; gate counts 0.
+- T051–T060 on main including source verification cockpit; internal draft not in public exports; not verified on source.
 
 ---
 

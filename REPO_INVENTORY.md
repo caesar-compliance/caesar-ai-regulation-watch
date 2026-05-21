@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.8 — T051–T059 on main; T060 next; live v1.0.7 `DEPLOY-20260520-025`)
+**Last updated:** 21 May 2026 (v1.0.8 live — T051–T060; `DEPLOY-20260521-026`)
 
 ---
 
@@ -288,7 +288,7 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **docs/INTERNAL_DRAFT_READINESS_GATE.md** | T059 readiness model |
 | **generated/internal-draft-readiness/T059-001.json** | Local summary (gitignored) |
 
-## T060 — Source verification cockpit (v1.0.8, in progress)
+## T060 — Source verification cockpit (v1.0.8, deployed)
 
 | Path | Purpose |
 |---|---|
