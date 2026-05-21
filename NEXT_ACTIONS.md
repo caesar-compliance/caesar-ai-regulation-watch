@@ -67,7 +67,10 @@
 16. **T061 — Manual source URL verification result capture** *(merged, deployed v1.0.9 — PR #21)*
    - Record pass/fail per checklist item; keep `verified_on_source` false until final legal approval.
 
-17. **T062 — Final legal review packet UI** *(next)*
+17. **T062 — Final legal review packet UI** *(merged, deployed v1.0.10 — PR #22)*
+
+18. **T063 — Final legal reviewer decision capture** *(next)*
+   - Record approve/reject/request-changes for legal packet; do not publish; do not set client/evidence gates true.
    - Show draft, source result, blockers, and approval checklist; still no publish or gates true.
 
 ---
