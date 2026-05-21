@@ -1,6 +1,6 @@
 # Public Deployment Baseline
 
-**Phase:** v1.0.17 live; v1.0.18 deploy-ready (T070 merged `30634da`, PR #30). T070 decision `T070-001` non-public preview only; next `public_update_release_decision`; gates closed.
+**Phase:** v1.0.18 live — T070 deployed 21 May 2026 (`DEPLOY-20260521-036`, commit `d3a0653`, tag `regulation-watch-v1.0.18`). T070 decision `T070-001` non-public preview only; next `public_update_release_decision`; gates closed.
 
 **Deployment date:** 20 May 2026
 **Status:** Deployed — `DEPLOY-20260520-025`, run [26189934284](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26189934284)

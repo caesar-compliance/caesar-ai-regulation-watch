@@ -2,7 +2,7 @@
 
 ## Status
 
-- Merged to main v1.0.18 (PR #30 squash `30634da`); deploy pending.
+- Merged and deployed v1.0.18 (PR #30 squash `30634da`; `DEPLOY-20260521-036` commit `d3a0653`, run [26234369673](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26234369673), tag `regulation-watch-v1.0.18`).
 
 ## Delivered
 
@@ -13,7 +13,7 @@
 ## Safety
 
 - No publication; no public/data inclusion; no public update route.
-- Gates unchanged (`verified_on_source`, client/evidence, `legal_change_claimed` false).
+- Snapshot gate counts 0 (`verified_on_source`, `client_use_allowed`, `legal_change_claimed`).
 
 ## Next
 

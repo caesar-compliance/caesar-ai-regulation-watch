@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.18 codebase — T070; live v1.0.17)
+**Last updated:** 21 May 2026 (v1.0.18 live — T070; `DEPLOY-20260521-036`)
 
 ---
 
