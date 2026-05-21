@@ -1,8 +1,8 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 21 May 2026
-**Current codebase:** v1.0.22 (T051–T074) — live `DEPLOY-20260521-040`, commit `2b7bdd4`, tag `regulation-watch-v1.0.22`
-**Live release:** v1.0.22 — deployed 21 May 2026
+**Current codebase:** v1.0.23 (T051–T075A) — merged `1d18a6c`; release deploy pending
+**Live release:** v1.0.22 — `DEPLOY-20260521-040` until T075A deploy completes
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
 ---
@@ -103,13 +103,16 @@
 29. **T074 — Backend bootstrap & runtime health** *(merged ff `5371b52`; deployed v1.0.22 — `DEPLOY-20260521-040`)*
    - Runtime env template, DB health export, `/runtime-health/`, schema apply helper; cron removed from monitoring workflow; still no scheduled monitoring; no Supabase migration applied; live status `not_configured`.
 
-30. **T075A — Controlled source pilot framework** *(branch `task/T075A-controlled-source-pilot-framework`)*
-   - Pilot registry, fixture dry-run, `/source-pilot/`, public status JSON; no network; no Supabase apply.
+30. **T075A — Controlled source pilot framework** *(merged ff `1d18a6c`; release v1.0.23 deploy pending)*
+   - Pilot registry (2 sources), fixture dry-run, `/source-pilot/`, public status JSON; no network; no Supabase apply.
 
-31. **T075B — Runtime DB source pilot connection** *(after T075A merge + Supabase configured)*
+31. **T075B — Runtime DB source pilot connection** *(recommended when Supabase credentials available)*
    - Persist pilot snapshots/detected changes to runtime DB when credentials exist.
 
-32. **T076 — Explicit controlled network check** *(after Control Tower approval)*
+32. **T075C — Offline source pilot reviewer UI** *(recommended if Supabase not yet configured)*
+   - Improve operator/reviewer UI around fixture pilot candidates and detected metadata changes; no network.
+
+33. **T076 — Explicit controlled network check** *(after Control Tower approval)*
    - Single allowlisted source network check; not broad crawl.
 
 ---

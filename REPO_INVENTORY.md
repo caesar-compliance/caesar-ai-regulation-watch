@@ -1,8 +1,8 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.22 live — T075A source pilot framework on branch)
+**Last updated:** 21 May 2026 (v1.0.23 — T075A source pilot framework merged)
 
-## T075A — Controlled source pilot framework (branch)
+## T075A — Controlled source pilot framework (v1.0.23)
 
 | Path | Role |
 |---|---|
