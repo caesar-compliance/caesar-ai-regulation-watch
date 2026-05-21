@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Product direction docs pivot toward real automated monitoring (hosted data, snapshots, detected changes); approval-chain pages no longer primary focus.
 
+### Merged
+
+- PR #33 — squash merge `6061a9b`.
+
 ---
 
 ## [1.0.20] - 21 May 2026

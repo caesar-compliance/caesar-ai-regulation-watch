@@ -2,7 +2,8 @@
 
 ## Status
 
-- In progress on branch `task/T073-automation-runtime-foundation`.
+- Merged to main PR #33 squash `6061a9b`.
+- v1.0.21 deploy ready; live still v1.0.20 until deploy completes.
 
 ## Delivered
 
@@ -13,9 +14,9 @@
 
 ## Safety
 
-- `live_ingestion_enabled`, `scheduled_monitoring_enabled`, `network_execution_enabled` false.
-- No Worker deploy; no Supabase migration applied; no live network in task.
-- No publication changes; gates remain closed.
+- Live ingestion, scheduled monitoring, network execution disabled.
+- No Worker deploy; no Supabase migration applied; no live network.
+- No publication changes; gates closed.
 
 ## Next
 
