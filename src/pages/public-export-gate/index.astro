@@ -19,11 +19,13 @@ const {
   publicationGatePacket,
   publicExportApprovalDecision,
   publicUpdateReleaseDecision,
+  explicitPublicationReleaseApprovalPacket,
   draft,
 } = cockpit;
 
 const approvalDecision = publicExportApprovalDecision;
 const releaseDecision = publicUpdateReleaseDecision;
+const approvalPacket = explicitPublicationReleaseApprovalPacket;
 const proposedRoute = gate.candidate_metadata.proposed_route;
 
 const readyItems = gate.release_gate_items.filter(
@@ -68,6 +70,16 @@ const blockedItems = gate.release_gate_items.filter((i) => i.status === "blocked
         <code>{releaseDecision.decision_id}</code> —{" "}
         <code>{releaseDecision.decision}</code>. No public route or public/data inclusion.
         Explicit publication release approval required before any publish step.
+      </div>
+    )
+  }
+
+  {
+    approvalPacket && (
+      <div class="banner banner--warn" role="alert">
+        <strong>Explicit approval packet prepared.</strong> Packet{" "}
+        <code>{approvalPacket.packet_id}</code> — awaiting Control Tower authorization. Operator
+        confirmation pending. Not published.
       </div>
     )
   }
@@ -304,9 +316,18 @@ const blockedItems = gate.release_gate_items.filter((i) => i.status === "blocked
           </li>
         )
       }
+      {
+        approvalPacket && (
+          <li>
+            <span class="mono">T072</span> — Explicit approval packet{" "}
+            <code>{approvalPacket.packet_id}</code> (
+            <span class="mono">{approvalPacket.packet_status}</span>)
+          </li>
+        )
+      }
       <li>
         <span class="mono">Next</span> —{" "}
-        <code>{releaseDecision?.next_required_step ?? approvalDecision?.next_required_step ?? gate.next_required_step}</code> (not
+        <code>{approvalPacket?.next_required_step ?? releaseDecision?.next_required_step ?? approvalDecision?.next_required_step ?? gate.next_required_step}</code> (not
         completed)
       </li>
     </ol>
@@ -320,9 +341,26 @@ const blockedItems = gate.release_gate_items.filter((i) => i.status === "blocked
     }
   </section>
 
+  {
+    approvalPacket && (
+      <section>
+        <h2>Public release approval packet</h2>
+        <dl class="meta-grid">
+          <div><dt>Packet ID</dt><dd><span class="mono">{approvalPacket.packet_id}</span></dd></div>
+          <div><dt>Status</dt><dd><span class="mono">{approvalPacket.packet_status}</span></dd></div>
+          <div><dt>Operator confirmation</dt><dd><span class="mono">{approvalPacket.operator_confirmation_status}</span></dd></div>
+          <div><dt>Next step</dt><dd><span class="mono">{approvalPacket.next_required_step}</span></dd></div>
+          <div><dt>publication_release_authorized</dt><dd>false</dd></div>
+        </dl>
+        <p><a href="/publication-release/">Open Explicit Publication Release Approval →</a></p>
+      </section>
+    )
+  }
+
   <section>
     <h2>Related</h2>
     <ul>
+      <li><a href="/publication-release/">Explicit publication release approval</a></li>
       <li><a href="/publication-staging/">Publication staging preview</a></li>
       <li><a href="/publication-gate/">Publication gate packet</a></li>
       <li><a href="/legal-review/">Final legal review packet</a></li>

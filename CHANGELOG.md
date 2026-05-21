@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.20] - 21 May 2026
+
+### Added
+
+- **T072 explicit publication release approval packet** — `schemas/explicit-publication-release-approval-packet.schema.json`, `T072-001` packet; `/publication-release/` operator confirmation screen; [docs/EXPLICIT_PUBLICATION_RELEASE_APPROVAL_PACKET.md](docs/EXPLICIT_PUBLICATION_RELEASE_APPROVAL_PACKET.md); approval packet only; no publication; gates unchanged.
+
+---
+
 ## [1.0.19] - 21 May 2026
 
 ### Added

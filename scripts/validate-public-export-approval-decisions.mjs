@@ -273,9 +273,12 @@ function decisionInvariantErrors(decision, index, ctx) {
       if (draft.latest_public_update_release_decision_id) {
         allowedDraftNextSteps.push("explicit_publication_release_approval");
       }
+      if (draft.latest_explicit_publication_approval_packet_id) {
+        allowedDraftNextSteps.push("control_tower_publication_authorization");
+      }
       if (!allowedDraftNextSteps.includes(draft.next_required_step)) {
         errors.push(
-          `${prefix}: draft next_required_step must match decision or explicit_publication_release_approval after release decision`,
+          `${prefix}: draft next_required_step must match decision, explicit_publication_release_approval, or control_tower_publication_authorization after approval packet`,
         );
       }
       errors.push(...gateErrors(decision.draft_update_path, draft));

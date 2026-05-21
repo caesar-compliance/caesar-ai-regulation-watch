@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.19 live — T071; `DEPLOY-20260521-037`)
+**Last updated:** 21 May 2026 (v1.0.20 codebase — T072; live v1.0.19 `DEPLOY-20260521-037`)
 
 ---
 
@@ -415,6 +415,17 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **scripts/validate-public-update-release-decisions.mjs** | `npm run validate:public-update-release-decisions` |
 | **scripts/build-public-update-release-decision-summary.mjs** | `npm run build:public-update-release-decision-summary` |
 | **docs/PUBLIC_UPDATE_RELEASE_DECISION.md** | T071 model |
+
+## T072 — Explicit publication release approval packet (v1.0.20)
+
+| Path | Purpose |
+|---|---|
+| **schemas/explicit-publication-release-approval-packet.schema.json** | Approval packet validation |
+| **data/source-adapters/explicit-publication-release-approval-packets.yml** | Pilot packet `T072-001` |
+| **scripts/validate-explicit-publication-release-approval-packets.mjs** | `npm run validate:explicit-publication-release-approval-packets` |
+| **scripts/build-explicit-publication-release-approval-packet-summary.mjs** | `npm run build:explicit-publication-release-approval-packet-summary` |
+| **src/pages/publication-release/index.astro** | Operator confirmation screen |
+| **docs/EXPLICIT_PUBLICATION_RELEASE_APPROVAL_PACKET.md** | T072 model |
 
 ---
 
