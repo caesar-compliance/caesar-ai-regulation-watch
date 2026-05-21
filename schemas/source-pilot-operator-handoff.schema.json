@@ -1,0 +1,338 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caesar.no/schemas/caesar-ai-regulation-watch/source-pilot-operator-handoff.schema.json",
+  "title": "Caesar AI Regulation Watch — Source pilot operator handoff export",
+  "description": "Offline fixture-based operator handoff summary. Metadata only. No secrets or legal text.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "handoff_id",
+    "generated_at",
+    "status",
+    "mode",
+    "runtime_status",
+    "runtime_flags",
+    "gates",
+    "db_health_status",
+    "source_count",
+    "candidate_count",
+    "packet_count",
+    "sources_summary",
+    "candidates_summary",
+    "decision_packets_summary",
+    "blocked_reasons",
+    "required_next_actions",
+    "operator_checklist",
+    "safety_summary",
+    "cannot_claim_yet",
+    "links",
+    "public_note"
+  ],
+  "properties": {
+    "handoff_id": { "type": "string", "minLength": 1 },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "status": {
+      "type": "string",
+      "enum": ["operator_handoff_ready", "empty", "error"]
+    },
+    "mode": { "type": "string", "const": "fixture_only" },
+    "runtime_status": { "type": "string", "minLength": 1 },
+    "runtime_flags": { "$ref": "#/$defs/runtimeFlags" },
+    "gates": { "$ref": "#/$defs/gates" },
+    "db_health_status": {
+      "type": "string",
+      "enum": ["not_configured", "unreachable", "schema_missing", "ready", "unknown"]
+    },
+    "source_count": { "type": "integer", "minimum": 0 },
+    "candidate_count": { "type": "integer", "minimum": 0 },
+    "packet_count": { "type": "integer", "minimum": 0 },
+    "sources_summary": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/sourceSummary" }
+    },
+    "candidates_summary": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/candidateSummary" }
+    },
+    "decision_packets_summary": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/packetSummary" }
+    },
+    "blocked_reasons": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "required_next_actions": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/requiredAction" }
+    },
+    "operator_checklist": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/checklistItem" }
+    },
+    "safety_summary": { "$ref": "#/$defs/safetySummary" },
+    "cannot_claim_yet": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/cannotClaimItem" }
+    },
+    "links": { "$ref": "#/$defs/links" },
+    "public_note": { "type": "string", "minLength": 1 }
+  },
+  "$defs": {
+    "runtimeFlags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "live_ingestion_enabled",
+        "scheduled_monitoring_enabled",
+        "network_execution_enabled"
+      ],
+      "properties": {
+        "live_ingestion_enabled": { "type": "boolean", "const": false },
+        "scheduled_monitoring_enabled": { "type": "boolean", "const": false },
+        "network_execution_enabled": { "type": "boolean", "const": false }
+      }
+    },
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verified_on_source",
+        "client_use_allowed",
+        "client_evidence_allowed",
+        "final_evidence_allowed",
+        "legal_change_claimed",
+        "publication_allowed",
+        "public_export_allowed"
+      ],
+      "properties": {
+        "verified_on_source": { "type": "boolean", "const": false },
+        "client_use_allowed": { "type": "boolean", "const": false },
+        "client_evidence_allowed": { "type": "boolean", "const": false },
+        "final_evidence_allowed": { "type": "boolean", "const": false },
+        "legal_change_claimed": { "type": "boolean", "const": false },
+        "publication_allowed": { "type": "boolean", "const": false },
+        "public_export_allowed": { "type": "boolean", "const": false }
+      }
+    },
+    "checklistItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "required", "completed_placeholder"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "label": { "type": "string", "minLength": 1 },
+        "required": { "type": "boolean" },
+        "completed_placeholder": { "type": "boolean" }
+      }
+    },
+    "requiredAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "blocked_by"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "label": { "type": "string", "minLength": 1 },
+        "blocked_by": { "type": "string", "minLength": 1 }
+      }
+    },
+    "cannotClaimItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "detail"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "label": { "type": "string", "minLength": 1 },
+        "detail": { "type": "string", "minLength": 1 }
+      }
+    },
+    "safetySummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metadata_only",
+        "fixture_only",
+        "no_full_legal_text",
+        "no_raw_page_body",
+        "runtime_flags_disabled",
+        "all_gates_closed",
+        "db_persistence",
+        "public_note"
+      ],
+      "properties": {
+        "metadata_only": { "type": "boolean", "const": true },
+        "fixture_only": { "type": "boolean", "const": true },
+        "no_full_legal_text": { "type": "boolean", "const": true },
+        "no_raw_page_body": { "type": "boolean", "const": true },
+        "runtime_flags_disabled": { "type": "boolean", "const": true },
+        "all_gates_closed": { "type": "boolean", "const": true },
+        "db_persistence": {
+          "type": "string",
+          "enum": ["not_available", "unknown", "ready"]
+        },
+        "public_note": { "type": "string", "minLength": 1 }
+      }
+    },
+    "sourceSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "source_name",
+        "jurisdiction",
+        "source_type",
+        "monitoring_status",
+        "official_url",
+        "allowed_for_network_check",
+        "has_fixture_candidate"
+      ],
+      "properties": {
+        "source_id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+        "source_name": { "type": "string", "minLength": 1 },
+        "jurisdiction": { "type": "string", "minLength": 1 },
+        "source_type": { "type": "string", "enum": ["rss", "api", "html", "manual"] },
+        "monitoring_status": { "type": "string", "minLength": 1 },
+        "official_url": { "type": "string", "format": "uri" },
+        "fixture_snapshot_version": { "type": ["string", "null"] },
+        "item_count": { "type": ["integer", "null"], "minimum": 0 },
+        "metadata_hash": { "type": ["string", "null"] },
+        "allowed_for_network_check": { "type": "boolean", "const": false },
+        "has_fixture_candidate": { "type": "boolean" }
+      }
+    },
+    "candidateSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_id",
+        "source_id",
+        "source_name",
+        "change_type",
+        "candidate_status",
+        "reviewer_status",
+        "detected_at",
+        "title",
+        "official_url",
+        "metadata_fields_changed",
+        "packet_id"
+      ],
+      "properties": {
+        "candidate_id": { "type": "string", "minLength": 1 },
+        "source_id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+        "source_name": { "type": "string", "minLength": 1 },
+        "change_type": {
+          "type": "string",
+          "enum": ["added", "modified", "removed", "unchanged"]
+        },
+        "candidate_status": {
+          "type": "string",
+          "enum": ["new_metadata_detected", "metadata_fields_changed", "fixture_baseline"]
+        },
+        "reviewer_status": {
+          "type": "string",
+          "enum": [
+            "pending_review",
+            "needs_source_verification",
+            "blocked_no_network",
+            "ready_for_manual_inspection"
+          ]
+        },
+        "detected_at": { "type": "string", "format": "date-time" },
+        "title": { "type": ["string", "null"], "maxLength": 500 },
+        "official_url": { "type": "string", "format": "uri" },
+        "metadata_fields_changed": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "packet_id": { "type": "string", "minLength": 1 }
+      }
+    },
+    "packetSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "packet_id",
+        "candidate_id",
+        "source_id",
+        "packet_status",
+        "reviewer_status",
+        "change_type",
+        "blocked_until",
+        "checklist_item_count"
+      ],
+      "properties": {
+        "packet_id": { "type": "string", "minLength": 1 },
+        "candidate_id": { "type": "string", "minLength": 1 },
+        "source_id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+        "packet_status": {
+          "type": "string",
+          "enum": [
+            "draft_offline_packet",
+            "pending_manual_review",
+            "blocked_no_network",
+            "blocked_no_supabase",
+            "ready_for_operator_triage"
+          ]
+        },
+        "reviewer_status": {
+          "type": "string",
+          "enum": [
+            "pending_review",
+            "needs_source_verification",
+            "blocked_no_network",
+            "ready_for_manual_inspection"
+          ]
+        },
+        "change_type": {
+          "type": "string",
+          "enum": ["added", "modified", "removed", "unchanged"]
+        },
+        "blocked_until": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "checklist_item_count": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "links": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_pilot_page",
+        "source_pilot_review_page",
+        "source_pilot_decision_packets_page",
+        "operator_handoff_page",
+        "automation_page",
+        "runtime_health_page",
+        "handoff_json",
+        "status_json",
+        "review_candidates_json",
+        "decision_packets_json",
+        "runtime_db_health_json",
+        "automation_runtime_manifest_json",
+        "handoff_markdown_report"
+      ],
+      "properties": {
+        "source_pilot_page": { "type": "string", "minLength": 1 },
+        "source_pilot_review_page": { "type": "string", "minLength": 1 },
+        "source_pilot_decision_packets_page": { "type": "string", "minLength": 1 },
+        "operator_handoff_page": { "type": "string", "minLength": 1 },
+        "automation_page": { "type": "string", "minLength": 1 },
+        "runtime_health_page": { "type": "string", "minLength": 1 },
+        "handoff_json": { "type": "string", "minLength": 1 },
+        "status_json": { "type": "string", "minLength": 1 },
+        "review_candidates_json": { "type": "string", "minLength": 1 },
+        "decision_packets_json": { "type": "string", "minLength": 1 },
+        "runtime_db_health_json": { "type": "string", "minLength": 1 },
+        "automation_runtime_manifest_json": { "type": "string", "minLength": 1 },
+        "handoff_markdown_report": { "type": "string", "minLength": 1 },
+        "manifest_version": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

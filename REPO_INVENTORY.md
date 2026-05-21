@@ -1,6 +1,17 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (T075D offline decision packets — v1.0.25)
+**Last updated:** 21 May 2026 (T075E offline operator handoff — branch)
+
+## T075E — Offline operator handoff export
+
+| Path | Role |
+|---|---|
+| **schemas/source-pilot-operator-handoff.schema.json** | Operator handoff export schema |
+| **scripts/validate-source-pilot-operator-handoff.mjs** | Handoff validator |
+| **scripts/runtime/source-pilot/build-operator-handoff.mjs** | Build handoff JSON + markdown report |
+| **public/data/source-pilot-operator-handoff.json** | Public offline operator handoff export |
+| **public/reports/source-pilot-operator-handoff.md** | Printable/static markdown handoff report |
+| **src/pages/source-pilot/operator-handoff/index.astro** | Operator handoff summary UI |
 
 ## T075D — Offline review decision packets (v1.0.25)
 

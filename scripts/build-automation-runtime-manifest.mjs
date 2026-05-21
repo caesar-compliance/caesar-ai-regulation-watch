@@ -51,9 +51,12 @@ function main() {
     source_pilot_status_export: "/data/source-pilot-status.json",
     source_pilot_review_candidates_export: "/data/source-pilot-review-candidates.json",
     source_pilot_decision_packets_export: "/data/source-pilot-decision-packets.json",
+    source_pilot_operator_handoff_export: "/data/source-pilot-operator-handoff.json",
     source_pilot_page: "/source-pilot/",
     source_pilot_review_page: "/source-pilot/review/",
     source_pilot_decision_packets_page: "/source-pilot/decision-packets/",
+    source_pilot_operator_handoff_page: "/source-pilot/operator-handoff/",
+    source_pilot_operator_handoff_report: "/reports/source-pilot-operator-handoff.md",
     legal_safe_note:
       "Design-time runtime manifest only. Not legal advice. Not live ingestion. Official sources control.",
   };

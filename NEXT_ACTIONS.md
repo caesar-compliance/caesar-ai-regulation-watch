@@ -115,8 +115,8 @@
 33. **T075D — Offline review decision packet/export** *(merged ff `e6fa1ff`; deployed v1.0.25 — `DEPLOY-20260521-043`)*
    - Decision packet export, `/source-pilot/decision-packets/` UI; fixture-only; gates closed.
 
-34. **T075E — Offline export/report polish** *(recommended next when Supabase credentials unavailable)*
-   - Operator handoff polish for decision packet exports; no network; no Supabase apply.
+34. **T075E — Offline export/report polish** *(branch `task/T075E-offline-operator-handoff-export`)*
+   - Operator handoff JSON + report + `/source-pilot/operator-handoff/`; fixture-only; no network; no Supabase apply.
 
 35. **T076 — Explicit controlled network check** *(after Control Tower approval)*
    - Single allowlisted source network check; not broad crawl.

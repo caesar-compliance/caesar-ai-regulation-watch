@@ -1,0 +1,334 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { PROJECT_VERSION_LABEL } from "../../../lib/project-version";
+
+const handoffPath = path.join(
+  process.cwd(),
+  "public/data/source-pilot-operator-handoff.json",
+);
+const healthPath = path.join(process.cwd(), "public/data/runtime-db-health.json");
+
+const handoff = fs.existsSync(handoffPath)
+  ? (JSON.parse(fs.readFileSync(handoffPath, "utf8")) as Record<string, unknown>)
+  : null;
+
+const health = fs.existsSync(healthPath)
+  ? (JSON.parse(fs.readFileSync(healthPath, "utf8")) as Record<string, unknown>)
+  : null;
+
+const sources = (handoff?.sources_summary as Record<string, unknown>[]) ?? [];
+const candidates = (handoff?.candidates_summary as Record<string, unknown>[]) ?? [];
+const packets = (handoff?.decision_packets_summary as Record<string, unknown>[]) ?? [];
+const blockedReasons = (handoff?.blocked_reasons as string[]) ?? [];
+const checklist = (handoff?.operator_checklist as Record<string, unknown>[]) ?? [];
+const cannotClaim = (handoff?.cannot_claim_yet as Record<string, unknown>[]) ?? [];
+const nextActions = (handoff?.required_next_actions as Record<string, unknown>[]) ?? [];
+const dbStatus = (health?.status as string) ?? (handoff?.db_health_status as string) ?? "unknown";
+const runtimeStatus = (handoff?.runtime_status as string) ?? "—";
+---
+
+<BaseLayout
+  title="Source pilot operator handoff"
+  currentPath="/source-pilot/operator-handoff/"
+  description="Offline operator handoff summary for the complete fixture-only source pilot chain."
+>
+  <h1>Source pilot operator handoff</h1>
+  <p class="lead">
+    T075E offline handoff export ({PROJECT_VERSION_LABEL}). Summarizes configured sources,
+    fixture review candidate, decision packet, blocked state, and required setup — metadata only.
+  </p>
+
+  <div class="banner banner--review" role="note">
+    <strong>Internal review only.</strong> Not legal verification. Not publication approval. Not live
+    monitoring. All gates remain closed; Supabase not configured.
+  </div>
+
+  <section>
+    <h2>Summary tiles</h2>
+    <div class="tile-grid">
+      <div class="tile">
+        <span class="tile-label">runtime_status</span>
+        <span class="tile-value mono">{runtimeStatus}</span>
+      </div>
+      <div class="tile">
+        <span class="tile-label">db_health</span>
+        <span class="tile-value mono">{dbStatus}</span>
+      </div>
+      <div class="tile">
+        <span class="tile-label">sources</span>
+        <span class="tile-value">{handoff?.source_count ?? 0}</span>
+      </div>
+      <div class="tile">
+        <span class="tile-label">candidates</span>
+        <span class="tile-value">{handoff?.candidate_count ?? 0}</span>
+      </div>
+      <div class="tile">
+        <span class="tile-label">decision_packets</span>
+        <span class="tile-value">{handoff?.packet_count ?? 0}</span>
+      </div>
+      <div class="tile tile--wide">
+        <span class="tile-label">blocked_reasons</span>
+        <span class="tile-value mono">{blockedReasons.length} item(s)</span>
+      </div>
+    </div>
+    <p class="muted">
+      <a href="/source-pilot/">← Source pilot</a>
+      {" · "}
+      <a href="/source-pilot/review/">Review</a>
+      {" · "}
+      <a href="/source-pilot/decision-packets/">Decision packets</a>
+      {" · "}
+      <a href="/automation/">Automation</a>
+    </p>
+  </section>
+
+  <section>
+    <h2>Blocked reasons</h2>
+    {blockedReasons.length === 0 ? (
+      <p>None listed. Run <code>npm run build:source-pilot-operator-handoff</code>.</p>
+    ) : (
+      <ul class="blocked-list">
+        {blockedReasons.map((r) => (
+          <li><code>{r}</code></li>
+        ))}
+      </ul>
+    )}
+  </section>
+
+  <section>
+    <h2>Sources summary</h2>
+    <div class="source-cards">
+      {sources.map((s) => (
+        <article class="source-card">
+          <h3>{s.source_name}</h3>
+          <dl class="meta-grid meta-grid--compact">
+            <div><dt>source_id</dt><dd><code>{s.source_id}</code></dd></div>
+            <div><dt>jurisdiction</dt><dd>{s.jurisdiction}</dd></div>
+            <div><dt>monitoring</dt><dd>{s.monitoring_status}</dd></div>
+            <div><dt>fixture</dt><dd><span class="mono">{s.fixture_snapshot_version ?? "—"}</span></dd></div>
+            <div><dt>fixture_candidate</dt><dd>{s.has_fixture_candidate ? "yes" : "no"}</dd></div>
+            <div><dt>network check</dt><dd>disabled</dd></div>
+          </dl>
+          <p class="muted">
+            <a href={s.official_url as string} rel="noopener noreferrer">{s.official_url}</a>
+          </p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section>
+    <h2>Candidate summary</h2>
+    {candidates.length === 0 ? (
+      <p>No fixture candidates in handoff export.</p>
+    ) : (
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>candidate</th>
+            <th>source</th>
+            <th>change</th>
+            <th>reviewer_status</th>
+            <th>packet</th>
+          </tr>
+        </thead>
+        <tbody>
+          {candidates.map((c) => (
+            <tr>
+              <td><code>{c.candidate_id}</code></td>
+              <td><code>{c.source_id}</code></td>
+              <td>{c.change_type}</td>
+              <td><span class="status-pill">{c.reviewer_status}</span></td>
+              <td><code>{c.packet_id}</code></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    )}
+  </section>
+
+  <section>
+    <h2>Decision packet summary</h2>
+    {packets.length === 0 ? (
+      <p>No decision packets in handoff export.</p>
+    ) : (
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>packet</th>
+            <th>status</th>
+            <th>change</th>
+            <th>blocked_until</th>
+          </tr>
+        </thead>
+        <tbody>
+          {packets.map((p) => (
+            <tr>
+              <td><code>{p.packet_id}</code></td>
+              <td><span class="status-pill">{p.packet_status}</span></td>
+              <td>{p.change_type}</td>
+              <td><span class="mono">{(p.blocked_until as string[])?.join(", ")}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    )}
+  </section>
+
+  <section>
+    <h2>Manual operator checklist</h2>
+    <ul class="checklist">
+      {checklist.map((item) => (
+        <li>
+          <input type="checkbox" disabled />
+          {item.label}
+          {item.required ? <em> (required)</em> : null}
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section>
+    <h2>Cannot claim yet</h2>
+    <ul class="claim-list">
+      {cannotClaim.map((c) => (
+        <li>
+          <strong>{c.label}</strong>
+          <span class="muted"> — {c.detail}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section>
+    <h2>Next required setup</h2>
+    <ol class="next-actions">
+      {nextActions.map((a) => (
+        <li>
+          {a.label}
+          <span class="muted"> (blocked_by: <code>{a.blocked_by}</code>)</span>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section>
+    <h2>Runtime safety</h2>
+    <dl class="meta-grid">
+      <div><dt>live_ingestion_enabled</dt><dd>false</dd></div>
+      <div><dt>scheduled_monitoring_enabled</dt><dd>false</dd></div>
+      <div><dt>network_execution_enabled</dt><dd>false</dd></div>
+      <div><dt>verified_on_source</dt><dd>false</dd></div>
+      <div><dt>legal_change_claimed</dt><dd>false</dd></div>
+      <div><dt>publication_allowed</dt><dd>false</dd></div>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Exports</h2>
+    <ul>
+      <li><a href="/data/source-pilot-operator-handoff.json">source-pilot-operator-handoff.json</a></li>
+      <li><a href="/reports/source-pilot-operator-handoff.md">source-pilot-operator-handoff.md</a></li>
+      <li><a href="/data/source-pilot-status.json">source-pilot-status.json</a></li>
+      <li><a href="/data/source-pilot-review-candidates.json">source-pilot-review-candidates.json</a></li>
+      <li><a href="/data/source-pilot-decision-packets.json">source-pilot-decision-packets.json</a></li>
+    </ul>
+  </section>
+
+  {handoff?.public_note && (
+    <p class="muted handoff-note">{handoff.public_note}</p>
+  )}
+</BaseLayout>
+
+<style>
+  .tile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: 0.75rem;
+    margin: 1rem 0;
+  }
+  .tile {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border, #ddd);
+    border-radius: 0.375rem;
+  }
+  .tile--wide {
+    grid-column: 1 / -1;
+  }
+  .tile-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--muted, #555);
+    margin-bottom: 0.25rem;
+  }
+  .tile-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  .mono {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.9rem;
+  }
+  .blocked-list,
+  .claim-list {
+    margin: 0.5rem 0 1rem;
+    padding-left: 1.25rem;
+    font-size: 0.95rem;
+  }
+  .source-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    gap: 0.75rem;
+    margin: 1rem 0;
+  }
+  .source-card {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border, #ddd);
+    border-radius: 0.375rem;
+  }
+  .source-card h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+  }
+  .meta-grid--compact {
+    font-size: 0.9rem;
+  }
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+  }
+  .data-table th,
+  .data-table td {
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--border, #ddd);
+  }
+  .status-pill {
+    font-size: 0.85rem;
+    font-family: var(--font-mono, monospace);
+  }
+  .checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0;
+  }
+  .checklist li {
+    margin: 0.35rem 0;
+    font-size: 0.9rem;
+  }
+  .next-actions {
+    font-size: 0.95rem;
+    padding-left: 1.25rem;
+  }
+  .muted {
+    color: var(--muted, #555);
+    font-size: 0.9rem;
+  }
+  .handoff-note {
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+  }
+</style>

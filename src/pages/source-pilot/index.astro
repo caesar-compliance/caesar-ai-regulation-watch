@@ -14,6 +14,10 @@ const packetsPath = path.join(
   process.cwd(),
   "public/data/source-pilot-decision-packets.json",
 );
+const handoffPath = path.join(
+  process.cwd(),
+  "public/data/source-pilot-operator-handoff.json",
+);
 const registryPath = path.join(process.cwd(), "data/runtime/source-pilot-registry.yml");
 const runtimePath = path.join(process.cwd(), "data/runtime/automation-runtime.yml");
 const healthPath = path.join(process.cwd(), "public/data/runtime-db-health.json");
@@ -28,6 +32,10 @@ const reviewExport = fs.existsSync(candidatesPath)
 
 const packetExport = fs.existsSync(packetsPath)
   ? (JSON.parse(fs.readFileSync(packetsPath, "utf8")) as Record<string, unknown>)
+  : null;
+
+const handoffExport = fs.existsSync(handoffPath)
+  ? (JSON.parse(fs.readFileSync(handoffPath, "utf8")) as Record<string, unknown>)
   : null;
 
 const registry = fs.existsSync(registryPath)
@@ -66,7 +74,7 @@ const readinessChips = [
 >
   <h1>Controlled source pilot</h1>
   <p class="lead">
-    T075D offline decision packets ({PROJECT_VERSION_LABEL}). Fixture-based metadata change simulation
+    T075E offline operator handoff ({PROJECT_VERSION_LABEL}). Fixture-based metadata change simulation
     for operator triage — not live monitoring.
   </p>
 
@@ -81,6 +89,7 @@ const readinessChips = [
       <div><dt>framework_status</dt><dd><strong>{status?.status ?? "—"}</strong></dd></div>
       <div><dt>reviewer_export</dt><dd><strong>{reviewExport?.status ?? "—"}</strong></dd></div>
       <div><dt>decision_packets</dt><dd><strong>{packetExport?.status ?? "—"}</strong></dd></div>
+      <div><dt>operator_handoff</dt><dd><strong>{handoffExport?.status ?? "—"}</strong></dd></div>
       <div><dt>packet_count</dt><dd>{packetExport?.packet_count ?? 0}</dd></div>
       <div><dt>runtime_status</dt><dd><span class="mono">{runtime?.status ?? "—"}</span></dd></div>
       <div><dt>db_health</dt><dd><span class="mono">{dbStatus}</span></dd></div>
@@ -172,6 +181,22 @@ const readinessChips = [
   </section>
 
   <section>
+    <h2>Operator handoff</h2>
+    <p>
+      <a href="/source-pilot/operator-handoff/">Open operator handoff report</a> — full fixture chain
+      summary, blocked reasons, cannot-claim-yet, and next setup.{" "}
+      {handoffExport ? (
+        <span>
+          {handoffExport.source_count} sources, {handoffExport.candidate_count} candidate(s),{" "}
+          {handoffExport.packet_count} packet(s).
+        </span>
+      ) : (
+        <span>Run <code>npm run build:source-pilot-operator-handoff</code>.</span>
+      )}
+    </p>
+  </section>
+
+  <section>
     <h2>Review candidates (preview)</h2>
     <p>
       <a href="/source-pilot/review/">Open full reviewer table</a> with filters.{" "}
@@ -219,10 +244,13 @@ const readinessChips = [
     <ul>
       <li><a href="/source-pilot/review/">Source pilot review table</a></li>
       <li><a href="/source-pilot/decision-packets/">Source pilot decision packets</a></li>
+      <li><a href="/source-pilot/operator-handoff/">Source pilot operator handoff</a></li>
       <li><a href="/automation/">Automation runtime</a></li>
       <li><a href="/runtime-health/">Runtime health</a></li>
       <li><a href="/data/source-pilot-review-candidates.json">source-pilot-review-candidates.json</a></li>
       <li><a href="/data/source-pilot-decision-packets.json">source-pilot-decision-packets.json</a></li>
+      <li><a href="/data/source-pilot-operator-handoff.json">source-pilot-operator-handoff.json</a></li>
+      <li><a href="/reports/source-pilot-operator-handoff.md">source-pilot-operator-handoff.md</a></li>
       <li><a href="/data/source-pilot-status.json">source-pilot-status.json</a></li>
     </ul>
   </section>

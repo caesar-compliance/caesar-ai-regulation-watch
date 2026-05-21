@@ -38,6 +38,9 @@ const SOURCE_PILOT_FILES = [
   path.join(ROOT, "schemas/source-pilot-decision-packets.schema.json"),
   path.join(ROOT, "scripts/validate-source-pilot-decision-packets.mjs"),
   path.join(ROOT, "scripts/runtime/source-pilot/build-decision-packets.mjs"),
+  path.join(ROOT, "schemas/source-pilot-operator-handoff.schema.json"),
+  path.join(ROOT, "scripts/validate-source-pilot-operator-handoff.mjs"),
+  path.join(ROOT, "scripts/runtime/source-pilot/build-operator-handoff.mjs"),
 ];
 const MONITORING_WORKFLOW = path.join(ROOT, ".github/workflows/monitoring-cycle.yml");
 
