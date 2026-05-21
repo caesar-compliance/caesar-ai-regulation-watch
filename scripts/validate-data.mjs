@@ -1867,4 +1867,13 @@ if (reviewerRecheckCheck.status !== 0) {
   process.exit(reviewerRecheckCheck.status ?? 1);
 }
 
+const publicationGatePacketCheck = spawnSync(
+  process.execPath,
+  [path.join(ROOT, "scripts/validate-publication-gate-packets.mjs")],
+  { cwd: ROOT, stdio: "inherit" },
+);
+if (publicationGatePacketCheck.status !== 0) {
+  process.exit(publicationGatePacketCheck.status ?? 1);
+}
+
 process.exit(0);

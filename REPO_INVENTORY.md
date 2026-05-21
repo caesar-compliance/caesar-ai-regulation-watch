@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.13 live — T065; `DEPLOY-20260521-031`)
+**Last updated:** 21 May 2026 (v1.0.14 codebase — T066; live v1.0.13)
 
 ---
 
@@ -349,6 +349,17 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **scripts/validate-final-reviewer-rechecks.mjs** | `npm run validate:final-reviewer-rechecks` |
 | **scripts/build-final-reviewer-recheck-summary.mjs** | `npm run build:final-reviewer-recheck-summary` |
 | **docs/FINAL_REVIEWER_RECHECK_PACKET.md** | T065 model |
+
+## T066 — Publication gate packet UI (v1.0.14)
+
+| Path | Purpose |
+|---|---|
+| **schemas/publication-gate-packet.schema.json** | Publication gate packet validation |
+| **data/source-adapters/publication-gate-packets.yml** | Pilot packet `T066-001` |
+| **scripts/validate-publication-gate-packets.mjs** | `npm run validate:publication-gate-packets` |
+| **scripts/build-publication-gate-packet-summary.mjs** | `npm run build:publication-gate-packet-summary` |
+| **src/pages/publication-gate/index.astro** | `/publication-gate/` UI |
+| **docs/PUBLICATION_GATE_PACKET_UI.md** | T066 model |
 
 ---
 

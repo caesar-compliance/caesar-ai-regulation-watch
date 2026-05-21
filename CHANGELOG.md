@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.14] - 21 May 2026
+
+### Added
+
+- **T066 publication gate packet UI** — `schemas/publication-gate-packet.schema.json`, `T066-001` packet; `/publication-gate/` checklist and blockers; [docs/PUBLICATION_GATE_PACKET_UI.md](docs/PUBLICATION_GATE_PACKET_UI.md); internal gate only; no publication; gates unchanged.
+
+---
+
 ## [1.0.13] - 21 May 2026
 
 ### Added

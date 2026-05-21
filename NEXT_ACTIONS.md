@@ -1,8 +1,8 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 21 May 2026
-**Current codebase:** v1.0.13 (T051–T065) — live `DEPLOY-20260521-031`, commit `de3d8c8`, tag `regulation-watch-v1.0.13`
-**Live release:** v1.0.13 — deployed 21 May 2026
+**Current codebase:** v1.0.14 (T051–T066) — live `DEPLOY-20260521-031`, commit `de3d8c8`, tag `regulation-watch-v1.0.13`
+**Live release:** v1.0.13 — v1.0.14 deploy pending
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
 ---
@@ -76,8 +76,11 @@
 20. **T065 — Final reviewer re-check packet** *(merged, deployed v1.0.13 — PR #25)*
    - `T065-001` re-check; ready for publication gate review internally only; gates false.
 
-21. **T066 — Publication gate packet UI** *(next)*
-   - Internal publication gate checklist; still no publish; gates false.
+21. **T066 — Publication gate packet UI** *(in progress — v1.0.14)*
+   - `T066-001` packet; `/publication-gate/`; blocked pending publication decision; gates false.
+
+22. **T067 — Publication gate decision capture** *(next)*
+   - Record approve/reject/request-changes for publication gate; still no auto-publish; gates false.
 
 ---
 

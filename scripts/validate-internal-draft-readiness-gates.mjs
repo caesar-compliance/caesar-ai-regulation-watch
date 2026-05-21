@@ -167,6 +167,9 @@ function readinessInvariantErrors(gate, index, ctx) {
       if (draft.latest_final_reviewer_recheck_id) {
         allowedDraftNextSteps.push("publication_gate_packet");
       }
+      if (draft.latest_publication_gate_packet_id) {
+        allowedDraftNextSteps.push("publication_gate_decision_capture");
+      }
       if (!allowedDraftNextSteps.includes(draft.next_required_step)) {
         errors.push(
           `${prefix}: draft next_required_step must be one of ${allowedDraftNextSteps.join(", ")}`,
