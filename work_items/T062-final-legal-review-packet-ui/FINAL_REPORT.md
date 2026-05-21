@@ -2,7 +2,7 @@
 
 ## Status
 
-In progress on branch `task/T062-final-legal-review-packet-ui`.
+Merged to main (PR #22 squash `9befed0`). v1.0.10 deploy ready; live remains v1.0.9 until deploy.
 
 ## Delivered
 
