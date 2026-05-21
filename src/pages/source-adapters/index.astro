@@ -523,8 +523,28 @@ const draftCount = adapters.filter((a) => a.status === "draft").length;
   </section>
 
   <section>
+    <h2>Final legal review (T062)</h2>
+    <dl class="meta-grid">
+      <div>
+        <dt>Legal review packet</dt>
+        <dd><span class="mono">T062-001</span> — pending_final_legal_review</dd>
+      </div>
+      <div>
+        <dt>Next step</dt>
+        <dd><span class="mono">final_legal_reviewer_decision</span></dd>
+      </div>
+      <div>
+        <dt>Approved / published</dt>
+        <dd>No — gates closed</dd>
+      </div>
+    </dl>
+    <p><a href="/legal-review/">Open Final Legal Review Packet →</a></p>
+  </section>
+
+  <section>
     <h2>Related</h2>
     <ul>
+      <li><a href="/legal-review/">Final legal review packet</a></li>
       <li><a href="/source-verification/">Source verification cockpit</a></li>
       <li><a href="/sources/">Official sources registry</a></li>
       <li><a href="/monitoring/">Monitoring (separate pilot)</a></li>

@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **Status** | v1.0.9 live — T061 deployed `DEPLOY-20260521-027` tag `regulation-watch-v1.0.9` |
+| **Status** | v1.0.9 live — T062 codebase v1.0.10 pending deploy |
 | **Hosting** | GitHub Pages — static site (Astro) |
 | **Scope** | AI regulation tracking, country profiles, latest updates, source monitoring, metrics and structured exports |
 | **Safety** | Not legal advice; source transparency and automation confidence labels apply |
@@ -279,5 +279,7 @@ Canonical values, review workflow, and future evidence export shape:
 **T059 (merged):** Internal draft readiness gate — [docs/INTERNAL_DRAFT_READINESS_GATE.md](docs/INTERNAL_DRAFT_READINESS_GATE.md). PR #19 squash `d25247d`; `T059-001`; not ready for publication review.
 
 **T060 (deployed):** Source verification cockpit — [docs/SOURCE_VERIFICATION_COCKPIT.md](docs/SOURCE_VERIFICATION_COCKPIT.md). `/source-verification/`; checklist `T060-001`; pending verification only; not published.
+
+**T062:** Final legal review packet — [docs/FINAL_LEGAL_REVIEW_PACKET_UI.md](docs/FINAL_LEGAL_REVIEW_PACKET_UI.md). `/legal-review/`; packet `T062-001`; pending only; not approved; not published.
 
 See [PROJECT_STATE.md](PROJECT_STATE.md) and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md).

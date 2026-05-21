@@ -155,6 +155,9 @@ function readinessInvariantErrors(gate, index, ctx) {
       if (draft.latest_source_verification_result_id) {
         allowedDraftNextSteps.push("final_legal_review_packet");
       }
+      if (draft.latest_final_legal_review_packet_id) {
+        allowedDraftNextSteps.push("final_legal_reviewer_decision");
+      }
       if (!allowedDraftNextSteps.includes(draft.next_required_step)) {
         errors.push(
           `${prefix}: draft next_required_step must be one of ${allowedDraftNextSteps.join(", ")}`,
