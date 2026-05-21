@@ -1,10 +1,11 @@
 {
   "name": "caesar-ai-regulation-watch",
   "type": "module",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "private": true,
   "description": "Read-only static site for Caesar AI Regulation Watch pilot data",
   "scripts": {
+    "validate:automation-runtime": "node scripts/validate-automation-runtime.mjs",
     "validate:data": "node scripts/validate-data.mjs",
     "validate:source-adapters": "node scripts/validate-source-adapter-allowlist.mjs",
     "validate:manual-source-intake": "node scripts/validate-manual-source-intake-runs.mjs",
@@ -51,6 +52,7 @@
     "build:source-adapter-fixtures": "node scripts/parse-source-adapter-fixture.mjs",
     "build:regulatory-updates": "node scripts/build-regulatory-updates-from-metadata.mjs",
     "generate:evidence-candidates": "node scripts/generate-evidence-export-candidates.mjs",
+    "build:automation-runtime-manifest": "node scripts/build-automation-runtime-manifest.mjs",
     "generate:exports": "node scripts/generate-static-exports.mjs",
     "dev": "astro dev",
     "build:site": "astro build",

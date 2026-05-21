@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.21] - 21 May 2026
+
+### Added
+
+- **T073 automation runtime foundation** — Runtime config (`data/runtime/automation-runtime.yml`), schema, validators, public manifest, `/automation/` status page; Supabase schema plan `ops/supabase/001_regulation_watch_runtime_schema.sql`; Cloudflare Worker scaffold `ops/cloudflare-workers/regulation-watch-monitor/`; [docs/AUTOMATION_RUNTIME_STRATEGY.md](docs/AUTOMATION_RUNTIME_STRATEGY.md). Live ingestion, scheduled monitoring, and network execution remain disabled.
+
+### Changed
+
+- Product direction docs pivot toward real automated monitoring (hosted data, snapshots, detected changes); approval-chain pages no longer primary focus.
+
+---
+
 ## [1.0.20] - 21 May 2026
 
 ### Added

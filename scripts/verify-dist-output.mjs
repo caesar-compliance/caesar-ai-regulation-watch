@@ -71,6 +71,8 @@ const required = [
   "data/topic-drilldowns.json",
   "source-adapters/index.html",
   "data/source-adapter-allowlist.json",
+  "automation/index.html",
+  "data/automation-runtime-manifest.json",
 ];
 
 const conditionalRequired = [];

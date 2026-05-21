@@ -1,8 +1,8 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 21 May 2026
-**Current codebase:** v1.0.20 (T051–T072) — live `DEPLOY-20260521-038`, commit `bbfefcc`, tag `regulation-watch-v1.0.20`
-**Live release:** v1.0.20 — deployed 21 May 2026
+**Current codebase:** v1.0.21 (T051–T073) — T073 automation runtime foundation on branch
+**Live release:** v1.0.20 — deployed 21 May 2026 (`DEPLOY-20260521-038`)
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
 ---
@@ -97,8 +97,11 @@
 27. **T072 — Explicit publication release approval packet** *(merged, deployed v1.0.20 — PR #32)*
    - `T072-001` packet; `/publication-release/` operator screen; Control Tower authorization required; no publish.
 
-28. **T073 — Controlled public release implementation** *(next — only if Control Tower authorizes)*
-   - Public feed inclusion and update route; otherwise keep publication held.
+28. **T073 — Automation runtime foundation** *(in progress — branch)*
+   - Runtime config, Supabase schema plan, Cloudflare Worker scaffold, `/automation/`, manifest; no live ingestion.
+
+29. **T074 — Supabase project bootstrap** *(next)*
+   - Apply runtime schema when credentials available; database health check page; still no scheduled monitoring.
 
 ---
 
