@@ -1876,4 +1876,13 @@ if (publicationGatePacketCheck.status !== 0) {
   process.exit(publicationGatePacketCheck.status ?? 1);
 }
 
+const publicationGateDecisionCheck = spawnSync(
+  process.execPath,
+  [path.join(ROOT, "scripts/validate-publication-gate-decisions.mjs")],
+  { cwd: ROOT, stdio: "inherit" },
+);
+if (publicationGateDecisionCheck.status !== 0) {
+  process.exit(publicationGateDecisionCheck.status ?? 1);
+}
+
 process.exit(0);

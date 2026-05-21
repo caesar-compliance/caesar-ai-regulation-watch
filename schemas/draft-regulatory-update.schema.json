@@ -141,6 +141,16 @@
         "rejected"
       ]
     },
+    "latest_publication_gate_decision_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+    "publication_gate_decision": {
+      "type": "string",
+      "enum": ["approve_for_publication_staging", "request_changes", "reject"]
+    },
+    "publication_gate_decision_status": {
+      "type": "string",
+      "enum": ["recorded", "superseded"]
+    },
+    "publication_staging_allowed": { "type": "boolean" },
     "final_legal_review_status": {
       "type": "string",
       "enum": [

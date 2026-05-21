@@ -1,0 +1,60 @@
+# Publication gate decisions — T067 pilot (metadata only, not published)
+# Internal staging-only gate decision. Not publication. Not public export.
+
+publication_gate_decisions_id: publication-gate-decisions-2026-05-21-v115
+generated_at: 2026-05-21
+product_version: 1.0.15
+legal_safe_note: >
+  T067 publication gate decision registry. approve_for_publication_staging is internal
+  pre-publication queue only — not publication approval. Not public export. Not client/evidence use.
+no_live_collection: true
+no_scheduled_monitoring: true
+
+decisions:
+  - decision_id: T067-001
+    packet_id: T066-001
+    publication_gate_packet_id: T066-001
+    draft_update_id: t056-001-draft-edpb-network-dry-run
+    draft_update_path: data/regulatory-updates/drafts/T056-001.yml
+    final_reviewer_recheck_id: T065-001
+    decision_scope: internal_publication_gate_decision_only
+    decision_status: recorded
+    decision: approve_for_publication_staging
+    decision_summary: >-
+      T067 publication gate decision: draft may proceed to internal staging preview only.
+      This is not publication approval. Public export, client/evidence use, and legal-change
+      claims remain blocked. Source not verified on source.
+    staging_limitations:
+      - internal staging preview only
+      - no public export
+      - no client/evidence use
+      - no legal-change claim
+      - no final evidence export
+      - separate publication staging validation required
+    blockers_remaining:
+      - public export not generated
+      - publication staging preview not created
+      - client/evidence gates remain closed
+      - final evidence export not allowed
+    next_required_step: publication_staging_preview
+    decided_by_role: publication_gate_reviewer
+    decided_at: "2026-05-21T14:30:00.000Z"
+    created_at: 2026-05-21
+    updated_at: 2026-05-21
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      client_evidence_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+    safety:
+      publication_allowed: false
+      public_export_allowed: false
+      publication_staging_allowed: true
+      evidence_export_allowed: false
+      client_use_allowed: false
+      metadata_only: true
+      stores_full_text: false
+      requires_staging_preview_before_publication: true
+      requires_separate_public_export_approval: true
+      requires_separate_client_evidence_approval: true

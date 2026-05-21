@@ -227,8 +227,22 @@ function packetInvariantErrors(packet, index, ctx) {
       if (draft.publication_gate_result !== packet.gate_result) {
         errors.push(`${prefix}: draft publication_gate_result must match gate_result`);
       }
-      if (draft.next_required_step !== "publication_gate_decision_capture") {
-        errors.push(`${prefix}: draft next_required_step must be publication_gate_decision_capture`);
+      const allowedDraftNextSteps = [
+        "publication_gate_decision_capture",
+        "publication_staging_preview",
+      ];
+      if (!allowedDraftNextSteps.includes(draft.next_required_step)) {
+        errors.push(
+          `${prefix}: draft next_required_step must be publication_gate_decision_capture or publication_staging_preview`,
+        );
+      }
+      if (
+        draft.latest_publication_gate_decision_id &&
+        draft.next_required_step !== "publication_staging_preview"
+      ) {
+        errors.push(
+          `${prefix}: draft with publication gate decision must have next_required_step publication_staging_preview`,
+        );
       }
       errors.push(...gateErrors(packet.draft_update_path, draft));
       if (draft.publication_allowed !== false || draft.public_export_allowed !== false) {

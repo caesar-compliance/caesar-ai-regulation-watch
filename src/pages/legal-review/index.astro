@@ -19,6 +19,7 @@ const {
   revisionResponse,
   reviewerRecheck,
   publicationGatePacket,
+  publicationGateDecision,
   draft,
   result,
   checklist,
@@ -524,10 +525,23 @@ for (const item of packet.legal_review_items) {
       <section>
         <h2>Publication gate</h2>
         <div class="banner banner--review" role="note">
-          <strong>Publication gate packet available.</strong> Packet{" "}
-          <code>{publicationGatePacket.packet_id}</code> — status{" "}
-          <code>{publicationGatePacket.packet_status}</code>. Not published. Publication decision not
-          recorded.
+          {
+            publicationGateDecision ? (
+              <>
+                <strong>Publication gate decision recorded.</strong> Decision{" "}
+                <code>{publicationGateDecision.decision_id}</code> —{" "}
+                <code>{publicationGateDecision.decision}</code>. Internal staging allowed only.
+                Publication still blocked. Public export blocked.
+              </>
+            ) : (
+              <>
+                <strong>Publication gate packet available.</strong> Packet{" "}
+                <code>{publicationGatePacket.packet_id}</code> — status{" "}
+                <code>{publicationGatePacket.packet_status}</code>. Not published. Publication decision
+                not recorded.
+              </>
+            )
+          }
         </div>
         <p><a href="/publication-gate/">Open Publication Gate Packet →</a></p>
       </section>
