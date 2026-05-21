@@ -1925,6 +1925,9 @@ export interface DraftRegulatoryUpdate {
   final_legal_review_response_status?: string;
   final_reviewer_recheck_status?: string;
   final_reviewer_recheck_result?: string;
+  latest_publication_gate_packet_id?: string;
+  publication_gate_status?: string;
+  publication_gate_result?: string;
   ready_for_publication_gate_review?: boolean;
   conservative_summary_revision_applied?: boolean;
   readiness_result?: string;
@@ -2164,11 +2167,88 @@ export interface FinalReviewerRechecksDoc {
   rechecks: FinalReviewerRecheck[];
 }
 
+export type PublicationGateItemStatus =
+  | "ready_for_gate_review"
+  | "blocked"
+  | "needs_follow_up"
+  | "not_applicable";
+
+export interface PublicationGateItem {
+  item_id: string;
+  status: PublicationGateItemStatus;
+  note: string;
+  owner_role: string;
+}
+
+export interface PublicationGatePacketSafety {
+  publication_allowed: boolean;
+  public_export_allowed: boolean;
+  evidence_export_allowed: boolean;
+  client_use_allowed: boolean;
+  final_source_verification_completed: boolean;
+  final_legal_approval_completed: boolean;
+  metadata_only: boolean;
+  stores_full_text: boolean;
+  requires_publication_gate_decision: boolean;
+  requires_separate_public_export_approval: boolean;
+  requires_separate_client_evidence_approval: boolean;
+}
+
+export interface PublicationGatePacket {
+  packet_id: string;
+  draft_update_id: string;
+  draft_update_path: string;
+  source_verification_result_id: string;
+  legal_review_packet_id: string;
+  legal_review_decision_id: string;
+  legal_review_response_id: string;
+  final_reviewer_recheck_id: string;
+  packet_scope: string;
+  packet_status: string;
+  gate_result: string;
+  gate_summary: string;
+  publication_gate_items: PublicationGateItem[];
+  blockers_remaining: string[];
+  next_required_step: string;
+  created_at: string;
+  updated_at: string;
+  gates: NetworkDryRunGateState;
+  safety: PublicationGatePacketSafety;
+}
+
+export interface PublicationGatePacketsDoc {
+  publication_gate_packets_id: string;
+  generated_at: string;
+  product_version: string;
+  legal_safe_note: string;
+  no_live_collection: boolean;
+  no_scheduled_monitoring: boolean;
+  packets: PublicationGatePacket[];
+}
+
+export interface PublicationGateCockpitCase {
+  publicationGatePacket: PublicationGatePacket;
+  reviewerRecheck: FinalReviewerRecheck | null;
+  revisionResponse: FinalLegalReviewRevisionResponse | null;
+  finalLegalDecision: FinalLegalReviewDecision | null;
+  legalPacket: FinalLegalReviewPacket | null;
+  draft: DraftRegulatoryUpdate | null;
+  result: SourceVerificationResult | null;
+  checklist: SourceVerificationChecklist | null;
+  promotion: ManualReviewPromotion | null;
+  decision: ManualReviewDecision | null;
+  revision: DraftRegulatoryUpdateRevision | null;
+  readinessGate: InternalDraftReadinessGate | null;
+  execution: SingleNetworkDryRunExecution | null;
+  approval: NetworkDryRunApproval | null;
+}
+
 export interface FinalLegalReviewCockpitCase {
   packet: FinalLegalReviewPacket;
   finalLegalDecision: FinalLegalReviewDecision | null;
   revisionResponse: FinalLegalReviewRevisionResponse | null;
   reviewerRecheck: FinalReviewerRecheck | null;
+  publicationGatePacket: PublicationGatePacket | null;
   draft: DraftRegulatoryUpdate | null;
   result: SourceVerificationResult | null;
   checklist: SourceVerificationChecklist | null;
@@ -2333,6 +2413,86 @@ export function getFinalReviewerRecheck(
   return getFinalReviewerRecheckEntries().find((r) => r.recheck_id === recheckId);
 }
 
+export function getPublicationGatePackets(): PublicationGatePacketsDoc | null {
+  const file = path.join(ROOT, "data/source-adapters/publication-gate-packets.yml");
+  if (!fs.existsSync(file)) return null;
+  return yaml.load(fs.readFileSync(file, "utf8")) as PublicationGatePacketsDoc;
+}
+
+export function getPublicationGatePacketEntries(): PublicationGatePacket[] {
+  return getPublicationGatePackets()?.packets ?? [];
+}
+
+export function getPublicationGatePacket(
+  packetId: string,
+): PublicationGatePacket | undefined {
+  return getPublicationGatePacketEntries().find((p) => p.packet_id === packetId);
+}
+
+export function getPublicationGateCockpitCase(
+  packetId: string,
+): PublicationGateCockpitCase | null {
+  const publicationGatePacket = getPublicationGatePacket(packetId);
+  if (!publicationGatePacket) return null;
+
+  const draft = getDraftRegulatoryUpdate(publicationGatePacket.draft_update_path);
+  const result =
+    getSourceVerificationResult(publicationGatePacket.source_verification_result_id) ?? null;
+  const legalPacket =
+    getFinalLegalReviewPacket(publicationGatePacket.legal_review_packet_id) ?? null;
+  const checklist = legalPacket
+    ? (getSourceVerificationChecklist(legalPacket.checklist_id) ?? null)
+    : null;
+  const promotion = legalPacket
+    ? getManualReviewPromotionEntries().find((p) => p.promotion_id === legalPacket.promotion_id)
+    : undefined;
+  const decision = legalPacket
+    ? getManualReviewDecisionEntries().find((d) => d.decision_id === legalPacket.decision_id)
+    : undefined;
+  const revision = legalPacket
+    ? getDraftRegulatoryUpdateRevisionEntries().find(
+        (r) => r.revision_id === legalPacket.revision_id,
+      )
+    : undefined;
+  const readinessGate = legalPacket
+    ? getInternalDraftReadinessGateEntries().find(
+        (g) => g.readiness_id === legalPacket.readiness_id,
+      )
+    : undefined;
+  const execution = draft?.source_execution_id
+    ? getSingleNetworkDryRunExecutionEntries().find(
+        (e) => e.execution_id === draft.source_execution_id,
+      )
+    : undefined;
+  const approval = draft?.source_approval_id
+    ? getNetworkDryRunApprovalEntries().find((a) => a.approval_id === draft.source_approval_id)
+    : undefined;
+
+  const finalLegalDecision =
+    getFinalLegalReviewDecision(publicationGatePacket.legal_review_decision_id) ?? null;
+  const revisionResponse =
+    getFinalLegalReviewRevisionResponse(publicationGatePacket.legal_review_response_id) ?? null;
+  const reviewerRecheck =
+    getFinalReviewerRecheck(publicationGatePacket.final_reviewer_recheck_id) ?? null;
+
+  return {
+    publicationGatePacket,
+    reviewerRecheck,
+    revisionResponse,
+    finalLegalDecision,
+    legalPacket,
+    draft,
+    result,
+    checklist: checklist ?? null,
+    promotion: promotion ?? null,
+    decision: decision ?? null,
+    revision: revision ?? null,
+    readinessGate: readinessGate ?? null,
+    execution: execution ?? null,
+    approval: approval ?? null,
+  };
+}
+
 export function getFinalLegalReviewCockpitCase(
   packetId: string,
 ): FinalLegalReviewCockpitCase | null {
@@ -2384,11 +2544,21 @@ export function getFinalLegalReviewCockpitCase(
       : undefined) ??
     null;
 
+  const publicationGatePacket =
+    getPublicationGatePacketEntries().find(
+      (p) => p.legal_review_packet_id === packetId,
+    ) ??
+    (draft?.latest_publication_gate_packet_id
+      ? getPublicationGatePacket(draft.latest_publication_gate_packet_id)
+      : undefined) ??
+    null;
+
   return {
     packet,
     finalLegalDecision,
     revisionResponse,
     reviewerRecheck,
+    publicationGatePacket,
     draft,
     result,
     checklist: checklist ?? null,

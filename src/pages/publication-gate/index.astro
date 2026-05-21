@@ -1,0 +1,335 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getPublicationGateCockpitCase } from "../../lib/data";
+import { PROJECT_VERSION_LABEL } from "../../lib/project-version";
+
+const PACKET_ID = "T066-001";
+const cockpit = getPublicationGateCockpitCase(PACKET_ID);
+
+if (!cockpit) {
+  throw new Error(`Publication gate cockpit case missing: ${PACKET_ID}`);
+}
+
+const {
+  publicationGatePacket: packet,
+  reviewerRecheck,
+  revisionResponse,
+  finalLegalDecision,
+  legalPacket,
+  draft,
+  result,
+  checklist,
+  promotion,
+  decision,
+  revision,
+  readinessGate,
+  execution,
+  approval,
+} = cockpit;
+
+const timeline = [
+  {
+    step: "T055",
+    label: "Single-source network dry-run",
+    id: execution?.execution_id ?? draft?.source_execution_id,
+    status: execution?.status,
+    detail: approval ? `Approval ${approval.approval_id}` : null,
+  },
+  {
+    step: "T056",
+    label: "Manual review promotion",
+    id: promotion?.promotion_id ?? draft?.promotion_id,
+    status: promotion?.status,
+    detail: promotion?.draft_update_path,
+  },
+  {
+    step: "T057",
+    label: "Reviewer decision",
+    id: decision?.decision_id ?? draft?.latest_review_decision_id,
+    status: decision?.decision,
+    detail: decision?.decision_scope,
+  },
+  {
+    step: "T058",
+    label: "Draft revision packet",
+    id: revision?.revision_id ?? draft?.latest_revision_id,
+    status: revision?.revision_status,
+    detail: draft?.review_status,
+  },
+  {
+    step: "T059",
+    label: "Internal draft readiness gate",
+    id: readinessGate?.readiness_id ?? draft?.latest_readiness_gate_id,
+    status: readinessGate?.readiness_result ?? draft?.readiness_result,
+    detail: readinessGate?.next_required_step ?? draft?.next_required_step,
+  },
+  {
+    step: "T060",
+    label: "Source verification checklist",
+    id: checklist?.checklist_id ?? legalPacket?.checklist_id,
+    status: checklist?.status,
+    detail: checklist?.next_required_step,
+  },
+  {
+    step: "T061",
+    label: "Source verification result",
+    id: result?.result_id ?? packet.source_verification_result_id,
+    status: result?.result_status ?? "—",
+    detail: result?.overall_result ?? draft?.source_verification_result,
+  },
+  {
+    step: "T062",
+    label: "Final legal review packet",
+    id: legalPacket?.packet_id ?? packet.legal_review_packet_id,
+    status: legalPacket?.packet_status,
+    detail: legalPacket?.next_required_step,
+  },
+  {
+    step: "T063",
+    label: "Final legal reviewer decision",
+    id: finalLegalDecision?.decision_id ?? packet.legal_review_decision_id,
+    status: finalLegalDecision?.decision ?? draft?.final_legal_review_decision,
+    detail: finalLegalDecision?.decision_scope ?? draft?.final_legal_review_status,
+  },
+  {
+    step: "T064",
+    label: "Legal review revision response",
+    id: revisionResponse?.response_id ?? packet.legal_review_response_id,
+    status: revisionResponse?.response_status ?? draft?.final_legal_review_response_status,
+    detail: revisionResponse?.next_required_step ?? "final_legal_reviewer_recheck",
+  },
+  {
+    step: "T065",
+    label: "Final reviewer re-check",
+    id: reviewerRecheck?.recheck_id ?? packet.final_reviewer_recheck_id,
+    status: reviewerRecheck?.recheck_result ?? draft?.final_reviewer_recheck_result,
+    detail: reviewerRecheck?.next_required_step ?? "publication_gate_packet",
+  },
+  {
+    step: "T066",
+    label: "Publication gate packet",
+    id: packet.packet_id,
+    status: packet.gate_result,
+    detail: packet.next_required_step,
+  },
+];
+
+const gateItemCounts = {
+  ready_for_gate_review: 0,
+  blocked: 0,
+  needs_follow_up: 0,
+  not_applicable: 0,
+};
+for (const item of packet.publication_gate_items) {
+  if (gateItemCounts[item.status] !== undefined) gateItemCounts[item.status] += 1;
+}
+---
+
+<BaseLayout
+  title="Publication Gate Packet"
+  description="Internal publication gate packet — not published, not public export, gates closed."
+  currentPath="/publication-gate/"
+>
+  <h1>Publication Gate Packet</h1>
+  <p class="lead">
+    Internal publication gate readiness ({PROJECT_VERSION_LABEL}). Read-only metadata — no publish,
+    approve, or export controls.
+  </p>
+
+  <div class="status-cards">
+    <div class="status-card status-card--pending">
+      <strong>Gate status</strong>
+      <code>{packet.packet_status}</code>
+    </div>
+    <div class="status-card status-card--pending">
+      <strong>Gate result</strong>
+      <code>{packet.gate_result}</code>
+    </div>
+    <div class="status-card status-card--blocked">
+      <strong>Published</strong>
+      <span>No — not published</span>
+    </div>
+    <div class="status-card status-card--blocked">
+      <strong>Public export</strong>
+      <span>Blocked</span>
+    </div>
+    <div class="status-card status-card--blocked">
+      <strong>Client / evidence</strong>
+      <span>Blocked</span>
+    </div>
+    <div class="status-card status-card--blocked">
+      <strong>Gates</strong>
+      <span>Closed — client/evidence/legal-change gates false</span>
+    </div>
+  </div>
+
+  <div class="banner banner--review" role="note">
+    <strong>Not published.</strong> Not approved for public use. Not client-ready. Not evidence-ready.
+    Not verified legal change. Packet <code>{packet.packet_id}</code> — scope{" "}
+    <code>{packet.packet_scope}</code>. Blocked pending publication decision; next step{" "}
+    <code>{packet.next_required_step}</code>.
+  </div>
+
+  <section>
+    <h2>Draft under gate review</h2>
+    <dl class="meta-grid">
+      <div><dt>Draft ID</dt><dd><span class="mono">{draft?.draft_id ?? "—"}</span></dd></div>
+      <div><dt>Update ID</dt><dd><span class="mono">{draft?.update_id ?? packet.draft_update_id}</span></dd></div>
+      <div><dt>Status</dt><dd><span class="mono">{draft?.status ?? "—"}</span></dd></div>
+      <div><dt>Publication gate</dt><dd><span class="mono">{draft?.publication_gate_status ?? packet.packet_status}</span></dd></div>
+      <div><dt>Next required step</dt><dd><span class="mono">{draft?.next_required_step ?? packet.next_required_step}</span></dd></div>
+    </dl>
+    <p class="card__excerpt">{packet.gate_summary}</p>
+  </section>
+
+  <section>
+    <h2>Pipeline timeline</h2>
+    <ol class="timeline">
+      {
+        timeline.map((row) => (
+          <li>
+            <span class="mono">{row.step}</span> — {row.label}
+            {row.id && (
+              <>
+                {" "}
+                <code>{row.id}</code>
+              </>
+            )}
+            {row.status && (
+              <>
+                {" "}
+                (<span class="mono">{row.status}</span>)
+              </>
+            )}
+            {row.detail && <span class="timeline-detail"> — {row.detail}</span>}
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section>
+    <h2>Publication gate checklist</h2>
+    <p>
+      Item counts: ready for gate review {gateItemCounts.ready_for_gate_review}, blocked{" "}
+      {gateItemCounts.blocked}, needs follow-up {gateItemCounts.needs_follow_up}, not applicable{" "}
+      {gateItemCounts.not_applicable}. No item grants publication or public export.
+    </p>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Status</th>
+            <th>Owner role</th>
+            <th>Note</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            packet.publication_gate_items.map((item) => (
+              <tr>
+                <td><span class="mono">{item.item_id}</span></td>
+                <td>
+                  <span class={`badge badge--status-${item.status}`}>{item.status}</span>
+                </td>
+                <td><span class="mono">{item.owner_role}</span></td>
+                <td>{item.note}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Blockers</h2>
+    <ul>
+      {packet.blockers_remaining.map((b) => <li>{b}</li>)}
+    </ul>
+    {
+      reviewerRecheck && reviewerRecheck.remaining_blockers.length > 0 && (
+        <>
+          <h3>Reviewer re-check blockers ({reviewerRecheck.recheck_id})</h3>
+          <ul>
+            {reviewerRecheck.remaining_blockers.map((b) => <li>{b}</li>)}
+          </ul>
+        </>
+      )
+    }
+  </section>
+
+  <section>
+    <h2>Gates and safety</h2>
+    <dl class="meta-grid">
+      <div><dt>verified_on_source</dt><dd>false</dd></div>
+      <div><dt>client_use_allowed</dt><dd>false</dd></div>
+      <div><dt>client_evidence_allowed</dt><dd>false</dd></div>
+      <div><dt>final_evidence_allowed</dt><dd>false</dd></div>
+      <div><dt>legal_change_claimed</dt><dd>false</dd></div>
+      <div><dt>publication_allowed</dt><dd>false</dd></div>
+      <div><dt>public_export_allowed</dt><dd>false</dd></div>
+      <div><dt>evidence_export_allowed</dt><dd>false</dd></div>
+      <div><dt>final_legal_approval_completed</dt><dd>false</dd></div>
+      <div><dt>final_source_verification_completed</dt><dd>false</dd></div>
+      <div><dt>metadata_only</dt><dd>true</dd></div>
+      <div><dt>stores_full_text</dt><dd>false</dd></div>
+      <div><dt>requires_publication_gate_decision</dt><dd>true</dd></div>
+      <div><dt>requires_separate_public_export_approval</dt><dd>true</dd></div>
+      <div><dt>requires_separate_client_evidence_approval</dt><dd>true</dd></div>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Related</h2>
+    <ul>
+      <li><a href="/legal-review/">Final legal review packet</a></li>
+      <li><a href="/source-verification/">Source verification cockpit</a></li>
+      <li><a href="/source-adapters/">Source adapters pipeline</a></li>
+      <li><a href="/updates/">Public regulatory updates feed</a></li>
+      <li><a href="/tracker/">Automation-first tracker</a></li>
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .status-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    gap: 0.75rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .status-card {
+    padding: 0.75rem 1rem;
+    border-radius: 0.375rem;
+    border: 1px solid var(--border, #ccc);
+    background: var(--surface, #f8f8f8);
+  }
+  .status-card strong {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.25rem;
+  }
+  .status-card--pending code {
+    color: var(--accent-warn, #8a6d00);
+  }
+  .status-card--blocked span {
+    color: var(--accent-danger, #a00);
+  }
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .timeline li {
+    padding: 0.35rem 0;
+    border-bottom: 1px solid var(--border, #eee);
+  }
+  .timeline-detail {
+    color: var(--text-muted, #666);
+    font-size: 0.9em;
+  }
+</style>

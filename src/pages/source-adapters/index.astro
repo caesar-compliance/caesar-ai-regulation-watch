@@ -558,8 +558,32 @@ const draftCount = adapters.filter((a) => a.status === "draft").length;
   </section>
 
   <section>
+    <h2>Publication gate (T066)</h2>
+    <dl class="meta-grid">
+      <div>
+        <dt>Publication gate packet</dt>
+        <dd><span class="mono">T066-001</span> — pending_publication_gate_decision</dd>
+      </div>
+      <div>
+        <dt>Gate result</dt>
+        <dd><span class="mono">blocked_pending_publication_decision</span></dd>
+      </div>
+      <div>
+        <dt>Next step</dt>
+        <dd><span class="mono">publication_gate_decision_capture</span></dd>
+      </div>
+      <div>
+        <dt>Publication</dt>
+        <dd>Blocked — decision not recorded</dd>
+      </div>
+    </dl>
+    <p><a href="/publication-gate/">Open Publication Gate Packet →</a></p>
+  </section>
+
+  <section>
     <h2>Related</h2>
     <ul>
+      <li><a href="/publication-gate/">Publication gate packet</a></li>
       <li><a href="/legal-review/">Final legal review packet</a></li>
       <li><a href="/source-verification/">Source verification cockpit</a></li>
       <li><a href="/sources/">Official sources registry</a></li>

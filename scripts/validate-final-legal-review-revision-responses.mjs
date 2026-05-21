@@ -180,10 +180,16 @@ function responseInvariantErrors(response, index, ctx) {
       if (!hasRecheck && draft.next_required_step !== "final_legal_reviewer_recheck") {
         errors.push(`${prefix}: draft next_required_step must be final_legal_reviewer_recheck`);
       }
-      if (hasRecheck && draft.next_required_step !== "publication_gate_packet") {
-        errors.push(
-          `${prefix}: draft next_required_step must be publication_gate_packet after reviewer re-check`,
-        );
+      if (hasRecheck) {
+        const allowedAfterRecheck = [
+          "publication_gate_packet",
+          "publication_gate_decision_capture",
+        ];
+        if (!allowedAfterRecheck.includes(draft.next_required_step)) {
+          errors.push(
+            `${prefix}: draft next_required_step must be publication_gate_packet or publication_gate_decision_capture after reviewer re-check`,
+          );
+        }
       }
       errors.push(...gateErrors(response.draft_update_path, draft));
       if (draft.publication_allowed !== false || draft.public_export_allowed !== false) {

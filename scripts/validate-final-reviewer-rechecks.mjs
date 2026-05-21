@@ -202,8 +202,14 @@ function recheckInvariantErrors(recheck, index, ctx) {
       if (draft.final_reviewer_recheck_result !== recheck.recheck_result) {
         errors.push(`${prefix}: draft final_reviewer_recheck_result must match recheck`);
       }
-      if (draft.next_required_step !== "publication_gate_packet") {
-        errors.push(`${prefix}: draft next_required_step must be publication_gate_packet`);
+      const allowedDraftNextSteps = [
+        "publication_gate_packet",
+        "publication_gate_decision_capture",
+      ];
+      if (!allowedDraftNextSteps.includes(draft.next_required_step)) {
+        errors.push(
+          `${prefix}: draft next_required_step must be publication_gate_packet or publication_gate_decision_capture`,
+        );
       }
       if (draft.ready_for_publication_gate_review !== true) {
         errors.push(`${prefix}: draft ready_for_publication_gate_review must be true`);
