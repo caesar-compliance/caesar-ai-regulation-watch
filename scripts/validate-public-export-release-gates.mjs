@@ -264,8 +264,14 @@ function gateInvariantErrors(gate, index, ctx) {
       if (draft.ready_for_public_export_approval !== true) {
         errors.push(`${prefix}: draft ready_for_public_export_approval must be true`);
       }
-      if (draft.next_required_step !== gate.next_required_step) {
-        errors.push(`${prefix}: draft next_required_step must match gate`);
+      const allowedDraftNextSteps = [gate.next_required_step];
+      if (draft.latest_public_export_approval_decision_id) {
+        allowedDraftNextSteps.push("public_update_release_decision");
+      }
+      if (!allowedDraftNextSteps.includes(draft.next_required_step)) {
+        errors.push(
+          `${prefix}: draft next_required_step must match gate or public_update_release_decision after approval`,
+        );
       }
       if (
         draft.proposed_public_update_id !== gate.candidate_metadata.proposed_public_update_id

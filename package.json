@@ -1,7 +1,7 @@
 {
   "name": "caesar-ai-regulation-watch",
   "type": "module",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "private": true,
   "description": "Read-only static site for Caesar AI Regulation Watch pilot data",
   "scripts": {
@@ -24,6 +24,7 @@
     "validate:publication-gate-decisions": "node scripts/validate-publication-gate-decisions.mjs",
     "validate:publication-staging-previews": "node scripts/validate-publication-staging-previews.mjs",
     "validate:public-export-release-gates": "node scripts/validate-public-export-release-gates.mjs",
+    "validate:public-export-approval-decisions": "node scripts/validate-public-export-approval-decisions.mjs",
     "build:manual-review-promotion": "node scripts/build-manual-review-promotion.mjs",
     "build:manual-review-decision-summary": "node scripts/build-manual-review-decision-summary.mjs",
     "build:draft-revision-summary": "node scripts/build-draft-revision-summary.mjs",
@@ -38,6 +39,8 @@
     "build:publication-gate-decision-summary": "node scripts/build-publication-gate-decision-summary.mjs",
     "build:publication-staging-preview-summary": "node scripts/build-publication-staging-preview-summary.mjs",
     "build:public-export-release-gate-summary": "node scripts/build-public-export-release-gate-summary.mjs",
+    "build:public-export-approval-decision-summary": "node scripts/build-public-export-approval-decision-summary.mjs",
+    "build:non-public-export-preview": "node scripts/build-non-public-export-preview.mjs",
     "build:network-dry-run-plan": "node scripts/build-network-dry-run-plan.mjs",
     "run:approved-network-dry-run": "node scripts/run-approved-network-dry-run.mjs",
     "run:manual-source-intake": "node scripts/run-manual-source-intake.mjs",

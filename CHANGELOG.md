@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.18] - 21 May 2026
+
+### Added
+
+- **T070 public export approval decision** — `schemas/public-export-approval-decision.schema.json`, `T070-001` decision; non-public preview artifact builder; `/public-export-gate/` decision UI; [docs/PUBLIC_EXPORT_APPROVAL_DECISION.md](docs/PUBLIC_EXPORT_APPROVAL_DECISION.md); preview only; no publication; gates unchanged.
+
+---
+
 ## [1.0.17] - 21 May 2026
 
 ### Added

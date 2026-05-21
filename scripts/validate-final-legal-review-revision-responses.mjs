@@ -187,10 +187,11 @@ function responseInvariantErrors(response, index, ctx) {
           "publication_staging_preview",
           "public_export_release_gate",
           "public_export_approval_decision",
+          "public_update_release_decision",
         ];
         if (!allowedAfterRecheck.includes(draft.next_required_step)) {
           errors.push(
-            `${prefix}: draft next_required_step must be publication_gate_packet, publication_gate_decision_capture, publication_staging_preview, public_export_release_gate, or public_export_approval_decision after reviewer re-check`,
+            `${prefix}: draft next_required_step must be publication_gate_packet, publication_gate_decision_capture, publication_staging_preview, public_export_release_gate, public_export_approval_decision, or public_update_release_decision after reviewer re-check`,
           );
         }
       }

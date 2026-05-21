@@ -226,14 +226,16 @@ function previewInvariantErrors(preview, index, ctx) {
       const allowedDraftNextSteps = [
         "public_export_release_gate",
         "public_export_approval_decision",
+        "public_update_release_decision",
       ];
       if (!allowedDraftNextSteps.includes(draft.next_required_step)) {
         errors.push(
-          `${prefix}: draft next_required_step must be public_export_release_gate or public_export_approval_decision`,
+          `${prefix}: draft next_required_step must be public_export_release_gate, public_export_approval_decision, or public_update_release_decision`,
         );
       }
       if (
         draft.latest_public_export_release_gate_id &&
+        !draft.latest_public_export_approval_decision_id &&
         draft.next_required_step !== "public_export_approval_decision"
       ) {
         errors.push(

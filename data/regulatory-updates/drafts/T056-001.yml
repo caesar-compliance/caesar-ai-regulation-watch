@@ -60,7 +60,12 @@ public_export_release_gate_result: ready_for_public_export_approval
 public_export_gate_ready: true
 ready_for_public_export_approval: true
 proposed_public_update_id: update-edpb-t056-001
-next_required_step: public_export_approval_decision
+latest_public_export_approval_decision_id: T070-001
+public_export_approval_decision: approve_non_public_export_preview
+public_export_approval_status: recorded
+non_public_export_preview_allowed: true
+non_public_export_preview_artifact_path: generated/public-export-preview/T070-001.json
+next_required_step: public_update_release_decision
 ready_for_publication_gate_review: true
 conservative_summary_revision_applied: true
 final_source_verification_completed: false
