@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caesar.no/schemas/caesar-ai-regulation-watch/final-legal-review-revision-response.schema.json",
+  "title": "Caesar AI Regulation Watch — Final legal review revision response",
+  "description": "Internal metadata-only response to legal review request_changes. Not publication. Not final approval.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "final_legal_review_revision_responses_id",
+    "generated_at",
+    "product_version",
+    "legal_safe_note",
+    "no_live_collection",
+    "no_scheduled_monitoring",
+    "responses"
+  ],
+  "properties": {
+    "final_legal_review_revision_responses_id": {
+      "type": "string",
+      "pattern": "^final-legal-review-revision-responses-[0-9]{4}-[0-9]{2}-[0-9]{2}-v[0-9]{3}$"
+    },
+    "generated_at": { "type": "string", "format": "date" },
+    "product_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "legal_safe_note": { "type": "string", "minLength": 1 },
+    "no_live_collection": { "type": "boolean", "const": true },
+    "no_scheduled_monitoring": { "type": "boolean", "const": true },
+    "responses": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/responseRecord" }
+    }
+  },
+  "$defs": {
+    "gateState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verified_on_source",
+        "client_use_allowed",
+        "client_evidence_allowed",
+        "final_evidence_allowed",
+        "legal_change_claimed"
+      ],
+      "properties": {
+        "verified_on_source": { "type": "boolean", "const": false },
+        "client_use_allowed": { "type": "boolean", "const": false },
+        "client_evidence_allowed": { "type": "boolean", "const": false },
+        "final_evidence_allowed": { "type": "boolean", "const": false },
+        "legal_change_claimed": { "type": "boolean", "const": false }
+      }
+    },
+    "safetyFlags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "final_legal_approval_completed",
+        "final_source_verification_completed",
+        "publication_allowed",
+        "public_export_allowed",
+        "evidence_export_allowed",
+        "metadata_only",
+        "stores_full_text",
+        "requires_reviewer_recheck",
+        "requires_separate_publication_approval",
+        "requires_separate_evidence_approval"
+      ],
+      "properties": {
+        "final_legal_approval_completed": { "type": "boolean", "const": false },
+        "final_source_verification_completed": { "type": "boolean", "const": false },
+        "publication_allowed": { "type": "boolean", "const": false },
+        "public_export_allowed": { "type": "boolean", "const": false },
+        "evidence_export_allowed": { "type": "boolean", "const": false },
+        "metadata_only": { "type": "boolean", "const": true },
+        "stores_full_text": { "type": "boolean", "const": false },
+        "requires_reviewer_recheck": { "type": "boolean", "const": true },
+        "requires_separate_publication_approval": { "type": "boolean", "const": true },
+        "requires_separate_evidence_approval": { "type": "boolean", "const": true }
+      }
+    },
+    "responseScope": {
+      "type": "string",
+      "const": "internal_legal_review_revision_response"
+    },
+    "responseStatus": {
+      "type": "string",
+      "enum": ["draft_response_recorded", "ready_for_reviewer_recheck", "blocked"]
+    },
+    "addressedChangeStatus": {
+      "type": "string",
+      "enum": ["addressed_metadata_only", "partially_addressed", "still_blocked"]
+    },
+    "addressedChange": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["change_id", "status", "response_note"],
+      "properties": {
+        "change_id": { "type": "string", "minLength": 1 },
+        "status": { "$ref": "#/$defs/addressedChangeStatus" },
+        "response_note": { "type": "string", "maxLength": 500 }
+      }
+    },
+    "responseRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "response_id",
+        "decision_id",
+        "packet_id",
+        "draft_update_id",
+        "draft_update_path",
+        "source_verification_result_id",
+        "response_scope",
+        "response_status",
+        "response_summary",
+        "addressed_changes",
+        "remaining_blockers",
+        "next_required_step",
+        "created_at",
+        "updated_at",
+        "gates",
+        "safety"
+      ],
+      "properties": {
+        "response_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+        "decision_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+        "packet_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+        "draft_update_id": { "type": "string", "minLength": 1 },
+        "draft_update_path": { "type": "string", "pattern": "^data/regulatory-updates/drafts/" },
+        "source_verification_result_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+        "response_scope": { "$ref": "#/$defs/responseScope" },
+        "response_status": { "$ref": "#/$defs/responseStatus" },
+        "response_summary": { "type": "string", "maxLength": 1000 },
+        "addressed_changes": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/addressedChange" }
+        },
+        "remaining_blockers": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "next_required_step": { "type": "string", "minLength": 1 },
+        "created_at": { "type": "string", "format": "date" },
+        "updated_at": { "type": "string", "format": "date" },
+        "gates": { "$ref": "#/$defs/gateState" },
+        "safety": { "$ref": "#/$defs/safetyFlags" }
+      }
+    }
+  }
+}

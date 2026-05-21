@@ -1849,4 +1849,13 @@ if (legalDecisionCheck.status !== 0) {
   process.exit(legalDecisionCheck.status ?? 1);
 }
 
+const legalRevisionResponseCheck = spawnSync(
+  process.execPath,
+  [path.join(ROOT, "scripts/validate-final-legal-review-revision-responses.mjs")],
+  { cwd: ROOT, stdio: "inherit" },
+);
+if (legalRevisionResponseCheck.status !== 0) {
+  process.exit(legalRevisionResponseCheck.status ?? 1);
+}
+
 process.exit(0);

@@ -113,17 +113,24 @@
       "type": "string",
       "enum": ["request_changes", "reject", "approve_internal_review_only"]
     },
+    "latest_final_legal_review_response_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+    "final_legal_review_response_status": {
+      "type": "string",
+      "enum": ["draft_response_recorded", "ready_for_reviewer_recheck", "blocked"]
+    },
     "final_legal_review_status": {
       "type": "string",
       "enum": [
         "pending_final_legal_review",
         "request_changes_recorded",
+        "revision_response_recorded",
         "reject_recorded",
         "approve_internal_review_only_recorded",
         "blocked",
         "superseded"
       ]
     },
+    "conservative_summary_revision_applied": { "type": "boolean" },
     "final_legal_approval_completed": { "type": "boolean", "const": false },
     "final_legal_approval_required": { "type": "boolean", "const": true },
     "notes": { "type": "string", "minLength": 1 }

@@ -185,6 +185,7 @@ function packetInvariantErrors(packet, index, ctx) {
       const allowedReviewStatuses = [
         "pending_final_legal_review",
         "request_changes_recorded",
+        "revision_response_recorded",
         "reject_recorded",
         "approve_internal_review_only_recorded",
       ];
