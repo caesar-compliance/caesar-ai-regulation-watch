@@ -2,9 +2,8 @@
 
 ## Summary
 
-- Adds `/publication-staging/` internal staging preview UI
-- Preview `T068-001` linked to T067 decision and T056 draft
-- Safe metadata only; gates closed; noindex requested
+- Merged to main (PR #28 squash `4f2e95c`); v1.0.16 deploy ready; live still v1.0.15
+- `/publication-staging/` preview `T068-001`; internal only; gates closed
 
 ## Validation
 
