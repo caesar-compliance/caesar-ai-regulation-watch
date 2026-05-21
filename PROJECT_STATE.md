@@ -6,7 +6,7 @@
 |---|---|
 | **Current version** | `v1.0.8` (implemented on main — T051 + T052 + T053 + T054) |
 | **Live version** | `v1.0.7` — tag `regulation-watch-v1.0.7` |
-| **Status** | T051–T058 merged to main; T059 internal draft readiness gate on branch; live site remains v1.0.7; tag/deploy/closeout pending future Control Tower approval |
+| **Status** | T051–T059 merged to main; T060 source verification cockpit next; live site remains v1.0.7; tag/deploy/closeout pending after T060 |
 | **Last deployment** | `DEPLOY-20260520-025` — commit `86c9262`, run [26189934284](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26189934284) |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
 | **Phase** | Public Technical MVP + profiles/drilldowns (T051) |
@@ -43,8 +43,8 @@ The **v1.0.8** codebase on main adds T051 richer jurisdiction profiles and regio
 - **T056 manual review promotion (merged)** — PR #16 squash `74e04aa`; `manual-review-promotions.yml` (`T056-001`); one manual-review-only draft from local generated T055 dry-run output under `data/regulatory-updates/drafts/`; draft excluded from public exports; generated network outputs remain local/gitignored; no new live network in T056; not verified; not published; gates unchanged; no tag/deploy/closeout.
 - **T057 manual reviewer decision (merged)** — PR #17 squash `413b87f`; `manual-review-decisions.yml` (`T057-001` / `request_changes` for T056 draft); internal-draft-only; no publication; no source verification; no live network in T057; gates unchanged; no tag/deploy/closeout.
 - **T058 draft revision packet (merged)** — PR #18 squash `3e5dce8`; `draft-regulatory-update-revisions.yml` (`T058-001`); metadata-only draft edits after T057 `request_changes`; `review_status: revised_after_request_changes`; T056 draft, T057 decision, and T058 revision excluded from public exports; no live network in T058; gates unchanged; no tag/deploy/closeout.
-- **T059 internal draft readiness gate (branch)** — `internal-draft-readiness-gates.yml` (`T059-001`); assesses revised T056 draft; result `not_ready_for_publication_review`; next step source verification checklist; T056/T057/T058/T059 excluded from public exports; no network.
-- **Recommended next** — T060 source verification checklist packet (prepare verification steps; do not mark verified_on_source true; do not publish).
+- **T059 internal draft readiness gate (merged)** — PR #19 squash `d25247d`; `internal-draft-readiness-gates.yml` (`T059-001`); result `not_ready_for_publication_review`; next step source verification checklist; no tag/deploy yet.
+- **Recommended next** — T060 source verification cockpit + checklist workflow (pending; not verified; not published).
 
 ### Remaining limitations (v1.0.8)
 

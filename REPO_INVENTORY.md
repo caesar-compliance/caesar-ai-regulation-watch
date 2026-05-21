@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.8 — T051–T058 on main; T059 in progress; live v1.0.7 `DEPLOY-20260520-025`)
+**Last updated:** 21 May 2026 (v1.0.8 — T051–T059 on main; T060 next; live v1.0.7 `DEPLOY-20260520-025`)
 
 ---
 
@@ -277,7 +277,7 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **docs/DRAFT_REVISION_PACKET_WORKFLOW.md** | T058 revision model |
 | **generated/draft-revisions/T058-001.json** | Local summary (gitignored) |
 
-## T059 — Internal draft readiness gate (v1.0.8 branch)
+## T059 — Internal draft readiness gate (v1.0.8, merged)
 
 | Path | Purpose |
 |---|---|

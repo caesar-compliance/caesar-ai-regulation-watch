@@ -4,8 +4,9 @@
 
 | Field | Value |
 |---|---|
+| Merge | PR #19 squash `d25247d` to main |
 | Starting main (after T058 merge + docs) | `79685a7` |
-| Branch | `task/T059-internal-draft-readiness-gate` |
+| Branch | `task/T059-internal-draft-readiness-gate` (merged, deleted) |
 | Draft path | `data/regulatory-updates/drafts/T056-001.yml` |
 | Decision | `T057-001` |
 | Revision | `T058-001` |
@@ -33,7 +34,8 @@
 - No source verification claim
 - All gates remain `false`
 - No live network in T059
-- Live site remains v1.0.7; no tag/deploy/closeout
+- Live site remains v1.0.7; no tag/deploy/closeout in T059
+- T060 source verification cockpit starts next
 
 ## Limitations
 
