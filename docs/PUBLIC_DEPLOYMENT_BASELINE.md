@@ -1,6 +1,6 @@
 # Public Deployment Baseline
 
-**Phase:** v1.0.13 live — T066 v1.0.14 deploy pending. `/publication-gate/` `T066-001` blocked_pending_publication_decision (internal only); not published; gates closed.
+**Phase:** v1.0.14 live — T066 deployed 21 May 2026 (`DEPLOY-20260521-032`, commit `c542e1d`, tag `regulation-watch-v1.0.14`). `/publication-gate/` `T066-001` blocked_pending_publication_decision (internal only); not published; gates closed.
 
 **Deployment date:** 20 May 2026
 **Status:** Deployed — `DEPLOY-20260520-025`, run [26189934284](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26189934284)
