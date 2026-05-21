@@ -207,6 +207,18 @@
       "enum": ["recorded", "superseded"]
     },
     "public_update_release_decision_recorded": { "type": "boolean" },
+    "latest_explicit_publication_approval_packet_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+    "explicit_publication_approval_packet_status": {
+      "type": "string",
+      "enum": ["awaiting_control_tower_authorization", "blocked", "superseded"]
+    },
+    "operator_confirmation_status": {
+      "type": "string",
+      "enum": ["pending", "not_requested", "superseded"]
+    },
+    "control_tower_authorization_required": { "type": "boolean" },
+    "operator_confirmation_required": { "type": "boolean" },
+    "publication_release_authorized": { "type": "boolean", "const": false },
     "proposed_public_update_route": { "type": "string", "pattern": "^/updates/" },
     "public_data_inclusion_allowed": { "type": "boolean" },
     "public_update_route_created": { "type": "boolean" },

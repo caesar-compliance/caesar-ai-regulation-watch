@@ -1921,4 +1921,18 @@ if (publicUpdateReleaseDecisionCheck.status !== 0) {
   process.exit(publicUpdateReleaseDecisionCheck.status ?? 1);
 }
 
+const explicitPublicationReleaseApprovalPacketCheck = spawnSync(
+  process.execPath,
+  [
+    path.join(
+      ROOT,
+      "scripts/validate-explicit-publication-release-approval-packets.mjs",
+    ),
+  ],
+  { cwd: ROOT, stdio: "inherit" },
+);
+if (explicitPublicationReleaseApprovalPacketCheck.status !== 0) {
+  process.exit(explicitPublicationReleaseApprovalPacketCheck.status ?? 1);
+}
+
 process.exit(0);

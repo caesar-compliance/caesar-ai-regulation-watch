@@ -37,6 +37,8 @@ const hasPublicExportApproval =
   draft?.latest_public_export_approval_decision_id === "T070-001";
 const hasPublicUpdateReleaseDecision =
   draft?.latest_public_update_release_decision_id === "T071-001";
+const hasExplicitPublicationApprovalPacket =
+  draft?.latest_explicit_publication_approval_packet_id === "T072-001";
 
 const timeline = [
   {
@@ -580,6 +582,19 @@ for (const item of packet.legal_review_items) {
   }
 
   {
+    hasExplicitPublicationApprovalPacket && (
+      <section>
+        <h2>Explicit publication approval packet</h2>
+        <div class="banner banner--review" role="note">
+          <strong>Approval packet prepared — no publication yet.</strong> Packet{" "}
+          <code>T072-001</code> — awaiting Control Tower authorization; operator confirmation pending.
+        </div>
+        <p><a href="/publication-release/">Open Explicit Publication Release Approval →</a></p>
+      </section>
+    )
+  }
+
+  {
     publicationGatePacket && (
       <section>
         <h2>Publication gate</h2>
@@ -610,6 +625,7 @@ for (const item of packet.legal_review_items) {
   <section>
     <h2>Related</h2>
     <ul>
+      <li><a href="/publication-release/">Explicit publication release approval</a></li>
       <li><a href="/public-export-gate/">Public export release gate</a></li>
       <li><a href="/publication-staging/">Publication staging preview</a></li>
       <li><a href="/publication-gate/">Publication gate packet</a></li>

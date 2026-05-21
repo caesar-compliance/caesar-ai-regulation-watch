@@ -292,8 +292,12 @@ function decisionInvariantErrors(decision, index, ctx) {
       if (draft.proposed_public_update_route !== decision.proposed_route) {
         errors.push(`${prefix}: draft proposed_public_update_route must match proposed_route`);
       }
-      if (draft.next_required_step !== decision.next_required_step) {
-        errors.push(`${prefix}: draft next_required_step must match decision`);
+      const allowedDraftNextSteps = [decision.next_required_step];
+      if (draft.latest_explicit_publication_approval_packet_id) {
+        allowedDraftNextSteps.push("control_tower_publication_authorization");
+      }
+      if (!allowedDraftNextSteps.includes(draft.next_required_step)) {
+        errors.push(`${prefix}: draft next_required_step must match decision or control_tower_publication_authorization after approval packet`);
       }
       if (draft.publication_allowed !== false || draft.public_export_allowed !== false) {
         errors.push(`${prefix}: draft must not allow publication or public export`);

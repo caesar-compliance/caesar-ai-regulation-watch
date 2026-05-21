@@ -412,9 +412,23 @@ for (const item of packet.publication_gate_items) {
     )
   }
 
+  {
+    draft?.latest_explicit_publication_approval_packet_id === "T072-001" && (
+      <section>
+        <h2>Explicit publication approval packet</h2>
+        <div class="banner banner--warn" role="note">
+          <strong>Approval packet prepared — no publication yet.</strong> Packet{" "}
+          <code>T072-001</code> — awaiting Control Tower authorization; operator confirmation pending.
+        </div>
+        <p><a href="/publication-release/">Open Explicit Publication Release Approval →</a></p>
+      </section>
+    )
+  }
+
   <section>
     <h2>Related</h2>
     <ul>
+      <li><a href="/publication-release/">Explicit publication release approval</a></li>
       <li><a href="/public-export-gate/">Public export release gate</a></li>
       <li><a href="/publication-staging/">Publication staging preview</a></li>
       <li><a href="/legal-review/">Final legal review packet</a></li>
