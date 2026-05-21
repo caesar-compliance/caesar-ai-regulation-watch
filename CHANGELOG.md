@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] - T074 backend bootstrap
+
+### Added
+
+- **T074 backend bootstrap** — `.env.runtime.example`, `ops/supabase/README.md`, runtime DB health check/validator, public `runtime-db-health.json`, `/runtime-health/`, `runtime:db:health` and `runtime:supabase:apply` scripts (apply gated by local flag). `pg` devDependency for Postgres health when `psql` is absent.
+
+### Changed
+
+- **monitoring-cycle.yml** — cron schedule removed; `workflow_dispatch` only; schedule guard retained.
+- **automation-runtime** — status `backend_bootstrap_ready`; scheduled/live/network flags remain false.
+
+### Not deployed
+
+- T074 branch work; no version bump until Control Tower release.
+
+---
+
 ## [1.0.21] - 21 May 2026
 
 ### Added

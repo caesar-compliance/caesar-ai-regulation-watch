@@ -1,0 +1,107 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+import yaml from "js-yaml";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { PROJECT_VERSION_LABEL } from "../../lib/project-version";
+
+const healthPath = path.join(process.cwd(), "public/data/runtime-db-health.json");
+const runtimePath = path.join(process.cwd(), "data/runtime/automation-runtime.yml");
+
+const health = fs.existsSync(healthPath)
+  ? (JSON.parse(fs.readFileSync(healthPath, "utf8")) as Record<string, unknown>)
+  : null;
+
+const runtime = fs.existsSync(runtimePath)
+  ? (yaml.load(fs.readFileSync(runtimePath, "utf8")) as Record<string, unknown>)
+  : null;
+
+const status = (health?.status as string) ?? "unknown";
+const missingTables = (health?.missing_tables as string[]) ?? [];
+const presentTables = (health?.expected_tables_present as string[]) ?? [];
+---
+
+<BaseLayout
+  title="Runtime health"
+  currentPath="/runtime-health/"
+  description="Backend runtime and Supabase/Postgres health — metadata only, live monitoring disabled."
+>
+  <h1>Runtime health</h1>
+  <p class="lead">
+    Backend bootstrap status ({PROJECT_VERSION_LABEL}). Public view of safe runtime DB health metadata —
+    no credentials, no legal text.
+  </p>
+
+  <div class="banner banner--review" role="note">
+    <strong>Not live monitoring.</strong> Live ingestion, scheduled monitoring, and network execution are
+    disabled. This page shows metadata-only health from <code>runtime-db-health.json</code>.
+  </div>
+
+  <section>
+    <h2>Backend runtime</h2>
+    <dl class="meta-grid">
+      <div><dt>runtime_id</dt><dd><span class="mono">{runtime?.runtime_id ?? "—"}</span></dd></div>
+      <div><dt>status</dt><dd><span class="mono">{runtime?.status ?? "—"}</span></dd></div>
+      <div><dt>backend_target</dt><dd><span class="mono">{runtime?.backend_target ?? "—"}</span></dd></div>
+      <div><dt>checked_at</dt><dd><span class="mono">{health?.checked_at ?? "—"}</span></dd></div>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Supabase / Postgres</h2>
+    <dl class="meta-grid">
+      <div><dt>db_health_status</dt><dd><strong>{status}</strong></dd></div>
+      <div><dt>schema_name</dt><dd><span class="mono">{health?.schema_name ?? "public"}</span></dd></div>
+      <div><dt>runtime_environment</dt><dd><span class="mono">{health?.runtime_environment ?? "—"}</span></dd></div>
+      <div><dt>runtime_event_count</dt><dd>{health?.runtime_event_count ?? "—"}</dd></div>
+      <div><dt>latest_runtime_event_at</dt><dd><span class="mono">{health?.latest_runtime_event_at ?? "—"}</span></dd></div>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Schema tables</h2>
+    {presentTables.length > 0 ? (
+      <p>Present: {presentTables.map((t) => <code>{t}</code>)}</p>
+    ) : (
+      <p>No tables reported present (DB may be not configured).</p>
+    )}
+    {missingTables.length > 0 && (
+      <p class="warn">Missing: {missingTables.map((t) => <code>{t}</code>).join(", ")}</p>
+    )}
+  </section>
+
+  <section>
+    <h2>Safety flags (public export)</h2>
+    <dl class="meta-grid">
+      <div><dt>live_ingestion_enabled</dt><dd>false</dd></div>
+      <div><dt>scheduled_monitoring_enabled</dt><dd>false</dd></div>
+      <div><dt>network_execution_enabled</dt><dd>false</dd></div>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Notice</h2>
+    <p>{health?.public_note ?? "Metadata-only runtime health export."}</p>
+    <ul>
+      <li>No database host, URL, keys, or passwords on this page.</li>
+      <li>No full legal text stored in the runtime schema.</li>
+      <li>Not legal advice; not verified legal change.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Related</h2>
+    <ul>
+      <li><a href="/automation/">Automation runtime</a></li>
+      <li><a href="/monitoring/">Monitoring (file-based)</a></li>
+      <li><a href="/data/runtime-db-health.json">runtime-db-health.json</a></li>
+      <li><a href="/data/automation-runtime-manifest.json">automation-runtime-manifest.json</a></li>
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .warn {
+    color: var(--warn, #8a4510);
+  }
+</style>

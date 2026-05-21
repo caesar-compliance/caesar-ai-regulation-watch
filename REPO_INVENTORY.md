@@ -1,6 +1,19 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.21 live — T073; `DEPLOY-20260521-039`)
+**Last updated:** 21 May 2026 (v1.0.21 live — T073; T074 branch pending)
+
+## T074 — Backend bootstrap & runtime health (branch)
+
+| Path | Role |
+|---|---|
+| **.env.runtime.example** | Runtime env placeholders (no secrets) |
+| **ops/supabase/README.md** | Supabase setup steps |
+| **scripts/runtime/check-runtime-db-health.mjs** | DB health → public JSON |
+| **scripts/runtime/apply-supabase-schema.mjs** | Manual schema apply (flag-gated) |
+| **schemas/runtime-db-health.schema.json** | Public health export schema |
+| **scripts/validate-runtime-db-health.mjs** | Health JSON validator |
+| **public/data/runtime-db-health.json** | Public safe DB health metadata |
+| **src/pages/runtime-health/index.astro** | Operator runtime health page |
 
 ## T073 — Automation runtime foundation (v1.0.21)
 

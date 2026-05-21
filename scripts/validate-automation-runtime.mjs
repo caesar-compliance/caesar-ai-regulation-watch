@@ -19,6 +19,12 @@ const WORKER_FILES = [
   path.join(ROOT, "ops/cloudflare-workers/regulation-watch-monitor/wrangler.toml.example"),
   path.join(ROOT, "ops/cloudflare-workers/regulation-watch-monitor/src/index.ts"),
 ];
+const RUNTIME_HEALTH_SCRIPTS = [
+  path.join(ROOT, "scripts/runtime/check-runtime-db-health.mjs"),
+  path.join(ROOT, "scripts/runtime/apply-supabase-schema.mjs"),
+  path.join(ROOT, "schemas/runtime-db-health.schema.json"),
+];
+const MONITORING_WORKFLOW = path.join(ROOT, ".github/workflows/monitoring-cycle.yml");
 
 const ajv = new Ajv({ allErrors: true, strict: false, validateSchema: false });
 addFormats(ajv);
@@ -80,6 +86,21 @@ function main() {
   for (const file of WORKER_FILES) {
     if (!fs.existsSync(file)) {
       errors.push(`Missing worker scaffold file: ${file}`);
+    }
+  }
+
+  for (const file of RUNTIME_HEALTH_SCRIPTS) {
+    if (!fs.existsSync(file)) {
+      errors.push(`Missing runtime health file: ${file}`);
+    }
+  }
+
+  if (fs.existsSync(MONITORING_WORKFLOW)) {
+    const wf = fs.readFileSync(MONITORING_WORKFLOW, "utf8");
+    if (/^\s*schedule:\s*$/m.test(wf) || /cron:\s*"/.test(wf)) {
+      errors.push(
+        "monitoring-cycle.yml must not define a cron schedule (scheduled monitoring disabled)",
+      );
     }
   }
 

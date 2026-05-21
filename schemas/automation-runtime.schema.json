@@ -23,7 +23,13 @@
     "runtime_id": { "type": "string", "minLength": 1 },
     "status": {
       "type": "string",
-      "enum": ["design_ready", "bootstrap_ready", "live_disabled", "live_pilot"]
+      "enum": [
+        "design_ready",
+        "backend_bootstrap_ready",
+        "bootstrap_ready",
+        "live_disabled",
+        "live_pilot"
+      ]
     },
     "live_ingestion_enabled": { "type": "boolean", "const": false },
     "scheduled_monitoring_enabled": { "type": "boolean", "const": false },

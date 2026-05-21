@@ -1,4 +1,5 @@
-# Manual / scheduled monitoring cycle — fetches official sources, validates, builds.
+# Manual monitoring cycle only — fetches official sources, validates, builds.
+# T074: cron schedule removed; scheduled monitoring disabled at repo level.
 # v0.8.1: optional human-reviewed PR for monitoring outputs (workflow_dispatch only).
 # Does NOT deploy. Does NOT auto-merge. No secrets required.
 name: Monitoring cycle
@@ -27,9 +28,6 @@ on:
         description: Include regenerated public/data exports in monitoring PR
         type: boolean
         default: true
-  # Scheduled: artifacts only (create_pr not available — defaults false).
-  schedule:
-    - cron: "0 6 * * *"
 
 concurrency:
   group: monitoring-cycle-${{ github.repository }}
@@ -43,6 +41,12 @@ jobs:
       pull-requests: write
 
     steps:
+      - name: Safety guard — scheduled runs disabled
+        if: github.event_name == 'schedule'
+        run: |
+          echo "Scheduled monitoring is disabled. Use workflow_dispatch only."
+          exit 1
+
       - name: Checkout
         uses: actions/checkout@v4
         with:

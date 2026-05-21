@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caesar.no/schemas/caesar-ai-regulation-watch/runtime-db-health.schema.json",
+  "title": "Caesar AI Regulation Watch — Runtime DB health export",
+  "description": "Public-safe runtime database health metadata. No secrets or legal text.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "status",
+    "checked_at",
+    "runtime_environment",
+    "schema_name",
+    "expected_tables_present",
+    "missing_tables",
+    "live_ingestion_enabled",
+    "scheduled_monitoring_enabled",
+    "network_execution_enabled",
+    "public_note"
+  ],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["not_configured", "connected", "schema_missing", "error"]
+    },
+    "checked_at": { "type": "string", "format": "date-time" },
+    "runtime_environment": { "type": "string", "minLength": 1 },
+    "schema_name": { "type": "string", "minLength": 1 },
+    "expected_tables_present": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "missing_tables": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "runtime_event_count": {
+      "type": ["integer", "null"],
+      "minimum": 0
+    },
+    "latest_runtime_event_at": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "live_ingestion_enabled": { "type": "boolean", "const": false },
+    "scheduled_monitoring_enabled": { "type": "boolean", "const": false },
+    "network_execution_enabled": { "type": "boolean", "const": false },
+    "public_note": { "type": "string", "minLength": 1 }
+  }
+}

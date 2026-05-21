@@ -1,0 +1,14 @@
+{
+  "checked_at": "2026-05-21T16:04:35.031Z",
+  "runtime_environment": "local",
+  "schema_name": "public",
+  "live_ingestion_enabled": false,
+  "scheduled_monitoring_enabled": false,
+  "network_execution_enabled": false,
+  "public_note": "Metadata-only runtime health. No DB credentials, legal text, or secrets in this file. Live ingestion and scheduled monitoring remain disabled.",
+  "status": "not_configured",
+  "expected_tables_present": [],
+  "missing_tables": [],
+  "runtime_event_count": null,
+  "latest_runtime_event_at": null
+}

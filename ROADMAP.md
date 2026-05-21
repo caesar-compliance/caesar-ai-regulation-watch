@@ -4,7 +4,7 @@
 
 This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
 
-**Codebase:** v1.0.21 (T073 automation runtime foundation). **Live:** v1.0.20 at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/). **Next:** T074 Supabase bootstrap; live monitoring architecture before SaaS dashboard.
+**Codebase:** v1.0.21 (T073–T074 runtime bootstrap). **Live:** v1.0.21 at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/). **Next:** T075 controlled runtime pilot after Supabase credentials; live monitoring architecture before SaaS dashboard.
 
 **Product direction (20 May 2026):** automation-first global AI regulation tracker — see [docs/AUTOMATION_FIRST_MVP_ROADMAP.md](docs/AUTOMATION_FIRST_MVP_ROADMAP.md) and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md). Human review/evidence is optional future assurance, not the first full MVP foundation.
 

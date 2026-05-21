@@ -23,13 +23,13 @@ const policy = (runtime?.source_policy as Record<string, boolean>) ?? {};
   <h1>Automation Runtime Foundation</h1>
   <p class="lead">
     Production-oriented monitoring architecture scaffold ({PROJECT_VERSION_LABEL}). Status:{" "}
-    <strong>design_ready</strong> — live ingestion not enabled yet.
+    <strong>{runtime?.status ?? "backend_bootstrap_ready"}</strong> — live ingestion not enabled yet.
   </p>
 
   <div class="banner banner--review" role="note">
-    <strong>Not live monitoring.</strong> T073 adds runtime config, Supabase schema plan, and Cloudflare Worker
-    scaffold only. No scheduled source checks, no Worker deployment, no database migration applied from this repo
-    task.
+    <strong>Not live monitoring.</strong> T074 adds runtime DB health tooling and Supabase apply helper; live
+    ingestion, scheduled monitoring, and network execution remain disabled. See{" "}
+    <a href="/runtime-health/">Runtime health</a>.
   </div>
 
   <section>
@@ -111,6 +111,8 @@ const policy = (runtime?.source_policy as Record<string, boolean>) ?? {};
       <li><a href="/publication-release/">Publication release</a></li>
       <li><a href="/tracker/">Tracker</a></li>
       <li><a href="/updates/">Updates</a></li>
+      <li><a href="/runtime-health/">Runtime health</a></li>
+      <li><a href="/data/runtime-db-health.json">runtime-db-health.json</a></li>
       <li><a href="/data/automation-runtime-manifest.json">automation-runtime-manifest.json</a></li>
       <li><a href="/review-queue/">Review queue</a></li>
     </ul>

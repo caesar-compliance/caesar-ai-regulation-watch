@@ -100,8 +100,11 @@
 28. **T073 — Automation runtime foundation** *(merged, deployed v1.0.21 — PR #33)*
    - Runtime config, Supabase schema plan, Cloudflare Worker scaffold, `/automation/`, manifest; no live ingestion.
 
-29. **T074 — Supabase project bootstrap** *(next)*
-   - Apply runtime schema when credentials available; database health check page; still no scheduled monitoring.
+29. **T074 — Backend bootstrap & runtime health** *(branch — pending merge)*
+   - Runtime env template, DB health export, `/runtime-health/`, schema apply helper; cron removed from monitoring workflow; still no scheduled monitoring.
+
+30. **T075 — Controlled runtime source pilot** *(next after T074 merge + Supabase)*
+   - First allowlisted source check against runtime DB when credentials and Control Tower approval exist.
 
 ---
 

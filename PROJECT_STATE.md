@@ -6,7 +6,7 @@
 |---|---|
 | **Current version** | `v1.0.21` (T073 — automation runtime foundation) |
 | **Live version** | `v1.0.21` — tag `regulation-watch-v1.0.21` |
-| **Status** | T073 merged and deployed; automation runtime scaffold live; live ingestion disabled |
+| **Status** | T074 backend bootstrap on branch; runtime health tooling; live ingestion disabled |
 | **Last deployment** | `DEPLOY-20260521-039` — commit `13149e8`, run [26236472664](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26236472664) |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
 | **Phase** | Public Technical MVP + profiles/drilldowns (T051) |

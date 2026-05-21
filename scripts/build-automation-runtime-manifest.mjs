@@ -38,13 +38,16 @@ function main() {
       gates_closed: true,
     },
     next_setup_steps: [
-      "create Supabase project",
-      "apply SQL migration ops/supabase/001_regulation_watch_runtime_schema.sql",
-      "configure Cloudflare Worker secrets (RUN_TOKEN, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)",
-      "deploy Worker after approval",
-      "run manual source check via POST /run/:sourceKey",
+      "copy .env.runtime.example to .env.runtime.local with Supabase credentials",
+      "run npm run runtime:db:health and validate:runtime-db-health",
+      "apply SQL migration manually: npm run runtime:supabase:apply (REGWATCH_APPLY_SUPABASE_SCHEMA=true)",
+      "configure Cloudflare Worker secrets after approval (not in T074)",
+      "deploy Worker after Control Tower approval",
+      "run manual source check via POST /run/:sourceKey when approved",
       "connect detected changes to review queue",
     ],
+    runtime_db_health_export: "/data/runtime-db-health.json",
+    runtime_health_page: "/runtime-health/",
     legal_safe_note:
       "Design-time runtime manifest only. Not legal advice. Not live ingestion. Official sources control.",
   };

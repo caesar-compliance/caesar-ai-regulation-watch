@@ -1,5 +1,5 @@
 runtime_id: regulation-watch-runtime-v1
-status: design_ready
+status: backend_bootstrap_ready
 live_ingestion_enabled: false
 scheduled_monitoring_enabled: false
 network_execution_enabled: false
