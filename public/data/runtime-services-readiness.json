@@ -1,6 +1,6 @@
 {
   "status": "onboarding_incomplete",
-  "checked_at": "2026-05-21T19:46:04.067Z",
+  "checked_at": "2026-05-21T21:36:37.906Z",
   "account_allocation": "account_a",
   "live_ingestion_enabled": false,
   "scheduled_monitoring_enabled": false,
@@ -53,7 +53,7 @@
         },
         {
           "key": "CLOUDFLARE_WORKER_NAME",
-          "present": false
+          "present": true
         }
       ]
     },
@@ -96,7 +96,7 @@
   },
   "local_env_files": {
     "env_runtime_local": true,
-    "env_cloudflare_local": false,
+    "env_cloudflare_local": true,
     "env_github_local": false
   },
   "next_required_action": "Copy .env.runtime.example to .env.runtime.local and add Supabase credentials for Account A project caesar-regulation-watch-dev (hub policy). Do not commit local env files.",

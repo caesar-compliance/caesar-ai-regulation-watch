@@ -2,7 +2,7 @@
 
 **Account:** Account A (hub policy)  
 **Supabase project:** `caesar-regulation-watch-dev`  
-**Cloudflare worker:** regulation-watch worker  
+**Cloudflare worker:** `regulation-watch-monitor-dev`
 
 Do **not** paste emails, tokens, keys, or database URLs into tracked repo files or chat logs.
 

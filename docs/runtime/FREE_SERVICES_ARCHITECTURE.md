@@ -8,7 +8,7 @@
 Caesar AI Regulation Watch uses **Account A** under the hub external services policy:
 
 - **Supabase project (dev):** `caesar-regulation-watch-dev`
-- **Cloudflare worker target:** regulation-watch worker (scaffold: `ops/cloudflare-workers/regulation-watch-monitor/`)
+- **Cloudflare worker target:** `regulation-watch-monitor-dev` (scaffold: `ops/cloudflare-workers/regulation-watch-monitor/`)
 - **GitHub:** `caesar-compliance` org — Pages + Actions for static public site and release automation
 - **Public site:** GitHub Pages → custom domain [regulation-watch.caesar.no](https://regulation-watch.caesar.no/)
 
