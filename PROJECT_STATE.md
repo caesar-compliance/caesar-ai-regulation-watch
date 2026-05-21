@@ -6,7 +6,7 @@
 |---|---|
 | **Current version** | `v1.0.8` (implemented on main — T051 + T052 + T053 + T054) |
 | **Live version** | `v1.0.7` — tag `regulation-watch-v1.0.7` |
-| **Status** | T051–T059 merged; T060 source verification cockpit in progress; live v1.0.7; deploy after T060 merge |
+| **Status** | T051–T060 merged to main; v1.0.8 ready for deploy; live v1.0.7 until deploy completes |
 | **Last deployment** | `DEPLOY-20260520-025` — commit `86c9262`, run [26189934284](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26189934284) |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
 | **Phase** | Public Technical MVP + profiles/drilldowns (T051) |
@@ -44,7 +44,8 @@ The **v1.0.8** codebase on main adds T051 richer jurisdiction profiles and regio
 - **T057 manual reviewer decision (merged)** — PR #17 squash `413b87f`; `manual-review-decisions.yml` (`T057-001` / `request_changes` for T056 draft); internal-draft-only; no publication; no source verification; no live network in T057; gates unchanged; no tag/deploy/closeout.
 - **T058 draft revision packet (merged)** — PR #18 squash `3e5dce8`; `draft-regulatory-update-revisions.yml` (`T058-001`); metadata-only draft edits after T057 `request_changes`; `review_status: revised_after_request_changes`; T056 draft, T057 decision, and T058 revision excluded from public exports; no live network in T058; gates unchanged; no tag/deploy/closeout.
 - **T059 internal draft readiness gate (merged)** — PR #19 squash `d25247d`; `internal-draft-readiness-gates.yml` (`T059-001`); result `not_ready_for_publication_review`; next step source verification checklist; no tag/deploy yet.
-- **Recommended next** — T060 source verification cockpit + checklist workflow (pending; not verified; not published).
+- **T060 source verification cockpit (merged)** — PR #20 squash `d05f846`; checklist `T060-001`; cockpit `/source-verification/`; pending verification only; no publication.
+- **Recommended next** — T061 manual source URL verification result capture (item pass/fail; keep verified_on_source false).
 
 ### Remaining limitations (v1.0.8)
 
