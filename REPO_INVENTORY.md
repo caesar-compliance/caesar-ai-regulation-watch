@@ -1,6 +1,16 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (T075C offline reviewer UI v1.0.24)
+**Last updated:** 21 May 2026 (T075D offline decision packets — branch)
+
+## T075D — Offline review decision packets (branch)
+
+| Path | Role |
+|---|---|
+| **schemas/source-pilot-decision-packets.schema.json** | Decision packets export schema |
+| **scripts/validate-source-pilot-decision-packets.mjs** | Decision packets validator |
+| **scripts/runtime/source-pilot/build-decision-packets.mjs** | Build packets from review candidates |
+| **public/data/source-pilot-decision-packets.json** | Public offline decision packet export |
+| **src/pages/source-pilot/decision-packets/index.astro** | Operator decision packet UI |
 
 ## T075C — Offline source pilot reviewer UI (v1.0.24)
 

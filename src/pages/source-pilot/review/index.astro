@@ -41,7 +41,11 @@ const candidatesJson = JSON.stringify(candidates);
       <div><dt>detected_changes</dt><dd>{reviewExport?.detected_metadata_changes_count ?? 0}</dd></div>
       <div><dt>checked_at</dt><dd><span class="mono">{reviewExport?.checked_at ?? "—"}</span></dd></div>
     </dl>
-    <p><a href="/source-pilot/">← Source pilot overview</a></p>
+    <p>
+      <a href="/source-pilot/">← Source pilot overview</a>
+      {" · "}
+      <a href="/source-pilot/decision-packets/">Decision packets</a>
+    </p>
   </section>
 
   <section>
@@ -153,6 +157,7 @@ const candidatesJson = JSON.stringify(candidates);
     <h2>Exports</h2>
     <ul>
       <li><a href="/data/source-pilot-review-candidates.json">source-pilot-review-candidates.json</a></li>
+      <li><a href="/data/source-pilot-decision-packets.json">source-pilot-decision-packets.json</a></li>
       <li><a href="/data/source-pilot-status.json">source-pilot-status.json</a></li>
     </ul>
   </section>

@@ -2,7 +2,7 @@
   "version": "1.0.24",
   "generated_at": "2026-05-21",
   "runtime_id": "regulation-watch-runtime-v1",
-  "status": "source_pilot_reviewer_ready",
+  "status": "source_pilot_decision_packets_ready",
   "backend_target": "supabase_postgres",
   "worker_target": "cloudflare_workers",
   "public_site_target": "github_pages",
@@ -46,7 +46,9 @@
   "runtime_health_page": "/runtime-health/",
   "source_pilot_status_export": "/data/source-pilot-status.json",
   "source_pilot_review_candidates_export": "/data/source-pilot-review-candidates.json",
+  "source_pilot_decision_packets_export": "/data/source-pilot-decision-packets.json",
   "source_pilot_page": "/source-pilot/",
   "source_pilot_review_page": "/source-pilot/review/",
+  "source_pilot_decision_packets_page": "/source-pilot/decision-packets/",
   "legal_safe_note": "Design-time runtime manifest only. Not legal advice. Not live ingestion. Official sources control."
 }

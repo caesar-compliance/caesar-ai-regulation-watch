@@ -1,0 +1,254 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { PROJECT_VERSION_LABEL } from "../../../lib/project-version";
+
+const packetsPath = path.join(
+  process.cwd(),
+  "public/data/source-pilot-decision-packets.json",
+);
+const healthPath = path.join(process.cwd(), "public/data/runtime-db-health.json");
+
+const packetExport = fs.existsSync(packetsPath)
+  ? (JSON.parse(fs.readFileSync(packetsPath, "utf8")) as Record<string, unknown>)
+  : null;
+
+const health = fs.existsSync(healthPath)
+  ? (JSON.parse(fs.readFileSync(healthPath, "utf8")) as Record<string, unknown>)
+  : null;
+
+const packets = (packetExport?.packets as Record<string, unknown>[]) ?? [];
+const dbStatus = (health?.status as string) ?? "unknown";
+const packetsJson = JSON.stringify(packets);
+---
+
+<BaseLayout
+  title="Source pilot decision packets"
+  currentPath="/source-pilot/decision-packets/"
+  description="Offline decision packet layer for fixture-based source pilot review candidates."
+>
+  <h1>Source pilot decision packets</h1>
+  <p class="lead">
+    Offline operator decision packets ({PROJECT_VERSION_LABEL}). Metadata-only fixture context for
+    manual triage before any future evidence or publication workflow.
+  </p>
+
+  <div class="banner banner--review" role="note">
+    <strong>Offline fixture only.</strong> Decision placeholders are not persisted. No legal
+    conclusion. Not source verified. Not evidence. Not client-usable. Not publication-approved.
+  </div>
+
+  <section>
+    <h2>Summary</h2>
+    <dl class="meta-grid">
+      <div><dt>mode</dt><dd><span class="mono">{packetExport?.mode ?? "—"}</span></dd></div>
+      <div><dt>packet_count</dt><dd id="summary-packet-count">{packets.length}</dd></div>
+      <div><dt>candidate_count</dt><dd>{packetExport?.candidate_count ?? 0}</dd></div>
+      <div><dt>db_health</dt><dd><span class="mono">{dbStatus}</span></dd></div>
+      <div><dt>checked_at</dt><dd><span class="mono">{packetExport?.checked_at ?? "—"}</span></dd></div>
+    </dl>
+    <p>
+      <a href="/source-pilot/">← Source pilot overview</a>
+      {" · "}
+      <a href="/source-pilot/review/">Review candidates</a>
+    </p>
+  </section>
+
+  <section>
+    <h2>Blocked reasons (all packets)</h2>
+    <ul class="blocked-list">
+      <li>Supabase not connected — runtime DB health: <code>{dbStatus}</code></li>
+      <li>Network execution disabled — no live source fetch</li>
+      <li>No source verification — <code>verified_on_source</code> remains false</li>
+      <li>No legal/evidence/publication approval — all gates closed</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Decision packets</h2>
+    {packets.length === 0 ? (
+      <p>No packets. Run <code>npm run build:source-pilot-decision-packets</code>.</p>
+    ) : (
+      <div id="packets-container" />
+    )}
+  </section>
+
+  <section>
+    <h2>What this is not</h2>
+    <ul>
+      <li>Not legal verification or a claim of regulatory change.</li>
+      <li>Not storage of full legal text or raw webpage bodies.</li>
+      <li>Not approval for client evidence, final evidence, or public export.</li>
+      <li>Not a persisted review decision — placeholders only until Supabase (T075B).</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Exports</h2>
+    <ul>
+      <li><a href="/data/source-pilot-decision-packets.json">source-pilot-decision-packets.json</a></li>
+      <li><a href="/data/source-pilot-review-candidates.json">source-pilot-review-candidates.json</a></li>
+    </ul>
+  </section>
+
+  <script define:vars={{ packetsJson }}>
+    const packets = JSON.parse(packetsJson);
+    const container = document.getElementById("packets-container");
+    const summaryCount = document.getElementById("summary-packet-count");
+
+    function escapeHtml(s) {
+      return s
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function renderChecklist(items) {
+      return items
+        .map(
+          (item) =>
+            `<li><input type="checkbox" disabled /> ${escapeHtml(item.label)}${item.required ? " <em>(required)</em>" : ""}</li>`,
+        )
+        .join("");
+    }
+
+    function renderPlaceholders(ph) {
+      return Object.entries(ph)
+        .map(
+          ([key, val]) => `
+        <div class="placeholder-card">
+          <label>
+            <input type="radio" name="placeholder-${key}" disabled />
+            ${escapeHtml(val.label)}
+          </label>
+          <p class="muted">${escapeHtml(val.note_placeholder)}</p>
+        </div>`,
+        )
+        .join("");
+    }
+
+    function renderPacket(p) {
+      const article = document.createElement("article");
+      article.className = "packet-card";
+      const steps = (p.manual_review_steps ?? [])
+        .map((s, i) => `<li>${i + 1}. ${escapeHtml(s)}</li>`)
+        .join("");
+      const blocked = (p.blocked_until ?? []).map((b) => `<li><code>${escapeHtml(b)}</code></li>`).join("");
+
+      article.innerHTML = `
+        <header class="packet-header">
+          <h3>${escapeHtml(p.packet_id)}</h3>
+          <span class="status-pill">${escapeHtml(p.packet_status)}</span>
+        </header>
+        <dl class="meta-grid meta-grid--compact">
+          <div><dt>candidate_id</dt><dd><code>${escapeHtml(p.candidate_id)}</code></dd></div>
+          <div><dt>source</dt><dd><code>${escapeHtml(p.source_id)}</code> — ${escapeHtml(p.source_name)}</dd></div>
+          <div><dt>jurisdiction</dt><dd>${escapeHtml(p.jurisdiction)}</dd></div>
+          <div><dt>change</dt><dd>${escapeHtml(p.change_type)} / ${escapeHtml(p.candidate_status)}</dd></div>
+          <div><dt>reviewer_status</dt><dd>${escapeHtml(p.reviewer_status)}</dd></div>
+          <div><dt>detected_at</dt><dd><span class="mono">${escapeHtml(p.detected_at)}</span></dd></div>
+          <div><dt>title</dt><dd>${p.title ? escapeHtml(String(p.title)) : "—"}</dd></div>
+          <div><dt>official_url</dt><dd><a href="${escapeHtml(p.official_url)}" rel="noopener noreferrer">${escapeHtml(p.official_url)}</a></dd></div>
+          <div><dt>metadata_fields_changed</dt><dd><span class="mono">${escapeHtml((p.metadata_fields_changed ?? []).join(", "))}</span></dd></div>
+          <div><dt>hash (prev → curr)</dt><dd><span class="mono">${escapeHtml(p.previous_metadata_hash)} → ${escapeHtml(p.current_metadata_hash)}</span></dd></div>
+        </dl>
+        <section>
+          <h4>Operator checklist</h4>
+          <ul class="checklist">${renderChecklist(p.operator_checklist ?? [])}</ul>
+        </section>
+        <section>
+          <h4>Manual review steps</h4>
+          <ol>${steps}</ol>
+        </section>
+        <section>
+          <h4>Blocked until</h4>
+          <ul>${blocked}</ul>
+        </section>
+        <section>
+          <h4>Operator placeholder decisions</h4>
+          <div class="placeholder-grid">${renderPlaceholders(p.decision_placeholders ?? {})}</div>
+        </section>
+        <p class="muted packet-note">${escapeHtml(p.public_note)}</p>
+      `;
+      return article;
+    }
+
+    if (container) {
+      container.replaceChildren();
+      for (const p of packets) {
+        container.appendChild(renderPacket(p));
+      }
+    }
+    if (summaryCount) summaryCount.textContent = String(packets.length);
+  </script>
+</BaseLayout>
+
+<style>
+  .blocked-list {
+    margin: 0.5rem 0 1rem;
+    padding-left: 1.25rem;
+    font-size: 0.95rem;
+  }
+  .packet-card {
+    margin: 1.25rem 0;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--border, #ddd);
+    border-radius: 0.375rem;
+  }
+  .packet-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .packet-header h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-family: var(--font-mono, monospace);
+  }
+  .meta-grid--compact {
+    font-size: 0.9rem;
+  }
+  .status-pill {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.85rem;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--border, #ccc);
+    border-radius: 0.25rem;
+  }
+  .checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0;
+  }
+  .checklist li {
+    margin: 0.35rem 0;
+    font-size: 0.9rem;
+  }
+  .placeholder-grid {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0.5rem 0;
+  }
+  .placeholder-card {
+    padding: 0.5rem 0.75rem;
+    border: 1px dashed var(--border, #ccc);
+    border-radius: 0.25rem;
+    font-size: 0.9rem;
+  }
+  .placeholder-card label {
+    font-weight: 600;
+  }
+  .packet-note {
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+  }
+  .muted {
+    color: var(--muted, #555);
+    font-size: 0.85rem;
+  }
+</style>

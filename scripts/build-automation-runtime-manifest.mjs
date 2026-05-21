@@ -50,8 +50,10 @@ function main() {
     runtime_health_page: "/runtime-health/",
     source_pilot_status_export: "/data/source-pilot-status.json",
     source_pilot_review_candidates_export: "/data/source-pilot-review-candidates.json",
+    source_pilot_decision_packets_export: "/data/source-pilot-decision-packets.json",
     source_pilot_page: "/source-pilot/",
     source_pilot_review_page: "/source-pilot/review/",
+    source_pilot_decision_packets_page: "/source-pilot/decision-packets/",
     legal_safe_note:
       "Design-time runtime manifest only. Not legal advice. Not live ingestion. Official sources control.",
   };

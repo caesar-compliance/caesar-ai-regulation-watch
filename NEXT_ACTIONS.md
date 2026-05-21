@@ -112,7 +112,7 @@
 32. **T075C — Offline source pilot reviewer UI** *(merged ff `b46a1af`; deployed v1.0.24 — `DEPLOY-20260521-042`)*
    - Review candidate export, `/source-pilot/review/` filters, enhanced `/source-pilot/`; fixture-only; no network.
 
-33. **T075D — Offline review decision packet/export** *(recommended next when Supabase credentials unavailable)*
+33. **T075D — Offline review decision packet/export** *(in progress on branch `task/T075D-offline-review-decision-packets`)*
    - Operator decision packet from fixture review candidates; still no network; gates closed.
 
 34. **T076 — Explicit controlled network check** *(after Control Tower approval)*
