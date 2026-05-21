@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.19] - 21 May 2026
+
+### Added
+
+- **T071 public update release decision** — `schemas/public-update-release-decision.schema.json`, `T071-001` hold decision; `/public-export-gate/` release decision UI; [docs/PUBLIC_UPDATE_RELEASE_DECISION.md](docs/PUBLIC_UPDATE_RELEASE_DECISION.md); publication held; no public route/data; gates unchanged.
+
+---
+
 ## [1.0.18] - 21 May 2026
 
 ### Added

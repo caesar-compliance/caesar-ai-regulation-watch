@@ -227,6 +227,7 @@ function previewInvariantErrors(preview, index, ctx) {
         "public_export_release_gate",
         "public_export_approval_decision",
         "public_update_release_decision",
+        "explicit_publication_release_approval",
       ];
       if (!allowedDraftNextSteps.includes(draft.next_required_step)) {
         errors.push(

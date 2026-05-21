@@ -4,7 +4,8 @@ import { getPublicExportReleaseGateCockpitCase } from "../../lib/data";
 import { PROJECT_VERSION_LABEL } from "../../lib/project-version";
 
 const GATE_ID = "T069-001";
-const DECISION_ID = "T070-001";
+const EXPORT_APPROVAL_ID = "T070-001";
+const RELEASE_DECISION_ID = "T071-001";
 const cockpit = getPublicExportReleaseGateCockpitCase(GATE_ID);
 
 if (!cockpit) {
@@ -17,10 +18,12 @@ const {
   publicationGateDecision,
   publicationGatePacket,
   publicExportApprovalDecision,
+  publicUpdateReleaseDecision,
   draft,
 } = cockpit;
 
 const approvalDecision = publicExportApprovalDecision;
+const releaseDecision = publicUpdateReleaseDecision;
 const proposedRoute = gate.candidate_metadata.proposed_route;
 
 const readyItems = gate.release_gate_items.filter(
@@ -54,6 +57,17 @@ const blockedItems = gate.release_gate_items.filter((i) => i.status === "blocked
         <code>{approvalDecision.decision_id}</code> —{" "}
         <code>{approvalDecision.decision}</code>. Does not publish. Does not add to public/data.
         Public export and client/evidence remain blocked.
+      </div>
+    )
+  }
+
+  {
+    releaseDecision && (
+      <div class="banner banner--danger" role="alert">
+        <strong>Publication held.</strong> Release decision{" "}
+        <code>{releaseDecision.decision_id}</code> —{" "}
+        <code>{releaseDecision.decision}</code>. No public route or public/data inclusion.
+        Explicit publication release approval required before any publish step.
       </div>
     )
   }
@@ -122,6 +136,38 @@ const blockedItems = gate.release_gate_items.filter((i) => i.status === "blocked
         <h3>Blockers remaining</h3>
         <ul>
           {approvalDecision.blockers_remaining.map((b) => <li>{b}</li>)}
+        </ul>
+      </section>
+    )
+  }
+
+  {
+    releaseDecision && (
+      <section>
+        <h2>Public update release decision</h2>
+        <dl class="meta-grid">
+          <div><dt>Decision ID</dt><dd><span class="mono">{releaseDecision.decision_id}</span></dd></div>
+          <div><dt>Decision</dt><dd><span class="mono">{releaseDecision.decision}</span></dd></div>
+          <div><dt>Status</dt><dd><span class="mono">{releaseDecision.decision_status}</span></dd></div>
+          <div><dt>Export approval</dt><dd><span class="mono">{releaseDecision.public_export_approval_decision_id}</span></dd></div>
+          <div><dt>Proposed update ID</dt><dd><span class="mono">{releaseDecision.proposed_public_update_id}</span></dd></div>
+          <div><dt>Proposed route</dt><dd><span class="mono">{releaseDecision.proposed_route}</span> (text only — not generated)</dd></div>
+          <div><dt>Next step</dt><dd><span class="mono">{releaseDecision.next_required_step}</span></dd></div>
+          <div><dt>publication_allowed</dt><dd>false</dd></div>
+          <div><dt>public_export_allowed</dt><dd>false</dd></div>
+          <div><dt>public_data_inclusion_allowed</dt><dd>false</dd></div>
+          <div><dt>public_update_route_created</dt><dd>false</dd></div>
+          <div><dt>client_use_allowed</dt><dd>false</dd></div>
+          <div><dt>evidence_export_allowed</dt><dd>false</dd></div>
+        </dl>
+        <p>{releaseDecision.decision_summary}</p>
+        <h3>Hold reasons</h3>
+        <ul>
+          {releaseDecision.hold_reasons.map((r) => <li>{r}</li>)}
+        </ul>
+        <h3>Release requirements remaining</h3>
+        <ul>
+          {releaseDecision.release_requirements_remaining.map((r) => <li>{r}</li>)}
         </ul>
       </section>
     )
@@ -249,9 +295,18 @@ const blockedItems = gate.release_gate_items.filter((i) => i.status === "blocked
           </li>
         )
       }
+      {
+        releaseDecision && (
+          <li>
+            <span class="mono">T071</span> — Public update release decision{" "}
+            <code>{releaseDecision.decision_id}</code> (
+            <span class="mono">{releaseDecision.decision}</span>)
+          </li>
+        )
+      }
       <li>
         <span class="mono">Next</span> —{" "}
-        <code>{approvalDecision?.next_required_step ?? gate.next_required_step}</code> (not
+        <code>{releaseDecision?.next_required_step ?? approvalDecision?.next_required_step ?? gate.next_required_step}</code> (not
         completed)
       </li>
     </ol>
