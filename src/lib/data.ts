@@ -1918,8 +1918,11 @@ export interface DraftRegulatoryUpdate {
   source_verification_result?: SourceVerificationOverallResult;
   latest_final_legal_review_packet_id?: string;
   latest_final_legal_review_decision_id?: string;
+  latest_final_legal_review_response_id?: string;
   final_legal_review_decision?: string;
   final_legal_review_status?: string;
+  final_legal_review_response_status?: string;
+  conservative_summary_revision_applied?: boolean;
   readiness_result?: string;
   next_required_step?: string;
   final_source_verification_completed?: boolean;
@@ -2046,9 +2049,63 @@ export interface FinalLegalReviewDecisionsDoc {
   decisions: FinalLegalReviewDecision[];
 }
 
+export type FinalLegalReviewRevisionChangeStatus =
+  | "addressed_metadata_only"
+  | "partially_addressed"
+  | "still_blocked";
+
+export interface FinalLegalReviewRevisionAddressedChange {
+  change_id: string;
+  status: FinalLegalReviewRevisionChangeStatus;
+  response_note: string;
+}
+
+export interface FinalLegalReviewRevisionResponseSafety {
+  final_legal_approval_completed: boolean;
+  final_source_verification_completed: boolean;
+  publication_allowed: boolean;
+  public_export_allowed: boolean;
+  evidence_export_allowed: boolean;
+  metadata_only: boolean;
+  stores_full_text: boolean;
+  requires_reviewer_recheck: boolean;
+  requires_separate_publication_approval: boolean;
+  requires_separate_evidence_approval: boolean;
+}
+
+export interface FinalLegalReviewRevisionResponse {
+  response_id: string;
+  decision_id: string;
+  packet_id: string;
+  draft_update_id: string;
+  draft_update_path: string;
+  source_verification_result_id: string;
+  response_scope: string;
+  response_status: string;
+  response_summary: string;
+  addressed_changes: FinalLegalReviewRevisionAddressedChange[];
+  remaining_blockers: string[];
+  next_required_step: string;
+  created_at: string;
+  updated_at: string;
+  gates: NetworkDryRunGateState;
+  safety: FinalLegalReviewRevisionResponseSafety;
+}
+
+export interface FinalLegalReviewRevisionResponsesDoc {
+  final_legal_review_revision_responses_id: string;
+  generated_at: string;
+  product_version: string;
+  legal_safe_note: string;
+  no_live_collection: boolean;
+  no_scheduled_monitoring: boolean;
+  responses: FinalLegalReviewRevisionResponse[];
+}
+
 export interface FinalLegalReviewCockpitCase {
   packet: FinalLegalReviewPacket;
   finalLegalDecision: FinalLegalReviewDecision | null;
+  revisionResponse: FinalLegalReviewRevisionResponse | null;
   draft: DraftRegulatoryUpdate | null;
   result: SourceVerificationResult | null;
   checklist: SourceVerificationChecklist | null;
@@ -2176,6 +2233,27 @@ export function getFinalLegalReviewDecision(
   return getFinalLegalReviewDecisionEntries().find((d) => d.decision_id === decisionId);
 }
 
+export function getFinalLegalReviewRevisionResponses(): FinalLegalReviewRevisionResponsesDoc | null {
+  const file = path.join(
+    ROOT,
+    "data/source-adapters/final-legal-review-revision-responses.yml",
+  );
+  if (!fs.existsSync(file)) return null;
+  return yaml.load(fs.readFileSync(file, "utf8")) as FinalLegalReviewRevisionResponsesDoc;
+}
+
+export function getFinalLegalReviewRevisionResponseEntries(): FinalLegalReviewRevisionResponse[] {
+  return getFinalLegalReviewRevisionResponses()?.responses ?? [];
+}
+
+export function getFinalLegalReviewRevisionResponse(
+  responseId: string,
+): FinalLegalReviewRevisionResponse | undefined {
+  return getFinalLegalReviewRevisionResponseEntries().find(
+    (r) => r.response_id === responseId,
+  );
+}
+
 export function getFinalLegalReviewCockpitCase(
   packetId: string,
 ): FinalLegalReviewCockpitCase | null {
@@ -2213,9 +2291,17 @@ export function getFinalLegalReviewCockpitCase(
       : undefined) ??
     null;
 
+  const revisionResponse =
+    getFinalLegalReviewRevisionResponseEntries().find((r) => r.packet_id === packetId) ??
+    (draft?.latest_final_legal_review_response_id
+      ? getFinalLegalReviewRevisionResponse(draft.latest_final_legal_review_response_id)
+      : undefined) ??
+    null;
+
   return {
     packet,
     finalLegalDecision,
+    revisionResponse,
     draft,
     result,
     checklist: checklist ?? null,

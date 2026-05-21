@@ -15,10 +15,10 @@ topic_ids:
 published_at: '2026-05-12'
 source_published_at: Tue, 12 May 2026 14:00:00 +0200
 summary: >-
-  Internal draft metadata summary (T058 revision after T057 request_changes). EDPB Board
-  Art. 64 opinion linked to FI SA accreditation draft decision — title and URL from T055 dry-run
-  candidate only. Topic tags and EU jurisdiction require human confirmation before any public use.
-  Source verification required before publication. Not verified on source. Not legal advice.
+  Internal metadata-only draft summary (T064 revision response). EDPB Board Art. 64 opinion
+  linked to FI SA accreditation draft decision — title and URL from T055 dry-run candidate only.
+  Topic tags and EU jurisdiction require legal reviewer confirmation. Final source verification
+  incomplete. Not verified on source. Not legal advice. Not ready for publication.
 status: draft_manual_review
 review_status: revised_after_request_changes
 intake_method: single_source_network_dry_run
@@ -31,13 +31,16 @@ latest_review_decision_id: T057-001
 latest_revision_id: T058-001
 latest_readiness_gate_id: T059-001
 readiness_result: not_ready_for_publication_review
-next_required_step: legal_review_revision_packet
 latest_source_verification_result_id: T061-001
 source_verification_result: partial_pass_needs_follow_up
 latest_final_legal_review_packet_id: T062-001
 latest_final_legal_review_decision_id: T063-001
+latest_final_legal_review_response_id: T064-001
 final_legal_review_decision: request_changes
-final_legal_review_status: request_changes_recorded
+final_legal_review_status: revision_response_recorded
+final_legal_review_response_status: ready_for_reviewer_recheck
+next_required_step: final_legal_reviewer_recheck
+conservative_summary_revision_applied: true
 final_source_verification_completed: false
 final_legal_approval_completed: false
 final_legal_approval_required: true

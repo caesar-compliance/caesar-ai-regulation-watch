@@ -523,7 +523,7 @@ const draftCount = adapters.filter((a) => a.status === "draft").length;
   </section>
 
   <section>
-    <h2>Final legal review (T062 / T063)</h2>
+    <h2>Final legal review (T062 / T063 / T064)</h2>
     <dl class="meta-grid">
       <div>
         <dt>Legal review packet</dt>
@@ -534,12 +534,16 @@ const draftCount = adapters.filter((a) => a.status === "draft").length;
         <dd><span class="mono">T063-001</span> — request_changes recorded</dd>
       </div>
       <div>
+        <dt>Revision response</dt>
+        <dd><span class="mono">T064-001</span> — ready_for_reviewer_recheck</dd>
+      </div>
+      <div>
         <dt>Next step</dt>
-        <dd><span class="mono">legal_review_revision_packet</span></dd>
+        <dd><span class="mono">final_legal_reviewer_recheck</span></dd>
       </div>
       <div>
         <dt>Publication</dt>
-        <dd>Blocked — no publication approval</dd>
+        <dd>Blocked — reviewer re-check required; no publication approval</dd>
       </div>
       <div>
         <dt>Approved / published</dt>

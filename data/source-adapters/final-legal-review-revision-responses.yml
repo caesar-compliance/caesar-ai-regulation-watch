@@ -1,0 +1,67 @@
+# Final legal review revision responses — T064 pilot (metadata only, not published)
+# Response to T063 request_changes. Ready for reviewer re-check — not final approval.
+
+final_legal_review_revision_responses_id: final-legal-review-revision-responses-2026-05-21-v112
+generated_at: 2026-05-21
+product_version: 1.0.12
+legal_safe_note: >
+  T064 legal review revision response registry. Metadata-only response to request_changes.
+  Not final legal approval. Not publication. Not final source verification. Not legal advice.
+no_live_collection: true
+no_scheduled_monitoring: true
+
+responses:
+  - response_id: T064-001
+    decision_id: T063-001
+    packet_id: T062-001
+    draft_update_id: t056-001-draft-edpb-network-dry-run
+    draft_update_path: data/regulatory-updates/drafts/T056-001.yml
+    source_verification_result_id: T061-001
+    response_scope: internal_legal_review_revision_response
+    response_status: ready_for_reviewer_recheck
+    response_summary: >-
+      T064 metadata-only revision response to T063 request_changes. Conservative internal
+      summary updated; topic/jurisdiction marked for reviewer confirmation. Source verification,
+      publication, and client/evidence use remain blocked. Ready for final legal reviewer re-check —
+      not ready for publication.
+    addressed_changes:
+      - change_id: req-001-source-verification-before-publication
+        status: still_blocked
+        response_note: remains blocked; T064 does not complete source verification
+      - change_id: req-002-title-summary-legal-language
+        status: addressed_metadata_only
+        response_note: draft wording updated to conservative internal metadata-only summary
+      - change_id: req-003-topic-jurisdiction-confirmation
+        status: partially_addressed
+        response_note: marked for reviewer confirmation, not final
+      - change_id: req-004-public-export-separate-approval
+        status: still_blocked
+        response_note: public export remains false
+      - change_id: req-005-client-evidence-blocked
+        status: still_blocked
+        response_note: client/evidence gates remain false
+    remaining_blockers:
+      - final source verification incomplete
+      - final legal reviewer re-check required
+      - publication approval not granted
+      - client/evidence use not allowed
+    next_required_step: final_legal_reviewer_recheck
+    created_at: 2026-05-21
+    updated_at: 2026-05-21
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      client_evidence_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+    safety:
+      final_legal_approval_completed: false
+      final_source_verification_completed: false
+      publication_allowed: false
+      public_export_allowed: false
+      evidence_export_allowed: false
+      metadata_only: true
+      stores_full_text: false
+      requires_reviewer_recheck: true
+      requires_separate_publication_approval: true
+      requires_separate_evidence_approval: true

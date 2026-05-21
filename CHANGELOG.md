@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.12] - 21 May 2026
+
+### Added
+
+- **T064 legal review revision response UI** — `schemas/final-legal-review-revision-response.schema.json`, `T064-001` response to `T063-001` on `/legal-review/`; [docs/FINAL_LEGAL_REVIEW_REVISION_RESPONSE.md](docs/FINAL_LEGAL_REVIEW_REVISION_RESPONSE.md); ready for reviewer re-check only; no publication; gates unchanged.
+
+---
+
 ## [1.0.11] - 21 May 2026
 
 ### Added
