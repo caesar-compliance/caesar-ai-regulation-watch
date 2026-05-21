@@ -61,7 +61,7 @@
 14. **T059 — Internal draft promotion readiness gate** *(merged to main — PR #19, squash `d25247d`)*
    - `T059-001` assesses revised T056 draft; `not_ready_for_publication_review`; next step source verification checklist; no tag/deploy yet.
 
-15. **T060 — Source verification cockpit + checklist** *(next)*
+15. **T060 — Source verification cockpit + checklist** *(in progress)*
    - `/source-verification/` cockpit; checklist `T060-001`; pending verification only; no publication; gates unchanged.
 
 ---

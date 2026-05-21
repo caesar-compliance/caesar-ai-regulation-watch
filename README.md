@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **Status** | v1.0.8 (T051–T058 on main; T059 in progress); live site v1.0.7 `DEPLOY-20260520-025` — deploy/tag pending |
+| **Status** | v1.0.8 (T051–T059 merged; T060 in progress); live v1.0.7 `DEPLOY-20260520-025` — deploy after T060 |
 | **Hosting** | GitHub Pages — static site (Astro) |
 | **Scope** | AI regulation tracking, country profiles, latest updates, source monitoring, metrics and structured exports |
 | **Safety** | Not legal advice; source transparency and automation confidence labels apply |
@@ -276,6 +276,8 @@ Canonical values, review workflow, and future evidence export shape:
 
 **T058 (merged):** Draft revision packet after T057 request-changes — [docs/DRAFT_REVISION_PACKET_WORKFLOW.md](docs/DRAFT_REVISION_PACKET_WORKFLOW.md). PR #18 squash `3e5dce8`; `T058-001` revises T056 draft metadata-only; excluded from public exports; no live network in T058.
 
-**T059 (in progress):** Internal draft readiness gate — [docs/INTERNAL_DRAFT_READINESS_GATE.md](docs/INTERNAL_DRAFT_READINESS_GATE.md). Assesses revised T056 draft; not ready for publication review; next step source verification checklist packet.
+**T059 (merged):** Internal draft readiness gate — [docs/INTERNAL_DRAFT_READINESS_GATE.md](docs/INTERNAL_DRAFT_READINESS_GATE.md). PR #19 squash `d25247d`; `T059-001`; not ready for publication review.
+
+**T060 (in progress):** Source verification cockpit — [docs/SOURCE_VERIFICATION_COCKPIT.md](docs/SOURCE_VERIFICATION_COCKPIT.md). `/source-verification/`; checklist `T060-001`; pending verification only; not published.
 
 See [PROJECT_STATE.md](PROJECT_STATE.md) and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md).

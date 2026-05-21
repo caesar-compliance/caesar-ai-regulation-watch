@@ -1813,4 +1813,13 @@ if (readinessCheck.status !== 0) {
   process.exit(readinessCheck.status ?? 1);
 }
 
+const checklistCheck = spawnSync(
+  process.execPath,
+  [path.join(ROOT, "scripts/validate-source-verification-checklists.mjs")],
+  { cwd: ROOT, stdio: "inherit" },
+);
+if (checklistCheck.status !== 0) {
+  process.exit(checklistCheck.status ?? 1);
+}
+
 process.exit(0);
