@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.11 codebase T063; live v1.0.10 `DEPLOY-20260521-028`)
+**Last updated:** 21 May 2026 (v1.0.11 live — T063; `DEPLOY-20260521-029`)
 
 ---
 
@@ -320,7 +320,7 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **src/pages/legal-review/index.astro** | Packet UI |
 | **docs/FINAL_LEGAL_REVIEW_PACKET_UI.md** | T062 model |
 
-## T063 — Final legal reviewer decision capture (v1.0.11)
+## T063 — Final legal reviewer decision capture (v1.0.11, deployed)
 
 | Path | Purpose |
 |---|---|

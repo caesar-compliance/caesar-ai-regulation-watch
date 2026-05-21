@@ -7,11 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.11] - 21 May 2026
+
+### Added
+
+- **T063 final legal reviewer decision capture** — `schemas/final-legal-review-decision.schema.json`, `T063-001` `request_changes` on `/legal-review/`; [docs/FINAL_LEGAL_REVIEW_DECISION_CAPTURE.md](docs/FINAL_LEGAL_REVIEW_DECISION_CAPTURE.md); workflow record only; no publication; gates unchanged.
+
+### Deployed
+
+- 21 May 2026 — `DEPLOY-20260521-029`, commit `121f1d2`, run [26228221533](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26228221533), tag `regulation-watch-v1.0.11`. Snapshot version 1.0.11; gate counts 0.
+
+---
+
 ## [Unreleased]
 
 ### Added
 
-- **T063 final legal reviewer decision capture** — `schemas/final-legal-review-decision.schema.json`, `data/source-adapters/final-legal-review-decisions.yml` (`T063-001` / `request_changes`), draft metadata on T056, `npm run validate:final-legal-review-decisions`, `npm run build:final-legal-review-decision-summary`, [docs/FINAL_LEGAL_REVIEW_DECISION_CAPTURE.md](docs/FINAL_LEGAL_REVIEW_DECISION_CAPTURE.md), decision section on `/legal-review/`. Workflow record only; no publication; no final verification claim; gates unchanged.
 - **T062 final legal review packet UI** — `schemas/final-legal-review-packet.schema.json`, `data/source-adapters/final-legal-review-packets.yml` (`T062-001`), draft metadata on T056, `npm run validate:final-legal-review-packets`, `npm run build:final-legal-review-packet-summary`, [docs/FINAL_LEGAL_REVIEW_PACKET_UI.md](docs/FINAL_LEGAL_REVIEW_PACKET_UI.md), packet at `/legal-review/`. Pending internal review only; not approved; not published; gates unchanged.
 - **T061 source verification result capture** — `schemas/source-verification-result.schema.json`, `data/source-adapters/source-verification-results.yml` (`T061-001`), draft metadata on T056, `npm run validate:source-verification-results`, `npm run build:source-verification-result-summary`, [docs/SOURCE_VERIFICATION_RESULT_CAPTURE.md](docs/SOURCE_VERIFICATION_RESULT_CAPTURE.md), results section on `/source-verification/`. Item-level manual outcomes only; `verified_on_source` false; no publication.
 - **T060 source verification cockpit** — `schemas/source-verification-checklist.schema.json`, `data/source-adapters/source-verification-checklists.yml` (`T060-001`), `npm run validate:source-verification-checklists`, `npm run build:source-verification-summary`, [docs/SOURCE_VERIFICATION_COCKPIT.md](docs/SOURCE_VERIFICATION_COCKPIT.md), cockpit at `/source-verification/`. Pending verification only; no publication; gates unchanged.
@@ -26,7 +37,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Notes
 
-- T063 merged to main (PR #23 squash `47113a2`). Decision `T063-001` request_changes; no publication; gates closed; deploy ready v1.0.11.
 - T062 merged and deployed v1.0.10 (PR #22 squash `9befed0`; deploy `DEPLOY-20260521-028` commit `1f77822`). Packet `T062-001` at `/legal-review/`; pending only; gates closed; snapshot counts 0.
 - T061 merged and deployed v1.0.9 (PR #21 squash `71bd4ef`; deploy `DEPLOY-20260521-027` commit `df2d8d5`). Result `T061-001` item-level manual checks; gates closed; snapshot counts 0.
 - T060 merged and deployed v1.0.8 (PR #20 squash `d05f846`; deploy `DEPLOY-20260521-026` commit `299464a`). Source verification cockpit; checklist pending; gates closed.
