@@ -6,7 +6,7 @@
 |---|---|
 | **Current version** | `v1.0.11` (T063 — final legal reviewer decision capture) |
 | **Live version** | `v1.0.10` — tag `regulation-watch-v1.0.10` |
-| **Status** | T063 in progress on branch; live site v1.0.10 until deploy |
+| **Status** | T063 merged to main; v1.0.11 deploy ready; live site v1.0.10 until deploy |
 | **Last deployment** | `DEPLOY-20260521-028` — commit `1f77822`, run [26227702669](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26227702669) |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
 | **Phase** | Public Technical MVP + profiles/drilldowns (T051) |

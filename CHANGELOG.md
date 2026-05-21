@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Notes
 
+- T063 merged to main (PR #23 squash `47113a2`). Decision `T063-001` request_changes; no publication; gates closed; deploy ready v1.0.11.
 - T062 merged and deployed v1.0.10 (PR #22 squash `9befed0`; deploy `DEPLOY-20260521-028` commit `1f77822`). Packet `T062-001` at `/legal-review/`; pending only; gates closed; snapshot counts 0.
 - T061 merged and deployed v1.0.9 (PR #21 squash `71bd4ef`; deploy `DEPLOY-20260521-027` commit `df2d8d5`). Result `T061-001` item-level manual checks; gates closed; snapshot counts 0.
 - T060 merged and deployed v1.0.8 (PR #20 squash `d05f846`; deploy `DEPLOY-20260521-026` commit `299464a`). Source verification cockpit; checklist pending; gates closed.
