@@ -82,8 +82,11 @@
 22. **T067 — Publication gate decision capture** *(merged, deployed v1.0.15 — PR #27)*
    - `T067-001` approve_for_publication_staging; internal staging only; gates false.
 
-23. **T068 — Publication staging preview UI** *(merged — PR #28; deploy v1.0.16 pending)*
-   - Non-public staging preview of draft; excluded from public exports; gates false.
+23. **T068 — Publication staging preview UI** *(merged, deployed v1.0.16 — PR #28)*
+   - `/publication-staging/` preview `T068-001`; excluded from public exports; gates false.
+
+24. **T069 — Public export release gate** *(next)*
+   - Prepare release gate for staging preview → public update candidate; still require final approval before `public/data/regulatory-updates.json`.
 
 ---
 
