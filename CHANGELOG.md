@@ -15,7 +15,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Merged
 
-- PR #28 — squash merge `4f2e95c`; deploy pending.
+- PR #28 — squash merge `4f2e95c`.
+
+### Deployed
+
+- 21 May 2026 — `DEPLOY-20260521-034`, commit `f86b137`, run [26232558906](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26232558906), tag `regulation-watch-v1.0.16`. Snapshot version 1.0.16; gate counts 0.
 
 ---
 

@@ -2,7 +2,7 @@
 
 ## Summary
 
-- Merged to main (PR #28 squash `4f2e95c`); v1.0.16 deploy ready; live still v1.0.15
+- Merged and deployed v1.0.16 (PR #28 squash `4f2e95c`; `DEPLOY-20260521-034` commit `f86b137`, run [26232558906](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26232558906), tag `regulation-watch-v1.0.16`)
 - `/publication-staging/` preview `T068-001`; internal only; gates closed
 
 ## Validation
