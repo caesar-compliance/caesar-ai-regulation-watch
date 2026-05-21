@@ -25,6 +25,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fast-forward merge `e6fa1ff` — T075D offline source pilot decision packets.
 
+### Deployed
+
+- 21 May 2026 — `DEPLOY-20260521-043`, commit `0f8091d`, run [26243535039](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26243535039), tag `regulation-watch-v1.0.25`. `/source-pilot/decision-packets/` live; fixture-only decision packets; runtime flags remain disabled; DB health `not_configured`.
+
 ---
 
 ## [1.0.24] - 21 May 2026
