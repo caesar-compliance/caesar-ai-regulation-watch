@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.15] - 21 May 2026
+
+### Added
+
+- **T067 publication gate decision capture** — `schemas/publication-gate-decision.schema.json`, `T067-001` approve_for_publication_staging; `/publication-gate/` decision section; [docs/PUBLICATION_GATE_DECISION_CAPTURE.md](docs/PUBLICATION_GATE_DECISION_CAPTURE.md); internal staging only; no publication; gates unchanged.
+
+---
+
 ## [1.0.14] - 21 May 2026
 
 ### Added

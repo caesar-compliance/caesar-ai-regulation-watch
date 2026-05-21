@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.14 live — T066; `DEPLOY-20260521-032`)
+**Last updated:** 21 May 2026 (v1.0.15 codebase — T067; live v1.0.14)
 
 ---
 
@@ -360,6 +360,16 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **scripts/build-publication-gate-packet-summary.mjs** | `npm run build:publication-gate-packet-summary` |
 | **src/pages/publication-gate/index.astro** | `/publication-gate/` UI |
 | **docs/PUBLICATION_GATE_PACKET_UI.md** | T066 model |
+
+## T067 — Publication gate decision capture (v1.0.15)
+
+| Path | Purpose |
+|---|---|
+| **schemas/publication-gate-decision.schema.json** | Publication gate decision validation |
+| **data/source-adapters/publication-gate-decisions.yml** | Pilot decision `T067-001` |
+| **scripts/validate-publication-gate-decisions.mjs** | `npm run validate:publication-gate-decisions` |
+| **scripts/build-publication-gate-decision-summary.mjs** | `npm run build:publication-gate-decision-summary` |
+| **docs/PUBLICATION_GATE_DECISION_CAPTURE.md** | T067 model |
 
 ---
 

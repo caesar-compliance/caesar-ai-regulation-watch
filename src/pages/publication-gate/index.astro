@@ -12,6 +12,7 @@ if (!cockpit) {
 
 const {
   publicationGatePacket: packet,
+  publicationGateDecision,
   reviewerRecheck,
   revisionResponse,
   finalLegalDecision,
@@ -110,7 +111,14 @@ const timeline = [
     label: "Publication gate packet",
     id: packet.packet_id,
     status: packet.gate_result,
-    detail: packet.next_required_step,
+    detail: "publication_gate_decision_capture",
+  },
+  {
+    step: "T067",
+    label: "Publication gate decision",
+    id: publicationGateDecision?.decision_id ?? draft?.latest_publication_gate_decision_id,
+    status: publicationGateDecision?.decision ?? draft?.publication_gate_decision,
+    detail: publicationGateDecision?.next_required_step ?? draft?.next_required_step,
   },
 ];
 
@@ -161,13 +169,38 @@ for (const item of packet.publication_gate_items) {
       <strong>Gates</strong>
       <span>Closed — client/evidence/legal-change gates false</span>
     </div>
+    {
+      publicationGateDecision && (
+        <div class="status-card status-card--pending">
+          <strong>Gate decision</strong>
+          <code>{publicationGateDecision.decision}</code>
+        </div>
+      )
+    }
+    {
+      publicationGateDecision?.safety.publication_staging_allowed && (
+        <div class="status-card status-card--pending">
+          <strong>Internal staging</strong>
+          <span>Allowed — preview only</span>
+        </div>
+      )
+    }
   </div>
 
   <div class="banner banner--review" role="note">
     <strong>Not published.</strong> Not approved for public use. Not client-ready. Not evidence-ready.
     Not verified legal change. Packet <code>{packet.packet_id}</code> — scope{" "}
-    <code>{packet.packet_scope}</code>. Blocked pending publication decision; next step{" "}
-    <code>{packet.next_required_step}</code>.
+    <code>{packet.packet_scope}</code>.
+    {
+      publicationGateDecision ? (
+        <>
+          {" "}Decision <code>{publicationGateDecision.decision_id}</code> recorded — internal staging
+          only; publication and public export remain blocked.
+        </>
+      ) : (
+        <> Blocked pending publication decision.</>
+      )
+    }
   </div>
 
   <section>
@@ -207,6 +240,39 @@ for (const item of packet.publication_gate_items) {
       }
     </ol>
   </section>
+
+  {
+    publicationGateDecision && (
+      <section>
+        <h2>Publication gate decision</h2>
+        <div class="banner banner--warn" role="note">
+          <strong>Internal staging only.</strong> Decision{" "}
+          <code>{publicationGateDecision.decision}</code> — not public publication. Not public export.
+          Not client/evidence use. Next step{" "}
+          <code>{publicationGateDecision.next_required_step}</code>.
+        </div>
+        <dl class="meta-grid">
+          <div><dt>Decision ID</dt><dd><span class="mono">{publicationGateDecision.decision_id}</span></dd></div>
+          <div><dt>Decision</dt><dd><span class="mono">{publicationGateDecision.decision}</span></dd></div>
+          <div><dt>Status</dt><dd><span class="mono">{publicationGateDecision.decision_status}</span></dd></div>
+          <div><dt>Decided by</dt><dd><span class="mono">{publicationGateDecision.decided_by_role}</span></dd></div>
+          <div><dt>Publication staging</dt><dd>{publicationGateDecision.safety.publication_staging_allowed ? "allowed (internal)" : "false"}</dd></div>
+          <div><dt>Publication allowed</dt><dd>false</dd></div>
+          <div><dt>Public export</dt><dd>false</dd></div>
+          <div><dt>Client / evidence</dt><dd>false</dd></div>
+        </dl>
+        <p class="card__excerpt">{publicationGateDecision.decision_summary}</p>
+        <h3>Staging limitations</h3>
+        <ul>
+          {publicationGateDecision.staging_limitations.map((l) => <li>{l}</li>)}
+        </ul>
+        <h3>Decision blockers remaining</h3>
+        <ul>
+          {publicationGateDecision.blockers_remaining.map((b) => <li>{b}</li>)}
+        </ul>
+      </section>
+    )
+  }
 
   <section>
     <h2>Publication gate checklist</h2>
@@ -278,6 +344,8 @@ for (const item of packet.publication_gate_items) {
       <div><dt>requires_publication_gate_decision</dt><dd>true</dd></div>
       <div><dt>requires_separate_public_export_approval</dt><dd>true</dd></div>
       <div><dt>requires_separate_client_evidence_approval</dt><dd>true</dd></div>
+      <div><dt>publication_staging_allowed</dt><dd>{publicationGateDecision?.safety.publication_staging_allowed ? "true (internal only)" : "false"}</dd></div>
+      <div><dt>requires_staging_preview_before_publication</dt><dd>true</dd></div>
     </dl>
   </section>
 
@@ -331,5 +399,9 @@ for (const item of packet.publication_gate_items) {
   .timeline-detail {
     color: var(--text-muted, #666);
     font-size: 0.9em;
+  }
+  .banner--warn {
+    border-color: var(--accent-warn, #8a6d00);
+    background: color-mix(in srgb, var(--accent-warn, #8a6d00) 8%, transparent);
   }
 </style>

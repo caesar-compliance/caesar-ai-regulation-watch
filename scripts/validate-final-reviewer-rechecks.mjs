@@ -205,10 +205,11 @@ function recheckInvariantErrors(recheck, index, ctx) {
       const allowedDraftNextSteps = [
         "publication_gate_packet",
         "publication_gate_decision_capture",
+        "publication_staging_preview",
       ];
       if (!allowedDraftNextSteps.includes(draft.next_required_step)) {
         errors.push(
-          `${prefix}: draft next_required_step must be publication_gate_packet or publication_gate_decision_capture`,
+          `${prefix}: draft next_required_step must be publication_gate_packet, publication_gate_decision_capture, or publication_staging_preview`,
         );
       }
       if (draft.ready_for_publication_gate_review !== true) {

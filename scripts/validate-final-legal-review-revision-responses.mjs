@@ -184,10 +184,11 @@ function responseInvariantErrors(response, index, ctx) {
         const allowedAfterRecheck = [
           "publication_gate_packet",
           "publication_gate_decision_capture",
+          "publication_staging_preview",
         ];
         if (!allowedAfterRecheck.includes(draft.next_required_step)) {
           errors.push(
-            `${prefix}: draft next_required_step must be publication_gate_packet or publication_gate_decision_capture after reviewer re-check`,
+            `${prefix}: draft next_required_step must be publication_gate_packet, publication_gate_decision_capture, or publication_staging_preview after reviewer re-check`,
           );
         }
       }
