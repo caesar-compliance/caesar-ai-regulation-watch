@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **T065 final reviewer re-check packet** — `schemas/final-reviewer-recheck.schema.json`, `T065-001` re-check of `T064-001`; `/legal-review/` re-check section; [docs/FINAL_REVIEWER_RECHECK_PACKET.md](docs/FINAL_REVIEWER_RECHECK_PACKET.md); internal `ready_for_publication_gate_review` only; no publication; gates unchanged.
 
+### Deployed
+
+- 21 May 2026 — `DEPLOY-20260521-031`, commit `de3d8c8`, run [26229668487](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26229668487), tag `regulation-watch-v1.0.13`. Snapshot version 1.0.13; gate counts 0.
+
 ---
 
 ## [1.0.12] - 21 May 2026
