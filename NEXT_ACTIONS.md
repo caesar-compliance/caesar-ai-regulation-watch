@@ -1,8 +1,8 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 21 May 2026
-**Current codebase:** v1.0.23 (T051–T075A) — merged `1d18a6c`; release deploy pending
-**Live release:** v1.0.22 — `DEPLOY-20260521-040` until T075A deploy completes
+**Current codebase:** v1.0.23 (T051–T075A) — live `DEPLOY-20260521-041`, commit `0024497`, tag `regulation-watch-v1.0.23`
+**Live release:** v1.0.23 — deployed 21 May 2026
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
 ---
@@ -103,7 +103,7 @@
 29. **T074 — Backend bootstrap & runtime health** *(merged ff `5371b52`; deployed v1.0.22 — `DEPLOY-20260521-040`)*
    - Runtime env template, DB health export, `/runtime-health/`, schema apply helper; cron removed from monitoring workflow; still no scheduled monitoring; no Supabase migration applied; live status `not_configured`.
 
-30. **T075A — Controlled source pilot framework** *(merged ff `1d18a6c`; release v1.0.23 deploy pending)*
+30. **T075A — Controlled source pilot framework** *(merged ff `1d18a6c`; deployed v1.0.23 — `DEPLOY-20260521-041`)*
    - Pilot registry (2 sources), fixture dry-run, `/source-pilot/`, public status JSON; no network; no Supabase apply.
 
 31. **T075B — Runtime DB source pilot connection** *(recommended when Supabase credentials available)*

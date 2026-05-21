@@ -27,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Deployed
 
-- Pending closeout — static GitHub Pages deploy after tag `regulation-watch-v1.0.23`.
+- 21 May 2026 — `DEPLOY-20260521-041`, commit `0024497`, run [26242192121](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26242192121), tag `regulation-watch-v1.0.23`. `/source-pilot/` live; fixture-only pilot status; runtime flags remain disabled; DB health `not_configured`.
 
 ---
 
