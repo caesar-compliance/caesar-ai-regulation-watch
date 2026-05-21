@@ -85,7 +85,7 @@
 23. **T068 — Publication staging preview UI** *(merged, deployed v1.0.16 — PR #28)*
    - `/publication-staging/` preview `T068-001`; excluded from public exports; gates false.
 
-24. **T069 — Public export release gate** *(in progress — v1.0.17)*
+24. **T069 — Public export release gate** *(merged to main — PR #29; deploy v1.0.17 pending)*
    - `/public-export-gate/` gate `T069-001`; ready for public export approval review only; no public/data inclusion.
 
 25. **T070 — Public export approval decision** *(next)*

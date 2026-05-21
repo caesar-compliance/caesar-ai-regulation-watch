@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **T069 public export release gate** — `schemas/public-export-release-gate.schema.json`, `T069-001` gate; `/public-export-gate/`; [docs/PUBLIC_EXPORT_RELEASE_GATE.md](docs/PUBLIC_EXPORT_RELEASE_GATE.md); internal gate only; ready for public export approval review; no public/data inclusion; gates unchanged.
 
+### Merged
+
+- PR #29 — squash merge `ea87496`.
+
 ---
 
 ## [1.0.16] - 21 May 2026

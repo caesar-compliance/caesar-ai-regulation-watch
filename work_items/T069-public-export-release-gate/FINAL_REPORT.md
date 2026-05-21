@@ -1,5 +1,9 @@
 # T069 — Public export release gate
 
+## Status
+
+- Merged to main (PR #29 squash `ea87496`); v1.0.17 deploy ready; live still v1.0.16 until deploy completes.
+
 ## Delivered
 
 - `/public-export-gate/` UI and `T069-001` gate record linked to `T068-001` staging preview.
@@ -9,7 +13,7 @@
 ## Safety
 
 - `public_export_gate_ready` / `ready_for_public_export_approval` true (internal next step only).
-- `publication_allowed`, `public_export_allowed`, `public_export_allowed`, client/evidence gates false.
+- `publication_allowed`, `public_export_allowed`, client/evidence gates false.
 
 ## Next
 
