@@ -1,11 +1,13 @@
-# T076A — Final Report (branch tip)
+# T076A — Final Report
 
 ## Status
 
 - **Branch:** `task/T076A-free-services-setup-pack`
-- **Merged:** no
-- **Deployed:** no
-- **Tagged:** no
+- **Accepted commit:** `67e2792`
+- **Merged:** fast-forward to `main` at `67e2792` + export refresh `3699274` (21 May 2026)
+- **Released:** `v1.0.27` — release commit pending on `main`
+- **Deployed:** pending static GitHub Pages deploy
+- **Tagged:** `regulation-watch-v1.0.27` pending
 
 ## Delivered
 

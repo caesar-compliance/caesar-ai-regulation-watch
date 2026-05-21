@@ -1,8 +1,8 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 21 May 2026
-**Current codebase:** v1.0.26 (T051–T075E) — live `DEPLOY-20260521-044`, commit `c7c6165`, tag `regulation-watch-v1.0.26`
-**Live release:** v1.0.26 — deployed 21 May 2026
+**Current codebase:** v1.0.27 (T051–T076A) — release prep on `main` after merge `67e2792`
+**Live release:** v1.0.26 — deployed 21 May 2026 (`DEPLOY-20260521-044`; v1.0.27 deploy pending)
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
 ---
@@ -118,7 +118,7 @@
 34. **T075E — Offline export/report polish** *(merged ff `a9b11ac`; deployed v1.0.26 — `DEPLOY-20260521-044`)*
    - Operator handoff JSON + report + `/source-pilot/operator-handoff/`; fixture-only; no network; no Supabase apply.
 
-35. **T076A — Free services setup pack** *(branch `task/T076A-free-services-setup-pack`)*
+35. **T076A — Free services setup pack** *(merged ff `67e2792`; deploy v1.0.27 pending)*
    - Account A onboarding docs, env examples, `runtime:services:check`, `/runtime-services/`; no migration; no Worker deploy.
 
 36. **T075B — Runtime DB source pilot connection** *(when Supabase credentials in `.env.runtime.local`)*
