@@ -1,6 +1,17 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.23 — T075A source pilot framework merged)
+**Last updated:** 21 May 2026 (T075C offline reviewer UI on branch)
+
+## T075C — Offline source pilot reviewer UI (branch)
+
+| Path | Role |
+|---|---|
+| **schemas/source-pilot-review-candidates.schema.json** | Review candidates export schema |
+| **scripts/validate-source-pilot-review-candidates.mjs** | Review candidates validator |
+| **scripts/runtime/source-pilot/build-review-candidates.mjs** | Build review candidates from fixture diffs |
+| **public/data/source-pilot-review-candidates.json** | Public offline review candidate export |
+| **src/pages/source-pilot/index.astro** | Pilot overview + readiness summary |
+| **src/pages/source-pilot/review/index.astro** | Filterable review candidate table |
 
 ## T075A — Controlled source pilot framework (v1.0.23)
 

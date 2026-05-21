@@ -49,7 +49,9 @@ function main() {
     runtime_db_health_export: "/data/runtime-db-health.json",
     runtime_health_page: "/runtime-health/",
     source_pilot_status_export: "/data/source-pilot-status.json",
+    source_pilot_review_candidates_export: "/data/source-pilot-review-candidates.json",
     source_pilot_page: "/source-pilot/",
+    source_pilot_review_page: "/source-pilot/review/",
     legal_safe_note:
       "Design-time runtime manifest only. Not legal advice. Not live ingestion. Official sources control.",
   };

@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caesar.no/schemas/caesar-ai-regulation-watch/source-pilot-review-candidates.schema.json",
+  "title": "Caesar AI Regulation Watch — Source pilot review candidates export",
+  "description": "Offline fixture-based review candidates. Metadata only. No secrets or legal text.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "export_id",
+    "status",
+    "mode",
+    "checked_at",
+    "source_count",
+    "candidate_count",
+    "detected_metadata_changes_count",
+    "candidates",
+    "runtime_flags",
+    "gates",
+    "public_note"
+  ],
+  "properties": {
+    "export_id": { "type": "string", "minLength": 1 },
+    "status": {
+      "type": "string",
+      "enum": ["reviewer_ready", "empty", "error"]
+    },
+    "mode": { "type": "string", "const": "fixture_only" },
+    "checked_at": { "type": "string", "format": "date-time" },
+    "source_count": { "type": "integer", "minimum": 0 },
+    "candidate_count": { "type": "integer", "minimum": 0 },
+    "detected_metadata_changes_count": { "type": "integer", "minimum": 0 },
+    "candidates": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/reviewCandidate" }
+    },
+    "runtime_flags": { "$ref": "#/$defs/runtimeFlags" },
+    "gates": { "$ref": "#/$defs/gates" },
+    "public_note": { "type": "string", "minLength": 1 }
+  },
+  "$defs": {
+    "runtimeFlags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "live_ingestion_enabled",
+        "scheduled_monitoring_enabled",
+        "network_execution_enabled"
+      ],
+      "properties": {
+        "live_ingestion_enabled": { "type": "boolean", "const": false },
+        "scheduled_monitoring_enabled": { "type": "boolean", "const": false },
+        "network_execution_enabled": { "type": "boolean", "const": false }
+      }
+    },
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verified_on_source",
+        "client_use_allowed",
+        "client_evidence_allowed",
+        "final_evidence_allowed",
+        "legal_change_claimed",
+        "publication_allowed",
+        "public_export_allowed"
+      ],
+      "properties": {
+        "verified_on_source": { "type": "boolean", "const": false },
+        "client_use_allowed": { "type": "boolean", "const": false },
+        "client_evidence_allowed": { "type": "boolean", "const": false },
+        "final_evidence_allowed": { "type": "boolean", "const": false },
+        "legal_change_claimed": { "type": "boolean", "const": false },
+        "publication_allowed": { "type": "boolean", "const": false },
+        "public_export_allowed": { "type": "boolean", "const": false }
+      }
+    },
+    "reviewCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_id",
+        "source_id",
+        "source_name",
+        "source_type",
+        "jurisdiction",
+        "candidate_status",
+        "change_type",
+        "detected_at",
+        "title",
+        "official_url",
+        "previous_metadata_hash",
+        "current_metadata_hash",
+        "metadata_fields_changed",
+        "reviewer_status",
+        "reviewer_notes_placeholder",
+        "safety_flags",
+        "runtime_flags",
+        "public_note"
+      ],
+      "properties": {
+        "candidate_id": { "type": "string", "minLength": 1 },
+        "source_id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+        "source_name": { "type": "string", "minLength": 1 },
+        "source_type": { "type": "string", "enum": ["rss", "api", "html", "manual"] },
+        "jurisdiction": { "type": "string", "minLength": 1 },
+        "candidate_status": {
+          "type": "string",
+          "enum": ["new_metadata_detected", "metadata_fields_changed", "fixture_baseline"]
+        },
+        "change_type": {
+          "type": "string",
+          "enum": ["added", "modified", "removed", "unchanged"]
+        },
+        "detected_at": { "type": "string", "format": "date-time" },
+        "title": { "type": ["string", "null"], "maxLength": 500 },
+        "official_url": { "type": "string", "format": "uri" },
+        "previous_metadata_hash": { "type": "string", "minLength": 8 },
+        "current_metadata_hash": { "type": "string", "minLength": 8 },
+        "metadata_fields_changed": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "reviewer_status": {
+          "type": "string",
+          "enum": [
+            "pending_review",
+            "needs_source_verification",
+            "blocked_no_network",
+            "ready_for_manual_inspection"
+          ]
+        },
+        "reviewer_notes_placeholder": { "type": "string" },
+        "safety_flags": { "$ref": "#/$defs/gates" },
+        "runtime_flags": { "$ref": "#/$defs/runtimeFlags" },
+        "public_note": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

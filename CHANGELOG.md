@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **T075C offline source pilot reviewer UI** — `source-pilot-review-candidates.json`, build/validate scripts, `/source-pilot/review/` filter table, enhanced `/source-pilot/` overview. Fixture-only; gates remain closed.
+
+### Changed
+
+- **automation-runtime** — status `source_pilot_reviewer_ready` (offline reviewer export; not live monitoring).
+
 ---
 
 ## [1.0.23] - 21 May 2026

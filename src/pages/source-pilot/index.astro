@@ -6,11 +6,20 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import { PROJECT_VERSION_LABEL } from "../../lib/project-version";
 
 const statusPath = path.join(process.cwd(), "public/data/source-pilot-status.json");
+const candidatesPath = path.join(
+  process.cwd(),
+  "public/data/source-pilot-review-candidates.json",
+);
 const registryPath = path.join(process.cwd(), "data/runtime/source-pilot-registry.yml");
 const runtimePath = path.join(process.cwd(), "data/runtime/automation-runtime.yml");
+const healthPath = path.join(process.cwd(), "public/data/runtime-db-health.json");
 
 const status = fs.existsSync(statusPath)
   ? (JSON.parse(fs.readFileSync(statusPath, "utf8")) as Record<string, unknown>)
+  : null;
+
+const reviewExport = fs.existsSync(candidatesPath)
+  ? (JSON.parse(fs.readFileSync(candidatesPath, "utf8")) as Record<string, unknown>)
   : null;
 
 const registry = fs.existsSync(registryPath)
@@ -21,123 +30,237 @@ const runtime = fs.existsSync(runtimePath)
   ? (yaml.load(fs.readFileSync(runtimePath, "utf8")) as Record<string, unknown>)
   : null;
 
+const health = fs.existsSync(healthPath)
+  ? (JSON.parse(fs.readFileSync(healthPath, "utf8")) as Record<string, unknown>)
+  : null;
+
 const sources = (status?.sources as Record<string, unknown>[]) ?? [];
+const registrySources = (registry?.sources as Record<string, unknown>[]) ?? [];
+const candidates = (reviewExport?.candidates as Record<string, unknown>[]) ?? [];
 const runtimeFlags = (status?.runtime_flags as Record<string, boolean>) ?? {};
 const gates = (status?.gates as Record<string, boolean>) ?? {};
+const dbStatus = (health?.status as string) ?? "unknown";
+
+const readinessChips = [
+  { label: "Fixture only", ok: true },
+  { label: "Metadata only", ok: true },
+  { label: "Network disabled", ok: runtimeFlags.network_execution_enabled === false },
+  { label: "Supabase not connected", ok: dbStatus === "not_configured" },
+  { label: "No legal text stored", ok: true },
+  { label: "Gates false", ok: Object.values(gates).every((v) => v === false) },
+];
 ---
 
 <BaseLayout
   title="Source pilot"
   currentPath="/source-pilot/"
-  description="Controlled allowlisted source pilot framework — metadata only, no live network execution."
+  description="Controlled allowlisted source pilot — offline reviewer UI for fixture-based metadata changes."
 >
   <h1>Controlled source pilot</h1>
   <p class="lead">
-    T075A source pilot framework ({PROJECT_VERSION_LABEL}). Metadata-only registry and fixture-based
-    dry-run status — not live monitoring.
+    T075C offline reviewer ({PROJECT_VERSION_LABEL}). Fixture-based metadata change simulation for
+    operator triage — not live monitoring.
   </p>
 
   <div class="banner banner--review" role="note">
-    <strong>Offline framework only.</strong> No live network execution, no scheduled monitoring, no full
-    legal text storage. Evidence and publication gates remain closed. Next step: Supabase runtime
-    connection and explicit Control Tower network approval.
+    <strong>Offline reviewer only.</strong> No live network, no scheduled monitoring, no Supabase
+    persistence, no full legal text. Evidence and publication gates remain closed.
   </div>
 
   <section>
-    <h2>Framework status</h2>
+    <h2>Pilot readiness</h2>
     <dl class="meta-grid">
-      <div><dt>pilot_status</dt><dd><strong>{status?.status ?? "—"}</strong></dd></div>
+      <div><dt>framework_status</dt><dd><strong>{status?.status ?? "—"}</strong></dd></div>
+      <div><dt>reviewer_export</dt><dd><strong>{reviewExport?.status ?? "—"}</strong></dd></div>
       <div><dt>runtime_status</dt><dd><span class="mono">{runtime?.status ?? "—"}</span></dd></div>
-      <div><dt>source_count</dt><dd>{status?.source_count ?? "—"}</dd></div>
-      <div><dt>checked_at</dt><dd><span class="mono">{status?.checked_at ?? "—"}</span></dd></div>
+      <div><dt>db_health</dt><dd><span class="mono">{dbStatus}</span></dd></div>
+      <div><dt>source_count</dt><dd>{status?.source_count ?? sources.length}</dd></div>
+      <div><dt>candidate_count</dt><dd>{reviewExport?.candidate_count ?? candidates.length}</dd></div>
       <div><dt>detected_metadata_changes</dt><dd>{status?.detected_metadata_changes_count ?? 0}</dd></div>
-      <div><dt>latest_fixture_snapshot_at</dt><dd><span class="mono">{status?.latest_fixture_snapshot_at ?? "—"}</span></dd></div>
+      <div><dt>checked_at</dt><dd><span class="mono">{reviewExport?.checked_at ?? status?.checked_at ?? "—"}</span></dd></div>
     </dl>
+    <ul class="chip-list" aria-label="Readiness labels">
+      {readinessChips.map((chip) => (
+        <li class:list={["chip", chip.ok && "chip--ok"]}>{chip.label}</li>
+      ))}
+    </ul>
   </section>
 
   <section>
     <h2>Runtime safety flags</h2>
     <dl class="meta-grid">
-      <div><dt>live_ingestion_enabled</dt><dd>{runtimeFlags.live_ingestion_enabled === false ? "false" : "—"}</dd></div>
-      <div><dt>scheduled_monitoring_enabled</dt><dd>{runtimeFlags.scheduled_monitoring_enabled === false ? "false" : "—"}</dd></div>
-      <div><dt>network_execution_enabled</dt><dd>{runtimeFlags.network_execution_enabled === false ? "false" : "—"}</dd></div>
+      <div><dt>live_ingestion_enabled</dt><dd>false</dd></div>
+      <div><dt>scheduled_monitoring_enabled</dt><dd>false</dd></div>
+      <div><dt>network_execution_enabled</dt><dd>false</dd></div>
     </dl>
   </section>
 
   <section>
-    <h2>Evidence &amp; publication gates</h2>
-    <dl class="meta-grid">
-      <div><dt>verified_on_source</dt><dd>false</dd></div>
-      <div><dt>client_use_allowed</dt><dd>false</dd></div>
-      <div><dt>publication_allowed</dt><dd>false</dd></div>
-      <div><dt>public_export_allowed</dt><dd>false</dd></div>
-    </dl>
-    <p class="muted">All gates in public export: {Object.values(gates).every((v) => v === false) ? "closed" : "check export"}</p>
+    <h2>Operator guidance</h2>
+    <div class="guidance-grid">
+      <div class="guidance-card">
+        <h3>Can review now (offline)</h3>
+        <ul>
+          <li>Fixture diff review candidates and metadata fields changed.</li>
+          <li>Source registry cards (EDPB, EDPS) and simulated hashes.</li>
+          <li>Assign triage labels: pending review, needs source verification, ready for manual inspection.</li>
+        </ul>
+      </div>
+      <div class="guidance-card">
+        <h3>Blocked until Supabase</h3>
+        <ul>
+          <li>Persist review decisions and detected changes to runtime DB.</li>
+          <li>Cross-run history and review queue integration.</li>
+        </ul>
+      </div>
+      <div class="guidance-card">
+        <h3>Blocked until network approval</h3>
+        <ul>
+          <li>Live RSS/metadata fetch against official URLs.</li>
+          <li>Verify-on-source checks and automated monitoring cycles.</li>
+        </ul>
+      </div>
+    </div>
   </section>
 
   <section>
     <h2>Pilot sources</h2>
-    {sources.length === 0 ? (
-      <p>No sources in status export. Run <code>npm run build:source-pilot-status</code>.</p>
-    ) : (
+    <div class="source-cards">
+      {registrySources.map((entry) => {
+        const st = sources.find((s) => s.source_id === entry.source_id);
+        return (
+          <article class="source-card">
+            <h3>{entry.source_name}</h3>
+            <dl class="meta-grid meta-grid--compact">
+              <div><dt>source_id</dt><dd><code>{entry.source_id}</code></dd></div>
+              <div><dt>jurisdiction</dt><dd>{entry.jurisdiction}</dd></div>
+              <div><dt>monitoring</dt><dd>{entry.monitoring_status}</dd></div>
+              <div><dt>fixture</dt><dd><span class="mono">{st?.fixture_snapshot_version ?? "—"}</span></dd></div>
+              <div><dt>items</dt><dd>{st?.item_count ?? "—"}</dd></div>
+              <div><dt>network check</dt><dd>disabled</dd></div>
+            </dl>
+            <p class="muted">
+              <a href={entry.official_url as string} rel="noopener noreferrer">{entry.official_url}</a>
+            </p>
+          </article>
+        );
+      })}
+    </div>
+  </section>
+
+  <section>
+    <h2>Review candidates (preview)</h2>
+    <p>
+      <a href="/source-pilot/review/">Open full reviewer table</a> with filters.{" "}
+      {candidates.length === 0 ? (
+        <span>Run <code>npm run build:source-pilot-review-candidates</code>.</span>
+      ) : (
+        <span>{candidates.length} fixture-based candidate(s).</span>
+      )}
+    </p>
+    {candidates.length > 0 && (
       <table class="data-table">
         <thead>
           <tr>
-            <th>source_id</th>
-            <th>monitoring_status</th>
-            <th>adapter</th>
-            <th>items</th>
-            <th>network</th>
+            <th>candidate</th>
+            <th>change</th>
+            <th>reviewer_status</th>
+            <th>detected_at</th>
           </tr>
         </thead>
         <tbody>
-          {sources.map((s) => (
+          {candidates.slice(0, 5).map((c) => (
             <tr>
-              <td><code>{s.source_id}</code></td>
-              <td>{s.monitoring_status}</td>
-              <td><span class="mono">{s.adapter_type}</span></td>
-              <td>{s.item_count}</td>
-              <td>{s.allowed_for_network_check === false ? "disabled" : "—"}</td>
+              <td><code>{c.candidate_id}</code></td>
+              <td>{c.change_type}</td>
+              <td><span class="status-pill">{c.reviewer_status}</span></td>
+              <td><span class="mono">{c.detected_at}</span></td>
             </tr>
           ))}
         </tbody>
       </table>
     )}
-    <p class="muted">{registry?.legal_safe_note ?? ""}</p>
   </section>
 
   <section>
     <h2>What this is not</h2>
     <ul>
-      <li>Not automated crawling or broad external fetching.</li>
+      <li>Not automated crawling or live ingestion.</li>
       <li>Not storage of full legal text or raw webpage bodies.</li>
-      <li>Not verified legal change or client evidence use.</li>
-      <li>Not publication or public export approval.</li>
+      <li>Not verified legal change, client evidence, or publication approval.</li>
     </ul>
-  </section>
-
-  <section>
-    <h2>Next steps</h2>
-    <ol>
-      <li>Configure Supabase runtime credentials and apply schema (T075B).</li>
-      <li>Persist pilot snapshots and detected changes to runtime DB when approved.</li>
-      <li>Explicit controlled network check only after Control Tower approval (T076+).</li>
-    </ol>
   </section>
 
   <section>
     <h2>Related</h2>
     <ul>
+      <li><a href="/source-pilot/review/">Source pilot review table</a></li>
       <li><a href="/automation/">Automation runtime</a></li>
       <li><a href="/runtime-health/">Runtime health</a></li>
-      <li><a href="/source-adapters/">Source adapters</a></li>
+      <li><a href="/data/source-pilot-review-candidates.json">source-pilot-review-candidates.json</a></li>
       <li><a href="/data/source-pilot-status.json">source-pilot-status.json</a></li>
-      <li><a href="/data/automation-runtime-manifest.json">automation-runtime-manifest.json</a></li>
     </ul>
   </section>
 </BaseLayout>
 
 <style>
+  .chip-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+  }
+  .chip {
+    font-size: 0.85rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid var(--border, #ccc);
+    background: var(--surface, #f5f5f5);
+  }
+  .chip--ok {
+    border-color: #2a6;
+    background: #e8f5ec;
+  }
+  .guidance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 0.75rem;
+    margin: 1rem 0;
+  }
+  .guidance-card {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border, #ddd);
+    border-radius: 0.375rem;
+  }
+  .guidance-card h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+  }
+  .guidance-card ul {
+    margin: 0;
+    padding-left: 1.2rem;
+    font-size: 0.9rem;
+  }
+  .source-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    gap: 0.75rem;
+    margin: 1rem 0;
+  }
+  .source-card {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border, #ddd);
+    border-radius: 0.375rem;
+  }
+  .source-card h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+  }
+  .meta-grid--compact {
+    font-size: 0.9rem;
+  }
   .data-table {
     width: 100%;
     border-collapse: collapse;
@@ -148,6 +271,10 @@ const gates = (status?.gates as Record<string, boolean>) ?? {};
     text-align: left;
     padding: 0.5rem 0.75rem;
     border-bottom: 1px solid var(--border, #ddd);
+  }
+  .status-pill {
+    font-size: 0.85rem;
+    font-family: var(--font-mono, monospace);
   }
   .muted {
     font-size: 0.9rem;

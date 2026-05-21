@@ -1,0 +1,60 @@
+{
+  "export_id": "source-pilot-review-candidates-2026-05-21-v075c",
+  "status": "reviewer_ready",
+  "mode": "fixture_only",
+  "checked_at": "2026-05-21T10:00:00.000Z",
+  "source_count": 2,
+  "candidate_count": 1,
+  "detected_metadata_changes_count": 1,
+  "candidates": [
+    {
+      "candidate_id": "sp-review-edpb-publications-rss-edpb-fixture-003-fixture",
+      "source_id": "edpb-publications-rss",
+      "source_name": "European Data Protection Board (EDPB) — publications RSS",
+      "source_type": "rss",
+      "jurisdiction": "eu",
+      "candidate_status": "new_metadata_detected",
+      "change_type": "added",
+      "detected_at": "2026-05-21T10:00:00.000Z",
+      "title": "EDPB new publication notice (fixture v2 — new item)",
+      "official_url": "https://www.edpb.europa.eu/news/news/2026/edpb-fixture-003",
+      "previous_metadata_hash": "78464abc15c407b5",
+      "current_metadata_hash": "8875ea2c41173b83",
+      "metadata_fields_changed": [
+        "item_added"
+      ],
+      "reviewer_status": "pending_review",
+      "reviewer_notes_placeholder": "Offline operator notes placeholder — not persisted; no legal conclusions.",
+      "safety_flags": {
+        "verified_on_source": false,
+        "client_use_allowed": false,
+        "client_evidence_allowed": false,
+        "final_evidence_allowed": false,
+        "legal_change_claimed": false,
+        "publication_allowed": false,
+        "public_export_allowed": false
+      },
+      "runtime_flags": {
+        "live_ingestion_enabled": false,
+        "scheduled_monitoring_enabled": false,
+        "network_execution_enabled": false
+      },
+      "public_note": "Fixture-only simulated metadata change for operator review. Not verified on source; not legal change; gates closed."
+    }
+  ],
+  "runtime_flags": {
+    "live_ingestion_enabled": false,
+    "scheduled_monitoring_enabled": false,
+    "network_execution_enabled": false
+  },
+  "gates": {
+    "verified_on_source": false,
+    "client_use_allowed": false,
+    "client_evidence_allowed": false,
+    "final_evidence_allowed": false,
+    "legal_change_claimed": false,
+    "publication_allowed": false,
+    "public_export_allowed": false
+  },
+  "public_note": "T075C offline source pilot reviewer export. Metadata-only fixture diff simulation; no network; no Supabase; no full legal text. Evidence and publication gates remain closed."
+}

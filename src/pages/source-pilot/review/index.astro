@@ -1,0 +1,204 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { PROJECT_VERSION_LABEL } from "../../../lib/project-version";
+
+const candidatesPath = path.join(
+  process.cwd(),
+  "public/data/source-pilot-review-candidates.json",
+);
+
+const reviewExport = fs.existsSync(candidatesPath)
+  ? (JSON.parse(fs.readFileSync(candidatesPath, "utf8")) as Record<string, unknown>)
+  : null;
+
+const candidates = (reviewExport?.candidates as Record<string, unknown>[]) ?? [];
+const candidatesJson = JSON.stringify(candidates);
+---
+
+<BaseLayout
+  title="Source pilot review"
+  currentPath="/source-pilot/review/"
+  description="Offline review table for fixture-based source pilot metadata change candidates."
+>
+  <h1>Source pilot review</h1>
+  <p class="lead">
+    Offline operator reviewer ({PROJECT_VERSION_LABEL}). Filter fixture-simulated candidates — metadata
+    only, gates closed.
+  </p>
+
+  <div class="banner banner--review" role="note">
+    <strong>Fixture-only.</strong> Notes placeholders are not persisted. No network execution until
+    explicit Control Tower approval.
+  </div>
+
+  <section>
+    <h2>Summary</h2>
+    <dl class="meta-grid">
+      <div><dt>mode</dt><dd><span class="mono">{reviewExport?.mode ?? "—"}</span></dd></div>
+      <div><dt>candidate_count</dt><dd id="summary-count">{candidates.length}</dd></div>
+      <div><dt>detected_changes</dt><dd>{reviewExport?.detected_metadata_changes_count ?? 0}</dd></div>
+      <div><dt>checked_at</dt><dd><span class="mono">{reviewExport?.checked_at ?? "—"}</span></dd></div>
+    </dl>
+    <p><a href="/source-pilot/">← Source pilot overview</a></p>
+  </section>
+
+  <section>
+    <h2>Filter</h2>
+    <div class="filter-bar" role="group" aria-label="Reviewer status filter">
+      <button type="button" class="filter-btn is-active" data-filter="all">All</button>
+      <button type="button" class="filter-btn" data-filter="pending_review">Pending review</button>
+      <button type="button" class="filter-btn" data-filter="needs_source_verification">
+        Needs source verification
+      </button>
+      <button type="button" class="filter-btn" data-filter="blocked_no_network">Blocked (no network)</button>
+      <button type="button" class="filter-btn" data-filter="ready_for_manual_inspection">
+        Ready for manual inspection
+      </button>
+    </div>
+    <p class="muted">
+      Sort: detected_at (newest first). Client-side only — no external scripts.
+    </p>
+  </section>
+
+  <section>
+    <h2>Candidates</h2>
+    {candidates.length === 0 ? (
+      <p>No candidates. Run <code>npm run build:source-pilot-review-candidates</code>.</p>
+    ) : (
+      <div class="table-wrap">
+        <table class="data-table" id="candidates-table">
+          <thead>
+            <tr>
+              <th data-sort="detected_at">detected_at</th>
+              <th>source</th>
+              <th>change</th>
+              <th>title</th>
+              <th>reviewer_status</th>
+              <th>fields changed</th>
+            </tr>
+          </thead>
+          <tbody id="candidates-body" />
+        </table>
+      </div>
+    )}
+  </section>
+
+  <script define:vars={{ candidatesJson }}>
+    const candidates = JSON.parse(candidatesJson);
+    const tbody = document.getElementById("candidates-body");
+    const summaryCount = document.getElementById("summary-count");
+    let activeFilter = "all";
+
+    function compareDetectedAt(a, b) {
+      return String(b.detected_at).localeCompare(String(a.detected_at));
+    }
+
+    function filtered() {
+      const list =
+        activeFilter === "all"
+          ? [...candidates]
+          : candidates.filter((c) => c.reviewer_status === activeFilter);
+      return list.sort(compareDetectedAt);
+    }
+
+    function render() {
+      const rows = filtered();
+      if (summaryCount) summaryCount.textContent = String(rows.length);
+      if (!tbody) return;
+      tbody.replaceChildren();
+      for (const c of rows) {
+        const tr = document.createElement("tr");
+        tr.dataset.reviewerStatus = String(c.reviewer_status);
+        const fields = (c.metadata_fields_changed ?? []).join(", ");
+        tr.innerHTML = `
+          <td><span class="mono">${c.detected_at}</span></td>
+          <td><code>${c.source_id}</code></td>
+          <td>${c.change_type} / ${c.candidate_status}</td>
+          <td>${c.title ? escapeHtml(String(c.title)) : "—"}<br />
+            <a href="${escapeAttr(String(c.official_url))}" rel="noopener noreferrer">official link</a></td>
+          <td><span class="status-pill">${c.reviewer_status}</span></td>
+          <td><span class="mono">${escapeHtml(fields)}</span></td>
+        `;
+        tbody.appendChild(tr);
+      }
+    }
+
+    function escapeHtml(s) {
+      return s
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function escapeAttr(s) {
+      return escapeHtml(s).replace(/'/g, "&#39;");
+    }
+
+    document.querySelectorAll(".filter-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".filter-btn").forEach((b) => b.classList.remove("is-active"));
+        btn.classList.add("is-active");
+        activeFilter = btn.getAttribute("data-filter") ?? "all";
+        render();
+      });
+    });
+
+    render();
+  </script>
+
+  <section>
+    <h2>Exports</h2>
+    <ul>
+      <li><a href="/data/source-pilot-review-candidates.json">source-pilot-review-candidates.json</a></li>
+      <li><a href="/data/source-pilot-status.json">source-pilot-status.json</a></li>
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.75rem 0;
+  }
+  .filter-btn {
+    font-size: 0.85rem;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--border, #ccc);
+    border-radius: 0.25rem;
+    background: var(--surface, #f8f8f8);
+    cursor: pointer;
+  }
+  .filter-btn.is-active {
+    border-color: #246;
+    background: #e8eef8;
+  }
+  .table-wrap {
+    overflow-x: auto;
+  }
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+  .data-table th,
+  .data-table td {
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--border, #ddd);
+    vertical-align: top;
+  }
+  .status-pill {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.85rem;
+  }
+  .muted {
+    font-size: 0.9rem;
+    color: var(--muted, #555);
+  }
+</style>

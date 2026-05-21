@@ -109,8 +109,8 @@
 31. **T075B — Runtime DB source pilot connection** *(recommended when Supabase credentials available)*
    - Persist pilot snapshots/detected changes to runtime DB when credentials exist.
 
-32. **T075C — Offline source pilot reviewer UI** *(recommended if Supabase not yet configured)*
-   - Improve operator/reviewer UI around fixture pilot candidates and detected metadata changes; no network.
+32. **T075C — Offline source pilot reviewer UI** *(branch `task/T075C-offline-source-pilot-reviewer-ui` — pending merge)*
+   - Review candidate export, `/source-pilot/review/` filters, enhanced `/source-pilot/`; fixture-only; no network.
 
 33. **T076 — Explicit controlled network check** *(after Control Tower approval)*
    - Single allowlisted source network check; not broad crawl.
