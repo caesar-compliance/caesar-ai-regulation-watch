@@ -1,5 +1,13 @@
 # T061 — Final report
 
+## Merge
+
+| Field | Value |
+|---|---|
+| PR | #21 squash `71bd4ef` |
+| Branch commit | `c80b8af` |
+| Live (pre-deploy) | v1.0.8 |
+
 ## Delivered
 
 - Result registry `T061-001` with item-level manual outcomes.

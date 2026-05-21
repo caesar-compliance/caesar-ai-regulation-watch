@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Notes
 
+- T061 merged to main (PR #21 squash `71bd4ef`). Item-level manual verification results `T061-001`; `verified_on_source` false; live remains v1.0.8 until deploy.
 - T060 merged and deployed v1.0.8 (PR #20 squash `d05f846`; deploy `DEPLOY-20260521-026` commit `299464a`). Source verification cockpit; checklist pending; gates closed.
 - T059 merged to main (PR #19, squash `d25247d`). Internal draft readiness gate `T059-001` for revised T056 draft; result `not_ready_for_publication_review`; no publication; no source verification claim; live site remains v1.0.7; no tag/deploy/closeout in T059.
 - T058 merged to main (PR #18, squash `3e5dce8`). One metadata-only draft revision (`T058-001`) after T057 `request_changes`; T056 draft, T057 decision, and T058 revision excluded from public exports; no live network in T058; live site remains v1.0.7; no tag/deploy/closeout in T058.
