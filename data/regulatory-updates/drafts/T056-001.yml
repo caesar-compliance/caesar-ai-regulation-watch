@@ -54,7 +54,13 @@ publication_staging_preview_status: generated_internal_preview
 publication_staging_preview_route: /publication-staging/
 staging_preview_created: true
 noindex_requested: true
-next_required_step: public_export_release_gate
+latest_public_export_release_gate_id: T069-001
+public_export_release_gate_status: pending_public_export_approval
+public_export_release_gate_result: ready_for_public_export_approval
+public_export_gate_ready: true
+ready_for_public_export_approval: true
+proposed_public_update_id: update-edpb-t056-001
+next_required_step: public_export_approval_decision
 ready_for_publication_gate_review: true
 conservative_summary_revision_applied: true
 final_source_verification_completed: false

@@ -1,0 +1,103 @@
+# Public export release gates — T069 pilot (metadata only, not exported)
+# Internal release gate only. Not publication. Not public export to public/data.
+
+public_export_release_gates_id: public-export-release-gates-2026-05-21-v117
+generated_at: 2026-05-21
+product_version: 1.0.17
+legal_safe_note: >
+  T069 public export release gate registry. Internal gate for approval review only — not
+  publication, not public export, not client/evidence use. No verified legal-change claim.
+no_live_collection: true
+no_scheduled_monitoring: true
+
+gates:
+  - gate_id: T069-001
+    staging_preview_id: T068-001
+    publication_gate_decision_id: T067-001
+    publication_gate_packet_id: T066-001
+    draft_update_id: t056-001-draft-edpb-network-dry-run
+    draft_update_path: data/regulatory-updates/drafts/T056-001.yml
+    gate_scope: internal_public_export_release_gate
+    gate_status: pending_public_export_approval
+    gate_result: ready_for_public_export_approval
+    gate_summary: >-
+      T069 internal public export release gate for T056 draft after T068 staging preview.
+      Candidate metadata prepared for separate public export approval decision. Not a public
+      regulatory update. Not included in public/data/regulatory-updates.json. Publication,
+      public export, client/evidence, and legal-change gates remain closed.
+    release_gate_items:
+      - item_id: staging_preview_exists
+        status: ready_for_approval_review
+        note: Publication staging preview T068-001 present; internal only
+        owner_role: public_export_release_operator
+      - item_id: publication_gate_decision_exists
+        status: ready_for_approval_review
+        note: Publication gate decision T067-001 recorded; staging approved only
+        owner_role: public_export_release_operator
+      - item_id: conservative_summary_exists
+        status: ready_for_approval_review
+        note: Conservative metadata summary present on draft; not full legal text
+        owner_role: public_export_release_operator
+      - item_id: source_url_present
+        status: ready_for_approval_review
+        note: Source URL present for candidate metadata review
+        owner_role: public_export_release_operator
+      - item_id: public_export_approval_decision
+        status: blocked
+        note: Public export approval decision not recorded
+        owner_role: public_export_release_reviewer
+      - item_id: public_update_file_generation
+        status: blocked
+        note: Public update route/file not generated
+        owner_role: public_export_release_reviewer
+      - item_id: public_data_export_inclusion
+        status: blocked
+        note: public/data/regulatory-updates.json inclusion not allowed
+        owner_role: public_export_release_reviewer
+      - item_id: client_evidence_gate
+        status: blocked
+        note: client/evidence gates remain false
+        owner_role: public_export_release_reviewer
+      - item_id: legal_change_claim_gate
+        status: blocked
+        note: legal_change_claimed remains false
+        owner_role: public_export_release_reviewer
+    candidate_metadata:
+      candidate_id: T069-001-public-update-candidate
+      proposed_public_update_id: update-edpb-t056-001
+      proposed_route: /updates/update-edpb-t056-001/
+      source_url: >-
+        https://www.edpb.europa.eu/our-work-tools/our-documents/opinion-board-art-64/opinion-132026-draft-decision-office-data_en
+      source_id: edpb
+      source_adapter_id: edpb-publications-rss
+      jurisdiction_ids:
+        - eu
+      topic_ids:
+        - source_monitoring
+    blockers_remaining:
+      - public export approval decision not recorded
+      - public update file not generated
+      - public/data inclusion not allowed
+      - client/evidence gates remain closed
+      - legal_change_claimed remains false
+    next_required_step: public_export_approval_decision
+    created_at: 2026-05-21
+    updated_at: 2026-05-21
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      client_evidence_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+    safety:
+      public_export_gate_ready: true
+      ready_for_public_export_approval: true
+      publication_allowed: false
+      public_export_allowed: false
+      evidence_export_allowed: false
+      client_use_allowed: false
+      metadata_only: true
+      stores_full_text: false
+      requires_public_export_approval_decision: true
+      requires_publication_release_approval: true
+      requires_client_evidence_approval: true

@@ -159,6 +159,22 @@
     "publication_staging_preview_route": { "type": "string", "minLength": 1 },
     "staging_preview_created": { "type": "boolean" },
     "noindex_requested": { "type": "boolean" },
+    "latest_public_export_release_gate_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+    "public_export_release_gate_status": {
+      "type": "string",
+      "enum": ["pending_public_export_approval", "blocked", "superseded"]
+    },
+    "public_export_release_gate_result": {
+      "type": "string",
+      "enum": [
+        "ready_for_public_export_approval",
+        "blocked_pending_fixes",
+        "rejected"
+      ]
+    },
+    "public_export_gate_ready": { "type": "boolean" },
+    "ready_for_public_export_approval": { "type": "boolean" },
+    "proposed_public_update_id": { "type": "string", "minLength": 1 },
     "final_legal_review_status": {
       "type": "string",
       "enum": [

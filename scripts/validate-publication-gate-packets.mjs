@@ -231,20 +231,23 @@ function packetInvariantErrors(packet, index, ctx) {
         "publication_gate_decision_capture",
         "publication_staging_preview",
         "public_export_release_gate",
+        "public_export_approval_decision",
       ];
       if (!allowedDraftNextSteps.includes(draft.next_required_step)) {
         errors.push(
-          `${prefix}: draft next_required_step must be publication_gate_decision_capture, publication_staging_preview, or public_export_release_gate`,
+          `${prefix}: draft next_required_step must be publication_gate_decision_capture, publication_staging_preview, public_export_release_gate, or public_export_approval_decision`,
         );
       }
       if (
         draft.latest_publication_gate_decision_id &&
-        !["publication_staging_preview", "public_export_release_gate"].includes(
-          draft.next_required_step,
-        )
+        ![
+          "publication_staging_preview",
+          "public_export_release_gate",
+          "public_export_approval_decision",
+        ].includes(draft.next_required_step)
       ) {
         errors.push(
-          `${prefix}: draft with publication gate decision must have next_required_step publication_staging_preview or public_export_release_gate`,
+          `${prefix}: draft with publication gate decision must have next_required_step publication_staging_preview, public_export_release_gate, or public_export_approval_decision`,
         );
       }
       if (
@@ -253,6 +256,14 @@ function packetInvariantErrors(packet, index, ctx) {
       ) {
         errors.push(
           `${prefix}: draft public_export_release_gate requires staging_preview_created true`,
+        );
+      }
+      if (
+        draft.next_required_step === "public_export_approval_decision" &&
+        !draft.latest_public_export_release_gate_id
+      ) {
+        errors.push(
+          `${prefix}: draft public_export_approval_decision requires latest_public_export_release_gate_id`,
         );
       }
       errors.push(...gateErrors(packet.draft_update_path, draft));

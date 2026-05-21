@@ -222,10 +222,11 @@ function decisionInvariantErrors(decision, index, ctx) {
       const allowedDraftNextAfterDecision = [
         "publication_staging_preview",
         "public_export_release_gate",
+        "public_export_approval_decision",
       ];
       if (!allowedDraftNextAfterDecision.includes(draft.next_required_step)) {
         errors.push(
-          `${prefix}: draft next_required_step must be publication_staging_preview or public_export_release_gate`,
+          `${prefix}: draft next_required_step must be publication_staging_preview, public_export_release_gate, or public_export_approval_decision`,
         );
       }
       if (
@@ -238,10 +239,19 @@ function decisionInvariantErrors(decision, index, ctx) {
       }
       if (
         draft.next_required_step === "publication_staging_preview" &&
-        draft.staging_preview_created === true
+        draft.staging_preview_created === true &&
+        !draft.latest_public_export_release_gate_id
       ) {
         errors.push(
-          `${prefix}: draft with staging_preview_created must advance to public_export_release_gate`,
+          `${prefix}: draft with staging_preview_created must advance to public_export_release_gate or public_export_approval_decision`,
+        );
+      }
+      if (
+        draft.next_required_step === "public_export_approval_decision" &&
+        !draft.latest_public_export_release_gate_id
+      ) {
+        errors.push(
+          `${prefix}: draft public_export_approval_decision requires latest_public_export_release_gate_id`,
         );
       }
       if (

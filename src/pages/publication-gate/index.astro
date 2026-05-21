@@ -14,6 +14,7 @@ const {
   publicationGatePacket: packet,
   publicationGateDecision,
   publicationStagingPreview,
+  publicExportReleaseGate,
   reviewerRecheck,
   revisionResponse,
   finalLegalDecision,
@@ -371,9 +372,24 @@ for (const item of packet.publication_gate_items) {
     )
   }
 
+  {
+    publicExportReleaseGate && (
+      <section>
+        <h2>Public export release gate</h2>
+        <div class="banner banner--warn" role="note">
+          <strong>Public export release gate created.</strong> Gate{" "}
+          <code>{publicExportReleaseGate.gate_id}</code> — public export approval decision required.
+          Not exported to public/data.
+        </div>
+        <p><a href="/public-export-gate/">Open Public Export Release Gate →</a></p>
+      </section>
+    )
+  }
+
   <section>
     <h2>Related</h2>
     <ul>
+      <li><a href="/public-export-gate/">Public export release gate</a></li>
       <li><a href="/publication-staging/">Publication staging preview</a></li>
       <li><a href="/legal-review/">Final legal review packet</a></li>
       <li><a href="/source-verification/">Source verification cockpit</a></li>

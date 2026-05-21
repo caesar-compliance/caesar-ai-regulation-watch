@@ -14,6 +14,7 @@ const {
   preview,
   publicationGateDecision,
   publicationGatePacket,
+  publicExportReleaseGate,
   draft,
 } = cockpit;
 ---
@@ -104,7 +105,14 @@ const {
         <code>{preview.preview_id}</code> (<span class="mono">{preview.preview_status}</span>)
       </li>
       <li>
-        <span class="mono">Next</span> — <code>{preview.next_required_step}</code> (not completed)
+        <span class="mono">T069</span> — Public export release gate{" "}
+        <code>{publicExportReleaseGate?.gate_id ?? "—"}</code> (
+        <span class="mono">{publicExportReleaseGate?.gate_result ?? "pending"}</span>)
+      </li>
+      <li>
+        <span class="mono">Next</span> —{" "}
+        <code>{publicExportReleaseGate?.next_required_step ?? preview.next_required_step}</code>{" "}
+        (not completed)
       </li>
     </ol>
     {
@@ -151,9 +159,24 @@ const {
     </dl>
   </section>
 
+  {
+    publicExportReleaseGate && (
+      <section>
+        <h2>Public export release gate</h2>
+        <div class="banner banner--warn" role="note">
+          <strong>Public export release gate created.</strong> Gate{" "}
+          <code>{publicExportReleaseGate.gate_id}</code> — ready for approval review only. Public
+          export still false. Not added to public/data.
+        </div>
+        <p><a href="/public-export-gate/">Open Public Export Release Gate →</a></p>
+      </section>
+    )
+  }
+
   <section>
     <h2>Related</h2>
     <ul>
+      <li><a href="/public-export-gate/">Public export release gate</a></li>
       <li><a href="/publication-gate/">Publication gate packet</a></li>
       <li><a href="/legal-review/">Final legal review packet</a></li>
       <li><a href="/source-verification/">Source verification cockpit</a></li>

@@ -223,8 +223,22 @@ function previewInvariantErrors(preview, index, ctx) {
       if (draft.noindex_requested !== true) {
         errors.push(`${prefix}: draft noindex_requested must be true`);
       }
-      if (draft.next_required_step !== "public_export_release_gate") {
-        errors.push(`${prefix}: draft next_required_step must be public_export_release_gate`);
+      const allowedDraftNextSteps = [
+        "public_export_release_gate",
+        "public_export_approval_decision",
+      ];
+      if (!allowedDraftNextSteps.includes(draft.next_required_step)) {
+        errors.push(
+          `${prefix}: draft next_required_step must be public_export_release_gate or public_export_approval_decision`,
+        );
+      }
+      if (
+        draft.latest_public_export_release_gate_id &&
+        draft.next_required_step !== "public_export_approval_decision"
+      ) {
+        errors.push(
+          `${prefix}: draft with public export release gate must have next_required_step public_export_approval_decision`,
+        );
       }
       errors.push(...gateErrors(preview.draft_update_path, draft));
       if (draft.publication_allowed !== false || draft.public_export_allowed !== false) {
