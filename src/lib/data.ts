@@ -1668,6 +1668,56 @@ export function getManualReviewDecisionEntries(): ManualReviewDecision[] {
   return getManualReviewDecisions()?.decisions ?? [];
 }
 
+export interface DraftRevisionSafety {
+  publication_allowed: boolean;
+  public_export_allowed: boolean;
+  evidence_export_allowed: boolean;
+  source_verification_completed: boolean;
+  metadata_only: boolean;
+  stores_full_text: boolean;
+  requires_followup_before_publication: boolean;
+}
+
+export interface DraftRegulatoryUpdateRevision {
+  revision_id: string;
+  draft_update_id: string;
+  draft_update_path: string;
+  source_promotion_id: string;
+  source_decision_id: string;
+  revision_status: string;
+  revision_scope: string;
+  revision_reason: string;
+  revision_notes: string;
+  requested_changes_addressed: string[];
+  requested_changes_remaining: string[];
+  changed_fields: string[];
+  reviewer_followup_required: boolean;
+  created_at: string;
+  updated_at: string;
+  gates: NetworkDryRunGateState;
+  safety: DraftRevisionSafety;
+}
+
+export interface DraftRegulatoryUpdateRevisionsDoc {
+  draft_regulatory_update_revisions_id: string;
+  generated_at: string;
+  product_version: string;
+  legal_safe_note: string;
+  no_live_collection: boolean;
+  no_scheduled_monitoring: boolean;
+  revisions: DraftRegulatoryUpdateRevision[];
+}
+
+export function getDraftRegulatoryUpdateRevisions(): DraftRegulatoryUpdateRevisionsDoc | null {
+  const file = path.join(ROOT, "data/source-adapters/draft-regulatory-update-revisions.yml");
+  if (!fs.existsSync(file)) return null;
+  return yaml.load(fs.readFileSync(file, "utf8")) as DraftRegulatoryUpdateRevisionsDoc;
+}
+
+export function getDraftRegulatoryUpdateRevisionEntries(): DraftRegulatoryUpdateRevision[] {
+  return getDraftRegulatoryUpdateRevisions()?.revisions ?? [];
+}
+
 export function getPilotSummary() {
   return {
     jurisdictionCount: getJurisdictions().length,

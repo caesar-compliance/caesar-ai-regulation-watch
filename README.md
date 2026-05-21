@@ -274,6 +274,6 @@ Canonical values, review workflow, and future evidence export shape:
 
 **T057 (merged):** Manual reviewer decision workflow for T056 draft — [docs/MANUAL_REVIEW_DECISION_WORKFLOW.md](docs/MANUAL_REVIEW_DECISION_WORKFLOW.md). `T057-001` / `request_changes`; metadata-only; internal-draft-only; no publication or source verification; no live network in T057.
 
-**T058 (in progress):** Draft revision packet after T057 request-changes — safe metadata-only draft edits; still no publication.
+**T058 (in progress):** Draft revision packet after T057 request-changes — [docs/DRAFT_REVISION_PACKET_WORKFLOW.md](docs/DRAFT_REVISION_PACKET_WORKFLOW.md). `T058-001` revises T056 draft metadata-only; still no publication or source verification.
 
 See [PROJECT_STATE.md](PROJECT_STATE.md) and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md).

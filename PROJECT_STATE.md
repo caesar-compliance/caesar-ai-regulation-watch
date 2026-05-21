@@ -6,7 +6,7 @@
 |---|---|
 | **Current version** | `v1.0.8` (implemented on main — T051 + T052 + T053 + T054) |
 | **Live version** | `v1.0.7` — tag `regulation-watch-v1.0.7` |
-| **Status** | T051–T057 merged to main; T058 draft revision packet in progress; live site remains v1.0.7; tag/deploy/closeout pending future Control Tower approval |
+| **Status** | T051–T057 merged to main; T058 draft revision packet on branch; live site remains v1.0.7; tag/deploy/closeout pending future Control Tower approval |
 | **Last deployment** | `DEPLOY-20260520-025` — commit `86c9262`, run [26189934284](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26189934284) |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
 | **Phase** | Public Technical MVP + profiles/drilldowns (T051) |
@@ -42,7 +42,8 @@ The **v1.0.8** codebase on main adds T051 richer jurisdiction profiles and regio
 - **T055 single-source network dry-run (merged)** — PR #15 squash `10bdc4c`; `single-network-dry-run-executions.yml` (`T055-001`); exactly one approved EDPB RSS GET executed locally; output under `generated/network-dry-run-candidates/` and `generated/network-dry-run-reports/` (local/gitignored, not committed or published). No scheduling; gates unchanged; no tag/deploy/closeout.
 - **T056 manual review promotion (merged)** — PR #16 squash `74e04aa`; `manual-review-promotions.yml` (`T056-001`); one manual-review-only draft from local generated T055 dry-run output under `data/regulatory-updates/drafts/`; draft excluded from public exports; generated network outputs remain local/gitignored; no new live network in T056; not verified; not published; gates unchanged; no tag/deploy/closeout.
 - **T057 manual reviewer decision (merged)** — PR #17 squash `413b87f`; `manual-review-decisions.yml` (`T057-001` / `request_changes` for T056 draft); internal-draft-only; no publication; no source verification; no live network in T057; gates unchanged; no tag/deploy/closeout.
-- **T058 draft revision packet (in progress)** — Safe metadata-only draft edits after T057 `request_changes`; still no publication; no source verification; gates unchanged.
+- **T058 draft revision packet (branch)** — `draft-regulatory-update-revisions.yml` (`T058-001`); metadata-only draft edits after T057 `request_changes`; `review_status: revised_after_request_changes`; still no publication; no source verification; gates unchanged; no network.
+- **Recommended next** — T059 internal draft promotion readiness gate (assess readiness for future publication review; still no publication; no source verification; gates unchanged).
 
 ### Remaining limitations (v1.0.8)
 

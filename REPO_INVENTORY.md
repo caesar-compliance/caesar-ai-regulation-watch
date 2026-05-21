@@ -265,6 +265,18 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **docs/MANUAL_REVIEW_DECISION_WORKFLOW.md** | T057 decision model |
 | **generated/manual-review-decisions/T057-001.json** | Local summary (gitignored) |
 
+## T058 — Draft revision packet (v1.0.8 branch)
+
+| Path | Purpose |
+|---|---|
+| **schemas/draft-regulatory-update-revision.schema.json** | Revision packet validation |
+| **data/source-adapters/draft-regulatory-update-revisions.yml** | Pilot revision `T058-001` |
+| **data/regulatory-updates/drafts/T056-001.yml** | Revised draft (metadata-only) |
+| **scripts/validate-draft-regulatory-update-revisions.mjs** | `npm run validate:draft-regulatory-update-revisions` |
+| **scripts/build-draft-revision-summary.mjs** | `npm run build:draft-revision-summary` |
+| **docs/DRAFT_REVISION_PACKET_WORKFLOW.md** | T058 revision model |
+| **generated/draft-revisions/T058-001.json** | Local summary (gitignored) |
+
 ---
 
 ## data/timelines/ (v0.5.0)
