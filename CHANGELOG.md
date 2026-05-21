@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **T072 explicit publication release approval packet** — `schemas/explicit-publication-release-approval-packet.schema.json`, `T072-001` packet; `/publication-release/` operator confirmation screen; [docs/EXPLICIT_PUBLICATION_RELEASE_APPROVAL_PACKET.md](docs/EXPLICIT_PUBLICATION_RELEASE_APPROVAL_PACKET.md); approval packet only; no publication; gates unchanged.
 
+### Merged
+
+- PR #32 — squash merge `fdaf827`.
+
 ---
 
 ## [1.0.19] - 21 May 2026

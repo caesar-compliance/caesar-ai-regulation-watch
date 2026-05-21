@@ -2,7 +2,7 @@
 
 ## Status
 
-- Feature branch `task/T072-explicit-publication-release-approval-packet`; deploy pending.
+- Merged to main (PR #32 squash `fdaf827`); v1.0.20 deploy ready; live still v1.0.19 until deploy completes.
 
 ## Delivered
 
