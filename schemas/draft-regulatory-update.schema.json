@@ -101,6 +101,13 @@
     "publication_allowed": { "type": "boolean", "const": false },
     "public_export_allowed": { "type": "boolean", "const": false },
     "evidence_export_allowed": { "type": "boolean", "const": false },
+    "latest_source_verification_result_id": { "type": "string", "pattern": "^T[0-9]{3}-[0-9]{3}$" },
+    "source_verification_result": {
+      "type": "string",
+      "enum": ["partial_pass_needs_follow_up", "blocked", "ready_for_final_legal_review"]
+    },
+    "final_source_verification_completed": { "type": "boolean", "const": false },
+    "final_legal_approval_required": { "type": "boolean", "const": true },
     "notes": { "type": "string", "minLength": 1 }
   }
 }

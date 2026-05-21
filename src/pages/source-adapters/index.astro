@@ -8,6 +8,8 @@ import {
   getManualReviewDecisionEntries,
   getDraftRegulatoryUpdateRevisionEntries,
   getInternalDraftReadinessGateEntries,
+  getSourceVerificationChecklistEntries,
+  getSourceVerificationResultEntries,
   getSourceAdapterAllowlistEntries,
   getSource,
 } from "../../lib/data";
@@ -22,6 +24,10 @@ const manualReviewPromotions = getManualReviewPromotionEntries();
 const manualReviewDecisions = getManualReviewDecisionEntries();
 const draftRevisions = getDraftRegulatoryUpdateRevisionEntries();
 const readinessGates = getInternalDraftReadinessGateEntries();
+const verificationChecklists = getSourceVerificationChecklistEntries();
+const verificationResults = getSourceVerificationResultEntries();
+const pilotChecklist = verificationChecklists.find((c) => c.checklist_id === "T060-001");
+const pilotResult = verificationResults.find((r) => r.result_id === "T061-001");
 const disabledCount = adapters.filter((a) => a.status === "disabled").length;
 const draftCount = adapters.filter((a) => a.status === "draft").length;
 ---
@@ -487,6 +493,32 @@ const draftCount = adapters.filter((a) => a.status === "draft").length;
       T060 internal draft verification checklist — read-only case view for pipeline blockers and manual
       source URL checks. Not verified. Not published.
     </p>
+    <dl class="meta-grid">
+      <div>
+        <dt>Checklist (T060)</dt>
+        <dd>{pilotChecklist ? <span class="mono">{pilotChecklist.checklist_id}</span> : "—"}</dd>
+      </div>
+      <div>
+        <dt>Manual result (T061)</dt>
+        <dd>
+          {pilotResult ? (
+            <>
+              <span class="mono">{pilotResult.result_id}</span> — {pilotResult.overall_result}
+            </>
+          ) : (
+            "not recorded"
+          )}
+        </dd>
+      </div>
+      <div>
+        <dt>Final verification</dt>
+        <dd>pending — verified_on_source false</dd>
+      </div>
+      <div>
+        <dt>Next step</dt>
+        <dd><span class="mono">{pilotResult?.next_required_step ?? pilotChecklist?.next_required_step ?? "—"}</span></dd>
+      </div>
+    </dl>
     <p><a href="/source-verification/">Open Source Verification Cockpit →</a></p>
   </section>
 

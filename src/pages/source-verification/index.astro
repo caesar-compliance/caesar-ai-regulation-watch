@@ -3,19 +3,22 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import {
   getSourceVerificationCockpitCase,
   getSourceVerificationChecklistEntries,
+  getSourceVerificationResultEntries,
 } from "../../lib/data";
 import { humanizeId } from "../../lib/format";
 import { PROJECT_VERSION_LABEL } from "../../lib/project-version";
 
 const CHECKLIST_ID = "T060-001";
+const RESULT_ID = "T061-001";
 const cockpit = getSourceVerificationCockpitCase(CHECKLIST_ID);
 const allChecklists = getSourceVerificationChecklistEntries();
+const allResults = getSourceVerificationResultEntries();
 
 if (!cockpit) {
   throw new Error(`Source verification cockpit case missing: ${CHECKLIST_ID}`);
 }
 
-const { checklist, draft, promotion, decision, revision, readinessGate, execution, approval } =
+const { checklist, result, draft, promotion, decision, revision, readinessGate, execution, approval } =
   cockpit;
 
 const timeline = [
@@ -61,11 +64,30 @@ const timeline = [
     status: checklist.status,
     detail: checklist.next_required_step,
   },
+  {
+    step: "T061",
+    label: "Manual verification results",
+    id: result?.result_id ?? draft?.latest_source_verification_result_id,
+    status: result?.result_status ?? "—",
+    detail: result?.overall_result ?? draft?.source_verification_result,
+  },
 ];
 
 const itemCounts = { pending: 0, local_data_present: 0, blocked: 0 };
 for (const item of checklist.checklist_items) {
   if (itemCounts[item.status] !== undefined) itemCounts[item.status] += 1;
+}
+
+const resultItemCounts = {
+  manual_pass: 0,
+  manual_fail: 0,
+  needs_follow_up: 0,
+  not_checked: 0,
+};
+if (result) {
+  for (const item of result.item_results) {
+    if (resultItemCounts[item.result] !== undefined) resultItemCounts[item.result] += 1;
+  }
 }
 ---
 
@@ -176,6 +198,64 @@ for (const item of checklist.checklist_items) {
     </div>
   </section>
 
+  {
+    result && (
+      <section>
+        <h2>Source verification results (T061)</h2>
+        <p>
+          Item-level manual checks recorded — not final source verification. Result{" "}
+          <code>{result.result_id}</code> for checklist <code>{result.checklist_id}</code>.
+        </p>
+        <dl class="meta-grid">
+          <div><dt>Overall result</dt><dd><span class="mono">{result.overall_result}</span></dd></div>
+          <div><dt>Result status</dt><dd><span class="mono">{result.result_status}</span></dd></div>
+          <div><dt>Result scope</dt><dd><span class="mono">{result.result_scope}</span></dd></div>
+          <div><dt>Next step</dt><dd><span class="mono">{result.next_required_step}</span></dd></div>
+          <div><dt>Manual pass</dt><dd>{resultItemCounts.manual_pass}</dd></div>
+          <div><dt>Needs follow-up</dt><dd>{resultItemCounts.needs_follow_up}</dd></div>
+          <div><dt>Manual fail</dt><dd>{resultItemCounts.manual_fail}</dd></div>
+          <div><dt>Final verification completed</dt><dd>No</dd></div>
+          <div><dt>verified_on_source</dt><dd>false</dd></div>
+          <div><dt>Publication allowed</dt><dd>false</dd></div>
+        </dl>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Result</th>
+                <th>Checked</th>
+                <th>Note</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                result.item_results.map((item) => (
+                  <tr>
+                    <td><span class="mono">{item.item_id}</span></td>
+                    <td>
+                      <span class={`badge badge--status-${item.result}`}>{item.result}</span>
+                    </td>
+                    <td>
+                      <span class="mono">{item.checked_by_role}</span>
+                      <br />
+                      <small>{item.checked_at}</small>
+                    </td>
+                    <td>{item.note ?? "—"}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+        <h3>Remaining blockers</h3>
+        <ul>
+          {result.blockers_remaining.map((b) => <li>{b}</li>)}
+        </ul>
+      </section>
+    )
+  }
+
   <section>
     <h2>Blockers</h2>
     <ul>
@@ -204,14 +284,17 @@ for (const item of checklist.checklist_items) {
       <div><dt>publication_allowed</dt><dd>false</dd></div>
       <div><dt>public_export_allowed</dt><dd>false</dd></div>
       <div><dt>source_verification_completed</dt><dd>false</dd></div>
+      <div><dt>final_source_verification_completed</dt><dd>false</dd></div>
       <div><dt>metadata_only</dt><dd>true</dd></div>
       <div><dt>stores_full_text</dt><dd>false</dd></div>
+      <div><dt>requires_final_legal_approval</dt><dd>true</dd></div>
     </dl>
   </section>
 
   <section>
     <h2>Registry</h2>
     <p>Registered checklists: {allChecklists.length} (pilot).</p>
+    <p>Recorded results: {allResults.length} (pilot — {RESULT_ID}).</p>
   </section>
 
   <section>

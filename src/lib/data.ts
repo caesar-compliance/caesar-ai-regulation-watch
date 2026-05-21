@@ -1833,6 +1833,65 @@ export interface SourceVerificationChecklistsDoc {
   checklists: SourceVerificationChecklist[];
 }
 
+export type SourceVerificationItemResult =
+  | "manual_pass"
+  | "manual_fail"
+  | "needs_follow_up"
+  | "not_checked";
+
+export type SourceVerificationOverallResult =
+  | "partial_pass_needs_follow_up"
+  | "blocked"
+  | "ready_for_final_legal_review";
+
+export interface SourceVerificationResultItem {
+  item_id: SourceVerificationChecklistItemKey;
+  result: SourceVerificationItemResult;
+  note?: string;
+  checked_by_role: string;
+  checked_at: string;
+}
+
+export interface SourceVerificationResultSafety {
+  final_source_verification_completed: boolean;
+  publication_allowed: boolean;
+  public_export_allowed: boolean;
+  evidence_export_allowed: boolean;
+  metadata_only: boolean;
+  stores_full_text: boolean;
+  requires_final_legal_approval: boolean;
+}
+
+export interface SourceVerificationResult {
+  result_id: string;
+  checklist_id: string;
+  draft_update_id: string;
+  draft_update_path: string;
+  source_adapter_id: string;
+  source_id: string;
+  source_url: string;
+  result_scope: string;
+  result_status: string;
+  item_results: SourceVerificationResultItem[];
+  overall_result: SourceVerificationOverallResult;
+  blockers_remaining: string[];
+  next_required_step: string;
+  created_at: string;
+  updated_at: string;
+  gates: NetworkDryRunGateState;
+  safety: SourceVerificationResultSafety;
+}
+
+export interface SourceVerificationResultsDoc {
+  source_verification_results_id: string;
+  generated_at: string;
+  product_version: string;
+  legal_safe_note: string;
+  no_live_collection: boolean;
+  no_scheduled_monitoring: boolean;
+  results: SourceVerificationResult[];
+}
+
 export interface DraftRegulatoryUpdate {
   draft_id: string;
   update_id: string;
@@ -1855,8 +1914,12 @@ export interface DraftRegulatoryUpdate {
   latest_review_decision_id?: string;
   latest_revision_id?: string;
   latest_readiness_gate_id?: string;
+  latest_source_verification_result_id?: string;
+  source_verification_result?: SourceVerificationOverallResult;
   readiness_result?: string;
   next_required_step?: string;
+  final_source_verification_completed?: boolean;
+  final_legal_approval_required?: boolean;
   verified_on_source: boolean;
   client_use_allowed: boolean;
   client_evidence_allowed: boolean;
@@ -1869,6 +1932,7 @@ export interface DraftRegulatoryUpdate {
 
 export interface SourceVerificationCockpitCase {
   checklist: SourceVerificationChecklist;
+  result: SourceVerificationResult | null;
   draft: DraftRegulatoryUpdate | null;
   promotion: ManualReviewPromotion | null;
   decision: ManualReviewDecision | null;
@@ -1894,6 +1958,22 @@ export function getSourceVerificationChecklist(
   return getSourceVerificationChecklistEntries().find((c) => c.checklist_id === checklistId);
 }
 
+export function getSourceVerificationResults(): SourceVerificationResultsDoc | null {
+  const file = path.join(ROOT, "data/source-adapters/source-verification-results.yml");
+  if (!fs.existsSync(file)) return null;
+  return yaml.load(fs.readFileSync(file, "utf8")) as SourceVerificationResultsDoc;
+}
+
+export function getSourceVerificationResultEntries(): SourceVerificationResult[] {
+  return getSourceVerificationResults()?.results ?? [];
+}
+
+export function getSourceVerificationResult(
+  resultId: string,
+): SourceVerificationResult | undefined {
+  return getSourceVerificationResultEntries().find((r) => r.result_id === resultId);
+}
+
 export function getDraftRegulatoryUpdate(relPath: string): DraftRegulatoryUpdate | null {
   return readYamlFile<DraftRegulatoryUpdate>(relPath);
 }
@@ -1903,6 +1983,9 @@ export function getSourceVerificationCockpitCase(
 ): SourceVerificationCockpitCase | null {
   const checklist = getSourceVerificationChecklist(checklistId);
   if (!checklist) return null;
+
+  const result =
+    getSourceVerificationResultEntries().find((r) => r.checklist_id === checklistId) ?? null;
 
   const draft = getDraftRegulatoryUpdate(checklist.draft_update_path);
   const promotion = getManualReviewPromotionEntries().find(
@@ -1932,6 +2015,7 @@ export function getSourceVerificationCockpitCase(
 
   return {
     checklist,
+    result,
     draft,
     promotion: promotion ?? null,
     decision: decision ?? null,
