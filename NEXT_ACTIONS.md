@@ -1,8 +1,8 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 21 May 2026
-**Current codebase:** v1.0.20 (T051–T072) — live `DEPLOY-20260521-037`, commit `2f987d8`, tag `regulation-watch-v1.0.19`
-**Live release:** v1.0.19 — deployed 21 May 2026 (v1.0.20 deploy pending)
+**Current codebase:** v1.0.20 (T051–T072) — live `DEPLOY-20260521-038`, commit `bbfefcc`, tag `regulation-watch-v1.0.20`
+**Live release:** v1.0.20 — deployed 21 May 2026
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
 ---
@@ -94,7 +94,7 @@
 26. **T071 — Public update release decision** *(merged, deployed v1.0.19 — PR #31)*
    - `T071-001` hold_publication_pending_explicit_release_approval; no public route/data.
 
-27. **T072 — Explicit publication release approval packet** *(ready for merge/deploy)*
+27. **T072 — Explicit publication release approval packet** *(merged, deployed v1.0.20 — PR #32)*
    - `T072-001` packet; `/publication-release/` operator screen; Control Tower authorization required; no publish.
 
 28. **T073 — Controlled public release implementation** *(next — only if Control Tower authorizes)*

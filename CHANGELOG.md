@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - PR #32 — squash merge `fdaf827`.
 
+### Deployed
+
+- 21 May 2026 — `DEPLOY-20260521-038`, commit `bbfefcc`, run [26235902808](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26235902808), tag `regulation-watch-v1.0.20`. Snapshot version 1.0.20; gate counts 0; explicit approval packet prepared; publication not authorized.
+
 ---
 
 ## [1.0.19] - 21 May 2026
