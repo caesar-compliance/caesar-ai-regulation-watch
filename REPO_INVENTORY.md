@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.8 live — T051–T060; `DEPLOY-20260521-026`)
+**Last updated:** 21 May 2026 (v1.0.9 branch — T061; live v1.0.8 `DEPLOY-20260521-026`)
 
 ---
 
@@ -298,6 +298,16 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **scripts/build-source-verification-summary.mjs** | `npm run build:source-verification-summary` |
 | **src/pages/source-verification/index.astro** | Cockpit UI |
 | **docs/SOURCE_VERIFICATION_COCKPIT.md** | T060 model |
+
+## T061 — Source verification result capture (v1.0.9, branch)
+
+| Path | Purpose |
+|---|---|
+| **schemas/source-verification-result.schema.json** | Result validation |
+| **data/source-adapters/source-verification-results.yml** | Pilot result `T061-001` |
+| **scripts/validate-source-verification-results.mjs** | `npm run validate:source-verification-results` |
+| **scripts/build-source-verification-result-summary.mjs** | `npm run build:source-verification-result-summary` |
+| **docs/SOURCE_VERIFICATION_RESULT_CAPTURE.md** | T061 model |
 
 ---
 

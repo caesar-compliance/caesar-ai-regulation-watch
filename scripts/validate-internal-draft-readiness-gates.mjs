@@ -151,8 +151,14 @@ function readinessInvariantErrors(gate, index, ctx) {
       if (draft.readiness_result !== "not_ready_for_publication_review") {
         errors.push(`${prefix}: draft readiness_result must be not_ready_for_publication_review`);
       }
-      if (draft.next_required_step !== "source_verification_checklist_packet") {
-        errors.push(`${prefix}: draft next_required_step must be source_verification_checklist_packet`);
+      const allowedDraftNextSteps = ["source_verification_checklist_packet"];
+      if (draft.latest_source_verification_result_id) {
+        allowedDraftNextSteps.push("final_legal_review_packet");
+      }
+      if (!allowedDraftNextSteps.includes(draft.next_required_step)) {
+        errors.push(
+          `${prefix}: draft next_required_step must be one of ${allowedDraftNextSteps.join(", ")}`,
+        );
       }
       if (draft.source_verification_required_before_publication !== true) {
         errors.push(`${prefix}: draft source_verification_required_before_publication must be true`);

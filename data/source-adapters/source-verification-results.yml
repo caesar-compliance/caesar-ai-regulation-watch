@@ -1,0 +1,88 @@
+# Source verification results — T061 pilot (metadata only, not final verification, not published)
+# Records item-level manual pass/fail/needs-follow-up for T060 checklist items.
+
+source_verification_results_id: source-verification-results-2026-05-21-v109
+generated_at: 2026-05-21
+product_version: 1.0.9
+legal_safe_note: >
+  T061 source verification result registry. Captures manual checklist item outcomes only.
+  Not final source verification. Not publication approval. Not legal advice. Evidence gates closed.
+no_live_collection: true
+no_scheduled_monitoring: true
+
+results:
+  - result_id: T061-001
+    checklist_id: T060-001
+    draft_update_id: t056-001-draft-edpb-network-dry-run
+    draft_update_path: data/regulatory-updates/drafts/T056-001.yml
+    source_adapter_id: edpb-publications-rss
+    source_id: edpb
+    source_url: >-
+      https://www.edpb.europa.eu/our-work-tools/our-documents/opinion-board-art-64/opinion-132026-draft-decision-office-data_en
+    result_scope: source_url_manual_check_only
+    result_status: recorded
+    overall_result: partial_pass_needs_follow_up
+    next_required_step: final_legal_review_packet
+    item_results:
+      - item_id: source_url_accessibility_check
+        result: manual_pass
+        note: Source URL reachable in manual browser check; metadata only.
+        checked_by_role: internal_reviewer
+        checked_at: 2026-05-21
+      - item_id: source_identity_match_check
+        result: manual_pass
+        note: EDPB publisher identity consistent with draft source_id; no full text stored.
+        checked_by_role: internal_reviewer
+        checked_at: 2026-05-21
+      - item_id: publication_date_match_check
+        result: needs_follow_up
+        note: Draft source_published_at from T055 metadata; final human confirmation pending.
+        checked_by_role: internal_reviewer
+        checked_at: 2026-05-21
+      - item_id: title_match_check
+        result: needs_follow_up
+        note: Draft title from dry-run candidate; final legal review required.
+        checked_by_role: internal_reviewer
+        checked_at: 2026-05-21
+      - item_id: summary_rewrite_check
+        result: needs_follow_up
+        note: Internal summary rewrite requires final legal review before any use.
+        checked_by_role: internal_reviewer
+        checked_at: 2026-05-21
+      - item_id: topic_jurisdiction_confirmation_check
+        result: needs_follow_up
+        note: EU jurisdiction and topic tags need explicit final legal confirmation.
+        checked_by_role: internal_reviewer
+        checked_at: 2026-05-21
+      - item_id: no_full_text_storage_check
+        result: manual_pass
+        note: Draft and pipeline flags confirm metadata_only; stores_full_text false.
+        checked_by_role: internal_reviewer
+        checked_at: 2026-05-21
+      - item_id: public_export_exclusion_check
+        result: manual_pass
+        note: Draft excluded from public regulatory-updates export.
+        checked_by_role: internal_reviewer
+        checked_at: 2026-05-21
+    blockers_remaining:
+      - publication date requires final human confirmation
+      - title/summary require final legal review
+      - topic/jurisdiction classification requires final legal review
+      - publication approval not granted
+      - client/evidence use not allowed
+    created_at: 2026-05-21
+    updated_at: 2026-05-21
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      client_evidence_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+    safety:
+      final_source_verification_completed: false
+      publication_allowed: false
+      public_export_allowed: false
+      evidence_export_allowed: false
+      metadata_only: true
+      stores_full_text: false
+      requires_final_legal_approval: true
