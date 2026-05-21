@@ -1,7 +1,7 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 21 May 2026
-**Current codebase:** v1.0.16 (T051–T068) — live `DEPLOY-20260521-034`, commit `f86b137`, tag `regulation-watch-v1.0.16`
+**Current codebase:** v1.0.17 (T051–T069) — live `DEPLOY-20260521-034`, commit `f86b137`, tag `regulation-watch-v1.0.16`
 **Live release:** v1.0.16 — deployed 21 May 2026
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
@@ -85,8 +85,11 @@
 23. **T068 — Publication staging preview UI** *(merged, deployed v1.0.16 — PR #28)*
    - `/publication-staging/` preview `T068-001`; excluded from public exports; gates false.
 
-24. **T069 — Public export release gate** *(next)*
-   - Prepare release gate for staging preview → public update candidate; still require final approval before `public/data/regulatory-updates.json`.
+24. **T069 — Public export release gate** *(in progress — v1.0.17)*
+   - `/public-export-gate/` gate `T069-001`; ready for public export approval review only; no public/data inclusion.
+
+25. **T070 — Public export approval decision** *(next)*
+   - Record approve/reject/request-changes for public export gate; no automatic publish; non-public export preview artifact only.
 
 ---
 

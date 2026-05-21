@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.16 live — T068; `DEPLOY-20260521-034`)
+**Last updated:** 21 May 2026 (v1.0.17 codebase — T069; live v1.0.16 `DEPLOY-20260521-034`)
 
 ---
 
@@ -383,6 +383,17 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **scripts/validate-publication-staging-previews.mjs** | `npm run validate:publication-staging-previews` |
 | **scripts/build-publication-staging-preview-summary.mjs** | `npm run build:publication-staging-preview-summary` |
 | **docs/PUBLICATION_STAGING_PREVIEW_UI.md** | T068 model |
+
+## T069 — Public export release gate (v1.0.17)
+
+| Path | Purpose |
+|---|---|
+| **schemas/public-export-release-gate.schema.json** | Release gate validation |
+| **data/source-adapters/public-export-release-gates.yml** | Pilot gate `T069-001` |
+| **src/pages/public-export-gate/index.astro** | Internal public export release gate UI |
+| **scripts/validate-public-export-release-gates.mjs** | `npm run validate:public-export-release-gates` |
+| **scripts/build-public-export-release-gate-summary.mjs** | `npm run build:public-export-release-gate-summary` |
+| **docs/PUBLIC_EXPORT_RELEASE_GATE.md** | T069 model |
 
 ---
 

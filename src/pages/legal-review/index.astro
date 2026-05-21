@@ -32,6 +32,7 @@ const {
 } = cockpit;
 
 const hasStagingPreview = draft?.latest_publication_staging_preview_id === "T068-001";
+const hasPublicExportGate = draft?.latest_public_export_release_gate_id === "T069-001";
 
 const timeline = [
   {
@@ -536,6 +537,19 @@ for (const item of packet.legal_review_items) {
   }
 
   {
+    hasPublicExportGate && (
+      <section>
+        <h2>Public export release gate</h2>
+        <div class="banner banner--review" role="note">
+          <strong>Public export gate ready for approval review.</strong> Gate <code>T069-001</code> —
+          no export yet. Not client/evidence ready.
+        </div>
+        <p><a href="/public-export-gate/">Open Public Export Release Gate →</a></p>
+      </section>
+    )
+  }
+
+  {
     publicationGatePacket && (
       <section>
         <h2>Publication gate</h2>
@@ -566,6 +580,7 @@ for (const item of packet.legal_review_items) {
   <section>
     <h2>Related</h2>
     <ul>
+      <li><a href="/public-export-gate/">Public export release gate</a></li>
       <li><a href="/publication-staging/">Publication staging preview</a></li>
       <li><a href="/publication-gate/">Publication gate packet</a></li>
       <li><a href="/source-verification/">Source verification cockpit</a></li>

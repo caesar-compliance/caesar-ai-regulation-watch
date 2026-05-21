@@ -2337,15 +2337,100 @@ export interface PublicationStagingCockpitCase {
   preview: PublicationStagingPreview;
   publicationGateDecision: PublicationGateDecision | null;
   publicationGatePacket: PublicationGatePacket | null;
+  publicExportReleaseGate: PublicExportReleaseGate | null;
   draft: DraftRegulatoryUpdate | null;
   result: SourceVerificationResult | null;
   checklist: SourceVerificationChecklist | null;
+}
+
+export type PublicExportReleaseGateItemStatus =
+  | "ready_for_approval_review"
+  | "blocked"
+  | "needs_follow_up"
+  | "not_applicable";
+
+export interface PublicExportReleaseGateItem {
+  item_id: string;
+  status: PublicExportReleaseGateItemStatus;
+  note: string;
+  owner_role: string;
+}
+
+export interface PublicExportReleaseGateCandidateMetadata {
+  candidate_id: string;
+  proposed_public_update_id: string;
+  proposed_route: string;
+  source_url: string;
+  source_id: string;
+  source_adapter_id: string;
+  jurisdiction_ids: string[];
+  topic_ids: string[];
+}
+
+export interface PublicExportReleaseGateSafety {
+  public_export_gate_ready: boolean;
+  ready_for_public_export_approval: boolean;
+  publication_allowed: boolean;
+  public_export_allowed: boolean;
+  evidence_export_allowed: boolean;
+  client_use_allowed: boolean;
+  metadata_only: boolean;
+  stores_full_text: boolean;
+  requires_public_export_approval_decision: boolean;
+  requires_publication_release_approval: boolean;
+  requires_client_evidence_approval: boolean;
+}
+
+export interface PublicExportReleaseGate {
+  gate_id: string;
+  staging_preview_id: string;
+  publication_gate_decision_id: string;
+  publication_gate_packet_id: string;
+  draft_update_id: string;
+  draft_update_path: string;
+  gate_scope: string;
+  gate_status: string;
+  gate_result: string;
+  gate_summary: string;
+  release_gate_items: PublicExportReleaseGateItem[];
+  candidate_metadata: PublicExportReleaseGateCandidateMetadata;
+  blockers_remaining: string[];
+  next_required_step: string;
+  created_at: string;
+  updated_at: string;
+  gates: {
+    verified_on_source: boolean;
+    client_use_allowed: boolean;
+    client_evidence_allowed: boolean;
+    final_evidence_allowed: boolean;
+    legal_change_claimed: boolean;
+  };
+  safety: PublicExportReleaseGateSafety;
+}
+
+export interface PublicExportReleaseGatesDoc {
+  public_export_release_gates_id: string;
+  generated_at: string;
+  product_version: string;
+  legal_safe_note: string;
+  no_live_collection: boolean;
+  no_scheduled_monitoring: boolean;
+  gates: PublicExportReleaseGate[];
+}
+
+export interface PublicExportReleaseGateCockpitCase {
+  gate: PublicExportReleaseGate;
+  stagingPreview: PublicationStagingPreview | null;
+  publicationGateDecision: PublicationGateDecision | null;
+  publicationGatePacket: PublicationGatePacket | null;
+  draft: DraftRegulatoryUpdate | null;
 }
 
 export interface PublicationGateCockpitCase {
   publicationGatePacket: PublicationGatePacket;
   publicationGateDecision: PublicationGateDecision | null;
   publicationStagingPreview: PublicationStagingPreview | null;
+  publicExportReleaseGate: PublicExportReleaseGate | null;
   reviewerRecheck: FinalReviewerRecheck | null;
   revisionResponse: FinalLegalReviewRevisionResponse | null;
   finalLegalDecision: FinalLegalReviewDecision | null;
@@ -2603,13 +2688,61 @@ export function getPublicationStagingCockpitCase(
     ? (getSourceVerificationChecklist(legalPacket.checklist_id) ?? null)
     : null;
 
+  const publicExportReleaseGate =
+    getPublicExportReleaseGateEntries().find(
+      (g) => g.staging_preview_id === previewId,
+    ) ??
+    (draft?.latest_public_export_release_gate_id
+      ? getPublicExportReleaseGate(draft.latest_public_export_release_gate_id)
+      : undefined) ??
+    null;
+
   return {
     preview,
     publicationGateDecision,
     publicationGatePacket,
+    publicExportReleaseGate,
     draft,
     result,
     checklist: checklist ?? null,
+  };
+}
+
+export function getPublicExportReleaseGates(): PublicExportReleaseGatesDoc | null {
+  const file = path.join(ROOT, "data/source-adapters/public-export-release-gates.yml");
+  if (!fs.existsSync(file)) return null;
+  return yaml.load(fs.readFileSync(file, "utf8")) as PublicExportReleaseGatesDoc;
+}
+
+export function getPublicExportReleaseGateEntries(): PublicExportReleaseGate[] {
+  return getPublicExportReleaseGates()?.gates ?? [];
+}
+
+export function getPublicExportReleaseGate(
+  gateId: string,
+): PublicExportReleaseGate | undefined {
+  return getPublicExportReleaseGateEntries().find((g) => g.gate_id === gateId);
+}
+
+export function getPublicExportReleaseGateCockpitCase(
+  gateId: string,
+): PublicExportReleaseGateCockpitCase | null {
+  const gate = getPublicExportReleaseGate(gateId);
+  if (!gate) return null;
+
+  const stagingPreview = getPublicationStagingPreview(gate.staging_preview_id) ?? null;
+  const publicationGateDecision =
+    getPublicationGateDecision(gate.publication_gate_decision_id) ?? null;
+  const publicationGatePacket =
+    getPublicationGatePacket(gate.publication_gate_packet_id) ?? null;
+  const draft = getDraftRegulatoryUpdate(gate.draft_update_path);
+
+  return {
+    gate,
+    stagingPreview,
+    publicationGateDecision,
+    publicationGatePacket,
+    draft: draft ?? null,
   };
 }
 
@@ -2677,10 +2810,20 @@ export function getPublicationGateCockpitCase(
       : undefined) ??
     null;
 
+  const publicExportReleaseGate =
+    getPublicExportReleaseGateEntries().find(
+      (g) => g.publication_gate_packet_id === packetId,
+    ) ??
+    (draft?.latest_public_export_release_gate_id
+      ? getPublicExportReleaseGate(draft.latest_public_export_release_gate_id)
+      : undefined) ??
+    null;
+
   return {
     publicationGatePacket,
     publicationGateDecision,
     publicationStagingPreview,
+    publicExportReleaseGate,
     reviewerRecheck,
     revisionResponse,
     finalLegalDecision,

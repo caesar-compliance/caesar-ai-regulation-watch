@@ -1894,4 +1894,13 @@ if (publicationStagingPreviewCheck.status !== 0) {
   process.exit(publicationStagingPreviewCheck.status ?? 1);
 }
 
+const publicExportReleaseGateCheck = spawnSync(
+  process.execPath,
+  [path.join(ROOT, "scripts/validate-public-export-release-gates.mjs")],
+  { cwd: ROOT, stdio: "inherit" },
+);
+if (publicExportReleaseGateCheck.status !== 0) {
+  process.exit(publicExportReleaseGateCheck.status ?? 1);
+}
+
 process.exit(0);
