@@ -2,8 +2,7 @@
 
 ## Status
 
-- Merged to main PR #33 squash `6061a9b`.
-- v1.0.21 deploy ready; live still v1.0.20 until deploy completes.
+- Merged and deployed v1.0.21 (PR #33 squash `6061a9b`; `DEPLOY-20260521-039` commit `13149e8`, run [26236472664](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26236472664), tag `regulation-watch-v1.0.21`).
 
 ## Delivered
 
@@ -12,10 +11,15 @@
 - `/automation/` status page; nav link.
 - Docs pivot toward live automated monitoring product.
 
+## Live smoke
+
+- `/automation/` HTTP 200
+- `/data/automation-runtime-manifest.json` — `live_ingestion_enabled` false
+- Snapshot version 1.0.21; gate counts 0
+
 ## Safety
 
-- Live ingestion, scheduled monitoring, network execution disabled.
-- No Worker deploy; no Supabase migration applied; no live network.
+- No live network in task; no Worker deploy; no Supabase migration applied.
 - No publication changes; gates closed.
 
 ## Next

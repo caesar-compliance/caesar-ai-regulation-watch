@@ -1,6 +1,6 @@
 # Public Deployment Baseline
 
-**Phase:** v1.0.20 live — T072 deployed 21 May 2026 (`DEPLOY-20260521-038`, commit `bbfefcc`, tag `regulation-watch-v1.0.20`). **Codebase:** v1.0.21 T073 automation runtime foundation (deploy pending) — `/automation/`, manifest, Supabase/Worker scaffolds; live ingestion disabled. Publication still not authorized; gates closed.
+**Phase:** v1.0.21 live — T073 deployed 21 May 2026 (`DEPLOY-20260521-039`, commit `13149e8`, tag `regulation-watch-v1.0.21`). `/automation/`, automation runtime manifest, Supabase/Worker scaffolds; live ingestion disabled; no Worker deployed; no Supabase migration applied. Publication still not authorized; gates closed.
 
 **Deployment date:** 20 May 2026
 **Status:** Deployed — `DEPLOY-20260520-025`, run [26189934284](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26189934284)

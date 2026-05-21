@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.21 T073 — automation runtime foundation; live v1.0.20)
+**Last updated:** 21 May 2026 (v1.0.21 live — T073; `DEPLOY-20260521-039`)
 
 ## T073 — Automation runtime foundation (v1.0.21)
 
