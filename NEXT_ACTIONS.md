@@ -1,7 +1,7 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 21 May 2026
-**Current codebase:** v1.0.10 (T051–T062) — live `DEPLOY-20260521-028`, commit `1f77822`, tag `regulation-watch-v1.0.10`
+**Current codebase:** v1.0.11 (T051–T063) — live `DEPLOY-20260521-028`, commit `1f77822`, tag `regulation-watch-v1.0.10`
 **Live release:** v1.0.10 — deployed 21 May 2026
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
@@ -69,8 +69,11 @@
 
 17. **T062 — Final legal review packet UI** *(merged, deployed v1.0.10 — PR #22)*
 
-18. **T063 — Final legal reviewer decision capture** *(next)*
-   - Record approve/reject/request-changes for legal packet; do not publish; do not set client/evidence gates true.
+18. **T063 — Final legal reviewer decision capture** *(in progress — v1.0.11)*
+   - `T063-001` `request_changes` recorded; `/legal-review/` decision section; no publication; gates closed.
+
+19. **T064 — Legal review revision response UI** *(next)*
+   - Address T063 `request_changes` with safe metadata-only updates; still no publication; gates remain false.
    - Show draft, source result, blockers, and approval checklist; still no publish or gates true.
 
 ---

@@ -5,6 +5,7 @@ import { humanizeId } from "../../lib/format";
 import { PROJECT_VERSION_LABEL } from "../../lib/project-version";
 
 const PACKET_ID = "T062-001";
+const DECISION_ID = "T063-001";
 const cockpit = getFinalLegalReviewCockpitCase(PACKET_ID);
 
 if (!cockpit) {
@@ -13,6 +14,7 @@ if (!cockpit) {
 
 const {
   packet,
+  finalLegalDecision,
   draft,
   result,
   checklist,
@@ -81,6 +83,13 @@ const timeline = [
     status: packet.packet_status,
     detail: packet.next_required_step,
   },
+  {
+    step: "T063",
+    label: "Final legal reviewer decision",
+    id: finalLegalDecision?.decision_id ?? draft?.latest_final_legal_review_decision_id,
+    status: finalLegalDecision?.decision ?? draft?.final_legal_review_decision,
+    detail: finalLegalDecision?.decision_scope ?? draft?.final_legal_review_status,
+  },
 ];
 
 const itemCounts = { pending: 0, needs_follow_up: 0, blocked: 0, local_metadata_available: 0 };
@@ -104,6 +113,10 @@ for (const item of packet.legal_review_items) {
     <div class="status-card status-card--pending">
       <strong>Packet status</strong>
       <code>{packet.packet_status}</code>
+    </div>
+    <div class="status-card status-card--pending">
+      <strong>Legal decision</strong>
+      <code>{finalLegalDecision?.decision ?? draft?.final_legal_review_decision ?? "—"}</code>
     </div>
     <div class="status-card status-card--blocked">
       <strong>Source verified</strong>
@@ -140,7 +153,8 @@ for (const item of packet.legal_review_items) {
       </dd></div>
       <div><dt>Review status</dt><dd>{draft ? humanizeId(draft.review_status) : "—"}</dd></div>
       <div><dt>Final legal review</dt><dd><span class="mono">{draft?.final_legal_review_status ?? packet.packet_status}</span></dd></div>
-      <div><dt>Next required step</dt><dd><span class="mono">{packet.next_required_step}</span></dd></div>
+      <div><dt>Legal reviewer decision</dt><dd><span class="mono">{finalLegalDecision?.decision ?? draft?.final_legal_review_decision ?? "—"}</span></dd></div>
+      <div><dt>Next required step</dt><dd><span class="mono">{finalLegalDecision?.next_required_step ?? draft?.next_required_step ?? packet.next_required_step}</span></dd></div>
     </dl>
     {
       draft && (
@@ -205,6 +219,39 @@ for (const item of packet.legal_review_items) {
       </table>
     </div>
   </section>
+
+  {
+    finalLegalDecision && (
+      <section>
+        <h2>Final legal reviewer decision (T063)</h2>
+        <p>
+          Decision <code>{finalLegalDecision.decision_id}</code> for packet{" "}
+          <code>{finalLegalDecision.packet_id}</code> — workflow record only. Not publication. Not
+          final approval. Not legal advice.
+        </p>
+        <dl class="meta-grid">
+          <div><dt>Decision</dt><dd><span class="mono">{finalLegalDecision.decision}</span></dd></div>
+          <div><dt>Decision scope</dt><dd><span class="mono">{finalLegalDecision.decision_scope}</span></dd></div>
+          <div><dt>Decision status</dt><dd><span class="mono">{finalLegalDecision.decision_status}</span></dd></div>
+          <div><dt>Reviewer role</dt><dd><span class="mono">{finalLegalDecision.reviewer_role}</span></dd></div>
+          <div><dt>Decided at</dt><dd>{finalLegalDecision.decided_at}</dd></div>
+          <div><dt>Next required step</dt><dd><span class="mono">{finalLegalDecision.next_required_step}</span></dd></div>
+          <div><dt>Publication allowed</dt><dd>false</dd></div>
+          <div><dt>Evidence export</dt><dd>false</dd></div>
+          <div><dt>verified_on_source</dt><dd>false</dd></div>
+        </dl>
+        <p class="card__excerpt">{finalLegalDecision.decision_summary}</p>
+        <h3>Required changes ({finalLegalDecision.required_changes.length})</h3>
+        <ul>
+          {finalLegalDecision.required_changes.map((c) => <li>{c}</li>)}
+        </ul>
+        <h3>Approval limitations ({finalLegalDecision.approval_limitations.length})</h3>
+        <ul>
+          {finalLegalDecision.approval_limitations.map((l) => <li>{l}</li>)}
+        </ul>
+      </section>
+    )
+  }
 
   <section>
     <h2>Legal review checklist</h2>

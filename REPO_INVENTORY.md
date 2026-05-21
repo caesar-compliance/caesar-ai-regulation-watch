@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.10 live — T062; `DEPLOY-20260521-028`)
+**Last updated:** 21 May 2026 (v1.0.11 codebase T063; live v1.0.10 `DEPLOY-20260521-028`)
 
 ---
 
@@ -319,6 +319,16 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **scripts/build-final-legal-review-packet-summary.mjs** | `npm run build:final-legal-review-packet-summary` |
 | **src/pages/legal-review/index.astro** | Packet UI |
 | **docs/FINAL_LEGAL_REVIEW_PACKET_UI.md** | T062 model |
+
+## T063 — Final legal reviewer decision capture (v1.0.11)
+
+| Path | Purpose |
+|---|---|
+| **schemas/final-legal-review-decision.schema.json** | Decision validation |
+| **data/source-adapters/final-legal-review-decisions.yml** | Pilot decision `T063-001` |
+| **scripts/validate-final-legal-review-decisions.mjs** | `npm run validate:final-legal-review-decisions` |
+| **scripts/build-final-legal-review-decision-summary.mjs** | `npm run build:final-legal-review-decision-summary` |
+| **docs/FINAL_LEGAL_REVIEW_DECISION_CAPTURE.md** | T063 model |
 
 ---
 

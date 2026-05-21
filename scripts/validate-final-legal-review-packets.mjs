@@ -182,8 +182,24 @@ function packetInvariantErrors(packet, index, ctx) {
       if (draft.latest_final_legal_review_packet_id !== packet.packet_id) {
         errors.push(`${prefix}: draft latest_final_legal_review_packet_id must be ${packet.packet_id}`);
       }
-      if (draft.final_legal_review_status !== "pending_final_legal_review") {
-        errors.push(`${prefix}: draft final_legal_review_status must be pending_final_legal_review`);
+      const allowedReviewStatuses = [
+        "pending_final_legal_review",
+        "request_changes_recorded",
+        "reject_recorded",
+        "approve_internal_review_only_recorded",
+      ];
+      if (!allowedReviewStatuses.includes(draft.final_legal_review_status)) {
+        errors.push(
+          `${prefix}: draft final_legal_review_status must be a known internal review status`,
+        );
+      }
+      if (
+        draft.latest_final_legal_review_decision_id &&
+        draft.final_legal_review_status === "pending_final_legal_review"
+      ) {
+        errors.push(
+          `${prefix}: draft with final legal decision cannot remain pending_final_legal_review`,
+        );
       }
       if (draft.final_legal_approval_completed !== false) {
         errors.push(`${prefix}: draft final_legal_approval_completed must be false`);
@@ -241,13 +257,15 @@ function main() {
   if (fs.existsSync(PUBLIC_UPDATES_JSON)) {
     const exported = fs.readFileSync(PUBLIC_UPDATES_JSON, "utf8");
     for (const needle of [
+      "T063-001",
       "T062-001",
       "T061-001",
       "T060-001",
       "t056-001-draft-edpb-network-dry-run",
-      "pending_final_legal_review",
+      "request_changes_recorded",
       "final_legal_review_packet",
       "internal_final_legal_review_packet",
+      "internal_legal_review_only",
     ]) {
       if (exported.includes(needle)) {
         allErrors.push(
