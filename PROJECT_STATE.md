@@ -4,9 +4,9 @@
 
 | Field | Value |
 |---|---|
-| **Current version** | `v1.0.20` (T072 — explicit publication release approval packet) |
-| **Live version** | `v1.0.20` — tag `regulation-watch-v1.0.20` |
-| **Status** | T072 merged and deployed; live site v1.0.20 |
+| **Current version** | `v1.0.21` (T073 — automation runtime foundation) |
+| **Live version** | `v1.0.20` — tag `regulation-watch-v1.0.20` (until v1.0.21 deploy) |
+| **Status** | T073 on branch — automation runtime scaffold; live ingestion disabled |
 | **Last deployment** | `DEPLOY-20260521-038` — commit `bbfefcc`, run [26235902808](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26235902808) |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
 | **Phase** | Public Technical MVP + profiles/drilldowns (T051) |
@@ -27,6 +27,8 @@ The first full MVP target is a Techieray / The Legal Wire style AI regulation tr
 - scheduled automation for official and authoritative sources.
 
 Human review is no longer the foundation of the MVP roadmap. It remains an optional future assurance layer for premium legal, client evidence and Caesar AI Evidence / Governance OS workflows.
+
+**T073 pivot (21 May 2026):** Primary engineering focus shifts to **live automated monitoring infrastructure** (Supabase, Worker runtime, snapshots, detected changes). Static approval-chain UI is maintained but not the main development track. SaaS dashboard is a later phase. See [docs/AUTOMATION_RUNTIME_STRATEGY.md](docs/AUTOMATION_RUNTIME_STRATEGY.md).
 
 The **v1.0.8** codebase on main adds T051 richer jurisdiction profiles and regional/topic drilldowns on top of **v1.0.7** map/compare. Live site remains **v1.0.7** until a future deploy is approved. See [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md) and [docs/AUTOMATION_FIRST_MVP_ROADMAP.md](docs/AUTOMATION_FIRST_MVP_ROADMAP.md).
 

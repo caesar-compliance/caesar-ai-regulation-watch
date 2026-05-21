@@ -4,6 +4,7 @@
  */
 import fs from "node:fs";
 import path from "node:path";
+import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import yaml from "js-yaml";
 import { readProjectVersion } from "./lib/read-project-version.mjs";
@@ -2301,3 +2302,13 @@ console.log(`  ${contentReviews.length} content review(s) exported`);
 console.log(`  ${urlChecks.length} URL check(s) exported`);
 console.log("  public/feeds/changes.xml");
 console.log(`  ${changes.length} change(s) in RSS feed`);
+
+const manifestBuild = spawnSync(
+  process.execPath,
+  [path.join(ROOT, "scripts/build-automation-runtime-manifest.mjs")],
+  { cwd: ROOT, stdio: "inherit" },
+);
+if (manifestBuild.status !== 0) {
+  process.exit(manifestBuild.status ?? 1);
+}
+console.log("  public/data/automation-runtime-manifest.json");

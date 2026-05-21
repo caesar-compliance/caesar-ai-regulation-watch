@@ -1935,4 +1935,13 @@ if (explicitPublicationReleaseApprovalPacketCheck.status !== 0) {
   process.exit(explicitPublicationReleaseApprovalPacketCheck.status ?? 1);
 }
 
+const automationRuntimeCheck = spawnSync(
+  process.execPath,
+  [path.join(ROOT, "scripts/validate-automation-runtime.mjs")],
+  { cwd: ROOT, stdio: "inherit" },
+);
+if (automationRuntimeCheck.status !== 0) {
+  process.exit(automationRuntimeCheck.status ?? 1);
+}
+
 process.exit(0);

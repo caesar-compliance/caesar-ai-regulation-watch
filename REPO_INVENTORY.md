@@ -1,6 +1,20 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026 (v1.0.20 live — T072; `DEPLOY-20260521-038`)
+**Last updated:** 21 May 2026 (v1.0.21 T073 — automation runtime foundation; live v1.0.20)
+
+## T073 — Automation runtime foundation (v1.0.21)
+
+| Path | Role |
+|---|---|
+| **data/runtime/automation-runtime.yml** | Runtime config; ingestion disabled |
+| **schemas/automation-runtime.schema.json** | Config schema |
+| **ops/supabase/001_regulation_watch_runtime_schema.sql** | Postgres tables plan (not auto-applied) |
+| **ops/cloudflare-workers/regulation-watch-monitor/** | Worker scaffold (not deployed) |
+| **scripts/validate-automation-runtime.mjs** | Safety + scaffold checks |
+| **scripts/build-automation-runtime-manifest.mjs** | Public manifest builder |
+| **public/data/automation-runtime-manifest.json** | Public runtime manifest |
+| **src/pages/automation/index.astro** | Operator status page |
+| **docs/AUTOMATION_RUNTIME_STRATEGY.md** | Product pivot summary |
 
 ---
 
