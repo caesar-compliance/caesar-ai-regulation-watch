@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **Status** | v1.0.12 codebase (T064) — live v1.0.11 `DEPLOY-20260521-029` tag `regulation-watch-v1.0.11` |
+| **Status** | v1.0.12 live — T064 deployed `DEPLOY-20260521-030` tag `regulation-watch-v1.0.12` |
 | **Hosting** | GitHub Pages — static site (Astro) |
 | **Scope** | AI regulation tracking, country profiles, latest updates, source monitoring, metrics and structured exports |
 | **Safety** | Not legal advice; source transparency and automation confidence labels apply |

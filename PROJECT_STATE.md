@@ -5,9 +5,9 @@
 | Field | Value |
 |---|---|
 | **Current version** | `v1.0.12` (T064 — legal review revision response UI) |
-| **Live version** | `v1.0.11` — tag `regulation-watch-v1.0.11` (v1.0.12 deploy pending) |
-| **Status** | T064 merged to main (PR #24); v1.0.12 deploy ready; live site v1.0.11 |
-| **Last deployment** | `DEPLOY-20260521-029` — commit `121f1d2`, run [26228221533](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26228221533) |
+| **Live version** | `v1.0.12` — tag `regulation-watch-v1.0.12` |
+| **Status** | T064 merged and deployed; live site v1.0.12 |
+| **Last deployment** | `DEPLOY-20260521-030` — commit `38af753`, run [26229033479](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26229033479) |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
 | **Phase** | Public Technical MVP + profiles/drilldowns (T051) |
 
