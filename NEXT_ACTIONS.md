@@ -88,7 +88,7 @@
 24. **T069 — Public export release gate** *(merged, deployed v1.0.17 — PR #29)*
    - `/public-export-gate/` gate `T069-001`; ready for public export approval review only; no public/data inclusion.
 
-25. **T070 — Public export approval decision** *(in progress — v1.0.18)*
+25. **T070 — Public export approval decision** *(merged to main — PR #30, v1.0.18 deploy ready)*
    - `T070-001` approve_non_public_export_preview; non-public artifact only; no publish.
 
 26. **T071 — Public update release decision** *(next)*

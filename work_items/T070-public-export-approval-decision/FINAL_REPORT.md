@@ -2,7 +2,7 @@
 
 ## Status
 
-- In progress on branch `task/T070-public-export-approval-decision` (v1.0.18).
+- Merged to main v1.0.18 (PR #30 squash `30634da`); deploy pending.
 
 ## Delivered
 
