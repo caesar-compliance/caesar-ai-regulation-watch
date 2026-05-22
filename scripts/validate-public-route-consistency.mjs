@@ -348,7 +348,7 @@ function main() {
     }
 
     if (projectVersion === "1.0.35" && indexHtml) {
-      const indexNorm = indexHtml.replace(/\s+/g, " ");
+      const indexNorm = indexHtml.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
       for (const label of STALE_VERSION_LABELS) {
         if (indexHtml.includes(label)) {
           errors.push(`dist/index.html contains stale version ${label} at package 1.0.35`);

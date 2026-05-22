@@ -229,7 +229,7 @@ for (const { rel, mustInclude } of requiredHtmlChecks) {
   }
   const htmlForNeedles =
     rel === "index.html" || rel === "tracker/index.html"
-      ? html.replace(/\s+/g, " ")
+      ? html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
       : html;
   for (const needle of mustInclude) {
     if (!htmlForNeedles.includes(needle)) {

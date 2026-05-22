@@ -197,12 +197,14 @@ async function main() {
   for (const route of ROUTES) {
     const { url, html } = await fetchHtml(route.path);
     console.log(`  ${route.path} ← ${url}`);
-    const htmlNorm =
+    const htmlTextNorm =
       route.path === "/" || route.path === "/tracker/"
-        ? html.replace(/\s+/g, " ")
+        ? html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
         : html;
     for (const needle of route.mustInclude) {
-      if (!htmlNorm.includes(needle)) {
+      const haystack =
+        needle.startsWith("/") && needle.endsWith("/") ? html : htmlTextNorm;
+      if (!haystack.includes(needle)) {
         errors.push(`${route.path}: missing "${needle}"`);
       }
     }
