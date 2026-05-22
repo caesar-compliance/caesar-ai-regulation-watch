@@ -97,9 +97,12 @@ const latestUpdates = filterRegulatoryUpdates({
   <section class="tracker-section">
     <h2>Ingress filter dashboard (T084)</h2>
     <p>
-      Automated RSS sources: <strong>{automatedRssCount}</strong> (was {automatedBefore} before T084) ·
-      Operator-visible queue cards: <strong>{operatorVisibleCount}</strong> /{" "}
-      {ingressSummary.total_fetched_items ?? reviewQueueSummary.total ?? 0} total
+      {monitoring.monitored_source_count ?? trackerSummary.monitored_source_count ?? 0} official
+      sources · <strong>{automatedRssCount}</strong> automated RSS/Atom (was {automatedBefore} before
+      T084) · <strong>{ingressSummary.manual_source_count ?? 0}</strong> manual-review · Operator-visible
+      queue cards: <strong>{operatorVisibleCount}</strong> /{" "}
+      {ingressSummary.total_fetched_items ?? reviewQueueSummary.total ?? 0} total · cron disabled ·
+      gates closed
     </p>
     <div class="metrics-strip metrics-strip--monitoring">
       <div class="metrics-strip__item">
@@ -121,7 +124,8 @@ const latestUpdates = filterRegulatoryUpdates({
     </div>
     <p>
       <a href="/data/ingress-filter-summary.json">ingress-filter-summary.json</a> ·{" "}
-      <a href="/review-queue/">Review queue</a>
+      <a href="/review-queue/">Review queue</a> · <a href="/sources/">Sources registry</a> ·{" "}
+      <a href="/runtime-health/">Runtime health</a>
     </p>
   </section>
 

@@ -33,15 +33,18 @@ const trackerMetrics = getAutomationFirstMetrics();
 <BaseLayout title="Home" currentPath="/">
   <h1>Caesar AI Regulation Watch</h1>
   <p class="lead">
-    {PROJECT_VERSION_LABEL} — T084 automated source expansion and ingress filtering, T083 signal
-    quality, T082 operator decisions, and T080 country profiles. Technical pilot — not legal advice.
+    {PROJECT_VERSION_LABEL} — T084 automated source expansion and ingress filtering on{" "}
+    {routeSummary.monitoredSourceCount} official sources ({routeSummary.automatedRssCount} automated
+    RSS/Atom, {routeSummary.manualReviewSourceCount} manual-review). T083 signal quality, T082 operator
+    decisions, and T080 country profiles. Technical pilot — not legal advice.
   </p>
 
   <div class="banner banner--review" role="note">
     <strong>T084 Automated Source Expansion and Ingress Filtering ({PROJECT_VERSION_LABEL}).</strong>{" "}
-    {ingressSummary.automated_source_count ?? 0} automated RSS sources (was 2) ·{" "}
-    {operatorVisibleCount} operator-visible / {ingressSummary.total_fetched_items ?? 0} total queue
-    cards · {ingressSummary.suppress_noise_count ?? 0} noise suppressed · cron disabled ·{" "}
+    {routeSummary.monitoredSourceCount} official sources · {routeSummary.automatedRssCount} automated
+    RSS/Atom (was 2) · {routeSummary.manualReviewSourceCount} manual-review sources ·{" "}
+    {operatorVisibleCount} operator-visible candidates · {ingressSummary.suppress_noise_count ?? 0}{" "}
+    suppressed noise · cron disabled · all safety gates closed ·{" "}
     <a href="/data/ingress-filter-summary.json">ingress-filter-summary.json</a>
   </div>
 

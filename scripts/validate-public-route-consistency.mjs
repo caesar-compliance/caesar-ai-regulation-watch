@@ -82,6 +82,22 @@ function main() {
   if (indexSrc && !indexSrc.includes("getRegulationReviewQueueSummary")) {
     errors.push("src/pages/index.astro must use regulation-review-queue summary for T082 counts");
   }
+  if (indexSrc && !indexSrc.includes("getIngressFilterSummary")) {
+    errors.push("src/pages/index.astro must use getIngressFilterSummary for T084 counts");
+  }
+  if (indexSrc && !indexSrc.includes("T084 Automated Source Expansion and Ingress Filtering")) {
+    errors.push("src/pages/index.astro must include T084 ingress filtering banner");
+  }
+  if (
+    indexSrc &&
+    indexSrc.indexOf("T084 Automated Source Expansion") >
+      indexSrc.indexOf("T083 Signal Quality")
+  ) {
+    errors.push("src/pages/index.astro must place T084 banner before T083");
+  }
+  if (indexSrc && !indexSrc.includes("gates closed")) {
+    errors.push("src/pages/index.astro must state gates closed on T084 banner");
+  }
 
   const trackerSrc = readText("src/pages/tracker/index.astro");
   if (trackerSrc && !trackerSrc.includes("Signal quality dashboard (T083)")) {
@@ -104,6 +120,28 @@ function main() {
   ) {
     errors.push("src/pages/tracker/index.astro must place T082 section before T080 coverage");
   }
+  if (trackerSrc && !trackerSrc.includes("Ingress filter dashboard (T084)")) {
+    errors.push("src/pages/tracker/index.astro must include Ingress filter dashboard (T084)");
+  }
+  if (
+    trackerSrc &&
+    trackerSrc.indexOf("Ingress filter dashboard (T084)") >
+      trackerSrc.indexOf("Signal quality dashboard (T083)")
+  ) {
+    errors.push("src/pages/tracker/index.astro must place T084 ingress dashboard before T083");
+  }
+  if (trackerSrc && !trackerSrc.includes("/sources/")) {
+    errors.push("src/pages/tracker/index.astro must link to /sources/");
+  }
+  if (trackerSrc && !trackerSrc.includes("/runtime-health/")) {
+    errors.push("src/pages/tracker/index.astro must link to /runtime-health/ in T084 section");
+  }
+
+  const ingressSummary = readJson("ingress-filter-summary.json");
+  const ingressAutomated = ingressSummary?.automated_source_count ?? 0;
+  const ingressManual = ingressSummary?.manual_source_count ?? 0;
+  const ingressVisible = ingressSummary?.operator_visible_count ?? 0;
+  const ingressSuppressed = ingressSummary?.suppress_noise_count ?? 0;
 
   const reviewQueueSrc = readText("src/pages/review-queue.astro");
   if (reviewQueueSrc && !reviewQueueSrc.includes("Signal quality (T083)")) {
@@ -154,6 +192,19 @@ function main() {
     if (indexHtml && !indexHtml.includes("T082 Operator Decision Workflow")) {
       errors.push("dist/index.html missing T082 Operator Decision Workflow banner");
     }
+    if (indexHtml && !indexHtml.includes("T084 Automated Source Expansion and Ingress Filtering")) {
+      errors.push("dist/index.html missing T084 ingress filtering banner");
+    }
+    if (
+      indexHtml &&
+      indexHtml.indexOf("T084 Automated Source Expansion") >
+        indexHtml.indexOf("T083 Signal Quality")
+    ) {
+      errors.push("dist/index.html must lead with T084 before T083");
+    }
+    if (indexHtml && !indexHtml.includes("gates closed")) {
+      errors.push("dist/index.html missing gates closed on T084 banner");
+    }
     if (indexHtml && !indexHtml.includes("operator decisions")) {
       errors.push("dist/index.html missing operator decisions copy");
     }
@@ -173,8 +224,21 @@ function main() {
       errors.push(`dist/map/index.html missing ${projectLabel}`);
     }
 
+    if (trackerHtml && !trackerHtml.includes("Ingress filter dashboard (T084)")) {
+      errors.push("dist/tracker/index.html missing Ingress filter dashboard (T084)");
+    }
+    if (
+      trackerHtml &&
+      trackerHtml.indexOf("Ingress filter dashboard (T084)") >
+        trackerHtml.indexOf("Signal quality dashboard (T083)")
+    ) {
+      errors.push("dist/tracker/index.html must place T084 before T083");
+    }
     if (trackerHtml && !trackerHtml.includes("Signal quality dashboard (T083)")) {
       errors.push("dist/tracker/index.html missing T083 signal quality dashboard");
+    }
+    if (trackerHtml && !trackerHtml.includes("/sources/")) {
+      errors.push("dist/tracker/index.html missing link to /sources/");
     }
     if (
       trackerHtml &&
@@ -279,6 +343,72 @@ function main() {
       if (regMatch && Number(regMatch[1]) !== expectedRegulations) {
         errors.push(
           `homepage regulation records ${regMatch[1]} != tracker-summary ${expectedRegulations}`,
+        );
+      }
+    }
+
+    if (projectVersion === "1.0.35" && indexHtml) {
+      const indexNorm = indexHtml.replace(/\s+/g, " ");
+      for (const label of STALE_VERSION_LABELS) {
+        if (indexHtml.includes(label)) {
+          errors.push(`dist/index.html contains stale version ${label} at package 1.0.35`);
+        }
+      }
+      if (indexHtml.includes("13 jurisdictions")) {
+        errors.push("dist/index.html still shows 13 jurisdictions at package 1.0.35");
+      }
+      if (expectedSources > 0 && !indexNorm.includes(`${expectedSources} official sources`)) {
+        errors.push(
+          `dist/index.html missing ${expectedSources} official sources in T084 banner`,
+        );
+      }
+      if (
+        ingressAutomated > 0 &&
+        !indexNorm.includes(`${ingressAutomated} automated RSS/Atom`)
+      ) {
+        errors.push(
+          `dist/index.html missing ${ingressAutomated} automated RSS/Atom in T084 banner`,
+        );
+      }
+      if (ingressManual > 0 && !indexNorm.includes(`${ingressManual} manual-review`)) {
+        errors.push(`dist/index.html missing ${ingressManual} manual-review in T084 banner`);
+      }
+      if (
+        ingressVisible > 0 &&
+        !indexNorm.includes(`${ingressVisible} operator-visible`)
+      ) {
+        errors.push(
+          `dist/index.html missing ${ingressVisible} operator-visible in T084 banner`,
+        );
+      }
+      if (
+        ingressSuppressed > 0 &&
+        !indexNorm.includes(`${ingressSuppressed} suppressed noise`)
+      ) {
+        errors.push(
+          `dist/index.html missing ${ingressSuppressed} suppressed noise in T084 banner`,
+        );
+      }
+    }
+
+    if (projectVersion === "1.0.35" && trackerHtml) {
+      for (const label of STALE_VERSION_LABELS) {
+        if (trackerHtml.includes(label)) {
+          errors.push(`dist/tracker/index.html contains stale version ${label} at package 1.0.35`);
+        }
+      }
+      if (trackerHtml.includes("Product tracker dashboard (T080)")) {
+        errors.push("dist/tracker/index.html still uses legacy T080-only dashboard title");
+      }
+      if (trackerHtml.includes("not_configured")) {
+        errors.push("dist/tracker/index.html must not show not_configured automation status");
+      }
+      if (
+        ingressSuppressed > 0 &&
+        !trackerHtml.includes(`${ingressSuppressed}`)
+      ) {
+        errors.push(
+          `dist/tracker/index.html missing suppressed noise count ${ingressSuppressed}`,
         );
       }
     }

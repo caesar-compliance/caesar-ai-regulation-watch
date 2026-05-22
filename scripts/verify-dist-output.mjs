@@ -129,6 +129,13 @@ const requiredHtmlChecks = [
       "operator decisions",
       "Regulation records",
       "Jurisdiction profile cards",
+      "official sources",
+      "automated RSS/Atom",
+      "manual-review",
+      "operator-visible candidates",
+      "suppressed noise",
+      "gates closed",
+      "cron disabled",
     ],
   },
   {
@@ -146,6 +153,12 @@ const requiredHtmlChecks = [
       "Operator review pipeline (T082)",
       "not legal verification",
       "Coverage dashboard (T080)",
+      "manual-review",
+      "gates closed",
+      "cron disabled",
+      "/sources/",
+      "/runtime-health/",
+      "Suppressed noise",
     ],
   },
   {
@@ -214,8 +227,12 @@ for (const { rel, mustInclude } of requiredHtmlChecks) {
     htmlCheckFailures.push({ rel, reason: "missing file" });
     continue;
   }
+  const htmlForNeedles =
+    rel === "index.html" || rel === "tracker/index.html"
+      ? html.replace(/\s+/g, " ")
+      : html;
   for (const needle of mustInclude) {
-    if (!html.includes(needle)) {
+    if (!htmlForNeedles.includes(needle)) {
       htmlCheckFailures.push({ rel, reason: `missing required string: ${needle}` });
     }
   }

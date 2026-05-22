@@ -21,6 +21,13 @@ const ROUTES = [
       "operator decisions",
       "Regulation records",
       "Jurisdiction profile",
+      "25 official sources",
+      "6 automated RSS/Atom",
+      "19 manual-review",
+      "4 operator-visible candidates",
+      "16 suppressed noise",
+      "gates closed",
+      "cron disabled",
     ],
     mustExclude: [
       "v1.0.29",
@@ -28,7 +35,12 @@ const ROUTES = [
       "v1.0.33",
       "T080 coverage model (v1.0.31)",
       "13 jurisdictions grouped",
+      "13 Jurisdictions tracked",
+      "9 Monitored sources",
+      "0 Automated RSS pilot",
+      "not_configured",
       "Global coverage map",
+      "Product tracker dashboard (T080)",
     ],
   },
   {
@@ -42,8 +54,26 @@ const ROUTES = [
       "Operator review pipeline (T082)",
       "not legal verification",
       "Coverage dashboard (T080)",
+      "25 official",
+      "6 automated RSS/Atom",
+      "19 manual-review",
+      "Suppressed noise",
+      "gates closed",
+      "cron disabled",
+      "/review-queue/",
+      "/sources/",
+      "/runtime-health/",
     ],
-    mustExclude: ["v1.0.29", "v1.0.31", "v1.0.33", "Product tracker dashboard (T080)"],
+    mustExclude: [
+      "v1.0.29",
+      "v1.0.31",
+      "v1.0.33",
+      "Product tracker dashboard (T080)",
+      "13 Jurisdictions tracked",
+      "9 Monitored sources",
+      "0 Automated RSS pilot",
+      "not_configured",
+    ],
   },
   {
     path: "/map/",
@@ -167,8 +197,12 @@ async function main() {
   for (const route of ROUTES) {
     const { url, html } = await fetchHtml(route.path);
     console.log(`  ${route.path} ← ${url}`);
+    const htmlNorm =
+      route.path === "/" || route.path === "/tracker/"
+        ? html.replace(/\s+/g, " ")
+        : html;
     for (const needle of route.mustInclude) {
-      if (!html.includes(needle)) {
+      if (!htmlNorm.includes(needle)) {
         errors.push(`${route.path}: missing "${needle}"`);
       }
     }
