@@ -1,0 +1,103 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://caesar.no/schemas/regulation-watch/monitoring-pilot-registry.schema.json",
+  "title": "MonitoringPilotRegistry",
+  "type": "object",
+  "required": [
+    "monitoring_pilot_registry_id",
+    "generated_at",
+    "sources",
+    "no_broad_crawl",
+    "no_full_text_storage"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "monitoring_pilot_registry_id": { "type": "string", "minLength": 8 },
+    "generated_at": { "type": "string" },
+    "product_version": { "type": "string" },
+    "legal_safe_note": { "type": "string" },
+    "no_broad_crawl": { "const": true },
+    "no_full_text_storage": { "const": true },
+    "max_sources_default": { "type": "integer", "minimum": 1, "maximum": 20 },
+    "max_items_per_source_default": { "type": "integer", "minimum": 1, "maximum": 100 },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 20,
+      "items": { "$ref": "#/$defs/source" }
+    }
+  },
+  "$defs": {
+    "safety_flags": {
+      "type": "object",
+      "required": [
+        "verified_on_source",
+        "client_use_allowed",
+        "legal_change_claimed",
+        "publication_allowed",
+        "public_export_allowed"
+      ],
+      "properties": {
+        "verified_on_source": { "const": false },
+        "client_use_allowed": { "const": false },
+        "legal_change_claimed": { "const": false },
+        "publication_allowed": { "const": false },
+        "public_export_allowed": { "const": false }
+      },
+      "additionalProperties": true
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "source_key",
+        "source_name",
+        "jurisdiction_ids",
+        "source_type",
+        "fetch_mode",
+        "official_url",
+        "allowed_host",
+        "monitoring_status",
+        "stores_metadata_only",
+        "safety_flags"
+      ],
+      "properties": {
+        "source_key": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$"
+        },
+        "source_name": { "type": "string", "minLength": 3 },
+        "jurisdiction_ids": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "topic_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "source_type": { "type": "string" },
+        "fetch_mode": {
+          "type": "string",
+          "enum": ["automated_metadata", "manual_review"]
+        },
+        "official_url": { "type": "string", "format": "uri" },
+        "allowed_host": { "type": "string", "minLength": 3 },
+        "feed_url": { "type": "string", "format": "uri" },
+        "feed_format": { "type": "string", "enum": ["rss", "atom"] },
+        "monitoring_status": { "type": "string" },
+        "schedule_enabled": { "type": "boolean" },
+        "stores_metadata_only": { "const": true },
+        "captcha_or_waf_risk": { "type": "boolean" },
+        "notes": { "type": "string" },
+        "safety_flags": { "$ref": "#/$defs/safety_flags" }
+      },
+      "additionalProperties": true,
+      "if": {
+        "properties": { "fetch_mode": { "const": "automated_metadata" } }
+      },
+      "then": {
+        "required": ["feed_url", "feed_format"]
+      }
+    }
+  }
+}

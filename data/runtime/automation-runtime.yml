@@ -1,5 +1,6 @@
 runtime_id: regulation-watch-runtime-v1
-status: runtime_foundation_ready
+status: backend_monitoring_mvp
+backend_mvp: T078
 live_ingestion_enabled: false
 scheduled_monitoring_enabled: false
 network_execution_enabled: false

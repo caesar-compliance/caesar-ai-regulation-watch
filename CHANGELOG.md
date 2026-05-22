@@ -11,6 +11,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.29] - 22 May 2026
+
+### Added
+
+- **T078 backend monitoring MVP** — `monitoring-pilot-registry.yml` (9 official sources); `run-monitoring-pilot.mjs` with Supabase persistence; public exports (`runtime-monitoring-status.json`, `regulation-*`); `/map/` and tracker monitoring dashboard; Worker endpoints `/run-pilot`, `/last-run`.
+
+### Changed
+
+- **automation-runtime** — status `backend_monitoring_mvp`.
+- **Worker** — real RSS metadata fetch for EDPB/EDPS allowlist; protected run endpoints; cron gated by `REGWATCH_ENABLE_SCHEDULED_MONITORING` (default false).
+
+### Safety
+
+- Metadata-only; no full legal text; no evidence gates enabled; scheduled monitoring not enabled by default.
+
+---
+
 ## [1.0.28] - 22 May 2026
 
 ### Added

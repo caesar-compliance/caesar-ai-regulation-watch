@@ -1,0 +1,160 @@
+{
+  "generated_at": "2026-05-22T14:23:03.351Z",
+  "product_version": "1.0.29",
+  "review_required": true,
+  "legal_change_claimed": false,
+  "public_note": "Backend-derived metadata only. Review required before any legal or client use. Not legal advice.",
+  "map_version": "T078",
+  "markers": [
+    {
+      "jurisdiction_id": "australia",
+      "label": "australia",
+      "region": "Asia-Pacific",
+      "status_bucket": "guidance",
+      "maturity_index": 0,
+      "activity_index": 0,
+      "freshness_days": null,
+      "monitored_source_count": 0,
+      "review_required": true
+    },
+    {
+      "jurisdiction_id": "canada",
+      "label": "canada",
+      "region": "North America",
+      "status_bucket": "proposed",
+      "maturity_index": 0,
+      "activity_index": 0,
+      "freshness_days": null,
+      "monitored_source_count": 0,
+      "review_required": true
+    },
+    {
+      "jurisdiction_id": "china",
+      "label": "china",
+      "region": "Asia-Pacific",
+      "status_bucket": "adopted",
+      "maturity_index": 0,
+      "activity_index": 0,
+      "freshness_days": null,
+      "monitored_source_count": 0,
+      "review_required": true
+    },
+    {
+      "jurisdiction_id": "eu",
+      "label": "eu",
+      "region": "Europe",
+      "status_bucket": "adopted",
+      "maturity_index": 0,
+      "activity_index": 0,
+      "freshness_days": null,
+      "monitored_source_count": 4,
+      "review_required": true
+    },
+    {
+      "jurisdiction_id": "g7",
+      "label": "g7",
+      "region": "International",
+      "status_bucket": "no_clear_framework",
+      "maturity_index": 0,
+      "activity_index": 0,
+      "freshness_days": null,
+      "monitored_source_count": 0,
+      "review_required": true
+    },
+    {
+      "jurisdiction_id": "japan",
+      "label": "japan",
+      "region": "Asia-Pacific",
+      "status_bucket": "guidance",
+      "maturity_index": 0,
+      "activity_index": 0,
+      "freshness_days": null,
+      "monitored_source_count": 0,
+      "review_required": true
+    },
+    {
+      "jurisdiction_id": "norway",
+      "label": "norway",
+      "region": "Europe",
+      "status_bucket": "monitoring",
+      "maturity_index": 0,
+      "activity_index": 0,
+      "freshness_days": null,
+      "monitored_source_count": 0,
+      "review_required": true
+    },
+    {
+      "jurisdiction_id": "oecd",
+      "label": "oecd",
+      "region": "International",
+      "status_bucket": "no_clear_framework",
+      "maturity_index": 0,
+      "activity_index": 0,
+      "freshness_days": null,
+      "monitored_source_count": 1,
+      "review_required": true
+    },
+    {
+      "jurisdiction_id": "singapore",
+      "label": "singapore",
+      "region": "Asia-Pacific",
+      "status_bucket": "guidance",
+      "maturity_index": 0,
+      "activity_index": 0,
+      "freshness_days": null,
+      "monitored_source_count": 1,
+      "review_required": true
+    },
+    {
+      "jurisdiction_id": "south-korea",
+      "label": "south-korea",
+      "region": "Asia-Pacific",
+      "status_bucket": "guidance",
+      "maturity_index": 0,
+      "activity_index": 0,
+      "freshness_days": null,
+      "monitored_source_count": 0,
+      "review_required": true
+    },
+    {
+      "jurisdiction_id": "unesco",
+      "label": "unesco",
+      "region": "International",
+      "status_bucket": "guidance",
+      "maturity_index": 0,
+      "activity_index": 0,
+      "freshness_days": null,
+      "monitored_source_count": 0,
+      "review_required": true
+    },
+    {
+      "jurisdiction_id": "uk",
+      "label": "uk",
+      "region": "Europe",
+      "status_bucket": "guidance",
+      "maturity_index": 0,
+      "activity_index": 0,
+      "freshness_days": null,
+      "monitored_source_count": 1,
+      "review_required": true
+    },
+    {
+      "jurisdiction_id": "us-federal",
+      "label": "us-federal",
+      "region": "North America",
+      "status_bucket": "guidance",
+      "maturity_index": 0,
+      "activity_index": 0,
+      "freshness_days": null,
+      "monitored_source_count": 1,
+      "review_required": true
+    }
+  ],
+  "legend": {
+    "enacted": "Enacted / in force (curated metadata)",
+    "proposed": "Proposed / draft",
+    "guidance": "Guidance / framework",
+    "monitoring": "Monitoring registered",
+    "unknown": "Limited coverage"
+  }
+}

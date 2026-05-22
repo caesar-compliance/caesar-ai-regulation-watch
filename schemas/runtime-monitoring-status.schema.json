@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RuntimeMonitoringStatus",
+  "type": "object",
+  "required": ["generated_at", "review_required", "public_note"],
+  "properties": {
+    "generated_at": { "type": "string" },
+    "product_version": { "type": "string" },
+    "review_required": { "const": true },
+    "legal_change_claimed": { "const": false },
+    "status": { "type": "string" },
+    "backend_mvp": { "type": "string" },
+    "monitored_source_count": { "type": "integer" },
+    "live_ingestion_enabled": { "const": false },
+    "scheduled_monitoring_enabled": { "type": "boolean" }
+  },
+  "additionalProperties": true
+}

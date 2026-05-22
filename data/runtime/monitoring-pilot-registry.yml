@@ -1,0 +1,190 @@
+# T078 — Official monitoring pilot registry (metadata-only, allowlisted)
+# No competitor data. No full legal text. Control Tower / dev manual runs only.
+
+monitoring_pilot_registry_id: monitoring-pilot-registry-2026-05-22-t078
+generated_at: "2026-05-22"
+product_version: "1.0.29"
+legal_safe_note: >
+  T078 backend monitoring MVP pilot. Official public primary sources only.
+  Metadata-only fetch for RSS sources when explicitly approved for a manual dev run.
+  Manual-review sources registered without automated fetch. Not legal advice.
+  Evidence and publication gates remain closed unless manually reviewed elsewhere.
+no_broad_crawl: true
+no_full_text_storage: true
+max_sources_default: 8
+max_items_per_source_default: 20
+
+sources:
+  - source_key: edpb-publications-rss
+    source_name: European Data Protection Board (EDPB) — publications RSS
+    jurisdiction_ids: [eu]
+    topic_ids: [eu_regulation, privacy]
+    source_type: rss
+    fetch_mode: automated_metadata
+    official_url: https://www.edpb.europa.eu/feed/publications_en
+    allowed_host: www.edpb.europa.eu
+    feed_url: https://www.edpb.europa.eu/feed/publications_en
+    feed_format: rss
+    monitoring_status: active_pilot
+    schedule_enabled: false
+    stores_metadata_only: true
+    safety_flags:
+      verified_on_source: false
+      client_use_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+
+  - source_key: edps-news-rss
+    source_name: European Data Protection Supervisor (EDPS) — news RSS
+    jurisdiction_ids: [eu]
+    topic_ids: [eu_regulation, privacy]
+    source_type: rss
+    fetch_mode: automated_metadata
+    official_url: https://www.edps.europa.eu/feed/news_en
+    allowed_host: www.edps.europa.eu
+    feed_url: https://www.edps.europa.eu/feed/news_en
+    feed_format: rss
+    monitoring_status: active_pilot
+    schedule_enabled: false
+    stores_metadata_only: true
+    safety_flags:
+      verified_on_source: false
+      client_use_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+
+  - source_key: eu-digital-strategy-ai-framework
+    source_name: European Commission — Regulatory framework for AI (digital strategy)
+    jurisdiction_ids: [eu]
+    topic_ids: [eu_ai_act, eu_regulation]
+    source_type: webpage_metadata
+    fetch_mode: manual_review
+    official_url: https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai
+    allowed_host: digital-strategy.ec.europa.eu
+    monitoring_status: registered_manual
+    schedule_enabled: false
+    stores_metadata_only: true
+    notes: No stable official RSS; page metadata checks require explicit manual approval.
+    safety_flags:
+      verified_on_source: false
+      client_use_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+
+  - source_key: eur-lex-ai-act-entry
+    source_name: EU Artificial Intelligence Act — EUR-Lex entry (metadata reference)
+    jurisdiction_ids: [eu]
+    topic_ids: [eu_ai_act]
+    source_type: law_portal
+    fetch_mode: manual_review
+    official_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689
+    allowed_host: eur-lex.europa.eu
+    monitoring_status: registered_manual
+    captcha_or_waf_risk: true
+    schedule_enabled: false
+    stores_metadata_only: true
+    notes: EUR-Lex bot/WAF risk; instrument identity reference only; no automated fetch in T078 pilot.
+    safety_flags:
+      verified_on_source: false
+      client_use_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+
+  - source_key: oecd-ai-policy-observatory
+    source_name: OECD.AI — Policy Observatory
+    jurisdiction_ids: [oecd]
+    topic_ids: [international_ai_policy]
+    source_type: webpage_metadata
+    fetch_mode: manual_review
+    official_url: https://oecd.ai/en/
+    allowed_host: oecd.ai
+    monitoring_status: registered_manual
+    schedule_enabled: false
+    stores_metadata_only: true
+    notes: Official OECD comparative resource; no stable pilot RSS; national law remains authoritative.
+    safety_flags:
+      verified_on_source: false
+      client_use_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+
+  - source_key: council-of-europe-ai-framework
+    source_name: Council of Europe — Artificial intelligence
+    jurisdiction_ids: [coe]
+    topic_ids: [international_ai_policy]
+    source_type: webpage_metadata
+    fetch_mode: manual_review
+    official_url: https://www.coe.int/en/web/artificial-intelligence
+    allowed_host: www.coe.int
+    monitoring_status: registered_manual
+    schedule_enabled: false
+    stores_metadata_only: true
+    notes: Official CoE AI Convention hub; manual review for page/announcement metadata only.
+    safety_flags:
+      verified_on_source: false
+      client_use_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+
+  - source_key: us-nist-ai-rmf
+    source_name: NIST — AI Risk Management Framework
+    jurisdiction_ids: [us-federal]
+    topic_ids: [risk_management, nist_ai_rmf]
+    source_type: standards_body
+    fetch_mode: manual_review
+    official_url: https://www.nist.gov/itl/ai-risk-management-framework
+    allowed_host: www.nist.gov
+    monitoring_status: registered_manual
+    schedule_enabled: false
+    stores_metadata_only: true
+    notes: Voluntary US framework resource; metadata-only when manually checked.
+    safety_flags:
+      verified_on_source: false
+      client_use_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+
+  - source_key: uk-ico-ai-guidance
+    source_name: ICO — Artificial intelligence guidance
+    jurisdiction_ids: [uk]
+    topic_ids: [uk_ai_regulation, privacy]
+    source_type: regulator
+    fetch_mode: manual_review
+    official_url: https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/
+    allowed_host: ico.org.uk
+    monitoring_status: registered_manual
+    schedule_enabled: false
+    stores_metadata_only: true
+    notes: UK regulator guidance pages; no automated fetch in T078 pilot.
+    safety_flags:
+      verified_on_source: false
+      client_use_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+
+  - source_key: singapore-pdpc-ai
+    source_name: PDPC — Model AI Governance Framework
+    jurisdiction_ids: [singapore]
+    topic_ids: [ai_governance]
+    source_type: regulator
+    fetch_mode: manual_review
+    official_url: https://www.pdpc.gov.sg/help-and-resources/2020/01/model-ai-governance-framework
+    allowed_host: www.pdpc.gov.sg
+    monitoring_status: registered_manual
+    schedule_enabled: false
+    stores_metadata_only: true
+    notes: Official Singapore PDPC framework page; manual review only in pilot.
+    safety_flags:
+      verified_on_source: false
+      client_use_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false

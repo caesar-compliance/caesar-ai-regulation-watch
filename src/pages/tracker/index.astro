@@ -13,8 +13,16 @@ import {
   getRegulatoryUpdates,
   getEnrichedCountryStatuses,
 } from "../../lib/tracker-data";
+import {
+  getMonitoringStatus,
+  getDetectedChanges,
+  getReviewCandidates,
+} from "../../lib/runtime-monitoring-data";
 
 const metrics = getAutomationFirstMetrics();
+const monitoring = getMonitoringStatus();
+const detectedChanges = getDetectedChanges().slice(0, 5);
+const reviewCandidates = getReviewCandidates();
 const topics = getTrackerTopics();
 const allStatuses = getCountryStatuses();
 const enrichedStatuses = getEnrichedCountryStatuses();
@@ -57,6 +65,48 @@ const latestUpdates = filterRegulatoryUpdates({
   </div>
 
   <MetricsStrip metrics={metrics} />
+
+  <section class="tracker-section">
+    <h2>Backend monitoring dashboard (T078)</h2>
+    <div class="metrics-strip metrics-strip--monitoring">
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{monitoring.monitored_source_count ?? 0}</span>
+        <span class="metrics-strip__label">Monitored sources</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{monitoring.automated_source_count ?? 0}</span>
+        <span class="metrics-strip__label">Automated RSS pilot</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{detectedChanges.length}</span>
+        <span class="metrics-strip__label">Recent detected changes (sample)</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{reviewCandidates.length}</span>
+        <span class="metrics-strip__label">Review queue</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{monitoring.status ?? "—"}</span>
+        <span class="metrics-strip__label">Automation status</span>
+      </div>
+    </div>
+    <p>
+      <a href="/map/">Interactive map</a> · <a href="/runtime-health/">Runtime health</a> ·{" "}
+      <a href="/data/runtime-monitoring-status.json">Monitoring status JSON</a>
+    </p>
+    {
+      detectedChanges.length > 0 && (
+        <ul>
+          {detectedChanges.map((c) => (
+            <li>
+              <strong>{c.change_type}</strong> — {c.change_summary} (
+              <code>{c.source_key}</code>, review required)
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
 
   <section class="tracker-section">
     <h2>Filters</h2>

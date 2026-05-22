@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-05-22T00:40:00.087Z",
+  "checked_at": "2026-05-22T14:22:56.579Z",
   "runtime_environment": "local",
   "schema_name": "public",
   "live_ingestion_enabled": false,
@@ -17,6 +17,6 @@
     "runtime_events"
   ],
   "missing_tables": [],
-  "runtime_event_count": 0,
-  "latest_runtime_event_at": null
+  "runtime_event_count": 1,
+  "latest_runtime_event_at": "2026-05-22T14:22:52.188Z"
 }

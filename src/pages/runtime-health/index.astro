@@ -4,8 +4,10 @@ import path from "node:path";
 import yaml from "js-yaml";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { PROJECT_VERSION_LABEL } from "../../lib/project-version";
+import { getMonitoringStatus } from "../../lib/runtime-monitoring-data";
 
 const healthPath = path.join(process.cwd(), "public/data/runtime-db-health.json");
+const monitoring = getMonitoringStatus();
 const runtimePath = path.join(process.cwd(), "data/runtime/automation-runtime.yml");
 
 const health = fs.existsSync(healthPath)
@@ -28,9 +30,8 @@ const presentTables = (health?.expected_tables_present as string[]) ?? [];
 >
   <h1>Runtime health</h1>
   <p class="lead">
-    Runtime foundation checkpoint ({PROJECT_VERSION_LABEL}). Public view of tracked runtime DB health
-    metadata (expected <code>connected</code> when dev schema is applied) — no credentials, no legal text,
-    no live ingestion.
+    T078 backend monitoring MVP ({PROJECT_VERSION_LABEL}). Public view of tracked runtime DB health and
+    pilot monitoring status — no credentials, no legal text, no broad live ingestion.
   </p>
 
   <div class="banner banner--review" role="note">
@@ -69,6 +70,19 @@ const presentTables = (health?.expected_tables_present as string[]) ?? [];
     {missingTables.length > 0 && (
       <p class="warn">Missing: {missingTables.map((t) => <code>{t}</code>).join(", ")}</p>
     )}
+  </section>
+
+  <section>
+    <h2>Backend monitoring MVP (T078)</h2>
+    <dl class="meta-grid">
+      <div><dt>monitoring_status</dt><dd><strong>{monitoring.status ?? "—"}</strong></dd></div>
+      <div><dt>backend_mvp</dt><dd><span class="mono">{monitoring.backend_mvp ?? "—"}</span></dd></div>
+      <div><dt>monitored_sources</dt><dd>{monitoring.monitored_source_count ?? "—"}</dd></div>
+      <div><dt>automated_rss</dt><dd>{monitoring.automated_source_count ?? "—"}</dd></div>
+      <div><dt>manual_review_sources</dt><dd>{monitoring.manual_source_count ?? "—"}</dd></div>
+      <div><dt>latest_run</dt><dd><span class="mono">{monitoring.latest_run?.run_id ?? "—"}</span></dd></div>
+    </dl>
+    <p><a href="/data/runtime-monitoring-status.json">runtime-monitoring-status.json</a></p>
   </section>
 
   <section>

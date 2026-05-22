@@ -30,6 +30,10 @@ import {
   CLOSED_LEGAL_FLAGS,
 } from "../../lib/tracker-drilldown";
 import { formatDate, truncate, humanizeId } from "../../lib/format";
+import {
+  coverageForJurisdiction,
+  getDetectedChanges,
+} from "../../lib/runtime-monitoring-data";
 
 export function getStaticPaths() {
   return getJurisdictions().map((j) => ({
@@ -63,6 +67,14 @@ const relatedInRegion = relatedJurisdictionsInRegion(
 const comparePeers = comparePeersFor(jurisdiction.jurisdiction_id, jurisdiction.region);
 const defaultCompare = compareRoute(comparePeers);
 const regionRoute = `/regions/${regionSlug(jurisdiction.region)}/`;
+const monitoringCoverage = coverageForJurisdiction(jurisdiction.jurisdiction_id);
+const jurisdictionChanges = getDetectedChanges()
+  .filter((c) =>
+    (monitoringCoverage?.monitored_sources ?? []).some(
+      (s: { source_key: string }) => s.source_key === c.source_key,
+    ),
+  )
+  .slice(0, 5);
 ---
 
 <BaseLayout title={jurisdiction.name} currentPath="/jurisdictions/">
@@ -116,6 +128,40 @@ const regionRoute = `/regions/${regionSlug(jurisdiction.region)}/`;
   </div>
 
   <ReviewBanner reviewStatus={jurisdiction.review_status} />
+
+  {
+    monitoringCoverage && (
+      <section class="tracker-section">
+        <h2>Monitored sources (T078 backend)</h2>
+        <p class="lead">
+          VerifyWise-style source-backed profile: official URLs from the pilot registry only — review
+          required, not verified legal change.
+        </p>
+        <ul>
+          {(monitoringCoverage.monitored_sources ?? []).map((s: { source_key: string; source_name: string; official_url: string; fetch_mode: string }) => (
+            <li>
+              <a href={s.official_url} rel="noopener noreferrer">{s.source_name}</a> (
+              <code>{s.fetch_mode}</code>)
+            </li>
+          ))}
+        </ul>
+        {
+          jurisdictionChanges.length > 0 && (
+            <>
+              <h3>Latest detected metadata changes</h3>
+              <ul>
+                {jurisdictionChanges.map((c) => (
+                  <li>
+                    {c.change_summary} — <em>review required</em>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )
+        }
+      </section>
+    )
+  }
 
   {
     enriched && (

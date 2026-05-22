@@ -1,8 +1,8 @@
 {
-  "version": "1.0.28",
+  "version": "1.0.29",
   "generated_at": "2026-05-22",
   "runtime_id": "regulation-watch-runtime-v1",
-  "status": "runtime_foundation_ready",
+  "status": "backend_monitoring_mvp",
   "backend_target": "supabase_postgres",
   "worker_target": "cloudflare_workers",
   "public_site_target": "github_pages",

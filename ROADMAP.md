@@ -4,7 +4,7 @@
 
 This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
 
-**Codebase:** v1.0.28 (runtime foundation checkpoint). **Live:** v1.0.27 at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) until next approved deploy. **Next:** T075B runtime DB source pilot connection → product monitoring dry-runs → T076 network check only after Control Tower approval.
+**Codebase:** v1.0.29 (T078 backend monitoring MVP). **Live:** v1.0.27 until v1.0.29 deploy approved. **Next:** deploy v1.0.29 → expand manual-review sources → Worker redeploy → T076 additional network checks after approval.
 
 **Product direction (20 May 2026):** automation-first global AI regulation tracker — see [docs/AUTOMATION_FIRST_MVP_ROADMAP.md](docs/AUTOMATION_FIRST_MVP_ROADMAP.md) and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md). Human review/evidence is optional future assurance, not the first full MVP foundation.
 

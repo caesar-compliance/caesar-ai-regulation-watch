@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **Status** | v1.0.28 codebase checkpoint — live v1.0.27 (`regulation-watch-v1.0.27`); runtime foundation tracked; live ingestion disabled |
+| **Status** | v1.0.29 backend monitoring MVP — live v1.0.27 until deploy; dev Supabase pilot + Worker MVP; scheduled cron disabled |
 | **Automation** | `/automation/` — runtime scaffold; live ingestion disabled ([docs/AUTOMATION_RUNTIME_STRATEGY.md](docs/AUTOMATION_RUNTIME_STRATEGY.md)) |
 | **Hosting** | GitHub Pages — static site (Astro) |
 | **Scope** | AI regulation tracking, country profiles, latest updates, source monitoring, metrics and structured exports |

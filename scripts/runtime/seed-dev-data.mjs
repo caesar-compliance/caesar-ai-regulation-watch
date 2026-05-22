@@ -51,15 +51,17 @@ async function main() {
       ],
     );
     await client.query(
-      `INSERT INTO runtime_events (event_type, source_key, payload_json)
-       SELECT $1, $2, $3::jsonb
+      `INSERT INTO runtime_events (event_type, event_status, source_key, message, metadata_json)
+       SELECT $1, $2, $3, $4, $5::jsonb
        WHERE NOT EXISTS (
          SELECT 1 FROM runtime_events
-         WHERE event_type = $1 AND source_key = $2
+         WHERE event_type = $1 AND source_key = $3
        )`,
       [
         "dev_seed",
+        "completed",
         SEED_SOURCE_KEY,
+        "metadata-only dev seed",
         JSON.stringify({ note: "metadata-only dev seed", seeded: true }),
       ],
     );

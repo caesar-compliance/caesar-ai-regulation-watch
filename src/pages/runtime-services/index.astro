@@ -4,6 +4,9 @@ import path from "node:path";
 import yaml from "js-yaml";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { PROJECT_VERSION_LABEL } from "../../lib/project-version";
+import { getMonitoringStatus } from "../../lib/runtime-monitoring-data";
+
+const monitoring = getMonitoringStatus();
 
 const readinessPath = path.join(
   process.cwd(),
@@ -37,9 +40,9 @@ function serviceFields(name: string) {
 >
   <h1>Runtime services onboarding</h1>
   <p class="lead">
-    Runtime foundation checkpoint ({PROJECT_VERSION_LABEL}). Tracked export shows Account A credential
-    readiness and Cloudflare/Supabase foundation flags from local env — <strong>not</strong> live automated
-    monitoring, cron, or broad network execution.
+    T078 backend monitoring MVP ({PROJECT_VERSION_LABEL}). Tracked export shows Account A credential
+    readiness plus pilot monitoring registry ({monitoring.monitored_source_count ?? 0} sources) — scheduled
+    cron remains disabled unless <code>REGWATCH_ENABLE_SCHEDULED_MONITORING=true</code> (dev-only, default false).
   </p>
 
   <div class="banner banner--review" role="note">

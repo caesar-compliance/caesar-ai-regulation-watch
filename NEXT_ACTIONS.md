@@ -1,7 +1,7 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 22 May 2026
-**Current codebase:** v1.0.28 (runtime foundation checkpoint) — tag `regulation-watch-v1.0.28` on checkpoint commit; live site still v1.0.27 until deploy approved
+**Current codebase:** v1.0.29 (T078 backend monitoring MVP) — live site still v1.0.27 until deploy approved
 **Live release:** v1.0.27 — deployed 21 May 2026 (`DEPLOY-20260521-045`)
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
@@ -121,14 +121,16 @@
 35. **T076A — Free services setup pack** *(merged ff `67e2792`; deployed v1.0.27 — `DEPLOY-20260521-045`)*
    - Account A onboarding docs, env examples, `runtime:services:check`, `/runtime-services/` live; credential presence only.
 
-36. **v1.0.28 — Runtime foundation checkpoint** *(release branch; post-T076A dev-runtime activation on `main`)*
-   - Dev Supabase runtime + Cloudflare Worker foundation tracked; DB health export `connected`; `runtime_foundation_ready`; no live ingestion/cron/network; checkpoint deploy not triggered in release.
+36. **v1.0.28 — Runtime foundation checkpoint** *(merged; tag `regulation-watch-v1.0.28`)*
 
-37. **T075B — Runtime DB source pilot connection** *(when Supabase credentials in `.env.runtime.local`)*
-   - Persist pilot chain to runtime DB.
+37. **T078 — Backend monitoring MVP** *(merged; tag `regulation-watch-v1.0.29` pending)*
+   - Pilot registry, Supabase persistence, public monitoring exports, `/map/`, Worker MVP; manual pilot run proven on dev Supabase.
 
-38. **T076 — Explicit controlled network check** *(after Control Tower approval)*
-   - Single allowlisted source network check; not broad crawl.
+38. **Deploy v1.0.29** *(Control Tower)*
+   - Static site workflow with `confirm_disclaimers=DEPLOY`; optional dev Worker redeploy via `dev-runtime-activate`.
+
+39. **T076 — Expand controlled network** *(after Control Tower approval)*
+   - Additional allowlisted manual-review sources; not broad crawl.
 
 ---
 

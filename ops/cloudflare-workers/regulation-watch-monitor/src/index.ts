@@ -1,29 +1,36 @@
 /**
- * Regulation Watch monitor worker — T073 scaffold.
- * No live fetch in default path. No secrets in source.
+ * Regulation Watch monitor worker — T078 backend monitoring MVP.
+ * Metadata-only. No secrets in source. Cron gated by REGWATCH_ENABLE_SCHEDULED_MONITORING.
  */
 
-export interface Env {
-  RUN_TOKEN?: string;
-  SUPABASE_URL?: string;
-  SUPABASE_SERVICE_ROLE_KEY?: string;
-  RUNTIME_ID?: string;
-  WORKER_NAME?: string;
-  RUNTIME_ENV?: string;
-  GIT_SHA?: string;
-  BUILD_TIME?: string;
-}
+import {
+  type Env,
+  fetchAllowlistedRssMetadata,
+  insertMonitoringRun,
+  getLastRunStatus,
+  PILOT_ALLOWLIST,
+} from "./monitoring";
+
+export type { Env } from "./monitoring";
 
 const APP_NAME = "caesar-ai-regulation-watch";
+const APP_VERSION = "1.0.29";
+
+function scheduledEnabled(env: Env): boolean {
+  const v = (env.REGWATCH_ENABLE_SCHEDULED_MONITORING ?? "").toLowerCase();
+  return v === "true" || v === "1" || v === "yes";
+}
 
 function buildHealthPayload(env: Env) {
   return {
     ok: true,
     status: "ok",
     app: APP_NAME,
+    version: APP_VERSION,
     runtime_id: env.RUNTIME_ID ?? "regulation-watch-runtime-v1",
     live_ingestion_enabled: false,
-    scheduled_monitoring_enabled: false,
+    scheduled_monitoring_enabled: scheduledEnabled(env),
+    backend_mvp: "T078",
   };
 }
 
@@ -33,50 +40,42 @@ function buildReadyPayload(env: Env) {
   );
   const runTokenConfigured = Boolean(env.RUN_TOKEN);
   return {
-    ok: supabaseConfigured,
-    ready: supabaseConfigured,
+    ok: supabaseConfigured && runTokenConfigured,
+    ready: supabaseConfigured && runTokenConfigured,
     checks: {
       supabase_configured: supabaseConfigured,
       run_token_configured: runTokenConfigured,
     },
     live_ingestion_enabled: false,
-    scheduled_monitoring_enabled: false,
+    scheduled_monitoring_enabled: scheduledEnabled(env),
+    backend_mvp: "T078",
   };
 }
 
 function buildVersionPayload(env: Env) {
   return {
     app: APP_NAME,
+    version: APP_VERSION,
     worker:
       env.WORKER_NAME ?? env.RUNTIME_ID ?? "regulation-watch-monitor-dev",
     runtime_env: env.RUNTIME_ENV ?? "dev",
     git_sha: env.GIT_SHA ?? null,
     build_time: env.BUILD_TIME ?? null,
     runtime_id: env.RUNTIME_ID ?? "regulation-watch-runtime-v1",
+    backend_mvp: "T078",
   };
 }
 
-const ALLOWLISTED_SOURCE_KEYS = new Set([
-  "edpb-publications-rss",
-  "edps-news-rss",
-  "eu-ai-office-updates",
-  "uk-dsit-ai-updates",
-  "nist-ai-updates",
-]);
-
-type RssItemStub = {
-  external_id: string;
-  title: string;
-  url: string;
-  published_at: string | null;
-  summary_excerpt: string | null;
-  content_hash: string;
-};
+const ALLOWLISTED_SOURCE_KEYS = new Set(Object.keys(PILOT_ALLOWLIST));
 
 function jsonResponse(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), {
     status,
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "https://regulation-watch.caesar.no",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    },
   });
 }
 
@@ -92,34 +91,22 @@ function isAuthorized(request: Request, env: Env): boolean {
   return match?.[1] === token;
 }
 
-/** TODO(T074+): metadata-only RSS fetch — one feed URL per allowlisted source_key. */
-export async function fetchAllowlistedRssMetadata(
-  _sourceKey: string,
-): Promise<RssItemStub[]> {
-  // Stub: no network in T073 scaffold default.
-  return [];
-}
-
-/** TODO(T074+): insert source_run + snapshot + items into Supabase. */
-export async function insertMonitoringRunStub(
-  _env: Env,
-  _payload: {
-    source_key: string;
-    run_type: string;
-    items: RssItemStub[];
-  },
-): Promise<{ run_id: string; item_count: number }> {
-  return { run_id: "stub-not-persisted", item_count: 0 };
-}
-
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
 
-    if (
-      url.pathname === "/health" ||
-      url.pathname === "/healthz"
-    ) {
+    if (request.method === "OPTIONS") {
+      return new Response(null, {
+        status: 204,
+        headers: {
+          "Access-Control-Allow-Origin": "https://regulation-watch.caesar.no",
+          "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+          "Access-Control-Allow-Headers": "Authorization, Content-Type",
+        },
+      });
+    }
+
+    if (url.pathname === "/health" || url.pathname === "/healthz") {
       return jsonResponse(buildHealthPayload(env));
     }
 
@@ -130,6 +117,78 @@ export default {
 
     if (url.pathname === "/version") {
       return jsonResponse(buildVersionPayload(env));
+    }
+
+    if (url.pathname === "/last-run" && request.method === "GET") {
+      const status = await getLastRunStatus(env);
+      return jsonResponse({
+        ...status,
+        scheduled_monitoring_enabled: scheduledEnabled(env),
+        metadata_only: true,
+        review_required: true,
+      });
+    }
+
+    if (url.pathname === "/run-pilot" && request.method === "POST") {
+      if (!isAuthorized(request, env)) {
+        return unauthorized();
+      }
+
+      const dryRun =
+        url.searchParams.get("dry_run") === "true" ||
+        url.searchParams.get("dry_run") === "1";
+      const maxSources = Math.min(
+        Number(url.searchParams.get("max_sources") ?? "2"),
+        3,
+      );
+      const maxItems = Math.min(
+        Number(url.searchParams.get("max_items") ?? "20"),
+        20,
+      );
+
+      const sourceKeys = [...ALLOWLISTED_SOURCE_KEYS].slice(0, maxSources);
+      const results: {
+        source_key: string;
+        status: string;
+        item_count: number;
+        run_id?: string;
+        error?: string;
+      }[] = [];
+
+      for (const sourceKey of sourceKeys) {
+        try {
+          const items = dryRun
+            ? []
+            : await fetchAllowlistedRssMetadata(sourceKey, maxItems);
+          const persisted = await insertMonitoringRun(env, {
+            source_key: sourceKey,
+            run_type: "worker_pilot",
+            items,
+            dry_run: dryRun,
+          });
+          results.push({
+            source_key: sourceKey,
+            status: dryRun ? "dry_run" : "complete",
+            item_count: persisted.item_count,
+            run_id: persisted.run_id,
+          });
+        } catch (err) {
+          results.push({
+            source_key: sourceKey,
+            status: "error",
+            item_count: 0,
+            error: err instanceof Error ? err.message : String(err),
+          });
+        }
+      }
+
+      return jsonResponse({
+        status: "pilot_complete",
+        dry_run: dryRun,
+        metadata_only: true,
+        review_required: true,
+        results,
+      });
     }
 
     const runMatch = url.pathname.match(/^\/run\/([a-z][a-z0-9-]*)$/);
@@ -143,23 +202,58 @@ export default {
         return jsonResponse({ error: "source_key not allowlisted" }, 403);
       }
 
-      // TODO: enable fetch only when network_execution_enabled is approved in runtime config.
-      const items = await fetchAllowlistedRssMetadata(sourceKey);
-      const persisted = await insertMonitoringRunStub(env, {
+      const dryRun = url.searchParams.get("dry_run") === "true";
+      const maxItems = Math.min(
+        Number(url.searchParams.get("max_items") ?? "20"),
+        20,
+      );
+
+      const items = dryRun
+        ? []
+        : await fetchAllowlistedRssMetadata(sourceKey, maxItems);
+      const persisted = await insertMonitoringRun(env, {
         source_key: sourceKey,
         run_type: "manual",
         items,
+        dry_run: dryRun,
       });
 
       return jsonResponse({
         source_key: sourceKey,
-        status: "stub_complete",
+        status: dryRun ? "dry_run" : "complete",
         item_count: persisted.item_count,
         run_id: persisted.run_id,
+        persisted: persisted.persisted,
         metadata_only: true,
+        review_required: true,
       });
     }
 
     return jsonResponse({ error: "not_found" }, 404);
+  },
+
+  async scheduled(
+    _controller: ScheduledController,
+    env: Env,
+    ctx: ExecutionContext,
+  ): Promise<void> {
+    if (!scheduledEnabled(env)) return;
+    ctx.waitUntil(
+      (async () => {
+        for (const sourceKey of ALLOWLISTED_SOURCE_KEYS) {
+          try {
+            const items = await fetchAllowlistedRssMetadata(sourceKey, 10);
+            await insertMonitoringRun(env, {
+              source_key: sourceKey,
+              run_type: "scheduled",
+              items,
+              dry_run: false,
+            });
+          } catch {
+            /* dev-only cron; failures logged via Supabase when configured */
+          }
+        }
+      })(),
+    );
   },
 };

@@ -21,6 +21,7 @@
   ],
   "properties": {
     "runtime_id": { "type": "string", "minLength": 1 },
+    "backend_mvp": { "type": "string" },
     "status": {
       "type": "string",
       "enum": [
@@ -32,6 +33,7 @@
         "source_pilot_operator_handoff_ready",
         "services_onboarding_ready",
         "runtime_foundation_ready",
+        "backend_monitoring_mvp",
         "bootstrap_ready",
         "live_disabled",
         "live_pilot"

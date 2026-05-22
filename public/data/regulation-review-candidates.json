@@ -1,0 +1,349 @@
+{
+  "generated_at": "2026-05-22T14:23:03.302Z",
+  "product_version": "1.0.29",
+  "review_required": true,
+  "legal_change_claimed": false,
+  "public_note": "Backend-derived metadata only. Review required before any legal or client use. Not legal advice.",
+  "candidates": [
+    {
+      "candidate_id": "fe309808-7ddf-4a85-97f5-2fdb7e43fcd8",
+      "detected_change_id": "0c268160-3761-4ed7-9d2a-dd194f532f21",
+      "candidate_status": "draft",
+      "jurisdiction_ids": [
+        "eu"
+      ],
+      "topic_ids": [
+        "eu_regulation",
+        "privacy"
+      ],
+      "proposed_title": "Latest EDPS Newsletter out now",
+      "proposed_summary": "New metadata item detected: Latest EDPS Newsletter out now",
+      "source_url": "https://www.edps.europa.eu/press-publications/press-news/news/2026/latest-edps-newsletter-out-now",
+      "review_required": true,
+      "publication_allowed": false
+    },
+    {
+      "candidate_id": "0acd5186-d69d-4144-a65e-570f98a89095",
+      "detected_change_id": "f4b05f13-adb8-4e3a-8b9c-6d36b432c4e3",
+      "candidate_status": "draft",
+      "jurisdiction_ids": [
+        "eu"
+      ],
+      "topic_ids": [
+        "eu_regulation",
+        "privacy"
+      ],
+      "proposed_title": "Towards trustworthy AI in the EU public administration: The EDPS Compass for its new role under the AI Act",
+      "proposed_summary": "New metadata item detected: Towards trustworthy AI in the EU public administration: The EDPS Compass for its new role under the AI Act",
+      "source_url": "https://www.edps.europa.eu/press-publications/press-news/news/2026/towards-trustworthy-ai-eu-public-administration-edps-compass-its-new-role-under-ai-act",
+      "review_required": true,
+      "publication_allowed": false
+    },
+    {
+      "candidate_id": "1d4af0cb-f2c1-47e4-89c3-62bac95145f5",
+      "detected_change_id": "24142774-a026-4aa2-a8d2-da40ce8be194",
+      "candidate_status": "draft",
+      "jurisdiction_ids": [
+        "eu"
+      ],
+      "topic_ids": [
+        "eu_regulation",
+        "privacy"
+      ],
+      "proposed_title": "EDPB-EDPS Joint Opinion on the Proposal for a Cybersecurity Act 2 and the Proposal on amendments to the NIS 2 Directive",
+      "proposed_summary": "New metadata item detected: EDPB-EDPS Joint Opinion on the Proposal for a Cybersecurity Act 2 and the Proposal on amendments to the NIS 2 Directive",
+      "source_url": "https://www.edps.europa.eu/press-publications/press-news/news/2026/edpb-edps-joint-opinion-cybersecurity-act-2-and-amendments-nis-2-directive",
+      "review_required": true,
+      "publication_allowed": false
+    },
+    {
+      "candidate_id": "5931782b-148c-47ed-bf7a-a202c909d660",
+      "detected_change_id": "6bbea62d-a51c-4f53-b05a-476c8d4a7a24",
+      "candidate_status": "draft",
+      "jurisdiction_ids": [
+        "eu"
+      ],
+      "topic_ids": [
+        "eu_regulation",
+        "privacy"
+      ],
+      "proposed_title": "High-Level Debate: “From Omnibus to Opportunity: Driving Data Protection and Innovation”",
+      "proposed_summary": "New metadata item detected: High-Level Debate: “From Omnibus to Opportunity: Driving Data Protection and Innovation”",
+      "source_url": "https://www.edps.europa.eu/press-publications/press-news/news/2026/high-level-debate-omnibus-opportunity-driving-data-protection-and-innovation_en",
+      "review_required": true,
+      "publication_allowed": false
+    },
+    {
+      "candidate_id": "6d7b8666-8c0a-4fdf-9c0e-2918b7309540",
+      "detected_change_id": "47942131-bac6-4e00-89dc-9c6a384d66a1",
+      "candidate_status": "draft",
+      "jurisdiction_ids": [
+        "eu"
+      ],
+      "topic_ids": [
+        "eu_regulation",
+        "privacy"
+      ],
+      "proposed_title": "New episode is out!",
+      "proposed_summary": "New metadata item detected: New episode is out!",
+      "source_url": "https://www.edps.europa.eu/press-publications/press-news/news/2026/new-episode-out",
+      "review_required": true,
+      "publication_allowed": false
+    },
+    {
+      "candidate_id": "45cdb32e-551e-432a-b5b5-262de951d143",
+      "detected_change_id": "de609836-a280-4068-8855-5068c3efd06a",
+      "candidate_status": "draft",
+      "jurisdiction_ids": [
+        "eu"
+      ],
+      "topic_ids": [
+        "eu_regulation",
+        "privacy"
+      ],
+      "proposed_title": "New blog post: Prior consultations, zero surprises",
+      "proposed_summary": "New metadata item detected: New blog post: Prior consultations, zero surprises",
+      "source_url": "https://www.edps.europa.eu/press-publications/press-news/news/2026/new-blog-post-prior-consultations-zero-surprises",
+      "review_required": true,
+      "publication_allowed": false
+    },
+    {
+      "candidate_id": "fe933773-8c1f-44b5-b323-d1fe37e82beb",
+      "detected_change_id": "fca7ceb5-010e-4631-ac36-7e5a893dc154",
+      "candidate_status": "draft",
+      "jurisdiction_ids": [
+        "eu"
+      ],
+      "topic_ids": [
+        "eu_regulation",
+        "privacy"
+      ],
+      "proposed_title": "Latest EDPS newsletter out now",
+      "proposed_summary": "New metadata item detected: Latest EDPS newsletter out now",
+      "source_url": "https://www.edps.europa.eu/press-publications/press-news/news/2026/latest-edps-newsletter-out-now-0",
+      "review_required": true,
+      "publication_allowed": false
+    },
+    {
+      "candidate_id": "344ad1e5-70bd-48a8-8ad1-242e9a383873",
+      "detected_change_id": "4abaf68e-0273-452f-84a3-993e09610b4c",
+      "candidate_status": "draft",
+      "jurisdiction_ids": [
+        "eu"
+      ],
+      "topic_ids": [
+        "eu_regulation",
+        "privacy"
+      ],
+      "proposed_title": "New episode of the Newsletter Digest is out",
+      "proposed_summary": "New metadata item detected: New episode of the Newsletter Digest is out",
+      "source_url": "https://www.edps.europa.eu/press-publications/press-news/news/2026/new-episode-newsletter-digest-out",
+      "review_required": true,
+      "publication_allowed": false
+    },
+    {
+      "candidate_id": "f3c52e30-d6d0-4922-9913-4761f1756e76",
+      "detected_change_id": "05ce078a-0caf-43a0-9887-5203ef99d97f",
+      "candidate_status": "draft",
+      "jurisdiction_ids": [
+        "eu"
+      ],
+      "topic_ids": [
+        "eu_regulation",
+        "privacy"
+      ],
+      "proposed_title": "EDPS Annual Report 2025: protecting people in a changing digital world",
+      "proposed_summary": "New metadata item detected: EDPS Annual Report 2025: protecting people in a changing digital world",
+      "source_url": "https://www.edps.europa.eu/press-publications/press-news/news/2026/edps-annual-report-2025-protecting-people-changing-digital-world",
+      "review_required": true,
+      "publication_allowed": false
+    },
+    {
+      "candidate_id": "485fee15-4b55-4692-bb8e-d2a18e5dd530",
+      "detected_change_id": "80545efa-23fc-4431-a7c2-87951f1aecc1",
+      "candidate_status": "draft",
+      "jurisdiction_ids": [
+        "eu"
+      ],
+      "topic_ids": [
+        "eu_regulation",
+        "privacy"
+      ],
+      "proposed_title": "Safe and Ethical AI: a big European idea for the world",
+      "proposed_summary": "New metadata item detected: Safe and Ethical AI: a big European idea for the world",
+      "source_url": "https://www.edps.europa.eu/press-publications/press-news/news/2026/safe-and-ethical-ai-big-european-idea-world",
+      "review_required": true,
+      "publication_allowed": false
+    },
+    {
+      "candidate_id": "1c37ccf0-2742-499e-b848-57c541c765cb",
+      "detected_change_id": "b52891f6-6cf7-4396-bcaa-9fbb71d0be71",
+      "candidate_status": "draft",
+      "jurisdiction_ids": [
+        "eu"
+      ],
+      "topic_ids": [
+        "eu_regulation",
+        "privacy"
+      ],
+      "proposed_title": "Guidelines 1/2026 on processing of personal data for scientific research purposes",
+      "proposed_summary": "New metadata item detected: Guidelines 1/2026 on processing of personal data for scientific research purposes",
+      "source_url": "https://www.edpb.europa.eu/our-work-tools/documents/public-consultations/2026/guidelines-12026-processing-personal-data_en",
+      "review_required": true,
+      "publication_allowed": false
+    },
+    {
+      "candidate_id": "d0ad1600-5fe3-45f3-9c37-143355d1ee94",
+      "detected_change_id": "85d89bae-60ce-4f77-afaf-2ed48d1ab81b",
+      "candidate_status": "draft",
+      "jurisdiction_ids": [
+        "eu"
+      ],
+      "topic_ids": [
+        "eu_regulation",
+        "privacy"
+      ],
+      "proposed_title": "Opinion 15/2026 on the Europrivacy certification criteria regarding their approval by the Board as European Data Protection Seal to be used as tool for transfers pursuant to Articles 42 and 46 GDPR",
+      "proposed_summary": "New metadata item detected: Opinion 15/2026 on the Europrivacy certification criteria regarding their approval by the Board as European Data Protection Seal to be used as tool for transfers pursuant to Articles 42 and 46 GDPR",
+      "source_url": "https://www.edpb.europa.eu/our-work-tools/our-documents/opinion-board-art-64/opinion-152026-europrivacy-certification-criteria_en",
+      "review_required": true,
+      "publication_allowed": false
+    },
+    {
+      "candidate_id": "431e05e6-e8a5-4d47-ab47-b41f1ddbeae1",
+      "detected_change_id": "185af040-9ed9-4acd-9345-843f7a13cd67",
+      "candidate_status": "draft",
+      "jurisdiction_ids": [
+        "eu"
+      ],
+      "topic_ids": [
+        "eu_regulation",
+        "privacy"
+      ],
+      "proposed_title": "EDPB Letter to the European Commission regarding INGO registration requirements",
+      "proposed_summary": "New metadata item detected: EDPB Letter to the European Commission regarding INGO registration requirements",
+      "source_url": "https://www.edpb.europa.eu/our-work-tools/our-documents/letters/edpb-letter-european-commission-regarding-ingo-registration_en",
+      "review_required": true,
+      "publication_allowed": false
+    },
+    {
+      "candidate_id": "c669323d-14d9-452f-816e-cedf6799fece",
+      "detected_change_id": "96ce64fa-75a7-481a-9fc7-1c1fc0740b41",
+      "candidate_status": "draft",
+      "jurisdiction_ids": [
+        "eu"
+      ],
+      "topic_ids": [
+        "eu_regulation",
+        "privacy"
+      ],
+      "proposed_title": "Report on the use of SPE external experts in 2025",
+      "proposed_summary": "New metadata item detected: Report on the use of SPE external experts in 2025",
+      "source_url": "https://www.edpb.europa.eu/our-work-tools/our-documents/support-pool-experts-projects/report-use-spe-external-experts-2025_en",
+      "review_required": true,
+      "publication_allowed": false
+    },
+    {
+      "candidate_id": "46f913ab-b83f-44f3-84f9-0fd26274a9a6",
+      "detected_change_id": "3fb32971-9878-4345-a236-d45c2898ffdb",
+      "candidate_status": "draft",
+      "jurisdiction_ids": [
+        "eu"
+      ],
+      "topic_ids": [
+        "eu_regulation",
+        "privacy"
+      ],
+      "proposed_title": "Opinion 12/2026 on the draft decision of the Spanish Supervisory Authority regarding the Controller Binding Corporate Rules of the Santander Group",
+      "proposed_summary": "New metadata item detected: Opinion 12/2026 on the draft decision of the Spanish Supervisory Authority regarding the Controller Binding Corporate Rules of the Santander Group",
+      "source_url": "https://www.edpb.europa.eu/our-work-tools/our-documents/opinion-board-art-64/opinion-122026-draft-decision-spanish-supervisory_en",
+      "review_required": true,
+      "publication_allowed": false
+    },
+    {
+      "candidate_id": "bf289319-218b-4fba-b497-91164396122c",
+      "detected_change_id": "5049ad87-198d-42dc-9ba7-6ba8f9ba7761",
+      "candidate_status": "draft",
+      "jurisdiction_ids": [
+        "eu"
+      ],
+      "topic_ids": [
+        "eu_regulation",
+        "privacy"
+      ],
+      "proposed_title": "Opinion 10/2026 on the draft decision of the Dutch Supervisory Authority regarding the Controller Binding Corporate Rules of the SLB Group",
+      "proposed_summary": "New metadata item detected: Opinion 10/2026 on the draft decision of the Dutch Supervisory Authority regarding the Controller Binding Corporate Rules of the SLB Group",
+      "source_url": "https://www.edpb.europa.eu/our-work-tools/our-documents/opinion-board-art-64/opinion-102026-draft-decision-dutch-supervisory_en",
+      "review_required": true,
+      "publication_allowed": false
+    },
+    {
+      "candidate_id": "73c0844c-95b6-49bb-bbb2-13b517995391",
+      "detected_change_id": "2d8b6075-e803-4382-aa39-c66632ac66ff",
+      "candidate_status": "draft",
+      "jurisdiction_ids": [
+        "eu"
+      ],
+      "topic_ids": [
+        "eu_regulation",
+        "privacy"
+      ],
+      "proposed_title": "Opinion 11/2026 on the draft decision of the Belgian Supervisory Authority regarding the Controller Binding Corporate Rules of the Kuwait Petroleum Group",
+      "proposed_summary": "New metadata item detected: Opinion 11/2026 on the draft decision of the Belgian Supervisory Authority regarding the Controller Binding Corporate Rules of the Kuwait Petroleum Group",
+      "source_url": "https://www.edpb.europa.eu/our-work-tools/our-documents/opinion-board-art-64/opinion-112026-draft-decision-belgian-supervisory_en",
+      "review_required": true,
+      "publication_allowed": false
+    },
+    {
+      "candidate_id": "72f12dc0-50a8-44c1-8f34-6b1324238b1d",
+      "detected_change_id": "c6ab7350-897e-4c2e-824d-6f8bc9191908",
+      "candidate_status": "draft",
+      "jurisdiction_ids": [
+        "eu"
+      ],
+      "topic_ids": [
+        "eu_regulation",
+        "privacy"
+      ],
+      "proposed_title": "Opinion 9/2026 on the draft decision of the Dutch Supervisory Authority regarding the Controller Binding Corporate Rules of the Jacobs Douwe Egberts Group",
+      "proposed_summary": "New metadata item detected: Opinion 9/2026 on the draft decision of the Dutch Supervisory Authority regarding the Controller Binding Corporate Rules of the Jacobs Douwe Egberts Group",
+      "source_url": "https://www.edpb.europa.eu/our-work-tools/our-documents/opinion-board-art-64/opinion-92026-draft-decision-dutch-supervisory_en",
+      "review_required": true,
+      "publication_allowed": false
+    },
+    {
+      "candidate_id": "3fe3b38c-5465-421f-b9a2-43676844d241",
+      "detected_change_id": "14b0ae4b-2a5c-4ae3-8eb3-41e7bf405ea9",
+      "candidate_status": "draft",
+      "jurisdiction_ids": [
+        "eu"
+      ],
+      "topic_ids": [
+        "eu_regulation",
+        "privacy"
+      ],
+      "proposed_title": "Coordinated supervisory action on minors under 15 years old processed by Europol as suspects or potential criminals",
+      "proposed_summary": "New metadata item detected: Coordinated supervisory action on minors under 15 years old processed by Europol as suspects or potential criminals",
+      "source_url": "https://www.edpb.europa.eu/our-work-tools/our-documents/csc-documents/coordinated-supervisory-action-minors-under-15-years-old_en",
+      "review_required": true,
+      "publication_allowed": false
+    },
+    {
+      "candidate_id": "063c0d11-c607-43ae-b8bb-8f40f41e7448",
+      "detected_change_id": "0cd2f69f-42d9-4ab7-88cb-91b4fcad1fe0",
+      "candidate_status": "draft",
+      "jurisdiction_ids": [
+        "eu"
+      ],
+      "topic_ids": [
+        "eu_regulation",
+        "privacy"
+      ],
+      "proposed_title": "Opinion 13/2026 on the draft decision of the Office of the Data Protection Ombudsman (FI SA) regarding the approval of the requirement for accreditation of a certification body pursuant to Article 43(3) GDPR",
+      "proposed_summary": "New metadata item detected: Opinion 13/2026 on the draft decision of the Office of the Data Protection Ombudsman (FI SA) regarding the approval of the requirement for accreditation of a certification body pursuant to Article 43(3) GDPR",
+      "source_url": "https://www.edpb.europa.eu/our-work-tools/our-documents/opinion-board-art-64/opinion-132026-draft-decision-office-data_en",
+      "review_required": true,
+      "publication_allowed": false
+    }
+  ]
+}

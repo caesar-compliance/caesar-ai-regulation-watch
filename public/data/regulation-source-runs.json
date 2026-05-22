@@ -1,0 +1,29 @@
+{
+  "generated_at": "2026-05-22T14:23:03.301Z",
+  "product_version": "1.0.29",
+  "review_required": true,
+  "legal_change_claimed": false,
+  "public_note": "Backend-derived metadata only. Review required before any legal or client use. Not legal advice.",
+  "runs": [
+    {
+      "run_id": "544f0424-a368-453b-939d-d8b88b366dd2",
+      "source_key": "edps-news-rss",
+      "run_type": "pilot_manual",
+      "status": "completed",
+      "item_count": 10,
+      "started_at": "2026-05-22T14:22:50.119Z",
+      "completed_at": "2026-05-22T14:22:52.142Z",
+      "review_required": true
+    },
+    {
+      "run_id": "6446e36f-01b4-4cba-a229-4606325069b1",
+      "source_key": "edpb-publications-rss",
+      "run_type": "pilot_manual",
+      "status": "completed",
+      "item_count": 10,
+      "started_at": "2026-05-22T14:22:47.802Z",
+      "completed_at": "2026-05-22T14:22:49.845Z",
+      "review_required": true
+    }
+  ]
+}

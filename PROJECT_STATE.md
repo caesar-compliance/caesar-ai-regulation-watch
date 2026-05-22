@@ -4,9 +4,9 @@
 
 | Field | Value |
 |---|---|
-| **Current version** | `v1.0.28` (runtime foundation checkpoint) |
-| **Live version** | `v1.0.27` — tag `regulation-watch-v1.0.27` (checkpoint v1.0.28 not deployed yet) |
-| **Status** | Runtime foundation checkpoint (`runtime_foundation_ready`): dev Supabase schema + Cloudflare Worker foundation on `main`; tracked DB health `connected`; services readiness `ready_for_manual_worker_review`; live ingestion, cron, scheduled monitoring, and network execution disabled |
+| **Current version** | `v1.0.29` (backend monitoring MVP — T078) |
+| **Live version** | `v1.0.27` — tag `regulation-watch-v1.0.27` (v1.0.29 deploy pending Control Tower) |
+| **Status** | Backend monitoring MVP (`backend_monitoring_mvp`): pilot registry + Supabase persistence + public monitoring exports + `/map/` UI; dev DB `connected`; Worker MVP code ready; live ingestion and scheduled monitoring disabled by default |
 | **Last deployment** | `DEPLOY-20260521-045` — commit `af8ade3`, run [26249193877](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26249193877) |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
 | **Phase** | Public Technical MVP + profiles/drilldowns (T051) |
