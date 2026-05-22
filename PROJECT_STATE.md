@@ -5,8 +5,8 @@
 | Field | Value |
 |---|---|
 | **Current version** | `v1.0.35` (automated source expansion + ingress filtering — T084) |
-| **Live version** | `v1.0.34` — pending T084 deploy |
-| **Last deployment** | `DEPLOY-20260522-055` — T083A route consistency |
+| **Live version** | `v1.0.35` — tag `regulation-watch-v1.0.35`, deploy [26299771110](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26299771110) |
+| **Last deployment** | `DEPLOY-20260522-056` (T084) — commit `b14d009` |
 | **Status** | T084: 6 automated RSS sources (was 2); ingress filter — 4 operator-visible / 16 suppressed noise on 20-card queue; T083 signal rules v1.0.0; T082 decisions (4); cron disabled; gates closed |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
 | **Phase** | Public Technical MVP + profiles/drilldowns (T051) |
