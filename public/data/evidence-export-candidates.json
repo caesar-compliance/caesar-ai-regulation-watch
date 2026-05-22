@@ -6,8 +6,8 @@
   "not_client_evidence": true,
   "no_caesar_ai_evidence_write": true,
   "batch_id": "evidence-export-candidates-2026-05-20",
-  "pipeline_version": "1.0.29",
-  "legal_safe_note": "v1.0.29 evidence export candidate batch. Candidates are not final evidence exports. Does not write to caesar-ai-evidence. Not legal advice. No compliance guarantee. No complete regulatory coverage claim. Human review required before any client use. client_use_allowed remains false for every candidate.",
+  "pipeline_version": "1.0.30",
+  "legal_safe_note": "v1.0.30 evidence export candidate batch. Candidates are not final evidence exports. Does not write to caesar-ai-evidence. Not legal advice. No compliance guarantee. No complete regulatory coverage claim. Human review required before any client use. client_use_allowed remains false for every candidate.",
   "summary": {
     "total": 5,
     "ready_for_human_review": 2,

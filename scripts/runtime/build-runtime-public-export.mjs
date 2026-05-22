@@ -119,6 +119,7 @@ function enrichMonitoringStatus(payload, registry, status) {
     detected_changes_count: detected_changes_count ?? 0,
     review_candidates_count: review_candidates_count ?? 0,
     export_source:
+      status === "backend_monitoring_mvp_worker_run" ||
       status === "backend_monitoring_mvp"
         ? "supabase_dev"
         : "t078_smoke_snapshot",
@@ -154,9 +155,19 @@ async function buildFromDb(client, registry) {
   );
 
   const latestRun = runs[0] ?? null;
+  const workerRuns = runs.filter((r) =>
+    String(r.run_type ?? "").startsWith("worker"),
+  );
+  const latestWorkerRun = workerRuns[0] ?? null;
   const pilotReport = fs.existsSync(GENERATED)
     ? JSON.parse(fs.readFileSync(GENERATED, "utf8"))
     : null;
+
+  const monitoringStatus = latestWorkerRun
+    ? "backend_monitoring_mvp_worker_run"
+    : latestRun
+      ? "backend_monitoring_mvp"
+      : "backend_smoke_passed_public_export_pending";
 
   writeExport(
     "runtime-monitoring-status.json",
@@ -171,6 +182,16 @@ async function buildFromDb(client, registry) {
               completed_at: latestRun.completed_at,
             }
           : null,
+        latest_worker_run: latestWorkerRun
+          ? {
+              run_id: latestWorkerRun.id,
+              source_key: latestWorkerRun.source_key,
+              run_type: latestWorkerRun.run_type,
+              status: latestWorkerRun.status,
+              item_count: latestWorkerRun.item_count,
+              completed_at: latestWorkerRun.completed_at,
+            }
+          : null,
         latest_pilot_report: pilotReport
           ? { run_id: pilotReport.run_id, summary: pilotReport.summary }
           : null,
@@ -181,9 +202,16 @@ async function buildFromDb(client, registry) {
           message: e.message,
           created_at: e.created_at,
         })),
+        source_runs_count: runs.length,
+        latest_run_id: latestRun?.id ?? null,
+        latest_run_at: latestRun?.completed_at ?? latestRun?.started_at ?? null,
+        worker_deployed: true,
+        worker_name: "regulation-watch-monitor-dev",
+        worker_url:
+          "https://regulation-watch-monitor-dev.nazzarkoartem.workers.dev",
       },
       registry,
-      latestRun ? "backend_monitoring_mvp" : "backend_smoke_passed_public_export_pending",
+      monitoringStatus,
     ),
   );
 

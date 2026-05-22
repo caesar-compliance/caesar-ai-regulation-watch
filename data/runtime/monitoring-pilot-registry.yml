@@ -3,7 +3,7 @@
 
 monitoring_pilot_registry_id: monitoring-pilot-registry-2026-05-22-t078
 generated_at: "2026-05-22"
-product_version: "1.0.29"
+product_version: "1.0.30"
 legal_safe_note: >
   T078 backend monitoring MVP pilot. Official public primary sources only.
   Metadata-only fetch for RSS sources when explicitly approved for a manual dev run.

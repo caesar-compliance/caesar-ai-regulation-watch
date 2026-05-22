@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **Status** | v1.0.29 backend monitoring MVP (live) — dev Supabase pilot + Worker MVP code; scheduled cron disabled |
+| **Status** | v1.0.30 dev Worker runtime activation — deployed `regulation-watch-monitor-dev` + dev Supabase pilot; scheduled cron disabled |
 | **Automation** | `/automation/` — runtime scaffold; live ingestion disabled ([docs/AUTOMATION_RUNTIME_STRATEGY.md](docs/AUTOMATION_RUNTIME_STRATEGY.md)) |
 | **Hosting** | GitHub Pages — static site (Astro) |
 | **Scope** | AI regulation tracking, country profiles, latest updates, source monitoring, metrics and structured exports |

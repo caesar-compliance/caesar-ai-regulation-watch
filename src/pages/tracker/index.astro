@@ -75,7 +75,7 @@ const latestUpdates = filterRegulatoryUpdates({
   <MetricsStrip metrics={metrics} />
 
   <section class="tracker-section">
-    <h2>Backend monitoring dashboard (T078)</h2>
+    <h2>Backend monitoring dashboard (T079)</h2>
     <div class="metrics-strip metrics-strip--monitoring">
       <div class="metrics-strip__item">
         <span class="metrics-strip__value">{monitoring.monitored_source_count ?? 0}</span>
@@ -96,6 +96,10 @@ const latestUpdates = filterRegulatoryUpdates({
       <div class="metrics-strip__item">
         <span class="metrics-strip__value">{monitoring.status ?? "—"}</span>
         <span class="metrics-strip__label">Automation status</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{monitoring.worker_deployed ? "yes" : "no"}</span>
+        <span class="metrics-strip__label">Worker deployed (dev)</span>
       </div>
     </div>
     <p>

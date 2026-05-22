@@ -1,6 +1,15 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 22 May 2026 (v1.0.29 T078 backend monitoring MVP)
+**Last updated:** 22 May 2026 (v1.0.30 T079 dev Worker activation)
+
+## T079 — Dev Worker activation + E2E runtime run
+
+| Path | Role |
+|---|---|
+| **ops/supabase/002_service_role_grants.sql** | PostgREST grants for Worker `service_role` writes |
+| **work_items/T079-dev-worker-activation-e2e-runtime-run/** | Task, decisions, validation, final report |
+| **ops/cloudflare-workers/regulation-watch-monitor/** | Deployed dev Worker (`regulation-watch-monitor-dev`) |
+| **public/data/runtime-monitoring-status.json** | Status `backend_monitoring_mvp_worker_run`, `worker_deployed` |
 
 ## T075E — Offline operator handoff export
 

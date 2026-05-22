@@ -14,7 +14,7 @@ import {
 export type { Env } from "./monitoring";
 
 const APP_NAME = "caesar-ai-regulation-watch";
-const APP_VERSION = "1.0.29";
+const APP_VERSION = "1.0.30";
 
 function scheduledEnabled(env: Env): boolean {
   const v = (env.REGWATCH_ENABLE_SCHEDULED_MONITORING ?? "").toLowerCase();

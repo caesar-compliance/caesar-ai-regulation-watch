@@ -40,9 +40,10 @@ function serviceFields(name: string) {
 >
   <h1>Runtime services onboarding</h1>
   <p class="lead">
-    T078 backend monitoring MVP ({PROJECT_VERSION_LABEL}). Tracked export shows Account A credential
-    readiness plus pilot monitoring registry ({monitoring.monitored_source_count ?? 0} sources) — scheduled
-    cron remains disabled unless <code>REGWATCH_ENABLE_SCHEDULED_MONITORING=true</code> (dev-only, default false).
+    T079 dev Worker activation ({PROJECT_VERSION_LABEL}). Tracked export shows Account A credential
+    readiness, pilot registry ({monitoring.monitored_source_count ?? 0} sources), and dev Worker status
+    ({monitoring.worker_deployed ? "deployed" : "not deployed"}) — scheduled cron remains disabled unless
+    <code>REGWATCH_ENABLE_SCHEDULED_MONITORING=true</code> (dev-only, default false).
   </p>
 
   <div class="banner banner--review" role="note">

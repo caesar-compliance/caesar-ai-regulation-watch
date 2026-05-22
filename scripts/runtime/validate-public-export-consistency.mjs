@@ -32,7 +32,7 @@ function main() {
   }
 
   const versionTs = fs.readFileSync(VERSION_TS, "utf8");
-  if (versionTs.includes("v1.0.27") && projectVersion === "1.0.29") {
+  if (versionTs.includes("v1.0.27") && projectVersion !== "1.0.27") {
     errors.push("project-version.ts still references v1.0.27");
   }
   if (versionTs.includes(projectLabel) === false) {
@@ -90,7 +90,8 @@ function main() {
   const candidates = readJson("regulation-review-candidates.json");
   if (
     monitoring?.status === "backend_smoke_passed_public_export_ready" ||
-    monitoring?.status === "backend_monitoring_mvp"
+    monitoring?.status === "backend_monitoring_mvp" ||
+    monitoring?.status === "backend_monitoring_mvp_worker_run"
   ) {
     const changeCount = changes?.changes?.length ?? 0;
     const candidateCount = candidates?.candidates?.length ?? 0;

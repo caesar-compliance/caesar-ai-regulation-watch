@@ -1,8 +1,8 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 22 May 2026
-**Current codebase:** v1.0.29 (T078 backend monitoring MVP; T078A public export snapshot)
-**Live release:** v1.0.29 — deployed 22 May 2026 (`DEPLOY-20260522-046`)
+**Current codebase:** v1.0.30 (T079 dev Worker activation + E2E runtime run)
+**Live release:** v1.0.30 — pending deploy after tag `regulation-watch-v1.0.30`
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
 ---
@@ -123,13 +123,19 @@
 
 36. **v1.0.28 — Runtime foundation checkpoint** *(merged; tag `regulation-watch-v1.0.28`)*
 
-37. **T078 — Backend monitoring MVP** *(merged; tag `regulation-watch-v1.0.29` pending)*
+37. **T078 — Backend monitoring MVP** *(merged; tag `regulation-watch-v1.0.29`)*
    - Pilot registry, Supabase persistence, public monitoring exports, `/map/`, Worker MVP; manual pilot run proven on dev Supabase.
 
-38. **Deploy v1.0.29** *(Control Tower)*
-   - Static site workflow with `confirm_disclaimers=DEPLOY`; optional dev Worker redeploy via `dev-runtime-activate`.
+38. **T078A — Public export homepage consistency** *(merged)*
+   - CI snapshot path for monitoring JSON when Supabase absent at build time.
 
-39. **T076 — Expand controlled network** *(after Control Tower approval)*
+39. **T079 — Dev Worker activation + E2E runtime run** *(this release)*
+   - Deploy `regulation-watch-monitor-dev`; protected `/run-pilot`; dev Supabase REST grants; public export `backend_monitoring_mvp_worker_run`.
+
+40. **T080 — Worker scheduled handler hardening** *(recommended)*
+   - Diff/snapshot parity with local pilot; optional cron only after explicit approval.
+
+41. **T076 — Expand controlled network** *(after Control Tower approval)*
    - Additional allowlisted manual-review sources; not broad crawl.
 
 ---

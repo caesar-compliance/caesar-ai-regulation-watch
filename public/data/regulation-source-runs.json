@@ -1,10 +1,40 @@
 {
-  "generated_at": "2026-05-22T14:33:25.496Z",
-  "product_version": "1.0.29",
+  "generated_at": "2026-05-22T14:42:17.300Z",
+  "product_version": "1.0.30",
   "review_required": true,
   "legal_change_claimed": false,
   "public_note": "Backend-derived metadata only. Review required before any legal or client use. Not legal advice.",
   "runs": [
+    {
+      "run_id": "f030a78c-f475-409e-b6ab-c785951822c4",
+      "source_key": "edps-news-rss",
+      "run_type": "worker_pilot",
+      "status": "completed",
+      "item_count": 10,
+      "started_at": "2026-05-22T14:40:30.529Z",
+      "completed_at": "2026-05-22T14:40:30.529Z",
+      "review_required": true
+    },
+    {
+      "run_id": "23f4fdfd-fb7c-4010-9056-3f5c56aeb6b4",
+      "source_key": "edpb-publications-rss",
+      "run_type": "worker_pilot",
+      "status": "completed",
+      "item_count": 10,
+      "started_at": "2026-05-22T14:40:29.284Z",
+      "completed_at": "2026-05-22T14:40:29.284Z",
+      "review_required": true
+    },
+    {
+      "run_id": "da69530c-c5dd-4c25-a5d1-8f17332ad040",
+      "source_key": "edpb-publications-rss",
+      "run_type": "rest_grant_test",
+      "status": "completed",
+      "item_count": 0,
+      "started_at": "2026-05-22T14:40:28.952Z",
+      "completed_at": "2026-05-22T14:40:28.953Z",
+      "review_required": true
+    },
     {
       "run_id": "544f0424-a368-453b-939d-d8b88b366dd2",
       "source_key": "edps-news-rss",

@@ -4,10 +4,10 @@
 
 | Field | Value |
 |---|---|
-| **Current version** | `v1.0.29` (backend monitoring MVP — T078) |
-| **Live version** | `v1.0.29` — tag `regulation-watch-v1.0.29` |
-| **Status** | Backend monitoring MVP (`backend_monitoring_mvp`): pilot registry + Supabase persistence + public monitoring exports + `/map/` UI; dev DB `connected`; Worker MVP code ready; live ingestion and scheduled monitoring disabled by default |
-| **Last deployment** | `DEPLOY-20260522-046` — commit `992c24c`, run [26293473288](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26293473288) |
+| **Current version** | `v1.0.30` (dev Worker runtime activation — T079) |
+| **Live version** | `v1.0.30` — tag `regulation-watch-v1.0.30` (pending deploy) |
+| **Status** | Dev Worker E2E (`backend_monitoring_mvp_worker_run`): pilot registry + Supabase persistence + public exports refreshed from dev DB; Worker `regulation-watch-monitor-dev` deployed; protected `/run-pilot` proven; live ingestion and scheduled monitoring disabled |
+| **Last deployment** | `DEPLOY-20260522-047` — commit `273d04e`, run [26293954803](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26293954803) |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
 | **Phase** | Public Technical MVP + profiles/drilldowns (T051) |
 

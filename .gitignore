@@ -17,6 +17,7 @@ generated/
 .env.*.local
 .env.local
 .local/
+ops/cloudflare-workers/regulation-watch-monitor/wrangler.toml
 *.secret
 *.secrets
 secrets/

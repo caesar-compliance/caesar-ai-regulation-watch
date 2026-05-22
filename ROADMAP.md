@@ -4,7 +4,7 @@
 
 This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
 
-**Codebase:** v1.0.29 (T078 backend monitoring MVP). **Live:** v1.0.29 (`DEPLOY-20260522-046`); T078A ensures CI/deploy uses committed smoke snapshot when DB is absent. **Next:** expand manual-review sources → Worker redeploy → T076 additional network checks after approval.
+**Codebase:** v1.0.30 (T079 dev Worker activation). **Live:** v1.0.30 pending deploy. **Worker:** `regulation-watch-monitor-dev` deployed with protected `/run-pilot` and dev Supabase REST grants. **Next:** Worker diff parity with local pilot → optional cron only after approval → T076 additional network checks.
 
 **Product direction (20 May 2026):** automation-first global AI regulation tracker — see [docs/AUTOMATION_FIRST_MVP_ROADMAP.md](docs/AUTOMATION_FIRST_MVP_ROADMAP.md) and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md). Human review/evidence is optional future assurance, not the first full MVP foundation.
 

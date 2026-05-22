@@ -11,6 +11,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.30] - 22 May 2026
+
+### Added
+
+- **T079 dev Worker runtime activation** — deployed `regulation-watch-monitor-dev` with T078 monitoring routes (`/healthz`, `/readyz`, `/version`, `/last-run`, `/run-pilot`, `/run/:sourceKey`); protected pilot run against allowlisted EDPB/EDPS RSS; `ops/supabase/002_service_role_grants.sql` for REST writes; public export status `backend_monitoring_mvp_worker_run` with `worker_deployed`, `source_runs_count`, and latest worker run metadata.
+
+### Changed
+
+- **runtime-monitoring-status** — refreshed from dev Supabase after Worker run (not snapshot-only).
+- **UI** — `/tracker/`, `/runtime-health/`, `/runtime-services/` show Worker deployment and run counts.
+
+### Safety
+
+- No cron/scheduled monitoring enabled; no secrets committed; metadata-only RSS fetch; gates remain closed.
+
+---
+
 ## [1.0.29] - 22 May 2026
 
 ### Added

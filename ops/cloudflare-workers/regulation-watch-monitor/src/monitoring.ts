@@ -12,7 +12,7 @@ export type RssItemStub = {
 };
 
 const FEED_USER_AGENT =
-  "CaesarRegulationWatch/1.0.29 (worker-pilot; +https://regulation-watch.caesar.no/methodology/)";
+  "CaesarRegulationWatch/1.0.30 (worker-pilot; +https://regulation-watch.caesar.no/methodology/)";
 
 export const PILOT_ALLOWLIST: Record<
   string,

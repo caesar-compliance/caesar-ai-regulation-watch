@@ -51,7 +51,10 @@ npm run runtime:supabase:apply
 
 3. Re-run health check; set `REGWATCH_APPLY_SUPABASE_SCHEMA=false` again after apply.
 
-Schema file: `ops/supabase/001_regulation_watch_runtime_schema.sql`
+Schema files:
+
+- `ops/supabase/001_regulation_watch_runtime_schema.sql`
+- `ops/supabase/002_service_role_grants.sql` — required for Cloudflare Worker REST writes (`service_role`)
 
 Uses `psql` if installed, otherwise Node `pg` (devDependency).
 

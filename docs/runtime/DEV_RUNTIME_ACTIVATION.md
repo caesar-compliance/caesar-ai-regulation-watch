@@ -25,8 +25,8 @@ Supabase: `caesar-regulation-watch-dev` (schema `public`)
 ## Unsupported / not automated
 
 - Production deploy, DNS/custom routes
-- `RUN_TOKEN` not set by CI (optional manual secret)
-- Worker Supabase writes / RSS fetch (stubbed)
+- `RUN_TOKEN` not set by CI (set manually via `wrangler secret put RUN_TOKEN` for protected runs)
+- Apply `002_service_role_grants.sql` after schema when using Worker REST writes to Supabase
 - UptimeRobot Worker monitor (enable in governance hub after deploy URL known)
 - KV/R2/Queue provisioning (documented only)
 
