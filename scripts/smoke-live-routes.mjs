@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 /**
- * T085 — Post-deploy live smoke with cache-busted requests.
- * Fails if canonical URLs serve stale pre-v1.0.36 HTML or missing T085 runtime markers.
+ * T086 — Post-deploy live smoke with cache-busted requests.
+ * Fails if canonical URLs serve stale pre-v1.0.37 HTML or missing T086 runtime markers.
  */
 const BASE = process.env.LIVE_BASE_URL || "https://regulation-watch.caesar.no";
-const BUST = process.env.LIVE_CACHE_BUST || `T085-${Date.now()}`;
-const VERSION = process.env.EXPECTED_PRODUCT_VERSION || "1.0.36";
+const BUST = process.env.LIVE_CACHE_BUST || `T086-${Date.now()}`;
+const VERSION = process.env.EXPECTED_PRODUCT_VERSION || "1.0.37";
 const VERSION_LABEL = `v${VERSION}`;
 
 const ROUTES = [
@@ -13,6 +13,7 @@ const ROUTES = [
     path: "/",
     mustInclude: [
       VERSION_LABEL,
+      "T086 Six-Source Runtime DB Alignment",
       "T085 Six-Source Worker Runtime Run",
       "T084 Automated Source Expansion and Ingress Filtering",
       "T083 Signal Quality and Review Prioritization",
@@ -35,6 +36,7 @@ const ROUTES = [
       "v1.0.31",
       "v1.0.33",
       "v1.0.35",
+      "v1.0.36",
       "T080 coverage model (v1.0.31)",
       "13 jurisdictions grouped",
       "13 Jurisdictions tracked",
@@ -49,6 +51,7 @@ const ROUTES = [
     path: "/tracker/",
     mustInclude: [
       VERSION_LABEL,
+      "Six-source runtime alignment (T086)",
       "Six-source Worker run (T085)",
       "Ingress filter dashboard (T084)",
       "Signal quality dashboard (T083)",
@@ -115,6 +118,7 @@ const ROUTES = [
     path: "/runtime-health/",
     mustInclude: [
       VERSION_LABEL,
+      "DB registry alignment (T086)",
       "Six-source Worker (T085)",
       "Ingress filtering (T084)",
       "validate:ingress-filtering",
@@ -158,7 +162,7 @@ const DATA_ROUTES = [
 
 const RUNTIME_MONITORING_ROUTE = "/data/runtime-monitoring-status.json";
 
-const STALE_FOOTER = /\bv1\.0\.(21|29|30|31|32|33|34)\b/;
+const STALE_FOOTER = /\bv1\.0\.(21|29|30|31|32|33|34|35|36)\b/;
 
 async function fetchHtml(path) {
   const url = new URL(path, BASE);
@@ -208,22 +212,22 @@ async function main() {
           `${RUNTIME_MONITORING_ROUTE}: product_version ${json.product_version} != ${VERSION}`,
         );
       }
-      if (json.backend_mvp !== "T085") {
-        errors.push(`${RUNTIME_MONITORING_ROUTE}: backend_mvp must be T085`);
+      if (json.backend_mvp !== "T086") {
+        errors.push(`${RUNTIME_MONITORING_ROUTE}: backend_mvp must be T086`);
       }
-      if ((json.source_runs_count ?? 0) < 7) {
+      if (json.db_registry_alignment_status !== "aligned") {
         errors.push(
-          `${RUNTIME_MONITORING_ROUTE}: source_runs_count ${json.source_runs_count} < 7`,
+          `${RUNTIME_MONITORING_ROUTE}: db_registry_alignment_status must be aligned`,
         );
       }
-      if (json.worker_run_source_success_count !== 2) {
+      if ((json.automated_registry_row_count ?? 0) < 6) {
         errors.push(
-          `${RUNTIME_MONITORING_ROUTE}: worker_run_source_success_count must be 2`,
+          `${RUNTIME_MONITORING_ROUTE}: automated_registry_row_count must be >= 6`,
         );
       }
-      if (json.worker_run_source_failure_count !== 4) {
+      if ((json.no_registry_fk_error_count ?? 1) !== 0) {
         errors.push(
-          `${RUNTIME_MONITORING_ROUTE}: worker_run_source_failure_count must be 4`,
+          `${RUNTIME_MONITORING_ROUTE}: no_registry_fk_error_count must be 0`,
         );
       }
       if (json.worker_redeployed !== true) {
@@ -241,7 +245,7 @@ async function main() {
     }
   }
 
-  console.log("Live route smoke (T085)");
+  console.log("Live route smoke (T086)");
   console.log(`  base: ${BASE}`);
   console.log(`  cache bust: ${BUST}`);
   console.log(`  expected version: ${VERSION_LABEL}`);
@@ -270,6 +274,12 @@ async function main() {
     }
     if (route.path === "/") {
       if (
+        html.indexOf("T086 Six-Source Runtime DB Alignment") >
+        html.indexOf("T085 Six-Source Worker Runtime Run")
+      ) {
+        errors.push(`${route.path}: T086 banner must appear before T085`);
+      }
+      if (
         html.indexOf("T085 Six-Source Worker Runtime Run") >
         html.indexOf("T084 Automated Source Expansion")
       ) {
@@ -288,6 +298,12 @@ async function main() {
       }
     }
     if (route.path === "/tracker/") {
+      if (
+        html.indexOf("Six-source runtime alignment (T086)") >
+        html.indexOf("Six-source Worker run (T085)")
+      ) {
+        errors.push(`${route.path}: T086 section must appear before T085`);
+      }
       if (
         html.indexOf("Six-source Worker run (T085)") >
         html.indexOf("Ingress filter dashboard (T084)")
@@ -321,7 +337,7 @@ async function main() {
     process.exit(1);
   }
 
-  console.log(`  PASS: live routes match ${VERSION_LABEL} / T085 expectations\n`);
+  console.log(`  PASS: live routes match ${VERSION_LABEL} / T086 expectations\n`);
 }
 
 main().catch((err) => {

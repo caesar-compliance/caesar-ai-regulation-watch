@@ -1,21 +1,31 @@
 #!/usr/bin/env node
 /**
- * T085 — Worker endpoint smoke + bounded six-source pilot (dry-run then write).
+ * T086 — Worker endpoint smoke + bounded six-source pilot (dry-run then write).
  * Requires RUN_TOKEN in environment (never logged).
  */
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { loadRuntimeEnv } from "./lib/load-runtime-env.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const REPORT_PATH = path.join(ROOT, "generated/runtime/worker-pilot-run.latest.json");
+const env = loadRuntimeEnv();
 const WORKER_URL = (
+  env.WORKER_URL ||
+  env.REGWATCH_WORKER_URL ||
   process.env.WORKER_URL ||
   process.env.REGWATCH_WORKER_URL ||
   "https://regulation-watch-monitor-dev.nazzarkoartem.workers.dev"
 ).replace(/\/$/, "");
-const RUN_TOKEN = (process.env.RUN_TOKEN || process.env.REGWATCH_RUN_TOKEN || "").trim();
-const EXPECTED_VERSION = process.env.EXPECTED_WORKER_VERSION || "1.0.36";
+const RUN_TOKEN = (
+  env.RUN_TOKEN ||
+  env.REGWATCH_RUN_TOKEN ||
+  process.env.RUN_TOKEN ||
+  process.env.REGWATCH_RUN_TOKEN ||
+  ""
+).trim();
+const EXPECTED_VERSION = process.env.EXPECTED_WORKER_VERSION || "1.0.37";
 
 async function fetchJson(pathname, options = {}) {
   const res = await fetch(`${WORKER_URL}${pathname}`, options);
@@ -101,7 +111,7 @@ async function main() {
   results.steps.push({ step: "GET /last-run (after)", status: lastAfter.status });
 
   const report = {
-    task_id: "T085",
+    task_id: "T086",
     worker_url: WORKER_URL,
     worker_version: version.body?.version ?? null,
     expected_worker_version: EXPECTED_VERSION,

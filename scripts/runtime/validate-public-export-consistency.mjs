@@ -100,32 +100,32 @@ function main() {
         `worker_allowlist_source_count ${allowlist} != registry automated ${automatedRegistry}`,
       );
     }
-    if (projectVersion === "1.0.36" && monitoring.backend_mvp !== "T085") {
-      errors.push(`v1.0.36 expects backend_mvp T085, got ${monitoring.backend_mvp}`);
+    if (projectVersion === "1.0.37" && monitoring.backend_mvp !== "T086") {
+      errors.push(`v1.0.37 expects backend_mvp T086, got ${monitoring.backend_mvp}`);
     }
-    if (projectVersion === "1.0.36") {
-      if ((monitoring.source_runs_count ?? 0) < 7) {
+    if (projectVersion === "1.0.37") {
+      if (monitoring.db_registry_alignment_status !== "aligned") {
         errors.push(
-          `v1.0.36 expects source_runs_count >= 7, got ${monitoring.source_runs_count}`,
+          `v1.0.37 expects db_registry_alignment_status aligned, got ${monitoring.db_registry_alignment_status}`,
         );
       }
-      if ((monitoring.runtime_events_recent?.length ?? 0) < 5) {
+      if ((monitoring.automated_registry_row_count ?? 0) < 6) {
         errors.push(
-          `v1.0.36 expects >= 5 runtime_events_recent, got ${monitoring.runtime_events_recent?.length ?? 0}`,
+          `v1.0.37 expects automated_registry_row_count >= 6, got ${monitoring.automated_registry_row_count}`,
         );
       }
-      if (monitoring.worker_run_source_success_count !== 2) {
+      if ((monitoring.no_registry_fk_error_count ?? 1) !== 0) {
         errors.push(
-          `v1.0.36 expects worker_run_source_success_count 2, got ${monitoring.worker_run_source_success_count}`,
+          `v1.0.37 expects no_registry_fk_error_count 0, got ${monitoring.no_registry_fk_error_count}`,
         );
       }
-      if (monitoring.worker_run_source_failure_count !== 4) {
+      if (
+        monitoring.worker_run_source_failure_count > 0 &&
+        (monitoring.no_registry_fk_error_count ?? 0) > 0
+      ) {
         errors.push(
-          `v1.0.36 expects worker_run_source_failure_count 4, got ${monitoring.worker_run_source_failure_count}`,
+          "worker_run_source_failure_count > 0 with registry/FK errors — classify as misaligned",
         );
-      }
-      if (monitoring.worker_redeployed !== true) {
-        errors.push("v1.0.36 expects worker_redeployed true");
       }
     }
   }

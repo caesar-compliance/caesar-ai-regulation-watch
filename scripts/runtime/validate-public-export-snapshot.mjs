@@ -33,30 +33,24 @@ function main() {
     errors.push("missing runtime-monitoring-status.payload.json");
   }
 
-  if (projectVersion === "1.0.36") {
-    if (monitoring?.backend_mvp !== "T085") {
-      errors.push(`snapshot backend_mvp must be T085, got ${monitoring?.backend_mvp}`);
+  if (projectVersion === "1.0.37") {
+    if (monitoring?.backend_mvp !== "T086") {
+      errors.push(`snapshot backend_mvp must be T086, got ${monitoring?.backend_mvp}`);
     }
-    if ((monitoring?.source_runs_count ?? 0) < 7) {
-      errors.push(`snapshot source_runs_count must be >= 7, got ${monitoring?.source_runs_count}`);
-    }
-    if ((monitoring?.runtime_events_recent?.length ?? 0) < 5) {
+    if (monitoring?.db_registry_alignment_status !== "aligned") {
       errors.push(
-        `snapshot runtime_events_recent must have >= 5 events, got ${monitoring?.runtime_events_recent?.length ?? 0}`,
+        `snapshot db_registry_alignment_status must be aligned, got ${monitoring?.db_registry_alignment_status}`,
       );
     }
-    if (monitoring?.worker_run_source_success_count !== 2) {
+    if ((monitoring?.automated_registry_row_count ?? 0) < 6) {
       errors.push(
-        `snapshot worker_run_source_success_count must be 2, got ${monitoring?.worker_run_source_success_count}`,
+        `snapshot automated_registry_row_count must be >= 6, got ${monitoring?.automated_registry_row_count}`,
       );
     }
-    if (monitoring?.worker_run_source_failure_count !== 4) {
+    if ((monitoring?.no_registry_fk_error_count ?? 1) !== 0) {
       errors.push(
-        `snapshot worker_run_source_failure_count must be 4, got ${monitoring?.worker_run_source_failure_count}`,
+        `snapshot no_registry_fk_error_count must be 0, got ${monitoring?.no_registry_fk_error_count}`,
       );
-    }
-    if (monitoring?.worker_redeployed !== true) {
-      errors.push("snapshot worker_redeployed must be true");
     }
     if (monitoring?.cron_enabled === true) {
       errors.push("snapshot cron_enabled must not be true");
@@ -69,17 +63,11 @@ function main() {
     if (automated > 0 && autoCount !== automated) {
       errors.push(`snapshot automated sources ${autoCount} != registry ${automated}`);
     }
-    if ((runs?.runs?.length ?? 0) < 7) {
-      errors.push(`snapshot regulation-source-runs must have >= 7 runs, got ${runs?.runs?.length ?? 0}`);
+    if (workerPilot?.task_id !== "T086") {
+      errors.push(`worker-pilot-run.payload.json task_id must be T086`);
     }
-    if (workerPilot?.task_id !== "T085") {
-      errors.push(`worker-pilot-run.payload.json task_id must be T085`);
-    }
-    if (workerPilot?.worker_run_source_success_count !== 2) {
-      errors.push("worker-pilot-run.payload.json success count must be 2");
-    }
-    if (workerPilot?.worker_run_source_failure_count !== 4) {
-      errors.push("worker-pilot-run.payload.json failure count must be 4");
+    if ((workerPilot?.no_registry_fk_error_count ?? 1) !== 0) {
+      errors.push("worker-pilot-run.payload.json no_registry_fk_error_count must be 0");
     }
   }
 

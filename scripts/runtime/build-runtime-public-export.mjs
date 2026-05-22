@@ -100,6 +100,46 @@ function loadWorkerPilotReport() {
   return snapshotReport ?? null;
 }
 
+const ALIGNMENT_SNAPSHOT = path.join(
+  ROOT,
+  "data/runtime/dev-source-registry-alignment.json",
+);
+
+function countRegistryFkErrors(pilotReport) {
+  const results =
+    pilotReport?.write_run?.results ?? pilotReport?.write_run?.body?.results ?? [];
+  return results.filter((r) => {
+    const err = String(r.error ?? "");
+    return (
+      r.status === "error" &&
+      (err.includes("409") ||
+        err.includes("registry_fk") ||
+        err.includes("regulation_sources"))
+    );
+  }).length;
+}
+
+function loadRegistryAlignmentMeta(registry) {
+  const automatedKeys = registry.sources
+    .filter((s) => s.fetch_mode === "automated_metadata")
+    .map((s) => s.source_key);
+  let rowCount = 0;
+  if (fs.existsSync(ALIGNMENT_SNAPSHOT)) {
+    try {
+      const snap = JSON.parse(fs.readFileSync(ALIGNMENT_SNAPSHOT, "utf8"));
+      rowCount = (snap.regulation_sources_rows ?? []).length;
+    } catch {
+      /* ignore */
+    }
+  }
+  const aligned = rowCount >= automatedKeys.length && automatedKeys.length > 0;
+  return {
+    automated_registry_row_count: rowCount || null,
+    db_registry_alignment_status: aligned ? "aligned" : "pending",
+    db_registry_alignment_task: "T086",
+  };
+}
+
 function workerRunRollup(workerRuns, pilotReport, payload = {}) {
   const latest = workerRuns[0] ?? null;
   const latestAt = latest?.completed_at ?? latest?.started_at ?? null;
@@ -112,12 +152,15 @@ function workerRunRollup(workerRuns, pilotReport, payload = {}) {
   const failureCount =
     failureFromReport ?? payload.worker_run_source_failure_count ?? 0;
 
+  const fkErrors = countRegistryFkErrors(pilotReport);
+
   return {
     latest_worker_run_at: latestAt,
     latest_worker_run_id: latest?.id ?? pilotReport?.latest_run_id ?? null,
     worker_allowlist_source_count: pilotReport?.worker_allowlist_source_count ?? 6,
     worker_run_source_success_count: successCount,
     worker_run_source_failure_count: failureCount,
+    no_registry_fk_error_count: fkErrors,
     worker_redeployed_at: pilotReport?.deployed_at ?? null,
     worker_version: pilotReport?.worker_version ?? null,
     gates_closed: true,
@@ -129,6 +172,7 @@ function workerRunRollup(workerRuns, pilotReport, payload = {}) {
 function enrichMonitoringStatus(payload, registry, status, workerRuns = []) {
   const counts = registryCounts(registry);
   const pilotReport = loadWorkerPilotReport();
+  const registryAlignment = loadRegistryAlignmentMeta(registry);
   const workerMeta = workerRunRollup(workerRuns, pilotReport, payload);
   const changesFile = path.join(PUBLIC_DATA, "regulation-detected-changes.json");
   const candidatesFile = path.join(
@@ -170,9 +214,10 @@ function enrichMonitoringStatus(payload, registry, status, workerRuns = []) {
   return {
     ...payload,
     ...counts,
+    ...registryAlignment,
     ...workerMeta,
     status,
-    backend_mvp: pilotReport?.task_id ?? "T085",
+    backend_mvp: pilotReport?.task_id ?? "T086",
     live_ingestion_enabled: false,
     scheduled_monitoring_enabled: false,
     detected_changes_count: detected_changes_count ?? 0,
@@ -513,7 +558,7 @@ function buildTrackerSummaryExport(registry, monitoringPayload) {
     scheduled_monitoring_enabled: false,
     live_ingestion_enabled: false,
     gates_closed: true,
-    backend_mvp: monitoringPayload?.backend_mvp ?? "T085",
+    backend_mvp: monitoringPayload?.backend_mvp ?? "T086",
     status: monitoringPayload?.status ?? "registry_only",
   });
 }

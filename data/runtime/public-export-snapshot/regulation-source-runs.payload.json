@@ -4,6 +4,66 @@
   "public_note": "Backend-derived metadata only. Review required before any legal or client use. Not legal advice.",
   "runs": [
     {
+      "run_id": "92a8f85e-7b21-4b7e-9eeb-0285ca65ab68",
+      "source_key": "uk-dsit-organisation",
+      "run_type": "worker_pilot_verify",
+      "status": "completed",
+      "item_count": 0,
+      "started_at": "2026-05-22T17:33:32.223Z",
+      "completed_at": "2026-05-22T17:33:32.223Z",
+      "review_required": true
+    },
+    {
+      "run_id": "04932a7f-2056-48b5-bfd9-4ab7f00f341a",
+      "source_key": "france-cnil-ai-fr",
+      "run_type": "worker_pilot_verify",
+      "status": "completed",
+      "item_count": 0,
+      "started_at": "2026-05-22T17:33:32.151Z",
+      "completed_at": "2026-05-22T17:33:32.151Z",
+      "review_required": true
+    },
+    {
+      "run_id": "92bb3121-4a8a-49bf-8f24-9ec7866f5b6f",
+      "source_key": "us-nist-ai-rmf",
+      "run_type": "worker_pilot_verify",
+      "status": "completed",
+      "item_count": 0,
+      "started_at": "2026-05-22T17:33:32.069Z",
+      "completed_at": "2026-05-22T17:33:32.069Z",
+      "review_required": true
+    },
+    {
+      "run_id": "8f80296d-3e26-40c3-9e09-f4daf1984e7d",
+      "source_key": "eu-digital-strategy-ai-framework",
+      "run_type": "worker_pilot_verify",
+      "status": "completed",
+      "item_count": 0,
+      "started_at": "2026-05-22T17:33:31.995Z",
+      "completed_at": "2026-05-22T17:33:31.995Z",
+      "review_required": true
+    },
+    {
+      "run_id": "f79b392d-ceaa-4753-b79c-f71f1981ee96",
+      "source_key": "edps-news-rss",
+      "run_type": "worker_pilot_verify",
+      "status": "completed",
+      "item_count": 0,
+      "started_at": "2026-05-22T17:33:31.920Z",
+      "completed_at": "2026-05-22T17:33:31.920Z",
+      "review_required": true
+    },
+    {
+      "run_id": "68b121dc-2003-4f28-acd3-235a8794b1ae",
+      "source_key": "edpb-publications-rss",
+      "run_type": "worker_pilot_verify",
+      "status": "completed",
+      "item_count": 0,
+      "started_at": "2026-05-22T17:33:31.624Z",
+      "completed_at": "2026-05-22T17:33:31.624Z",
+      "review_required": true
+    },
+    {
       "run_id": "27249c8a-f6b3-47a1-aa13-3b0b6accb5c7",
       "source_key": "edps-news-rss",
       "run_type": "worker_pilot",

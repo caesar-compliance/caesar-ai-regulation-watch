@@ -121,6 +121,7 @@ const requiredHtmlChecks = [
     mustInclude: [
       PROJECT_VERSION_LABEL,
       PROJECT_PHASE_LABEL,
+      "T086 Six-Source Runtime DB Alignment",
       "T085 Six-Source Worker Runtime Run",
       "T084 Automated Source Expansion and Ingress Filtering",
       "T083 Signal Quality and Review Prioritization",
@@ -147,6 +148,7 @@ const requiredHtmlChecks = [
     rel: "tracker/index.html",
     mustInclude: [
       PROJECT_VERSION_LABEL,
+      "Six-source runtime alignment (T086)",
       "Six-source Worker run (T085)",
       "Ingress filter dashboard (T084)",
       "Signal quality dashboard (T083)",
@@ -183,6 +185,7 @@ const requiredHtmlChecks = [
     rel: "runtime-health/index.html",
     mustInclude: [
       PROJECT_VERSION_LABEL,
+      "DB registry alignment (T086)",
       "Six-source Worker (T085)",
       "Ingress filtering (T084)",
       "validate:ingress-filtering",
@@ -307,32 +310,37 @@ if (fs.existsSync(monitoringPath)) {
       );
       monitoringFailures += 1;
     }
-    if (PROJECT_VERSION === "1.0.36") {
-      if (monitoring.backend_mvp !== "T085") {
-        console.error(`  monitoring backend_mvp must be T085, got ${monitoring.backend_mvp}`);
+    if (PROJECT_VERSION === "1.0.37") {
+      if (monitoring.backend_mvp !== "T086") {
+        console.error(`  monitoring backend_mvp must be T086, got ${monitoring.backend_mvp}`);
         monitoringFailures += 1;
       }
-      if ((monitoring.source_runs_count ?? 0) < 7) {
+      if (monitoring.db_registry_alignment_status !== "aligned") {
         console.error(
-          `  monitoring source_runs_count must be >= 7, got ${monitoring.source_runs_count}`,
+          `  monitoring db_registry_alignment_status must be aligned, got ${monitoring.db_registry_alignment_status}`,
         );
         monitoringFailures += 1;
       }
-      if (monitoring.worker_run_source_success_count !== 2) {
+      if ((monitoring.automated_registry_row_count ?? 0) < 6) {
         console.error(
-          `  monitoring worker_run_source_success_count must be 2, got ${monitoring.worker_run_source_success_count}`,
+          `  monitoring automated_registry_row_count must be >= 6, got ${monitoring.automated_registry_row_count}`,
         );
         monitoringFailures += 1;
       }
-      if (monitoring.worker_run_source_failure_count !== 4) {
+      if ((monitoring.no_registry_fk_error_count ?? 1) !== 0) {
         console.error(
-          `  monitoring worker_run_source_failure_count must be 4, got ${monitoring.worker_run_source_failure_count}`,
+          `  monitoring no_registry_fk_error_count must be 0, got ${monitoring.no_registry_fk_error_count}`,
         );
         monitoringFailures += 1;
       }
-      if (monitoring.worker_redeployed !== true) {
-        console.error("  monitoring worker_redeployed must be true");
-        monitoringFailures += 1;
+      if (monitoring.worker_run_source_failure_count > 0) {
+        const fk = monitoring.no_registry_fk_error_count ?? 0;
+        if (fk > 0) {
+          console.error(
+            `  worker failures must not include registry/FK errors (no_registry_fk_error_count=${fk})`,
+          );
+          monitoringFailures += 1;
+        }
       }
     }
   } catch {

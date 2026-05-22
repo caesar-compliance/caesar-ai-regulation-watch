@@ -4,7 +4,7 @@
 
 This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
 
-**Codebase:** v1.0.36 (T085 Worker redeploy + six-source runtime run). **Live:** v1.0.36 after DEPLOY-20260522-058. **Registry:** 25 official sources (6 automated RSS, 19 manual). **Next:** fix dev DB FK for 4 new automated sources → expand operator decisions → cron only after Control Tower approval.
+**Codebase:** v1.0.37 (T086 dev DB registry alignment). **Live:** v1.0.37 after T086 deploy. **Registry:** 25 official sources (6 automated RSS, 19 manual); dev `regulation_sources` aligned 6/6. **Next:** redeploy Worker v1.0.37 when Cloudflare token available → expand operator decisions → cron only after Control Tower approval.
 
 **Product direction (20 May 2026):** automation-first global AI regulation tracker — see [docs/AUTOMATION_FIRST_MVP_ROADMAP.md](docs/AUTOMATION_FIRST_MVP_ROADMAP.md) and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md). Human review/evidence is optional future assurance, not the first full MVP foundation.
 

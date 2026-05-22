@@ -33,13 +33,20 @@ const trackerMetrics = getAutomationFirstMetrics();
 <BaseLayout title="Home" currentPath="/">
   <h1>Caesar AI Regulation Watch</h1>
   <p class="lead">
-    {PROJECT_VERSION_LABEL} — T085 six-source Worker runtime run, T084 ingress filtering on{" "}
+    {PROJECT_VERSION_LABEL} — T086 six-source runtime DB alignment, T085 Worker run, T084 ingress filtering on{" "}
     {routeSummary.monitoredSourceCount} official sources ({routeSummary.automatedRssCount} automated
     RSS/Atom, {routeSummary.manualReviewSourceCount} manual-review). T083 signal quality, T082 operator
     decisions, and T080 country profiles. Technical pilot — not legal advice.
   </p>
 
   <div class="banner banner--automation" role="note">
+    <strong>T086 Six-Source Runtime DB Alignment ({PROJECT_VERSION_LABEL}).</strong> Dev{" "}
+    <code>regulation_sources</code> registry aligned for all 6 automated pilot keys; Worker write path upserts
+    registry rows before <code>source_runs</code> FK insert; prior 409 FK gaps resolved ·{" "}
+    <a href="/runtime-health/">Runtime health →</a>
+  </div>
+
+  <div class="banner banner--review" role="note">
     <strong>T085 Six-Source Worker Runtime Run ({PROJECT_VERSION_LABEL}).</strong> Dev Worker{" "}
     <code>regulation-watch-monitor-dev</code> redeployed with 6-source RSS allowlist; bounded metadata-only
     pilot writes to Supabase dev runtime; scheduled monitoring disabled; gates closed ·{" "}

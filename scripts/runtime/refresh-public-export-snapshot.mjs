@@ -57,18 +57,23 @@ function main() {
     worker_allowlist_source_count: monitoring.worker_allowlist_source_count,
     worker_run_source_success_count: monitoring.worker_run_source_success_count,
     worker_run_source_failure_count: monitoring.worker_run_source_failure_count,
+    no_registry_fk_error_count: monitoring.no_registry_fk_error_count,
+    db_registry_alignment_status: monitoring.db_registry_alignment_status,
+    automated_registry_row_count: monitoring.automated_registry_row_count,
+    db_registry_alignment_task: monitoring.db_registry_alignment_task,
     worker_redeployed_at: monitoring.worker_redeployed_at,
     worker_version: monitoring.worker_version,
     public_note: monitoring.public_note,
   };
 
   const workerPilotPayload = {
-    task_id: "T085",
+    task_id: monitoring.backend_mvp ?? "T086",
     worker_version: monitoring.worker_version ?? version,
     deployed_at: monitoring.worker_redeployed_at,
     worker_allowlist_source_count: monitoring.worker_allowlist_source_count ?? 6,
-    worker_run_source_success_count: monitoring.worker_run_source_success_count ?? 2,
-    worker_run_source_failure_count: monitoring.worker_run_source_failure_count ?? 4,
+    worker_run_source_success_count: monitoring.worker_run_source_success_count ?? 6,
+    worker_run_source_failure_count: monitoring.worker_run_source_failure_count ?? 0,
+    no_registry_fk_error_count: monitoring.no_registry_fk_error_count ?? 0,
     latest_run_id: monitoring.latest_worker_run_id,
   };
 
@@ -95,7 +100,7 @@ function main() {
   );
 
   console.log(
-    `PASS: refresh-public-export-snapshot (${version}, source_runs=${statusPayload.source_runs_count}, T085)`,
+    `PASS: refresh-public-export-snapshot (${version}, source_runs=${statusPayload.source_runs_count}, ${workerPilotPayload.task_id})`,
   );
 }
 

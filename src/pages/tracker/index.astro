@@ -95,14 +95,27 @@ const latestUpdates = filterRegulatoryUpdates({
   <MetricsStrip metrics={metrics} />
 
   <section class="tracker-section">
+    <h2>Six-source runtime alignment (T086)</h2>
+    <p>
+      DB registry <strong>{monitoring.db_registry_alignment_status ?? "—"}</strong> · automated rows{" "}
+      <strong>{monitoring.automated_registry_row_count ?? "—"}</strong>/6 · registry/FK errors{" "}
+      <strong>{monitoring.no_registry_fk_error_count ?? "—"}</strong> · Worker allowlist{" "}
+      <strong>{monitoring.worker_allowlist_source_count ?? 6}</strong> · cron disabled · gates closed
+    </p>
+    <p>
+      <a href="/data/runtime-monitoring-status.json">runtime-monitoring-status.json</a> ·{" "}
+      <a href="/runtime-health/">Runtime health</a>
+    </p>
+  </section>
+
+  <section class="tracker-section">
     <h2>Six-source Worker run (T085)</h2>
     <p>
-      Dev Worker <code>{monitoring.worker_name ?? "regulation-watch-monitor-dev"}</code> · allowlist{" "}
-      <strong>{monitoring.worker_allowlist_source_count ?? 6}</strong> automated RSS/Atom · latest run{" "}
+      Dev Worker <code>{monitoring.worker_name ?? "regulation-watch-monitor-dev"}</code> · latest run{" "}
       <span class="mono">{monitoring.latest_worker_run_id ?? monitoring.latest_worker_run?.run_id ?? "—"}</span>{" "}
       at <span class="mono">{monitoring.latest_worker_run_at ?? monitoring.latest_worker_run?.completed_at ?? "—"}</span>{" "}
       · success <strong>{monitoring.worker_run_source_success_count ?? "—"}</strong> · failure{" "}
-      <strong>{monitoring.worker_run_source_failure_count ?? "—"}</strong> · cron disabled · gates closed
+      <strong>{monitoring.worker_run_source_failure_count ?? "—"}</strong>
     </p>
     <p>
       <a href="/data/runtime-monitoring-status.json">runtime-monitoring-status.json</a> ·{" "}

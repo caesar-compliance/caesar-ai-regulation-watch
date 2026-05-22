@@ -3,7 +3,7 @@
 
 monitoring_pilot_registry_id: monitoring-pilot-registry-2026-05-22-t084
 generated_at: "2026-05-22"
-product_version: "1.0.35"
+product_version: "1.0.37"
 legal_safe_note: >
   T084 automated source expansion and ingress filtering. Official public primary and institutional sources only.
   Metadata-only fetch for RSS sources when explicitly approved for a manual dev run.

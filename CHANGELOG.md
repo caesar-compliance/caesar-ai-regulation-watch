@@ -11,6 +11,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.37] - 22 May 2026
+
+### Added
+
+- **T086 dev DB registry alignment** — `npm run runtime:align-dev-source-registry`; `ops/supabase/005_runtime_source_registry_alignment.sql`; `validate:runtime-source-registry-alignment`.
+- **Worker defensive upsert** — `regulation_sources` REST merge before `source_runs` insert; clearer 409 error classification (`registry_fk_or_conflict`).
+- **Exports** — `db_registry_alignment_status`, `automated_registry_row_count`, `no_registry_fk_error_count` on `runtime-monitoring-status.json`.
+
+### Fixed
+
+- **T085 409 gap** — Four automated keys (`eu-digital-strategy-ai-framework`, `us-nist-ai-rmf`, `france-cnil-ai-fr`, `uk-dsit-organisation`) missing from dev `regulation_sources`; FK violation surfaced as HTTP 409 on `source_runs` insert.
+
+### Changed
+
+- **UI** — T086 alignment sections on `/`, `/tracker/`, `/runtime-health/`, `/sources/`.
+- **Validation** — T086 expectations in `verify:dist`, `smoke:live-routes`, `validate:public-export-snapshot`; Worker allowlist parse scoped to `PILOT_ALLOWLIST` only.
+
+---
+
 ## [1.0.36] - 22 May 2026
 
 ### Added

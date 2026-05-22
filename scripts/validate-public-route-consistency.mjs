@@ -85,6 +85,9 @@ function main() {
   if (indexSrc && !indexSrc.includes("getIngressFilterSummary")) {
     errors.push("src/pages/index.astro must use getIngressFilterSummary for T084 counts");
   }
+  if (indexSrc && !indexSrc.includes("T086 Six-Source Runtime DB Alignment")) {
+    errors.push("src/pages/index.astro must include T086 DB alignment banner");
+  }
   if (indexSrc && !indexSrc.includes("T085 Six-Source Worker Runtime Run")) {
     errors.push("src/pages/index.astro must include T085 Worker runtime banner");
   }
@@ -93,6 +96,12 @@ function main() {
   }
   if (
     indexSrc &&
+    indexSrc.indexOf("T086 Six-Source Runtime DB Alignment") >
+    indexSrc.indexOf("T085 Six-Source Worker Runtime Run")
+  ) {
+    errors.push("src/pages/index.astro must place T086 banner before T085");
+  }
+  if (
     indexSrc.indexOf("T085 Six-Source Worker Runtime Run") >
     indexSrc.indexOf("T084 Automated Source Expansion")
   ) {
@@ -130,6 +139,9 @@ function main() {
   ) {
     errors.push("src/pages/tracker/index.astro must place T082 section before T080 coverage");
   }
+  if (trackerSrc && !trackerSrc.includes("Six-source runtime alignment (T086)")) {
+    errors.push("src/pages/tracker/index.astro must include Six-source runtime alignment (T086)");
+  }
   if (trackerSrc && !trackerSrc.includes("Six-source Worker run (T085)")) {
     errors.push("src/pages/tracker/index.astro must include Six-source Worker run (T085)");
   }
@@ -138,6 +150,12 @@ function main() {
   }
   if (
     trackerSrc &&
+    trackerSrc.indexOf("Six-source runtime alignment (T086)") >
+    trackerSrc.indexOf("Six-source Worker run (T085)")
+  ) {
+    errors.push("src/pages/tracker/index.astro must place T086 before T085");
+  }
+  if (
     trackerSrc.indexOf("Six-source Worker run (T085)") >
     trackerSrc.indexOf("Ingress filter dashboard (T084)")
   ) {

@@ -35,8 +35,10 @@ const groupedByRegion = groupSourcesByRegion(sources);
     <section class="tracker-section">
       <h2>Monitoring pilot registry ({PROJECT_VERSION_LABEL})</h2>
       <p>
-        T085 Worker allowlist <strong>{monitoring.worker_allowlist_source_count ?? 6}</strong> automated RSS/Atom
-        · last run success <strong>{monitoring.worker_run_source_success_count ?? "—"}</strong> · failure{" "}
+        T086 DB alignment <strong>{monitoring.db_registry_alignment_status ?? "—"}</strong> (
+        {monitoring.automated_registry_row_count ?? "—"}/6 automated rows) · T085 Worker allowlist{" "}
+        <strong>{monitoring.worker_allowlist_source_count ?? 6}</strong> · last run success{" "}
+        <strong>{monitoring.worker_run_source_success_count ?? "—"}</strong> · failure{" "}
         <strong>{monitoring.worker_run_source_failure_count ?? "—"}</strong> · T084 registry{" "}
         <strong>{automatedPilot.length} automated</strong> vs{" "}
         <strong>{manualPilot.length} manual-review</strong> · metadata-only; cron disabled.

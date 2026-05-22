@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 22 May 2026 (v1.0.36 T085 Worker redeploy + runtime run)
+**Last updated:** 22 May 2026 (v1.0.37 T086 dev DB registry/FK alignment)
 
 ## T083 — Signal quality and review prioritization
 

@@ -1,0 +1,68 @@
+{
+  "task_id": "T086",
+  "aligned_at": "2026-05-22T17:31:43.119Z",
+  "automated_source_keys": [
+    "edpb-publications-rss",
+    "edps-news-rss",
+    "eu-digital-strategy-ai-framework",
+    "us-nist-ai-rmf",
+    "uk-dsit-organisation",
+    "france-cnil-ai-fr"
+  ],
+  "upserted": [
+    "eu-digital-strategy-ai-framework",
+    "us-nist-ai-rmf",
+    "uk-dsit-organisation",
+    "france-cnil-ai-fr"
+  ],
+  "already_present": [
+    "edpb-publications-rss",
+    "edps-news-rss"
+  ],
+  "errors": [],
+  "regulation_sources_rows": [
+    {
+      "source_key": "edpb-publications-rss",
+      "source_name": "European Data Protection Board (EDPB) — publications RSS",
+      "status": "active",
+      "metadata_only": true,
+      "schedule_enabled": false
+    },
+    {
+      "source_key": "edps-news-rss",
+      "source_name": "European Data Protection Supervisor (EDPS) — news RSS",
+      "status": "active",
+      "metadata_only": true,
+      "schedule_enabled": false
+    },
+    {
+      "source_key": "eu-digital-strategy-ai-framework",
+      "source_name": "European Commission — Digital strategy news RSS (AI policy)",
+      "status": "active",
+      "metadata_only": true,
+      "schedule_enabled": false
+    },
+    {
+      "source_key": "france-cnil-ai-fr",
+      "source_name": "CNIL — News RSS (French)",
+      "status": "active",
+      "metadata_only": true,
+      "schedule_enabled": false
+    },
+    {
+      "source_key": "uk-dsit-organisation",
+      "source_name": "UK DSIT — Department updates (GOV.UK Atom)",
+      "status": "active",
+      "metadata_only": true,
+      "schedule_enabled": false
+    },
+    {
+      "source_key": "us-nist-ai-rmf",
+      "source_name": "NIST — News RSS (AI / cybersecurity policy signals)",
+      "status": "active",
+      "metadata_only": true,
+      "schedule_enabled": false
+    }
+  ],
+  "regulation_sources_count": 6
+}

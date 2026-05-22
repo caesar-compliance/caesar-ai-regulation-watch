@@ -41,10 +41,23 @@ export function loadRuntimeEnv() {
     if (
       key.startsWith("REGWATCH_") ||
       key.startsWith("SUPABASE_") ||
-      key === "DATABASE_URL"
+      key === "DATABASE_URL" ||
+      key === "RUN_TOKEN" ||
+      key === "WORKER_URL"
     ) {
       if (value !== undefined && value !== "") merged[key] = value;
     }
+  }
+  for (const file of [".env.cloudflare.local", ".env.cloudflare"]) {
+    const full = path.join(ROOT, file);
+    if (!fs.existsSync(full)) continue;
+    const parsed = parseEnvFile(fs.readFileSync(full, "utf8"));
+    for (const key of ["RUN_TOKEN", "REGWATCH_RUN_TOKEN", "WORKER_URL", "REGWATCH_WORKER_URL"]) {
+      if (parsed[key] && !merged[key]) merged[key] = parsed[key];
+    }
+  }
+  if (!merged.SUPABASE_SERVICE_ROLE_KEY && merged.SUPABASE_SECRET_KEY) {
+    merged.SUPABASE_SERVICE_ROLE_KEY = merged.SUPABASE_SECRET_KEY;
   }
   return merged;
 }

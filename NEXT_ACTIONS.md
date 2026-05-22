@@ -1,8 +1,8 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 22 May 2026
-**Current codebase:** v1.0.36 (T085 six-source Worker redeploy + runtime run)
-**Live release:** `regulation-watch-v1.0.36` — static deploy + Worker v1.0.36 on `regulation-watch-monitor-dev`
+**Current codebase:** v1.0.37 (T086 dev DB registry/FK alignment for six-source Worker runs)
+**Live release:** `regulation-watch-v1.0.37` — static deploy pending; Worker v1.0.37 code ready (redeploy when `CLOUDFLARE_API_TOKEN` available)
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
 ---

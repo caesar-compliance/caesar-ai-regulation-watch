@@ -12,7 +12,46 @@ export type RssItemStub = {
 };
 
 const FEED_USER_AGENT =
-  "CaesarRegulationWatch/1.0.36 (worker-pilot; +https://regulation-watch.caesar.no/methodology/)";
+  "CaesarRegulationWatch/1.0.37 (worker-pilot; +https://regulation-watch.caesar.no/methodology/)";
+
+/** T086 — metadata for regulation_sources upsert before source_runs FK insert */
+const REGISTRY_SOURCE_META: Record<
+  string,
+  { source_name: string; source_type: string; source_url: string }
+> = {
+  "edpb-publications-rss": {
+    source_name: "European Data Protection Board (EDPB) — publications RSS",
+    source_type: "rss",
+    source_url: "https://www.edpb.europa.eu/feed/publications_en",
+  },
+  "edps-news-rss": {
+    source_name: "European Data Protection Supervisor (EDPS) — news RSS",
+    source_type: "rss",
+    source_url: "https://www.edps.europa.eu/feed/news_en",
+  },
+  "eu-digital-strategy-ai-framework": {
+    source_name: "European Commission — Digital strategy news RSS (AI policy)",
+    source_type: "rss",
+    source_url:
+      "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+  },
+  "us-nist-ai-rmf": {
+    source_name: "NIST — News RSS (AI / cybersecurity policy signals)",
+    source_type: "rss",
+    source_url: "https://www.nist.gov/itl/ai-risk-management-framework",
+  },
+  "france-cnil-ai-fr": {
+    source_name: "CNIL — News RSS (French)",
+    source_type: "rss",
+    source_url: "https://www.cnil.fr/fr/intelligence-artificielle",
+  },
+  "uk-dsit-organisation": {
+    source_name: "UK DSIT — Department updates (GOV.UK Atom)",
+    source_type: "atom",
+    source_url:
+      "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology",
+  },
+};
 
 export const PILOT_ALLOWLIST: Record<
   string,
@@ -143,6 +182,40 @@ export interface Env {
   BUILD_TIME?: string;
 }
 
+async function ensureRegulationSourceRow(
+  base: string,
+  headers: Record<string, string>,
+  sourceKey: string,
+): Promise<void> {
+  const meta = REGISTRY_SOURCE_META[sourceKey];
+  if (!meta) return;
+  const res = await fetch(
+    `${base}/rest/v1/regulation_sources?on_conflict=source_key`,
+    {
+      method: "POST",
+      headers: {
+        ...headers,
+        Prefer: "resolution=merge-duplicates,return=minimal",
+      },
+      body: JSON.stringify({
+        source_key: sourceKey,
+        source_name: meta.source_name,
+        source_type: meta.source_type,
+        source_url: meta.source_url,
+        status: "active",
+        metadata_only: true,
+        schedule_enabled: false,
+      }),
+    },
+  );
+  if (!res.ok) {
+    const detail = (await res.text()).slice(0, 200);
+    throw new Error(
+      `regulation_sources upsert failed: ${res.status} (${detail || "no body"})`,
+    );
+  }
+}
+
 export async function insertMonitoringRun(
   env: Env,
   payload: {
@@ -168,6 +241,8 @@ export async function insertMonitoringRun(
     Prefer: "return=representation",
   };
 
+  await ensureRegulationSourceRow(base, headers, payload.source_key);
+
   const runRes = await fetch(`${base}/rest/v1/source_runs`, {
     method: "POST",
     headers,
@@ -181,15 +256,22 @@ export async function insertMonitoringRun(
     }),
   });
   if (!runRes.ok) {
-    throw new Error(`source_runs insert failed: ${runRes.status}`);
+    const detail = (await runRes.text()).slice(0, 200);
+    const kind =
+      runRes.status === 409 ? "registry_fk_or_conflict" : "insert_error";
+    throw new Error(
+      `source_runs insert failed: ${runRes.status} (${kind}; ${detail || "no body"})`,
+    );
   }
   const runs = (await runRes.json()) as { id: string }[];
   const runId = runs[0]?.id ?? "unknown";
 
   for (const item of payload.items) {
-    await fetch(`${base}/rest/v1/source_items`, {
+    await fetch(
+      `${base}/rest/v1/source_items?on_conflict=source_key,external_id`,
+      {
       method: "POST",
-      headers: { ...headers, Prefer: "resolution=merge-duplicates" },
+      headers: { ...headers, Prefer: "resolution=merge-duplicates,return=minimal" },
       body: JSON.stringify({
         source_key: payload.source_key,
         external_id: item.external_id,
@@ -198,11 +280,12 @@ export async function insertMonitoringRun(
         published_at: item.published_at,
         summary_excerpt: item.summary_excerpt,
         content_hash: item.content_hash,
-        metadata_json: { review_required: true, pilot: "T085-worker" },
+        metadata_json: { review_required: true, pilot: "T086-worker" },
         first_seen_at: new Date().toISOString(),
         last_seen_at: new Date().toISOString(),
       }),
-    });
+    },
+    );
   }
 
   await fetch(`${base}/rest/v1/runtime_events`, {

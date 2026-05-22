@@ -150,8 +150,10 @@ function main() {
 
   if (fs.existsSync(WORKER_MONITORING_TS) && fs.existsSync(MONITORING_REGISTRY)) {
     const workerSrc = fs.readFileSync(WORKER_MONITORING_TS, "utf8");
+    const allowlistBlock =
+      workerSrc.match(/export const PILOT_ALLOWLIST[\s\S]*?^\};/m)?.[0] ?? "";
     const allowlistKeys = [
-      ...workerSrc.matchAll(/^\s+"([a-z0-9-]+)":\s*\{/gm),
+      ...allowlistBlock.matchAll(/^\s+"([a-z0-9-]+)":\s*\{/gm),
     ].map((m) => m[1]);
     const registry = yaml.load(fs.readFileSync(MONITORING_REGISTRY, "utf8"));
     const automatedKeys = (registry.sources ?? [])
