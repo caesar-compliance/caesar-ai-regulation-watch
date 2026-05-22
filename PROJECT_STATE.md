@@ -4,10 +4,10 @@
 
 | Field | Value |
 |---|---|
-| **Current version** | `v1.0.30` (dev Worker runtime activation — T079) |
-| **Live version** | `v1.0.30` — tag `regulation-watch-v1.0.30` |
-| **Last deployment** | `DEPLOY-20260522-048` — commit `cfe1e52`, run [26294515303](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26294515303) |
-| **Status** | Dev Worker E2E (`backend_monitoring_mvp_worker_run`): pilot registry + Supabase persistence + public exports refreshed from dev DB; Worker `regulation-watch-monitor-dev` deployed; protected `/run-pilot` proven; live ingestion and scheduled monitoring disabled |
+| **Current version** | `v1.0.31` (coverage expansion + country/regulation model — T080) |
+| **Live version** | `v1.0.31` — tag `regulation-watch-v1.0.31` (pending deploy record) |
+| **Last deployment** | `DEPLOY-20260522-048` — commit `cfe1e52` (v1.0.30); T080 deploy pending |
+| **Status** | T080: 25-source pilot registry, 20 regulation records, 18 profile cards, enriched map/country public exports; dev Worker from T079 unchanged; scheduled monitoring disabled |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
 | **Phase** | Public Technical MVP + profiles/drilldowns (T051) |
 

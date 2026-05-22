@@ -1,0 +1,18 @@
+update_id: t080-france-cnil-seed
+update_date: "2026-05-22"
+jurisdiction_id: france
+title: T080 seed — CNIL AI guidance hub registered
+update_type: guidance
+summary: T080 coverage expansion registers official CNIL AI pages in pilot tracker.
+source_ids: [france-cnil-ai]
+source_urls: [https://www.cnil.fr/fr/intelligence-artificielle]
+topic_tags: [privacy]
+status_bucket: guidance
+importance: low
+confidence_score: low
+automation_method: manual_seed
+requires_human_review: false
+client_evidence_allowed: false
+final_evidence_allowed: false
+legal_change_claimed: false
+legal_safe_note: T080 seed only. Not legal advice.

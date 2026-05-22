@@ -3,14 +3,14 @@
   "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
   "read_only": true,
   "summary": {
-    "total": 111,
-    "pending_review": 102,
+    "total": 121,
+    "pending_review": 112,
     "needs_update": 0,
     "unverified_timeline_events": 10,
     "unverified_records": 21,
     "pending_source_verifications": 16,
     "missing_official_url": 0,
-    "technical_url_unchecked": 31,
+    "technical_url_unchecked": 36,
     "technical_url_unreachable": 1,
     "redirected_url_needs_review": 1,
     "content_not_reviewed": 60,
@@ -43,6 +43,25 @@
       ],
       "official_url": null,
       "page_href": "/jurisdictions/australia/",
+      "missing_official_url": false,
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
+    },
+    {
+      "item_type": "jurisdiction",
+      "item_id": "brazil",
+      "title": "Brazil",
+      "jurisdiction_id": "brazil",
+      "review_status": "pending_review",
+      "reason_for_review": "Editorial review_status is not reviewed.",
+      "review_reasons": [
+        "pending_review"
+      ],
+      "official_url": null,
+      "page_href": "/jurisdictions/brazil/",
       "missing_official_url": false,
       "verified_on_source_false": false,
       "technical_url_status": null,
@@ -90,6 +109,25 @@
     },
     {
       "item_type": "jurisdiction",
+      "item_id": "coe",
+      "title": "Council of Europe",
+      "jurisdiction_id": "coe",
+      "review_status": "pending_review",
+      "reason_for_review": "Editorial review_status is not reviewed.",
+      "review_reasons": [
+        "pending_review"
+      ],
+      "official_url": null,
+      "page_href": "/jurisdictions/coe/",
+      "missing_official_url": false,
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
+    },
+    {
+      "item_type": "jurisdiction",
       "item_id": "eu",
       "title": "European Union",
       "jurisdiction_id": "eu",
@@ -109,6 +147,25 @@
     },
     {
       "item_type": "jurisdiction",
+      "item_id": "france",
+      "title": "France",
+      "jurisdiction_id": "france",
+      "review_status": "pending_review",
+      "reason_for_review": "Editorial review_status is not reviewed.",
+      "review_reasons": [
+        "pending_review"
+      ],
+      "official_url": null,
+      "page_href": "/jurisdictions/france/",
+      "missing_official_url": false,
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
+    },
+    {
+      "item_type": "jurisdiction",
       "item_id": "g7",
       "title": "G7",
       "jurisdiction_id": "g7",
@@ -119,6 +176,25 @@
       ],
       "official_url": null,
       "page_href": "/jurisdictions/g7/",
+      "missing_official_url": false,
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
+    },
+    {
+      "item_type": "jurisdiction",
+      "item_id": "india",
+      "title": "India",
+      "jurisdiction_id": "india",
+      "review_status": "pending_review",
+      "reason_for_review": "Editorial review_status is not reviewed.",
+      "review_reasons": [
+        "pending_review"
+      ],
+      "official_url": null,
+      "page_href": "/jurisdictions/india/",
       "missing_official_url": false,
       "verified_on_source_false": false,
       "technical_url_status": null,
@@ -261,6 +337,25 @@
     },
     {
       "item_type": "jurisdiction",
+      "item_id": "us-colorado",
+      "title": "Colorado (United States)",
+      "jurisdiction_id": "us-colorado",
+      "review_status": "pending_review",
+      "reason_for_review": "Editorial review_status is not reviewed.",
+      "review_reasons": [
+        "pending_review"
+      ],
+      "official_url": null,
+      "page_href": "/jurisdictions/us-colorado/",
+      "missing_official_url": false,
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
+    },
+    {
+      "item_type": "jurisdiction",
       "item_id": "us-federal",
       "title": "United States (federal)",
       "jurisdiction_id": "us-federal",
@@ -323,6 +418,26 @@
       "content_review_status": "not_reviewed",
       "redirect_detected": true,
       "client_use_allowed": false
+    },
+    {
+      "item_type": "source",
+      "item_id": "brazil-senado-ai",
+      "title": "Senado Federal — PL 2338/2023 (AI bill)",
+      "jurisdiction_id": "brazil",
+      "review_status": "pending_review",
+      "reason_for_review": "Editorial review_status is not reviewed. Technical URL not checked or outcome uncertain.",
+      "review_reasons": [
+        "pending_review",
+        "technical_url_unchecked"
+      ],
+      "official_url": "https://www.senado.leg.br/noticias/materias/2023/12/20/pl-2338-2023",
+      "page_href": "/sources/brazil-senado-ai/",
+      "missing_official_url": false,
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
     },
     {
       "item_type": "source",
@@ -415,6 +530,26 @@
       "content_review_status": "not_reviewed",
       "redirect_detected": false,
       "client_use_allowed": false
+    },
+    {
+      "item_type": "source",
+      "item_id": "council-europe-ai",
+      "title": "Council of Europe — Artificial intelligence",
+      "jurisdiction_id": "coe",
+      "review_status": "pending_review",
+      "reason_for_review": "Editorial review_status is not reviewed. Technical URL not checked or outcome uncertain.",
+      "review_reasons": [
+        "pending_review",
+        "technical_url_unchecked"
+      ],
+      "official_url": "https://www.coe.int/en/web/artificial-intelligence",
+      "page_href": "/sources/council-europe-ai/",
+      "missing_official_url": false,
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
     },
     {
       "item_type": "source",
@@ -635,6 +770,26 @@
     },
     {
       "item_type": "source",
+      "item_id": "france-cnil-ai",
+      "title": "CNIL — Intelligence artificielle",
+      "jurisdiction_id": "france",
+      "review_status": "pending_review",
+      "reason_for_review": "Editorial review_status is not reviewed. Technical URL not checked or outcome uncertain.",
+      "review_reasons": [
+        "pending_review",
+        "technical_url_unchecked"
+      ],
+      "official_url": "https://www.cnil.fr/fr/intelligence-artificielle",
+      "page_href": "/sources/france-cnil-ai/",
+      "missing_official_url": false,
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
+    },
+    {
+      "item_type": "source",
       "item_id": "g7-hiroshima-ai-process",
       "title": "G7 Hiroshima AI Process — MIC official portal (English)",
       "jurisdiction_id": "g7",
@@ -655,6 +810,26 @@
       "content_review_status": "not_reviewed",
       "redirect_detected": false,
       "client_use_allowed": false
+    },
+    {
+      "item_type": "source",
+      "item_id": "india-meity-ai",
+      "title": "MeitY — Artificial intelligence",
+      "jurisdiction_id": "india",
+      "review_status": "pending_review",
+      "reason_for_review": "Editorial review_status is not reviewed. Technical URL not checked or outcome uncertain.",
+      "review_reasons": [
+        "pending_review",
+        "technical_url_unchecked"
+      ],
+      "official_url": "https://www.meity.gov.in/artificial-intelligence",
+      "page_href": "/sources/india-meity-ai/",
+      "missing_official_url": false,
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
     },
     {
       "item_type": "source",
@@ -963,6 +1138,26 @@
       "content_review_status": "not_reviewed",
       "redirect_detected": false,
       "client_use_allowed": false
+    },
+    {
+      "item_type": "source",
+      "item_id": "us-colorado-ai-act",
+      "title": "Colorado General Assembly — SB 24-205",
+      "jurisdiction_id": "us-colorado",
+      "review_status": "pending_review",
+      "reason_for_review": "Editorial review_status is not reviewed. Technical URL not checked or outcome uncertain.",
+      "review_reasons": [
+        "pending_review",
+        "technical_url_unchecked"
+      ],
+      "official_url": "https://leg.colorado.gov/bills/sb24-205",
+      "page_href": "/sources/us-colorado-ai-act/",
+      "missing_official_url": false,
+      "verified_on_source_false": false,
+      "technical_url_status": null,
+      "content_review_status": null,
+      "redirect_detected": false,
+      "client_use_allowed": null
     },
     {
       "item_type": "source",

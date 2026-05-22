@@ -2,18 +2,23 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import StatusBucketBadge from "../../components/StatusBucketBadge.astro";
 import TrackerFilterForm from "../../components/TrackerFilterForm.astro";
+import TrackerMeter from "../../components/TrackerMeter.astro";
 import {
   getTrackerTopics,
   filterCountryStatuses,
   getCountryStatuses,
   getEnrichedCountryStatuses,
-  groupCountryStatusesByRegion,
 } from "../../lib/tracker-data";
+import {
+  getJurisdictionProfileCards,
+  profileCardForJurisdiction,
+} from "../../lib/runtime-monitoring-data";
 import { formatDate } from "../../lib/format";
 
 const topics = getTrackerTopics();
 const allStatuses = getCountryStatuses();
 const regions = [...new Set(allStatuses.map((c) => c.region))].sort();
+const profileCards = getJurisdictionProfileCards();
 
 const region = Astro.url.searchParams.get("region");
 const status = Astro.url.searchParams.get("status");
@@ -23,25 +28,25 @@ const filtered = filterCountryStatuses({ region, status, topic });
 const enrichedById = new Map(
   getEnrichedCountryStatuses().map((e) => [e.jurisdiction_id, e]),
 );
-const byRegion = groupCountryStatusesByRegion()
-  .map((g) => ({
-    ...g,
-    items: g.items.filter((cs) => filtered.some((f) => f.jurisdiction_id === cs.jurisdiction_id)),
-  }))
-  .filter((g) => g.items.length > 0);
+const cardById = new Map(profileCards.map((c) => [c.jurisdiction_id, c]));
 ---
 
 <BaseLayout
   title="Countries"
   currentPath="/countries/"
-  description="Jurisdiction regulation status list — automation-first tracker."
+  description="VerifyWise-style jurisdiction cards with regulation counts and tracker meters."
 >
   <h1>Countries &amp; jurisdictions</h1>
   <p class="lead">
-    Regulation status for pilot jurisdictions in the automation-first tracker. Maturity and activity
-    indices are tracker metadata — not legal advice. <a href="/compare/">Compare jurisdictions</a> or
-    see the <a href="/tracker/">status map</a>.
+    {profileCards.length} jurisdiction profile cards with named regulation records and official source
+    coverage. Not legal advice — <a href="/compare/">compare jurisdictions</a> or open the{" "}
+    <a href="/map/">interactive map</a>.
   </p>
+
+  <div class="banner banner--review" role="note">
+    <strong>Review required.</strong> Maturity, activity, and freshness scores are heuristic tracker
+    metadata from T080 exports — not compliance ratings.
+  </div>
 
   <TrackerFilterForm
     action="/countries/"
@@ -54,41 +59,47 @@ const byRegion = groupCountryStatusesByRegion()
     Showing {filtered.length} of {allStatuses.length} jurisdiction(s).
   </p>
 
-  {
-    byRegion.map((group) => (
-      <section class="group-section">
-        <h2 class="group-section__title">{group.region}</h2>
-        <ul class="country-status-list">
-          {group.items.map((cs) => {
-            const enriched = enrichedById.get(cs.jurisdiction_id);
-            return (
-            <li class="country-status-list__item">
-              <div class="country-status-list__header">
-                <h3>
-                  <a href={`/jurisdictions/${cs.jurisdiction_id}/`}>{cs.country_name}</a>
-                </h3>
-                <StatusBucketBadge bucket={cs.status_bucket} label={cs.status_label} />
-              </div>
-              <p>{cs.status_summary}</p>
-              {
-                enriched && (
-                  <p class="country-status-list__scores">
-                    Maturity index {enriched.regulation_maturity_score} · Activity{" "}
-                    {enriched.activity_score} · {enriched.latest_update_count} tracker update(s)
-                  </p>
-                )
-              }
-              <p class="country-status-list__meta">
-                Last update: {formatDate(cs.last_update_date)} · Confidence: {cs.confidence_score}
-              </p>
-              <p class="country-status-list__topics">
-                Topics: {cs.topic_tags.join(", ")}
-              </p>
-            </li>
-            );
-          })}
-        </ul>
-      </section>
-    ))
-  }
+  <ul class="country-card-grid">
+    {
+      filtered.map((cs) => {
+        const enriched = enrichedById.get(cs.jurisdiction_id);
+        const card = cardById.get(cs.jurisdiction_id) ?? profileCardForJurisdiction(cs.jurisdiction_id);
+        return (
+          <li class="country-card">
+            <div class="country-card__head">
+              <h3>
+                <a href={`/jurisdictions/${cs.jurisdiction_id}/`}>{cs.country_name}</a>
+              </h3>
+              <StatusBucketBadge bucket={cs.status_bucket} label={cs.status_label} />
+            </div>
+            <p class="country-card__meta">{card?.status_headline ?? cs.status_summary}</p>
+            <p class="country-card__meta">
+              Regulations tracked: {card?.regulation_records_count ?? 0} · Sources monitored:{" "}
+              {card?.monitored_sources_count ?? 0} ({card?.automated_sources_count ?? 0} auto /{" "}
+              {card?.manual_sources_count ?? 0} manual)
+            </p>
+            {
+              card && (
+                <>
+                  <TrackerMeter label="Maturity" score={card.maturity_score} />
+                  <TrackerMeter label="Activity" score={card.activity_score} />
+                  <TrackerMeter label="Freshness" score={card.freshness_score} />
+                </>
+              )
+            }
+            {
+              enriched && !card && (
+                <p class="country-card__meta">
+                  Maturity {enriched.regulation_maturity_score} · Activity {enriched.activity_score}
+                </p>
+              )
+            }
+            <p class="country-card__meta">
+              Last update: {formatDate(cs.last_update_date)} · Review: {card?.review_status ?? "review_required"}
+            </p>
+          </li>
+        );
+      })
+    }
+  </ul>
 </BaseLayout>

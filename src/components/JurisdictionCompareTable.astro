@@ -4,6 +4,7 @@ import { STATUS_BUCKET_LABELS, AUTOMATION_METHOD_LABELS } from "../lib/tracker-d
 import StatusBucketBadge from "./StatusBucketBadge.astro";
 import { formatDate } from "../lib/format";
 import { sourcesForJurisdiction } from "../lib/data";
+import { profileCardForJurisdiction } from "../lib/runtime-monitoring-data";
 
 interface Props {
   selected: EnrichedCountryStatus[];
@@ -14,8 +15,11 @@ const { selected } = Astro.props;
 const rows = [
   { key: "region", label: "Region" },
   { key: "status", label: "Status bucket" },
-  { key: "maturity", label: "Maturity index — heuristic (0–100)" },
-  { key: "activity", label: "Activity index — heuristic (0–100)" },
+  { key: "maturity", label: "Maturity score (0–100)" },
+  { key: "activity", label: "Activity score (0–100)" },
+  { key: "regulations", label: "Regulation records (T080)" },
+  { key: "monitored_sources", label: "Monitored sources (pilot)" },
+  { key: "status_headline", label: "Status headline" },
   { key: "last_update", label: "Last update date" },
   { key: "updates", label: "Tracker updates" },
   { key: "methods", label: "Automation methods" },
@@ -49,14 +53,18 @@ const rows = [
               <th scope="row">{row.label}</th>
               {selected.map((cs) => {
                 const sources = sourcesForJurisdiction(cs.jurisdiction_id);
+                const card = profileCardForJurisdiction(cs.jurisdiction_id);
                 return (
                   <td>
                     {row.key === "region" && cs.region}
                     {row.key === "status" && (
                       <StatusBucketBadge bucket={cs.status_bucket} label={cs.status_label} />
                     )}
-                    {row.key === "maturity" && cs.regulation_maturity_score}
-                    {row.key === "activity" && cs.activity_score}
+                    {row.key === "maturity" && (card?.maturity_score ?? cs.regulation_maturity_score)}
+                    {row.key === "activity" && (card?.activity_score ?? cs.activity_score)}
+                    {row.key === "regulations" && (card?.regulation_records_count ?? "—")}
+                    {row.key === "monitored_sources" && (card?.monitored_sources_count ?? "—")}
+                    {row.key === "status_headline" && (card?.status_headline ?? cs.status_summary)}
                     {row.key === "last_update" && formatDate(cs.last_update_date)}
                     {row.key === "updates" && cs.latest_update_count}
                     {row.key === "methods" && (

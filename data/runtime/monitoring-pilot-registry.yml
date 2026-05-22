@@ -1,17 +1,17 @@
-# T078 — Official monitoring pilot registry (metadata-only, allowlisted)
+# T080 — Official monitoring pilot registry (metadata-only, allowlisted)
 # No competitor data. No full legal text. Control Tower / dev manual runs only.
 
-monitoring_pilot_registry_id: monitoring-pilot-registry-2026-05-22-t078
+monitoring_pilot_registry_id: monitoring-pilot-registry-2026-05-22-t080
 generated_at: "2026-05-22"
-product_version: "1.0.30"
+product_version: "1.0.31"
 legal_safe_note: >
-  T078 backend monitoring MVP pilot. Official public primary sources only.
+  T080 coverage expansion. Official public primary and institutional sources only.
   Metadata-only fetch for RSS sources when explicitly approved for a manual dev run.
   Manual-review sources registered without automated fetch. Not legal advice.
   Evidence and publication gates remain closed unless manually reviewed elsewhere.
 no_broad_crawl: true
 no_full_text_storage: true
-max_sources_default: 8
+max_sources_default: 12
 max_items_per_source_default: 20
 
 sources:
@@ -182,6 +182,297 @@ sources:
     schedule_enabled: false
     stores_metadata_only: true
     notes: Official Singapore PDPC framework page; manual review only in pilot.
+    safety_flags:
+      verified_on_source: false
+      client_use_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+
+  - source_key: uk-dsit-organisation
+    source_name: UK DSIT — Department for Science, Innovation and Technology
+    jurisdiction_ids: [uk]
+    topic_ids: [uk_ai_regulation]
+    source_type: regulator
+    fetch_mode: manual_review
+    official_url: https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology
+    allowed_host: www.gov.uk
+    monitoring_status: registered_manual
+    schedule_enabled: false
+    stores_metadata_only: true
+    notes: Official UK government department hub for science and AI policy announcements.
+    safety_flags:
+      verified_on_source: false
+      client_use_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+
+  - source_key: uk-gov-ai-regulation-approach
+    source_name: UK Government — AI regulation pro-innovation approach
+    jurisdiction_ids: [uk]
+    topic_ids: [uk_ai_regulation]
+    source_type: policy
+    fetch_mode: manual_review
+    official_url: https://www.gov.uk/government/publications/ai-regulation-a-pro-innovation-approach
+    allowed_host: www.gov.uk
+    monitoring_status: registered_manual
+    schedule_enabled: false
+    stores_metadata_only: true
+    safety_flags:
+      verified_on_source: false
+      client_use_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+
+  - source_key: eu-ai-office-hub
+    source_name: European Commission — EU AI Office
+    jurisdiction_ids: [eu]
+    topic_ids: [eu_ai_act]
+    source_type: regulator
+    fetch_mode: manual_review
+    official_url: https://digital-strategy.ec.europa.eu/en/policies/ai-office
+    allowed_host: digital-strategy.ec.europa.eu
+    monitoring_status: registered_manual
+    schedule_enabled: false
+    stores_metadata_only: true
+    safety_flags:
+      verified_on_source: false
+      client_use_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+
+  - source_key: eu-ai-act-service-desk
+    source_name: EU AI Act Service Desk — official portal
+    jurisdiction_ids: [eu]
+    topic_ids: [eu_ai_act]
+    source_type: regulator
+    fetch_mode: manual_review
+    official_url: https://ai-act-service-desk.ec.europa.eu/
+    allowed_host: ai-act-service-desk.ec.europa.eu
+    monitoring_status: registered_manual
+    schedule_enabled: false
+    stores_metadata_only: true
+    safety_flags:
+      verified_on_source: false
+      client_use_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+
+  - source_key: edpb-ai-topic-page
+    source_name: EDPB — Artificial intelligence topic index
+    jurisdiction_ids: [eu]
+    topic_ids: [eu_regulation, privacy]
+    source_type: regulator
+    fetch_mode: manual_review
+    official_url: https://www.edpb.europa.eu/our-work-tools/our-documents/topic/artificial-intelligence_en
+    allowed_host: www.edpb.europa.eu
+    monitoring_status: registered_manual
+    schedule_enabled: false
+    stores_metadata_only: true
+    notes: Complements EDPB RSS; page metadata for guidance/opinions index.
+    safety_flags:
+      verified_on_source: false
+      client_use_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+
+  - source_key: france-cnil-ai-fr
+    source_name: CNIL — Intelligence artificielle (official hub)
+    jurisdiction_ids: [france]
+    topic_ids: [privacy, ai_governance]
+    source_type: regulator
+    fetch_mode: manual_review
+    official_url: https://www.cnil.fr/fr/intelligence-artificielle
+    allowed_host: www.cnil.fr
+    monitoring_status: registered_manual
+    schedule_enabled: false
+    stores_metadata_only: true
+    notes: French-language primary CNIL AI page; English summary pages may differ.
+    safety_flags:
+      verified_on_source: false
+      client_use_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+
+  - source_key: canada-opc-ai
+    source_name: Office of the Privacy Commissioner of Canada — AI
+    jurisdiction_ids: [canada]
+    topic_ids: [privacy, responsible_ai]
+    source_type: regulator
+    fetch_mode: manual_review
+    official_url: https://www.priv.gc.ca/en/privacy-topics/technology/artificial-intelligence/
+    allowed_host: www.priv.gc.ca
+    monitoring_status: registered_manual
+    schedule_enabled: false
+    stores_metadata_only: true
+    safety_flags:
+      verified_on_source: false
+      client_use_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+
+  - source_key: us-ai-gov-portal
+    source_name: AI.gov — US federal AI policy portal
+    jurisdiction_ids: [us-federal]
+    topic_ids: [us_federal_ai_policy]
+    source_type: policy
+    fetch_mode: manual_review
+    official_url: https://www.ai.gov/
+    allowed_host: www.ai.gov
+    monitoring_status: registered_manual
+    schedule_enabled: false
+    stores_metadata_only: true
+    safety_flags:
+      verified_on_source: false
+      client_use_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+
+  - source_key: us-omb-ai-governance
+    source_name: OMB — AI governance and regulatory affairs
+    jurisdiction_ids: [us-federal]
+    topic_ids: [us_federal_ai_policy]
+    source_type: policy
+    fetch_mode: manual_review
+    official_url: https://www.omb.gov/information-resources-regulatory-affairs/ai/
+    allowed_host: www.omb.gov
+    monitoring_status: registered_manual
+    schedule_enabled: false
+    stores_metadata_only: true
+    safety_flags:
+      verified_on_source: false
+      client_use_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+
+  - source_key: us-ftc-ai-guidance
+    source_name: FTC — Artificial intelligence (business guidance)
+    jurisdiction_ids: [us-federal]
+    topic_ids: [us_federal_ai_policy, consumer_protection]
+    source_type: regulator
+    fetch_mode: manual_review
+    official_url: https://www.ftc.gov/policy/advocacy-research/tech-at-ftc/artificial-intelligence
+    allowed_host: www.ftc.gov
+    monitoring_status: registered_manual
+    schedule_enabled: false
+    stores_metadata_only: true
+    safety_flags:
+      verified_on_source: false
+      client_use_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+
+  - source_key: us-colorado-ai-act-sb24-205
+    source_name: Colorado General Assembly — SB 24-205 (AI Act)
+    jurisdiction_ids: [us-colorado]
+    topic_ids: [us_state_ai]
+    source_type: law_portal
+    fetch_mode: manual_review
+    official_url: https://leg.colorado.gov/bills/sb24-205
+    allowed_host: leg.colorado.gov
+    monitoring_status: registered_manual
+    schedule_enabled: false
+    stores_metadata_only: true
+    safety_flags:
+      verified_on_source: false
+      client_use_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+
+  - source_key: brazil-senado-pl-2338
+    source_name: Brazilian Federal Senate — PL 2338/2023 (AI bill)
+    jurisdiction_ids: [brazil]
+    topic_ids: [ai_governance]
+    source_type: law_portal
+    fetch_mode: manual_review
+    official_url: https://www.senado.leg.br/noticias/materias/2023/12/20/pl-2338-2023
+    allowed_host: www.senado.leg.br
+    monitoring_status: registered_manual
+    schedule_enabled: false
+    stores_metadata_only: true
+    safety_flags:
+      verified_on_source: false
+      client_use_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+
+  - source_key: south-korea-pipc-ai
+    source_name: PIPC — Personal Information Protection Commission (English)
+    jurisdiction_ids: [south-korea]
+    topic_ids: [privacy, ai_governance]
+    source_type: regulator
+    fetch_mode: manual_review
+    official_url: https://www.pipc.go.kr/eng/
+    allowed_host: www.pipc.go.kr
+    monitoring_status: registered_manual
+    schedule_enabled: false
+    stores_metadata_only: true
+    safety_flags:
+      verified_on_source: false
+      client_use_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+
+  - source_key: india-meity-ai
+    source_name: MeitY — Artificial intelligence policy
+    jurisdiction_ids: [india]
+    topic_ids: [digital_policy, ai_governance]
+    source_type: policy
+    fetch_mode: manual_review
+    official_url: https://www.meity.gov.in/artificial-intelligence
+    allowed_host: www.meity.gov.in
+    monitoring_status: registered_manual
+    schedule_enabled: false
+    stores_metadata_only: true
+    safety_flags:
+      verified_on_source: false
+      client_use_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+
+  - source_key: unesco-ai-ethics-hub
+    source_name: UNESCO — Artificial intelligence hub
+    jurisdiction_ids: [unesco]
+    topic_ids: [international_ai_policy, ethics]
+    source_type: international_body
+    fetch_mode: manual_review
+    official_url: https://www.unesco.org/en/artificial-intelligence
+    allowed_host: www.unesco.org
+    monitoring_status: registered_manual
+    schedule_enabled: false
+    stores_metadata_only: true
+    safety_flags:
+      verified_on_source: false
+      client_use_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+
+  - source_key: singapore-imda-trusted-ai
+    source_name: IMDA — Building a trusted AI ecosystem
+    jurisdiction_ids: [singapore]
+    topic_ids: [ai_governance]
+    source_type: regulator
+    fetch_mode: manual_review
+    official_url: https://www.imda.gov.sg/resources/blog/blog-listing/blog-details/building-a-trusted-ai-ecosystem
+    allowed_host: www.imda.gov.sg
+    monitoring_status: registered_manual
+    schedule_enabled: false
+    stores_metadata_only: true
     safety_flags:
       verified_on_source: false
       client_use_allowed: false

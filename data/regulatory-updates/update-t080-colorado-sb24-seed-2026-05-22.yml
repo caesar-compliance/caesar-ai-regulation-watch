@@ -1,0 +1,18 @@
+update_id: t080-colorado-sb24-seed
+update_date: "2026-05-22"
+jurisdiction_id: us-colorado
+title: T080 seed — Colorado SB 24-205 legislative reference
+update_type: guidance
+summary: T080 registers official Colorado legislative page for SB 24-205.
+source_ids: [us-colorado-ai-act]
+source_urls: [https://leg.colorado.gov/bills/sb24-205]
+topic_tags: [us_federal_ai_policy]
+status_bucket: adopted
+importance: medium
+confidence_score: medium
+automation_method: manual_seed
+requires_human_review: false
+client_evidence_allowed: false
+final_evidence_allowed: false
+legal_change_claimed: false
+legal_safe_note: T080 seed only. Not legal advice.

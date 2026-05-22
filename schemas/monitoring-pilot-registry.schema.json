@@ -23,7 +23,7 @@
     "sources": {
       "type": "array",
       "minItems": 1,
-      "maxItems": 20,
+      "maxItems": 35,
       "items": { "$ref": "#/$defs/source" }
     }
   },

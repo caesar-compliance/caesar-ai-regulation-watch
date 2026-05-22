@@ -8,7 +8,7 @@
     "attribution": null,
     "note": "Equirectangular SVG projection from manual YAML coordinates. Display markers only."
   },
-  "marker_count": 13,
+  "marker_count": 18,
   "markers": [
     {
       "jurisdiction_id": "australia",
@@ -32,6 +32,29 @@
         "timelines": 0
       },
       "page_href": "/jurisdictions/australia/"
+    },
+    {
+      "jurisdiction_id": "brazil",
+      "name": "Brazil",
+      "region": "Americas",
+      "type": "country",
+      "monitoring_priority": "medium",
+      "review_status": "pending_review",
+      "map": {
+        "display_name": "Brasília",
+        "latitude": -15.7939,
+        "longitude": -47.8828,
+        "marker_type": "country_capital",
+        "coverage_status": "pilot",
+        "map_note": "Pilot legislative tracking reference; not territorial boundary precision."
+      },
+      "counts": {
+        "sources": 1,
+        "records": 0,
+        "changes": 0,
+        "timelines": 0
+      },
+      "page_href": "/jurisdictions/brazil/"
     },
     {
       "jurisdiction_id": "canada",
@@ -80,6 +103,29 @@
       "page_href": "/jurisdictions/china/"
     },
     {
+      "jurisdiction_id": "coe",
+      "name": "Council of Europe",
+      "region": "Europe",
+      "type": "other",
+      "monitoring_priority": "medium",
+      "review_status": "pending_review",
+      "map": {
+        "display_name": "Strasbourg (CoE)",
+        "latitude": 48.5734,
+        "longitude": 7.7521,
+        "marker_type": "institutional",
+        "coverage_status": "international",
+        "map_note": "International framework institution; not a country boundary."
+      },
+      "counts": {
+        "sources": 1,
+        "records": 0,
+        "changes": 0,
+        "timelines": 0
+      },
+      "page_href": "/jurisdictions/coe/"
+    },
+    {
       "jurisdiction_id": "eu",
       "name": "European Union",
       "region": "Europe",
@@ -103,6 +149,29 @@
       "page_href": "/jurisdictions/eu/"
     },
     {
+      "jurisdiction_id": "france",
+      "name": "France",
+      "region": "Europe",
+      "type": "country",
+      "monitoring_priority": "medium",
+      "review_status": "pending_review",
+      "map": {
+        "display_name": "Paris",
+        "latitude": 48.8566,
+        "longitude": 2.3522,
+        "marker_type": "country_capital",
+        "coverage_status": "pilot",
+        "map_note": "Pilot coverage for CNIL and selected official AI guidance pages."
+      },
+      "counts": {
+        "sources": 1,
+        "records": 0,
+        "changes": 0,
+        "timelines": 0
+      },
+      "page_href": "/jurisdictions/france/"
+    },
+    {
       "jurisdiction_id": "g7",
       "name": "G7",
       "region": "International",
@@ -124,6 +193,29 @@
         "timelines": 0
       },
       "page_href": "/jurisdictions/g7/"
+    },
+    {
+      "jurisdiction_id": "india",
+      "name": "India",
+      "region": "Asia-Pacific",
+      "type": "country",
+      "monitoring_priority": "medium",
+      "review_status": "pending_review",
+      "map": {
+        "display_name": "New Delhi",
+        "latitude": 28.6139,
+        "longitude": 77.209,
+        "marker_type": "country_capital",
+        "coverage_status": "pilot",
+        "map_note": "Pilot official ministry policy coverage only."
+      },
+      "counts": {
+        "sources": 1,
+        "records": 0,
+        "changes": 0,
+        "timelines": 0
+      },
+      "page_href": "/jurisdictions/india/"
     },
     {
       "jurisdiction_id": "japan",
@@ -285,6 +377,29 @@
         "timelines": 0
       },
       "page_href": "/jurisdictions/unesco/"
+    },
+    {
+      "jurisdiction_id": "us-colorado",
+      "name": "Colorado (United States)",
+      "region": "Americas",
+      "type": "territory",
+      "monitoring_priority": "medium",
+      "review_status": "pending_review",
+      "map": {
+        "display_name": "Denver",
+        "latitude": 39.7392,
+        "longitude": -104.9903,
+        "marker_type": "country_capital",
+        "coverage_status": "pilot",
+        "map_note": "US state-level pilot; federal law remains separately tracked under us-federal."
+      },
+      "counts": {
+        "sources": 1,
+        "records": 0,
+        "changes": 0,
+        "timelines": 0
+      },
+      "page_href": "/jurisdictions/us-colorado/"
     },
     {
       "jurisdiction_id": "us-federal",

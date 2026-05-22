@@ -1,0 +1,21 @@
+jurisdiction_id: coe
+country_name: Council of Europe
+region: Europe
+status_bucket: guidance
+status_label: Framework — AI Convention hub
+status_summary: >
+  Pilot tracks Council of Europe artificial intelligence framework pages. National ratification and
+  implementation require separate review.
+last_update_date: "2026-05-22"
+latest_update_id: t080-coe-ai-seed
+source_ids:
+  - council-europe-ai
+topic_tags:
+  - eu_regulation
+confidence_score: medium
+automation_method: manual_seed
+requires_human_review: false
+client_evidence_allowed: false
+final_evidence_allowed: false
+legal_change_claimed: false
+legal_safe_note: T080 manual seed. Not legal advice. International framework only.

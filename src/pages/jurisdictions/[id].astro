@@ -33,7 +33,10 @@ import { formatDate, truncate, humanizeId } from "../../lib/format";
 import {
   coverageForJurisdiction,
   getDetectedChanges,
+  profileCardForJurisdiction,
+  regulationRecordsForJurisdiction,
 } from "../../lib/runtime-monitoring-data";
+import TrackerMeter from "../../components/TrackerMeter.astro";
 
 export function getStaticPaths() {
   return getJurisdictions().map((j) => ({
@@ -68,6 +71,8 @@ const comparePeers = comparePeersFor(jurisdiction.jurisdiction_id, jurisdiction.
 const defaultCompare = compareRoute(comparePeers);
 const regionRoute = `/regions/${regionSlug(jurisdiction.region)}/`;
 const monitoringCoverage = coverageForJurisdiction(jurisdiction.jurisdiction_id);
+const profileCard = profileCardForJurisdiction(jurisdiction.jurisdiction_id);
+const t080Records = regulationRecordsForJurisdiction(jurisdiction.jurisdiction_id);
 const jurisdictionChanges = getDetectedChanges()
   .filter((c) =>
     (monitoringCoverage?.monitored_sources ?? []).some(
@@ -130,9 +135,54 @@ const jurisdictionChanges = getDetectedChanges()
   <ReviewBanner reviewStatus={jurisdiction.review_status} />
 
   {
+    profileCard && (
+      <section class="tracker-section">
+        <h2>Country profile (T080)</h2>
+        <p>{profileCard.status_headline}</p>
+        <TrackerMeter label="Maturity" score={profileCard.maturity_score} />
+        <TrackerMeter label="Activity" score={profileCard.activity_score} />
+        <TrackerMeter label="Freshness" score={profileCard.freshness_score} />
+        <TrackerMeter label="Confidence" score={profileCard.confidence_score} />
+        <p class="country-card__meta">
+          {profileCard.regulation_records_count} regulation record(s) ·{" "}
+          {profileCard.monitored_sources_count} monitored source(s) · Review:{" "}
+          {profileCard.review_status}
+        </p>
+      </section>
+    )
+  }
+
+  {
+    t080Records.length > 0 && (
+      <section class="tracker-section">
+        <h2>Named regulation records (T080)</h2>
+        <p class="lead">VerifyWise-style metadata records — not legal advice, review required.</p>
+        <ul class="card-list">
+          {t080Records.map((r) => (
+            <li class="card">
+              <h3>
+                <a href={r.source_url} rel="noopener noreferrer">{r.title}</a>
+              </h3>
+              <p>
+                <span class="badge badge--type">{r.status}</span> · {r.source_type}
+              </p>
+              <p>{r.short_summary}</p>
+              {
+                r.effective_date && (
+                  <p class="card__meta">Effective (metadata): {formatDate(r.effective_date)}</p>
+                )
+              }
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  {
     monitoringCoverage && (
       <section class="tracker-section">
-        <h2>Monitored sources (T078 backend)</h2>
+        <h2>Monitored sources (pilot registry)</h2>
         <p class="lead">
           VerifyWise-style source-backed profile: official URLs from the pilot registry only — review
           required, not verified legal change.

@@ -1,8 +1,8 @@
 # Next Actions — Caesar AI Regulation Watch
 
 **Last updated:** 22 May 2026
-**Current codebase:** v1.0.30 (T079 dev Worker activation + E2E runtime run)
-**Live release:** v1.0.30 — deployed 22 May 2026 (`DEPLOY-20260522-048`)
+**Current codebase:** v1.0.31 (T080 coverage expansion + country/regulation model)
+**Live release:** v1.0.31 — deploy after `regulation-watch-v1.0.31` tag
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
 ---

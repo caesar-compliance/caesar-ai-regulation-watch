@@ -1,0 +1,20 @@
+jurisdiction_id: india
+country_name: India
+region: Asia-Pacific
+status_bucket: guidance
+status_label: Guidance — MeitY AI policy
+status_summary: >
+  Pilot tracks official MeitY artificial intelligence policy pages. Not complete Indian AI legal coverage.
+last_update_date: "2026-05-22"
+latest_update_id: t080-india-meity-seed
+source_ids:
+  - india-meity-ai
+topic_tags:
+  - source_monitoring
+confidence_score: medium
+automation_method: manual_seed
+requires_human_review: false
+client_evidence_allowed: false
+final_evidence_allowed: false
+legal_change_claimed: false
+legal_safe_note: T080 manual seed. Not legal advice.

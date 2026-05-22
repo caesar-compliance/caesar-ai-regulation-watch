@@ -1,0 +1,18 @@
+update_id: t080-india-meity-seed
+update_date: "2026-05-22"
+jurisdiction_id: india
+title: T080 seed — MeitY AI policy pages
+update_type: guidance
+summary: T080 registers official MeitY artificial intelligence policy hub.
+source_ids: [india-meity-ai]
+source_urls: [https://www.meity.gov.in/artificial-intelligence]
+topic_tags: [source_monitoring]
+status_bucket: guidance
+importance: low
+confidence_score: medium
+automation_method: manual_seed
+requires_human_review: false
+client_evidence_allowed: false
+final_evidence_allowed: false
+legal_change_claimed: false
+legal_safe_note: T080 seed only. Not legal advice.

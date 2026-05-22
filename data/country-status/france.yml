@@ -1,0 +1,21 @@
+jurisdiction_id: france
+country_name: France
+region: Europe
+status_bucket: guidance
+status_label: Guidance — CNIL AI hub
+status_summary: >
+  Pilot tracks official CNIL artificial intelligence guidance pages. National implementation of EU
+  AI Act and sector rules require separate review.
+last_update_date: "2026-05-22"
+latest_update_id: t080-france-cnil-seed
+source_ids:
+  - france-cnil-ai
+topic_tags:
+  - privacy
+confidence_score: low
+automation_method: manual_seed
+requires_human_review: false
+client_evidence_allowed: false
+final_evidence_allowed: false
+legal_change_claimed: false
+legal_safe_note: T080 manual seed. Not legal advice. Verify on official CNIL pages.

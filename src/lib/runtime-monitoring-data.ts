@@ -62,11 +62,72 @@ export interface MapMarker {
   jurisdiction_id: string;
   label: string;
   region: string;
-  status_bucket: string;
-  maturity_index: number;
-  activity_index: number;
-  monitored_source_count: number;
+  status_bucket?: string;
+  status_headline?: string;
+  maturity_index?: number;
+  activity_index?: number;
+  maturity_score: number;
+  activity_score: number;
+  freshness_score?: number;
+  confidence_score?: number;
+  maturity_level?: string;
+  activity_level?: string;
+  source_freshness?: string;
+  coverage_confidence?: string;
+  monitored_source_count?: number;
+  source_count?: number;
+  regulation_count?: number;
   review_required: boolean;
+  review_status?: string;
+}
+
+export interface RegulationRecordExport {
+  regulation_id: string;
+  jurisdiction_id: string;
+  title: string;
+  source_url: string;
+  source_type: string;
+  status: string;
+  date_published?: string | null;
+  effective_date?: string | null;
+  obligation_date?: string | null;
+  topic_tags: string[];
+  affected_actor_tags?: string[];
+  short_summary: string;
+  review_status: string;
+  review_required: boolean;
+}
+
+export interface JurisdictionProfileCard {
+  jurisdiction_id: string;
+  display_name: string;
+  region: string;
+  status_headline: string;
+  maturity_level: string;
+  activity_level: string;
+  source_freshness: string;
+  coverage_confidence: string;
+  monitored_sources_count: number;
+  regulation_records_count: number;
+  maturity_score: number;
+  activity_score: number;
+  freshness_score: number;
+  confidence_score: number;
+  review_status: string;
+  review_required: boolean;
+}
+
+export interface TrackerSummary {
+  countries_covered?: number;
+  regulations_tracked?: number;
+  monitored_source_count?: number;
+  automated_source_count?: number;
+  manual_review_source_count?: number;
+  detected_changes_count?: number;
+  review_candidates_count?: number;
+  scheduled_monitoring_enabled?: boolean;
+  live_ingestion_enabled?: boolean;
+  status?: string;
 }
 
 export function getMonitoringStatus(): MonitoringStatus {
@@ -110,9 +171,51 @@ export function getCountryCoverage() {
 export function coverageForJurisdiction(jurisdictionId: string) {
   const rows = getCountryCoverage() as {
     jurisdiction_id: string;
+    display_name?: string;
+    status_headline?: string;
     monitored_sources?: { source_key: string; source_name: string; official_url: string; fetch_mode: string }[];
     automated_sources?: number;
     manual_sources?: number;
+    regulation_records_count?: number;
+    maturity_index?: number;
+    activity_index?: number;
+    freshness_score?: number;
+    confidence_score?: number;
   }[];
   return rows.find((r) => r.jurisdiction_id === jurisdictionId) ?? null;
+}
+
+export function getRegulationRecords(): RegulationRecordExport[] {
+  const data = readJson<{ records?: RegulationRecordExport[] }>(
+    "regulation-records.json",
+    { records: [] },
+  );
+  return data.records ?? [];
+}
+
+export function regulationRecordsForJurisdiction(jurisdictionId: string) {
+  return getRegulationRecords().filter((r) => r.jurisdiction_id === jurisdictionId);
+}
+
+export function getJurisdictionProfileCards(): JurisdictionProfileCard[] {
+  const data = readJson<{ cards?: JurisdictionProfileCard[] }>(
+    "jurisdiction-profile-cards.json",
+    { cards: [] },
+  );
+  return data.cards ?? [];
+}
+
+export function profileCardForJurisdiction(jurisdictionId: string) {
+  return (
+    getJurisdictionProfileCards().find((c) => c.jurisdiction_id === jurisdictionId) ??
+    null
+  );
+}
+
+export function getTrackerSummary(): TrackerSummary {
+  return readJson<TrackerSummary>("tracker-summary.json", {});
+}
+
+export function mapMarkerForJurisdiction(jurisdictionId: string) {
+  return getMapMarkers().find((m) => m.jurisdiction_id === jurisdictionId) ?? null;
 }

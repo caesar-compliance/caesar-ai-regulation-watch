@@ -17,10 +17,12 @@ import {
   getMonitoringStatus,
   getDetectedChanges,
   getReviewCandidates,
+  getTrackerSummary,
 } from "../../lib/runtime-monitoring-data";
 
 const metrics = getAutomationFirstMetrics();
 const monitoring = getMonitoringStatus();
+const trackerSummary = getTrackerSummary();
 const allDetectedChanges = getDetectedChanges();
 const detectedChanges = allDetectedChanges.slice(0, 5);
 const allReviewCandidates = getReviewCandidates();
@@ -75,37 +77,60 @@ const latestUpdates = filterRegulatoryUpdates({
   <MetricsStrip metrics={metrics} />
 
   <section class="tracker-section">
-    <h2>Backend monitoring dashboard (T079)</h2>
+    <h2>Product tracker dashboard (T080)</h2>
     <div class="metrics-strip metrics-strip--monitoring">
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{trackerSummary.countries_covered ?? allStatuses.length}</span>
+        <span class="metrics-strip__label">Countries covered</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{trackerSummary.regulations_tracked ?? 0}</span>
+        <span class="metrics-strip__label">Regulations tracked</span>
+      </div>
       <div class="metrics-strip__item">
         <span class="metrics-strip__value">{monitoring.monitored_source_count ?? 0}</span>
         <span class="metrics-strip__label">Monitored sources</span>
       </div>
       <div class="metrics-strip__item">
         <span class="metrics-strip__value">{automatedRssCount}</span>
-        <span class="metrics-strip__label">Automated RSS pilot</span>
+        <span class="metrics-strip__label">Automated RSS</span>
       </div>
       <div class="metrics-strip__item">
         <span class="metrics-strip__value">{detectedChangesCount}</span>
-        <span class="metrics-strip__label">Detected changes (public export)</span>
+        <span class="metrics-strip__label">Detected changes</span>
       </div>
       <div class="metrics-strip__item">
         <span class="metrics-strip__value">{reviewCandidatesCount}</span>
-        <span class="metrics-strip__label">Review queue (public export)</span>
-      </div>
-      <div class="metrics-strip__item">
-        <span class="metrics-strip__value">{monitoring.status ?? "—"}</span>
-        <span class="metrics-strip__label">Automation status</span>
+        <span class="metrics-strip__label">Review candidates</span>
       </div>
       <div class="metrics-strip__item">
         <span class="metrics-strip__value">{monitoring.worker_deployed ? "yes" : "no"}</span>
-        <span class="metrics-strip__label">Worker deployed (dev)</span>
+        <span class="metrics-strip__label">Worker (dev)</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">off</span>
+        <span class="metrics-strip__label">Scheduled monitoring</span>
       </div>
     </div>
     <p>
-      <a href="/map/">Interactive map</a> · <a href="/runtime-health/">Runtime health</a> ·{" "}
-      <a href="/data/runtime-monitoring-status.json">Monitoring status JSON</a>
+      <a href="/map/">Interactive map</a> · <a href="/countries/">Country cards</a> ·{" "}
+      <a href="/runtime-health/">Runtime health</a> ·{" "}
+      <a href="/data/tracker-summary.json">tracker-summary.json</a>
     </p>
+    {
+      reviewCandidates.length > 0 && (
+        <section>
+          <h3>Review queue preview</h3>
+          <ul>
+            {reviewCandidates.slice(0, 5).map((c) => (
+              <li>
+                {c.proposed_title ?? "Untitled"} — <em>{c.candidate_status}</em> (review required)
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
     {
       detectedChanges.length > 0 && (
         <ul>

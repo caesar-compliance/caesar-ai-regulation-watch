@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 22 May 2026 (v1.0.30 T079 dev Worker activation)
+**Last updated:** 22 May 2026 (v1.0.31 T080 coverage expansion + country/regulation model)
 
 ## T079 — Dev Worker activation + E2E runtime run
 
@@ -168,6 +168,20 @@ See v0.2.0 jurisdictions/sources and v0.3.0 laws/guidance/changes in prior inven
 | **public/data/jurisdiction-profiles.json** | Profile export (generated) |
 | **public/data/region-drilldowns.json** | Region drilldown export (generated) |
 | **public/data/topic-drilldowns.json** | Topic drilldown export (generated) |
+
+### T080 coverage + country/regulation model (v1.0.31)
+
+| Path | Role |
+|------|------|
+| **data/runtime/monitoring-pilot-registry.yml** | 25 official pilot sources (2 automated RSS) |
+| **data/tracker/regulation-records.yml** | 20 named regulation metadata records |
+| **data/tracker/jurisdiction-profile-cards.yml** | 18 jurisdiction profile cards |
+| **ops/supabase/003_country_regulation_tracker_model.sql** | Additive DB model (optional apply) |
+| **public/data/regulation-records.json** | Public regulation records export |
+| **public/data/jurisdiction-profile-cards.json** | Public profile cards export |
+| **public/data/tracker-summary.json** | Tracker dashboard summary export |
+| **scripts/runtime/lib/tracker-coverage-data.mjs** | YAML → export enrichment |
+| **src/components/TrackerMeter.astro** | Maturity/activity/freshness meter UI |
 
 ---
 

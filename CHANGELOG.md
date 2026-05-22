@@ -11,6 +11,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.31] - 22 May 2026
+
+### Added
+
+- **T080 coverage expansion** — monitoring pilot registry expanded to **25** official sources (2 automated RSS, 23 manual review); new jurisdictions France, Brazil, India, US Colorado, Council of Europe.
+- **VerifyWise-style data layer** — `data/tracker/regulation-records.yml` (20 named records), `jurisdiction-profile-cards.yml` (18 profiles); public exports `regulation-records.json`, `jurisdiction-profile-cards.json`, `tracker-summary.json`.
+- **Techieray-style map metrics** — enriched `regulation-map-metrics.json` and `regulation-country-coverage.json` with maturity/activity/freshness/confidence scores.
+- **Supabase** — additive `ops/supabase/003_country_regulation_tracker_model.sql` (not applied in T080).
+- **Validators** — `validate:regulation-records`, `validate:country-coverage`, `validate:map-metrics`.
+- **UI** — `/map/` side panel and meters; `/countries/` card grid; `/tracker/` T080 dashboard; `/compare/` regulation/source counts; `/jurisdictions/[id]/` named regulation records.
+
+### Safety
+
+- Official/institutional URLs only; metadata-only; no cron; no gates opened; no competitor data.
+
+---
+
 ## [1.0.30] - 22 May 2026
 
 ### Added

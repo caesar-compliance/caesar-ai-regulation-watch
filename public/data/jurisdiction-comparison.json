@@ -25,6 +25,24 @@
       "comparison_summary": "Australia: Guidance — standards-led approach (guidance); 1 tracker update(s); maturity index 54/100 from pilot metadata — not legal advice."
     },
     {
+      "jurisdiction_id": "brazil",
+      "country_name": "Brazil",
+      "region": "Americas",
+      "status_bucket": "proposed",
+      "status_label": "Proposed — federal AI bill (PL 2338/2023)",
+      "last_update_date": "2026-05-22",
+      "regulation_maturity_score": 42,
+      "activity_score": 45,
+      "latest_update_count": 1,
+      "manual_seed_update_count": 1,
+      "offline_metadata_adapter_update_count": 0,
+      "source_count": 1,
+      "topic_tags": [
+        "risk_management"
+      ],
+      "comparison_summary": "Brazil: Proposed — federal AI bill (PL 2338/2023) (proposed); 1 tracker update(s); maturity index 42/100 from pilot metadata — not legal advice."
+    },
+    {
       "jurisdiction_id": "canada",
       "country_name": "Canada",
       "region": "North America",
@@ -61,6 +79,42 @@
       "comparison_summary": "China: Adopted — targeted measures (adopted); 2 tracker update(s); maturity index 72/100 from pilot metadata — not legal advice."
     },
     {
+      "jurisdiction_id": "us-colorado",
+      "country_name": "Colorado (United States)",
+      "region": "Americas",
+      "status_bucket": "adopted",
+      "status_label": "Adopted — Colorado AI Act (SB 24-205)",
+      "last_update_date": "2026-05-22",
+      "regulation_maturity_score": 69,
+      "activity_score": 45,
+      "latest_update_count": 1,
+      "manual_seed_update_count": 1,
+      "offline_metadata_adapter_update_count": 0,
+      "source_count": 1,
+      "topic_tags": [
+        "us_federal_ai_policy"
+      ],
+      "comparison_summary": "Colorado (United States): Adopted — Colorado AI Act (SB 24-205) (adopted); 1 tracker update(s); maturity index 69/100 from pilot metadata — not legal advice."
+    },
+    {
+      "jurisdiction_id": "coe",
+      "country_name": "Council of Europe",
+      "region": "Europe",
+      "status_bucket": "guidance",
+      "status_label": "Framework — AI Convention hub",
+      "last_update_date": "2026-05-22",
+      "regulation_maturity_score": 54,
+      "activity_score": 45,
+      "latest_update_count": 1,
+      "manual_seed_update_count": 1,
+      "offline_metadata_adapter_update_count": 0,
+      "source_count": 1,
+      "topic_tags": [
+        "eu_regulation"
+      ],
+      "comparison_summary": "Council of Europe: Framework — AI Convention hub (guidance); 1 tracker update(s); maturity index 54/100 from pilot metadata — not legal advice."
+    },
+    {
       "jurisdiction_id": "eu",
       "country_name": "European Union",
       "region": "Europe",
@@ -81,6 +135,24 @@
       "comparison_summary": "European Union: Adopted — comprehensive framework (adopted); 9 tracker update(s); maturity index 81/100 from pilot metadata — not legal advice."
     },
     {
+      "jurisdiction_id": "france",
+      "country_name": "France",
+      "region": "Europe",
+      "status_bucket": "guidance",
+      "status_label": "Guidance — CNIL AI hub",
+      "last_update_date": "2026-05-22",
+      "regulation_maturity_score": 54,
+      "activity_score": 45,
+      "latest_update_count": 1,
+      "manual_seed_update_count": 1,
+      "offline_metadata_adapter_update_count": 0,
+      "source_count": 1,
+      "topic_tags": [
+        "privacy"
+      ],
+      "comparison_summary": "France: Guidance — CNIL AI hub (guidance); 1 tracker update(s); maturity index 54/100 from pilot metadata — not legal advice."
+    },
+    {
       "jurisdiction_id": "g7",
       "country_name": "G7 (Hiroshima AI Process)",
       "region": "International",
@@ -97,6 +169,24 @@
         "us_federal_ai_policy"
       ],
       "comparison_summary": "G7 (Hiroshima AI Process): International — voluntary process (no_clear_framework); 1 tracker update(s); maturity index 17/100 from pilot metadata — not legal advice."
+    },
+    {
+      "jurisdiction_id": "india",
+      "country_name": "India",
+      "region": "Asia-Pacific",
+      "status_bucket": "guidance",
+      "status_label": "Guidance — MeitY AI policy",
+      "last_update_date": "2026-05-22",
+      "regulation_maturity_score": 54,
+      "activity_score": 45,
+      "latest_update_count": 1,
+      "manual_seed_update_count": 1,
+      "offline_metadata_adapter_update_count": 0,
+      "source_count": 1,
+      "topic_tags": [
+        "source_monitoring"
+      ],
+      "comparison_summary": "India: Guidance — MeitY AI policy (guidance); 1 tracker update(s); maturity index 54/100 from pilot metadata — not legal advice."
     },
     {
       "jurisdiction_id": "japan",

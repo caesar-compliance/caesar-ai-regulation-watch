@@ -3,9 +3,144 @@
   "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
   "automation_first_seed": true,
   "not_legal_advice": true,
-  "manual_seed_count": 15,
+  "manual_seed_count": 20,
   "offline_metadata_adapter_count": 18,
   "items": [
+    {
+      "update_id": "t080-brazil-senado-seed",
+      "update_date": "2026-05-22",
+      "jurisdiction_id": "brazil",
+      "title": "T080 seed — Senado PL 2338/2023 reference",
+      "update_type": "guidance",
+      "summary": "T080 registers official Senado legislative page for PL 2338/2023 tracking.",
+      "source_ids": [
+        "brazil-senado-ai"
+      ],
+      "source_urls": [
+        "https://www.senado.leg.br/noticias/materias/2023/12/20/pl-2338-2023"
+      ],
+      "topic_tags": [
+        "risk_management"
+      ],
+      "status_bucket": "proposed",
+      "importance": "medium",
+      "confidence_score": "low",
+      "automation_method": "manual_seed",
+      "requires_human_review": false,
+      "client_evidence_allowed": false,
+      "final_evidence_allowed": false,
+      "legal_change_claimed": false,
+      "legal_safe_note": "T080 seed only. Not legal advice.",
+      "human_review_required": false
+    },
+    {
+      "update_id": "t080-coe-ai-seed",
+      "update_date": "2026-05-22",
+      "jurisdiction_id": "coe",
+      "title": "T080 seed — Council of Europe AI hub",
+      "update_type": "guidance",
+      "summary": "T080 registers official Council of Europe artificial intelligence framework pages.",
+      "source_ids": [
+        "council-europe-ai"
+      ],
+      "source_urls": [
+        "https://www.coe.int/en/web/artificial-intelligence"
+      ],
+      "topic_tags": [
+        "eu_regulation"
+      ],
+      "status_bucket": "guidance",
+      "importance": "low",
+      "confidence_score": "medium",
+      "automation_method": "manual_seed",
+      "requires_human_review": false,
+      "client_evidence_allowed": false,
+      "final_evidence_allowed": false,
+      "legal_change_claimed": false,
+      "legal_safe_note": "T080 seed only. Not legal advice.",
+      "human_review_required": false
+    },
+    {
+      "update_id": "t080-colorado-sb24-seed",
+      "update_date": "2026-05-22",
+      "jurisdiction_id": "us-colorado",
+      "title": "T080 seed — Colorado SB 24-205 legislative reference",
+      "update_type": "guidance",
+      "summary": "T080 registers official Colorado legislative page for SB 24-205.",
+      "source_ids": [
+        "us-colorado-ai-act"
+      ],
+      "source_urls": [
+        "https://leg.colorado.gov/bills/sb24-205"
+      ],
+      "topic_tags": [
+        "us_federal_ai_policy"
+      ],
+      "status_bucket": "adopted",
+      "importance": "medium",
+      "confidence_score": "medium",
+      "automation_method": "manual_seed",
+      "requires_human_review": false,
+      "client_evidence_allowed": false,
+      "final_evidence_allowed": false,
+      "legal_change_claimed": false,
+      "legal_safe_note": "T080 seed only. Not legal advice.",
+      "human_review_required": false
+    },
+    {
+      "update_id": "t080-france-cnil-seed",
+      "update_date": "2026-05-22",
+      "jurisdiction_id": "france",
+      "title": "T080 seed — CNIL AI guidance hub registered",
+      "update_type": "guidance",
+      "summary": "T080 coverage expansion registers official CNIL AI pages in pilot tracker.",
+      "source_ids": [
+        "france-cnil-ai"
+      ],
+      "source_urls": [
+        "https://www.cnil.fr/fr/intelligence-artificielle"
+      ],
+      "topic_tags": [
+        "privacy"
+      ],
+      "status_bucket": "guidance",
+      "importance": "low",
+      "confidence_score": "low",
+      "automation_method": "manual_seed",
+      "requires_human_review": false,
+      "client_evidence_allowed": false,
+      "final_evidence_allowed": false,
+      "legal_change_claimed": false,
+      "legal_safe_note": "T080 seed only. Not legal advice.",
+      "human_review_required": false
+    },
+    {
+      "update_id": "t080-india-meity-seed",
+      "update_date": "2026-05-22",
+      "jurisdiction_id": "india",
+      "title": "T080 seed — MeitY AI policy pages",
+      "update_type": "guidance",
+      "summary": "T080 registers official MeitY artificial intelligence policy hub.",
+      "source_ids": [
+        "india-meity-ai"
+      ],
+      "source_urls": [
+        "https://www.meity.gov.in/artificial-intelligence"
+      ],
+      "topic_tags": [
+        "source_monitoring"
+      ],
+      "status_bucket": "guidance",
+      "importance": "low",
+      "confidence_score": "medium",
+      "automation_method": "manual_seed",
+      "requires_human_review": false,
+      "client_evidence_allowed": false,
+      "final_evidence_allowed": false,
+      "legal_change_claimed": false,
+      "legal_safe_note": "T080 seed only. Not legal advice.",
+      "human_review_required": false
+    },
     {
       "update_id": "adapter-crp-us-nist-ai-portal-last-modified",
       "update_date": "2026-05-20",

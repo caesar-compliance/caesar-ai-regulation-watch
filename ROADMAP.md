@@ -4,7 +4,7 @@
 
 This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
 
-**Codebase:** v1.0.30 (T079 dev Worker activation). **Live:** v1.0.30 pending deploy. **Worker:** `regulation-watch-monitor-dev` deployed with protected `/run-pilot` and dev Supabase REST grants. **Next:** Worker diff parity with local pilot → optional cron only after approval → T076 additional network checks.
+**Codebase:** v1.0.31 (T080 coverage expansion). **Live:** v1.0.31 after deploy. **Registry:** 25 official sources (2 automated RSS). **Next:** optional Supabase apply of `003_country_regulation_tracker_model.sql` → Worker version bump to 1.0.31 → cron only after Control Tower approval.
 
 **Product direction (20 May 2026):** automation-first global AI regulation tracker — see [docs/AUTOMATION_FIRST_MVP_ROADMAP.md](docs/AUTOMATION_FIRST_MVP_ROADMAP.md) and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md). Human review/evidence is optional future assurance, not the first full MVP foundation.
 

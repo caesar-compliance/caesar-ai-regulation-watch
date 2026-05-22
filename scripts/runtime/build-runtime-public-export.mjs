@@ -9,6 +9,14 @@ import { loadRuntimeEnv, getDbUrl } from "./lib/load-runtime-env.mjs";
 import { assertRuntimeSafetyDisabled } from "./lib/runtime-safety.mjs";
 import { withPgClient } from "./lib/pg-client.mjs";
 import { loadMonitoringPilotRegistry } from "./lib/monitoring-pilot-registry.mjs";
+import {
+  loadRegulationRecords,
+  loadJurisdictionProfileCards,
+  countRecordsByJurisdiction,
+  countSourcesByJurisdiction,
+  enrichProfiles,
+  buildMapMetricsFromProfiles,
+} from "./lib/tracker-coverage-data.mjs";
 import { readProjectVersion } from "../lib/read-project-version.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
@@ -113,7 +121,7 @@ function enrichMonitoringStatus(payload, registry, status) {
     ...payload,
     ...counts,
     status,
-    backend_mvp: "T078",
+    backend_mvp: "T080",
     live_ingestion_enabled: false,
     scheduled_monitoring_enabled: false,
     detected_changes_count: detected_changes_count ?? 0,
@@ -294,7 +302,7 @@ function buildRegistryOnlyPending(registry) {
   writeExport("runtime-monitoring-status.json", {
     ...counts,
     status: "backend_smoke_passed_public_export_pending",
-    backend_mvp: "T078",
+    backend_mvp: "T080",
     live_ingestion_enabled: false,
     scheduled_monitoring_enabled: false,
     detected_changes_count: 0,
@@ -307,12 +315,25 @@ function buildRegistryOnlyPending(registry) {
   writeExport("regulation-review-candidates.json", { candidates: [] });
 }
 
+function loadTrackerContext(registry) {
+  const { records } = loadRegulationRecords(ROOT);
+  const { profiles } = loadJurisdictionProfileCards(ROOT);
+  const recordCounts = countRecordsByJurisdiction(records);
+  const sourceCounts = countSourcesByJurisdiction(registry);
+  const enrichedProfiles = enrichProfiles(profiles, recordCounts, sourceCounts);
+  return { records, enrichedProfiles, recordCounts, sourceCounts };
+}
+
 function buildCountryCoverage(registry) {
   const countryPath = path.join(ROOT, "public/data/country-status.json");
   const statuses = fs.existsSync(countryPath)
     ? JSON.parse(fs.readFileSync(countryPath, "utf8"))
     : { jurisdictions: [] };
   const jurisdictions = statuses.jurisdictions ?? statuses.items ?? [];
+  const { enrichedProfiles } = loadTrackerContext(registry);
+  const profileById = new Map(
+    enrichedProfiles.map((p) => [p.jurisdiction_id, p]),
+  );
 
   const byJurisdiction = new Map();
   for (const source of registry.sources) {
@@ -343,11 +364,18 @@ function buildCountryCoverage(registry) {
       const status = jurisdictions.find(
         (x) => x.jurisdiction_id === j.jurisdiction_id,
       );
+      const profile = profileById.get(j.jurisdiction_id);
       return {
         ...j,
+        display_name: profile?.display_name ?? status?.country_name ?? j.jurisdiction_id,
         status_bucket: status?.status_bucket ?? "unknown",
-        maturity_index: status?.maturity_index ?? null,
-        activity_index: status?.activity_index ?? null,
+        status_headline: profile?.status_headline ?? status?.status_summary ?? null,
+        maturity_index: profile?.maturity_score ?? status?.maturity_index ?? null,
+        activity_index: profile?.activity_score ?? status?.activity_index ?? null,
+        freshness_score: profile?.freshness_score ?? null,
+        confidence_score: profile?.confidence_score ?? null,
+        regulation_records_count: profile?.regulation_records_count ?? 0,
+        monitored_sources_count: j.monitored_sources.length,
         review_required: true,
       };
     }),
@@ -355,28 +383,12 @@ function buildCountryCoverage(registry) {
 }
 
 function buildMapMetrics(registry) {
-  const enriched = path.join(ROOT, "public/data/country-status.json");
-  let items = [];
-  if (fs.existsSync(enriched)) {
-    const data = JSON.parse(fs.readFileSync(enriched, "utf8"));
-    items = data.jurisdictions ?? data.items ?? [];
-  }
+  const { enrichedProfiles } = loadTrackerContext(registry);
+  const markers = buildMapMetricsFromProfiles(enrichedProfiles);
 
   writeExport("regulation-map-metrics.json", {
-    map_version: "T078",
-    markers: items.map((j) => ({
-      jurisdiction_id: j.jurisdiction_id,
-      label: j.label ?? j.jurisdiction_id,
-      region: j.region,
-      status_bucket: j.status_bucket,
-      maturity_index: j.maturity_index ?? 0,
-      activity_index: j.activity_index ?? 0,
-      freshness_days: j.freshness_days ?? null,
-      monitored_source_count: registry.sources.filter((s) =>
-        (s.jurisdiction_ids ?? []).includes(j.jurisdiction_id),
-      ).length,
-      review_required: true,
-    })),
+    map_version: "T080",
+    markers,
     legend: {
       enacted: "Enacted / in force (curated metadata)",
       proposed: "Proposed / draft",
@@ -384,6 +396,50 @@ function buildMapMetrics(registry) {
       monitoring: "Monitoring registered",
       unknown: "Limited coverage",
     },
+  });
+}
+
+function buildRegulationRecordsExport() {
+  const { records } = loadRegulationRecords(ROOT);
+  writeExport("regulation-records.json", {
+    records: records.map((r) => ({
+      ...r,
+      review_required: true,
+      legal_change_claimed: false,
+      gates: {
+        verified_on_source: false,
+        client_use_allowed: false,
+        final_evidence_allowed: false,
+        legal_change_claimed: false,
+        ...(r.gates ?? {}),
+      },
+    })),
+    record_count: records.length,
+  });
+}
+
+function buildJurisdictionProfileCardsExport(registry) {
+  const { enrichedProfiles } = loadTrackerContext(registry);
+  writeExport("jurisdiction-profile-cards.json", {
+    cards: enrichedProfiles,
+    card_count: enrichedProfiles.length,
+  });
+}
+
+function buildTrackerSummaryExport(registry, monitoringPayload) {
+  const { records, enrichedProfiles } = loadTrackerContext(registry);
+  const counts = registryCounts(registry);
+  writeExport("tracker-summary.json", {
+    countries_covered: enrichedProfiles.length,
+    regulations_tracked: records.length,
+    ...counts,
+    detected_changes_count: monitoringPayload?.detected_changes_count ?? 0,
+    review_candidates_count: monitoringPayload?.review_candidates_count ?? 0,
+    latest_worker_run: monitoringPayload?.latest_worker_run ?? null,
+    scheduled_monitoring_enabled: false,
+    live_ingestion_enabled: false,
+    backend_mvp: "T080",
+    status: monitoringPayload?.status ?? "registry_only",
   });
 }
 
@@ -422,10 +478,19 @@ async function main() {
     buildRegistryOnlyPending(registry);
   }
 
+  const monitoringPayload = JSON.parse(
+    fs.readFileSync(
+      path.join(PUBLIC_DATA, "runtime-monitoring-status.json"),
+      "utf8",
+    ),
+  );
   buildCountryCoverage(registry);
   buildMapMetrics(registry);
+  buildRegulationRecordsExport();
+  buildJurisdictionProfileCardsExport(registry);
+  buildTrackerSummaryExport(registry, monitoringPayload);
 
-  console.log("PASS: build-runtime-public-export (6 public JSON files)");
+  console.log("PASS: build-runtime-public-export (9 public JSON files)");
 }
 
 main().catch((err) => {

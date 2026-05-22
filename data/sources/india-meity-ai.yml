@@ -1,0 +1,12 @@
+# Official source — MeitY AI policy (T080)
+source_id: india-meity-ai
+title: MeitY — Artificial intelligence
+jurisdiction_id: india
+source_type: regulator
+credibility_level: official_primary
+official_url: https://www.meity.gov.in/artificial-intelligence
+monitoring_scope: Official Ministry of Electronics and IT AI policy pages.
+expected_update_types: [policy_updates, initiative_announcements]
+related_topics: [source-monitoring]
+review_status: pending_review
+notes: T080 monitoring registry cross-reference india-meity-ai.

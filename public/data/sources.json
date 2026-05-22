@@ -43,6 +43,23 @@
       "notes": "Official privacy regulator source. URL remediated v0.6.2: prior deep-linked AI path returned 404; hub page is the maintained entry point. Does not capture all Australian AI legislation or state laws.\n"
     },
     {
+      "source_id": "brazil-senado-ai",
+      "title": "Senado Federal — PL 2338/2023 (AI bill)",
+      "jurisdiction_id": "brazil",
+      "source_type": "law_portal",
+      "credibility_level": "official_primary",
+      "official_url": "https://www.senado.leg.br/noticias/materias/2023/12/20/pl-2338-2023",
+      "monitoring_scope": "Official Senado public page for PL 2338/2023 legislative tracking.",
+      "expected_update_types": [
+        "legislative_updates"
+      ],
+      "related_topics": [
+        "risk_management"
+      ],
+      "review_status": "pending_review",
+      "notes": "T080 monitoring registry cross-reference brazil-senado-pl-2338."
+    },
+    {
       "source_id": "canada-opc-ai",
       "title": "Office of the Privacy Commissioner of Canada — Artificial intelligence",
       "jurisdiction_id": "canada",
@@ -125,6 +142,24 @@
       ],
       "review_status": "pending_review",
       "notes": "Official primary regulator portal. Human review with language expertise required. Does not claim complete PRC legal coverage.\n"
+    },
+    {
+      "source_id": "council-europe-ai",
+      "title": "Council of Europe — Artificial intelligence",
+      "jurisdiction_id": "coe",
+      "source_type": "international_body",
+      "credibility_level": "official_primary",
+      "official_url": "https://www.coe.int/en/web/artificial-intelligence",
+      "monitoring_scope": "Official CoE AI Convention and framework hub pages.",
+      "expected_update_types": [
+        "framework_updates",
+        "convention_status"
+      ],
+      "related_topics": [
+        "eu-regulation"
+      ],
+      "review_status": "pending_review",
+      "notes": "T080 monitoring registry cross-reference council-of-europe-ai-framework."
     },
     {
       "source_id": "datatilsynet",
@@ -361,6 +396,24 @@
       "notes": "Broader official primary portal than the single-instrument eu-ai-act entry. Supports governance review by helping identify new EU legal publications that may relate to AI governance programs. Future watchers should use narrow queries to avoid noise. Not a substitute for legal research across all EU law.\n"
     },
     {
+      "source_id": "france-cnil-ai",
+      "title": "CNIL — Intelligence artificielle",
+      "jurisdiction_id": "france",
+      "source_type": "regulator",
+      "credibility_level": "official_primary",
+      "official_url": "https://www.cnil.fr/fr/intelligence-artificielle",
+      "monitoring_scope": "Official CNIL AI and data protection guidance hub.",
+      "expected_update_types": [
+        "guidance_updates",
+        "policy_announcements"
+      ],
+      "related_topics": [
+        "privacy"
+      ],
+      "review_status": "pending_review",
+      "notes": "T080 monitoring registry cross-reference france-cnil-ai-fr. French-language primary page."
+    },
+    {
       "source_id": "g7-hiroshima-ai-process",
       "title": "G7 Hiroshima AI Process — MIC official portal (English)",
       "jurisdiction_id": "g7",
@@ -380,6 +433,24 @@
       ],
       "review_status": "pending_review",
       "notes": "Intergovernmental process communications only. URL remediated v0.6.2 to MIC-hosted official process site after g7hiroshima.go.jp DNS failure. Implementation and binding rules remain at national level.\n"
+    },
+    {
+      "source_id": "india-meity-ai",
+      "title": "MeitY — Artificial intelligence",
+      "jurisdiction_id": "india",
+      "source_type": "regulator",
+      "credibility_level": "official_primary",
+      "official_url": "https://www.meity.gov.in/artificial-intelligence",
+      "monitoring_scope": "Official Ministry of Electronics and IT AI policy pages.",
+      "expected_update_types": [
+        "policy_updates",
+        "initiative_announcements"
+      ],
+      "related_topics": [
+        "source-monitoring"
+      ],
+      "review_status": "pending_review",
+      "notes": "T080 monitoring registry cross-reference india-meity-ai."
     },
     {
       "source_id": "japan-meti-ai",
@@ -676,6 +747,24 @@
       ],
       "review_status": "pending_review",
       "notes": "Official federal AI policy portal entry. Content may link to other agencies; verify primary legal instruments on agency-specific or Federal Register sources.\n"
+    },
+    {
+      "source_id": "us-colorado-ai-act",
+      "title": "Colorado General Assembly — SB 24-205",
+      "jurisdiction_id": "us-colorado",
+      "source_type": "law_portal",
+      "credibility_level": "official_primary",
+      "official_url": "https://leg.colorado.gov/bills/sb24-205",
+      "monitoring_scope": "Official Colorado legislative bill page for SB 24-205.",
+      "expected_update_types": [
+        "legislative_updates",
+        "status_changes"
+      ],
+      "related_topics": [
+        "us-federal-ai-policy"
+      ],
+      "review_status": "pending_review",
+      "notes": "T080 monitoring registry cross-reference us-colorado-ai-act-sb24-205."
     },
     {
       "source_id": "us-congress-gov",

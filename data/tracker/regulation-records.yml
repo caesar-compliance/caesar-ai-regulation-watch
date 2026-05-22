@@ -1,0 +1,410 @@
+# T080 — Named regulation records (VerifyWise-style metadata layer)
+# Official public sources only. Metadata and short summaries — no full legal text.
+
+tracker_data_id: regulation-records-t080-2026-05-22
+generated_at: "2026-05-22"
+product_version: "1.0.31"
+legal_safe_note: >
+  Curated metadata records for product tracker UI and public export. Not legal advice.
+  review_required by default. All legal/evidence/client gates false.
+
+records:
+  - regulation_id: reg-eu-ai-act-2024-1689
+    jurisdiction_id: eu
+    title: Regulation (EU) 2024/1689 — Artificial Intelligence Act
+    source_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689
+    source_type: law_portal
+    status: in_force
+    date_published: "2024-07-12"
+    effective_date: "2025-08-02"
+    obligation_date: null
+    topic_tags: [eu_ai_act, risk_management, gpai]
+    affected_actor_tags: [providers, deployers, importers]
+    short_summary: >
+      EU harmonised rules on AI systems and GPAI models. Phased obligations apply over time — verify on EUR-Lex.
+    review_status: review_required
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+
+  - regulation_id: reg-eu-ai-office-framework
+    jurisdiction_id: eu
+    title: EU AI Office — regulatory framework hub
+    source_url: https://digital-strategy.ec.europa.eu/en/policies/ai-office
+    source_type: regulator
+    status: guidance
+    date_published: null
+    effective_date: null
+    obligation_date: null
+    topic_tags: [eu_ai_act, implementation]
+    affected_actor_tags: [providers, deployers]
+    short_summary: >
+      European Commission AI Office pages on implementation, guidance, and ecosystem support for the EU AI Act.
+    review_status: review_required
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+
+  - regulation_id: reg-uk-ai-regulation-approach
+    jurisdiction_id: uk
+    title: UK AI regulation — pro-innovation approach (government publication)
+    source_url: https://www.gov.uk/government/publications/ai-regulation-a-pro-innovation-approach
+    source_type: policy
+    status: guidance
+    date_published: null
+    effective_date: null
+    obligation_date: null
+    topic_tags: [uk_ai_regulation]
+    affected_actor_tags: [regulators, industry]
+    short_summary: >
+      UK government outline of a context-based, pro-innovation approach to AI regulation and regulator duties.
+    review_status: review_required
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+
+  - regulation_id: reg-uk-ico-ai-guidance
+    jurisdiction_id: uk
+    title: ICO — Artificial intelligence guidance
+    source_url: https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/
+    source_type: regulator
+    status: guidance
+    date_published: null
+    effective_date: null
+    obligation_date: null
+    topic_tags: [privacy, uk_ai_regulation]
+    affected_actor_tags: [controllers, processors]
+    short_summary: >
+      UK ICO guidance on AI and data protection for organisations — not a standalone AI Act equivalent.
+    review_status: review_required
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+
+  - regulation_id: reg-us-nist-ai-rmf
+    jurisdiction_id: us-federal
+    title: NIST AI Risk Management Framework
+    source_url: https://www.nist.gov/itl/ai-risk-management-framework
+    source_type: standards_body
+    status: framework
+    date_published: null
+    effective_date: null
+    obligation_date: null
+    topic_tags: [risk_management, nist_ai_rmf]
+    affected_actor_tags: [developers, enterprises]
+    short_summary: >
+      Voluntary US framework for managing AI risks across the lifecycle — not federal binding regulation.
+    review_status: review_required
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+
+  - regulation_id: reg-us-ai-gov-portal
+    jurisdiction_id: us-federal
+    title: AI.gov — US federal AI policy portal
+    source_url: https://www.ai.gov/
+    source_type: policy
+    status: guidance
+    date_published: null
+    effective_date: null
+    obligation_date: null
+    topic_tags: [us_federal_ai_policy]
+    affected_actor_tags: [federal_agencies, industry]
+    short_summary: >
+      Official US government AI policy portal aggregating federal initiatives and resources.
+    review_status: review_required
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+
+  - regulation_id: reg-us-omb-ai-governance
+    jurisdiction_id: us-federal
+    title: OMB — AI governance and regulatory affairs
+    source_url: https://www.omb.gov/information-resources-regulatory-affairs/ai/
+    source_type: policy
+    status: guidance
+    date_published: null
+    effective_date: null
+    obligation_date: null
+    topic_tags: [us_federal_ai_policy]
+    affected_actor_tags: [federal_agencies]
+    short_summary: >
+      OMB pages on federal AI governance, memoranda, and implementation guidance for agencies.
+    review_status: review_required
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+
+  - regulation_id: reg-us-ftc-ai-business
+    jurisdiction_id: us-federal
+    title: FTC — Artificial intelligence (business guidance hub)
+    source_url: https://www.ftc.gov/policy/advocacy-research/tech-at-ftc/artificial-intelligence
+    source_type: regulator
+    status: enforcement
+    date_published: null
+    effective_date: null
+    obligation_date: null
+    topic_tags: [consumer_protection, us_federal_ai_policy]
+    affected_actor_tags: [businesses]
+    short_summary: >
+      FTC AI-related business guidance and enforcement context — not a comprehensive AI statute.
+    review_status: review_required
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+
+  - regulation_id: reg-us-colorado-sb24-205
+    jurisdiction_id: us-colorado
+    title: Colorado AI Act — SB 24-205
+    source_url: https://leg.colorado.gov/bills/sb24-205
+    source_type: law_portal
+    status: adopted
+    date_published: null
+    effective_date: null
+    obligation_date: null
+    topic_tags: [us_state_ai, consumer_protection]
+    affected_actor_tags: [developers, deployers]
+    short_summary: >
+      Colorado legislative entry for SB 24-205 on high-risk AI system developer and deployer duties.
+    review_status: review_required
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+
+  - regulation_id: reg-canada-opc-ai
+    jurisdiction_id: canada
+    title: Office of the Privacy Commissioner — AI guidance
+    source_url: https://www.priv.gc.ca/en/privacy-topics/technology/artificial-intelligence/
+    source_type: regulator
+    status: guidance
+    date_published: null
+    effective_date: null
+    obligation_date: null
+    topic_tags: [privacy, responsible_ai]
+    affected_actor_tags: [organizations]
+    short_summary: >
+      Federal privacy commissioner guidance on AI and personal information under PIPEDA context.
+    review_status: review_required
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+
+  - regulation_id: reg-singapore-model-ai-governance
+    jurisdiction_id: singapore
+    title: Model AI Governance Framework (PDPC)
+    source_url: https://www.pdpc.gov.sg/help-and-resources/2020/01/model-ai-governance-framework
+    source_type: regulator
+    status: voluntary
+    date_published: null
+    effective_date: null
+    obligation_date: null
+    topic_tags: [ai_governance]
+    affected_actor_tags: [organizations]
+    short_summary: >
+      Singapore PDPC voluntary model framework for internal AI governance and accountability.
+    review_status: review_required
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+
+  - regulation_id: reg-south-korea-pipc-ai
+    jurisdiction_id: south-korea
+    title: PIPC — AI and personal data protection (English hub)
+    source_url: https://www.pipc.go.kr/eng/
+    source_type: regulator
+    status: guidance
+    date_published: null
+    effective_date: null
+    obligation_date: null
+    topic_tags: [privacy, ai_governance]
+    affected_actor_tags: [organizations]
+    short_summary: >
+      Personal Information Protection Commission English hub — follow for AI-related privacy rules and updates.
+    review_status: review_required
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+
+  - regulation_id: reg-australia-ai-ethics-principles
+    jurisdiction_id: australia
+    title: Australia's AI Ethics Principles (Industry.gov.au)
+    source_url: https://www.industry.gov.au/publications/australias-ai-ethics-principles
+    source_type: policy
+    status: voluntary
+    date_published: null
+    effective_date: null
+    obligation_date: null
+    topic_tags: [ai_governance, ethics]
+    affected_actor_tags: [industry, government]
+    short_summary: >
+      Australian government AI ethics principles publication — voluntary guidance, not binding legislation.
+    review_status: review_required
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+
+  - regulation_id: reg-japan-meti-ai-policy
+    jurisdiction_id: japan
+    title: METI — AI policy (English index)
+    source_url: https://www.meti.go.jp/english/policy/index.html
+    source_type: policy
+    status: guidance
+    date_published: null
+    effective_date: null
+    obligation_date: null
+    topic_tags: [ai_governance]
+    affected_actor_tags: [industry]
+    short_summary: >
+      METI English policy index — follow links to current AI and digital policy pages from official source.
+    review_status: review_required
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+
+  - regulation_id: reg-brazil-pl-2338-2023
+    jurisdiction_id: brazil
+    title: PL 2338/2023 — Brazilian federal AI bill (Senado)
+    source_url: https://www.senado.leg.br/noticias/materias/2023/12/20/pl-2338-2023
+    source_type: law_portal
+    status: proposed
+    date_published: null
+    effective_date: null
+    obligation_date: null
+    topic_tags: [ai_governance]
+    affected_actor_tags: [providers, users]
+    short_summary: >
+      Official Senado public page on PL 2338/2023 — verify legislative status on source before any claim.
+    review_status: review_required
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+
+  - regulation_id: reg-india-meity-ai
+    jurisdiction_id: india
+    title: MeitY — Artificial intelligence policy
+    source_url: https://www.meity.gov.in/artificial-intelligence
+    source_type: policy
+    status: guidance
+    date_published: null
+    effective_date: null
+    obligation_date: null
+    topic_tags: [digital_policy, ai_governance]
+    affected_actor_tags: [industry, government]
+    short_summary: >
+      Ministry of Electronics and IT official AI policy pages and linked initiatives.
+    review_status: review_required
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+
+  - regulation_id: reg-france-cnil-ai
+    jurisdiction_id: france
+    title: CNIL — Intelligence artificielle (official hub)
+    source_url: https://www.cnil.fr/fr/intelligence-artificielle
+    source_type: regulator
+    status: guidance
+    date_published: null
+    effective_date: null
+    obligation_date: null
+    topic_tags: [privacy, ai_governance]
+    affected_actor_tags: [controllers, processors]
+    short_summary: >
+      French CNIL official AI and data protection guidance hub — French-language primary page.
+    review_status: review_required
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+
+  - regulation_id: reg-coe-ai-convention-hub
+    jurisdiction_id: coe
+    title: Council of Europe — Artificial intelligence
+    source_url: https://www.coe.int/en/web/artificial-intelligence
+    source_type: international_body
+    status: framework
+    date_published: null
+    effective_date: null
+    obligation_date: null
+    topic_tags: [international_ai_policy]
+    affected_actor_tags: [member_states]
+    short_summary: >
+      Council of Europe AI Convention and related framework materials — verify ratification status per country.
+    review_status: review_required
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+
+  - regulation_id: reg-oecd-ai-observatory
+    jurisdiction_id: oecd
+    title: OECD.AI — Policy Observatory
+    source_url: https://oecd.ai/en/
+    source_type: international_body
+    status: framework
+    date_published: null
+    effective_date: null
+    obligation_date: null
+    topic_tags: [international_ai_policy]
+    affected_actor_tags: [governments, industry]
+    short_summary: >
+      OECD comparative AI policy resource — national law remains authoritative for obligations.
+    review_status: review_required
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+
+  - regulation_id: reg-unesco-ai-ethics
+    jurisdiction_id: unesco
+    title: UNESCO — AI ethics recommendation hub
+    source_url: https://www.unesco.org/en/artificial-intelligence
+    source_type: international_body
+    status: framework
+    date_published: null
+    effective_date: null
+    obligation_date: null
+    topic_tags: [ethics, international_ai_policy]
+    affected_actor_tags: [member_states]
+    short_summary: >
+      UNESCO AI ethics and governance hub — soft law / recommendation context, not binding national regulation.
+    review_status: review_required
+    gates:
+      verified_on_source: false
+      client_use_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false

@@ -26,6 +26,28 @@
       "review_status": "pending_review"
     },
     {
+      "jurisdiction_id": "brazil",
+      "name": "Brazil",
+      "type": "country",
+      "region": "Americas",
+      "parent_jurisdiction": null,
+      "regulatory_focus": [
+        "federal_ai_bill_tracking",
+        "senado_legislative_updates"
+      ],
+      "monitoring_priority": "medium",
+      "notes": "T080 pilot for official Senado legislative pages on PL 2338/2023 and related public updates. Not complete Brazilian legal coverage. Requires human review before client use.\n",
+      "map": {
+        "display_name": "Brasília",
+        "latitude": -15.7939,
+        "longitude": -47.8828,
+        "marker_type": "country_capital",
+        "coverage_status": "pilot",
+        "map_note": "Pilot legislative tracking reference; not territorial boundary precision."
+      },
+      "review_status": "pending_review"
+    },
+    {
       "jurisdiction_id": "canada",
       "name": "Canada",
       "type": "country",
@@ -72,6 +94,28 @@
       "review_status": "pending_review"
     },
     {
+      "jurisdiction_id": "coe",
+      "name": "Council of Europe",
+      "type": "other",
+      "region": "Europe",
+      "parent_jurisdiction": null,
+      "regulatory_focus": [
+        "ai_convention",
+        "human_rights_and_ai_framework"
+      ],
+      "monitoring_priority": "medium",
+      "notes": "T080 institutional coverage for Council of Europe AI Convention hub pages. Not binding national law tracker. Requires human review before client use.\n",
+      "map": {
+        "display_name": "Strasbourg (CoE)",
+        "latitude": 48.5734,
+        "longitude": 7.7521,
+        "marker_type": "institutional",
+        "coverage_status": "international",
+        "map_note": "International framework institution; not a country boundary."
+      },
+      "review_status": "pending_review"
+    },
+    {
       "jurisdiction_id": "eu",
       "name": "European Union",
       "type": "supranational_bloc",
@@ -92,6 +136,29 @@
         "marker_type": "institutional",
         "coverage_status": "high_priority",
         "map_note": "Display marker for EU institutional and regulatory coverage. Not a territorial boundary claim and not complete EU legal coverage.\n"
+      },
+      "review_status": "pending_review"
+    },
+    {
+      "jurisdiction_id": "france",
+      "name": "France",
+      "type": "country",
+      "region": "Europe",
+      "parent_jurisdiction": null,
+      "regulatory_focus": [
+        "cnil_ai_guidance",
+        "eu_ai_act_intersection",
+        "national_privacy_and_ai_supervision"
+      ],
+      "monitoring_priority": "medium",
+      "notes": "T080 pilot jurisdiction for official CNIL AI guidance and related public institutional pages. Not complete French legal coverage. Requires human review before client use.\n",
+      "map": {
+        "display_name": "Paris",
+        "latitude": 48.8566,
+        "longitude": 2.3522,
+        "marker_type": "country_capital",
+        "coverage_status": "pilot",
+        "map_note": "Pilot coverage for CNIL and selected official AI guidance pages."
       },
       "review_status": "pending_review"
     },
@@ -117,6 +184,28 @@
         "marker_type": "display_only",
         "coverage_status": "international",
         "map_note": "Display marker referencing the G7 Hiroshima AI Process portal. Rotating G7 presidency; not a legal territory or binding jurisdiction boundary.\n"
+      },
+      "review_status": "pending_review"
+    },
+    {
+      "jurisdiction_id": "india",
+      "name": "India",
+      "type": "country",
+      "region": "Asia-Pacific",
+      "parent_jurisdiction": null,
+      "regulatory_focus": [
+        "meity_ai_policy",
+        "digital_india_ai_initiatives"
+      ],
+      "monitoring_priority": "medium",
+      "notes": "T080 pilot for official MeitY / Digital India AI policy pages. Not complete Indian legal coverage. Requires human review before client use.\n",
+      "map": {
+        "display_name": "New Delhi",
+        "latitude": 28.6139,
+        "longitude": 77.209,
+        "marker_type": "country_capital",
+        "coverage_status": "pilot",
+        "map_note": "Pilot official ministry policy coverage only."
       },
       "review_status": "pending_review"
     },
@@ -287,6 +376,28 @@
         "marker_type": "international_framework",
         "coverage_status": "international",
         "map_note": "Institutional display marker for UNESCO AI ethics materials. Soft-law reference only; not national law.\n"
+      },
+      "review_status": "pending_review"
+    },
+    {
+      "jurisdiction_id": "us-colorado",
+      "name": "Colorado (United States)",
+      "type": "territory",
+      "region": "Americas",
+      "parent_jurisdiction": "us-federal",
+      "regulatory_focus": [
+        "colorado_ai_act_sb24_205",
+        "state_level_ai_consumer_protection"
+      ],
+      "monitoring_priority": "medium",
+      "notes": "T080 pilot for official Colorado legislative pages on SB 24-205. Does not cover all US state AI laws. Requires human review before client use.\n",
+      "map": {
+        "display_name": "Denver",
+        "latitude": 39.7392,
+        "longitude": -104.9903,
+        "marker_type": "country_capital",
+        "coverage_status": "pilot",
+        "map_note": "US state-level pilot; federal law remains separately tracked under us-federal."
       },
       "review_status": "pending_review"
     },

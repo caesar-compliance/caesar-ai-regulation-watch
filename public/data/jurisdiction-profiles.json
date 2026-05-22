@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-05-20",
-  "version": "1.0.30",
+  "version": "1.0.31",
   "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
   "not_legal_advice": true,
   "not_complete_coverage": true,
@@ -36,6 +36,42 @@
       "activity_score": 45,
       "route": "/jurisdictions/australia/",
       "compare_route": "/compare/?ids=australia&ids=eu",
+      "verified_on_source": false,
+      "client_use_allowed": false,
+      "client_evidence_allowed": false,
+      "final_evidence_allowed": false,
+      "legal_change_claimed": false
+    },
+    {
+      "jurisdiction_id": "brazil",
+      "country_name": "Brazil",
+      "region": "Americas",
+      "region_slug": "americas",
+      "status_bucket": "proposed",
+      "status_label": "Proposed — federal AI bill (PL 2338/2023)",
+      "status_summary": "Pilot tracks official Senado public pages on PL 2338/2023. Legislative status must be verified on source; not a final legal determination.",
+      "confidence_score": "low",
+      "automation_method": "manual_seed",
+      "topic_tags": [
+        "risk_management"
+      ],
+      "source_ids": [
+        "brazil-senado-ai"
+      ],
+      "update_ids": [
+        "t080-brazil-senado-seed"
+      ],
+      "latest_update_ids": [
+        "t080-brazil-senado-seed"
+      ],
+      "source_count": 1,
+      "update_count": 1,
+      "law_guidance_count": 0,
+      "timeline_count": 0,
+      "regulation_maturity_score": 42,
+      "activity_score": 45,
+      "route": "/jurisdictions/brazil/",
+      "compare_route": "/compare/?ids=brazil&ids=eu",
       "verified_on_source": false,
       "client_use_allowed": false,
       "client_evidence_allowed": false,
@@ -121,6 +157,78 @@
       "legal_change_claimed": false
     },
     {
+      "jurisdiction_id": "us-colorado",
+      "country_name": "Colorado (United States)",
+      "region": "Americas",
+      "region_slug": "americas",
+      "status_bucket": "adopted",
+      "status_label": "Adopted — Colorado AI Act (SB 24-205)",
+      "status_summary": "Pilot tracks official Colorado legislative pages for SB 24-205. US federal and other state rules are tracked separately.",
+      "confidence_score": "medium",
+      "automation_method": "manual_seed",
+      "topic_tags": [
+        "us_federal_ai_policy"
+      ],
+      "source_ids": [
+        "us-colorado-ai-act"
+      ],
+      "update_ids": [
+        "t080-colorado-sb24-seed"
+      ],
+      "latest_update_ids": [
+        "t080-colorado-sb24-seed"
+      ],
+      "source_count": 1,
+      "update_count": 1,
+      "law_guidance_count": 0,
+      "timeline_count": 0,
+      "regulation_maturity_score": 69,
+      "activity_score": 45,
+      "route": "/jurisdictions/us-colorado/",
+      "compare_route": "/compare/?ids=us-colorado&ids=eu",
+      "verified_on_source": false,
+      "client_use_allowed": false,
+      "client_evidence_allowed": false,
+      "final_evidence_allowed": false,
+      "legal_change_claimed": false
+    },
+    {
+      "jurisdiction_id": "coe",
+      "country_name": "Council of Europe",
+      "region": "Europe",
+      "region_slug": "europe",
+      "status_bucket": "guidance",
+      "status_label": "Framework — AI Convention hub",
+      "status_summary": "Pilot tracks Council of Europe artificial intelligence framework pages. National ratification and implementation require separate review.",
+      "confidence_score": "medium",
+      "automation_method": "manual_seed",
+      "topic_tags": [
+        "eu_regulation"
+      ],
+      "source_ids": [
+        "council-europe-ai"
+      ],
+      "update_ids": [
+        "t080-coe-ai-seed"
+      ],
+      "latest_update_ids": [
+        "t080-coe-ai-seed"
+      ],
+      "source_count": 1,
+      "update_count": 1,
+      "law_guidance_count": 0,
+      "timeline_count": 0,
+      "regulation_maturity_score": 54,
+      "activity_score": 45,
+      "route": "/jurisdictions/coe/",
+      "compare_route": "/compare/?ids=coe&ids=eu&ids=uk",
+      "verified_on_source": false,
+      "client_use_allowed": false,
+      "client_evidence_allowed": false,
+      "final_evidence_allowed": false,
+      "legal_change_claimed": false
+    },
+    {
       "jurisdiction_id": "eu",
       "country_name": "European Union",
       "region": "Europe",
@@ -172,6 +280,42 @@
       "legal_change_claimed": false
     },
     {
+      "jurisdiction_id": "france",
+      "country_name": "France",
+      "region": "Europe",
+      "region_slug": "europe",
+      "status_bucket": "guidance",
+      "status_label": "Guidance — CNIL AI hub",
+      "status_summary": "Pilot tracks official CNIL artificial intelligence guidance pages. National implementation of EU AI Act and sector rules require separate review.",
+      "confidence_score": "low",
+      "automation_method": "manual_seed",
+      "topic_tags": [
+        "privacy"
+      ],
+      "source_ids": [
+        "france-cnil-ai"
+      ],
+      "update_ids": [
+        "t080-france-cnil-seed"
+      ],
+      "latest_update_ids": [
+        "t080-france-cnil-seed"
+      ],
+      "source_count": 1,
+      "update_count": 1,
+      "law_guidance_count": 0,
+      "timeline_count": 0,
+      "regulation_maturity_score": 54,
+      "activity_score": 45,
+      "route": "/jurisdictions/france/",
+      "compare_route": "/compare/?ids=france&ids=eu&ids=uk",
+      "verified_on_source": false,
+      "client_use_allowed": false,
+      "client_evidence_allowed": false,
+      "final_evidence_allowed": false,
+      "legal_change_claimed": false
+    },
+    {
       "jurisdiction_id": "g7",
       "country_name": "G7 (Hiroshima AI Process)",
       "region": "International",
@@ -201,6 +345,42 @@
       "activity_score": 45,
       "route": "/jurisdictions/g7/",
       "compare_route": "/compare/?ids=g7&ids=eu",
+      "verified_on_source": false,
+      "client_use_allowed": false,
+      "client_evidence_allowed": false,
+      "final_evidence_allowed": false,
+      "legal_change_claimed": false
+    },
+    {
+      "jurisdiction_id": "india",
+      "country_name": "India",
+      "region": "Asia-Pacific",
+      "region_slug": "asia-pacific",
+      "status_bucket": "guidance",
+      "status_label": "Guidance — MeitY AI policy",
+      "status_summary": "Pilot tracks official MeitY artificial intelligence policy pages. Not complete Indian AI legal coverage.",
+      "confidence_score": "medium",
+      "automation_method": "manual_seed",
+      "topic_tags": [
+        "source_monitoring"
+      ],
+      "source_ids": [
+        "india-meity-ai"
+      ],
+      "update_ids": [
+        "t080-india-meity-seed"
+      ],
+      "latest_update_ids": [
+        "t080-india-meity-seed"
+      ],
+      "source_count": 1,
+      "update_count": 1,
+      "law_guidance_count": 0,
+      "timeline_count": 0,
+      "regulation_maturity_score": 54,
+      "activity_score": 45,
+      "route": "/jurisdictions/india/",
+      "compare_route": "/compare/?ids=india&ids=eu",
       "verified_on_source": false,
       "client_use_allowed": false,
       "client_evidence_allowed": false,

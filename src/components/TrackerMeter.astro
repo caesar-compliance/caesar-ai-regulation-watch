@@ -1,0 +1,21 @@
+---
+interface Props {
+  label: string;
+  score: number;
+  max?: number;
+  hint?: string;
+}
+
+const { label, score, max = 100, hint } = Astro.props;
+const pct = Math.min(100, Math.max(0, Math.round((score / max) * 100)));
+---
+
+<div class="tracker-meter" title={hint}>
+  <div class="tracker-meter__label">
+    <span>{label}</span>
+    <span class="tracker-meter__value">{pct}</span>
+  </div>
+  <div class="tracker-meter__bar" role="meter" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100}>
+    <span class="tracker-meter__fill" style={`width: ${pct}%`} />
+  </div>
+</div>

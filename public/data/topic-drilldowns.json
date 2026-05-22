@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-05-20",
-  "version": "1.0.30",
+  "version": "1.0.31",
   "disclaimer": "Pilot data for governance review support only. Not legal advice. Not a compliance guarantee. Not complete global coverage. Sample records require human review before client use. Official sources control.",
   "topics": [
     {
@@ -56,12 +56,20 @@
       "topic_id": "eu_regulation",
       "label": "EU regulation",
       "description": "European Union legal and policy instruments tracked in the pilot.",
-      "jurisdiction_count": 0,
-      "update_count": 0,
-      "regions": [],
-      "status_bucket_counts": {},
-      "jurisdiction_ids": [],
-      "latest_update_ids": [],
+      "jurisdiction_count": 1,
+      "update_count": 1,
+      "regions": [
+        "Europe"
+      ],
+      "status_bucket_counts": {
+        "guidance": 1
+      },
+      "jurisdiction_ids": [
+        "coe"
+      ],
+      "latest_update_ids": [
+        "t080-coe-ai-seed"
+      ],
       "route": "/topics/eu_regulation/"
     },
     {
@@ -91,18 +99,21 @@
       "topic_id": "privacy",
       "label": "Privacy and data protection",
       "description": "Privacy regulator AI guidance intersecting with automated decision-making.",
-      "jurisdiction_count": 1,
-      "update_count": 7,
+      "jurisdiction_count": 2,
+      "update_count": 8,
       "regions": [
-        "Asia-Pacific"
+        "Asia-Pacific",
+        "Europe"
       ],
       "status_bucket_counts": {
-        "guidance": 1
+        "guidance": 2
       },
       "jurisdiction_ids": [
+        "france",
         "south-korea"
       ],
       "latest_update_ids": [
+        "t080-france-cnil-seed",
         "adapter-lead-lead-edps-technology-monitoring",
         "adapter-lead-lead-canada-opc-ai",
         "adapter-lead-lead-japan-ppc-en",
@@ -117,9 +128,10 @@
       "topic_id": "risk_management",
       "label": "Risk management",
       "description": "AI risk management frameworks and processes referenced by official sources.",
-      "jurisdiction_count": 7,
-      "update_count": 8,
+      "jurisdiction_count": 8,
+      "update_count": 9,
       "regions": [
+        "Americas",
         "Asia-Pacific",
         "Europe",
         "International",
@@ -127,12 +139,13 @@
       ],
       "status_bucket_counts": {
         "guidance": 4,
-        "proposed": 1,
+        "proposed": 2,
         "adopted": 1,
         "no_clear_framework": 1
       },
       "jurisdiction_ids": [
         "australia",
+        "brazil",
         "canada",
         "eu",
         "japan",
@@ -141,14 +154,14 @@
         "unesco"
       ],
       "latest_update_ids": [
+        "t080-brazil-senado-seed",
         "adapter-lead-lead-eu-ai-act-eurlex",
         "adapter-change-sample-eu-ai-act-status-change",
         "update-japan-meti-ai-portal-2026-05-11",
         "update-singapore-model-ai-governance-2026-05-09",
         "update-australia-ai-ethics-framework-2026-05-08",
         "update-canada-responsible-ai-policy-2026-05-07",
-        "update-oecd-ai-policy-navigator-2026-05-04",
-        "update-unesco-ai-ethics-recommendation-2026-05-02"
+        "update-oecd-ai-policy-navigator-2026-05-04"
       ],
       "route": "/topics/risk_management/"
     },
@@ -156,20 +169,26 @@
       "topic_id": "source_monitoring",
       "label": "Source monitoring",
       "description": "Official source registry checks and monitoring signals (not legal change claims).",
-      "jurisdiction_count": 0,
-      "update_count": 20,
-      "regions": [],
-      "status_bucket_counts": {},
-      "jurisdiction_ids": [],
+      "jurisdiction_count": 1,
+      "update_count": 21,
+      "regions": [
+        "Asia-Pacific"
+      ],
+      "status_bucket_counts": {
+        "guidance": 1
+      },
+      "jurisdiction_ids": [
+        "india"
+      ],
       "latest_update_ids": [
+        "t080-india-meity-seed",
         "adapter-crp-us-nist-ai-portal-last-modified",
         "adapter-crp-uk-gov-ai-assurance-intro-etag",
         "adapter-crp-unesco-ai-ethics-page-title-last-modified-etag",
         "adapter-lead-lead-eu-ai-act-service-desk",
         "adapter-lead-lead-eu-digital-strategy-ai-approach",
         "adapter-lead-lead-eu-ai-act-eurlex",
-        "adapter-lead-lead-edps-technology-monitoring",
-        "adapter-lead-lead-uk-dsit"
+        "adapter-lead-lead-edps-technology-monitoring"
       ],
       "route": "/topics/source_monitoring/"
     },
@@ -197,21 +216,25 @@
       "topic_id": "us_federal_ai_policy",
       "label": "US federal AI policy",
       "description": "United States federal AI-related guidance and policy signals in the pilot registry.",
-      "jurisdiction_count": 2,
-      "update_count": 2,
+      "jurisdiction_count": 3,
+      "update_count": 3,
       "regions": [
+        "Americas",
         "International",
         "North America"
       ],
       "status_bucket_counts": {
+        "adopted": 1,
         "no_clear_framework": 1,
         "guidance": 1
       },
       "jurisdiction_ids": [
+        "us-colorado",
         "g7",
         "us-federal"
       ],
       "latest_update_ids": [
+        "t080-colorado-sb24-seed",
         "update-us-federal-register-monitoring-2026-05-19",
         "update-g7-hiroshima-ai-process-2026-05-03"
       ],
