@@ -10,7 +10,8 @@
 |-------|-------|
 | Starting HEAD | `b1097cb888ac61b1e70ba8a30e9723a3430ffc65` (T078A on main) |
 | Branch | `task/T079-dev-worker-activation-e2e-runtime-run` |
-| Final commit | *(see merge commit on main after ff-merge)* |
+| Final commit (T079) | `dd2ceba0e179c84386609e7cc4e9cf148f324a0b` |
+| Final main HEAD (snapshot fix) | `cfe1e52` |
 | Package version | `1.0.30` |
 
 ## Worker deployment
@@ -71,8 +72,9 @@ Worker added 2 `worker_pilot` runs + 2 `worker_pilot_run` events (+1 grant test 
 | Field | Value |
 |-------|-------|
 | Workflow | `deploy-static-site.yml` |
-| Run ID | *(filled after `gh workflow run`)* |
-| Live smoke | *(filled after deploy)* |
+| Run ID | [26294515303](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26294515303) (`cfe1e52`) |
+| Live smoke (Worker) | `/healthz`, `/readyz`, `/version`, `/last-run` → 200; unauthorized `POST /run-pilot` → 401 |
+| Live smoke (static) | `/`, `/tracker/`, `/map/`, `/runtime-health/`, `/runtime-services/`, monitoring + db health JSON → 200; status `backend_monitoring_mvp_worker_run`, `worker_deployed: true` |
 
 ## Validation
 

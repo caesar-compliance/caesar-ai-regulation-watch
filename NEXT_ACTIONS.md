@@ -2,7 +2,7 @@
 
 **Last updated:** 22 May 2026
 **Current codebase:** v1.0.30 (T079 dev Worker activation + E2E runtime run)
-**Live release:** v1.0.30 — pending deploy after tag `regulation-watch-v1.0.30`
+**Live release:** v1.0.30 — deployed 22 May 2026 (`DEPLOY-20260522-048`)
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
 ---
