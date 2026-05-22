@@ -6,7 +6,7 @@
 |---|---|
 | **Current version** | `v1.0.31` (coverage expansion + country/regulation model — T080) |
 | **Live version** | `v1.0.31` — tag `regulation-watch-v1.0.31` |
-| **Last deployment** | `DEPLOY-20260522-049` — commit `846e449`, run [26295332682](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26295332682) |
+| **Last deployment** | `DEPLOY-20260522-050` — commit `1b50fcd`, run [26295890931](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26295890931) |
 | **Status** | T080: 25-source pilot registry, 20 regulation records, 18 profile cards, enriched map/country public exports; dev Worker from T079 unchanged; scheduled monitoring disabled |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
 | **Phase** | Public Technical MVP + profiles/drilldowns (T051) |

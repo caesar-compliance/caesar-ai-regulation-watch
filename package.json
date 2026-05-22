@@ -74,6 +74,7 @@
     "validate:monitoring-output": "node scripts/runtime/validate-monitoring-output.mjs",
     "validate:public-export-consistency": "node scripts/runtime/validate-public-export-consistency.mjs",
     "validate:public-route-consistency": "node scripts/validate-public-route-consistency.mjs",
+    "smoke:live-routes": "node scripts/smoke-live-routes.mjs",
     "validate:regulation-records": "node scripts/runtime/validate-regulation-records.mjs",
     "validate:country-coverage": "node scripts/runtime/validate-country-coverage.mjs",
     "validate:map-metrics": "node scripts/runtime/validate-map-metrics.mjs",
