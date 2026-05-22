@@ -10,9 +10,7 @@
 | Starting HEAD | `3c50f3a` |
 | Duplicate cleanup | Removed **622** untracked macOS `* 2.*` artifacts |
 | Branch | `task/T085-six-source-worker-redeploy-runtime-run-export-refresh` |
-| Final commit | `142054e` |
-| Final main HEAD | `142054e` |
-| Tag | `regulation-watch-v1.0.36` |
+| Tag | `regulation-watch-v1.0.36` (pending push) |
 | Package version | `1.0.36` |
 
 ## Worker deployment
@@ -22,8 +20,8 @@
 | Method | Local `npx wrangler@3 deploy` |
 | Worker | `regulation-watch-monitor-dev` |
 | URL | `https://regulation-watch-monitor-dev.nazzarkoartem.workers.dev` |
-| Version ID (final) | `9300ea54-8bbc-48f5-a7e9-3b9cff0f341f` |
-| Deployed commit (GIT_SHA var) | `142054e` |
+| Version ID | `ce915d1c-9f29-43f0-9e3a-2463f20ddf18` |
+| Deployed commit (GIT_SHA var) | `3c50f3a` → updated after merge |
 | `/version` | `1.0.36`, `backend_mvp: T085` |
 | Cron | Not enabled |
 
@@ -78,13 +76,7 @@
 | Field | Value |
 |---|---|
 | Workflow | `deploy-static-site.yml` |
-| Run ID | [26301482984](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26301482984) |
-
-## Live smoke
-
-`npm run smoke:live-routes` — **PASS** (v1.0.36, cache-busted) after deploy `26301482984`.
-
-Worker live: `/healthz`, `/readyz`, `/version` (1.0.36, git `142054e`), `/last-run` → 200; unauthorized `POST /run-pilot` → 401.
+| Run ID | _(fill after `gh workflow run`)_ |
 
 ## Safety
 

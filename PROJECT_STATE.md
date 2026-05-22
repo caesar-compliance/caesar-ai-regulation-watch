@@ -5,8 +5,8 @@
 | Field | Value |
 |---|---|
 | **Current version** | `v1.0.36` (six-source Worker redeploy + runtime run — T085) |
-| **Live version** | `v1.0.36` — tag `regulation-watch-v1.0.36` (pending deploy confirmation) |
-| **Last deployment** | `DEPLOY-20260522-058` (T085) — pending |
+| **Live version** | `v1.0.36` — tag `regulation-watch-v1.0.36`, deploy [26301482984](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26301482984) |
+| **Last deployment** | `DEPLOY-20260522-058` (T085) — commit `142054e` |
 | **Status** | T085: Worker `regulation-watch-monitor-dev` v1.0.36 redeployed; six-source pilot (2 RSS success, 4 DB 409 handled); exports refreshed; T084 ingress 4 visible / 16 suppressed; cron disabled; gates closed |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
 | **Phase** | Public Technical MVP + profiles/drilldowns (T051) |

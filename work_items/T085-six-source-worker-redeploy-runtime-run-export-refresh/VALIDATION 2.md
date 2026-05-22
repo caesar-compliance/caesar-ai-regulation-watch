@@ -30,5 +30,5 @@
 
 ## Post-deploy (after static release)
 
-- [x] `npm run smoke:live-routes` (v1.0.36) — deploy run [26301482984](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26301482984)
-- [x] Live Worker smoke on `regulation-watch-monitor-dev`
+- [ ] `npm run smoke:live-routes` (v1.0.36)
+- [ ] Live Worker smoke on production URL
