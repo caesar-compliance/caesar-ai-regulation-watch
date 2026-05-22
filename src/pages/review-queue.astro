@@ -6,6 +6,7 @@ import {
   getReviewQueueSummary,
   getSourceFreshnessSummary,
   getOperatorReviewSummary,
+  REVIEW_STATUS_LABELS,
 } from "../lib/regulation-review-queue";
 import { getJurisdictions } from "../lib/data";
 import { humanizeId } from "../lib/format";
@@ -18,9 +19,17 @@ const jurisdictions = getJurisdictions();
 const jMap = Object.fromEntries(jurisdictions.map((j) => [j.jurisdiction_id, j.name]));
 
 const priorities = ["high", "medium", "low"];
-const statuses = [...new Set(cards.map((c) => c.review_status))].sort();
+const statuses = [
+  "review_required",
+  "in_review",
+  "needs_source_check",
+  "needs_legal_review",
+  "accepted_for_tracking",
+  "dismissed",
+].filter((s) => cards.some((c) => c.review_status === s));
 const sources = [...new Set(cards.map((c) => c.source_key))].sort();
 const topics = [...new Set(cards.flatMap((c) => c.topic_tags))].sort();
+const decisionCounts = operatorSummary.decision_counts ?? {};
 ---
 
 <BaseLayout
@@ -31,15 +40,50 @@ const topics = [...new Set(cards.flatMap((c) => c.topic_tags))].sort();
   <div data-filter-page>
     <h1>Regulation review queue</h1>
     <p class="lead">
-      {PROJECT_VERSION_LABEL} — Backend-derived review candidates from official RSS/metadata pilot runs.
-      Read-only public view; operator decisions are recorded locally in YAML and rebuilt into exports.
+      {PROJECT_VERSION_LABEL} — Backend-derived review candidates with operator decision state (T082).
+      Read-only public view; decisions are recorded locally in YAML and rebuilt into exports.
     </p>
 
     <div class="banner banner--review" role="note">
       <strong>{summary.total} candidates</strong> · {summary.review_required} review_required ·{" "}
-      {summary.high_priority} high priority · Cron/scheduled monitoring:{" "}
+      {summary.in_review} in_review · {summary.needs_source_check} needs source check ·{" "}
+      {summary.accepted_for_tracking} tracking only · {summary.dismissed} dismissed · Cron:{" "}
       <strong>disabled</strong> · Not legal advice.
     </div>
+
+    <section class="tracker-section">
+      <h2>Operator decisions (T082)</h2>
+      <div class="metrics-strip metrics-strip--monitoring">
+        <div class="metrics-strip__item">
+          <span class="metrics-strip__value">{operatorSummary.decision_count ?? 0}</span>
+          <span class="metrics-strip__label">Local decisions</span>
+        </div>
+        <div class="metrics-strip__item">
+          <span class="metrics-strip__value">{summary.with_operator_decision ?? 0}</span>
+          <span class="metrics-strip__label">Applied to queue</span>
+        </div>
+        <div class="metrics-strip__item">
+          <span class="metrics-strip__value">{decisionCounts.mark_in_review ?? 0}</span>
+          <span class="metrics-strip__label">Mark in review</span>
+        </div>
+        <div class="metrics-strip__item">
+          <span class="metrics-strip__value">{decisionCounts.needs_source_check ?? 0}</span>
+          <span class="metrics-strip__label">Needs source check</span>
+        </div>
+        <div class="metrics-strip__item">
+          <span class="metrics-strip__value">{decisionCounts.accept_for_tracking ?? 0}</span>
+          <span class="metrics-strip__label">Accept tracking</span>
+        </div>
+      </div>
+      <p>
+        Edit <code>data/runtime/operator-review-decisions.yml</code> then rebuild exports.
+        Operator guide: <code>docs/OPERATOR_REVIEW_WORKFLOW.md</code> in the repository.
+      </p>
+      <p>
+        <a href="/data/operator-review-summary.json">operator-review-summary.json</a> ·{" "}
+        <a href="/data/review-packets-index.json">review-packets-index.json</a>
+      </p>
+    </section>
 
     <section class="tracker-section">
       <h2>Source freshness summary</h2>
@@ -72,18 +116,6 @@ const topics = [...new Set(cards.flatMap((c) => c.topic_tags))].sort();
       </p>
     </section>
 
-    <section class="tracker-section">
-      <h2>Operator workflow</h2>
-      <p>
-        Local decisions: {operatorSummary.decision_count ?? 0} recorded · Public site does not mutate
-        data. Edit <code>data/runtime/operator-review-decisions.yml</code> and rebuild exports.
-      </p>
-      <p>
-        <a href="/data/operator-review-summary.json">operator-review-summary.json</a> ·{" "}
-        <a href="/data/review-packets-index.json">review-packets-index.json</a>
-      </p>
-    </section>
-
     <div class="filter-bar">
       <label>
         Priority
@@ -99,8 +131,16 @@ const topics = [...new Set(cards.flatMap((c) => c.topic_tags))].sort();
         <select data-filter-key="status">
           <option value="">All</option>
           {statuses.map((s) => (
-            <option value={s}>{humanizeId(s)}</option>
+            <option value={s}>{REVIEW_STATUS_LABELS[s] ?? humanizeId(s)}</option>
           ))}
+        </select>
+      </label>
+      <label>
+        Has operator decision
+        <select data-filter-key="hasDecision">
+          <option value="">All</option>
+          <option value="yes">With decision</option>
+          <option value="no">No decision yet</option>
         </select>
       </label>
       <label>
@@ -135,46 +175,95 @@ const topics = [...new Set(cards.flatMap((c) => c.topic_tags))].sort();
 
     <ul class="card-list" data-regulation-review-queue-list>
       {
-        cards.map((card) => (
-          <li
-            class="card filter-item"
-            data-filter-item
-            data-priority={card.priority}
-            data-status={card.review_status}
-            data-jurisdiction={card.jurisdiction_id}
-            data-source={card.source_key}
-            data-topic={card.topic_tags.join(" ")}
-          >
-            <div class="card__meta">
-              <span class={`badge badge--${card.priority === "high" ? "warn" : "type"}`}>
-                {card.priority} priority
-              </span>
-              <span class="badge badge--review">{humanizeId(card.review_status)}</span>
-              <span class="badge">Review required</span>
-            </div>
-            <h2 class="card__title-sm">{card.title}</h2>
-            <p class="card__excerpt">
-              <small>
-                {jMap[card.jurisdiction_id] ?? card.jurisdiction_id} · {card.source_title} ·{" "}
-                <span class="mono">{card.change_type}</span>
-                {card.detected_at && ` · ${card.detected_at.slice(0, 10)}`}
-              </small>
-            </p>
-            {card.metadata_summary && <p>{card.metadata_summary}</p>}
-            {
-              card.source_url && (
-                <p>
-                  <a href={card.source_url} target="_blank" rel="noopener noreferrer">
-                    Official source ↗
-                  </a>
-                </p>
-              )
-            }
-            <p class="card__excerpt">
-              <small>{card.safety_notes}</small>
-            </p>
-          </li>
-        ))
+        cards.map((card) => {
+          const op = card.operator_decision;
+          const statusLabel =
+            REVIEW_STATUS_LABELS[card.review_status] ?? humanizeId(card.review_status);
+          return (
+            <li
+              class="card filter-item"
+              data-filter-item
+              data-priority={card.priority}
+              data-status={card.review_status}
+              data-jurisdiction={card.jurisdiction_id}
+              data-source={card.source_key}
+              data-topic={card.topic_tags.join(" ")}
+              data-has-decision={op ? "yes" : "no"}
+            >
+              <div class="card__meta">
+                <span class={`badge badge--${card.priority === "high" ? "warn" : "type"}`}>
+                  {card.priority} priority
+                </span>
+                <span class={`badge badge--decision-${card.review_status}`}>
+                  {statusLabel}
+                </span>
+                {
+                  card.review_status === "accepted_for_tracking" && (
+                    <span class="badge badge--tracking-only">Tracking only — not legal verification</span>
+                  )
+                }
+                {
+                  card.review_required && card.review_status !== "dismissed" && (
+                    <span class="badge badge--review">Review required</span>
+                  )
+                }
+                {op && <span class="badge badge--type">Operator: {humanizeId(op.decision)}</span>}
+              </div>
+              <h2 class="card__title-sm">{card.title}</h2>
+              <p class="card__excerpt">
+                <small>
+                  {jMap[card.jurisdiction_id] ?? card.jurisdiction_id} · {card.source_title} ·{" "}
+                  <span class="mono">{card.change_type}</span>
+                  {card.detected_at && ` · ${card.detected_at.slice(0, 10)}`}
+                </small>
+              </p>
+              {card.metadata_summary && <p>{card.metadata_summary}</p>}
+              {
+                op?.public_note && (
+                  <p class="card__excerpt">
+                    <strong>Public note:</strong> {op.public_note}
+                  </p>
+                )
+              }
+              {
+                op?.rationale && (
+                  <p class="card__excerpt">
+                    <small>
+                      <strong>Rationale:</strong> {op.rationale}
+                    </small>
+                  </p>
+                )
+              }
+              {
+                card.review_status === "needs_source_check" && (
+                  <p class="card__excerpt warn-text">
+                    <strong>Source check needed</strong> — confirm official URL before any tracker change.
+                    {op?.source_checked_url && (
+                      <>
+                        {" "}
+                        <a href={op.source_checked_url} target="_blank" rel="noopener noreferrer">
+                          Checked URL ↗
+                        </a>
+                      </>
+                    )}
+                  </p>
+                )
+              }
+              {
+                card.source_url && (
+                  <p>
+                    <a href={card.source_url} target="_blank" rel="noopener noreferrer">
+                      Official source ↗
+                    </a>
+                  </p>
+                )
+              }
+              <p class="card__excerpt">
+                <small>{card.safety_notes}</small>
+              </p>
+            </li>
+          );
+        })
       }
     </ul>
 
@@ -196,3 +285,9 @@ const topics = [...new Set(cards.flatMap((c) => c.topic_tags))].sort();
 
   <script is:inline src="/scripts/regulation-review-queue-filter.js"></script>
 </BaseLayout>
+
+<style>
+  .warn-text {
+    color: var(--color-warn-text, #8a4510);
+  }
+</style>

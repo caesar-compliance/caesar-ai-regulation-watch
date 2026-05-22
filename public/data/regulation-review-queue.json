@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-22T15:35:17.015Z",
-  "product_version": "1.0.32",
+  "generated_at": "2026-05-22T15:46:17.986Z",
+  "product_version": "1.0.33",
   "review_required": true,
   "legal_change_claimed": false,
   "public_note": "Backend-derived metadata only. Review required before any legal or client use. Not legal advice.",
@@ -19,9 +19,9 @@
       "change_type": "added",
       "title": "Latest EDPS Newsletter out now",
       "metadata_summary": "New metadata item detected: Latest EDPS Newsletter out now",
-      "review_status": "review_required",
-      "priority": "high",
-      "safety_notes": "Metadata-only backend signal. Not verified on source. Not legal advice. Gates closed.",
+      "review_status": "in_review",
+      "priority": "medium",
+      "safety_notes": "Metadata RSS signal only. Not verified on source. Not legal advice.\n",
       "gates": {
         "verified_on_source": false,
         "client_use_allowed": false,
@@ -32,7 +32,29 @@
         "public_export_allowed": false
       },
       "review_required": true,
-      "legal_change_claimed": false
+      "legal_change_claimed": false,
+      "operator_decision": {
+        "decision_id": "op-dec-20260522-001-in-review",
+        "candidate_id": "fe309808-7ddf-4a85-97f5-2fdb7e43fcd8",
+        "decision": "mark_in_review",
+        "reviewer_label": "regulation-watch-operator-pilot",
+        "decided_at": "2026-05-22T10:00:00Z",
+        "rationale": "Newsletter item queued for operator source check; no legal conclusion.\n",
+        "public_note": "In review for metadata relevance — tracking signal only.\n",
+        "public_visibility": "internal_summary_only",
+        "source_checked_url": null,
+        "safety_notes": "Metadata RSS signal only. Not verified on source. Not legal advice.\n",
+        "gates": {
+          "verified_on_source": false,
+          "client_use_allowed": false,
+          "client_evidence_allowed": false,
+          "final_evidence_allowed": false,
+          "legal_change_claimed": false,
+          "publication_allowed": false,
+          "public_export_allowed": false
+        },
+        "tracking_only": null
+      }
     },
     {
       "candidate_id": "0acd5186-d69d-4144-a65e-570f98a89095",
@@ -48,9 +70,9 @@
       "change_type": "added",
       "title": "Towards trustworthy AI in the EU public administration: The EDPS Compass for its new role under the AI Act",
       "metadata_summary": "New metadata item detected: Towards trustworthy AI in the EU public administration: The EDPS Compass for its new role under the AI Act",
-      "review_status": "review_required",
+      "review_status": "needs_source_check",
       "priority": "high",
-      "safety_notes": "Metadata-only backend signal. Not verified on source. Not legal advice. Gates closed.",
+      "safety_notes": "Operator must confirm URL and metadata match; gates stay closed.\n",
       "gates": {
         "verified_on_source": false,
         "client_use_allowed": false,
@@ -61,7 +83,29 @@
         "public_export_allowed": false
       },
       "review_required": true,
-      "legal_change_claimed": false
+      "legal_change_claimed": false,
+      "operator_decision": {
+        "decision_id": "op-dec-20260522-002-source-check",
+        "candidate_id": "0acd5186-d69d-4144-a65e-570f98a89095",
+        "decision": "needs_source_check",
+        "reviewer_label": "regulation-watch-operator-pilot",
+        "decided_at": "2026-05-22T10:15:00Z",
+        "rationale": "AI Act compass announcement needs official page confirmation before any tracker prominence change.\n",
+        "public_note": "Source check pending — do not treat as verified regulatory change.\n",
+        "public_visibility": "internal_summary_only",
+        "source_checked_url": "https://www.edps.europa.eu/press-publications/press-news/news/2026/towards-trustworthy-ai-eu-public-administration-edps-compass-its-new-role-under-ai-act",
+        "safety_notes": "Operator must confirm URL and metadata match; gates stay closed.\n",
+        "gates": {
+          "verified_on_source": false,
+          "client_use_allowed": false,
+          "client_evidence_allowed": false,
+          "final_evidence_allowed": false,
+          "legal_change_claimed": false,
+          "publication_allowed": false,
+          "public_export_allowed": false
+        },
+        "tracking_only": null
+      }
     },
     {
       "candidate_id": "1d4af0cb-f2c1-47e4-89c3-62bac95145f5",
@@ -77,9 +121,9 @@
       "change_type": "added",
       "title": "EDPB-EDPS Joint Opinion on the Proposal for a Cybersecurity Act 2 and the Proposal on amendments to the NIS 2 Directive",
       "metadata_summary": "New metadata item detected: EDPB-EDPS Joint Opinion on the Proposal for a Cybersecurity Act 2 and the Proposal on amendments to the NIS 2 Directive",
-      "review_status": "review_required",
-      "priority": "high",
-      "safety_notes": "Metadata-only backend signal. Not verified on source. Not legal advice. Gates closed.",
+      "review_status": "accepted_for_tracking",
+      "priority": "medium",
+      "safety_notes": "Tracking only. Gates closed. Not legal advice.\n",
       "gates": {
         "verified_on_source": false,
         "client_use_allowed": false,
@@ -89,8 +133,30 @@
         "publication_allowed": false,
         "public_export_allowed": false
       },
-      "review_required": true,
-      "legal_change_claimed": false
+      "review_required": false,
+      "legal_change_claimed": false,
+      "operator_decision": {
+        "decision_id": "op-dec-20260522-004-accept-tracking",
+        "candidate_id": "1d4af0cb-f2c1-47e4-89c3-62bac95145f5",
+        "decision": "accept_for_tracking",
+        "reviewer_label": "regulation-watch-operator-pilot",
+        "decided_at": "2026-05-22T11:00:00Z",
+        "rationale": "Joint opinion metadata retained for EU cybersecurity topic tracking; not verified as binding legal change.\n",
+        "public_note": "Accepted for internal tracker follow-up only — not legal verification.\n",
+        "public_visibility": "public_summary_candidate",
+        "source_checked_url": "https://www.edps.europa.eu/press-publications/press-news/news/2026/edpb-edps-joint-opinion-cybersecurity-act-2-and-amendments-nis-2-directive",
+        "safety_notes": "Tracking only. Gates closed. Not legal advice.\n",
+        "gates": {
+          "verified_on_source": false,
+          "client_use_allowed": false,
+          "client_evidence_allowed": false,
+          "final_evidence_allowed": false,
+          "legal_change_claimed": false,
+          "publication_allowed": false,
+          "public_export_allowed": false
+        },
+        "tracking_only": "Tracking only — not legal verification. Gates remain closed."
+      }
     },
     {
       "candidate_id": "5931782b-148c-47ed-bf7a-a202c909d660",
@@ -119,7 +185,8 @@
         "public_export_allowed": false
       },
       "review_required": true,
-      "legal_change_claimed": false
+      "legal_change_claimed": false,
+      "operator_decision": null
     },
     {
       "candidate_id": "6d7b8666-8c0a-4fdf-9c0e-2918b7309540",
@@ -148,7 +215,8 @@
         "public_export_allowed": false
       },
       "review_required": true,
-      "legal_change_claimed": false
+      "legal_change_claimed": false,
+      "operator_decision": null
     },
     {
       "candidate_id": "45cdb32e-551e-432a-b5b5-262de951d143",
@@ -177,7 +245,8 @@
         "public_export_allowed": false
       },
       "review_required": true,
-      "legal_change_claimed": false
+      "legal_change_claimed": false,
+      "operator_decision": null
     },
     {
       "candidate_id": "fe933773-8c1f-44b5-b323-d1fe37e82beb",
@@ -193,9 +262,9 @@
       "change_type": "added",
       "title": "Latest EDPS newsletter out now",
       "metadata_summary": "New metadata item detected: Latest EDPS newsletter out now",
-      "review_status": "review_required",
-      "priority": "high",
-      "safety_notes": "Metadata-only backend signal. Not verified on source. Not legal advice. Gates closed.",
+      "review_status": "dismissed",
+      "priority": "low",
+      "safety_notes": "Dismissed as feed noise — not a legal or compliance determination.\n",
       "gates": {
         "verified_on_source": false,
         "client_use_allowed": false,
@@ -205,8 +274,30 @@
         "publication_allowed": false,
         "public_export_allowed": false
       },
-      "review_required": true,
-      "legal_change_claimed": false
+      "review_required": false,
+      "legal_change_claimed": false,
+      "operator_decision": {
+        "decision_id": "op-dec-20260522-003-dismiss-noise",
+        "candidate_id": "fe933773-8c1f-44b5-b323-d1fe37e82beb",
+        "decision": "dismiss_noise",
+        "reviewer_label": "regulation-watch-operator-pilot",
+        "decided_at": "2026-05-22T10:30:00Z",
+        "rationale": "Duplicate EDPS newsletter metadata signal (near-duplicate of another queue item); no separate monitoring action.\n",
+        "public_note": null,
+        "public_visibility": "blocked",
+        "source_checked_url": null,
+        "safety_notes": "Dismissed as feed noise — not a legal or compliance determination.\n",
+        "gates": {
+          "verified_on_source": false,
+          "client_use_allowed": false,
+          "client_evidence_allowed": false,
+          "final_evidence_allowed": false,
+          "legal_change_claimed": false,
+          "publication_allowed": false,
+          "public_export_allowed": false
+        },
+        "tracking_only": null
+      }
     },
     {
       "candidate_id": "344ad1e5-70bd-48a8-8ad1-242e9a383873",
@@ -235,7 +326,8 @@
         "public_export_allowed": false
       },
       "review_required": true,
-      "legal_change_claimed": false
+      "legal_change_claimed": false,
+      "operator_decision": null
     },
     {
       "candidate_id": "f3c52e30-d6d0-4922-9913-4761f1756e76",
@@ -264,7 +356,8 @@
         "public_export_allowed": false
       },
       "review_required": true,
-      "legal_change_claimed": false
+      "legal_change_claimed": false,
+      "operator_decision": null
     },
     {
       "candidate_id": "485fee15-4b55-4692-bb8e-d2a18e5dd530",
@@ -293,7 +386,8 @@
         "public_export_allowed": false
       },
       "review_required": true,
-      "legal_change_claimed": false
+      "legal_change_claimed": false,
+      "operator_decision": null
     },
     {
       "candidate_id": "1c37ccf0-2742-499e-b848-57c541c765cb",
@@ -322,7 +416,8 @@
         "public_export_allowed": false
       },
       "review_required": true,
-      "legal_change_claimed": false
+      "legal_change_claimed": false,
+      "operator_decision": null
     },
     {
       "candidate_id": "d0ad1600-5fe3-45f3-9c37-143355d1ee94",
@@ -351,7 +446,8 @@
         "public_export_allowed": false
       },
       "review_required": true,
-      "legal_change_claimed": false
+      "legal_change_claimed": false,
+      "operator_decision": null
     },
     {
       "candidate_id": "431e05e6-e8a5-4d47-ab47-b41f1ddbeae1",
@@ -380,7 +476,8 @@
         "public_export_allowed": false
       },
       "review_required": true,
-      "legal_change_claimed": false
+      "legal_change_claimed": false,
+      "operator_decision": null
     },
     {
       "candidate_id": "c669323d-14d9-452f-816e-cedf6799fece",
@@ -409,7 +506,8 @@
         "public_export_allowed": false
       },
       "review_required": true,
-      "legal_change_claimed": false
+      "legal_change_claimed": false,
+      "operator_decision": null
     },
     {
       "candidate_id": "46f913ab-b83f-44f3-84f9-0fd26274a9a6",
@@ -438,7 +536,8 @@
         "public_export_allowed": false
       },
       "review_required": true,
-      "legal_change_claimed": false
+      "legal_change_claimed": false,
+      "operator_decision": null
     },
     {
       "candidate_id": "bf289319-218b-4fba-b497-91164396122c",
@@ -467,7 +566,8 @@
         "public_export_allowed": false
       },
       "review_required": true,
-      "legal_change_claimed": false
+      "legal_change_claimed": false,
+      "operator_decision": null
     },
     {
       "candidate_id": "73c0844c-95b6-49bb-bbb2-13b517995391",
@@ -496,7 +596,8 @@
         "public_export_allowed": false
       },
       "review_required": true,
-      "legal_change_claimed": false
+      "legal_change_claimed": false,
+      "operator_decision": null
     },
     {
       "candidate_id": "72f12dc0-50a8-44c1-8f34-6b1324238b1d",
@@ -525,7 +626,8 @@
         "public_export_allowed": false
       },
       "review_required": true,
-      "legal_change_claimed": false
+      "legal_change_claimed": false,
+      "operator_decision": null
     },
     {
       "candidate_id": "3fe3b38c-5465-421f-b9a2-43676844d241",
@@ -554,7 +656,8 @@
         "public_export_allowed": false
       },
       "review_required": true,
-      "legal_change_claimed": false
+      "legal_change_claimed": false,
+      "operator_decision": null
     },
     {
       "candidate_id": "063c0d11-c607-43ae-b8bb-8f40f41e7448",
@@ -583,29 +686,46 @@
         "public_export_allowed": false
       },
       "review_required": true,
-      "legal_change_claimed": false
+      "legal_change_claimed": false,
+      "operator_decision": null
     }
   ],
   "card_count": 20,
   "summary": {
     "total": 20,
-    "review_required": 20,
-    "in_review": 0,
-    "dismissed": 0,
-    "accepted_for_tracking": 0,
-    "needs_source_check": 0,
-    "high_priority": 20,
-    "medium_priority": 0,
-    "low_priority": 0
+    "review_required": 16,
+    "in_review": 1,
+    "dismissed": 1,
+    "accepted_for_tracking": 1,
+    "needs_source_check": 1,
+    "needs_legal_review": 0,
+    "high_priority": 17,
+    "medium_priority": 2,
+    "low_priority": 1,
+    "with_operator_decision": 4
+  },
+  "decision_counts": {
+    "total": 4,
+    "keep_review_required": 0,
+    "mark_in_review": 1,
+    "dismiss_noise": 1,
+    "accept_for_tracking": 1,
+    "needs_source_check": 1,
+    "needs_legal_review": 0
   },
   "jurisdiction_states": [
     {
       "jurisdiction_id": "eu",
-      "pending_review_count": 20,
-      "high_priority_count": 20,
+      "pending_review_count": 18,
+      "high_priority_count": 17,
       "stale_source_count": 0,
       "fresh_automated_count": 2,
       "manual_review_only_count": 5,
+      "accepted_for_tracking_count": 1,
+      "dismissed_count": 1,
+      "needs_source_check_count": 1,
+      "needs_legal_review_count": 0,
+      "in_review_count": 1,
       "review_state": "pending_review"
     },
     {
@@ -615,6 +735,11 @@
       "stale_source_count": 0,
       "fresh_automated_count": 0,
       "manual_review_only_count": 1,
+      "accepted_for_tracking_count": 0,
+      "dismissed_count": 0,
+      "needs_source_check_count": 0,
+      "needs_legal_review_count": 0,
+      "in_review_count": 0,
       "review_state": "manual_review_only"
     },
     {
@@ -624,6 +749,11 @@
       "stale_source_count": 0,
       "fresh_automated_count": 0,
       "manual_review_only_count": 1,
+      "accepted_for_tracking_count": 0,
+      "dismissed_count": 0,
+      "needs_source_check_count": 0,
+      "needs_legal_review_count": 0,
+      "in_review_count": 0,
       "review_state": "manual_review_only"
     },
     {
@@ -633,6 +763,11 @@
       "stale_source_count": 0,
       "fresh_automated_count": 0,
       "manual_review_only_count": 4,
+      "accepted_for_tracking_count": 0,
+      "dismissed_count": 0,
+      "needs_source_check_count": 0,
+      "needs_legal_review_count": 0,
+      "in_review_count": 0,
       "review_state": "manual_review_only"
     },
     {
@@ -642,6 +777,11 @@
       "stale_source_count": 0,
       "fresh_automated_count": 0,
       "manual_review_only_count": 3,
+      "accepted_for_tracking_count": 0,
+      "dismissed_count": 0,
+      "needs_source_check_count": 0,
+      "needs_legal_review_count": 0,
+      "in_review_count": 0,
       "review_state": "manual_review_only"
     },
     {
@@ -651,6 +791,11 @@
       "stale_source_count": 0,
       "fresh_automated_count": 0,
       "manual_review_only_count": 2,
+      "accepted_for_tracking_count": 0,
+      "dismissed_count": 0,
+      "needs_source_check_count": 0,
+      "needs_legal_review_count": 0,
+      "in_review_count": 0,
       "review_state": "manual_review_only"
     },
     {
@@ -660,6 +805,11 @@
       "stale_source_count": 0,
       "fresh_automated_count": 0,
       "manual_review_only_count": 1,
+      "accepted_for_tracking_count": 0,
+      "dismissed_count": 0,
+      "needs_source_check_count": 0,
+      "needs_legal_review_count": 0,
+      "in_review_count": 0,
       "review_state": "manual_review_only"
     },
     {
@@ -669,6 +819,11 @@
       "stale_source_count": 0,
       "fresh_automated_count": 0,
       "manual_review_only_count": 1,
+      "accepted_for_tracking_count": 0,
+      "dismissed_count": 0,
+      "needs_source_check_count": 0,
+      "needs_legal_review_count": 0,
+      "in_review_count": 0,
       "review_state": "manual_review_only"
     },
     {
@@ -678,6 +833,11 @@
       "stale_source_count": 0,
       "fresh_automated_count": 0,
       "manual_review_only_count": 1,
+      "accepted_for_tracking_count": 0,
+      "dismissed_count": 0,
+      "needs_source_check_count": 0,
+      "needs_legal_review_count": 0,
+      "in_review_count": 0,
       "review_state": "manual_review_only"
     },
     {
@@ -687,6 +847,11 @@
       "stale_source_count": 0,
       "fresh_automated_count": 0,
       "manual_review_only_count": 1,
+      "accepted_for_tracking_count": 0,
+      "dismissed_count": 0,
+      "needs_source_check_count": 0,
+      "needs_legal_review_count": 0,
+      "in_review_count": 0,
       "review_state": "manual_review_only"
     },
     {
@@ -696,6 +861,11 @@
       "stale_source_count": 0,
       "fresh_automated_count": 0,
       "manual_review_only_count": 1,
+      "accepted_for_tracking_count": 0,
+      "dismissed_count": 0,
+      "needs_source_check_count": 0,
+      "needs_legal_review_count": 0,
+      "in_review_count": 0,
       "review_state": "manual_review_only"
     },
     {
@@ -705,6 +875,11 @@
       "stale_source_count": 0,
       "fresh_automated_count": 0,
       "manual_review_only_count": 1,
+      "accepted_for_tracking_count": 0,
+      "dismissed_count": 0,
+      "needs_source_check_count": 0,
+      "needs_legal_review_count": 0,
+      "in_review_count": 0,
       "review_state": "manual_review_only"
     },
     {
@@ -714,6 +889,11 @@
       "stale_source_count": 0,
       "fresh_automated_count": 0,
       "manual_review_only_count": 1,
+      "accepted_for_tracking_count": 0,
+      "dismissed_count": 0,
+      "needs_source_check_count": 0,
+      "needs_legal_review_count": 0,
+      "in_review_count": 0,
       "review_state": "manual_review_only"
     }
   ],
@@ -727,5 +907,12 @@
     "public_export_allowed": false
   },
   "scheduled_monitoring_enabled": false,
-  "live_ingestion_enabled": false
+  "live_ingestion_enabled": false,
+  "operator_workflow": {
+    "decisions_file": "data/runtime/operator-review-decisions.yml",
+    "local_decision_count": 4,
+    "applied_to_candidates": 4,
+    "cron_enabled": false,
+    "scheduled_monitoring_enabled": false
+  }
 }

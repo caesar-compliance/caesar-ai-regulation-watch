@@ -26,6 +26,7 @@ const VALID_REVIEW_STATUS = new Set([
   "dismissed",
   "accepted_for_tracking",
   "needs_source_check",
+  "needs_legal_review",
 ]);
 
 const VALID_PRIORITY = new Set(["high", "medium", "low"]);
@@ -107,6 +108,23 @@ function main() {
       );
     }
 
+    const queueSummary = queue.summary ?? {};
+    for (const key of [
+      "review_required",
+      "in_review",
+      "dismissed",
+      "accepted_for_tracking",
+      "needs_source_check",
+      "needs_legal_review",
+    ]) {
+      const expected = cards.filter((c) => c.review_status === key).length;
+      if (queueSummary[key] != null && queueSummary[key] !== expected) {
+        errors.push(
+          `summary.${key} (${queueSummary[key]}) != cards (${expected})`,
+        );
+      }
+    }
+
     for (const card of cards) {
       const ctx = `card ${card.candidate_id}`;
       if (!card.candidate_id) errors.push(`${ctx}: missing candidate_id`);
@@ -119,6 +137,29 @@ function main() {
       assertGatesClosed(card.gates, ctx, errors);
       if (card.legal_change_claimed === true) {
         errors.push(`${ctx}: legal_change_claimed must be false`);
+      }
+      if (card.review_status === "accepted_for_tracking") {
+        const op = card.operator_decision;
+        if (op?.tracking_only == null && op?.decision !== "accept_for_tracking") {
+          errors.push(
+            `${ctx}: accepted_for_tracking requires operator decision or tracking_only label`,
+          );
+        }
+        if (op?.gates) {
+          for (const key of GATE_KEYS) {
+            if (op.gates[key] === true) {
+              errors.push(`${ctx}: operator_decision gate ${key} must be false`);
+            }
+          }
+        }
+      }
+      if (card.operator_decision) {
+        assertGatesClosed(card.operator_decision.gates, `${ctx} operator_decision`, errors);
+        if (card.operator_decision.decision === "accept_for_tracking") {
+          if (!card.operator_decision.tracking_only) {
+            errors.push(`${ctx}: accept_for_tracking missing tracking_only label`);
+          }
+        }
       }
     }
   }

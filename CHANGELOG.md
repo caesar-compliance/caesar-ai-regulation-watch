@@ -11,6 +11,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.33] - 22 May 2026
+
+### Added
+
+- **T082 operator decision loop** — YAML decisions drive `review_status` on queue cards; `validate:operator-decisions`; sample pilot decisions (4).
+- **Exports** — enriched `regulation-review-queue.json`, `operator-review-summary.json`, `review-packets-index.json`; `tracker-summary.json` operator_review block.
+- **UI** — decision badges/filters on `/review-queue/`; operator pipeline on `/tracker/`; jurisdiction tracking section; operator workflow health on `/runtime-health/`.
+- **Docs** — `docs/OPERATOR_REVIEW_WORKFLOW.md`.
+
+### Safety
+
+- All protected gates remain false; cron/scheduled monitoring disabled; no legal verification claims on accept_for_tracking.
+
+---
+
 ## [1.0.32] - 22 May 2026
 
 ### Added

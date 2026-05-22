@@ -1,5 +1,5 @@
 /**
- * T081 — Shared review queue, source freshness, and operator decision helpers.
+ * T081 / T082 — Shared review queue, source freshness, and operator decision helpers.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -16,6 +16,34 @@ export const CLOSED_GATES = {
   public_export_allowed: false,
 };
 
+export const GATE_KEYS = Object.keys(CLOSED_GATES);
+
+export const SUPPORTED_DECISIONS = new Set([
+  "keep_review_required",
+  "mark_in_review",
+  "dismiss_noise",
+  "accept_for_tracking",
+  "needs_source_check",
+  "needs_legal_review",
+]);
+
+export const DECISION_TO_REVIEW_STATUS = {
+  keep_review_required: "review_required",
+  mark_in_review: "in_review",
+  dismiss_noise: "dismissed",
+  accept_for_tracking: "accepted_for_tracking",
+  needs_source_check: "needs_source_check",
+  needs_legal_review: "needs_legal_review",
+};
+
+export const VALID_REVIEW_STATUS = new Set(Object.values(DECISION_TO_REVIEW_STATUS));
+
+export const VALID_PUBLIC_VISIBILITY = new Set([
+  "blocked",
+  "internal_summary_only",
+  "public_summary_candidate",
+]);
+
 const CANDIDATE_STATUS_TO_REVIEW = {
   draft: "review_required",
   pending: "review_required",
@@ -25,17 +53,136 @@ const CANDIDATE_STATUS_TO_REVIEW = {
   needs_source_check: "needs_source_check",
 };
 
+const EMAIL_PATTERN = /@[a-z0-9.-]+\.[a-z]{2,}/i;
+
 export function loadPublicJson(root, name) {
   const full = path.join(root, "public/data", name);
   if (!fs.existsSync(full)) return null;
   return JSON.parse(fs.readFileSync(full, "utf8"));
 }
 
-export function loadOperatorDecisions(root) {
+export function loadOperatorDecisionsDoc(root) {
   const file = path.join(root, "data/runtime/operator-review-decisions.yml");
-  if (!fs.existsSync(file)) return [];
-  const doc = yaml.load(fs.readFileSync(file, "utf8"));
-  return doc?.decisions ?? [];
+  if (!fs.existsSync(file)) return { decisions: [] };
+  return yaml.load(fs.readFileSync(file, "utf8")) ?? { decisions: [] };
+}
+
+export function loadOperatorDecisions(root) {
+  return loadOperatorDecisionsDoc(root)?.decisions ?? [];
+}
+
+export function normalizeGateOverrides(raw) {
+  const merged = { ...CLOSED_GATES, ...(raw ?? {}) };
+  for (const key of GATE_KEYS) {
+    if (merged[key] !== true) merged[key] = false;
+  }
+  return merged;
+}
+
+export function decisionRequiresSourceUrl(decision) {
+  return decision === "needs_source_check" || decision === "accept_for_tracking";
+}
+
+export function priorityForReviewStatus(reviewStatus, basePriority = "medium") {
+  if (reviewStatus === "dismissed") return "low";
+  if (
+    reviewStatus === "review_required" ||
+    reviewStatus === "needs_source_check" ||
+    reviewStatus === "needs_legal_review"
+  ) {
+    return "high";
+  }
+  if (reviewStatus === "in_review") return "medium";
+  if (reviewStatus === "accepted_for_tracking") return "medium";
+  return basePriority;
+}
+
+export function operatorDecisionExportFields(decision) {
+  if (!decision) return null;
+  const gates = normalizeGateOverrides(decision.gate_overrides);
+  return {
+    decision_id: decision.decision_id,
+    candidate_id: decision.candidate_id,
+    decision: decision.decision,
+    reviewer_label: decision.reviewer_label,
+    decided_at: decision.decided_at,
+    rationale: decision.rationale ?? null,
+    public_note: decision.public_note ?? null,
+    public_visibility: decision.public_visibility ?? "internal_summary_only",
+    source_checked_url: decision.source_checked_url ?? null,
+    safety_notes: decision.safety_notes ?? null,
+    gates,
+    tracking_only:
+      decision.decision === "accept_for_tracking"
+        ? "Tracking only — not legal verification. Gates remain closed."
+        : null,
+  };
+}
+
+export function applyOperatorDecisionToCard(card, decision) {
+  if (!decision) return card;
+  const reviewStatus =
+    DECISION_TO_REVIEW_STATUS[decision.decision] ?? card.review_status;
+  const operator = operatorDecisionExportFields(decision);
+  const priority = priorityForReviewStatus(reviewStatus, card.priority);
+  const reviewRequired =
+    reviewStatus !== "dismissed" && reviewStatus !== "accepted_for_tracking";
+
+  return {
+    ...card,
+    review_status: reviewStatus,
+    priority,
+    review_required: reviewRequired,
+    operator_decision: operator,
+    safety_notes:
+      decision.safety_notes ??
+      card.safety_notes ??
+      "Metadata-only backend signal. Not verified on source. Not legal advice. Gates closed.",
+    gates: operator?.gates ?? card.gates,
+    legal_change_claimed: false,
+  };
+}
+
+export function buildDecisionIndex(decisions) {
+  const byCandidate = new Map();
+  const byDecisionId = new Map();
+  for (const decision of decisions) {
+    if (decision?.decision_id) byDecisionId.set(decision.decision_id, decision);
+    if (decision?.candidate_id) {
+      const prev = byCandidate.get(decision.candidate_id);
+      const prevAt = prev?.decided_at ? new Date(prev.decided_at).getTime() : 0;
+      const nextAt = decision.decided_at
+        ? new Date(decision.decided_at).getTime()
+        : 0;
+      if (!prev || nextAt >= prevAt) byCandidate.set(decision.candidate_id, decision);
+    }
+  }
+  return { byCandidate, byDecisionId };
+}
+
+export function summarizeReviewStatuses(cards) {
+  const summary = {
+    total: cards.length,
+    review_required: 0,
+    in_review: 0,
+    dismissed: 0,
+    accepted_for_tracking: 0,
+    needs_source_check: 0,
+    needs_legal_review: 0,
+    high_priority: 0,
+    medium_priority: 0,
+    low_priority: 0,
+    with_operator_decision: 0,
+  };
+  for (const card of cards) {
+    const status = card.review_status;
+    if (summary[status] != null) summary[status] += 1;
+    if (card.priority === "high") summary.high_priority += 1;
+    else if (card.priority === "medium") summary.medium_priority += 1;
+    else if (card.priority === "low") summary.low_priority += 1;
+    if (card.operator_decision) summary.with_operator_decision += 1;
+  }
+  return summary;
 }
 
 export function mapCandidateToCard(candidate, registryByKey, detectedById) {
@@ -45,12 +192,7 @@ export function mapCandidateToCard(candidate, registryByKey, detectedById) {
   const jurisdictionId = candidate.jurisdiction_ids?.[0] ?? "unknown";
   const reviewStatus =
     CANDIDATE_STATUS_TO_REVIEW[candidate.candidate_status] ?? "review_required";
-  const priority =
-    reviewStatus === "review_required" && candidate.review_required !== false
-      ? "high"
-      : reviewStatus === "needs_source_check"
-        ? "high"
-        : "medium";
+  const priority = priorityForReviewStatus(reviewStatus);
 
   return {
     candidate_id: candidate.candidate_id,
@@ -75,6 +217,7 @@ export function mapCandidateToCard(candidate, registryByKey, detectedById) {
     gates: { ...CLOSED_GATES },
     review_required: true,
     legal_change_claimed: false,
+    operator_decision: null,
   };
 }
 
@@ -89,8 +232,12 @@ export function buildReviewQueueCards(root) {
     (changesPayload?.changes ?? []).map((c) => [c.change_id, c]),
   );
   const candidates = candidatesPayload?.candidates ?? [];
-  return candidates.map((c) =>
+  const baseCards = candidates.map((c) =>
     mapCandidateToCard(c, registryByKey, detectedById),
+  );
+  const { byCandidate } = buildDecisionIndex(loadOperatorDecisions(root));
+  return baseCards.map((card) =>
+    applyOperatorDecisionToCard(card, byCandidate.get(card.candidate_id)),
   );
 }
 
@@ -115,13 +262,20 @@ export function freshnessStatusForSource(source, latestRun, reviewCount) {
   return "stale";
 }
 
+const ACTIVE_REVIEW_STATUSES = new Set([
+  "review_required",
+  "in_review",
+  "needs_source_check",
+  "needs_legal_review",
+]);
+
 export function buildSourceFreshnessRows(root) {
   const registry = loadMonitoringPilotRegistry();
   const runsPayload = loadPublicJson(root, "regulation-source-runs.json");
   const queueCards = buildReviewQueueCards(root);
   const reviewBySource = new Map();
   for (const card of queueCards) {
-    if (card.review_status === "review_required" || card.review_status === "in_review") {
+    if (ACTIVE_REVIEW_STATUSES.has(card.review_status)) {
       reviewBySource.set(
         card.source_key,
         (reviewBySource.get(card.source_key) ?? 0) + 1,
@@ -182,16 +336,29 @@ export function jurisdictionReviewState(root) {
         stale_source_count: 0,
         fresh_automated_count: 0,
         manual_review_only_count: 0,
+        accepted_for_tracking_count: 0,
+        dismissed_count: 0,
+        needs_source_check_count: 0,
+        needs_legal_review_count: 0,
+        in_review_count: 0,
         review_state: "ok",
       });
     }
     const row = byJurisdiction.get(jid);
-    if (
-      card.review_status === "review_required" ||
-      card.review_status === "in_review"
-    ) {
+    if (ACTIVE_REVIEW_STATUSES.has(card.review_status)) {
       row.pending_review_count += 1;
       if (card.priority === "high") row.high_priority_count += 1;
+    }
+    if (card.review_status === "in_review") row.in_review_count += 1;
+    if (card.review_status === "accepted_for_tracking") {
+      row.accepted_for_tracking_count += 1;
+    }
+    if (card.review_status === "dismissed") row.dismissed_count += 1;
+    if (card.review_status === "needs_source_check") {
+      row.needs_source_check_count += 1;
+    }
+    if (card.review_status === "needs_legal_review") {
+      row.needs_legal_review_count += 1;
     }
   }
 
@@ -205,6 +372,11 @@ export function jurisdictionReviewState(root) {
           stale_source_count: 0,
           fresh_automated_count: 0,
           manual_review_only_count: 0,
+          accepted_for_tracking_count: 0,
+          dismissed_count: 0,
+          needs_source_check_count: 0,
+          needs_legal_review_count: 0,
+          in_review_count: 0,
           review_state: "ok",
         });
       }
@@ -224,7 +396,9 @@ export function jurisdictionReviewState(root) {
 
   for (const row of byJurisdiction.values()) {
     if (row.pending_review_count > 0) row.review_state = "pending_review";
-    else if (row.stale_source_count > 0) row.review_state = "stale_sources";
+    else if (row.accepted_for_tracking_count > 0) {
+      row.review_state = "tracking_active";
+    } else if (row.stale_source_count > 0) row.review_state = "stale_sources";
     else if (row.manual_review_only_count > 0 && row.fresh_automated_count === 0) {
       row.review_state = "manual_review_only";
     } else row.review_state = "fresh_coverage";

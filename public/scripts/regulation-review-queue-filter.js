@@ -5,6 +5,8 @@
     if (filters.jurisdiction && item.dataset.jurisdiction !== filters.jurisdiction)
       return false;
     if (filters.source && item.dataset.source !== filters.source) return false;
+    if (filters.hasDecision && item.dataset.hasDecision !== filters.hasDecision)
+      return false;
     if (filters.topic) {
       const topics = (item.dataset.topic || "").split(/\s+/);
       if (!topics.includes(filters.topic)) return false;

@@ -130,15 +130,37 @@ const latestUpdates = filterRegulatoryUpdates({
   </section>
 
   <section class="tracker-section">
-    <h2>Review queue &amp; source freshness (T081)</h2>
+    <h2>Operator review pipeline (T082)</h2>
+    <div class="metrics-strip metrics-strip--monitoring">
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{reviewQueueSummary.review_required ?? 0}</span>
+        <span class="metrics-strip__label">Review required</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{reviewQueueSummary.in_review ?? 0}</span>
+        <span class="metrics-strip__label">In review</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{reviewQueueSummary.needs_source_check ?? 0}</span>
+        <span class="metrics-strip__label">Needs source check</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{reviewQueueSummary.accepted_for_tracking ?? 0}</span>
+        <span class="metrics-strip__label">Tracking only</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{reviewQueueSummary.dismissed ?? 0}</span>
+        <span class="metrics-strip__label">Dismissed</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{operatorSummary.decision_count ?? 0}</span>
+        <span class="metrics-strip__label">YAML decisions</span>
+      </div>
+    </div>
     <div class="metrics-strip metrics-strip--monitoring">
       <div class="metrics-strip__item">
         <span class="metrics-strip__value">{reviewQueueSummary.high_priority ?? 0}</span>
         <span class="metrics-strip__label">High priority</span>
-      </div>
-      <div class="metrics-strip__item">
-        <span class="metrics-strip__value">{reviewQueueSummary.review_required ?? 0}</span>
-        <span class="metrics-strip__label">Review required</span>
       </div>
       <div class="metrics-strip__item">
         <span class="metrics-strip__value">{freshnessSummary.fresh ?? 0}</span>
@@ -147,10 +169,6 @@ const latestUpdates = filterRegulatoryUpdates({
       <div class="metrics-strip__item">
         <span class="metrics-strip__value">{freshnessSummary.stale ?? 0}</span>
         <span class="metrics-strip__label">Stale sources</span>
-      </div>
-      <div class="metrics-strip__item">
-        <span class="metrics-strip__value">{operatorSummary.decision_count ?? 0}</span>
-        <span class="metrics-strip__label">Operator decisions</span>
       </div>
       <div class="metrics-strip__item">
         <span class="metrics-strip__value">off</span>
@@ -162,7 +180,8 @@ const latestUpdates = filterRegulatoryUpdates({
         <ul>
           {reviewQueueCards.slice(0, 5).map((c) => (
             <li>
-              <strong>{c.priority}</strong> — {c.title} ({c.review_status},{" "}
+              <strong>{c.priority}</strong> — {c.title} ({c.review_status}
+              {c.review_status === "accepted_for_tracking" ? ", tracking only" : ""},{" "}
               <a href={`/jurisdictions/${c.jurisdiction_id}/`}>{c.jurisdiction_id}</a>)
             </li>
           ))}

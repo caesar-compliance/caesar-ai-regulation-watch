@@ -38,8 +38,10 @@ import {
 } from "../../lib/runtime-monitoring-data";
 import {
   reviewCardsForJurisdiction,
+  acceptedTrackingCardsForJurisdiction,
   sourceFreshnessForJurisdiction,
   jurisdictionReviewState,
+  REVIEW_STATUS_LABELS,
 } from "../../lib/regulation-review-queue";
 import TrackerMeter from "../../components/TrackerMeter.astro";
 
@@ -86,8 +88,15 @@ const jurisdictionChanges = getDetectedChanges()
   )
   .slice(0, 5);
 const countryReviewCards = reviewCardsForJurisdiction(jurisdiction.jurisdiction_id);
+const countryTrackingCards = acceptedTrackingCardsForJurisdiction(
+  jurisdiction.jurisdiction_id,
+);
 const countrySourceFreshness = sourceFreshnessForJurisdiction(jurisdiction.jurisdiction_id);
 const countryReviewState = jurisdictionReviewState(jurisdiction.jurisdiction_id);
+const activeReviewCards = countryReviewCards.filter(
+  (c) =>
+    c.review_status !== "dismissed" && c.review_status !== "accepted_for_tracking",
+);
 ---
 
 <BaseLayout title={jurisdiction.name} currentPath="/jurisdictions/">
@@ -430,36 +439,62 @@ const countryReviewState = jurisdictionReviewState(jurisdiction.jurisdiction_id)
   }
 
   <section class="tracker-section">
-    <h2>Country review workflow (T081)</h2>
+    <h2>Country review workflow (T082)</h2>
     <div class="banner banner--review" role="note">
-      <strong>Not legal advice.</strong> Pending monitoring candidates and source freshness signals
-      require human review. All safety gates remain closed on this page.
+      <strong>Not legal advice.</strong> Monitoring signals with operator decision state — tracking
+      acceptance is not legal verification. All safety gates remain closed.
     </div>
     <dl class="meta-grid">
       <div><dt>Review state</dt><dd>{countryReviewState?.review_state ?? "unknown"}</dd></div>
       <div><dt>Pending candidates</dt><dd>{countryReviewState?.pending_review_count ?? 0}</dd></div>
+      <div><dt>In review</dt><dd>{countryReviewState?.in_review_count ?? 0}</dd></div>
+      <div><dt>Needs source check</dt><dd>{countryReviewState?.needs_source_check_count ?? 0}</dd></div>
+      <div><dt>Accepted for tracking</dt><dd>{countryReviewState?.accepted_for_tracking_count ?? 0}</dd></div>
+      <div><dt>Dismissed</dt><dd>{countryReviewState?.dismissed_count ?? 0}</dd></div>
       <div><dt>High priority</dt><dd>{countryReviewState?.high_priority_count ?? 0}</dd></div>
       <div><dt>Stale sources</dt><dd>{countryReviewState?.stale_source_count ?? 0}</dd></div>
     </dl>
     {
-      countryReviewCards.length > 0 ? (
-        <ul>
-          {countryReviewCards.slice(0, 8).map((c) => (
-            <li>
-              <strong>{c.priority}</strong> — {c.title} ({c.review_status})
-              {c.source_url && (
-                <>
-                  {" "}
-                  <a href={c.source_url} target="_blank" rel="noopener noreferrer">
-                    source ↗
-                  </a>
-                </>
-              )}
-            </li>
-          ))}
-        </ul>
+      activeReviewCards.length > 0 ? (
+        <>
+          <h3>Active review signals</h3>
+          <ul>
+            {activeReviewCards.slice(0, 8).map((c) => (
+              <li>
+                <strong>{c.priority}</strong> — {c.title} (
+                {REVIEW_STATUS_LABELS[c.review_status] ?? c.review_status})
+                {c.source_url && (
+                  <>
+                    {" "}
+                    <a href={c.source_url} target="_blank" rel="noopener noreferrer">
+                      source ↗
+                    </a>
+                  </>
+                )}
+              </li>
+            ))}
+          </ul>
+        </>
       ) : (
-        <p>No pending review candidates for this jurisdiction in current export.</p>
+        <p>No active review candidates for this jurisdiction in current export.</p>
+      )
+    }
+    {
+      countryTrackingCards.length > 0 && (
+        <>
+          <h3>Accepted for tracking (not legal verification)</h3>
+          <ul>
+            {countryTrackingCards.map((c) => (
+              <li>
+                {c.title}
+                {c.operator_decision?.public_note && (
+                  <span> — {c.operator_decision.public_note}</span>
+                )}
+                <span class="badge badge--tracking-only">Tracking only</span>
+              </li>
+            ))}
+          </ul>
+        </>
       )
     }
     <h3>Official source freshness</h3>

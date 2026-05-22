@@ -247,6 +247,37 @@ h2 {
   color: #1e6b3a;
 }
 
+.badge--decision-review_required,
+.badge--decision-needs_source_check,
+.badge--decision-needs_legal_review {
+  background: var(--color-warn-bg);
+  color: var(--color-warn-text);
+  border: 1px solid var(--color-warn-border);
+}
+
+.badge--decision-in_review {
+  background: #e8f0fa;
+  color: #1e4d6b;
+  border: 1px solid #b8d4eb;
+}
+
+.badge--decision-dismissed {
+  background: #f0f0f5;
+  color: #5a5a6a;
+}
+
+.badge--decision-accepted_for_tracking {
+  background: #e6f4ea;
+  color: #1e5c34;
+  border: 1px solid #b8dfc8;
+}
+
+.badge--tracking-only {
+  background: #f5f0e8;
+  color: #6b5340;
+  border: 1px dashed #c9b89a;
+}
+
 .badge--type {
   background: #f0f0f5;
   color: #4a4a6a;

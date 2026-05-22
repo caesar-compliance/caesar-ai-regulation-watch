@@ -26,6 +26,9 @@ function packetMarkdown(card, index) {
     `- **Candidate ID:** \`${card.candidate_id}\``,
     `- **Priority:** ${card.priority}`,
     `- **Review status:** ${card.review_status}`,
+    card.operator_decision
+      ? `- **Operator decision:** ${card.operator_decision.decision} (${card.operator_decision.decision_id})`
+      : "- **Operator decision:** none",
     `- **Jurisdiction:** ${card.jurisdiction_id}`,
     `- **Source:** ${card.source_title} (\`${card.source_key}\`)`,
     `- **Change type:** ${card.change_type}`,
@@ -89,6 +92,8 @@ function main() {
       source_key: card.source_key,
       priority: card.priority,
       review_status: card.review_status,
+      operator_decision: card.operator_decision?.decision ?? null,
+      operator_decision_id: card.operator_decision?.decision_id ?? null,
       paths: {
         runtime: `data/runtime/review-packets/${filename}`,
         work_item: `work_items/T081-review-queue-source-freshness-operator-workflow/review-packets/${filename}`,

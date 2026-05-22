@@ -1,11 +1,100 @@
-# T081 — Local operator decisions (static-first, no personal email).
+# T082 — Local operator decisions (static-first, no personal email).
 # Gates remain false unless explicitly approved in a separate legal workflow.
+# Sample decisions below are pilot triage only — not legal advice, not verification.
 
-operator_review_decisions_id: operator-review-decisions-t081
+operator_review_decisions_id: operator-review-decisions-t082
 generated_at: "2026-05-22"
-product_version: "1.0.32"
+product_version: "1.0.33"
 public_note: >
   Operator triage decisions for regulation monitoring review candidates.
-  Not legal advice. No gate opens from this file alone.
+  Not legal advice. No gate opens from this file alone. Sample rows are
+  non-legal metadata workflow only.
 
-decisions: []
+decisions:
+  - decision_id: op-dec-20260522-001-in-review
+    candidate_id: fe309808-7ddf-4a85-97f5-2fdb7e43fcd8
+    decision: mark_in_review
+    reviewer_label: regulation-watch-operator-pilot
+    decided_at: "2026-05-22T10:00:00Z"
+    rationale: >
+      Newsletter item queued for operator source check; no legal conclusion.
+    public_note: >
+      In review for metadata relevance — tracking signal only.
+    public_visibility: internal_summary_only
+    gate_overrides:
+      verified_on_source: false
+      client_use_allowed: false
+      client_evidence_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+    safety_notes: >
+      Metadata RSS signal only. Not verified on source. Not legal advice.
+
+  - decision_id: op-dec-20260522-002-source-check
+    candidate_id: 0acd5186-d69d-4144-a65e-570f98a89095
+    decision: needs_source_check
+    reviewer_label: regulation-watch-operator-pilot
+    decided_at: "2026-05-22T10:15:00Z"
+    rationale: >
+      AI Act compass announcement needs official page confirmation before any
+      tracker prominence change.
+    public_note: >
+      Source check pending — do not treat as verified regulatory change.
+    public_visibility: internal_summary_only
+    source_checked_url: https://www.edps.europa.eu/press-publications/press-news/news/2026/towards-trustworthy-ai-eu-public-administration-edps-compass-its-new-role-under-ai-act
+    gate_overrides:
+      verified_on_source: false
+      client_use_allowed: false
+      client_evidence_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+    safety_notes: >
+      Operator must confirm URL and metadata match; gates stay closed.
+
+  - decision_id: op-dec-20260522-003-dismiss-noise
+    candidate_id: fe933773-8c1f-44b5-b323-d1fe37e82beb
+    decision: dismiss_noise
+    reviewer_label: regulation-watch-operator-pilot
+    decided_at: "2026-05-22T10:30:00Z"
+    rationale: >
+      Duplicate EDPS newsletter metadata signal (near-duplicate of another
+      queue item); no separate monitoring action.
+    public_note: null
+    public_visibility: blocked
+    gate_overrides:
+      verified_on_source: false
+      client_use_allowed: false
+      client_evidence_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+    safety_notes: >
+      Dismissed as feed noise — not a legal or compliance determination.
+
+  - decision_id: op-dec-20260522-004-accept-tracking
+    candidate_id: 1d4af0cb-f2c1-47e4-89c3-62bac95145f5
+    decision: accept_for_tracking
+    reviewer_label: regulation-watch-operator-pilot
+    decided_at: "2026-05-22T11:00:00Z"
+    rationale: >
+      Joint opinion metadata retained for EU cybersecurity topic tracking;
+      not verified as binding legal change.
+    public_note: >
+      Accepted for internal tracker follow-up only — not legal verification.
+    public_visibility: public_summary_candidate
+    source_checked_url: https://www.edps.europa.eu/press-publications/press-news/news/2026/edpb-edps-joint-opinion-cybersecurity-act-2-and-amendments-nis-2-directive
+    gate_overrides:
+      verified_on_source: false
+      client_use_allowed: false
+      client_evidence_allowed: false
+      final_evidence_allowed: false
+      legal_change_claimed: false
+      publication_allowed: false
+      public_export_allowed: false
+    safety_notes: >
+      Tracking only. Gates closed. Not legal advice.

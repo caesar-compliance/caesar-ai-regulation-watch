@@ -1,6 +1,18 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 22 May 2026 (v1.0.32 T081 review queue + source freshness + operator workflow)
+**Last updated:** 22 May 2026 (v1.0.33 T082 operator decision loop + review state publishing)
+
+## T082 — Operator decision loop
+
+| Path | Role |
+|------|------|
+| **data/runtime/operator-review-decisions.yml** | Local operator triage decisions (static-first) |
+| **scripts/runtime/validate-operator-decisions.mjs** | Decision YAML validator |
+| **scripts/runtime/lib/review-queue-lib.mjs** | Decision → card status merge |
+| **docs/OPERATOR_REVIEW_WORKFLOW.md** | Operator guide |
+| **public/data/regulation-review-queue.json** | Queue with operator_decision fields |
+| **public/data/operator-review-summary.json** | Decision summary export |
+| **src/pages/review-queue.astro** | Decision badges and filters |
 
 ## T079 — Dev Worker activation + E2E runtime run
 

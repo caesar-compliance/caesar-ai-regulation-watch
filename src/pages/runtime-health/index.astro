@@ -8,13 +8,35 @@ import { getMonitoringStatus } from "../../lib/runtime-monitoring-data";
 import {
   getReviewQueueSummary,
   getSourceFreshnessSummary,
+  getOperatorReviewSummary,
+  getRegulationReviewQueue,
 } from "../../lib/regulation-review-queue";
 
 const healthPath = path.join(process.cwd(), "public/data/runtime-db-health.json");
 const monitoring = getMonitoringStatus();
 const reviewSummary = getReviewQueueSummary();
 const freshnessSummary = getSourceFreshnessSummary();
+const operatorSummary = getOperatorReviewSummary();
+const reviewQueue = getRegulationReviewQueue();
+const decisionsPath = path.join(process.cwd(), "data/runtime/operator-review-decisions.yml");
+const packetsPath = path.join(process.cwd(), "public/data/review-packets-index.json");
 const runtimePath = path.join(process.cwd(), "data/runtime/automation-runtime.yml");
+
+let decisionsFileValid = false;
+let decisionsFileError: string | null = null;
+try {
+  const raw = fs.readFileSync(decisionsPath, "utf8");
+  yaml.load(raw);
+  decisionsFileValid = true;
+} catch (e) {
+  decisionsFileError = e instanceof Error ? e.message : "invalid YAML";
+}
+
+const packetsIndex = fs.existsSync(packetsPath)
+  ? (JSON.parse(fs.readFileSync(packetsPath, "utf8")) as { packet_count?: number })
+  : null;
+const staleUnreviewed =
+  (reviewSummary.review_required ?? 0) + (reviewSummary.needs_source_check ?? 0);
 
 const health = fs.existsSync(healthPath)
   ? (JSON.parse(fs.readFileSync(healthPath, "utf8")) as Record<string, unknown>)
@@ -97,6 +119,33 @@ const presentTables = (health?.expected_tables_present as string[]) ?? [];
   </section>
 
   <section>
+    <h2>Operator workflow health (T082)</h2>
+    <dl class="meta-grid">
+      <div>
+        <dt>operator_decisions_file</dt>
+        <dd>
+          {decisionsFileValid ? (
+            <strong>valid YAML</strong>
+          ) : (
+            <span class="warn">invalid — {decisionsFileError}</span>
+          )}
+        </dd>
+      </div>
+      <div><dt>local_decisions</dt><dd>{operatorSummary.decision_count ?? 0}</dd></div>
+      <div><dt>applied_to_queue</dt><dd>{reviewSummary.with_operator_decision ?? 0}</dd></div>
+      <div><dt>review_packets</dt><dd>{packetsIndex?.packet_count ?? 0}</dd></div>
+      <div><dt>stale_unreviewed_high</dt><dd>{staleUnreviewed}</dd></div>
+      <div><dt>in_review</dt><dd>{reviewSummary.in_review ?? 0}</dd></div>
+      <div><dt>tracking_only</dt><dd>{reviewSummary.accepted_for_tracking ?? 0}</dd></div>
+      <div><dt>dismissed</dt><dd>{reviewSummary.dismissed ?? 0}</dd></div>
+    </dl>
+    <p>
+      Decisions file: <code>data/runtime/operator-review-decisions.yml</code> · Guide:{" "}
+      <code>docs/OPERATOR_REVIEW_WORKFLOW.md</code>
+    </p>
+  </section>
+
+  <section>
     <h2>Review queue &amp; source freshness (T081)</h2>
     <dl class="meta-grid">
       <div><dt>review_queue_total</dt><dd>{reviewSummary.total ?? 0}</dd></div>
@@ -105,6 +154,7 @@ const presentTables = (health?.expected_tables_present as string[]) ?? [];
       <div><dt>fresh_sources</dt><dd>{freshnessSummary.fresh ?? 0}</dd></div>
       <div><dt>stale_sources</dt><dd>{freshnessSummary.stale ?? 0}</dd></div>
       <div><dt>manual_review_needed</dt><dd>{freshnessSummary.manual_review_needed ?? 0}</dd></div>
+      <div><dt>queue_decision_counts</dt><dd class="mono">{JSON.stringify(reviewQueue.decision_counts ?? {})}</dd></div>
     </dl>
     <p>
       <a href="/review-queue/">Review queue</a> ·{" "}

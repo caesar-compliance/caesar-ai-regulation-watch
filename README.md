@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **Status** | v1.0.32 T081 review queue + source freshness — 20 review queue cards, 25-source freshness export, operator YAML workflow; T080 coverage (18 profiles, 20 regulations); dev Worker; scheduled monitoring disabled |
+| **Status** | v1.0.33 T082 operator decision loop — YAML decisions applied to review queue (4 pilot decisions); T081 freshness + packets; T080 coverage; dev Worker; scheduled monitoring disabled |
 | **Automation** | `/automation/` — runtime scaffold; live ingestion disabled ([docs/AUTOMATION_RUNTIME_STRATEGY.md](docs/AUTOMATION_RUNTIME_STRATEGY.md)) |
 | **Hosting** | GitHub Pages — static site (Astro) |
 | **Scope** | AI regulation tracking, country profiles, latest updates, source monitoring, metrics and structured exports |

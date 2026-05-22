@@ -108,9 +108,12 @@ function main() {
     }
     if (
       trackerHtml &&
-      !/Review queue(?:\s*&amp;|\s*&)\s*source freshness \(T081\)/i.test(trackerHtml)
+      !/Review queue(?:\s*&amp;|\s*&)\s*source freshness \(T081\)/i.test(trackerHtml) &&
+      !/Operator review pipeline \(T082\)/i.test(trackerHtml)
     ) {
-      errors.push("dist/tracker/index.html missing T081 review queue section");
+      errors.push(
+        "dist/tracker/index.html missing T081/T082 review queue section",
+      );
     }
 
     const reviewQueueHtml = readText("review-queue/index.html", DIST);
