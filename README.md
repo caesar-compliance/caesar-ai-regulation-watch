@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **Status** | v1.0.30 dev Worker runtime activation — deployed `regulation-watch-monitor-dev` + dev Supabase pilot; scheduled cron disabled |
+| **Status** | v1.0.31 T080 coverage expansion — 18 jurisdiction profiles, 20 regulation records, 25 monitored sources (2 automated RSS, 23 manual review); dev Worker deployed; scheduled monitoring disabled |
 | **Automation** | `/automation/` — runtime scaffold; live ingestion disabled ([docs/AUTOMATION_RUNTIME_STRATEGY.md](docs/AUTOMATION_RUNTIME_STRATEGY.md)) |
 | **Hosting** | GitHub Pages — static site (Astro) |
 | **Scope** | AI regulation tracking, country profiles, latest updates, source monitoring, metrics and structured exports |

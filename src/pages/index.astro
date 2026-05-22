@@ -1,17 +1,21 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import JurisdictionCard from "../components/JurisdictionCard.astro";
 import DevelopersPanel from "../components/DevelopersPanel.astro";
-import { getJurisdictions, getChanges, getPilotSummary } from "../lib/data";
+import StatusBucketBadge from "../components/StatusBucketBadge.astro";
+import TrackerMeter from "../components/TrackerMeter.astro";
+import { getChanges } from "../lib/data";
 import { getReviewQueueSummary } from "../lib/review-queue";
 import { getAutomationFirstMetrics } from "../lib/tracker-data";
 import MetricsStrip from "../components/MetricsStrip.astro";
 import { formatDate, truncate } from "../lib/format";
 import { PROJECT_PHASE_LABEL, PROJECT_VERSION_LABEL } from "../lib/project-version";
+import { getPublicRouteSummary } from "../lib/public-route-summary";
+import { getJurisdictionProfileCards } from "../lib/runtime-monitoring-data";
+import { getCountryStatus } from "../lib/tracker-data";
 
-const summary = getPilotSummary();
+const routeSummary = getPublicRouteSummary();
 const reviewSummary = getReviewQueueSummary();
-const jurisdictions = getJurisdictions();
+const profileCards = getJurisdictionProfileCards();
 const recentChanges = getChanges().slice(0, 3);
 const trackerMetrics = getAutomationFirstMetrics();
 ---
@@ -19,16 +23,17 @@ const trackerMetrics = getAutomationFirstMetrics();
 <BaseLayout title="Home" currentPath="/">
   <h1>Caesar AI Regulation Watch</h1>
   <p class="lead">
-    Automation-first AI regulation tracker (skeleton) with source-linked jurisdiction status and
-    regulatory updates. Technical pilot base — not legal advice and not complete global coverage.
+    Automation-first AI regulation tracker with T080 country profiles, named regulation records,
+    and source-linked jurisdiction status. Technical pilot — not legal advice and not complete
+    global coverage.
   </p>
 
   <div class="banner banner--automation" role="note">
-    <strong>Automation-first tracker (T050).</strong> Explore the{" "}
-    <a href="/tracker/">status map</a>, <a href="/compare/">jurisdiction comparison</a>,{" "}
-    <a href="/updates/">updates feed</a>, and <a href="/countries/">country status</a>. Human review
-    and evidence export remain optional
-    future layers — not required for this public skeleton.
+    <strong>T080 coverage model ({PROJECT_VERSION_LABEL}).</strong> Explore the{" "}
+    <a href="/tracker/">global tracker</a>, <a href="/map/">interactive map</a>,{" "}
+    <a href="/compare/">jurisdiction comparison</a>, <a href="/updates/">updates feed</a>, and{" "}
+    <a href="/countries/">country status cards</a>. Dev Worker deployed; scheduled monitoring
+    disabled. Human review required before any client use.
   </div>
 
   <MetricsStrip metrics={trackerMetrics} />
@@ -37,31 +42,37 @@ const trackerMetrics = getAutomationFirstMetrics();
     <strong>
       {PROJECT_VERSION_LABEL} {PROJECT_PHASE_LABEL}.
     </strong>{" "}
-    Official-source-first registry, content review, and evidence export candidates (not client
-    evidence). Not legal advice. No compliance guarantee. Human review required before any client use.
-    See <a href="/methodology/">methodology</a> and <a href="/disclaimer/">disclaimer</a>.
+    {routeSummary.jurisdictionCount} jurisdictions · {routeSummary.regulationRecordCount} regulation
+    records · {routeSummary.monitoredSourceCount} monitored sources ({routeSummary.automatedRssCount}{" "}
+    automated RSS, {routeSummary.manualReviewSourceCount} manual review). Not legal advice. No
+    compliance guarantee. See <a href="/methodology/">methodology</a> and{" "}
+    <a href="/disclaimer/">disclaimer</a>.
   </div>
 
   <section class="stats" aria-label="Coverage summary">
     <div class="stat">
-      <strong>{summary.jurisdictionCount}</strong>
-      <span>Jurisdictions</span>
+      <strong>{routeSummary.profileCardCount}</strong>
+      <span>Jurisdiction profiles</span>
     </div>
     <div class="stat">
-      <strong>{summary.sourceCount}</strong>
+      <strong>{routeSummary.regulationRecordCount}</strong>
+      <span>Regulation records</span>
+    </div>
+    <div class="stat">
+      <strong>{routeSummary.monitoredSourceCount}</strong>
       <span>Official sources</span>
     </div>
     <div class="stat">
-      <strong>{summary.recordCount}</strong>
-      <span>Law &amp; guidance</span>
+      <strong>{routeSummary.automatedRssCount}</strong>
+      <span>Automated RSS</span>
     </div>
     <div class="stat">
-      <strong>{summary.changeCount}</strong>
-      <span>Sample changes</span>
+      <strong>{routeSummary.manualReviewSourceCount}</strong>
+      <span>Manual-review sources</span>
     </div>
     <div class="stat">
-      <strong>{summary.timelineCount}</strong>
-      <span>Timelines</span>
+      <strong>{routeSummary.workerDeployed ? "yes" : "no"}</strong>
+      <span>Backend worker (dev)</span>
     </div>
   </section>
 
@@ -69,11 +80,17 @@ const trackerMetrics = getAutomationFirstMetrics();
   <div class="nav-cards">
     <div class="nav-card nav-card--accent">
       <a href="/tracker/">Global tracker</a>
-      <p>Choropleth-style status panel, metrics, filters, and latest updates</p>
+      <p>T080 dashboard — countries, regulations, monitored sources, worker state</p>
+    </div>
+    <div class="nav-card nav-card--accent">
+      <a href="/map/">Interactive regulation map</a>
+      <p>
+        {routeSummary.mapMarkerCount} jurisdictions — status, maturity, activity, and freshness meters
+      </p>
     </div>
     <div class="nav-card">
       <a href="/compare/">Compare jurisdictions</a>
-      <p>Side-by-side tracker metadata for 2–4 pilot jurisdictions</p>
+      <p>Side-by-side tracker metadata for up to {routeSummary.jurisdictionCount} pilot jurisdictions</p>
     </div>
     <div class="nav-card">
       <a href="/updates/">Regulatory updates</a>
@@ -81,19 +98,17 @@ const trackerMetrics = getAutomationFirstMetrics();
     </div>
     <div class="nav-card">
       <a href="/countries/">Country status</a>
-      <p>Jurisdiction status badges and summaries</p>
+      <p>{routeSummary.profileCardCount} jurisdiction profile cards with regulation counts</p>
     </div>
     <div class="nav-card">
       <a href="/jurisdictions/">Jurisdictions</a>
-      <p>13 jurisdictions grouped by region — incremental global coverage</p>
+      <p>
+        {routeSummary.jurisdictionCount} jurisdictions grouped by region — incremental global coverage
+      </p>
     </div>
     <div class="nav-card">
       <a href="/sources/">Official sources</a>
-      <p>{summary.sourceCount} tracked authority URLs with credibility tiers</p>
-    </div>
-    <div class="nav-card">
-      <a href="/map/">Global coverage map</a>
-      <p>{summary.mapMarkerCount} display markers — static SVG, no remote tiles</p>
+      <p>{routeSummary.monitoredSourceCount} monitored authority URLs in pilot registry</p>
     </div>
     <div class="nav-card">
       <a href="/review-queue/">Human review queue</a>
@@ -121,11 +136,35 @@ const trackerMetrics = getAutomationFirstMetrics();
     </div>
   </div>
 
-  <h2>Jurisdictions</h2>
-  <ul class="card-list">
-    {jurisdictions.map((j) => (
-      <JurisdictionCard jurisdiction={j} />
-    ))}
+  <h2>Jurisdiction profile cards</h2>
+  <ul class="country-card-grid">
+    {
+      profileCards.map((card) => {
+        const cs = getCountryStatus(card.jurisdiction_id);
+        return (
+          <li class="country-card">
+            <div class="country-card__head">
+              <h3>
+                <a href={`/jurisdictions/${card.jurisdiction_id}/`}>{card.display_name}</a>
+              </h3>
+              {cs && <StatusBucketBadge bucket={cs.status_bucket} label={cs.status_label} />}
+            </div>
+            <p class="country-card__meta">{card.status_headline}</p>
+            <p class="country-card__meta">
+              Regulations: {card.regulation_records_count} · Sources: {card.monitored_sources_count} (
+              {card.automated_sources_count} auto / {card.manual_sources_count} manual)
+            </p>
+            <TrackerMeter label="Maturity" score={card.maturity_score} />
+            <TrackerMeter label="Activity" score={card.activity_score} />
+            <p class="country-card__meta">
+              <a href={`/compare/?ids=${card.jurisdiction_id}`}>Compare</a>
+              {" · "}
+              <a href={`/map/?jurisdiction=${card.jurisdiction_id}`}>Map panel</a>
+            </p>
+          </li>
+        );
+      })
+    }
   </ul>
 
   {

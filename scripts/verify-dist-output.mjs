@@ -101,12 +101,30 @@ const staleHtmlPatterns = [
   { label: "Product preview (v0.5.1)", re: /Product preview \(v0\.5\.1\)/ },
   { label: "footer v0.8.4", re: /\bv0\.8\.4\b/ },
   { label: "v0.8.3 local pipeline", re: /v0\.8\.3 local pipeline/i },
+  { label: "footer v1.0.21", re: /\bv1\.0\.21\b/ },
+  { label: "footer v1.0.29", re: /\bv1\.0\.29\b/ },
+  { label: "footer v1.0.30", re: /\bv1\.0\.30\b/ },
+  { label: "homepage 13 jurisdictions copy", re: /13 jurisdictions grouped by region/ },
+  { label: "legacy map page title", re: /<h1>Global coverage map<\/h1>/ },
 ];
 
 const requiredHtmlChecks = [
   {
     rel: "index.html",
-    mustInclude: [PROJECT_VERSION_LABEL, PROJECT_PHASE_LABEL],
+    mustInclude: [
+      PROJECT_VERSION_LABEL,
+      PROJECT_PHASE_LABEL,
+      "Regulation records",
+      "Jurisdiction profile cards",
+    ],
+  },
+  {
+    rel: "map/index.html",
+    mustInclude: [PROJECT_VERSION_LABEL, "Global regulation map", "regulation-map-metrics.json"],
+  },
+  {
+    rel: "tracker/index.html",
+    mustInclude: [PROJECT_VERSION_LABEL, "Product tracker dashboard (T080)"],
   },
   {
     rel: "evidence-export-candidates/index.html",

@@ -30,7 +30,7 @@ Human review is no longer the foundation of the MVP roadmap. It remains an optio
 
 **T073 pivot (21 May 2026):** Primary engineering focus shifts to **live automated monitoring infrastructure** (Supabase, Worker runtime, snapshots, detected changes). Static approval-chain UI is maintained but not the main development track. SaaS dashboard is a later phase. See [docs/AUTOMATION_RUNTIME_STRATEGY.md](docs/AUTOMATION_RUNTIME_STRATEGY.md).
 
-The **v1.0.8** codebase on main adds T051 richer jurisdiction profiles and regional/topic drilldowns on top of **v1.0.7** map/compare. Live site remains **v1.0.7** until a future deploy is approved. See [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md) and [docs/AUTOMATION_FIRST_MVP_ROADMAP.md](docs/AUTOMATION_FIRST_MVP_ROADMAP.md).
+T051 richer jurisdiction profiles and regional/topic drilldowns are on main; live site tracks **v1.0.31** (T080 country/regulation model). See [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md) and [docs/AUTOMATION_FIRST_MVP_ROADMAP.md](docs/AUTOMATION_FIRST_MVP_ROADMAP.md).
 
 ## v1.0.8 summary (T051 — profiles + drilldowns)
 

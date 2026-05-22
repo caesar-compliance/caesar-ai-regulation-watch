@@ -36,6 +36,8 @@ export interface MonitoringStatus {
   } | null;
   review_required?: boolean;
   public_note?: string;
+  worker_deployed?: boolean;
+  product_version?: string;
 }
 
 export interface DetectedChangeExport {
