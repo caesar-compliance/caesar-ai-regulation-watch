@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.33] - 22 May 2026 (T082A hotfix)
+
+### Fixed
+
+- **T082A** — Homepage and tracker now foreground v1.0.33 T082 operator workflow (20 candidates, 4 decisions); tracker places T082 before T080 coverage section; smoke/route validators updated.
+
+---
+
 ## [1.0.33] - 22 May 2026
 
 ### Added
