@@ -10,7 +10,8 @@
 |---|---|
 | Starting HEAD | `33d92b3` |
 | Branch | `task/T083-signal-quality-noise-filtering-review-prioritization` |
-| Final commit | _(see post-merge main)_ |
+| Final commit | `35a4592` |
+| Final main HEAD | `35a4592` |
 | Tag | `regulation-watch-v1.0.34` |
 | Package version | `1.0.34` |
 
@@ -81,8 +82,9 @@ All required validators passed locally (`validate:signal-quality` included). `np
 | Field | Value |
 |---|---|
 | Workflow | Deploy static site (`confirm_disclaimers=DEPLOY`) |
-| Run ID | _(record after deploy)_ |
-| Live smoke | `npm run smoke:live-routes` post-deploy |
+| Deployment ID | `DEPLOY-20260522-054` |
+| Run ID | [26298722859](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26298722859) |
+| Live smoke | **PASS** — `npm run smoke:live-routes` (v1.0.34, cache-busted) |
 
 ## Safety confirmation
 

@@ -5,7 +5,7 @@
 | Field | Value |
 |---|---|
 | **Current version** | `v1.0.34` (signal quality + review prioritization — T083) |
-| **Live version** | `v1.0.34` — tag `regulation-watch-v1.0.34` (pending deploy record in DEPLOYMENTS.md) |
+| **Live version** | `v1.0.34` — tag `regulation-watch-v1.0.34`, deploy [26298722859](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26298722859) |
 | **Last deployment** | `DEPLOY-20260522-050` — commit `1b50fcd`, run [26295890931](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26295890931) |
 | **Status** | T083: deterministic signal scoring on 20-card queue (8 noise, 2 medium AI signal); T082 operator decisions (4) preserved; T081 freshness + packets; scheduled monitoring disabled |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
