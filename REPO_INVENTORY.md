@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 22 May 2026 (v1.0.34 T083 signal quality + review prioritization)
+**Last updated:** 22 May 2026 (v1.0.35 T084 automated sources + ingress filtering)
 
 ## T083 — Signal quality and review prioritization
 

@@ -180,6 +180,14 @@ source_weights:
     default_relevance_cap: low
     weight_adjust: -5
     noise_bias: true
+  eu-digital-strategy-ai-framework:
+    weight_adjust: 6
+  uk-dsit-organisation:
+    weight_adjust: 8
+  france-cnil-ai-fr:
+    weight_adjust: 4
+  us-nist-ai-rmf:
+    weight_adjust: 3
   eu-commission-digital-strategy-rss:
     weight_adjust: 5
   uk-dsit-ai-rss:

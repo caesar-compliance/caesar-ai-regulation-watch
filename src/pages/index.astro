@@ -8,6 +8,8 @@ import {
   getReviewQueueSummary as getRegulationReviewQueueSummary,
   getOperatorReviewSummary,
   getSignalQualitySummary,
+  getIngressFilterSummary,
+  getOperatorQueueCards,
 } from "../lib/regulation-review-queue";
 import { getAutomationFirstMetrics } from "../lib/tracker-data";
 import MetricsStrip from "../components/MetricsStrip.astro";
@@ -21,6 +23,8 @@ const routeSummary = getPublicRouteSummary();
 const regulationReviewSummary = getRegulationReviewQueueSummary();
 const operatorSummary = getOperatorReviewSummary();
 const signalSummary = getSignalQualitySummary();
+const ingressSummary = getIngressFilterSummary();
+const operatorVisibleCount = getOperatorQueueCards().length;
 const profileCards = getJurisdictionProfileCards();
 const recentChanges = getChanges().slice(0, 3);
 const trackerMetrics = getAutomationFirstMetrics();
@@ -29,10 +33,17 @@ const trackerMetrics = getAutomationFirstMetrics();
 <BaseLayout title="Home" currentPath="/">
   <h1>Caesar AI Regulation Watch</h1>
   <p class="lead">
-    {PROJECT_VERSION_LABEL} — T083 signal quality and review prioritization on backend monitoring
-    candidates, with T082 operator decisions and T080 country profiles. Technical pilot — not legal
-    advice and not complete global coverage.
+    {PROJECT_VERSION_LABEL} — T084 automated source expansion and ingress filtering, T083 signal
+    quality, T082 operator decisions, and T080 country profiles. Technical pilot — not legal advice.
   </p>
+
+  <div class="banner banner--review" role="note">
+    <strong>T084 Automated Source Expansion and Ingress Filtering ({PROJECT_VERSION_LABEL}).</strong>{" "}
+    {ingressSummary.automated_source_count ?? 0} automated RSS sources (was 2) ·{" "}
+    {operatorVisibleCount} operator-visible / {ingressSummary.total_fetched_items ?? 0} total queue
+    cards · {ingressSummary.suppress_noise_count ?? 0} noise suppressed · cron disabled ·{" "}
+    <a href="/data/ingress-filter-summary.json">ingress-filter-summary.json</a>
+  </div>
 
   <div class="banner banner--review" role="note">
     <strong>T083 Signal Quality and Review Prioritization ({PROJECT_VERSION_LABEL}).</strong>{" "}

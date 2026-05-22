@@ -16,15 +16,38 @@ const FEED_USER_AGENT =
 
 export const PILOT_ALLOWLIST: Record<
   string,
-  { feed_url: string; allowed_host: string }
+  { feed_url: string; allowed_host: string; max_items_per_run?: number }
 > = {
   "edpb-publications-rss": {
     feed_url: "https://www.edpb.europa.eu/feed/publications_en",
     allowed_host: "www.edpb.europa.eu",
+    max_items_per_run: 20,
   },
   "edps-news-rss": {
     feed_url: "https://www.edps.europa.eu/feed/news_en",
     allowed_host: "www.edps.europa.eu",
+    max_items_per_run: 20,
+  },
+  "eu-digital-strategy-ai-framework": {
+    feed_url: "https://digital-strategy.ec.europa.eu/en/rss.xml",
+    allowed_host: "digital-strategy.ec.europa.eu",
+    max_items_per_run: 20,
+  },
+  "us-nist-ai-rmf": {
+    feed_url: "https://www.nist.gov/news-events/news/rss.xml",
+    allowed_host: "www.nist.gov",
+    max_items_per_run: 20,
+  },
+  "france-cnil-ai-fr": {
+    feed_url: "https://www.cnil.fr/fr/rss.xml",
+    allowed_host: "www.cnil.fr",
+    max_items_per_run: 20,
+  },
+  "uk-dsit-organisation": {
+    feed_url:
+      "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
+    allowed_host: "www.gov.uk",
+    max_items_per_run: 20,
   },
 };
 

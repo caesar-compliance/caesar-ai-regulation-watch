@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-22T16:07:25.742Z",
+  "generated_at": "2026-05-22T16:27:32.194Z",
   "packet_count": 10,
   "packets": [
     {
@@ -241,7 +241,7 @@
     }
   ],
   "public_note": "Operator review packets — metadata only. Not legal advice. Review required.",
-  "product_version": "1.0.34",
+  "product_version": "1.0.35",
   "review_required": true,
   "legal_change_claimed": false
 }

@@ -78,6 +78,7 @@ const required = [
   "data/operator-review-summary.json",
   "data/review-packets-index.json",
   "data/signal-quality-summary.json",
+  "data/ingress-filter-summary.json",
 ];
 
 const conditionalRequired = [];
@@ -120,8 +121,10 @@ const requiredHtmlChecks = [
     mustInclude: [
       PROJECT_VERSION_LABEL,
       PROJECT_PHASE_LABEL,
+      "T084 Automated Source Expansion and Ingress Filtering",
       "T083 Signal Quality and Review Prioritization",
       "T082 Operator Decision Workflow",
+      "ingress-filter-summary.json",
       "signal-quality-summary.json",
       "operator decisions",
       "Regulation records",
@@ -136,6 +139,7 @@ const requiredHtmlChecks = [
     rel: "tracker/index.html",
     mustInclude: [
       PROJECT_VERSION_LABEL,
+      "Ingress filter dashboard (T084)",
       "Signal quality dashboard (T083)",
       "Priority distribution",
       "Recommended operator actions",
@@ -148,6 +152,8 @@ const requiredHtmlChecks = [
     rel: "review-queue/index.html",
     mustInclude: [
       PROJECT_VERSION_LABEL,
+      "Ingress filter (T084)",
+      "ingress_decision",
       "Signal quality (T083)",
       "signal_score",
       "ai_regulation_relevance",
@@ -162,6 +168,8 @@ const requiredHtmlChecks = [
     rel: "runtime-health/index.html",
     mustInclude: [
       PROJECT_VERSION_LABEL,
+      "Ingress filtering (T084)",
+      "validate:ingress-filtering",
       "Signal quality (T083)",
       "validate:signal-quality",
       "gates_closed",

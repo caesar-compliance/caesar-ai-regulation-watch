@@ -37,10 +37,25 @@ function main() {
     if (!hostMatchesAllowed(source, source.official_url)) {
       errors.push(`${source.source_key}: official_url host mismatch`);
     }
-    if (source.fetch_mode === "automated_metadata" && source.feed_url) {
-      if (!hostMatchesAllowed(source, source.feed_url)) {
-        errors.push(`${source.source_key}: feed_url host mismatch`);
+    if (source.fetch_mode === "automated_metadata") {
+      const feedUrl = source.feed_url ?? source.endpoint_url;
+      if (!feedUrl) {
+        errors.push(`${source.source_key}: automated source missing feed_url or endpoint_url`);
+      } else if (!hostMatchesAllowed(source, feedUrl)) {
+        errors.push(`${source.source_key}: feed/endpoint host mismatch`);
       }
+      if (source.fetch_risk === "high") {
+        errors.push(`${source.source_key}: automated source must not have fetch_risk high`);
+      }
+      if (source.schedule_enabled === true) {
+        errors.push(`${source.source_key}: schedule_enabled must be false`);
+      }
+      if (source.automation_mode && !["automated_rss", "automated_api"].includes(source.automation_mode)) {
+        errors.push(`${source.source_key}: invalid automation_mode ${source.automation_mode}`);
+      }
+    }
+    if (source.fetch_mode === "manual_review" && source.automation_mode !== "manual_review") {
+      errors.push(`${source.source_key}: manual_review source must have automation_mode manual_review`);
     }
     if (source.stores_metadata_only !== true) {
       errors.push(`${source.source_key}: stores_metadata_only must be true`);

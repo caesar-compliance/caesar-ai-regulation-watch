@@ -6,6 +6,7 @@ import path from "node:path";
 import yaml from "js-yaml";
 import { loadMonitoringPilotRegistry } from "./monitoring-pilot-registry.mjs";
 import { enrichCardsWithSignalPriority } from "./signal-quality.mjs";
+import { applyIngressFilteringToCards } from "./ingress-filter.mjs";
 
 export const CLOSED_GATES = {
   verified_on_source: false,
@@ -256,7 +257,8 @@ export function buildReviewQueueCards(root) {
   const withDecisions = baseCards.map((card) =>
     applyOperatorDecisionToCard(card, byCandidate.get(card.candidate_id)),
   );
-  return enrichCardsWithSignalPriority(withDecisions, root);
+  const withSignal = enrichCardsWithSignalPriority(withDecisions, root);
+  return applyIngressFilteringToCards(withSignal, root);
 }
 
 function daysSince(iso) {
@@ -320,6 +322,9 @@ export function buildSourceFreshnessRows(root) {
       source_title: source.source_name,
       source_url: source.official_url,
       jurisdiction_ids: source.jurisdiction_ids ?? [],
+      automation_mode: source.automation_mode ?? (automated ? "automated_rss" : "manual_review"),
+      fetch_risk: source.fetch_risk ?? "low",
+      feed_url: source.feed_url ?? source.endpoint_url ?? null,
       latest_run_at: latestRun?.completed_at ?? latestRun?.started_at ?? null,
       latest_item_at: null,
       freshness_status: freshnessStatusForSource(

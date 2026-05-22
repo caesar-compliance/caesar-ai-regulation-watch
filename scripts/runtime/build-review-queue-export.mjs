@@ -20,6 +20,11 @@ import {
   buildSignalQualitySummaryExport,
   getRulesVersion,
 } from "./lib/signal-quality.mjs";
+import {
+  buildIngressFilterSummaryExport,
+  isOperatorVisibleIngress,
+  summarizeIngressFiltering,
+} from "./lib/ingress-filter.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const PUBLIC_DATA = path.join(ROOT, "public/data");
@@ -69,11 +74,34 @@ function main() {
   const decisionCounts = summarizeDecisions(decisions);
 
   const signalSummary = buildSignalQualitySummaryExport(ROOT, cards);
+  const ingressSummary = buildIngressFilterSummaryExport(ROOT, cards);
+  const ingressCounts = summarizeIngressFiltering(cards);
+  const operatorQueueCards = cards.filter((c) =>
+    isOperatorVisibleIngress(c.ingress_decision),
+  );
+  const suppressedSummary = cards
+    .filter((c) => !isOperatorVisibleIngress(c.ingress_decision))
+    .map((c) => ({
+      candidate_id: c.candidate_id,
+      source_key: c.source_key,
+      title: c.title,
+      ingress_decision: c.ingress_decision,
+      suppression_reason: c.suppression_reason,
+      signal_score: c.signal_score,
+      ai_regulation_relevance: c.ai_regulation_relevance,
+      reason_codes: c.reason_codes,
+    }));
 
   writeExport("regulation-review-queue.json", {
     cards,
+    operator_queue_cards: operatorQueueCards,
+    operator_queue_card_count: operatorQueueCards.length,
+    suppressed_summary: suppressedSummary,
+    suppressed_count: suppressedSummary.length,
     card_count: cards.length,
     summary,
+    ingress_filter_summary: ingressSummary,
+    ingress_filter_counts: ingressCounts,
     signal_quality_summary: signalSummary,
     signal_quality_rules_version: getRulesVersion(ROOT),
     decision_counts: decisionCounts,
@@ -89,7 +117,16 @@ function main() {
       scheduled_monitoring_enabled: false,
       signal_quality_rules_file: "data/runtime/signal-quality-rules.yml",
       signal_quality_rules_version: getRulesVersion(ROOT),
+      ingress_filter_rules_version: getRulesVersion(ROOT),
     },
+  });
+
+  writeExport("ingress-filter-summary.json", {
+    ...ingressSummary,
+    cron_enabled: false,
+    scheduled_monitoring_enabled: false,
+    queue_card_count: cards.length,
+    operator_visible_count: operatorQueueCards.length,
   });
 
   writeExport("signal-quality-summary.json", {
@@ -113,6 +150,11 @@ function main() {
     tracker.signal_quality = {
       rules_version: getRulesVersion(ROOT),
       ...signalSummary,
+    };
+    tracker.ingress_filter = {
+      rules_version: getRulesVersion(ROOT),
+      ...ingressSummary,
+      operator_visible_count: operatorQueueCards.length,
     };
     tracker.generated_at = new Date().toISOString();
     tracker.product_version = readProjectVersion();
@@ -138,7 +180,7 @@ function main() {
   });
 
   console.log(
-    `PASS: build-review-queue-export (${cards.length} cards, ${decisions.length} decisions, applied ${byCandidate.size})`,
+    `PASS: build-review-queue-export (${cards.length} cards, ${operatorQueueCards.length} visible, ${suppressedSummary.length} suppressed, ${decisions.length} decisions, applied ${byCandidate.size})`,
   );
 }
 

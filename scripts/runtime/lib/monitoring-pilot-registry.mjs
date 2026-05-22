@@ -9,11 +9,47 @@ export const REGISTRY_PATH = path.join(
   "data/runtime/monitoring-pilot-registry.yml",
 );
 
+const T084_VERIFIED_AT = "2026-05-22";
+
+function defaultT084Fields(source) {
+  const automated = source.fetch_mode === "automated_metadata";
+  const automationMode =
+    source.automation_mode ??
+    (automated
+      ? source.feed_format === "atom"
+        ? "automated_rss"
+        : "automated_rss"
+      : "manual_review");
+  return {
+    automation_mode: automationMode,
+    metadata_only: source.metadata_only ?? source.stores_metadata_only ?? true,
+    max_items_per_run:
+      source.max_items_per_run ?? (automated ? 20 : 0),
+    default_signal_threshold: source.default_signal_threshold ?? (automated ? 40 : 35),
+    noise_budget: source.noise_budget ?? (automated ? 5 : 3),
+    topic_allowlist: source.topic_allowlist ?? source.topic_ids ?? [],
+    topic_blocklist: source.topic_blocklist ?? [],
+    review_policy:
+      source.review_policy ??
+      (automated ? "ingress_filter_then_operator" : "manual_operator_only"),
+    fetch_risk:
+      source.fetch_risk ??
+      (source.captcha_or_waf_risk ? "high" : "low"),
+    last_verified_at: source.last_verified_at ?? T084_VERIFIED_AT,
+  };
+}
+
+export function normalizeRegistrySource(source) {
+  return { ...source, ...defaultT084Fields(source) };
+}
+
 export function loadMonitoringPilotRegistry() {
   if (!fs.existsSync(REGISTRY_PATH)) {
     throw new Error(`Monitoring pilot registry not found: ${REGISTRY_PATH}`);
   }
-  return yaml.load(fs.readFileSync(REGISTRY_PATH, "utf8"));
+  const doc = yaml.load(fs.readFileSync(REGISTRY_PATH, "utf8"));
+  doc.sources = (doc.sources ?? []).map(normalizeRegistrySource);
+  return doc;
 }
 
 export function getAllowlistedSourceKeys(registry) {

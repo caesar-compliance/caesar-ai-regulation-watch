@@ -11,6 +11,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.35] - 22 May 2026
+
+### Added
+
+- **T084 automated sources** — Registry promoted 4 official feeds to automated RSS/Atom (6 total): EC digital strategy, NIST news, CNIL FR, UK DSIT Atom; T084 fields on registry sources (`automation_mode`, `noise_budget`, `fetch_risk`, etc.).
+- **Ingress filtering** — `ingress_decision`, `suppression_reason` on queue cards; `operator_queue_cards` default view; `public/data/ingress-filter-summary.json`.
+- **Validation** — `npm run validate:ingress-filtering`, `npm run build:ingress-filter-export`.
+- **UI** — Ingress dashboard on `/tracker/`, `/review-queue/`, `/runtime-health/`; monitoring pilot table on `/sources/`.
+- **Worker** — `PILOT_ALLOWLIST` extended to 6 automated source keys.
+
+### Changed
+
+- Default operator review queue shows 4 visible cards (16 noise suppressed) from 20 total pilot candidates — metadata retained in full export.
+
+---
+
 ## [1.0.34] - 22 May 2026
 
 ### Added

@@ -11,6 +11,7 @@ import {
   getOperatorReviewSummary,
   getRegulationReviewQueue,
   getSignalQualitySummary,
+  getIngressFilterSummary,
 } from "../../lib/regulation-review-queue";
 
 const healthPath = path.join(process.cwd(), "public/data/runtime-db-health.json");
@@ -20,6 +21,7 @@ const freshnessSummary = getSourceFreshnessSummary();
 const operatorSummary = getOperatorReviewSummary();
 const reviewQueue = getRegulationReviewQueue();
 const signalSummary = getSignalQualitySummary();
+const ingressSummary = getIngressFilterSummary();
 const signalRulesPath = path.join(process.cwd(), "data/runtime/signal-quality-rules.yml");
 let signalRulesValid = false;
 let signalRulesError: string | null = null;
@@ -153,6 +155,25 @@ const presentTables = (health?.expected_tables_present as string[]) ?? [];
     <p>
       Decisions file: <code>data/runtime/operator-review-decisions.yml</code> · Guide:{" "}
       <code>docs/OPERATOR_REVIEW_WORKFLOW.md</code>
+    </p>
+  </section>
+
+  <section>
+    <h2>Ingress filtering (T084)</h2>
+    <dl class="meta-grid">
+      <div><dt>ingress_rules_version</dt><dd><span class="mono">{ingressSummary.rules_version ?? "—"}</span></dd></div>
+      <div><dt>validation</dt><dd>validate:ingress-filtering (build)</dd></div>
+      <div><dt>automated_sources_ready</dt><dd>{ingressSummary.automated_source_count ?? monitoring.automated_source_count ?? "—"}</dd></div>
+      <div><dt>operator_visible_queue</dt><dd>{ingressSummary.operator_visible_count ?? reviewQueue.operator_queue_card_count ?? "—"}</dd></div>
+      <div><dt>suppress_noise</dt><dd>{ingressSummary.suppress_noise_count ?? 0}</dd></div>
+      <div><dt>suppress_duplicate</dt><dd>{ingressSummary.suppress_duplicate_count ?? 0}</dd></div>
+      <div><dt>cron_enabled</dt><dd>false</dd></div>
+      <div><dt>scheduled_monitoring</dt><dd>false</dd></div>
+      <div><dt>gates_closed</dt><dd>{ingressSummary.gates_closed === true ? "yes" : "no"}</dd></div>
+    </dl>
+    <p>
+      <a href="/data/ingress-filter-summary.json">ingress-filter-summary.json</a> ·{" "}
+      <code>data/runtime/monitoring-pilot-registry.yml</code>
     </p>
   </section>
 

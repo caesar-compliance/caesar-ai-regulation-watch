@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 /**
- * T083A — Post-deploy live smoke with cache-busted requests.
- * Fails if canonical URLs serve stale pre-v1.0.34 HTML or T082-only route copy.
+ * T084 — Post-deploy live smoke with cache-busted requests.
+ * Fails if canonical URLs serve stale pre-v1.0.35 HTML or missing T084 ingress markers.
  */
 const BASE = process.env.LIVE_BASE_URL || "https://regulation-watch.caesar.no";
-const BUST = process.env.LIVE_CACHE_BUST || `T083A-${Date.now()}`;
-const VERSION = process.env.EXPECTED_PRODUCT_VERSION || "1.0.34";
+const BUST = process.env.LIVE_CACHE_BUST || `T084-${Date.now()}`;
+const VERSION = process.env.EXPECTED_PRODUCT_VERSION || "1.0.35";
 const VERSION_LABEL = `v${VERSION}`;
 
 const ROUTES = [
@@ -13,8 +13,10 @@ const ROUTES = [
     path: "/",
     mustInclude: [
       VERSION_LABEL,
+      "T084 Automated Source Expansion and Ingress Filtering",
       "T083 Signal Quality and Review Prioritization",
       "T082 Operator Decision Workflow",
+      "ingress-filter-summary.json",
       "signal-quality-summary.json",
       "operator decisions",
       "Regulation records",
@@ -33,6 +35,7 @@ const ROUTES = [
     path: "/tracker/",
     mustInclude: [
       VERSION_LABEL,
+      "Ingress filter dashboard (T084)",
       "Signal quality dashboard (T083)",
       "Priority distribution",
       "Recommended operator actions",
@@ -62,6 +65,8 @@ const ROUTES = [
     mustInclude: [
       "Regulation review queue",
       VERSION_LABEL,
+      "Ingress filter (T084)",
+      "ingress_decision",
       "Signal quality (T083)",
       "Operator decisions (T082)",
       "signal_score",
@@ -77,6 +82,8 @@ const ROUTES = [
     path: "/runtime-health/",
     mustInclude: [
       VERSION_LABEL,
+      "Ingress filtering (T084)",
+      "validate:ingress-filtering",
       "Signal quality (T083)",
       "validate:signal-quality",
       "Operator workflow health (T082)",
@@ -98,6 +105,11 @@ const ROUTES = [
     mustInclude: ["Country review workflow", VERSION_LABEL],
     mustExclude: ["v1.0.29", "v1.0.31", "v1.0.33"],
   },
+  {
+    path: "/sources/",
+    mustInclude: [VERSION_LABEL, "Monitoring pilot registry", "automated", "manual-review"],
+    mustExclude: ["v1.0.29", "v1.0.31", "v1.0.33", "v1.0.34"],
+  },
 ];
 
 const DATA_ROUTES = [
@@ -105,11 +117,12 @@ const DATA_ROUTES = [
   "/data/source-freshness.json",
   "/data/operator-review-summary.json",
   "/data/signal-quality-summary.json",
+  "/data/ingress-filter-summary.json",
   "/data/review-packets-index.json",
   "/data/tracker-summary.json",
 ];
 
-const STALE_FOOTER = /\bv1\.0\.(21|29|30|31|32|33)\b/;
+const STALE_FOOTER = /\bv1\.0\.(21|29|30|31|32|33|34)\b/;
 
 async function fetchHtml(path) {
   const url = new URL(path, BASE);
@@ -146,7 +159,7 @@ async function main() {
     );
   }
 
-  console.log("Live route smoke (T083A)");
+  console.log("Live route smoke (T084)");
   console.log(`  base: ${BASE}`);
   console.log(`  cache bust: ${BUST}`);
   console.log(`  expected version: ${VERSION_LABEL}`);
@@ -169,12 +182,24 @@ async function main() {
     }
     if (route.path === "/") {
       if (
+        html.indexOf("T084 Automated Source Expansion") >
+        html.indexOf("T083 Signal Quality")
+      ) {
+        errors.push(`${route.path}: T084 banner must appear before T083`);
+      }
+      if (
         html.indexOf("T083 Signal Quality") > html.indexOf("T082 Operator Decision Workflow")
       ) {
         errors.push(`${route.path}: T083 banner must appear before T082`);
       }
     }
     if (route.path === "/tracker/") {
+      if (
+        html.indexOf("Ingress filter dashboard (T084)") >
+        html.indexOf("Signal quality dashboard (T083)")
+      ) {
+        errors.push(`${route.path}: T084 section must appear before T083`);
+      }
       if (
         html.indexOf("Signal quality dashboard (T083)") >
         html.indexOf("Operator review pipeline (T082)")
@@ -196,7 +221,7 @@ async function main() {
     process.exit(1);
   }
 
-  console.log(`  PASS: live routes match ${VERSION_LABEL} / T083 expectations\n`);
+  console.log(`  PASS: live routes match ${VERSION_LABEL} / T084 expectations\n`);
 }
 
 main().catch((err) => {

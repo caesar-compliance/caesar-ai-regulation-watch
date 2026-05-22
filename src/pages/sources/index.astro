@@ -4,8 +4,13 @@ import FilterBar from "../../components/FilterBar.astro";
 import SourceCard from "../../components/SourceCard.astro";
 import { getSources } from "../../lib/data";
 import { sourceFilterOptions, groupSourcesByRegion } from "../../lib/filters";
+import { getSourceFreshnessRows } from "../../lib/regulation-review-queue";
+import { PROJECT_VERSION_LABEL } from "../../lib/project-version";
 
 const sources = getSources();
+const pilotFreshness = getSourceFreshnessRows();
+const automatedPilot = pilotFreshness.filter((s) => s.automated);
+const manualPilot = pilotFreshness.filter((s) => !s.automated);
 const opts = sourceFilterOptions();
 const groupedByRegion = groupSourcesByRegion(sources);
 ---
@@ -23,6 +28,44 @@ const groupedByRegion = groupSourcesByRegion(sources);
       adapter candidates: <a href="/source-adapters/">source adapter allowlist</a> (T052 — disabled/draft, no live
       collection).
     </div>
+
+    <section class="tracker-section">
+      <h2>Monitoring pilot registry ({PROJECT_VERSION_LABEL})</h2>
+      <p>
+        T084 distinguishes <strong>{automatedPilot.length} automated</strong> vs{" "}
+        <strong>{manualPilot.length} manual-review</strong> official sources. Metadata-only; cron disabled.
+      </p>
+      <p>
+        <a href="/data/source-freshness.json">source-freshness.json</a> ·{" "}
+        <a href="/runtime-health/">Runtime health</a>
+      </p>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Source</th>
+            <th>Mode</th>
+            <th>Fetch risk</th>
+            <th>Freshness</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            pilotFreshness.map((s) => (
+              <tr>
+                <td>
+                  <span class="mono">{s.source_key}</span>
+                  <br />
+                  <small>{s.source_title}</small>
+                </td>
+                <td>{s.automation_mode ?? (s.automated ? "automated_rss" : "manual_review")}</td>
+                <td>{s.fetch_risk ?? "—"}</td>
+                <td>{s.freshness_status}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </section>
 
     <FilterBar
       filters={[

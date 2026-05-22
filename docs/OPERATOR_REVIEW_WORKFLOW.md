@@ -1,6 +1,27 @@
-# Operator review workflow (T082 / T083)
+# Operator review workflow (T082 / T083 / T084)
 
-Static-first operator decisions for Caesar AI Regulation Watch monitoring candidates. **T083** adds deterministic signal-quality scoring and review prioritization before operators open the queue. This workflow does **not** open legal, evidence, client, or publication gates.
+Static-first operator decisions for Caesar AI Regulation Watch monitoring candidates. **T083** adds deterministic signal-quality scoring; **T084** adds ingress filtering so the default review UI shows only operator-visible cards. This workflow does **not** open legal, evidence, client, or publication gates.
+
+## Ingress filtering (T084)
+
+Export: `public/data/ingress-filter-summary.json` · Full candidate list: `regulation-review-queue.json` → `cards[]` · Default UI list: `operator_queue_cards[]`.
+
+| `ingress_decision` | Operator queue |
+|--------------------|----------------|
+| `candidate_review_now` | Shown |
+| `candidate_manual_later` | Shown |
+| `candidate_source_check` | Shown |
+| `suppress_noise` | Hidden (collapsed summary only) |
+| `suppress_duplicate` | Hidden (collapsed summary only) |
+
+Suppressed items keep metadata in exports (`suppression_reason`, `reason_codes`) but are not promoted as high-priority cards. **Operator YAML decisions** keep items in the visible queue when status requires follow-up.
+
+Rebuild after registry or rules changes:
+
+```bash
+npm run build:review-queue-export
+npm run validate:ingress-filtering
+```
 
 ## Signal quality (T083)
 

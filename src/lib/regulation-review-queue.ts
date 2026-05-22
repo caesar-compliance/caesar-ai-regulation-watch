@@ -46,6 +46,10 @@ export interface ReviewQueueCard {
   signal_category?: string;
   recommended_operator_action?: string;
   reason_codes?: string[];
+  ingress_decision?: string;
+  suppression_reason?: string | null;
+  ingress_note?: string;
+  ingress_rules_version?: string;
   signal_quality_note?: string;
   signal_priority_source?: string;
   rules_version?: string;
@@ -101,8 +105,26 @@ export interface SourceFreshnessRow {
   latest_run_at: string | null;
   freshness_status: string;
   automated: boolean;
+  automation_mode?: string;
+  fetch_risk?: string;
+  feed_url?: string | null;
   review_required_count: number;
   last_error: string | null;
+}
+
+export interface IngressFilterSummary {
+  total_fetched_items: number;
+  candidate_review_now_count: number;
+  candidate_manual_later_count: number;
+  candidate_source_check_count: number;
+  suppress_noise_count: number;
+  suppress_duplicate_count: number;
+  operator_visible_count?: number;
+  suppressed_count?: number;
+  automated_source_count: number;
+  manual_source_count: number;
+  rules_version: string;
+  gates_closed: boolean;
 }
 
 export interface JurisdictionReviewState {
@@ -123,6 +145,20 @@ export interface JurisdictionReviewState {
 export function getRegulationReviewQueue() {
   return readJson<{
     cards?: ReviewQueueCard[];
+    operator_queue_cards?: ReviewQueueCard[];
+    operator_queue_card_count?: number;
+    suppressed_summary?: Array<{
+      candidate_id: string;
+      source_key: string;
+      title: string;
+      ingress_decision: string;
+      suppression_reason: string | null;
+      signal_score?: number;
+      ai_regulation_relevance?: string;
+      reason_codes?: string[];
+    }>;
+    suppressed_count?: number;
+    ingress_filter_summary?: IngressFilterSummary;
     summary?: ReviewQueueSummary;
     signal_quality_summary?: SignalQualitySummary;
     signal_quality_rules_version?: string;
@@ -154,6 +190,41 @@ export function getSignalQualitySummary(): SignalQualitySummary {
 
 export function getReviewQueueCards(): ReviewQueueCard[] {
   return getRegulationReviewQueue().cards ?? [];
+}
+
+export function getOperatorQueueCards(): ReviewQueueCard[] {
+  const data = getRegulationReviewQueue();
+  if (data.operator_queue_cards?.length) {
+    return data.operator_queue_cards;
+  }
+  return (data.cards ?? []).filter(
+    (c) =>
+      c.ingress_decision !== "suppress_noise" &&
+      c.ingress_decision !== "suppress_duplicate",
+  );
+}
+
+export function getIngressFilterSummary(): IngressFilterSummary {
+  const queue = getRegulationReviewQueue();
+  if (queue.ingress_filter_summary) {
+    return queue.ingress_filter_summary as IngressFilterSummary;
+  }
+  return readJson<IngressFilterSummary>("ingress-filter-summary.json", {
+    total_fetched_items: 0,
+    candidate_review_now_count: 0,
+    candidate_manual_later_count: 0,
+    candidate_source_check_count: 0,
+    suppress_noise_count: 0,
+    suppress_duplicate_count: 0,
+    automated_source_count: 0,
+    manual_source_count: 0,
+    rules_version: "unknown",
+    gates_closed: true,
+  });
+}
+
+export function getSuppressedQueueSummary() {
+  return getRegulationReviewQueue().suppressed_summary ?? [];
 }
 
 export function getReviewQueueSummary(): ReviewQueueSummary {
@@ -258,6 +329,14 @@ export const SIGNAL_CATEGORY_LABELS: Record<string, string> = {
   newsletter_or_event: "Newsletter / event",
   duplicate_or_near_duplicate: "Duplicate / near-duplicate",
   unknown: "Unknown",
+};
+
+export const INGRESS_DECISION_LABELS: Record<string, string> = {
+  candidate_review_now: "Candidate — review now",
+  candidate_manual_later: "Candidate — manual later",
+  candidate_source_check: "Candidate — source check",
+  suppress_noise: "Suppressed — noise",
+  suppress_duplicate: "Suppressed — duplicate",
 };
 
 export const RECOMMENDED_ACTION_LABELS: Record<string, string> = {

@@ -8,6 +8,10 @@ import {
   getOperatorReviewSummary,
   getSignalQualitySummary,
   getRegulationReviewQueue,
+  getOperatorQueueCards,
+  getIngressFilterSummary,
+  getSuppressedQueueSummary,
+  INGRESS_DECISION_LABELS,
   REVIEW_STATUS_LABELS,
   RELEVANCE_LABELS,
   SIGNAL_CATEGORY_LABELS,
@@ -16,7 +20,10 @@ import {
 import { getJurisdictions } from "../lib/data";
 import { humanizeId } from "../lib/format";
 
-const cards = getReviewQueueCards();
+const allCards = getReviewQueueCards();
+const cards = getOperatorQueueCards();
+const suppressedSummary = getSuppressedQueueSummary();
+const ingressSummary = getIngressFilterSummary();
 const summary = getReviewQueueSummary();
 const signalSummary = getSignalQualitySummary();
 const queueMeta = getRegulationReviewQueue();
@@ -54,16 +61,54 @@ const rulesVersion =
   <div data-filter-page>
     <h1>Regulation review queue</h1>
     <p class="lead">
-      {PROJECT_VERSION_LABEL} — Signal quality scoring and review prioritization (T083) on backend
-      candidates with operator decision state (T082). Read-only public view; not legal verification.
+      {PROJECT_VERSION_LABEL} — Ingress filtering (T084) and signal quality (T083) on backend candidates
+      with operator decision state (T082). Default view shows operator-visible cards only; not legal
+      verification.
     </p>
 
     <div class="banner banner--review" role="note">
+      <strong>{cards.length} operator-visible</strong> / {allCards.length} total ·{" "}
+      {ingressSummary.suppress_noise_count ?? 0} noise suppressed ·{" "}
+      {ingressSummary.suppress_duplicate_count ?? 0} duplicate suppressed ·{" "}
       <strong>{summary.total} candidates</strong> · {summary.review_required} review_required ·{" "}
       {summary.in_review} in_review · {summary.needs_source_check} needs source check ·{" "}
       {summary.accepted_for_tracking} tracking only · {summary.dismissed} dismissed · Cron:{" "}
       <strong>disabled</strong> · Not legal advice.
     </div>
+
+    <section class="tracker-section">
+      <h2>Ingress filter (T084)</h2>
+      <div class="metrics-strip metrics-strip--monitoring">
+        <div class="metrics-strip__item">
+          <span class="metrics-strip__value">{ingressSummary.candidate_review_now_count ?? 0}</span>
+          <span class="metrics-strip__label">Review now</span>
+        </div>
+        <div class="metrics-strip__item">
+          <span class="metrics-strip__value">{ingressSummary.candidate_source_check_count ?? 0}</span>
+          <span class="metrics-strip__label">Source check</span>
+        </div>
+        <div class="metrics-strip__item">
+          <span class="metrics-strip__value">{ingressSummary.candidate_manual_later_count ?? 0}</span>
+          <span class="metrics-strip__label">Manual later</span>
+        </div>
+        <div class="metrics-strip__item">
+          <span class="metrics-strip__value">{ingressSummary.suppress_noise_count ?? 0}</span>
+          <span class="metrics-strip__label">Suppress noise</span>
+        </div>
+        <div class="metrics-strip__item">
+          <span class="metrics-strip__value">{ingressSummary.suppress_duplicate_count ?? 0}</span>
+          <span class="metrics-strip__label">Suppress duplicate</span>
+        </div>
+        <div class="metrics-strip__item">
+          <span class="metrics-strip__value">{ingressSummary.automated_source_count ?? 0}</span>
+          <span class="metrics-strip__label">Automated sources</span>
+        </div>
+      </div>
+      <p>
+        Rules version <code>{ingressSummary.rules_version ?? rulesVersion}</code> ·{" "}
+        <a href="/data/ingress-filter-summary.json">ingress-filter-summary.json</a>
+      </p>
+    </section>
 
     <section class="tracker-section">
       <h2>Signal quality (T083)</h2>
@@ -268,6 +313,7 @@ const rulesVersion =
               data-relevance={card.ai_regulation_relevance ?? ""}
               data-signal-category={card.signal_category ?? ""}
               data-recommended-action={card.recommended_operator_action ?? ""}
+              data-ingress-decision={card.ingress_decision ?? ""}
               data-reason-codes={(card.reason_codes ?? []).join(",")}
             >
               <div class="card__meta">
@@ -308,6 +354,11 @@ const rulesVersion =
                   recommended_operator_action:{" "}
                   {RECOMMENDED_ACTION_LABELS[card.recommended_operator_action ?? ""] ??
                     humanizeId(card.recommended_operator_action ?? "")}
+                </span>
+                <span class="badge badge--type" title="ingress_decision">
+                  ingress_decision:{" "}
+                  {INGRESS_DECISION_LABELS[card.ingress_decision ?? ""] ??
+                    humanizeId(card.ingress_decision ?? "")}
                 </span>
               </div>
               {
@@ -396,9 +447,44 @@ const rulesVersion =
 
     {
       cards.length === 0 && (
-        <p>No regulation review candidates in current export. Run a bounded worker pilot and rebuild exports.</p>
+        <p>No operator-visible regulation review candidates in current export. Run a bounded worker pilot and rebuild exports.</p>
       )
     }
+
+    <details class="tracker-section ingress-suppressed">
+      <summary>
+        Suppressed / noise summary ({suppressedSummary.length} items — metadata only, collapsed by default)
+      </summary>
+      {
+        suppressedSummary.length === 0 ? (
+          <p>No suppressed items in current export.</p>
+        ) : (
+          <ul class="card-list">
+            {
+              suppressedSummary.map((item) => (
+                <li class="card">
+                  <p class="card__excerpt">
+                    <small>
+                      {item.candidate_id} · {item.source_key} · signal {item.signal_score ?? "—"} ·{" "}
+                      {INGRESS_DECISION_LABELS[item.ingress_decision] ?? item.ingress_decision}
+                      {item.suppression_reason && ` · ${item.suppression_reason}`}
+                    </small>
+                  </p>
+                  <p class="card__title-sm">{item.title}</p>
+                  {
+                    (item.reason_codes?.length ?? 0) > 0 && (
+                      <p class="card__excerpt">
+                        <small>reason_codes: {item.reason_codes?.join(", ")}</small>
+                      </p>
+                    )
+                  }
+                </li>
+              ))
+            }
+          </ul>
+        )
+      }
+    </details>
   </div>
 
   <section class="tracker-section">

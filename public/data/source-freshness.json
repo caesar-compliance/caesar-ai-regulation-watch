@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-22T16:07:25.587Z",
-  "product_version": "1.0.34",
+  "generated_at": "2026-05-22T16:27:32.059Z",
+  "product_version": "1.0.35",
   "review_required": true,
   "legal_change_claimed": false,
   "public_note": "Source freshness is operational metadata from pilot runs — not legal verification.",
@@ -12,6 +12,9 @@
       "jurisdiction_ids": [
         "eu"
       ],
+      "automation_mode": "automated_rss",
+      "fetch_risk": "low",
+      "feed_url": "https://www.edpb.europa.eu/feed/publications_en",
       "latest_run_at": "2026-05-22T14:40:29.284Z",
       "latest_item_at": null,
       "freshness_status": "fresh",
@@ -36,6 +39,9 @@
       "jurisdiction_ids": [
         "eu"
       ],
+      "automation_mode": "automated_rss",
+      "fetch_risk": "low",
+      "feed_url": "https://www.edps.europa.eu/feed/news_en",
       "latest_run_at": "2026-05-22T14:40:30.529Z",
       "latest_item_at": null,
       "freshness_status": "fresh",
@@ -55,15 +61,18 @@
     },
     {
       "source_key": "eu-digital-strategy-ai-framework",
-      "source_title": "European Commission — Regulatory framework for AI (digital strategy)",
+      "source_title": "European Commission — Digital strategy news RSS (AI policy)",
       "source_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
       "jurisdiction_ids": [
         "eu"
       ],
+      "automation_mode": "automated_rss",
+      "fetch_risk": "low",
+      "feed_url": "https://digital-strategy.ec.europa.eu/en/rss.xml",
       "latest_run_at": null,
       "latest_item_at": null,
-      "freshness_status": "not_automated",
-      "automated": false,
+      "freshness_status": "stale",
+      "automated": true,
       "last_error": null,
       "review_required_count": 0,
       "schedule_enabled": false,
@@ -84,6 +93,9 @@
       "jurisdiction_ids": [
         "eu"
       ],
+      "automation_mode": "manual_review",
+      "fetch_risk": "high",
+      "feed_url": null,
       "latest_run_at": null,
       "latest_item_at": null,
       "freshness_status": "not_automated",
@@ -108,6 +120,9 @@
       "jurisdiction_ids": [
         "oecd"
       ],
+      "automation_mode": "manual_review",
+      "fetch_risk": "medium",
+      "feed_url": null,
       "latest_run_at": null,
       "latest_item_at": null,
       "freshness_status": "not_automated",
@@ -132,6 +147,9 @@
       "jurisdiction_ids": [
         "coe"
       ],
+      "automation_mode": "manual_review",
+      "fetch_risk": "high",
+      "feed_url": null,
       "latest_run_at": null,
       "latest_item_at": null,
       "freshness_status": "not_automated",
@@ -151,15 +169,18 @@
     },
     {
       "source_key": "us-nist-ai-rmf",
-      "source_title": "NIST — AI Risk Management Framework",
+      "source_title": "NIST — News RSS (AI / cybersecurity policy signals)",
       "source_url": "https://www.nist.gov/itl/ai-risk-management-framework",
       "jurisdiction_ids": [
         "us-federal"
       ],
+      "automation_mode": "automated_rss",
+      "fetch_risk": "low",
+      "feed_url": "https://www.nist.gov/news-events/news/rss.xml",
       "latest_run_at": null,
       "latest_item_at": null,
-      "freshness_status": "not_automated",
-      "automated": false,
+      "freshness_status": "stale",
+      "automated": true,
       "last_error": null,
       "review_required_count": 0,
       "schedule_enabled": false,
@@ -180,6 +201,9 @@
       "jurisdiction_ids": [
         "uk"
       ],
+      "automation_mode": "manual_review",
+      "fetch_risk": "medium",
+      "feed_url": null,
       "latest_run_at": null,
       "latest_item_at": null,
       "freshness_status": "not_automated",
@@ -204,6 +228,9 @@
       "jurisdiction_ids": [
         "singapore"
       ],
+      "automation_mode": "manual_review",
+      "fetch_risk": "low",
+      "feed_url": null,
       "latest_run_at": null,
       "latest_item_at": null,
       "freshness_status": "not_automated",
@@ -223,15 +250,18 @@
     },
     {
       "source_key": "uk-dsit-organisation",
-      "source_title": "UK DSIT — Department for Science, Innovation and Technology",
+      "source_title": "UK DSIT — Department updates (GOV.UK Atom)",
       "source_url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology",
       "jurisdiction_ids": [
         "uk"
       ],
+      "automation_mode": "automated_rss",
+      "fetch_risk": "low",
+      "feed_url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology.atom",
       "latest_run_at": null,
       "latest_item_at": null,
-      "freshness_status": "not_automated",
-      "automated": false,
+      "freshness_status": "stale",
+      "automated": true,
       "last_error": null,
       "review_required_count": 0,
       "schedule_enabled": false,
@@ -252,6 +282,9 @@
       "jurisdiction_ids": [
         "uk"
       ],
+      "automation_mode": "manual_review",
+      "fetch_risk": "low",
+      "feed_url": null,
       "latest_run_at": null,
       "latest_item_at": null,
       "freshness_status": "not_automated",
@@ -276,6 +309,9 @@
       "jurisdiction_ids": [
         "eu"
       ],
+      "automation_mode": "manual_review",
+      "fetch_risk": "low",
+      "feed_url": null,
       "latest_run_at": null,
       "latest_item_at": null,
       "freshness_status": "not_automated",
@@ -300,6 +336,9 @@
       "jurisdiction_ids": [
         "eu"
       ],
+      "automation_mode": "manual_review",
+      "fetch_risk": "low",
+      "feed_url": null,
       "latest_run_at": null,
       "latest_item_at": null,
       "freshness_status": "not_automated",
@@ -324,6 +363,9 @@
       "jurisdiction_ids": [
         "eu"
       ],
+      "automation_mode": "manual_review",
+      "fetch_risk": "low",
+      "feed_url": null,
       "latest_run_at": null,
       "latest_item_at": null,
       "freshness_status": "not_automated",
@@ -343,15 +385,18 @@
     },
     {
       "source_key": "france-cnil-ai-fr",
-      "source_title": "CNIL — Intelligence artificielle (official hub)",
+      "source_title": "CNIL — News RSS (French)",
       "source_url": "https://www.cnil.fr/fr/intelligence-artificielle",
       "jurisdiction_ids": [
         "france"
       ],
+      "automation_mode": "automated_rss",
+      "fetch_risk": "low",
+      "feed_url": "https://www.cnil.fr/fr/rss.xml",
       "latest_run_at": null,
       "latest_item_at": null,
-      "freshness_status": "not_automated",
-      "automated": false,
+      "freshness_status": "stale",
+      "automated": true,
       "last_error": null,
       "review_required_count": 0,
       "schedule_enabled": false,
@@ -372,6 +417,9 @@
       "jurisdiction_ids": [
         "canada"
       ],
+      "automation_mode": "manual_review",
+      "fetch_risk": "low",
+      "feed_url": null,
       "latest_run_at": null,
       "latest_item_at": null,
       "freshness_status": "not_automated",
@@ -396,6 +444,9 @@
       "jurisdiction_ids": [
         "us-federal"
       ],
+      "automation_mode": "manual_review",
+      "fetch_risk": "low",
+      "feed_url": null,
       "latest_run_at": null,
       "latest_item_at": null,
       "freshness_status": "not_automated",
@@ -420,6 +471,9 @@
       "jurisdiction_ids": [
         "us-federal"
       ],
+      "automation_mode": "manual_review",
+      "fetch_risk": "low",
+      "feed_url": null,
       "latest_run_at": null,
       "latest_item_at": null,
       "freshness_status": "not_automated",
@@ -444,6 +498,9 @@
       "jurisdiction_ids": [
         "us-federal"
       ],
+      "automation_mode": "manual_review",
+      "fetch_risk": "high",
+      "feed_url": null,
       "latest_run_at": null,
       "latest_item_at": null,
       "freshness_status": "not_automated",
@@ -468,6 +525,9 @@
       "jurisdiction_ids": [
         "us-colorado"
       ],
+      "automation_mode": "manual_review",
+      "fetch_risk": "low",
+      "feed_url": null,
       "latest_run_at": null,
       "latest_item_at": null,
       "freshness_status": "not_automated",
@@ -492,6 +552,9 @@
       "jurisdiction_ids": [
         "brazil"
       ],
+      "automation_mode": "manual_review",
+      "fetch_risk": "low",
+      "feed_url": null,
       "latest_run_at": null,
       "latest_item_at": null,
       "freshness_status": "not_automated",
@@ -516,6 +579,9 @@
       "jurisdiction_ids": [
         "south-korea"
       ],
+      "automation_mode": "manual_review",
+      "fetch_risk": "low",
+      "feed_url": null,
       "latest_run_at": null,
       "latest_item_at": null,
       "freshness_status": "not_automated",
@@ -540,6 +606,9 @@
       "jurisdiction_ids": [
         "india"
       ],
+      "automation_mode": "manual_review",
+      "fetch_risk": "low",
+      "feed_url": null,
       "latest_run_at": null,
       "latest_item_at": null,
       "freshness_status": "not_automated",
@@ -564,6 +633,9 @@
       "jurisdiction_ids": [
         "unesco"
       ],
+      "automation_mode": "manual_review",
+      "fetch_risk": "low",
+      "feed_url": null,
       "latest_run_at": null,
       "latest_item_at": null,
       "freshness_status": "not_automated",
@@ -588,6 +660,9 @@
       "jurisdiction_ids": [
         "singapore"
       ],
+      "automation_mode": "manual_review",
+      "fetch_risk": "low",
+      "feed_url": null,
       "latest_run_at": null,
       "latest_item_at": null,
       "freshness_status": "not_automated",
@@ -611,11 +686,11 @@
   "summary": {
     "fresh": 2,
     "aging": 0,
-    "stale": 0,
+    "stale": 4,
     "manual_review_needed": 0,
-    "not_automated": 23,
-    "automated_total": 2,
-    "manual_total": 23,
+    "not_automated": 19,
+    "automated_total": 6,
+    "manual_total": 19,
     "total_review_required_count": 18
   },
   "scheduled_monitoring_enabled": false,

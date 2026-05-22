@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-22T16:07:24.712Z",
-  "product_version": "1.0.34",
+  "generated_at": "2026-05-22T16:27:31.460Z",
+  "product_version": "1.0.35",
   "review_required": true,
   "legal_change_claimed": false,
   "public_note": "Backend-derived metadata only. Review required before any legal or client use. Not legal advice.",
@@ -24,9 +24,9 @@
         },
         {
           "source_key": "eu-digital-strategy-ai-framework",
-          "source_name": "European Commission — Regulatory framework for AI (digital strategy)",
+          "source_name": "European Commission — Digital strategy news RSS (AI policy)",
           "official_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
-          "fetch_mode": "manual_review",
+          "fetch_mode": "automated_metadata",
           "review_required": true
         },
         {
@@ -58,8 +58,8 @@
           "review_required": true
         }
       ],
-      "automated_sources": 2,
-      "manual_sources": 5,
+      "automated_sources": 3,
+      "manual_sources": 4,
       "display_name": "European Union",
       "status_bucket": "adopted",
       "status_headline": "EU AI Act adopted — implementation phase",
@@ -124,9 +124,9 @@
       "monitored_sources": [
         {
           "source_key": "us-nist-ai-rmf",
-          "source_name": "NIST — AI Risk Management Framework",
+          "source_name": "NIST — News RSS (AI / cybersecurity policy signals)",
           "official_url": "https://www.nist.gov/itl/ai-risk-management-framework",
-          "fetch_mode": "manual_review",
+          "fetch_mode": "automated_metadata",
           "review_required": true
         },
         {
@@ -151,8 +151,8 @@
           "review_required": true
         }
       ],
-      "automated_sources": 0,
-      "manual_sources": 4,
+      "automated_sources": 1,
+      "manual_sources": 3,
       "display_name": "United States (federal)",
       "status_bucket": "guidance",
       "status_headline": "Federal AI policy portal, OMB, FTC, NIST RMF",
@@ -176,9 +176,9 @@
         },
         {
           "source_key": "uk-dsit-organisation",
-          "source_name": "UK DSIT — Department for Science, Innovation and Technology",
+          "source_name": "UK DSIT — Department updates (GOV.UK Atom)",
           "official_url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology",
-          "fetch_mode": "manual_review",
+          "fetch_mode": "automated_metadata",
           "review_required": true
         },
         {
@@ -189,8 +189,8 @@
           "review_required": true
         }
       ],
-      "automated_sources": 0,
-      "manual_sources": 3,
+      "automated_sources": 1,
+      "manual_sources": 2,
       "display_name": "United Kingdom",
       "status_bucket": "guidance",
       "status_headline": "Pro-innovation AI regulation approach + ICO guidance",
@@ -238,14 +238,14 @@
       "monitored_sources": [
         {
           "source_key": "france-cnil-ai-fr",
-          "source_name": "CNIL — Intelligence artificielle (official hub)",
+          "source_name": "CNIL — News RSS (French)",
           "official_url": "https://www.cnil.fr/fr/intelligence-artificielle",
-          "fetch_mode": "manual_review",
+          "fetch_mode": "automated_metadata",
           "review_required": true
         }
       ],
-      "automated_sources": 0,
-      "manual_sources": 1,
+      "automated_sources": 1,
+      "manual_sources": 0,
       "display_name": "France",
       "status_bucket": "guidance",
       "status_headline": "CNIL AI guidance hub",

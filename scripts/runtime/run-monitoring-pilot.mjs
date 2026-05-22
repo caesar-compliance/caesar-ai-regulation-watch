@@ -72,15 +72,23 @@ async function processSource(source, opts) {
     return result;
   }
 
-  if (!hostMatchesAllowed(source, source.feed_url)) {
+  const feedUrl = source.feed_url ?? source.endpoint_url;
+  if (!feedUrl) {
     result.status = "error";
-    result.error = "feed_url not on allowed_host";
+    result.error = "missing feed_url or endpoint_url";
+    return result;
+  }
+
+  if (!hostMatchesAllowed(source, feedUrl)) {
+    result.status = "error";
+    result.error = "feed/endpoint URL not on allowed_host";
     return result;
   }
 
   try {
-    const { items } = await fetchFeedMetadata(source.feed_url, {
-      maxItems: opts.maxItems,
+    const maxItems = source.max_items_per_run ?? opts.maxItems;
+    const { items } = await fetchFeedMetadata(feedUrl, {
+      maxItems,
     });
     result.items = items;
     result.item_count = items.length;
