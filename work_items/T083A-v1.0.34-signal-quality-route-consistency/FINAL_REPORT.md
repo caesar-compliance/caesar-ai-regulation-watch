@@ -15,6 +15,17 @@ Live `signal-quality-summary.json` was already v1.0.34 after T083 deploy, but `/
 - **`/review-queue/`** — Explicit `signal_score`, `ai_regulation_relevance`, `signal_category`, `recommended_operator_action`, `reason_codes` on cards; `data-signal-score` attributes.
 - **Validators** — `validate-public-route-consistency`, `verify-dist`, `smoke-live-routes` enforce T083-before-T082 and field markers.
 
+## Deploy
+
+| Field | Value |
+|---|---|
+| Deployment ID | DEPLOY-20260522-055 |
+| GitHub Run | [26299134406](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26299134406) |
+| Commit | `bb5ba82` |
+| CI validate | [26299092627](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26299092627) pass |
+
+`npm run smoke:live-routes` (cache bust `T083A`) — **PASS** after deploy.
+
 ## Safety
 
 - No Supabase writes
