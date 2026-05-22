@@ -28,8 +28,9 @@ const presentTables = (health?.expected_tables_present as string[]) ?? [];
 >
   <h1>Runtime health</h1>
   <p class="lead">
-    Backend bootstrap status ({PROJECT_VERSION_LABEL}). Public view of safe runtime DB health metadata —
-    no credentials, no legal text.
+    Runtime foundation checkpoint ({PROJECT_VERSION_LABEL}). Public view of tracked runtime DB health
+    metadata (expected <code>connected</code> when dev schema is applied) — no credentials, no legal text,
+    no live ingestion.
   </p>
 
   <div class="banner banner--review" role="note">

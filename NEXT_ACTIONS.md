@@ -1,8 +1,8 @@
 # Next Actions — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026
-**Current codebase:** v1.0.27 (T051–T076A) — live `DEPLOY-20260521-045`, commit `af8ade3`, tag `regulation-watch-v1.0.27`
-**Live release:** v1.0.27 — deployed 21 May 2026
+**Last updated:** 22 May 2026
+**Current codebase:** v1.0.28 (runtime foundation checkpoint) — tag `regulation-watch-v1.0.28` on checkpoint commit; live site still v1.0.27 until deploy approved
+**Live release:** v1.0.27 — deployed 21 May 2026 (`DEPLOY-20260521-045`)
 **Product direction:** Automation-first global AI regulation tracker and news intelligence dashboard
 
 ---
@@ -119,12 +119,15 @@
    - Operator handoff JSON + report + `/source-pilot/operator-handoff/`; fixture-only; no network; no Supabase apply.
 
 35. **T076A — Free services setup pack** *(merged ff `67e2792`; deployed v1.0.27 — `DEPLOY-20260521-045`)*
-   - Account A onboarding docs, env examples, `runtime:services:check`, `/runtime-services/` live; no migration; no Worker deploy.
+   - Account A onboarding docs, env examples, `runtime:services:check`, `/runtime-services/` live; credential presence only.
 
-36. **T075B — Runtime DB source pilot connection** *(when Supabase credentials in `.env.runtime.local`)*
+36. **v1.0.28 — Runtime foundation checkpoint** *(release branch; post-T076A dev-runtime activation on `main`)*
+   - Dev Supabase runtime + Cloudflare Worker foundation tracked; DB health export `connected`; `runtime_foundation_ready`; no live ingestion/cron/network; checkpoint deploy not triggered in release.
+
+37. **T075B — Runtime DB source pilot connection** *(when Supabase credentials in `.env.runtime.local`)*
    - Persist pilot chain to runtime DB.
 
-37. **T076 — Explicit controlled network check** *(after Control Tower approval)*
+38. **T076 — Explicit controlled network check** *(after Control Tower approval)*
    - Single allowlisted source network check; not broad crawl.
 
 ---

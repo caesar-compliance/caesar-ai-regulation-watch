@@ -11,6 +11,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.28] - 22 May 2026
+
+### Added
+
+- **v1.0.28 runtime foundation checkpoint** — versioned release after post-T076A dev-runtime activation on `main` (dev-runtime workflow, DB health refresh, runtime handoff doc). Work item `work_items/v1.0.28-runtime-foundation-checkpoint/`.
+
+### Changed
+
+- **automation-runtime** — status `runtime_foundation_ready` (Supabase dev runtime + Cloudflare Worker foundation tracked; real automated tracker not enabled).
+- **Tracked readiness** — `runtime-db-health.json` status `connected` (7 tables); `runtime-services-readiness.json` status `ready_for_manual_worker_review` with `cloudflare_ready` and Supabase new keys present; all safety flags remain false.
+
+### Checkpoint (not deployed)
+
+- 22 May 2026 — release checkpoint only; **deployment not triggered**. Live site remains **v1.0.27** (`DEPLOY-20260521-045`, tag `regulation-watch-v1.0.27`). No Supabase schema apply, no Worker deploy, no cron, no live ingestion in this release.
+
+### Prior context
+
+- **v1.0.27 / T076A** — free services onboarding pack (`services_onboarding_ready`); credential presence and `/runtime-services/` (deployed 21 May 2026).
+
+---
+
 ## [1.0.27] - 21 May 2026
 
 ### Added

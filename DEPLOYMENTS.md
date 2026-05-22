@@ -58,6 +58,12 @@ Authoritative log of **public deployment events**. Product version (`vX.Y.Z`) is
 | DEPLOY-20260521-044 | v1.0.26 | 21 May 2026 | `c7c6165` | [26245087509](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26245087509) | github-pages | https://regulation-watch.caesar.no/ | custom-domain-root | pass | v1.0.26 T075E: offline source pilot operator handoff — `/source-pilot/operator-handoff/`, `source-pilot-operator-handoff.json`, `source-pilot-operator-handoff.md` (2 sources, 1 candidate, 1 packet); fixture-only metadata-only; operator checklist + cannot-claim-yet; no network execution; Supabase `not_configured`; no Worker deployed; no Supabase migration applied; live ingestion/scheduled/network disabled; snapshot gate counts 0; tag `regulation-watch-v1.0.26` on deployed commit. |
 | DEPLOY-20260521-045 | v1.0.27 | 21 May 2026 | `af8ade3` | [26249193877](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26249193877) | github-pages | https://regulation-watch.caesar.no/ | custom-domain-root | pass | v1.0.27 T076A: free services onboarding pack — `/runtime-services/`, `runtime-services-readiness.json`, Account A docs/checklist, `.env.cloudflare.example`, `runtime:services:check`; credential presence only (`onboarding_incomplete` on live); no network execution; Supabase `not_configured`; no Worker deployed; no Supabase migration applied; live ingestion/scheduled/network disabled; snapshot gate counts 0; tag `regulation-watch-v1.0.27` on deployed commit. |
 
+### Release checkpoint (not a deployment)
+
+| Checkpoint | Product Version | Date | Tag | Notes |
+|---|---|---|---|---|
+| v1.0.28-runtime-foundation | v1.0.28 | 22 May 2026 | `regulation-watch-v1.0.28` | Runtime foundation checkpoint after post-T076A dev-runtime activation on `main`. Tracked exports: DB health `connected`, services readiness `ready_for_manual_worker_review`. **Deployment not triggered** — live site remains v1.0.27. No Supabase apply, Worker deploy, cron, or live ingestion in checkpoint release. |
+
 ---
 
 ## How to record a new deployment

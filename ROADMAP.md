@@ -1,10 +1,10 @@
 # Development Roadmap — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026
+**Last updated:** 22 May 2026
 
 This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
 
-**Codebase:** v1.0.27 (T076A services onboarding). **Live:** v1.0.27 at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/). **Next:** Artem fills Account A local env → T075B Supabase pilot DB → T076 network check after approval.
+**Codebase:** v1.0.28 (runtime foundation checkpoint). **Live:** v1.0.27 at [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) until next approved deploy. **Next:** T075B runtime DB source pilot connection → product monitoring dry-runs → T076 network check only after Control Tower approval.
 
 **Product direction (20 May 2026):** automation-first global AI regulation tracker — see [docs/AUTOMATION_FIRST_MVP_ROADMAP.md](docs/AUTOMATION_FIRST_MVP_ROADMAP.md) and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md). Human review/evidence is optional future assurance, not the first full MVP foundation.
 

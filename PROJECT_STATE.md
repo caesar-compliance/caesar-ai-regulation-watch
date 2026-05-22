@@ -1,12 +1,12 @@
 # Project State — Caesar AI Regulation Watch
 
-**Last updated:** 21 May 2026
+**Last updated:** 22 May 2026
 
 | Field | Value |
 |---|---|
-| **Current version** | `v1.0.27` (T076A deployed) |
-| **Live version** | `v1.0.27` — tag `regulation-watch-v1.0.27` |
-| **Status** | T076A deployed: free services onboarding pack (`services_onboarding_ready`); `/runtime-services/` live; Supabase `not_configured`; live ingestion disabled |
+| **Current version** | `v1.0.28` (runtime foundation checkpoint) |
+| **Live version** | `v1.0.27` — tag `regulation-watch-v1.0.27` (checkpoint v1.0.28 not deployed yet) |
+| **Status** | Runtime foundation checkpoint (`runtime_foundation_ready`): dev Supabase schema + Cloudflare Worker foundation on `main`; tracked DB health `connected`; services readiness `ready_for_manual_worker_review`; live ingestion, cron, scheduled monitoring, and network execution disabled |
 | **Last deployment** | `DEPLOY-20260521-045` — commit `af8ade3`, run [26249193877](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26249193877) |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
 | **Phase** | Public Technical MVP + profiles/drilldowns (T051) |
