@@ -1,6 +1,6 @@
-# T078 public export snapshot (metadata-only)
+# T078/T079 public export snapshot (metadata-only)
 
-Committed, public-safe payloads from the T078 dev Supabase monitoring pilot smoke run.
+Committed, public-safe payloads from dev Supabase monitoring pilot + T079 Worker run.
 Used when `build:runtime-public-export` runs without DB credentials (CI / GitHub Pages deploy).
 
 - No credentials, legal text, or full article bodies.

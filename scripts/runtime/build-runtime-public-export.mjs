@@ -270,7 +270,11 @@ function buildFromSnapshot(registry) {
     writeExport("regulation-review-candidates.json", candidatesPayload);
   }
 
-  const exportStatus = "backend_smoke_passed_public_export_ready";
+  const exportStatus =
+    statusPayload?.status === "backend_monitoring_mvp_worker_run" ||
+    statusPayload?.worker_deployed === true
+      ? "backend_monitoring_mvp_worker_run"
+      : "backend_smoke_passed_public_export_ready";
 
   writeExport(
     "runtime-monitoring-status.json",
