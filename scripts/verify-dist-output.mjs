@@ -307,6 +307,34 @@ if (fs.existsSync(monitoringPath)) {
       );
       monitoringFailures += 1;
     }
+    if (PROJECT_VERSION === "1.0.36") {
+      if (monitoring.backend_mvp !== "T085") {
+        console.error(`  monitoring backend_mvp must be T085, got ${monitoring.backend_mvp}`);
+        monitoringFailures += 1;
+      }
+      if ((monitoring.source_runs_count ?? 0) < 7) {
+        console.error(
+          `  monitoring source_runs_count must be >= 7, got ${monitoring.source_runs_count}`,
+        );
+        monitoringFailures += 1;
+      }
+      if (monitoring.worker_run_source_success_count !== 2) {
+        console.error(
+          `  monitoring worker_run_source_success_count must be 2, got ${monitoring.worker_run_source_success_count}`,
+        );
+        monitoringFailures += 1;
+      }
+      if (monitoring.worker_run_source_failure_count !== 4) {
+        console.error(
+          `  monitoring worker_run_source_failure_count must be 4, got ${monitoring.worker_run_source_failure_count}`,
+        );
+        monitoringFailures += 1;
+      }
+      if (monitoring.worker_redeployed !== true) {
+        console.error("  monitoring worker_redeployed must be true");
+        monitoringFailures += 1;
+      }
+    }
   } catch {
     console.error("  invalid runtime-monitoring-status.json in dist");
     monitoringFailures += 1;

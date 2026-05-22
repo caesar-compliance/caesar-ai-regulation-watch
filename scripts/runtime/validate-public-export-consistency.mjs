@@ -103,10 +103,46 @@ function main() {
     if (projectVersion === "1.0.36" && monitoring.backend_mvp !== "T085") {
       errors.push(`v1.0.36 expects backend_mvp T085, got ${monitoring.backend_mvp}`);
     }
+    if (projectVersion === "1.0.36") {
+      if ((monitoring.source_runs_count ?? 0) < 7) {
+        errors.push(
+          `v1.0.36 expects source_runs_count >= 7, got ${monitoring.source_runs_count}`,
+        );
+      }
+      if ((monitoring.runtime_events_recent?.length ?? 0) < 5) {
+        errors.push(
+          `v1.0.36 expects >= 5 runtime_events_recent, got ${monitoring.runtime_events_recent?.length ?? 0}`,
+        );
+      }
+      if (monitoring.worker_run_source_success_count !== 2) {
+        errors.push(
+          `v1.0.36 expects worker_run_source_success_count 2, got ${monitoring.worker_run_source_success_count}`,
+        );
+      }
+      if (monitoring.worker_run_source_failure_count !== 4) {
+        errors.push(
+          `v1.0.36 expects worker_run_source_failure_count 4, got ${monitoring.worker_run_source_failure_count}`,
+        );
+      }
+      if (monitoring.worker_redeployed !== true) {
+        errors.push("v1.0.36 expects worker_redeployed true");
+      }
+    }
   }
 
   const ingress = readJson("ingress-filter-summary.json");
+  const tracker = readJson("tracker-summary.json");
   const queue = readJson("regulation-review-queue.json");
+  if (tracker?.product_version && tracker.product_version !== projectVersion) {
+    errors.push(
+      `tracker-summary product_version ${tracker.product_version} != ${projectVersion}`,
+    );
+  }
+  if (ingress?.product_version && ingress.product_version !== projectVersion) {
+    errors.push(
+      `ingress-filter-summary product_version ${ingress.product_version} != ${projectVersion}`,
+    );
+  }
   if (ingress && queue) {
     const visible = ingress.operator_visible_count ?? 0;
     const queueVisible =

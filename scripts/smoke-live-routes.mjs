@@ -156,6 +156,8 @@ const DATA_ROUTES = [
   "/data/tracker-summary.json",
 ];
 
+const RUNTIME_MONITORING_ROUTE = "/data/runtime-monitoring-status.json";
+
 const STALE_FOOTER = /\bv1\.0\.(21|29|30|31|32|33|34)\b/;
 
 async function fetchHtml(path) {
@@ -191,6 +193,52 @@ async function main() {
     console.log(
       `  ${dataPath} ← ${url} (${json.card_count ?? json.decision_count ?? json.source_count ?? json.packet_count ?? json.total_candidates ?? "ok"})`,
     );
+  }
+
+  {
+    const url = new URL(RUNTIME_MONITORING_ROUTE, BASE);
+    url.searchParams.set("t", BUST);
+    const res = await fetch(url, { headers: { "Cache-Control": "no-cache" } });
+    if (!res.ok) {
+      errors.push(`${RUNTIME_MONITORING_ROUTE}: HTTP ${res.status}`);
+    } else {
+      const json = await res.json();
+      if (json.product_version && json.product_version !== VERSION) {
+        errors.push(
+          `${RUNTIME_MONITORING_ROUTE}: product_version ${json.product_version} != ${VERSION}`,
+        );
+      }
+      if (json.backend_mvp !== "T085") {
+        errors.push(`${RUNTIME_MONITORING_ROUTE}: backend_mvp must be T085`);
+      }
+      if ((json.source_runs_count ?? 0) < 7) {
+        errors.push(
+          `${RUNTIME_MONITORING_ROUTE}: source_runs_count ${json.source_runs_count} < 7`,
+        );
+      }
+      if (json.worker_run_source_success_count !== 2) {
+        errors.push(
+          `${RUNTIME_MONITORING_ROUTE}: worker_run_source_success_count must be 2`,
+        );
+      }
+      if (json.worker_run_source_failure_count !== 4) {
+        errors.push(
+          `${RUNTIME_MONITORING_ROUTE}: worker_run_source_failure_count must be 4`,
+        );
+      }
+      if (json.worker_redeployed !== true) {
+        errors.push(`${RUNTIME_MONITORING_ROUTE}: worker_redeployed must be true`);
+      }
+      if (json.cron_enabled === true) {
+        errors.push(`${RUNTIME_MONITORING_ROUTE}: cron_enabled must be false`);
+      }
+      if (json.gates_closed !== true) {
+        errors.push(`${RUNTIME_MONITORING_ROUTE}: gates_closed must be true`);
+      }
+      console.log(
+        `  ${RUNTIME_MONITORING_ROUTE} ← ${url} (runs=${json.source_runs_count}, ok=${json.worker_run_source_success_count}, err=${json.worker_run_source_failure_count})`,
+      );
+    }
   }
 
   console.log("Live route smoke (T085)");

@@ -1,4 +1,7 @@
 {
+  "review_required": true,
+  "legal_change_claimed": false,
+  "public_note": "Backend-derived metadata only. Review required before any legal or client use. Not legal advice.",
   "changes": [
     {
       "change_id": "0c268160-3761-4ed7-9d2a-dd194f532f21",

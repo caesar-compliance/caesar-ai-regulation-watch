@@ -89,23 +89,28 @@ function snapshotAvailable() {
 }
 
 function loadWorkerPilotReport() {
-  if (!fs.existsSync(WORKER_PILOT_REPORT)) return null;
-  try {
-    return JSON.parse(fs.readFileSync(WORKER_PILOT_REPORT, "utf8"));
-  } catch {
-    return null;
+  if (fs.existsSync(WORKER_PILOT_REPORT)) {
+    try {
+      return JSON.parse(fs.readFileSync(WORKER_PILOT_REPORT, "utf8"));
+    } catch {
+      /* fall through */
+    }
   }
+  const snapshotReport = loadSnapshotPayload("worker-pilot-run");
+  return snapshotReport ?? null;
 }
 
-function workerRunRollup(workerRuns, pilotReport) {
+function workerRunRollup(workerRuns, pilotReport, payload = {}) {
   const latest = workerRuns[0] ?? null;
   const latestAt = latest?.completed_at ?? latest?.started_at ?? null;
   const successFromReport = pilotReport?.worker_run_source_success_count;
   const failureFromReport = pilotReport?.worker_run_source_failure_count;
   const successCount =
     successFromReport ??
+    payload.worker_run_source_success_count ??
     workerRuns.filter((r) => String(r.status ?? "") === "completed").length;
-  const failureCount = failureFromReport ?? 0;
+  const failureCount =
+    failureFromReport ?? payload.worker_run_source_failure_count ?? 0;
 
   return {
     latest_worker_run_at: latestAt,
@@ -124,7 +129,7 @@ function workerRunRollup(workerRuns, pilotReport) {
 function enrichMonitoringStatus(payload, registry, status, workerRuns = []) {
   const counts = registryCounts(registry);
   const pilotReport = loadWorkerPilotReport();
-  const workerMeta = workerRunRollup(workerRuns, pilotReport);
+  const workerMeta = workerRunRollup(workerRuns, pilotReport, payload);
   const changesFile = path.join(PUBLIC_DATA, "regulation-detected-changes.json");
   const candidatesFile = path.join(
     PUBLIC_DATA,
@@ -314,11 +319,24 @@ async function buildFromDb(client, registry) {
   });
 }
 
+function snapshotWorkerRuns(runsPayload) {
+  return (runsPayload?.runs ?? []).map((r) => ({
+    id: r.run_id,
+    source_key: r.source_key,
+    run_type: r.run_type,
+    status: r.status,
+    item_count: r.item_count,
+    started_at: r.started_at,
+    completed_at: r.completed_at,
+  }));
+}
+
 function buildFromSnapshot(registry) {
   const statusPayload = loadSnapshotPayload("runtime-monitoring-status");
   const runsPayload = loadSnapshotPayload("regulation-source-runs");
   const changesPayload = loadSnapshotPayload("regulation-detected-changes");
   const candidatesPayload = loadSnapshotPayload("regulation-review-candidates");
+  const workerRuns = snapshotWorkerRuns(runsPayload);
 
   if (runsPayload) writeExport("regulation-source-runs.json", runsPayload);
   if (changesPayload) writeExport("regulation-detected-changes.json", changesPayload);
@@ -332,16 +350,16 @@ function buildFromSnapshot(registry) {
       ? "backend_monitoring_mvp_worker_run"
       : "backend_smoke_passed_public_export_ready";
 
+  const mergedStatus = {
+    ...(statusPayload ?? {}),
+    public_note: statusPayload?.public_note ?? DISCLAIMER,
+    source_runs_count: workerRuns.length || statusPayload?.source_runs_count,
+    worker_redeployed: statusPayload?.worker_redeployed ?? true,
+  };
+
   writeExport(
     "runtime-monitoring-status.json",
-    enrichMonitoringStatus(
-      {
-        ...(statusPayload ?? {}),
-        public_note: statusPayload?.public_note ?? DISCLAIMER,
-      },
-      registry,
-      exportStatus,
-    ),
+    enrichMonitoringStatus(mergedStatus, registry, exportStatus, workerRuns),
   );
 }
 
@@ -525,7 +543,7 @@ async function main() {
     }
   } else if (snapshotAvailable()) {
     console.log(
-      "build-runtime-public-export: no DB URL; using T078 public export snapshot",
+      "build-runtime-public-export: no DB URL; using committed T085 public export snapshot",
     );
     buildFromSnapshot(registry);
   } else {

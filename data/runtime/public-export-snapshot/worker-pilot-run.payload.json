@@ -1,0 +1,9 @@
+{
+  "task_id": "T085",
+  "worker_version": "1.0.36",
+  "deployed_at": "2026-05-22T17:05:39.942Z",
+  "worker_allowlist_source_count": 6,
+  "worker_run_source_success_count": 2,
+  "worker_run_source_failure_count": 4,
+  "latest_run_id": "27249c8a-f6b3-47a1-aa13-3b0b6accb5c7"
+}
