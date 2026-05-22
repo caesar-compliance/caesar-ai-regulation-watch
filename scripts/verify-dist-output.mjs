@@ -119,6 +119,8 @@ const requiredHtmlChecks = [
     mustInclude: [
       PROJECT_VERSION_LABEL,
       PROJECT_PHASE_LABEL,
+      "T082 Operator Decision Workflow",
+      "operator decisions",
       "Regulation records",
       "Jurisdiction profile cards",
     ],
@@ -129,7 +131,12 @@ const requiredHtmlChecks = [
   },
   {
     rel: "tracker/index.html",
-    mustInclude: [PROJECT_VERSION_LABEL, "Product tracker dashboard (T080)"],
+    mustInclude: [
+      PROJECT_VERSION_LABEL,
+      "Operator review pipeline (T082)",
+      "not legal verification",
+      "Coverage dashboard (T080)",
+    ],
   },
   {
     rel: "evidence-export-candidates/index.html",

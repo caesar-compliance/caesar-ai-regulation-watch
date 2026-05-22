@@ -4,7 +4,10 @@ import DevelopersPanel from "../components/DevelopersPanel.astro";
 import StatusBucketBadge from "../components/StatusBucketBadge.astro";
 import TrackerMeter from "../components/TrackerMeter.astro";
 import { getChanges } from "../lib/data";
-import { getReviewQueueSummary } from "../lib/review-queue";
+import {
+  getReviewQueueSummary as getRegulationReviewQueueSummary,
+  getOperatorReviewSummary,
+} from "../lib/regulation-review-queue";
 import { getAutomationFirstMetrics } from "../lib/tracker-data";
 import MetricsStrip from "../components/MetricsStrip.astro";
 import { formatDate, truncate } from "../lib/format";
@@ -14,7 +17,8 @@ import { getJurisdictionProfileCards } from "../lib/runtime-monitoring-data";
 import { getCountryStatus } from "../lib/tracker-data";
 
 const routeSummary = getPublicRouteSummary();
-const reviewSummary = getReviewQueueSummary();
+const regulationReviewSummary = getRegulationReviewQueueSummary();
+const operatorSummary = getOperatorReviewSummary();
 const profileCards = getJurisdictionProfileCards();
 const recentChanges = getChanges().slice(0, 3);
 const trackerMetrics = getAutomationFirstMetrics();
@@ -23,17 +27,28 @@ const trackerMetrics = getAutomationFirstMetrics();
 <BaseLayout title="Home" currentPath="/">
   <h1>Caesar AI Regulation Watch</h1>
   <p class="lead">
-    Automation-first AI regulation tracker with T080 country profiles, named regulation records,
-    and source-linked jurisdiction status. Technical pilot — not legal advice and not complete
-    global coverage.
+    {PROJECT_VERSION_LABEL} — Automation-first AI regulation tracker with T082 operator decision
+    workflow on backend monitoring candidates, plus T080 country profiles and source-linked
+    status. Technical pilot — not legal advice and not complete global coverage.
   </p>
 
+  <div class="banner banner--review" role="note">
+    <strong>T082 Operator Decision Workflow ({PROJECT_VERSION_LABEL}).</strong>{" "}
+    {regulationReviewSummary.total} regulation review candidates ·{" "}
+    {operatorSummary.decision_count ?? 0} operator decisions in local YAML ·{" "}
+    {regulationReviewSummary.review_required} review_required ·{" "}
+    {regulationReviewSummary.in_review} in_review ·{" "}
+    {regulationReviewSummary.needs_source_check} needs source check ·{" "}
+    {regulationReviewSummary.accepted_for_tracking} accepted for tracking (not legal
+    verification) · {regulationReviewSummary.dismissed} dismissed. All safety gates closed ·
+    cron disabled. <a href="/review-queue/">Review queue →</a>
+  </div>
+
   <div class="banner banner--automation" role="note">
-    <strong>T080 coverage model ({PROJECT_VERSION_LABEL}).</strong> Explore the{" "}
-    <a href="/tracker/">global tracker</a>, <a href="/map/">interactive map</a>,{" "}
-    <a href="/compare/">jurisdiction comparison</a>, <a href="/updates/">updates feed</a>, and{" "}
-    <a href="/countries/">country status cards</a>. Dev Worker deployed; scheduled monitoring
-    disabled. Human review required before any client use.
+    <strong>T080 coverage model.</strong> Explore the <a href="/tracker/">global tracker</a>,{" "}
+    <a href="/map/">interactive map</a>, <a href="/compare/">jurisdiction comparison</a>,{" "}
+    <a href="/updates/">updates feed</a>, and <a href="/countries/">country status cards</a>. Dev
+    Worker deployed; scheduled monitoring disabled.
   </div>
 
   <MetricsStrip metrics={trackerMetrics} />
@@ -110,9 +125,12 @@ const trackerMetrics = getAutomationFirstMetrics();
       <a href="/sources/">Official sources</a>
       <p>{routeSummary.monitoredSourceCount} monitored authority URLs in pilot registry</p>
     </div>
-    <div class="nav-card">
-      <a href="/review-queue/">Human review queue</a>
-      <p>{reviewSummary.total} items pending human verification (read-only)</p>
+    <div class="nav-card nav-card--accent">
+      <a href="/review-queue/">Regulation review queue (T082)</a>
+      <p>
+        {regulationReviewSummary.total} monitoring candidates ·{" "}
+        {operatorSummary.decision_count ?? 0} operator decisions — metadata only
+      </p>
     </div>
     <div class="nav-card">
       <a href="/timelines/">Timelines</a>

@@ -19,6 +19,7 @@ import {
   getReviewCandidates,
   getTrackerSummary,
 } from "../../lib/runtime-monitoring-data";
+import { PROJECT_VERSION_LABEL } from "../../lib/project-version";
 import {
   getReviewQueueSummary,
   getReviewQueueCards,
@@ -74,20 +75,86 @@ const latestUpdates = filterRegulatoryUpdates({
 >
   <h1>Global AI regulation tracker</h1>
   <p class="lead">
-    Automation-first public tracker with choropleth-style status panel (T050) and source-linked
-    updates from curated pilot data — not legal advice and not complete global coverage.
+    {PROJECT_VERSION_LABEL} — Operator review pipeline (T082) on backend monitoring candidates,
+    plus automation-first tracker (T050/T080) with source-linked updates — not legal advice.
   </p>
+
+  <div class="banner banner--review" role="note">
+    <strong>T082 Operator Decision Workflow.</strong> Local YAML decisions applied to public
+    exports. Accepted for tracking is <em>not</em> legal verification. Gates closed · cron
+    disabled.
+  </div>
 
   <div class="banner banner--automation" role="note">
     <strong>Technical tracker pilot.</strong> Manual seeds plus {adapterCount} offline metadata
-    adapter record(s) from repository monitoring data — no live scraping. Evidence and client-use
-    gates remain closed. Human review is optional for future premium workflows.
+    adapter record(s) — no live scraping. Evidence and client-use gates remain closed.
   </div>
 
   <MetricsStrip metrics={metrics} />
 
   <section class="tracker-section">
-    <h2>Product tracker dashboard (T080)</h2>
+    <h2>Operator review pipeline (T082)</h2>
+    <div class="metrics-strip metrics-strip--monitoring">
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{reviewQueueSummary.total ?? 0}</span>
+        <span class="metrics-strip__label">Review candidates</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{reviewQueueSummary.review_required ?? 0}</span>
+        <span class="metrics-strip__label">Review required</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{reviewQueueSummary.in_review ?? 0}</span>
+        <span class="metrics-strip__label">In review</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{reviewQueueSummary.needs_source_check ?? 0}</span>
+        <span class="metrics-strip__label">Needs source check</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{reviewQueueSummary.accepted_for_tracking ?? 0}</span>
+        <span class="metrics-strip__label">Tracking only</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{reviewQueueSummary.dismissed ?? 0}</span>
+        <span class="metrics-strip__label">Dismissed</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{operatorSummary.decision_count ?? 0}</span>
+        <span class="metrics-strip__label">Operator decisions</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">off</span>
+        <span class="metrics-strip__label">Cron</span>
+      </div>
+    </div>
+    <p>
+      <strong>Accepted for tracking is not legal verification.</strong> Metadata-only operator
+      triage; all safety gates remain closed.
+    </p>
+    <p>
+      <a href="/review-queue/">Full regulation review queue →</a> ·{" "}
+      <a href="/data/operator-review-summary.json">operator-review-summary.json</a>
+    </p>
+    {
+      reviewQueueCards.length > 0 ? (
+        <ul>
+          {reviewQueueCards.slice(0, 5).map((c) => (
+            <li>
+              <strong>{c.priority}</strong> — {c.title} ({c.review_status}
+              {c.review_status === "accepted_for_tracking" ? ", tracking only" : ""},{" "}
+              <a href={`/jurisdictions/${c.jurisdiction_id}/`}>{c.jurisdiction_id}</a>)
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No review queue cards in export.</p>
+      )
+    }
+  </section>
+
+  <section class="tracker-section">
+    <h2>Coverage dashboard (T080)</h2>
     <div class="metrics-strip metrics-strip--monitoring">
       <div class="metrics-strip__item">
         <span class="metrics-strip__value">{trackerSummary.countries_covered ?? allStatuses.length}</span>
@@ -130,72 +197,14 @@ const latestUpdates = filterRegulatoryUpdates({
   </section>
 
   <section class="tracker-section">
-    <h2>Operator review pipeline (T082)</h2>
-    <div class="metrics-strip metrics-strip--monitoring">
-      <div class="metrics-strip__item">
-        <span class="metrics-strip__value">{reviewQueueSummary.review_required ?? 0}</span>
-        <span class="metrics-strip__label">Review required</span>
-      </div>
-      <div class="metrics-strip__item">
-        <span class="metrics-strip__value">{reviewQueueSummary.in_review ?? 0}</span>
-        <span class="metrics-strip__label">In review</span>
-      </div>
-      <div class="metrics-strip__item">
-        <span class="metrics-strip__value">{reviewQueueSummary.needs_source_check ?? 0}</span>
-        <span class="metrics-strip__label">Needs source check</span>
-      </div>
-      <div class="metrics-strip__item">
-        <span class="metrics-strip__value">{reviewQueueSummary.accepted_for_tracking ?? 0}</span>
-        <span class="metrics-strip__label">Tracking only</span>
-      </div>
-      <div class="metrics-strip__item">
-        <span class="metrics-strip__value">{reviewQueueSummary.dismissed ?? 0}</span>
-        <span class="metrics-strip__label">Dismissed</span>
-      </div>
-      <div class="metrics-strip__item">
-        <span class="metrics-strip__value">{operatorSummary.decision_count ?? 0}</span>
-        <span class="metrics-strip__label">YAML decisions</span>
-      </div>
-    </div>
-    <div class="metrics-strip metrics-strip--monitoring">
-      <div class="metrics-strip__item">
-        <span class="metrics-strip__value">{reviewQueueSummary.high_priority ?? 0}</span>
-        <span class="metrics-strip__label">High priority</span>
-      </div>
-      <div class="metrics-strip__item">
-        <span class="metrics-strip__value">{freshnessSummary.fresh ?? 0}</span>
-        <span class="metrics-strip__label">Fresh sources</span>
-      </div>
-      <div class="metrics-strip__item">
-        <span class="metrics-strip__value">{freshnessSummary.stale ?? 0}</span>
-        <span class="metrics-strip__label">Stale sources</span>
-      </div>
-      <div class="metrics-strip__item">
-        <span class="metrics-strip__value">off</span>
-        <span class="metrics-strip__label">Cron</span>
-      </div>
-    </div>
-    {
-      reviewQueueCards.length > 0 ? (
-        <ul>
-          {reviewQueueCards.slice(0, 5).map((c) => (
-            <li>
-              <strong>{c.priority}</strong> — {c.title} ({c.review_status}
-              {c.review_status === "accepted_for_tracking" ? ", tracking only" : ""},{" "}
-              <a href={`/jurisdictions/${c.jurisdiction_id}/`}>{c.jurisdiction_id}</a>)
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No review queue cards in export.</p>
-      )
-    }
+    <h2>Backend monitoring export (reference)</h2>
     <p>
-      <a href="/review-queue/">Full regulation review queue →</a>
+      Source freshness: {freshnessSummary.fresh ?? 0} fresh / {freshnessSummary.stale ?? 0} stale ·{" "}
+      <a href="/runtime-health/">Runtime health</a>
     </p>
     {
       reviewCandidates.length > 0 && (
-        <section>
+        <>
           <h3>Raw review candidates (backend export)</h3>
           <ul>
             {reviewCandidates.slice(0, 5).map((c) => (
@@ -204,7 +213,7 @@ const latestUpdates = filterRegulatoryUpdates({
               </li>
             ))}
           </ul>
-        </section>
+        </>
       )
     }
     {

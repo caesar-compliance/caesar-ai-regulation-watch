@@ -64,6 +64,24 @@ function main() {
   if (indexSrc && !indexSrc.includes("getPublicRouteSummary")) {
     errors.push("src/pages/index.astro must use getPublicRouteSummary for T080 counts");
   }
+  if (indexSrc && !indexSrc.includes("T082 Operator Decision Workflow")) {
+    errors.push("src/pages/index.astro must include T082 Operator Decision Workflow banner");
+  }
+  if (indexSrc && !indexSrc.includes("getRegulationReviewQueueSummary")) {
+    errors.push("src/pages/index.astro must use regulation-review-queue summary for T082 counts");
+  }
+
+  const trackerSrc = readText("src/pages/tracker/index.astro");
+  if (trackerSrc && !trackerSrc.includes("Operator review pipeline (T082)")) {
+    errors.push("src/pages/tracker/index.astro must include T082 operator review pipeline section");
+  }
+  if (
+    trackerSrc &&
+    trackerSrc.indexOf("Operator review pipeline (T082)") >
+      trackerSrc.indexOf("Coverage dashboard (T080)")
+  ) {
+    errors.push("src/pages/tracker/index.astro must place T082 section before T080 coverage");
+  }
 
   const mapIndexSrc = readText("src/pages/map/index.astro");
   if (mapIndexSrc && !mapIndexSrc.includes("regulation-map-metrics")) {
@@ -90,6 +108,15 @@ function main() {
     if (indexHtml && !indexHtml.includes(projectLabel)) {
       errors.push(`dist/index.html missing ${projectLabel}`);
     }
+    if (indexHtml && !indexHtml.includes("T082 Operator Decision Workflow")) {
+      errors.push("dist/index.html missing T082 Operator Decision Workflow banner");
+    }
+    if (indexHtml && !indexHtml.includes("operator decisions")) {
+      errors.push("dist/index.html missing operator decisions copy");
+    }
+    if (indexHtml?.includes("T080 coverage model") && !indexHtml.includes("T082 Operator Decision Workflow")) {
+      errors.push("dist/index.html shows T080 without T082 operator workflow");
+    }
     if (indexHtml?.includes("13 jurisdictions")) {
       errors.push("dist/index.html still shows 13 jurisdictions copy");
     }
@@ -103,17 +130,24 @@ function main() {
       errors.push(`dist/map/index.html missing ${projectLabel}`);
     }
 
-    if (trackerHtml?.includes("Product tracker dashboard (T080)") === false) {
-      errors.push("dist/tracker/index.html missing T080 product tracker dashboard section");
+    if (trackerHtml && !/Operator review pipeline \(T082\)/i.test(trackerHtml)) {
+      errors.push("dist/tracker/index.html missing T082 operator review pipeline section");
     }
     if (
       trackerHtml &&
-      !/Review queue(?:\s*&amp;|\s*&)\s*source freshness \(T081\)/i.test(trackerHtml) &&
-      !/Operator review pipeline \(T082\)/i.test(trackerHtml)
+      trackerHtml.indexOf("Operator review pipeline (T082)") >
+        trackerHtml.indexOf("Coverage dashboard (T080)")
     ) {
-      errors.push(
-        "dist/tracker/index.html missing T081/T082 review queue section",
-      );
+      errors.push("dist/tracker/index.html must place T082 before T080 coverage section");
+    }
+    if (
+      trackerHtml &&
+      !/not legal verification/i.test(trackerHtml)
+    ) {
+      errors.push("dist/tracker/index.html missing not legal verification wording");
+    }
+    if (trackerHtml?.includes("Coverage dashboard (T080)") === false) {
+      errors.push("dist/tracker/index.html missing T080 coverage dashboard section");
     }
 
     const reviewQueueHtml = readText("review-queue/index.html", DIST);
