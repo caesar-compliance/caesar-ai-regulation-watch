@@ -5,7 +5,7 @@
 | Field | Value |
 |---|---|
 | **Current version** | `v1.0.32` (review queue + source freshness + operator workflow — T081) |
-| **Live version** | `v1.0.31` — pending T081 deploy |
+| **Live version** | `v1.0.32` — tag `regulation-watch-v1.0.32`, deploy [26297100885](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26297100885) |
 | **Last deployment** | `DEPLOY-20260522-050` — commit `1b50fcd`, run [26295890931](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26295890931) |
 | **Status** | T081: regulation review queue (20 cards), source freshness (25 sources), operator YAML workflow; T080 coverage unchanged; dev Worker; scheduled monitoring disabled |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |

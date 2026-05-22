@@ -9,8 +9,8 @@
 |---|---|
 | Starting HEAD (main) | `56db918ee85b509659a405793bc50038560240cf` |
 | Branch | `task/T081-review-queue-source-freshness-operator-workflow` |
-| Final commit | _(filled after merge)_ |
-| Final main HEAD | _(filled after merge)_ |
+| Final commit | `c4560a1` |
+| Final main HEAD | `c4560a1` |
 | Tag | `regulation-watch-v1.0.32` |
 
 ## Package
@@ -78,8 +78,8 @@ All minimum commands passed locally before commit:
 
 | Field | Value |
 |---|---|
-| Live deploy run ID | _(filled after deploy)_ |
-| Smoke test | _(filled after deploy)_ |
+| Live deploy run ID | [26297100885](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26297100885) |
+| Smoke test | PASS — `npm run smoke:live-routes` (v1.0.32, all routes + 4 JSON exports) |
 
 ## Safety confirmation
 

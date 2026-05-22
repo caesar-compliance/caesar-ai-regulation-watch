@@ -1,6 +1,6 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 22 May 2026 (v1.0.31 T080 coverage expansion + country/regulation model)
+**Last updated:** 22 May 2026 (v1.0.32 T081 review queue + source freshness + operator workflow)
 
 ## T079 — Dev Worker activation + E2E runtime run
 
