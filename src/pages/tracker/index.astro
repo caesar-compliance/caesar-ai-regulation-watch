@@ -19,6 +19,12 @@ import {
   getReviewCandidates,
   getTrackerSummary,
 } from "../../lib/runtime-monitoring-data";
+import {
+  getReviewQueueSummary,
+  getReviewQueueCards,
+  getSourceFreshnessSummary,
+  getOperatorReviewSummary,
+} from "../../lib/regulation-review-queue";
 
 const metrics = getAutomationFirstMetrics();
 const monitoring = getMonitoringStatus();
@@ -31,6 +37,10 @@ const detectedChangesCount =
   monitoring.detected_changes_count ?? allDetectedChanges.length;
 const reviewCandidatesCount =
   monitoring.review_candidates_count ?? allReviewCandidates.length;
+const reviewQueueSummary = getReviewQueueSummary();
+const reviewQueueCards = getReviewQueueCards();
+const freshnessSummary = getSourceFreshnessSummary();
+const operatorSummary = getOperatorReviewSummary();
 const automatedRssCount =
   monitoring.automated_rss_source_count ?? monitoring.automated_source_count ?? 0;
 const topics = getTrackerTopics();
@@ -114,13 +124,60 @@ const latestUpdates = filterRegulatoryUpdates({
     </div>
     <p>
       <a href="/map/">Interactive map</a> · <a href="/countries/">Country cards</a> ·{" "}
-      <a href="/runtime-health/">Runtime health</a> ·{" "}
+      <a href="/review-queue/">Review queue</a> · <a href="/runtime-health/">Runtime health</a> ·{" "}
       <a href="/data/tracker-summary.json">tracker-summary.json</a>
+    </p>
+  </section>
+
+  <section class="tracker-section">
+    <h2>Review queue &amp; source freshness (T081)</h2>
+    <div class="metrics-strip metrics-strip--monitoring">
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{reviewQueueSummary.high_priority ?? 0}</span>
+        <span class="metrics-strip__label">High priority</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{reviewQueueSummary.review_required ?? 0}</span>
+        <span class="metrics-strip__label">Review required</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{freshnessSummary.fresh ?? 0}</span>
+        <span class="metrics-strip__label">Fresh sources</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{freshnessSummary.stale ?? 0}</span>
+        <span class="metrics-strip__label">Stale sources</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{operatorSummary.decision_count ?? 0}</span>
+        <span class="metrics-strip__label">Operator decisions</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">off</span>
+        <span class="metrics-strip__label">Cron</span>
+      </div>
+    </div>
+    {
+      reviewQueueCards.length > 0 ? (
+        <ul>
+          {reviewQueueCards.slice(0, 5).map((c) => (
+            <li>
+              <strong>{c.priority}</strong> — {c.title} ({c.review_status},{" "}
+              <a href={`/jurisdictions/${c.jurisdiction_id}/`}>{c.jurisdiction_id}</a>)
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No review queue cards in export.</p>
+      )
+    }
+    <p>
+      <a href="/review-queue/">Full regulation review queue →</a>
     </p>
     {
       reviewCandidates.length > 0 && (
         <section>
-          <h3>Review queue preview</h3>
+          <h3>Raw review candidates (backend export)</h3>
           <ul>
             {reviewCandidates.slice(0, 5).map((c) => (
               <li>

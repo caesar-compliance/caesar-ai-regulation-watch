@@ -36,6 +36,11 @@ import {
   profileCardForJurisdiction,
   regulationRecordsForJurisdiction,
 } from "../../lib/runtime-monitoring-data";
+import {
+  reviewCardsForJurisdiction,
+  sourceFreshnessForJurisdiction,
+  jurisdictionReviewState,
+} from "../../lib/regulation-review-queue";
 import TrackerMeter from "../../components/TrackerMeter.astro";
 
 export function getStaticPaths() {
@@ -80,6 +85,9 @@ const jurisdictionChanges = getDetectedChanges()
     ),
   )
   .slice(0, 5);
+const countryReviewCards = reviewCardsForJurisdiction(jurisdiction.jurisdiction_id);
+const countrySourceFreshness = sourceFreshnessForJurisdiction(jurisdiction.jurisdiction_id);
+const countryReviewState = jurisdictionReviewState(jurisdiction.jurisdiction_id);
 ---
 
 <BaseLayout title={jurisdiction.name} currentPath="/jurisdictions/">
@@ -420,6 +428,51 @@ const jurisdictionChanges = getDetectedChanges()
       </section>
     )
   }
+
+  <section class="tracker-section">
+    <h2>Country review workflow (T081)</h2>
+    <div class="banner banner--review" role="note">
+      <strong>Not legal advice.</strong> Pending monitoring candidates and source freshness signals
+      require human review. All safety gates remain closed on this page.
+    </div>
+    <dl class="meta-grid">
+      <div><dt>Review state</dt><dd>{countryReviewState?.review_state ?? "unknown"}</dd></div>
+      <div><dt>Pending candidates</dt><dd>{countryReviewState?.pending_review_count ?? 0}</dd></div>
+      <div><dt>High priority</dt><dd>{countryReviewState?.high_priority_count ?? 0}</dd></div>
+      <div><dt>Stale sources</dt><dd>{countryReviewState?.stale_source_count ?? 0}</dd></div>
+    </dl>
+    {
+      countryReviewCards.length > 0 ? (
+        <ul>
+          {countryReviewCards.slice(0, 8).map((c) => (
+            <li>
+              <strong>{c.priority}</strong> — {c.title} ({c.review_status})
+              {c.source_url && (
+                <>
+                  {" "}
+                  <a href={c.source_url} target="_blank" rel="noopener noreferrer">
+                    source ↗
+                  </a>
+                </>
+              )}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No pending review candidates for this jurisdiction in current export.</p>
+      )
+    }
+    <h3>Official source freshness</h3>
+    <ul>
+      {countrySourceFreshness.slice(0, 12).map((s) => (
+        <li>
+          {s.source_title} — <em>{s.freshness_status}</em>
+          {s.review_required_count > 0 && ` · ${s.review_required_count} review required`}
+        </li>
+      ))}
+    </ul>
+    <p><a href="/review-queue/">Regulation review queue →</a></p>
+  </section>
 
   <section class="tracker-section">
     <h2>Registry coverage</h2>

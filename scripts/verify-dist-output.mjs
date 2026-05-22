@@ -73,6 +73,10 @@ const required = [
   "data/source-adapter-allowlist.json",
   "automation/index.html",
   "data/automation-runtime-manifest.json",
+  "data/regulation-review-queue.json",
+  "data/source-freshness.json",
+  "data/operator-review-summary.json",
+  "data/review-packets-index.json",
 ];
 
 const conditionalRequired = [];
@@ -104,6 +108,7 @@ const staleHtmlPatterns = [
   { label: "footer v1.0.21", re: /\bv1\.0\.21\b/ },
   { label: "footer v1.0.29", re: /\bv1\.0\.29\b/ },
   { label: "footer v1.0.30", re: /\bv1\.0\.30\b/ },
+  { label: "footer v1.0.31", re: /\bv1\.0\.31\b/ },
   { label: "homepage 13 jurisdictions copy", re: /13 jurisdictions grouped by region/ },
   { label: "legacy map page title", re: /<h1>Global coverage map<\/h1>/ },
 ];

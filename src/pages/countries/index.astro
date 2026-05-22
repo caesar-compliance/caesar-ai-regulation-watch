@@ -13,6 +13,7 @@ import {
   getJurisdictionProfileCards,
   profileCardForJurisdiction,
 } from "../../lib/runtime-monitoring-data";
+import { jurisdictionReviewState } from "../../lib/regulation-review-queue";
 import { formatDate } from "../../lib/format";
 
 const topics = getTrackerTopics();
@@ -64,6 +65,7 @@ const cardById = new Map(profileCards.map((c) => [c.jurisdiction_id, c]));
       filtered.map((cs) => {
         const enriched = enrichedById.get(cs.jurisdiction_id);
         const card = cardById.get(cs.jurisdiction_id) ?? profileCardForJurisdiction(cs.jurisdiction_id);
+        const reviewState = jurisdictionReviewState(cs.jurisdiction_id);
         return (
           <li class="country-card">
             <div class="country-card__head">
@@ -71,6 +73,18 @@ const cardById = new Map(profileCards.map((c) => [c.jurisdiction_id, c]));
                 <a href={`/jurisdictions/${cs.jurisdiction_id}/`}>{cs.country_name}</a>
               </h3>
               <StatusBucketBadge bucket={cs.status_bucket} label={cs.status_label} />
+              {reviewState?.pending_review_count > 0 && (
+                <span class="badge badge--warn">Pending review</span>
+              )}
+              {reviewState?.stale_source_count > 0 && (
+                <span class="badge badge--warn">Stale source</span>
+              )}
+              {reviewState?.fresh_automated_count > 0 && (
+                <span class="badge">Fresh automated</span>
+              )}
+              {reviewState?.review_state === "manual_review_only" && (
+                <span class="badge">Manual review only</span>
+              )}
             </div>
             <p class="country-card__meta">{card?.status_headline ?? cs.status_summary}</p>
             <p class="country-card__meta">

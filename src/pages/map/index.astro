@@ -9,10 +9,15 @@ import {
   getMonitoringStatus,
   profileCardForJurisdiction,
 } from "../../lib/runtime-monitoring-data";
+import {
+  getReviewQueueSummary,
+  jurisdictionReviewState,
+} from "../../lib/regulation-review-queue";
 
 const enriched = getEnrichedCountryStatuses();
 const markers = getMapMarkers();
 const monitoring = getMonitoringStatus();
+const reviewQueueSummary = getReviewQueueSummary();
 
 const markerById = new Map(markers.map((m) => [m.jurisdiction_id, m]));
 
@@ -48,6 +53,9 @@ const selected =
     : filtered[0] ?? null;
 const selectedMarker = selected ? markerById.get(selected.jurisdiction_id) : null;
 const selectedProfile = selected ? profileCardForJurisdiction(selected.jurisdiction_id) : null;
+const selectedReviewState = selected
+  ? jurisdictionReviewState(selected.jurisdiction_id)
+  : null;
 ---
 
 <BaseLayout
@@ -64,8 +72,20 @@ const selectedProfile = selected ? profileCardForJurisdiction(selected.jurisdict
   <div class="banner banner--review" role="note">
     <strong>Detected change ≠ verified legal change.</strong> {monitoring.monitored_source_count ?? 0}{" "}
     sources in pilot registry ({monitoring.automated_source_count ?? 0} automated RSS,{" "}
-    {monitoring.manual_source_count ?? 0} manual review). Scheduled monitoring disabled.
+    {monitoring.manual_source_count ?? 0} manual review). Review queue:{" "}
+    {reviewQueueSummary.review_required ?? 0} required · Scheduled monitoring disabled.
   </div>
+
+  <section class="tracker-section">
+    <h2>Review &amp; freshness overlay (T081)</h2>
+    <p>
+      Countries may show pending review candidates, stale/manual-review sources, or fresh automated
+      coverage. Overlay uses jurisdiction review state from public exports — not legal verification.
+    </p>
+    <p>
+      <a href="/review-queue/">Review queue</a> · <a href="/data/source-freshness.json">Source freshness JSON</a>
+    </p>
+  </section>
 
   <section class="tracker-section">
     <h2>Filters</h2>
@@ -132,7 +152,10 @@ const selectedProfile = selected ? profileCardForJurisdiction(selected.jurisdict
             {selectedProfile?.status_headline ?? selected.status_summary}
           </p>
           <p class="country-card__meta">
-            <strong>Review required</strong> — tracker metadata only
+            <strong>Review state:</strong>{" "}
+            {selectedReviewState?.review_state ?? "unknown"} · Pending candidates:{" "}
+            {selectedReviewState?.pending_review_count ?? 0} · Stale sources:{" "}
+            {selectedReviewState?.stale_source_count ?? 0}
           </p>
           <TrackerMeter
             label="Maturity"

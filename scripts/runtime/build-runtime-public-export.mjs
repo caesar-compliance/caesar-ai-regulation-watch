@@ -4,6 +4,7 @@
  */
 import fs from "node:fs";
 import path from "node:path";
+import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { loadRuntimeEnv, getDbUrl } from "./lib/load-runtime-env.mjs";
 import { assertRuntimeSafetyDisabled } from "./lib/runtime-safety.mjs";
@@ -99,21 +100,26 @@ function enrichMonitoringStatus(payload, registry, status) {
     payload.latest_pilot_report?.summary?.total_review_candidates ??
     null;
 
-  if (detected_changes_count == null && fs.existsSync(changesFile)) {
+  if (fs.existsSync(changesFile)) {
     try {
-      detected_changes_count =
+      const fromFile =
         JSON.parse(fs.readFileSync(changesFile, "utf8")).changes?.length ?? 0;
+      if (detected_changes_count == null || fromFile > detected_changes_count) {
+        detected_changes_count = fromFile;
+      }
     } catch {
-      detected_changes_count = 0;
+      if (detected_changes_count == null) detected_changes_count = 0;
     }
   }
-  if (review_candidates_count == null && fs.existsSync(candidatesFile)) {
+  if (fs.existsSync(candidatesFile)) {
     try {
-      review_candidates_count =
-        JSON.parse(fs.readFileSync(candidatesFile, "utf8")).candidates?.length ??
-        0;
+      const fromFile =
+        JSON.parse(fs.readFileSync(candidatesFile, "utf8")).candidates?.length ?? 0;
+      if (review_candidates_count == null || fromFile > review_candidates_count) {
+        review_candidates_count = fromFile;
+      }
     } catch {
-      review_candidates_count = 0;
+      if (review_candidates_count == null) review_candidates_count = 0;
     }
   }
 
@@ -488,9 +494,31 @@ async function main() {
   buildMapMetrics(registry);
   buildRegulationRecordsExport();
   buildJurisdictionProfileCardsExport(registry);
-  buildTrackerSummaryExport(registry, monitoringPayload);
+  const scripts = [
+    "build-review-queue-export.mjs",
+    "build-source-freshness-export.mjs",
+    "generate-review-packets.mjs",
+  ];
+  for (const script of scripts) {
+    const res = spawnSync(
+      process.execPath,
+      [path.join(ROOT, "scripts/runtime", script)],
+      { cwd: ROOT, stdio: "inherit" },
+    );
+    if (res.status !== 0) {
+      throw new Error(`${script} failed with status ${res.status}`);
+    }
+  }
 
-  console.log("PASS: build-runtime-public-export (9 public JSON files)");
+  const monitoringRefreshed = JSON.parse(
+    fs.readFileSync(
+      path.join(PUBLIC_DATA, "runtime-monitoring-status.json"),
+      "utf8",
+    ),
+  );
+  buildTrackerSummaryExport(registry, monitoringRefreshed);
+
+  console.log("PASS: build-runtime-public-export (T080 + T081 public JSON files)");
 }
 
 main().catch((err) => {

@@ -11,6 +11,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.32] - 22 May 2026
+
+### Added
+
+- **T081 review queue** — `regulation-review-queue.json`, operator cards with priority/status, jurisdiction review states.
+- **Source freshness** — `source-freshness.json` for all 25 registry sources (fresh/aging/stale/manual/not_automated).
+- **Operator workflow** — `operator-review-decisions.yml`, `operator-review-summary.json`, markdown review packets + `review-packets-index.json`.
+- **Scripts** — `build:review-queue-export`, `build:source-freshness-export`, `build:review-packets`, `validate:review-queue`, `validate:source-freshness`.
+- **UI** — `/review-queue/` regulation monitoring queue; tracker/map/countries/jurisdiction/runtime-health T081 sections.
+
+### Safety
+
+- Cron/scheduled monitoring remain disabled; all legal/evidence/client gates closed; metadata-only.
+
+---
+
 ## [1.0.31] - 22 May 2026
 
 ### Added

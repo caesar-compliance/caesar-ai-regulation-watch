@@ -1,0 +1,270 @@
+{
+  "generated_at": "2026-05-22T15:35:17.264Z",
+  "packet_count": 20,
+  "packets": [
+    {
+      "packet_id": "packet-01-fe309808",
+      "candidate_id": "fe309808-7ddf-4a85-97f5-2fdb7e43fcd8",
+      "filename": "review-packet-01-fe309808.md",
+      "jurisdiction_id": "eu",
+      "source_key": "edps-news-rss",
+      "priority": "high",
+      "review_status": "review_required",
+      "paths": {
+        "runtime": "data/runtime/review-packets/review-packet-01-fe309808.md",
+        "work_item": "work_items/T081-review-queue-source-freshness-operator-workflow/review-packets/review-packet-01-fe309808.md"
+      }
+    },
+    {
+      "packet_id": "packet-02-0acd5186",
+      "candidate_id": "0acd5186-d69d-4144-a65e-570f98a89095",
+      "filename": "review-packet-02-0acd5186.md",
+      "jurisdiction_id": "eu",
+      "source_key": "edps-news-rss",
+      "priority": "high",
+      "review_status": "review_required",
+      "paths": {
+        "runtime": "data/runtime/review-packets/review-packet-02-0acd5186.md",
+        "work_item": "work_items/T081-review-queue-source-freshness-operator-workflow/review-packets/review-packet-02-0acd5186.md"
+      }
+    },
+    {
+      "packet_id": "packet-03-1d4af0cb",
+      "candidate_id": "1d4af0cb-f2c1-47e4-89c3-62bac95145f5",
+      "filename": "review-packet-03-1d4af0cb.md",
+      "jurisdiction_id": "eu",
+      "source_key": "edps-news-rss",
+      "priority": "high",
+      "review_status": "review_required",
+      "paths": {
+        "runtime": "data/runtime/review-packets/review-packet-03-1d4af0cb.md",
+        "work_item": "work_items/T081-review-queue-source-freshness-operator-workflow/review-packets/review-packet-03-1d4af0cb.md"
+      }
+    },
+    {
+      "packet_id": "packet-04-5931782b",
+      "candidate_id": "5931782b-148c-47ed-bf7a-a202c909d660",
+      "filename": "review-packet-04-5931782b.md",
+      "jurisdiction_id": "eu",
+      "source_key": "edps-news-rss",
+      "priority": "high",
+      "review_status": "review_required",
+      "paths": {
+        "runtime": "data/runtime/review-packets/review-packet-04-5931782b.md",
+        "work_item": "work_items/T081-review-queue-source-freshness-operator-workflow/review-packets/review-packet-04-5931782b.md"
+      }
+    },
+    {
+      "packet_id": "packet-05-6d7b8666",
+      "candidate_id": "6d7b8666-8c0a-4fdf-9c0e-2918b7309540",
+      "filename": "review-packet-05-6d7b8666.md",
+      "jurisdiction_id": "eu",
+      "source_key": "edps-news-rss",
+      "priority": "high",
+      "review_status": "review_required",
+      "paths": {
+        "runtime": "data/runtime/review-packets/review-packet-05-6d7b8666.md",
+        "work_item": "work_items/T081-review-queue-source-freshness-operator-workflow/review-packets/review-packet-05-6d7b8666.md"
+      }
+    },
+    {
+      "packet_id": "packet-06-45cdb32e",
+      "candidate_id": "45cdb32e-551e-432a-b5b5-262de951d143",
+      "filename": "review-packet-06-45cdb32e.md",
+      "jurisdiction_id": "eu",
+      "source_key": "edps-news-rss",
+      "priority": "high",
+      "review_status": "review_required",
+      "paths": {
+        "runtime": "data/runtime/review-packets/review-packet-06-45cdb32e.md",
+        "work_item": "work_items/T081-review-queue-source-freshness-operator-workflow/review-packets/review-packet-06-45cdb32e.md"
+      }
+    },
+    {
+      "packet_id": "packet-07-fe933773",
+      "candidate_id": "fe933773-8c1f-44b5-b323-d1fe37e82beb",
+      "filename": "review-packet-07-fe933773.md",
+      "jurisdiction_id": "eu",
+      "source_key": "edps-news-rss",
+      "priority": "high",
+      "review_status": "review_required",
+      "paths": {
+        "runtime": "data/runtime/review-packets/review-packet-07-fe933773.md",
+        "work_item": "work_items/T081-review-queue-source-freshness-operator-workflow/review-packets/review-packet-07-fe933773.md"
+      }
+    },
+    {
+      "packet_id": "packet-08-344ad1e5",
+      "candidate_id": "344ad1e5-70bd-48a8-8ad1-242e9a383873",
+      "filename": "review-packet-08-344ad1e5.md",
+      "jurisdiction_id": "eu",
+      "source_key": "edps-news-rss",
+      "priority": "high",
+      "review_status": "review_required",
+      "paths": {
+        "runtime": "data/runtime/review-packets/review-packet-08-344ad1e5.md",
+        "work_item": "work_items/T081-review-queue-source-freshness-operator-workflow/review-packets/review-packet-08-344ad1e5.md"
+      }
+    },
+    {
+      "packet_id": "packet-09-f3c52e30",
+      "candidate_id": "f3c52e30-d6d0-4922-9913-4761f1756e76",
+      "filename": "review-packet-09-f3c52e30.md",
+      "jurisdiction_id": "eu",
+      "source_key": "edps-news-rss",
+      "priority": "high",
+      "review_status": "review_required",
+      "paths": {
+        "runtime": "data/runtime/review-packets/review-packet-09-f3c52e30.md",
+        "work_item": "work_items/T081-review-queue-source-freshness-operator-workflow/review-packets/review-packet-09-f3c52e30.md"
+      }
+    },
+    {
+      "packet_id": "packet-10-485fee15",
+      "candidate_id": "485fee15-4b55-4692-bb8e-d2a18e5dd530",
+      "filename": "review-packet-10-485fee15.md",
+      "jurisdiction_id": "eu",
+      "source_key": "edps-news-rss",
+      "priority": "high",
+      "review_status": "review_required",
+      "paths": {
+        "runtime": "data/runtime/review-packets/review-packet-10-485fee15.md",
+        "work_item": "work_items/T081-review-queue-source-freshness-operator-workflow/review-packets/review-packet-10-485fee15.md"
+      }
+    },
+    {
+      "packet_id": "packet-11-1c37ccf0",
+      "candidate_id": "1c37ccf0-2742-499e-b848-57c541c765cb",
+      "filename": "review-packet-11-1c37ccf0.md",
+      "jurisdiction_id": "eu",
+      "source_key": "edpb-publications-rss",
+      "priority": "high",
+      "review_status": "review_required",
+      "paths": {
+        "runtime": "data/runtime/review-packets/review-packet-11-1c37ccf0.md",
+        "work_item": "work_items/T081-review-queue-source-freshness-operator-workflow/review-packets/review-packet-11-1c37ccf0.md"
+      }
+    },
+    {
+      "packet_id": "packet-12-d0ad1600",
+      "candidate_id": "d0ad1600-5fe3-45f3-9c37-143355d1ee94",
+      "filename": "review-packet-12-d0ad1600.md",
+      "jurisdiction_id": "eu",
+      "source_key": "edpb-publications-rss",
+      "priority": "high",
+      "review_status": "review_required",
+      "paths": {
+        "runtime": "data/runtime/review-packets/review-packet-12-d0ad1600.md",
+        "work_item": "work_items/T081-review-queue-source-freshness-operator-workflow/review-packets/review-packet-12-d0ad1600.md"
+      }
+    },
+    {
+      "packet_id": "packet-13-431e05e6",
+      "candidate_id": "431e05e6-e8a5-4d47-ab47-b41f1ddbeae1",
+      "filename": "review-packet-13-431e05e6.md",
+      "jurisdiction_id": "eu",
+      "source_key": "edpb-publications-rss",
+      "priority": "high",
+      "review_status": "review_required",
+      "paths": {
+        "runtime": "data/runtime/review-packets/review-packet-13-431e05e6.md",
+        "work_item": "work_items/T081-review-queue-source-freshness-operator-workflow/review-packets/review-packet-13-431e05e6.md"
+      }
+    },
+    {
+      "packet_id": "packet-14-c669323d",
+      "candidate_id": "c669323d-14d9-452f-816e-cedf6799fece",
+      "filename": "review-packet-14-c669323d.md",
+      "jurisdiction_id": "eu",
+      "source_key": "edpb-publications-rss",
+      "priority": "high",
+      "review_status": "review_required",
+      "paths": {
+        "runtime": "data/runtime/review-packets/review-packet-14-c669323d.md",
+        "work_item": "work_items/T081-review-queue-source-freshness-operator-workflow/review-packets/review-packet-14-c669323d.md"
+      }
+    },
+    {
+      "packet_id": "packet-15-46f913ab",
+      "candidate_id": "46f913ab-b83f-44f3-84f9-0fd26274a9a6",
+      "filename": "review-packet-15-46f913ab.md",
+      "jurisdiction_id": "eu",
+      "source_key": "edpb-publications-rss",
+      "priority": "high",
+      "review_status": "review_required",
+      "paths": {
+        "runtime": "data/runtime/review-packets/review-packet-15-46f913ab.md",
+        "work_item": "work_items/T081-review-queue-source-freshness-operator-workflow/review-packets/review-packet-15-46f913ab.md"
+      }
+    },
+    {
+      "packet_id": "packet-16-bf289319",
+      "candidate_id": "bf289319-218b-4fba-b497-91164396122c",
+      "filename": "review-packet-16-bf289319.md",
+      "jurisdiction_id": "eu",
+      "source_key": "edpb-publications-rss",
+      "priority": "high",
+      "review_status": "review_required",
+      "paths": {
+        "runtime": "data/runtime/review-packets/review-packet-16-bf289319.md",
+        "work_item": "work_items/T081-review-queue-source-freshness-operator-workflow/review-packets/review-packet-16-bf289319.md"
+      }
+    },
+    {
+      "packet_id": "packet-17-73c0844c",
+      "candidate_id": "73c0844c-95b6-49bb-bbb2-13b517995391",
+      "filename": "review-packet-17-73c0844c.md",
+      "jurisdiction_id": "eu",
+      "source_key": "edpb-publications-rss",
+      "priority": "high",
+      "review_status": "review_required",
+      "paths": {
+        "runtime": "data/runtime/review-packets/review-packet-17-73c0844c.md",
+        "work_item": "work_items/T081-review-queue-source-freshness-operator-workflow/review-packets/review-packet-17-73c0844c.md"
+      }
+    },
+    {
+      "packet_id": "packet-18-72f12dc0",
+      "candidate_id": "72f12dc0-50a8-44c1-8f34-6b1324238b1d",
+      "filename": "review-packet-18-72f12dc0.md",
+      "jurisdiction_id": "eu",
+      "source_key": "edpb-publications-rss",
+      "priority": "high",
+      "review_status": "review_required",
+      "paths": {
+        "runtime": "data/runtime/review-packets/review-packet-18-72f12dc0.md",
+        "work_item": "work_items/T081-review-queue-source-freshness-operator-workflow/review-packets/review-packet-18-72f12dc0.md"
+      }
+    },
+    {
+      "packet_id": "packet-19-3fe3b38c",
+      "candidate_id": "3fe3b38c-5465-421f-b9a2-43676844d241",
+      "filename": "review-packet-19-3fe3b38c.md",
+      "jurisdiction_id": "eu",
+      "source_key": "edpb-publications-rss",
+      "priority": "high",
+      "review_status": "review_required",
+      "paths": {
+        "runtime": "data/runtime/review-packets/review-packet-19-3fe3b38c.md",
+        "work_item": "work_items/T081-review-queue-source-freshness-operator-workflow/review-packets/review-packet-19-3fe3b38c.md"
+      }
+    },
+    {
+      "packet_id": "packet-20-063c0d11",
+      "candidate_id": "063c0d11-c607-43ae-b8bb-8f40f41e7448",
+      "filename": "review-packet-20-063c0d11.md",
+      "jurisdiction_id": "eu",
+      "source_key": "edpb-publications-rss",
+      "priority": "high",
+      "review_status": "review_required",
+      "paths": {
+        "runtime": "data/runtime/review-packets/review-packet-20-063c0d11.md",
+        "work_item": "work_items/T081-review-queue-source-freshness-operator-workflow/review-packets/review-packet-20-063c0d11.md"
+      }
+    }
+  ],
+  "public_note": "Operator review packets — metadata only. Not legal advice. Review required.",
+  "product_version": "1.0.32",
+  "review_required": true,
+  "legal_change_claimed": false
+}

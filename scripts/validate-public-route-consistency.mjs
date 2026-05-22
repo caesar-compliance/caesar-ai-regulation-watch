@@ -24,7 +24,7 @@ function readText(rel, base = ROOT) {
   return fs.readFileSync(full, "utf8");
 }
 
-const STALE_VERSION_LABELS = ["v1.0.21", "v1.0.29", "v1.0.30"];
+const STALE_VERSION_LABELS = ["v1.0.21", "v1.0.29", "v1.0.30", "v1.0.31"];
 
 function main() {
   const errors = [];
@@ -105,6 +105,17 @@ function main() {
 
     if (trackerHtml?.includes("Product tracker dashboard (T080)") === false) {
       errors.push("dist/tracker/index.html missing T080 product tracker dashboard section");
+    }
+    if (
+      trackerHtml &&
+      !/Review queue(?:\s*&amp;|\s*&)\s*source freshness \(T081\)/i.test(trackerHtml)
+    ) {
+      errors.push("dist/tracker/index.html missing T081 review queue section");
+    }
+
+    const reviewQueueHtml = readText("review-queue/index.html", DIST);
+    if (reviewQueueHtml && !reviewQueueHtml.includes("Regulation review queue")) {
+      errors.push("dist/review-queue/index.html missing T081 regulation review queue heading");
     }
 
     if (trackerHtml && expectedJurisdictions > 0) {

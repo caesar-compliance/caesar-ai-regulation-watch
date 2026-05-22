@@ -13,6 +13,10 @@ const REQUIRED_FILES = [
   "regulation-review-candidates.json",
   "regulation-country-coverage.json",
   "regulation-map-metrics.json",
+  "regulation-review-queue.json",
+  "source-freshness.json",
+  "operator-review-summary.json",
+  "review-packets-index.json",
 ];
 
 const FORBIDDEN_KEYS = [

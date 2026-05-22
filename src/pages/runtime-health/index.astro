@@ -5,9 +5,15 @@ import yaml from "js-yaml";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { PROJECT_VERSION_LABEL } from "../../lib/project-version";
 import { getMonitoringStatus } from "../../lib/runtime-monitoring-data";
+import {
+  getReviewQueueSummary,
+  getSourceFreshnessSummary,
+} from "../../lib/regulation-review-queue";
 
 const healthPath = path.join(process.cwd(), "public/data/runtime-db-health.json");
 const monitoring = getMonitoringStatus();
+const reviewSummary = getReviewQueueSummary();
+const freshnessSummary = getSourceFreshnessSummary();
 const runtimePath = path.join(process.cwd(), "data/runtime/automation-runtime.yml");
 
 const health = fs.existsSync(healthPath)
@@ -88,6 +94,24 @@ const presentTables = (health?.expected_tables_present as string[]) ?? [];
       <div><dt>source_runs_count</dt><dd>{monitoring.source_runs_count ?? "—"}</dd></div>
     </dl>
     <p><a href="/data/runtime-monitoring-status.json">runtime-monitoring-status.json</a></p>
+  </section>
+
+  <section>
+    <h2>Review queue &amp; source freshness (T081)</h2>
+    <dl class="meta-grid">
+      <div><dt>review_queue_total</dt><dd>{reviewSummary.total ?? 0}</dd></div>
+      <div><dt>review_required</dt><dd>{reviewSummary.review_required ?? 0}</dd></div>
+      <div><dt>high_priority</dt><dd>{reviewSummary.high_priority ?? 0}</dd></div>
+      <div><dt>fresh_sources</dt><dd>{freshnessSummary.fresh ?? 0}</dd></div>
+      <div><dt>stale_sources</dt><dd>{freshnessSummary.stale ?? 0}</dd></div>
+      <div><dt>manual_review_needed</dt><dd>{freshnessSummary.manual_review_needed ?? 0}</dd></div>
+    </dl>
+    <p>
+      <a href="/review-queue/">Review queue</a> ·{" "}
+      <a href="/data/regulation-review-queue.json">regulation-review-queue.json</a> ·{" "}
+      <a href="/data/source-freshness.json">source-freshness.json</a> ·{" "}
+      <a href="/data/operator-review-summary.json">operator-review-summary.json</a>
+    </p>
   </section>
 
   <section>

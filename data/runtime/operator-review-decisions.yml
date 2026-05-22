@@ -1,0 +1,11 @@
+# T081 — Local operator decisions (static-first, no personal email).
+# Gates remain false unless explicitly approved in a separate legal workflow.
+
+operator_review_decisions_id: operator-review-decisions-t081
+generated_at: "2026-05-22"
+product_version: "1.0.32"
+public_note: >
+  Operator triage decisions for regulation monitoring review candidates.
+  Not legal advice. No gate opens from this file alone.
+
+decisions: []

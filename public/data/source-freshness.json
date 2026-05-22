@@ -1,0 +1,631 @@
+{
+  "generated_at": "2026-05-22T15:35:17.143Z",
+  "product_version": "1.0.32",
+  "review_required": true,
+  "legal_change_claimed": false,
+  "public_note": "Source freshness is operational metadata from pilot runs — not legal verification.",
+  "sources": [
+    {
+      "source_key": "edpb-publications-rss",
+      "source_title": "European Data Protection Board (EDPB) — publications RSS",
+      "source_url": "https://www.edpb.europa.eu/feed/publications_en",
+      "jurisdiction_ids": [
+        "eu"
+      ],
+      "latest_run_at": "2026-05-22T14:40:29.284Z",
+      "latest_item_at": null,
+      "freshness_status": "fresh",
+      "automated": true,
+      "last_error": null,
+      "review_required_count": 10,
+      "schedule_enabled": false,
+      "gates": {
+        "verified_on_source": false,
+        "client_use_allowed": false,
+        "client_evidence_allowed": false,
+        "final_evidence_allowed": false,
+        "legal_change_claimed": false,
+        "publication_allowed": false,
+        "public_export_allowed": false
+      }
+    },
+    {
+      "source_key": "edps-news-rss",
+      "source_title": "European Data Protection Supervisor (EDPS) — news RSS",
+      "source_url": "https://www.edps.europa.eu/feed/news_en",
+      "jurisdiction_ids": [
+        "eu"
+      ],
+      "latest_run_at": "2026-05-22T14:40:30.529Z",
+      "latest_item_at": null,
+      "freshness_status": "fresh",
+      "automated": true,
+      "last_error": null,
+      "review_required_count": 10,
+      "schedule_enabled": false,
+      "gates": {
+        "verified_on_source": false,
+        "client_use_allowed": false,
+        "client_evidence_allowed": false,
+        "final_evidence_allowed": false,
+        "legal_change_claimed": false,
+        "publication_allowed": false,
+        "public_export_allowed": false
+      }
+    },
+    {
+      "source_key": "eu-digital-strategy-ai-framework",
+      "source_title": "European Commission — Regulatory framework for AI (digital strategy)",
+      "source_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+      "jurisdiction_ids": [
+        "eu"
+      ],
+      "latest_run_at": null,
+      "latest_item_at": null,
+      "freshness_status": "not_automated",
+      "automated": false,
+      "last_error": null,
+      "review_required_count": 0,
+      "schedule_enabled": false,
+      "gates": {
+        "verified_on_source": false,
+        "client_use_allowed": false,
+        "client_evidence_allowed": false,
+        "final_evidence_allowed": false,
+        "legal_change_claimed": false,
+        "publication_allowed": false,
+        "public_export_allowed": false
+      }
+    },
+    {
+      "source_key": "eur-lex-ai-act-entry",
+      "source_title": "EU Artificial Intelligence Act — EUR-Lex entry (metadata reference)",
+      "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689",
+      "jurisdiction_ids": [
+        "eu"
+      ],
+      "latest_run_at": null,
+      "latest_item_at": null,
+      "freshness_status": "not_automated",
+      "automated": false,
+      "last_error": null,
+      "review_required_count": 0,
+      "schedule_enabled": false,
+      "gates": {
+        "verified_on_source": false,
+        "client_use_allowed": false,
+        "client_evidence_allowed": false,
+        "final_evidence_allowed": false,
+        "legal_change_claimed": false,
+        "publication_allowed": false,
+        "public_export_allowed": false
+      }
+    },
+    {
+      "source_key": "oecd-ai-policy-observatory",
+      "source_title": "OECD.AI — Policy Observatory",
+      "source_url": "https://oecd.ai/en/",
+      "jurisdiction_ids": [
+        "oecd"
+      ],
+      "latest_run_at": null,
+      "latest_item_at": null,
+      "freshness_status": "not_automated",
+      "automated": false,
+      "last_error": null,
+      "review_required_count": 0,
+      "schedule_enabled": false,
+      "gates": {
+        "verified_on_source": false,
+        "client_use_allowed": false,
+        "client_evidence_allowed": false,
+        "final_evidence_allowed": false,
+        "legal_change_claimed": false,
+        "publication_allowed": false,
+        "public_export_allowed": false
+      }
+    },
+    {
+      "source_key": "council-of-europe-ai-framework",
+      "source_title": "Council of Europe — Artificial intelligence",
+      "source_url": "https://www.coe.int/en/web/artificial-intelligence",
+      "jurisdiction_ids": [
+        "coe"
+      ],
+      "latest_run_at": null,
+      "latest_item_at": null,
+      "freshness_status": "not_automated",
+      "automated": false,
+      "last_error": null,
+      "review_required_count": 0,
+      "schedule_enabled": false,
+      "gates": {
+        "verified_on_source": false,
+        "client_use_allowed": false,
+        "client_evidence_allowed": false,
+        "final_evidence_allowed": false,
+        "legal_change_claimed": false,
+        "publication_allowed": false,
+        "public_export_allowed": false
+      }
+    },
+    {
+      "source_key": "us-nist-ai-rmf",
+      "source_title": "NIST — AI Risk Management Framework",
+      "source_url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "jurisdiction_ids": [
+        "us-federal"
+      ],
+      "latest_run_at": null,
+      "latest_item_at": null,
+      "freshness_status": "not_automated",
+      "automated": false,
+      "last_error": null,
+      "review_required_count": 0,
+      "schedule_enabled": false,
+      "gates": {
+        "verified_on_source": false,
+        "client_use_allowed": false,
+        "client_evidence_allowed": false,
+        "final_evidence_allowed": false,
+        "legal_change_claimed": false,
+        "publication_allowed": false,
+        "public_export_allowed": false
+      }
+    },
+    {
+      "source_key": "uk-ico-ai-guidance",
+      "source_title": "ICO — Artificial intelligence guidance",
+      "source_url": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/",
+      "jurisdiction_ids": [
+        "uk"
+      ],
+      "latest_run_at": null,
+      "latest_item_at": null,
+      "freshness_status": "not_automated",
+      "automated": false,
+      "last_error": null,
+      "review_required_count": 0,
+      "schedule_enabled": false,
+      "gates": {
+        "verified_on_source": false,
+        "client_use_allowed": false,
+        "client_evidence_allowed": false,
+        "final_evidence_allowed": false,
+        "legal_change_claimed": false,
+        "publication_allowed": false,
+        "public_export_allowed": false
+      }
+    },
+    {
+      "source_key": "singapore-pdpc-ai",
+      "source_title": "PDPC — Model AI Governance Framework",
+      "source_url": "https://www.pdpc.gov.sg/help-and-resources/2020/01/model-ai-governance-framework",
+      "jurisdiction_ids": [
+        "singapore"
+      ],
+      "latest_run_at": null,
+      "latest_item_at": null,
+      "freshness_status": "not_automated",
+      "automated": false,
+      "last_error": null,
+      "review_required_count": 0,
+      "schedule_enabled": false,
+      "gates": {
+        "verified_on_source": false,
+        "client_use_allowed": false,
+        "client_evidence_allowed": false,
+        "final_evidence_allowed": false,
+        "legal_change_claimed": false,
+        "publication_allowed": false,
+        "public_export_allowed": false
+      }
+    },
+    {
+      "source_key": "uk-dsit-organisation",
+      "source_title": "UK DSIT — Department for Science, Innovation and Technology",
+      "source_url": "https://www.gov.uk/government/organisations/department-for-science-innovation-and-technology",
+      "jurisdiction_ids": [
+        "uk"
+      ],
+      "latest_run_at": null,
+      "latest_item_at": null,
+      "freshness_status": "not_automated",
+      "automated": false,
+      "last_error": null,
+      "review_required_count": 0,
+      "schedule_enabled": false,
+      "gates": {
+        "verified_on_source": false,
+        "client_use_allowed": false,
+        "client_evidence_allowed": false,
+        "final_evidence_allowed": false,
+        "legal_change_claimed": false,
+        "publication_allowed": false,
+        "public_export_allowed": false
+      }
+    },
+    {
+      "source_key": "uk-gov-ai-regulation-approach",
+      "source_title": "UK Government — AI regulation pro-innovation approach",
+      "source_url": "https://www.gov.uk/government/publications/ai-regulation-a-pro-innovation-approach",
+      "jurisdiction_ids": [
+        "uk"
+      ],
+      "latest_run_at": null,
+      "latest_item_at": null,
+      "freshness_status": "not_automated",
+      "automated": false,
+      "last_error": null,
+      "review_required_count": 0,
+      "schedule_enabled": false,
+      "gates": {
+        "verified_on_source": false,
+        "client_use_allowed": false,
+        "client_evidence_allowed": false,
+        "final_evidence_allowed": false,
+        "legal_change_claimed": false,
+        "publication_allowed": false,
+        "public_export_allowed": false
+      }
+    },
+    {
+      "source_key": "eu-ai-office-hub",
+      "source_title": "European Commission — EU AI Office",
+      "source_url": "https://digital-strategy.ec.europa.eu/en/policies/ai-office",
+      "jurisdiction_ids": [
+        "eu"
+      ],
+      "latest_run_at": null,
+      "latest_item_at": null,
+      "freshness_status": "not_automated",
+      "automated": false,
+      "last_error": null,
+      "review_required_count": 0,
+      "schedule_enabled": false,
+      "gates": {
+        "verified_on_source": false,
+        "client_use_allowed": false,
+        "client_evidence_allowed": false,
+        "final_evidence_allowed": false,
+        "legal_change_claimed": false,
+        "publication_allowed": false,
+        "public_export_allowed": false
+      }
+    },
+    {
+      "source_key": "eu-ai-act-service-desk",
+      "source_title": "EU AI Act Service Desk — official portal",
+      "source_url": "https://ai-act-service-desk.ec.europa.eu/",
+      "jurisdiction_ids": [
+        "eu"
+      ],
+      "latest_run_at": null,
+      "latest_item_at": null,
+      "freshness_status": "not_automated",
+      "automated": false,
+      "last_error": null,
+      "review_required_count": 0,
+      "schedule_enabled": false,
+      "gates": {
+        "verified_on_source": false,
+        "client_use_allowed": false,
+        "client_evidence_allowed": false,
+        "final_evidence_allowed": false,
+        "legal_change_claimed": false,
+        "publication_allowed": false,
+        "public_export_allowed": false
+      }
+    },
+    {
+      "source_key": "edpb-ai-topic-page",
+      "source_title": "EDPB — Artificial intelligence topic index",
+      "source_url": "https://www.edpb.europa.eu/our-work-tools/our-documents/topic/artificial-intelligence_en",
+      "jurisdiction_ids": [
+        "eu"
+      ],
+      "latest_run_at": null,
+      "latest_item_at": null,
+      "freshness_status": "not_automated",
+      "automated": false,
+      "last_error": null,
+      "review_required_count": 0,
+      "schedule_enabled": false,
+      "gates": {
+        "verified_on_source": false,
+        "client_use_allowed": false,
+        "client_evidence_allowed": false,
+        "final_evidence_allowed": false,
+        "legal_change_claimed": false,
+        "publication_allowed": false,
+        "public_export_allowed": false
+      }
+    },
+    {
+      "source_key": "france-cnil-ai-fr",
+      "source_title": "CNIL — Intelligence artificielle (official hub)",
+      "source_url": "https://www.cnil.fr/fr/intelligence-artificielle",
+      "jurisdiction_ids": [
+        "france"
+      ],
+      "latest_run_at": null,
+      "latest_item_at": null,
+      "freshness_status": "not_automated",
+      "automated": false,
+      "last_error": null,
+      "review_required_count": 0,
+      "schedule_enabled": false,
+      "gates": {
+        "verified_on_source": false,
+        "client_use_allowed": false,
+        "client_evidence_allowed": false,
+        "final_evidence_allowed": false,
+        "legal_change_claimed": false,
+        "publication_allowed": false,
+        "public_export_allowed": false
+      }
+    },
+    {
+      "source_key": "canada-opc-ai",
+      "source_title": "Office of the Privacy Commissioner of Canada — AI",
+      "source_url": "https://www.priv.gc.ca/en/privacy-topics/technology/artificial-intelligence/",
+      "jurisdiction_ids": [
+        "canada"
+      ],
+      "latest_run_at": null,
+      "latest_item_at": null,
+      "freshness_status": "not_automated",
+      "automated": false,
+      "last_error": null,
+      "review_required_count": 0,
+      "schedule_enabled": false,
+      "gates": {
+        "verified_on_source": false,
+        "client_use_allowed": false,
+        "client_evidence_allowed": false,
+        "final_evidence_allowed": false,
+        "legal_change_claimed": false,
+        "publication_allowed": false,
+        "public_export_allowed": false
+      }
+    },
+    {
+      "source_key": "us-ai-gov-portal",
+      "source_title": "AI.gov — US federal AI policy portal",
+      "source_url": "https://www.ai.gov/",
+      "jurisdiction_ids": [
+        "us-federal"
+      ],
+      "latest_run_at": null,
+      "latest_item_at": null,
+      "freshness_status": "not_automated",
+      "automated": false,
+      "last_error": null,
+      "review_required_count": 0,
+      "schedule_enabled": false,
+      "gates": {
+        "verified_on_source": false,
+        "client_use_allowed": false,
+        "client_evidence_allowed": false,
+        "final_evidence_allowed": false,
+        "legal_change_claimed": false,
+        "publication_allowed": false,
+        "public_export_allowed": false
+      }
+    },
+    {
+      "source_key": "us-omb-ai-governance",
+      "source_title": "OMB — AI governance and regulatory affairs",
+      "source_url": "https://www.omb.gov/information-resources-regulatory-affairs/ai/",
+      "jurisdiction_ids": [
+        "us-federal"
+      ],
+      "latest_run_at": null,
+      "latest_item_at": null,
+      "freshness_status": "not_automated",
+      "automated": false,
+      "last_error": null,
+      "review_required_count": 0,
+      "schedule_enabled": false,
+      "gates": {
+        "verified_on_source": false,
+        "client_use_allowed": false,
+        "client_evidence_allowed": false,
+        "final_evidence_allowed": false,
+        "legal_change_claimed": false,
+        "publication_allowed": false,
+        "public_export_allowed": false
+      }
+    },
+    {
+      "source_key": "us-ftc-ai-guidance",
+      "source_title": "FTC — Artificial intelligence (business guidance)",
+      "source_url": "https://www.ftc.gov/policy/advocacy-research/tech-at-ftc/artificial-intelligence",
+      "jurisdiction_ids": [
+        "us-federal"
+      ],
+      "latest_run_at": null,
+      "latest_item_at": null,
+      "freshness_status": "not_automated",
+      "automated": false,
+      "last_error": null,
+      "review_required_count": 0,
+      "schedule_enabled": false,
+      "gates": {
+        "verified_on_source": false,
+        "client_use_allowed": false,
+        "client_evidence_allowed": false,
+        "final_evidence_allowed": false,
+        "legal_change_claimed": false,
+        "publication_allowed": false,
+        "public_export_allowed": false
+      }
+    },
+    {
+      "source_key": "us-colorado-ai-act-sb24-205",
+      "source_title": "Colorado General Assembly — SB 24-205 (AI Act)",
+      "source_url": "https://leg.colorado.gov/bills/sb24-205",
+      "jurisdiction_ids": [
+        "us-colorado"
+      ],
+      "latest_run_at": null,
+      "latest_item_at": null,
+      "freshness_status": "not_automated",
+      "automated": false,
+      "last_error": null,
+      "review_required_count": 0,
+      "schedule_enabled": false,
+      "gates": {
+        "verified_on_source": false,
+        "client_use_allowed": false,
+        "client_evidence_allowed": false,
+        "final_evidence_allowed": false,
+        "legal_change_claimed": false,
+        "publication_allowed": false,
+        "public_export_allowed": false
+      }
+    },
+    {
+      "source_key": "brazil-senado-pl-2338",
+      "source_title": "Brazilian Federal Senate — PL 2338/2023 (AI bill)",
+      "source_url": "https://www.senado.leg.br/noticias/materias/2023/12/20/pl-2338-2023",
+      "jurisdiction_ids": [
+        "brazil"
+      ],
+      "latest_run_at": null,
+      "latest_item_at": null,
+      "freshness_status": "not_automated",
+      "automated": false,
+      "last_error": null,
+      "review_required_count": 0,
+      "schedule_enabled": false,
+      "gates": {
+        "verified_on_source": false,
+        "client_use_allowed": false,
+        "client_evidence_allowed": false,
+        "final_evidence_allowed": false,
+        "legal_change_claimed": false,
+        "publication_allowed": false,
+        "public_export_allowed": false
+      }
+    },
+    {
+      "source_key": "south-korea-pipc-ai",
+      "source_title": "PIPC — Personal Information Protection Commission (English)",
+      "source_url": "https://www.pipc.go.kr/eng/",
+      "jurisdiction_ids": [
+        "south-korea"
+      ],
+      "latest_run_at": null,
+      "latest_item_at": null,
+      "freshness_status": "not_automated",
+      "automated": false,
+      "last_error": null,
+      "review_required_count": 0,
+      "schedule_enabled": false,
+      "gates": {
+        "verified_on_source": false,
+        "client_use_allowed": false,
+        "client_evidence_allowed": false,
+        "final_evidence_allowed": false,
+        "legal_change_claimed": false,
+        "publication_allowed": false,
+        "public_export_allowed": false
+      }
+    },
+    {
+      "source_key": "india-meity-ai",
+      "source_title": "MeitY — Artificial intelligence policy",
+      "source_url": "https://www.meity.gov.in/artificial-intelligence",
+      "jurisdiction_ids": [
+        "india"
+      ],
+      "latest_run_at": null,
+      "latest_item_at": null,
+      "freshness_status": "not_automated",
+      "automated": false,
+      "last_error": null,
+      "review_required_count": 0,
+      "schedule_enabled": false,
+      "gates": {
+        "verified_on_source": false,
+        "client_use_allowed": false,
+        "client_evidence_allowed": false,
+        "final_evidence_allowed": false,
+        "legal_change_claimed": false,
+        "publication_allowed": false,
+        "public_export_allowed": false
+      }
+    },
+    {
+      "source_key": "unesco-ai-ethics-hub",
+      "source_title": "UNESCO — Artificial intelligence hub",
+      "source_url": "https://www.unesco.org/en/artificial-intelligence",
+      "jurisdiction_ids": [
+        "unesco"
+      ],
+      "latest_run_at": null,
+      "latest_item_at": null,
+      "freshness_status": "not_automated",
+      "automated": false,
+      "last_error": null,
+      "review_required_count": 0,
+      "schedule_enabled": false,
+      "gates": {
+        "verified_on_source": false,
+        "client_use_allowed": false,
+        "client_evidence_allowed": false,
+        "final_evidence_allowed": false,
+        "legal_change_claimed": false,
+        "publication_allowed": false,
+        "public_export_allowed": false
+      }
+    },
+    {
+      "source_key": "singapore-imda-trusted-ai",
+      "source_title": "IMDA — Building a trusted AI ecosystem",
+      "source_url": "https://www.imda.gov.sg/resources/blog/blog-listing/blog-details/building-a-trusted-ai-ecosystem",
+      "jurisdiction_ids": [
+        "singapore"
+      ],
+      "latest_run_at": null,
+      "latest_item_at": null,
+      "freshness_status": "not_automated",
+      "automated": false,
+      "last_error": null,
+      "review_required_count": 0,
+      "schedule_enabled": false,
+      "gates": {
+        "verified_on_source": false,
+        "client_use_allowed": false,
+        "client_evidence_allowed": false,
+        "final_evidence_allowed": false,
+        "legal_change_claimed": false,
+        "publication_allowed": false,
+        "public_export_allowed": false
+      }
+    }
+  ],
+  "source_count": 25,
+  "registry_source_count": 25,
+  "summary": {
+    "fresh": 2,
+    "aging": 0,
+    "stale": 0,
+    "manual_review_needed": 0,
+    "not_automated": 23,
+    "automated_total": 2,
+    "manual_total": 23,
+    "total_review_required_count": 20
+  },
+  "scheduled_monitoring_enabled": false,
+  "gates": {
+    "verified_on_source": false,
+    "client_use_allowed": false,
+    "client_evidence_allowed": false,
+    "final_evidence_allowed": false,
+    "legal_change_claimed": false,
+    "publication_allowed": false,
+    "public_export_allowed": false
+  }
+}

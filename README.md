@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **Status** | v1.0.31 T080 coverage expansion — 18 jurisdiction profiles, 20 regulation records, 25 monitored sources (2 automated RSS, 23 manual review); dev Worker deployed; scheduled monitoring disabled |
+| **Status** | v1.0.32 T081 review queue + source freshness — 20 review queue cards, 25-source freshness export, operator YAML workflow; T080 coverage (18 profiles, 20 regulations); dev Worker; scheduled monitoring disabled |
 | **Automation** | `/automation/` — runtime scaffold; live ingestion disabled ([docs/AUTOMATION_RUNTIME_STRATEGY.md](docs/AUTOMATION_RUNTIME_STRATEGY.md)) |
 | **Hosting** | GitHub Pages — static site (Astro) |
 | **Scope** | AI regulation tracking, country profiles, latest updates, source monitoring, metrics and structured exports |
