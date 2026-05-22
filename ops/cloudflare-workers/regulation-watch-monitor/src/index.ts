@@ -8,6 +8,52 @@ export interface Env {
   SUPABASE_URL?: string;
   SUPABASE_SERVICE_ROLE_KEY?: string;
   RUNTIME_ID?: string;
+  WORKER_NAME?: string;
+  RUNTIME_ENV?: string;
+  GIT_SHA?: string;
+  BUILD_TIME?: string;
+}
+
+const APP_NAME = "caesar-ai-regulation-watch";
+
+function buildHealthPayload(env: Env) {
+  return {
+    ok: true,
+    status: "ok",
+    app: APP_NAME,
+    runtime_id: env.RUNTIME_ID ?? "regulation-watch-runtime-v1",
+    live_ingestion_enabled: false,
+    scheduled_monitoring_enabled: false,
+  };
+}
+
+function buildReadyPayload(env: Env) {
+  const supabaseConfigured = Boolean(
+    env.SUPABASE_URL && env.SUPABASE_SERVICE_ROLE_KEY,
+  );
+  const runTokenConfigured = Boolean(env.RUN_TOKEN);
+  return {
+    ok: supabaseConfigured,
+    ready: supabaseConfigured,
+    checks: {
+      supabase_configured: supabaseConfigured,
+      run_token_configured: runTokenConfigured,
+    },
+    live_ingestion_enabled: false,
+    scheduled_monitoring_enabled: false,
+  };
+}
+
+function buildVersionPayload(env: Env) {
+  return {
+    app: APP_NAME,
+    worker:
+      env.WORKER_NAME ?? env.RUNTIME_ID ?? "regulation-watch-monitor-dev",
+    runtime_env: env.RUNTIME_ENV ?? "dev",
+    git_sha: env.GIT_SHA ?? null,
+    build_time: env.BUILD_TIME ?? null,
+    runtime_id: env.RUNTIME_ID ?? "regulation-watch-runtime-v1",
+  };
 }
 
 const ALLOWLISTED_SOURCE_KEYS = new Set([
@@ -70,13 +116,20 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
 
-    if (url.pathname === "/health") {
-      return jsonResponse({
-        ok: true,
-        runtime_id: env.RUNTIME_ID ?? "regulation-watch-runtime-v1",
-        live_ingestion_enabled: false,
-        scheduled_monitoring_enabled: false,
-      });
+    if (
+      url.pathname === "/health" ||
+      url.pathname === "/healthz"
+    ) {
+      return jsonResponse(buildHealthPayload(env));
+    }
+
+    if (url.pathname === "/readyz") {
+      const payload = buildReadyPayload(env);
+      return jsonResponse(payload, payload.ready ? 200 : 503);
+    }
+
+    if (url.pathname === "/version") {
+      return jsonResponse(buildVersionPayload(env));
     }
 
     const runMatch = url.pathname.match(/^\/run\/([a-z][a-z0-9-]*)$/);

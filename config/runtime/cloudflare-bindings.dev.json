@@ -1,0 +1,29 @@
+{
+  "worker_name": "regulation-watch-monitor-dev",
+  "runtime_env": "dev",
+  "provision_mode": "documented_only",
+  "bindings": {
+    "kv_cache": {
+      "type": "kv_namespace",
+      "binding_name": "REGWATCH_CACHE",
+      "required": false,
+      "provisioned": false,
+      "note": "Optional metadata fetch cache"
+    },
+    "r2_snapshots": {
+      "type": "r2_bucket",
+      "binding_name": "REGWATCH_SNAPSHOTS",
+      "required": false,
+      "provisioned": false,
+      "note": "Optional metadata-only snapshot storage"
+    },
+    "queue_jobs": {
+      "type": "queue",
+      "binding_name": "REGWATCH_JOBS",
+      "required": false,
+      "provisioned": false,
+      "note": "Optional async jobs when cron explicitly enabled"
+    }
+  },
+  "primary_database": "supabase:caesar-regulation-watch-dev"
+}

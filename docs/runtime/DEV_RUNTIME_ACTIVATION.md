@@ -1,101 +1,61 @@
 # Dev runtime activation (GitHub Actions)
 
-Workflow: `.github/workflows/dev-runtime-activate.yml`  
-Environment: `dev-runtime` (secrets and variables configured in GitHub — never commit values).
+Workflow: `.github/workflows/dev-runtime-activate.yml`
+Environment: `dev-runtime`
+Worker: `regulation-watch-monitor-dev`
+Supabase: `caesar-regulation-watch-dev` (schema `public`)
 
-## What it does
+## Supported capabilities
 
-1. Validates automation runtime and data contracts  
-2. Checks credential presence via `npm run runtime:services:check` (no secret values logged)  
-3. Optionally applies Supabase schema (`ops/supabase/001_regulation_watch_runtime_schema.sql`) when explicitly requested  
-4. Optionally deploys the Cloudflare Worker scaffold at `ops/cloudflare-workers/regulation-watch-monitor/`  
-5. Sets Worker secrets (Supabase URL + service role key) without echoing values  
-6. Post-deploy smoke against `/health`, `/healthz`, or `/readyz`  
-7. Optional fixture dry-runs (`runtime:source-pilot:dry-run`, `monitoring:cycle:dry-run`)  
-8. Optional one-shot allowlisted live metadata pilot (`monitoring:live-metadata`) when network + live flags are both YES  
-9. Optional dev cron on Worker deploy when `enable_cron=YES`  
-10. Writes a safe job summary (no secrets)
+| Capability | Status | Command / route |
+|------------|--------|-----------------|
+| Schema SQL | Yes | `ops/supabase/001_regulation_watch_runtime_schema.sql` |
+| Schema apply (gated) | Yes | `npm run runtime:supabase:apply` / `apply_schema=YES` |
+| DB health | Yes | `npm run runtime:db:health` |
+| Dev seed (gated) | Yes | `ENABLE_DEV_SEED=true npm run runtime:seed:dev` |
+| Runtime smoke | Yes | `npm run runtime:smoke` |
+| Worker deploy | Yes | `deploy_worker=YES` → `ops/cloudflare-workers/regulation-watch-monitor` |
+| Worker secrets | Yes | Supabase URL + service role via wrangler |
+| `/healthz` `/readyz` `/version` | Yes | Also `/health` alias |
+| Dry-run ingestion | Yes | `runtime:source-pilot:dry-run`, `monitoring:cycle:dry-run` |
+| One-shot live ingestion | Yes (gated) | `run_live_ingestion_once=YES` + `enable_network=YES` |
+| Cron | Partial | Wrangler cron can be appended; Worker has no `scheduled()` handler yet |
+| Cloudflare bindings | Documented | `docs/runtime/CLOUDFLARE_BINDINGS.md` |
 
-**Not automated:** DNS/custom routes, production deploy, recurring live ingestion, broad scraping.
+## Unsupported / not automated
 
-## Trigger commands
+- Production deploy, DNS/custom routes
+- `RUN_TOKEN` not set by CI (optional manual secret)
+- Worker Supabase writes / RSS fetch (stubbed)
+- UptimeRobot Worker monitor (enable in governance hub after deploy URL known)
+- KV/R2/Queue provisioning (documented only)
 
-Default dev activation (validation + credential check + dry-runs; deploy Worker by default):
+## First safe activation sequence
 
-```bash
-gh workflow run dev-runtime-activate.yml \
-  -f confirm=ACTIVATE_DEV_RUNTIME
-```
+1. Confirm GitHub `dev-runtime` env vars/secrets (see `EXTERNAL_SERVICE_ONBOARDING_CHECKLIST.md`).
+2. Local: `npm run runtime:services:check` and `npm run runtime:smoke`.
+3. CI validation only:
+   `gh workflow run dev-runtime-activate.yml -f confirm=ACTIVATE_DEV_RUNTIME -f deploy_worker=NO -f run_dry_ingestion=YES`
+4. Apply schema (dev DB only):
+   `gh workflow run dev-runtime-activate.yml -f confirm=ACTIVATE_DEV_RUNTIME -f apply_schema=YES -f deploy_worker=NO`
+5. Deploy Worker + smoke:
+   `gh workflow run dev-runtime-activate.yml -f confirm=ACTIVATE_DEV_RUNTIME -f deploy_worker=YES -f set_worker_secrets=YES -f post_deploy_smoke=YES`
+6. Optional seed: `ENABLE_DEV_SEED=true npm run runtime:seed:dev` locally (not default in CI).
 
-Full deploy with defaults (Worker deploy + secrets + smoke + dry-runs):
+## Full activation sequence
 
-```bash
-gh workflow run dev-runtime-activate.yml \
-  -f confirm=ACTIVATE_DEV_RUNTIME \
-  -f deploy_worker=YES \
-  -f set_worker_secrets=YES \
-  -f post_deploy_smoke=YES \
-  -f run_dry_ingestion=YES
-```
+Add `-f enable_network=YES -f run_live_ingestion_once=YES` only after schema + Worker smoke pass and operator approval. Cron: `-f enable_cron=YES` only when `scheduled()` handler exists.
 
-Schema apply (dev only — requires `APPLY_SUPABASE_SCHEMA=false` in environment until run):
+## Worker health endpoints
 
-```bash
-gh workflow run dev-runtime-activate.yml \
-  -f confirm=ACTIVATE_DEV_RUNTIME \
-  -f apply_schema=YES
-```
+- `GET /healthz` — liveness (no DB/network)
+- `GET /readyz` — bindings check (Supabase config present)
+- `GET /version` — app, worker name, runtime env, optional git sha
+- `GET /health` — alias of `/healthz`
 
-Deploy only (skip dry-runs):
+## Rollback / disable
 
-```bash
-gh workflow run dev-runtime-activate.yml \
-  -f confirm=ACTIVATE_DEV_RUNTIME \
-  -f run_dry_ingestion=NO
-```
-
-Dry-run ingestion only:
-
-```bash
-gh workflow run dev-runtime-activate.yml \
-  -f confirm=ACTIVATE_DEV_RUNTIME \
-  -f deploy_worker=NO \
-  -f set_worker_secrets=NO \
-  -f post_deploy_smoke=NO
-```
-
-One-shot live metadata (allowlisted official sources; metadata-only):
-
-```bash
-gh workflow run dev-runtime-activate.yml \
-  -f confirm=ACTIVATE_DEV_RUNTIME \
-  -f enable_network=YES \
-  -f run_live_ingestion_once=YES \
-  -f deploy_worker=NO
-```
-
-Cron enable (dev Worker deploy with schedule):
-
-```bash
-gh workflow run dev-runtime-activate.yml \
-  -f confirm=ACTIVATE_DEV_RUNTIME \
-  -f enable_cron=YES
-```
-
-## Warnings
-
-- `apply_schema`, `enable_cron`, `enable_network`, and `run_live_ingestion_once` are **dev-only** and must be selected intentionally.  
-- GitHub environment variables must keep dangerous flags `false` unless the matching workflow input is `YES`.  
-- `confirm` must be exactly `ACTIVATE_DEV_RUNTIME`.
-
-## Rollback
-
-- Worker: redeploy previous version in Cloudflare dashboard or `wrangler rollback` for the dev worker name.  
-- Schema: manual operator rollback in Supabase (no automatic down-migration in CI).  
-- Disable cron: redeploy without `[triggers]` or set `enable_cron=NO`.
-
-## Gaps / not yet automated
-
-- `RUN_TOKEN` Worker secret is not set by CI (optional for manual `/run/:sourceKey`).  
-- Supabase persistence from Worker remains stubbed in T073 scaffold.  
-- Production Pages deploy remains separate (`validate-and-build.yml` / `deploy-static-site.yml`).
+- Worker: Cloudflare dashboard rollback or `wrangler rollback` on dev worker name.
+- Schema: manual operator action in Supabase (no CI down-migration).
+- Cron: redeploy without `[triggers]` block.
+- Live ingestion: keep `ENABLE_LIVE_INGESTION=false` in environment.

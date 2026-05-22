@@ -8,6 +8,8 @@ compatibility_date = "2024-11-01"
 
 [vars]
 RUNTIME_ID = "regulation-watch-runtime-v1"
+WORKER_NAME = "regulation-watch-monitor-dev"
+RUNTIME_ENV = "dev"
 
 # Secrets (set via wrangler secret put — never commit):
 # RUN_TOKEN

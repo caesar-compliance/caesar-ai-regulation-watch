@@ -14,6 +14,8 @@
     "validate:runtime-db-health": "node scripts/validate-runtime-db-health.mjs",
     "validate:runtime-services-readiness": "node scripts/validate-runtime-services-readiness.mjs",
     "runtime:db:health": "node scripts/runtime/check-runtime-db-health.mjs",
+    "runtime:seed:dev": "node scripts/runtime/seed-dev-data.mjs",
+    "runtime:smoke": "node scripts/runtime/runtime-smoke.mjs",
     "runtime:services:check": "node scripts/runtime/check-service-credentials.mjs",
     "runtime:supabase:apply": "node scripts/runtime/apply-supabase-schema.mjs",
     "validate:data": "node scripts/validate-data.mjs",
