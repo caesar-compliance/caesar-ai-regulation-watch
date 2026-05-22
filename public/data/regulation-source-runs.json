@@ -1,10 +1,30 @@
 {
-  "generated_at": "2026-05-22T16:27:31.406Z",
-  "product_version": "1.0.35",
+  "generated_at": "2026-05-22T17:06:01.225Z",
+  "product_version": "1.0.36",
   "review_required": true,
   "legal_change_claimed": false,
   "public_note": "Backend-derived metadata only. Review required before any legal or client use. Not legal advice.",
   "runs": [
+    {
+      "run_id": "27249c8a-f6b3-47a1-aa13-3b0b6accb5c7",
+      "source_key": "edps-news-rss",
+      "run_type": "worker_pilot",
+      "status": "completed",
+      "item_count": 10,
+      "started_at": "2026-05-22T17:05:37.785Z",
+      "completed_at": "2026-05-22T17:05:37.785Z",
+      "review_required": true
+    },
+    {
+      "run_id": "e1ae3017-8edb-4b70-a8c0-fd1cd337e37e",
+      "source_key": "edpb-publications-rss",
+      "run_type": "worker_pilot",
+      "status": "completed",
+      "item_count": 10,
+      "started_at": "2026-05-22T17:05:36.559Z",
+      "completed_at": "2026-05-22T17:05:36.559Z",
+      "review_required": true
+    },
     {
       "run_id": "f030a78c-f475-409e-b6ab-c785951822c4",
       "source_key": "edps-news-rss",

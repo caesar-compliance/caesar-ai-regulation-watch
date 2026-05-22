@@ -12,7 +12,7 @@ export type RssItemStub = {
 };
 
 const FEED_USER_AGENT =
-  "CaesarRegulationWatch/1.0.30 (worker-pilot; +https://regulation-watch.caesar.no/methodology/)";
+  "CaesarRegulationWatch/1.0.36 (worker-pilot; +https://regulation-watch.caesar.no/methodology/)";
 
 export const PILOT_ALLOWLIST: Record<
   string,
@@ -198,7 +198,7 @@ export async function insertMonitoringRun(
         published_at: item.published_at,
         summary_excerpt: item.summary_excerpt,
         content_hash: item.content_hash,
-        metadata_json: { review_required: true, pilot: "T078-worker" },
+        metadata_json: { review_required: true, pilot: "T085-worker" },
         first_seen_at: new Date().toISOString(),
         last_seen_at: new Date().toISOString(),
       }),

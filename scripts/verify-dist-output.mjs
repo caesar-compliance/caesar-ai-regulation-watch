@@ -121,6 +121,7 @@ const requiredHtmlChecks = [
     mustInclude: [
       PROJECT_VERSION_LABEL,
       PROJECT_PHASE_LABEL,
+      "T085 Six-Source Worker Runtime Run",
       "T084 Automated Source Expansion and Ingress Filtering",
       "T083 Signal Quality and Review Prioritization",
       "T082 Operator Decision Workflow",
@@ -146,6 +147,7 @@ const requiredHtmlChecks = [
     rel: "tracker/index.html",
     mustInclude: [
       PROJECT_VERSION_LABEL,
+      "Six-source Worker run (T085)",
       "Ingress filter dashboard (T084)",
       "Signal quality dashboard (T083)",
       "Priority distribution",
@@ -181,6 +183,7 @@ const requiredHtmlChecks = [
     rel: "runtime-health/index.html",
     mustInclude: [
       PROJECT_VERSION_LABEL,
+      "Six-source Worker (T085)",
       "Ingress filtering (T084)",
       "validate:ingress-filtering",
       "Signal quality (T083)",
@@ -227,12 +230,15 @@ for (const { rel, mustInclude } of requiredHtmlChecks) {
     htmlCheckFailures.push({ rel, reason: "missing file" });
     continue;
   }
-  const htmlForNeedles =
-    rel === "index.html" || rel === "tracker/index.html"
-      ? html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
-      : html;
+  const stripTagsForNeedles =
+    rel === "index.html" || rel === "tracker/index.html";
+  const htmlForNeedles = stripTagsForNeedles
+    ? html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
+    : html;
   for (const needle of mustInclude) {
-    if (!htmlForNeedles.includes(needle)) {
+    const haystack =
+      stripTagsForNeedles && needle.startsWith("/") ? html : htmlForNeedles;
+    if (!haystack.includes(needle)) {
       htmlCheckFailures.push({ rel, reason: `missing required string: ${needle}` });
     }
   }

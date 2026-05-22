@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-22T16:27:31.925Z",
-  "product_version": "1.0.35",
+  "generated_at": "2026-05-22T17:06:01.820Z",
+  "product_version": "1.0.36",
   "review_required": true,
   "legal_change_claimed": false,
   "public_note": "Backend-derived metadata only. Review required before any legal or client use. Not legal advice.",
@@ -1546,7 +1546,7 @@
     "low_priority_count": 14,
     "rules_version": "1.0.0",
     "signal_quality_rules_id": "signal-quality-rules-v1",
-    "generated_at": "2026-05-22T16:27:31.924Z",
+    "generated_at": "2026-05-22T17:06:01.819Z",
     "gates_closed": true,
     "public_note": "Aggregated signal-quality metadata from deterministic rules. Not legal verification.",
     "gates": {

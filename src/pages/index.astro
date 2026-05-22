@@ -33,11 +33,19 @@ const trackerMetrics = getAutomationFirstMetrics();
 <BaseLayout title="Home" currentPath="/">
   <h1>Caesar AI Regulation Watch</h1>
   <p class="lead">
-    {PROJECT_VERSION_LABEL} — T084 automated source expansion and ingress filtering on{" "}
+    {PROJECT_VERSION_LABEL} — T085 six-source Worker runtime run, T084 ingress filtering on{" "}
     {routeSummary.monitoredSourceCount} official sources ({routeSummary.automatedRssCount} automated
     RSS/Atom, {routeSummary.manualReviewSourceCount} manual-review). T083 signal quality, T082 operator
     decisions, and T080 country profiles. Technical pilot — not legal advice.
   </p>
+
+  <div class="banner banner--automation" role="note">
+    <strong>T085 Six-Source Worker Runtime Run ({PROJECT_VERSION_LABEL}).</strong> Dev Worker{" "}
+    <code>regulation-watch-monitor-dev</code> redeployed with 6-source RSS allowlist; bounded metadata-only
+    pilot writes to Supabase dev runtime; scheduled monitoring disabled; gates closed ·{" "}
+    <a href="/runtime-health/">Runtime health →</a> ·{" "}
+    <a href="/data/runtime-monitoring-status.json">runtime-monitoring-status.json</a>
+  </div>
 
   <div class="banner banner--review" role="note">
     <strong>T084 Automated Source Expansion and Ingress Filtering ({PROJECT_VERSION_LABEL}).</strong>{" "}

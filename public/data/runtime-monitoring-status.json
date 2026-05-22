@@ -1,35 +1,49 @@
 {
-  "generated_at": "2026-05-22T16:27:31.404Z",
-  "product_version": "1.0.35",
+  "generated_at": "2026-05-22T17:06:01.222Z",
+  "product_version": "1.0.36",
   "review_required": true,
   "legal_change_claimed": false,
   "public_note": "Backend-derived metadata only. Review required before any legal or client use. Not legal advice.",
   "latest_run": {
-    "run_id": "f030a78c-f475-409e-b6ab-c785951822c4",
+    "run_id": "27249c8a-f6b3-47a1-aa13-3b0b6accb5c7",
     "source_key": "edps-news-rss",
     "status": "completed",
     "item_count": 10,
-    "completed_at": "2026-05-22T14:40:30.529Z"
+    "completed_at": "2026-05-22T17:05:37.785Z"
   },
   "latest_worker_run": {
-    "run_id": "f030a78c-f475-409e-b6ab-c785951822c4",
+    "run_id": "27249c8a-f6b3-47a1-aa13-3b0b6accb5c7",
     "source_key": "edps-news-rss",
     "run_type": "worker_pilot",
     "status": "completed",
     "item_count": 10,
-    "completed_at": "2026-05-22T14:40:30.529Z"
+    "completed_at": "2026-05-22T17:05:37.785Z"
   },
   "latest_pilot_report": {
-    "run_id": "monitoring-pilot-2026-05-22-14-59-51",
+    "run_id": "monitoring-pilot-2026-05-22-16-27-41",
     "summary": {
       "fetched": 0,
-      "manual": 10,
+      "manual": 0,
       "errors": 0,
       "total_detected_changes": 0,
       "total_review_candidates": 0
     }
   },
   "runtime_events_recent": [
+    {
+      "event_type": "worker_pilot_run",
+      "event_status": "completed",
+      "source_key": "edps-news-rss",
+      "message": "Worker pilot run for edps-news-rss",
+      "created_at": "2026-05-22T17:05:38.478Z"
+    },
+    {
+      "event_type": "worker_pilot_run",
+      "event_status": "completed",
+      "source_key": "edpb-publications-rss",
+      "message": "Worker pilot run for edpb-publications-rss",
+      "created_at": "2026-05-22T17:05:37.314Z"
+    },
     {
       "event_type": "worker_pilot_run",
       "event_status": "completed",
@@ -52,10 +66,11 @@
       "created_at": "2026-05-22T14:22:52.188Z"
     }
   ],
-  "source_runs_count": 5,
-  "latest_run_id": "f030a78c-f475-409e-b6ab-c785951822c4",
-  "latest_run_at": "2026-05-22T14:40:30.529Z",
+  "source_runs_count": 7,
+  "latest_run_id": "27249c8a-f6b3-47a1-aa13-3b0b6accb5c7",
+  "latest_run_at": "2026-05-22T17:05:37.785Z",
   "worker_deployed": true,
+  "worker_redeployed": true,
   "worker_name": "regulation-watch-monitor-dev",
   "worker_url": "https://regulation-watch-monitor-dev.nazzarkoartem.workers.dev",
   "monitored_source_count": 25,
@@ -63,10 +78,19 @@
   "automated_rss_source_count": 6,
   "manual_source_count": 19,
   "manual_review_source_count": 19,
-  "status": "backend_monitoring_mvp_worker_run",
-  "backend_mvp": "T080",
-  "live_ingestion_enabled": false,
+  "latest_worker_run_at": "2026-05-22T17:05:37.785Z",
+  "latest_worker_run_id": "27249c8a-f6b3-47a1-aa13-3b0b6accb5c7",
+  "worker_allowlist_source_count": 6,
+  "worker_run_source_success_count": 2,
+  "worker_run_source_failure_count": 4,
+  "worker_redeployed_at": "2026-05-22T17:05:39.942Z",
+  "worker_version": "1.0.36",
+  "gates_closed": true,
   "scheduled_monitoring_enabled": false,
+  "cron_enabled": false,
+  "status": "backend_monitoring_mvp_worker_run",
+  "backend_mvp": "T085",
+  "live_ingestion_enabled": false,
   "detected_changes_count": 20,
   "review_candidates_count": 20,
   "export_source": "supabase_dev"

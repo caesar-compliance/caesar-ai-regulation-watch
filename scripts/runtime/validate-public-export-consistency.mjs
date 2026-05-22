@@ -84,6 +84,41 @@ function main() {
         `monitored_source_count ${monitoring.monitored_source_count} != registry ${registry.sources.length}`,
       );
     }
+    if (monitoring.scheduled_monitoring_enabled === true) {
+      errors.push("scheduled_monitoring_enabled must not be true in public export");
+    }
+    if (monitoring.cron_enabled === true) {
+      errors.push("cron_enabled must not be true in public export");
+    }
+    if (monitoring.gates_closed === false) {
+      errors.push("gates_closed must remain true");
+    }
+    const allowlist =
+      monitoring.worker_allowlist_source_count ?? monitoring.automated_rss_source_count;
+    if (automatedRegistry > 0 && allowlist !== automatedRegistry) {
+      errors.push(
+        `worker_allowlist_source_count ${allowlist} != registry automated ${automatedRegistry}`,
+      );
+    }
+    if (projectVersion === "1.0.36" && monitoring.backend_mvp !== "T085") {
+      errors.push(`v1.0.36 expects backend_mvp T085, got ${monitoring.backend_mvp}`);
+    }
+  }
+
+  const ingress = readJson("ingress-filter-summary.json");
+  const queue = readJson("regulation-review-queue.json");
+  if (ingress && queue) {
+    const visible = ingress.operator_visible_count ?? 0;
+    const queueVisible =
+      queue.operator_visible_count ?? queue.operator_queue_card_count ?? null;
+    if (queueVisible != null && visible !== queueVisible) {
+      errors.push(
+        `ingress operator_visible_count ${visible} != review queue operator_visible ${queueVisible}`,
+      );
+    }
+    if (ingress.scheduled_monitoring_enabled === true) {
+      errors.push("ingress-filter-summary must not claim scheduled monitoring enabled");
+    }
   }
 
   const changes = readJson("regulation-detected-changes.json");

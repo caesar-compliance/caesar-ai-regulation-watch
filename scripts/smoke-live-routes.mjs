@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 /**
- * T084 — Post-deploy live smoke with cache-busted requests.
- * Fails if canonical URLs serve stale pre-v1.0.35 HTML or missing T084 ingress markers.
+ * T085 — Post-deploy live smoke with cache-busted requests.
+ * Fails if canonical URLs serve stale pre-v1.0.36 HTML or missing T085 runtime markers.
  */
 const BASE = process.env.LIVE_BASE_URL || "https://regulation-watch.caesar.no";
-const BUST = process.env.LIVE_CACHE_BUST || `T084-${Date.now()}`;
-const VERSION = process.env.EXPECTED_PRODUCT_VERSION || "1.0.35";
+const BUST = process.env.LIVE_CACHE_BUST || `T085-${Date.now()}`;
+const VERSION = process.env.EXPECTED_PRODUCT_VERSION || "1.0.36";
 const VERSION_LABEL = `v${VERSION}`;
 
 const ROUTES = [
@@ -13,6 +13,7 @@ const ROUTES = [
     path: "/",
     mustInclude: [
       VERSION_LABEL,
+      "T085 Six-Source Worker Runtime Run",
       "T084 Automated Source Expansion and Ingress Filtering",
       "T083 Signal Quality and Review Prioritization",
       "T082 Operator Decision Workflow",
@@ -33,6 +34,7 @@ const ROUTES = [
       "v1.0.29",
       "v1.0.31",
       "v1.0.33",
+      "v1.0.35",
       "T080 coverage model (v1.0.31)",
       "13 jurisdictions grouped",
       "13 Jurisdictions tracked",
@@ -47,6 +49,7 @@ const ROUTES = [
     path: "/tracker/",
     mustInclude: [
       VERSION_LABEL,
+      "Six-source Worker run (T085)",
       "Ingress filter dashboard (T084)",
       "Signal quality dashboard (T083)",
       "Priority distribution",
@@ -112,6 +115,7 @@ const ROUTES = [
     path: "/runtime-health/",
     mustInclude: [
       VERSION_LABEL,
+      "Six-source Worker (T085)",
       "Ingress filtering (T084)",
       "validate:ingress-filtering",
       "Signal quality (T083)",
@@ -189,7 +193,7 @@ async function main() {
     );
   }
 
-  console.log("Live route smoke (T084)");
+  console.log("Live route smoke (T085)");
   console.log(`  base: ${BASE}`);
   console.log(`  cache bust: ${BUST}`);
   console.log(`  expected version: ${VERSION_LABEL}`);
@@ -218,6 +222,12 @@ async function main() {
     }
     if (route.path === "/") {
       if (
+        html.indexOf("T085 Six-Source Worker Runtime Run") >
+        html.indexOf("T084 Automated Source Expansion")
+      ) {
+        errors.push(`${route.path}: T085 banner must appear before T084`);
+      }
+      if (
         html.indexOf("T084 Automated Source Expansion") >
         html.indexOf("T083 Signal Quality")
       ) {
@@ -230,6 +240,12 @@ async function main() {
       }
     }
     if (route.path === "/tracker/") {
+      if (
+        html.indexOf("Six-source Worker run (T085)") >
+        html.indexOf("Ingress filter dashboard (T084)")
+      ) {
+        errors.push(`${route.path}: T085 section must appear before T084`);
+      }
       if (
         html.indexOf("Ingress filter dashboard (T084)") >
         html.indexOf("Signal quality dashboard (T083)")
@@ -257,7 +273,7 @@ async function main() {
     process.exit(1);
   }
 
-  console.log(`  PASS: live routes match ${VERSION_LABEL} / T084 expectations\n`);
+  console.log(`  PASS: live routes match ${VERSION_LABEL} / T085 expectations\n`);
 }
 
 main().catch((err) => {

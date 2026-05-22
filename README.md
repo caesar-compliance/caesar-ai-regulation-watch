@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **Status** | v1.0.35 T084 — 6 automated official RSS sources, ingress filtering (4 visible / 16 suppressed on 20-card queue); T083 signal quality; T082 operator decisions (4); cron disabled |
+| **Status** | v1.0.36 T085 — Worker redeployed (6-source allowlist pilot: 2 RSS success); T084 ingress (4 visible / 16 suppressed); T083 signal quality; T082 operator decisions (4); cron disabled |
 | **Automation** | `/automation/` — runtime scaffold; live ingestion disabled ([docs/AUTOMATION_RUNTIME_STRATEGY.md](docs/AUTOMATION_RUNTIME_STRATEGY.md)) |
 | **Hosting** | GitHub Pages — static site (Astro) |
 | **Scope** | AI regulation tracking, country profiles, latest updates, source monitoring, metrics and structured exports |

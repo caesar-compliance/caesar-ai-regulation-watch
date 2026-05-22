@@ -11,6 +11,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.36] - 22 May 2026
+
+### Added
+
+- **T085 Worker runtime run** — Redeployed `regulation-watch-monitor-dev` with six-source `PILOT_ALLOWLIST`, `PILOT_MAX_SOURCES=6`, app version `1.0.36`; bounded dry-run + write pilot via `npm run runtime:worker-pilot:smoke`.
+- **Exports** — `latest_worker_run_at`, `worker_allowlist_source_count`, `worker_run_source_success_count`, `worker_run_source_failure_count`, `cron_enabled: false` on `runtime-monitoring-status.json`.
+- **Validation** — Worker allowlist count vs registry in `validate:automation-runtime`; T085 checks in `validate:public-export-consistency`.
+
+### Changed
+
+- **UI** — T085 banners on `/`, `/tracker/`, `/runtime-health/`, `/sources/`, `/review-queue/`.
+- **Worker** — `/run-pilot` returns per-source success/failure counts; `verify:dist` path needles check raw HTML for route hrefs.
+
+---
+
 ## [1.0.35] - 22 May 2026
 
 ### Added

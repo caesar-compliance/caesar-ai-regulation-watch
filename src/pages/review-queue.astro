@@ -18,7 +18,10 @@ import {
   RECOMMENDED_ACTION_LABELS,
 } from "../lib/regulation-review-queue";
 import { getJurisdictions } from "../lib/data";
+import { getMonitoringStatus } from "../lib/runtime-monitoring-data";
 import { humanizeId } from "../lib/format";
+
+const monitoring = getMonitoringStatus();
 
 const allCards = getReviewQueueCards();
 const cards = getOperatorQueueCards();
@@ -67,7 +70,8 @@ const rulesVersion =
     </p>
 
     <div class="banner banner--review" role="note">
-      <strong>{cards.length} operator-visible</strong> / {allCards.length} total ·{" "}
+      T085 Worker run ({monitoring.latest_worker_run_at ?? "—"}): ingress filter applied after latest
+      six-source pilot · <strong>{cards.length} operator-visible</strong> / {allCards.length} total ·{" "}
       {ingressSummary.suppress_noise_count ?? 0} noise suppressed ·{" "}
       {ingressSummary.suppress_duplicate_count ?? 0} duplicate suppressed ·{" "}
       <strong>{summary.total} candidates</strong> · {summary.review_required} review_required ·{" "}

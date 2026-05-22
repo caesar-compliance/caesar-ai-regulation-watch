@@ -24,6 +24,10 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..")
 const PUBLIC_DATA = path.join(ROOT, "public/data");
 const SNAPSHOT_DIR = path.join(ROOT, "data/runtime/public-export-snapshot");
 const GENERATED = path.join(ROOT, "generated/runtime/monitoring-pilot-run.latest.json");
+const WORKER_PILOT_REPORT = path.join(
+  ROOT,
+  "generated/runtime/worker-pilot-run.latest.json",
+);
 const DB_HEALTH_PATH = path.join(PUBLIC_DATA, "runtime-db-health.json");
 
 const DISCLAIMER =
@@ -84,8 +88,43 @@ function snapshotAvailable() {
   );
 }
 
-function enrichMonitoringStatus(payload, registry, status) {
+function loadWorkerPilotReport() {
+  if (!fs.existsSync(WORKER_PILOT_REPORT)) return null;
+  try {
+    return JSON.parse(fs.readFileSync(WORKER_PILOT_REPORT, "utf8"));
+  } catch {
+    return null;
+  }
+}
+
+function workerRunRollup(workerRuns, pilotReport) {
+  const latest = workerRuns[0] ?? null;
+  const latestAt = latest?.completed_at ?? latest?.started_at ?? null;
+  const successFromReport = pilotReport?.worker_run_source_success_count;
+  const failureFromReport = pilotReport?.worker_run_source_failure_count;
+  const successCount =
+    successFromReport ??
+    workerRuns.filter((r) => String(r.status ?? "") === "completed").length;
+  const failureCount = failureFromReport ?? 0;
+
+  return {
+    latest_worker_run_at: latestAt,
+    latest_worker_run_id: latest?.id ?? pilotReport?.latest_run_id ?? null,
+    worker_allowlist_source_count: pilotReport?.worker_allowlist_source_count ?? 6,
+    worker_run_source_success_count: successCount,
+    worker_run_source_failure_count: failureCount,
+    worker_redeployed_at: pilotReport?.deployed_at ?? null,
+    worker_version: pilotReport?.worker_version ?? null,
+    gates_closed: true,
+    scheduled_monitoring_enabled: false,
+    cron_enabled: false,
+  };
+}
+
+function enrichMonitoringStatus(payload, registry, status, workerRuns = []) {
   const counts = registryCounts(registry);
+  const pilotReport = loadWorkerPilotReport();
+  const workerMeta = workerRunRollup(workerRuns, pilotReport);
   const changesFile = path.join(PUBLIC_DATA, "regulation-detected-changes.json");
   const candidatesFile = path.join(
     PUBLIC_DATA,
@@ -126,8 +165,9 @@ function enrichMonitoringStatus(payload, registry, status) {
   return {
     ...payload,
     ...counts,
+    ...workerMeta,
     status,
-    backend_mvp: "T080",
+    backend_mvp: pilotReport?.task_id ?? "T085",
     live_ingestion_enabled: false,
     scheduled_monitoring_enabled: false,
     detected_changes_count: detected_changes_count ?? 0,
@@ -220,12 +260,14 @@ async function buildFromDb(client, registry) {
         latest_run_id: latestRun?.id ?? null,
         latest_run_at: latestRun?.completed_at ?? latestRun?.started_at ?? null,
         worker_deployed: true,
+        worker_redeployed: true,
         worker_name: "regulation-watch-monitor-dev",
         worker_url:
           "https://regulation-watch-monitor-dev.nazzarkoartem.workers.dev",
       },
       registry,
       monitoringStatus,
+      workerRuns,
     ),
   );
 
@@ -442,9 +484,18 @@ function buildTrackerSummaryExport(registry, monitoringPayload) {
     detected_changes_count: monitoringPayload?.detected_changes_count ?? 0,
     review_candidates_count: monitoringPayload?.review_candidates_count ?? 0,
     latest_worker_run: monitoringPayload?.latest_worker_run ?? null,
+    latest_worker_run_at: monitoringPayload?.latest_worker_run_at ?? null,
+    latest_worker_run_id: monitoringPayload?.latest_worker_run_id ?? null,
+    worker_allowlist_source_count:
+      monitoringPayload?.worker_allowlist_source_count ?? 6,
+    worker_run_source_success_count:
+      monitoringPayload?.worker_run_source_success_count ?? null,
+    worker_run_source_failure_count:
+      monitoringPayload?.worker_run_source_failure_count ?? null,
     scheduled_monitoring_enabled: false,
     live_ingestion_enabled: false,
-    backend_mvp: "T080",
+    gates_closed: true,
+    backend_mvp: monitoringPayload?.backend_mvp ?? "T085",
     status: monitoringPayload?.status ?? "registry_only",
   });
 }

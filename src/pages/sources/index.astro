@@ -5,7 +5,10 @@ import SourceCard from "../../components/SourceCard.astro";
 import { getSources } from "../../lib/data";
 import { sourceFilterOptions, groupSourcesByRegion } from "../../lib/filters";
 import { getSourceFreshnessRows } from "../../lib/regulation-review-queue";
+import { getMonitoringStatus } from "../../lib/runtime-monitoring-data";
 import { PROJECT_VERSION_LABEL } from "../../lib/project-version";
+
+const monitoring = getMonitoringStatus();
 
 const sources = getSources();
 const pilotFreshness = getSourceFreshnessRows();
@@ -32,8 +35,11 @@ const groupedByRegion = groupSourcesByRegion(sources);
     <section class="tracker-section">
       <h2>Monitoring pilot registry ({PROJECT_VERSION_LABEL})</h2>
       <p>
-        T084 distinguishes <strong>{automatedPilot.length} automated</strong> vs{" "}
-        <strong>{manualPilot.length} manual-review</strong> official sources. Metadata-only; cron disabled.
+        T085 Worker allowlist <strong>{monitoring.worker_allowlist_source_count ?? 6}</strong> automated RSS/Atom
+        · last run success <strong>{monitoring.worker_run_source_success_count ?? "—"}</strong> · failure{" "}
+        <strong>{monitoring.worker_run_source_failure_count ?? "—"}</strong> · T084 registry{" "}
+        <strong>{automatedPilot.length} automated</strong> vs{" "}
+        <strong>{manualPilot.length} manual-review</strong> · metadata-only; cron disabled.
       </p>
       <p>
         <a href="/data/source-freshness.json">source-freshness.json</a> ·{" "}

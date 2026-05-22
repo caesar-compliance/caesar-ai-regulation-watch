@@ -1,7 +1,7 @@
 {
   "name": "caesar-ai-regulation-watch",
   "type": "module",
-  "version": "1.0.35",
+  "version": "1.0.36",
   "private": true,
   "description": "Read-only static site for Caesar AI Regulation Watch pilot data",
   "scripts": {
@@ -81,6 +81,8 @@
     "runtime:monitoring-pilot": "node scripts/runtime/run-monitoring-pilot.mjs",
     "runtime:monitoring-pilot:dry-run": "node scripts/runtime/run-monitoring-pilot.mjs --dry-run",
     "runtime:monitoring-pilot:write": "node scripts/runtime/run-monitoring-pilot.mjs --write --allow-network --max-sources=3 --automated-only",
+    "runtime:worker-pilot:smoke": "node scripts/runtime/run-worker-pilot-smoke.mjs",
+    "runtime:query-table-counts": "node scripts/runtime/query-runtime-table-counts.mjs",
     "build:runtime-public-export": "node scripts/runtime/build-runtime-public-export.mjs",
     "build:review-queue-export": "node scripts/runtime/build-review-queue-export.mjs",
     "build:source-freshness-export": "node scripts/runtime/build-source-freshness-export.mjs",

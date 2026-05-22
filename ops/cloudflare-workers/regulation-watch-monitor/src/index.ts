@@ -14,7 +14,9 @@ import {
 export type { Env } from "./monitoring";
 
 const APP_NAME = "caesar-ai-regulation-watch";
-const APP_VERSION = "1.0.30";
+const APP_VERSION = "1.0.36";
+const PILOT_MAX_SOURCES = 6;
+const PILOT_MAX_ITEMS_PER_SOURCE = 20;
 
 function scheduledEnabled(env: Env): boolean {
   const v = (env.REGWATCH_ENABLE_SCHEDULED_MONITORING ?? "").toLowerCase();
@@ -30,7 +32,8 @@ function buildHealthPayload(env: Env) {
     runtime_id: env.RUNTIME_ID ?? "regulation-watch-runtime-v1",
     live_ingestion_enabled: false,
     scheduled_monitoring_enabled: scheduledEnabled(env),
-    backend_mvp: "T078",
+    backend_mvp: "T085",
+    worker_allowlist_source_count: PILOT_MAX_SOURCES,
   };
 }
 
@@ -48,7 +51,8 @@ function buildReadyPayload(env: Env) {
     },
     live_ingestion_enabled: false,
     scheduled_monitoring_enabled: scheduledEnabled(env),
-    backend_mvp: "T078",
+    backend_mvp: "T085",
+    worker_allowlist_source_count: PILOT_MAX_SOURCES,
   };
 }
 
@@ -62,7 +66,9 @@ function buildVersionPayload(env: Env) {
     git_sha: env.GIT_SHA ?? null,
     build_time: env.BUILD_TIME ?? null,
     runtime_id: env.RUNTIME_ID ?? "regulation-watch-runtime-v1",
-    backend_mvp: "T078",
+    backend_mvp: "T085",
+    worker_allowlist_source_count: PILOT_MAX_SOURCES,
+    scheduled_monitoring_enabled: scheduledEnabled(env),
   };
 }
 
@@ -138,12 +144,12 @@ export default {
         url.searchParams.get("dry_run") === "true" ||
         url.searchParams.get("dry_run") === "1";
       const maxSources = Math.min(
-        Number(url.searchParams.get("max_sources") ?? "2"),
-        3,
+        Number(url.searchParams.get("max_sources") ?? String(PILOT_MAX_SOURCES)),
+        PILOT_MAX_SOURCES,
       );
       const maxItems = Math.min(
-        Number(url.searchParams.get("max_items") ?? "20"),
-        20,
+        Number(url.searchParams.get("max_items") ?? String(PILOT_MAX_ITEMS_PER_SOURCE)),
+        PILOT_MAX_ITEMS_PER_SOURCE,
       );
 
       const sourceKeys = [...ALLOWLISTED_SOURCE_KEYS].slice(0, maxSources);
@@ -182,11 +188,20 @@ export default {
         }
       }
 
+      const successCount = results.filter((r) => r.status === "complete" || r.status === "dry_run").length;
+      const failureCount = results.filter((r) => r.status === "error").length;
+
       return jsonResponse({
         status: "pilot_complete",
         dry_run: dryRun,
         metadata_only: true,
         review_required: true,
+        max_sources: maxSources,
+        max_items_per_source: maxItems,
+        worker_allowlist_source_count: ALLOWLISTED_SOURCE_KEYS.size,
+        worker_run_source_success_count: successCount,
+        worker_run_source_failure_count: failureCount,
+        scheduled_monitoring_enabled: scheduledEnabled(env),
         results,
       });
     }

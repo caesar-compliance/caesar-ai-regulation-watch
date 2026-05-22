@@ -52,6 +52,11 @@ const SOURCE_PILOT_FILES = [
   path.join(ROOT, "scripts/runtime/source-pilot/build-operator-handoff.mjs"),
 ];
 const MONITORING_WORKFLOW = path.join(ROOT, ".github/workflows/monitoring-cycle.yml");
+const WORKER_MONITORING_TS = path.join(
+  ROOT,
+  "ops/cloudflare-workers/regulation-watch-monitor/src/monitoring.ts",
+);
+const MONITORING_REGISTRY = path.join(ROOT, "data/runtime/monitoring-pilot-registry.yml");
 
 const ajv = new Ajv({ allErrors: true, strict: false, validateSchema: false });
 addFormats(ajv);
@@ -140,6 +145,40 @@ function main() {
       errors.push(
         "monitoring-cycle.yml must not define a cron schedule (scheduled monitoring disabled)",
       );
+    }
+  }
+
+  if (fs.existsSync(WORKER_MONITORING_TS) && fs.existsSync(MONITORING_REGISTRY)) {
+    const workerSrc = fs.readFileSync(WORKER_MONITORING_TS, "utf8");
+    const allowlistKeys = [
+      ...workerSrc.matchAll(/^\s+"([a-z0-9-]+)":\s*\{/gm),
+    ].map((m) => m[1]);
+    const registry = yaml.load(fs.readFileSync(MONITORING_REGISTRY, "utf8"));
+    const automatedKeys = (registry.sources ?? [])
+      .filter((s) => s.fetch_mode === "automated_metadata")
+      .map((s) => s.source_key);
+    if (allowlistKeys.length !== automatedKeys.length) {
+      errors.push(
+        `Worker PILOT_ALLOWLIST count ${allowlistKeys.length} != registry automated ${automatedKeys.length}`,
+      );
+    }
+    for (const key of automatedKeys) {
+      if (!allowlistKeys.includes(key)) {
+        errors.push(`Worker allowlist missing automated source ${key}`);
+      }
+    }
+    const workerIndex = path.join(
+      ROOT,
+      "ops/cloudflare-workers/regulation-watch-monitor/src/index.ts",
+    );
+    if (fs.existsSync(workerIndex)) {
+      const idx = fs.readFileSync(workerIndex, "utf8");
+      if (!idx.includes("PILOT_MAX_SOURCES = 6")) {
+        errors.push("Worker index must cap PILOT_MAX_SOURCES at 6");
+      }
+      if (idx.includes('APP_VERSION = "1.0.30"')) {
+        errors.push("Worker APP_VERSION must be bumped past 1.0.30");
+      }
     }
   }
 

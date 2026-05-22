@@ -85,8 +85,18 @@ function main() {
   if (indexSrc && !indexSrc.includes("getIngressFilterSummary")) {
     errors.push("src/pages/index.astro must use getIngressFilterSummary for T084 counts");
   }
+  if (indexSrc && !indexSrc.includes("T085 Six-Source Worker Runtime Run")) {
+    errors.push("src/pages/index.astro must include T085 Worker runtime banner");
+  }
   if (indexSrc && !indexSrc.includes("T084 Automated Source Expansion and Ingress Filtering")) {
     errors.push("src/pages/index.astro must include T084 ingress filtering banner");
+  }
+  if (
+    indexSrc &&
+    indexSrc.indexOf("T085 Six-Source Worker Runtime Run") >
+    indexSrc.indexOf("T084 Automated Source Expansion")
+  ) {
+    errors.push("src/pages/index.astro must place T085 banner before T084");
   }
   if (
     indexSrc &&
@@ -120,8 +130,18 @@ function main() {
   ) {
     errors.push("src/pages/tracker/index.astro must place T082 section before T080 coverage");
   }
+  if (trackerSrc && !trackerSrc.includes("Six-source Worker run (T085)")) {
+    errors.push("src/pages/tracker/index.astro must include Six-source Worker run (T085)");
+  }
   if (trackerSrc && !trackerSrc.includes("Ingress filter dashboard (T084)")) {
     errors.push("src/pages/tracker/index.astro must include Ingress filter dashboard (T084)");
+  }
+  if (
+    trackerSrc &&
+    trackerSrc.indexOf("Six-source Worker run (T085)") >
+    trackerSrc.indexOf("Ingress filter dashboard (T084)")
+  ) {
+    errors.push("src/pages/tracker/index.astro must place T085 before T084");
   }
   if (
     trackerSrc &&
