@@ -21,8 +21,16 @@ import {
 
 const metrics = getAutomationFirstMetrics();
 const monitoring = getMonitoringStatus();
-const detectedChanges = getDetectedChanges().slice(0, 5);
-const reviewCandidates = getReviewCandidates();
+const allDetectedChanges = getDetectedChanges();
+const detectedChanges = allDetectedChanges.slice(0, 5);
+const allReviewCandidates = getReviewCandidates();
+const reviewCandidates = allReviewCandidates;
+const detectedChangesCount =
+  monitoring.detected_changes_count ?? allDetectedChanges.length;
+const reviewCandidatesCount =
+  monitoring.review_candidates_count ?? allReviewCandidates.length;
+const automatedRssCount =
+  monitoring.automated_rss_source_count ?? monitoring.automated_source_count ?? 0;
 const topics = getTrackerTopics();
 const allStatuses = getCountryStatuses();
 const enrichedStatuses = getEnrichedCountryStatuses();
@@ -74,16 +82,16 @@ const latestUpdates = filterRegulatoryUpdates({
         <span class="metrics-strip__label">Monitored sources</span>
       </div>
       <div class="metrics-strip__item">
-        <span class="metrics-strip__value">{monitoring.automated_source_count ?? 0}</span>
+        <span class="metrics-strip__value">{automatedRssCount}</span>
         <span class="metrics-strip__label">Automated RSS pilot</span>
       </div>
       <div class="metrics-strip__item">
-        <span class="metrics-strip__value">{detectedChanges.length}</span>
-        <span class="metrics-strip__label">Recent detected changes (sample)</span>
+        <span class="metrics-strip__value">{detectedChangesCount}</span>
+        <span class="metrics-strip__label">Detected changes (public export)</span>
       </div>
       <div class="metrics-strip__item">
-        <span class="metrics-strip__value">{reviewCandidates.length}</span>
-        <span class="metrics-strip__label">Review queue</span>
+        <span class="metrics-strip__value">{reviewCandidatesCount}</span>
+        <span class="metrics-strip__label">Review queue (public export)</span>
       </div>
       <div class="metrics-strip__item">
         <span class="metrics-strip__value">{monitoring.status ?? "—"}</span>

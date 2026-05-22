@@ -20,7 +20,12 @@ export interface MonitoringStatus {
   backend_mvp?: string;
   monitored_source_count?: number;
   automated_source_count?: number;
+  automated_rss_source_count?: number;
   manual_source_count?: number;
+  manual_review_source_count?: number;
+  detected_changes_count?: number;
+  review_candidates_count?: number;
+  export_source?: string;
   live_ingestion_enabled?: boolean;
   scheduled_monitoring_enabled?: boolean;
   latest_run?: {

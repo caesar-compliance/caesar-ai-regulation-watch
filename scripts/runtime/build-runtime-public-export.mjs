@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 /**
- * T078 — Build public runtime monitoring JSON exports from Supabase (metadata-only).
+ * T078 / T078A — Build public runtime monitoring JSON exports from Supabase or committed snapshot.
  */
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import yaml from "js-yaml";
 import { loadRuntimeEnv, getDbUrl } from "./lib/load-runtime-env.mjs";
 import { assertRuntimeSafetyDisabled } from "./lib/runtime-safety.mjs";
 import { withPgClient } from "./lib/pg-client.mjs";
@@ -14,10 +13,14 @@ import { readProjectVersion } from "../lib/read-project-version.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const PUBLIC_DATA = path.join(ROOT, "public/data");
+const SNAPSHOT_DIR = path.join(ROOT, "data/runtime/public-export-snapshot");
 const GENERATED = path.join(ROOT, "generated/runtime/monitoring-pilot-run.latest.json");
+const DB_HEALTH_PATH = path.join(PUBLIC_DATA, "runtime-db-health.json");
 
 const DISCLAIMER =
   "Backend-derived metadata only. Review required before any legal or client use. Not legal advice.";
+const PENDING_NOTE =
+  "Backend smoke passed in T078 final report; public export pending refresh from dev Supabase or snapshot update.";
 
 function writeExport(name, payload) {
   const out = {
@@ -35,13 +38,99 @@ function writeExport(name, payload) {
   );
 }
 
+function registryCounts(registry) {
+  const automated = registry.sources.filter(
+    (s) => s.fetch_mode === "automated_metadata",
+  ).length;
+  const manual = registry.sources.filter(
+    (s) => s.fetch_mode === "manual_review",
+  ).length;
+  return {
+    monitored_source_count: registry.sources.length,
+    automated_source_count: automated,
+    automated_rss_source_count: automated,
+    manual_source_count: manual,
+    manual_review_source_count: manual,
+  };
+}
+
+function readDbHealthStatus() {
+  if (!fs.existsSync(DB_HEALTH_PATH)) return null;
+  try {
+    return JSON.parse(fs.readFileSync(DB_HEALTH_PATH, "utf8")).status ?? null;
+  } catch {
+    return null;
+  }
+}
+
+function loadSnapshotPayload(basename) {
+  const file = path.join(SNAPSHOT_DIR, `${basename}.payload.json`);
+  if (!fs.existsSync(file)) return null;
+  return JSON.parse(fs.readFileSync(file, "utf8"));
+}
+
+function snapshotAvailable() {
+  return fs.existsSync(
+    path.join(SNAPSHOT_DIR, "runtime-monitoring-status.payload.json"),
+  );
+}
+
+function enrichMonitoringStatus(payload, registry, status) {
+  const counts = registryCounts(registry);
+  const changesFile = path.join(PUBLIC_DATA, "regulation-detected-changes.json");
+  const candidatesFile = path.join(
+    PUBLIC_DATA,
+    "regulation-review-candidates.json",
+  );
+  let detected_changes_count =
+    payload.detected_changes_count ??
+    payload.latest_pilot_report?.summary?.total_detected_changes ??
+    null;
+  let review_candidates_count =
+    payload.review_candidates_count ??
+    payload.latest_pilot_report?.summary?.total_review_candidates ??
+    null;
+
+  if (detected_changes_count == null && fs.existsSync(changesFile)) {
+    try {
+      detected_changes_count =
+        JSON.parse(fs.readFileSync(changesFile, "utf8")).changes?.length ?? 0;
+    } catch {
+      detected_changes_count = 0;
+    }
+  }
+  if (review_candidates_count == null && fs.existsSync(candidatesFile)) {
+    try {
+      review_candidates_count =
+        JSON.parse(fs.readFileSync(candidatesFile, "utf8")).candidates?.length ??
+        0;
+    } catch {
+      review_candidates_count = 0;
+    }
+  }
+
+  return {
+    ...payload,
+    ...counts,
+    status,
+    backend_mvp: "T078",
+    live_ingestion_enabled: false,
+    scheduled_monitoring_enabled: false,
+    detected_changes_count: detected_changes_count ?? 0,
+    review_candidates_count: review_candidates_count ?? 0,
+    export_source:
+      status === "backend_monitoring_mvp"
+        ? "supabase_dev"
+        : "t078_smoke_snapshot",
+  };
+}
+
 async function queryAll(client, sql, params = []) {
   const res = await client.query(sql, params);
   return res.rows;
 }
 
-async function buildFromDb(client) {
-  const registry = loadMonitoringPilotRegistry();
+async function buildFromDb(client, registry) {
   const runs = await queryAll(
     client,
     `SELECT id, source_key, run_type, status, started_at, completed_at, item_count, created_at
@@ -69,38 +158,34 @@ async function buildFromDb(client) {
     ? JSON.parse(fs.readFileSync(GENERATED, "utf8"))
     : null;
 
-  writeExport("runtime-monitoring-status.json", {
-    status: latestRun ? "pilot_data_present" : "awaiting_pilot_run",
-    backend_mvp: "T078",
-    live_ingestion_enabled: false,
-    scheduled_monitoring_enabled: false,
-    monitored_source_count: registry.sources.length,
-    automated_source_count: registry.sources.filter(
-      (s) => s.fetch_mode === "automated_metadata",
-    ).length,
-    manual_source_count: registry.sources.filter(
-      (s) => s.fetch_mode === "manual_review",
-    ).length,
-    latest_run: latestRun
-      ? {
-          run_id: latestRun.id,
-          source_key: latestRun.source_key,
-          status: latestRun.status,
-          item_count: latestRun.item_count,
-          completed_at: latestRun.completed_at,
-        }
-      : null,
-    latest_pilot_report: pilotReport
-      ? { run_id: pilotReport.run_id, summary: pilotReport.summary }
-      : null,
-    runtime_events_recent: events.map((e) => ({
-      event_type: e.event_type,
-      event_status: e.event_status,
-      source_key: e.source_key,
-      message: e.message,
-      created_at: e.created_at,
-    })),
-  });
+  writeExport(
+    "runtime-monitoring-status.json",
+    enrichMonitoringStatus(
+      {
+        latest_run: latestRun
+          ? {
+              run_id: latestRun.id,
+              source_key: latestRun.source_key,
+              status: latestRun.status,
+              item_count: latestRun.item_count,
+              completed_at: latestRun.completed_at,
+            }
+          : null,
+        latest_pilot_report: pilotReport
+          ? { run_id: pilotReport.run_id, summary: pilotReport.summary }
+          : null,
+        runtime_events_recent: events.map((e) => ({
+          event_type: e.event_type,
+          event_status: e.event_status,
+          source_key: e.source_key,
+          message: e.message,
+          created_at: e.created_at,
+        })),
+      },
+      registry,
+      latestRun ? "backend_monitoring_mvp" : "backend_smoke_passed_public_export_pending",
+    ),
+  );
 
   writeExport("regulation-source-runs.json", {
     runs: runs.map((r) => ({
@@ -143,6 +228,51 @@ async function buildFromDb(client) {
       publication_allowed: false,
     })),
   });
+}
+
+function buildFromSnapshot(registry) {
+  const statusPayload = loadSnapshotPayload("runtime-monitoring-status");
+  const runsPayload = loadSnapshotPayload("regulation-source-runs");
+  const changesPayload = loadSnapshotPayload("regulation-detected-changes");
+  const candidatesPayload = loadSnapshotPayload("regulation-review-candidates");
+
+  if (runsPayload) writeExport("regulation-source-runs.json", runsPayload);
+  if (changesPayload) writeExport("regulation-detected-changes.json", changesPayload);
+  if (candidatesPayload) {
+    writeExport("regulation-review-candidates.json", candidatesPayload);
+  }
+
+  const exportStatus = "backend_smoke_passed_public_export_ready";
+
+  writeExport(
+    "runtime-monitoring-status.json",
+    enrichMonitoringStatus(
+      {
+        ...(statusPayload ?? {}),
+        public_note: statusPayload?.public_note ?? DISCLAIMER,
+      },
+      registry,
+      exportStatus,
+    ),
+  );
+}
+
+function buildRegistryOnlyPending(registry) {
+  const counts = registryCounts(registry);
+  writeExport("runtime-monitoring-status.json", {
+    ...counts,
+    status: "backend_smoke_passed_public_export_pending",
+    backend_mvp: "T078",
+    live_ingestion_enabled: false,
+    scheduled_monitoring_enabled: false,
+    detected_changes_count: 0,
+    review_candidates_count: 0,
+    public_note: PENDING_NOTE,
+    export_source: "registry_only",
+  });
+  writeExport("regulation-source-runs.json", { runs: [] });
+  writeExport("regulation-detected-changes.json", { changes: [] });
+  writeExport("regulation-review-candidates.json", { candidates: [] });
 }
 
 function buildCountryCoverage(registry) {
@@ -240,30 +370,24 @@ async function main() {
 
   if (dbUrl) {
     try {
-      await withPgClient(dbUrl, async (client) => buildFromDb(client));
+      await withPgClient(dbUrl, async (client) => buildFromDb(client, registry));
     } catch (err) {
       console.warn(
-        `build-runtime-public-export: DB unavailable (${err.message}), registry-only exports`,
+        `build-runtime-public-export: DB unavailable (${err.message}), falling back to snapshot`,
       );
-      writeExport("runtime-monitoring-status.json", {
-        status: "registry_only",
-        backend_mvp: "T078",
-        db_error: "connection_failed",
-        monitored_source_count: registry.sources.length,
-      });
-      writeExport("regulation-source-runs.json", { runs: [] });
-      writeExport("regulation-detected-changes.json", { changes: [] });
-      writeExport("regulation-review-candidates.json", { candidates: [] });
+      if (snapshotAvailable()) buildFromSnapshot(registry);
+      else buildRegistryOnlyPending(registry);
     }
+  } else if (snapshotAvailable()) {
+    console.log(
+      "build-runtime-public-export: no DB URL; using T078 public export snapshot",
+    );
+    buildFromSnapshot(registry);
   } else {
-    writeExport("runtime-monitoring-status.json", {
-      status: "not_configured",
-      backend_mvp: "T078",
-      monitored_source_count: registry.sources.length,
-    });
-    writeExport("regulation-source-runs.json", { runs: [] });
-    writeExport("regulation-detected-changes.json", { changes: [] });
-    writeExport("regulation-review-candidates.json", { candidates: [] });
+    console.log(
+      "build-runtime-public-export: no DB URL or snapshot; registry-only pending export",
+    );
+    buildRegistryOnlyPending(registry);
   }
 
   buildCountryCoverage(registry);

@@ -26,6 +26,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Metadata-only; no full legal text; no evidence gates enabled; scheduled monitoring not enabled by default.
 
+### Fixed (T078A hotfix)
+
+- GitHub Pages build no longer overwrites monitoring exports with `not_configured` when Supabase is absent; uses committed T078 smoke snapshot (`data/runtime/public-export-snapshot/`). Status semantics: `backend_smoke_passed_public_export_ready`, `backend_monitoring_mvp`, `backend_smoke_passed_public_export_pending`. Added `validate:public-export-consistency` and tracker/runtime-health count alignment.
+
 ---
 
 ## [1.0.28] - 22 May 2026

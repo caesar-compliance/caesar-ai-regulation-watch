@@ -73,6 +73,12 @@ function main() {
     if (raw.includes("postgres://") || raw.includes("sb_secret_")) {
       errors.push(`${file}: possible secret leak`);
     }
+    if (
+      file === "runtime-monitoring-status.json" &&
+      data.status === "not_configured"
+    ) {
+      errors.push(`${file}: status must not be not_configured after T078`);
+    }
   }
 
   if (errors.length > 0) {

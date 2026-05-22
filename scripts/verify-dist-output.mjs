@@ -200,10 +200,34 @@ if (snapshotVersion && snapshotVersion !== PROJECT_VERSION) {
   );
 }
 
+const monitoringPath = distPath("data/runtime-monitoring-status.json");
+let monitoringFailures = 0;
+if (fs.existsSync(monitoringPath)) {
+  try {
+    const monitoring = JSON.parse(fs.readFileSync(monitoringPath, "utf8"));
+    if (monitoring.status === "not_configured") {
+      console.error(
+        "  runtime-monitoring-status.json in dist must not be not_configured after T078",
+      );
+      monitoringFailures += 1;
+    }
+    if (monitoring.product_version && monitoring.product_version !== PROJECT_VERSION) {
+      console.error(
+        `  monitoring product_version ${monitoring.product_version} != ${PROJECT_VERSION}`,
+      );
+      monitoringFailures += 1;
+    }
+  } catch {
+    console.error("  invalid runtime-monitoring-status.json in dist");
+    monitoringFailures += 1;
+  }
+}
+
 const failed =
   missing.length > 0 ||
   staleHits.length > 0 ||
   htmlCheckFailures.length > 0 ||
+  monitoringFailures > 0 ||
   (snapshotVersion && snapshotVersion !== PROJECT_VERSION);
 
 if (failed) {

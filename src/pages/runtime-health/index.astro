@@ -78,8 +78,10 @@ const presentTables = (health?.expected_tables_present as string[]) ?? [];
       <div><dt>monitoring_status</dt><dd><strong>{monitoring.status ?? "—"}</strong></dd></div>
       <div><dt>backend_mvp</dt><dd><span class="mono">{monitoring.backend_mvp ?? "—"}</span></dd></div>
       <div><dt>monitored_sources</dt><dd>{monitoring.monitored_source_count ?? "—"}</dd></div>
-      <div><dt>automated_rss</dt><dd>{monitoring.automated_source_count ?? "—"}</dd></div>
-      <div><dt>manual_review_sources</dt><dd>{monitoring.manual_source_count ?? "—"}</dd></div>
+      <div><dt>automated_rss</dt><dd>{monitoring.automated_rss_source_count ?? monitoring.automated_source_count ?? "—"}</dd></div>
+      <div><dt>manual_review_sources</dt><dd>{monitoring.manual_review_source_count ?? monitoring.manual_source_count ?? "—"}</dd></div>
+      <div><dt>detected_changes</dt><dd>{monitoring.detected_changes_count ?? "—"}</dd></div>
+      <div><dt>review_candidates</dt><dd>{monitoring.review_candidates_count ?? "—"}</dd></div>
       <div><dt>latest_run</dt><dd><span class="mono">{monitoring.latest_run?.run_id ?? "—"}</span></dd></div>
     </dl>
     <p><a href="/data/runtime-monitoring-status.json">runtime-monitoring-status.json</a></p>
