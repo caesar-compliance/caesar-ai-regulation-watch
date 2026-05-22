@@ -2,21 +2,21 @@
 
 ## Pre-merge
 
-- [ ] `git diff --check`
-- [ ] `npm run validate:source-registry`
-- [ ] `npm run validate:automation-runtime`
-- [ ] `npm run validate:runtime-services-readiness`
-- [ ] `npm run validate:runtime-db-health`
-- [ ] `npm run validate:monitoring-output`
-- [ ] `npm run validate:public-export-consistency`
-- [ ] `npm run build`
-- [ ] `npm run verify:dist`
-- [ ] `npm run validate:public-route-consistency`
+- [x] `git diff --check`
+- [x] `npm run validate:source-registry`
+- [x] `npm run validate:automation-runtime`
+- [x] `npm run validate:runtime-services-readiness`
+- [x] `npm run validate:runtime-db-health`
+- [x] `npm run validate:monitoring-output`
+- [x] `npm run validate:public-export-consistency`
+- [x] `npm run build`
+- [x] `npm run verify:dist`
+- [x] `npm run validate:public-route-consistency`
 
 ## Post-deploy smoke
 
-- [ ] `/` — v1.0.31, T080 stats, 18 profile cards
-- [ ] `/tracker/` — T080 dashboard counts match `tracker-summary.json`
-- [ ] `/map/` — T080 map (filters, meters), v1.0.31 footer
-- [ ] `/countries/`, `/compare/`, `/jurisdictions/france/` unchanged
-- [ ] Public JSON endpoints 200
+- [x] `/` — v1.0.31, T080 stats, 18 profile cards
+- [x] `/tracker/` — T080 dashboard counts match `tracker-summary.json`
+- [x] `/map/` — T080 map (filters, meters), v1.0.31 footer
+- [x] `/countries/`, `/compare/`, `/jurisdictions/france/` unchanged
+- [x] Public JSON endpoints 200
