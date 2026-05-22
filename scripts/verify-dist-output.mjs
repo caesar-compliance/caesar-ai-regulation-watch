@@ -120,7 +120,9 @@ const requiredHtmlChecks = [
     mustInclude: [
       PROJECT_VERSION_LABEL,
       PROJECT_PHASE_LABEL,
+      "T083 Signal Quality and Review Prioritization",
       "T082 Operator Decision Workflow",
+      "signal-quality-summary.json",
       "operator decisions",
       "Regulation records",
       "Jurisdiction profile cards",
@@ -135,6 +137,8 @@ const requiredHtmlChecks = [
     mustInclude: [
       PROJECT_VERSION_LABEL,
       "Signal quality dashboard (T083)",
+      "Priority distribution",
+      "Recommended operator actions",
       "Operator review pipeline (T082)",
       "not legal verification",
       "Coverage dashboard (T080)",
@@ -145,7 +149,22 @@ const requiredHtmlChecks = [
     mustInclude: [
       PROJECT_VERSION_LABEL,
       "Signal quality (T083)",
+      "signal_score",
+      "ai_regulation_relevance",
+      "signal_category",
+      "recommended_operator_action",
+      "reason_codes",
+      "data-signal-score=",
       "Operator decision overrides signal recommendation",
+    ],
+  },
+  {
+    rel: "runtime-health/index.html",
+    mustInclude: [
+      PROJECT_VERSION_LABEL,
+      "Signal quality (T083)",
+      "validate:signal-quality",
+      "gates_closed",
     ],
   },
   {

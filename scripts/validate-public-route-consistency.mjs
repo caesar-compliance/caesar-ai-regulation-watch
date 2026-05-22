@@ -64,16 +64,38 @@ function main() {
   if (indexSrc && !indexSrc.includes("getPublicRouteSummary")) {
     errors.push("src/pages/index.astro must use getPublicRouteSummary for T080 counts");
   }
+  if (indexSrc && !indexSrc.includes("T083 Signal Quality and Review Prioritization")) {
+    errors.push("src/pages/index.astro must include T083 Signal Quality banner above T082");
+  }
+  if (indexSrc && !indexSrc.includes("getSignalQualitySummary")) {
+    errors.push("src/pages/index.astro must use getSignalQualitySummary for T083 counts");
+  }
   if (indexSrc && !indexSrc.includes("T082 Operator Decision Workflow")) {
     errors.push("src/pages/index.astro must include T082 Operator Decision Workflow banner");
+  }
+  if (
+    indexSrc &&
+    indexSrc.indexOf("T083 Signal Quality") > indexSrc.indexOf("T082 Operator Decision Workflow")
+  ) {
+    errors.push("src/pages/index.astro must place T083 banner before T082");
   }
   if (indexSrc && !indexSrc.includes("getRegulationReviewQueueSummary")) {
     errors.push("src/pages/index.astro must use regulation-review-queue summary for T082 counts");
   }
 
   const trackerSrc = readText("src/pages/tracker/index.astro");
+  if (trackerSrc && !trackerSrc.includes("Signal quality dashboard (T083)")) {
+    errors.push("src/pages/tracker/index.astro must include T083 signal quality dashboard");
+  }
   if (trackerSrc && !trackerSrc.includes("Operator review pipeline (T082)")) {
     errors.push("src/pages/tracker/index.astro must include T082 operator review pipeline section");
+  }
+  if (
+    trackerSrc &&
+    trackerSrc.indexOf("Signal quality dashboard (T083)") >
+      trackerSrc.indexOf("Operator review pipeline (T082)")
+  ) {
+    errors.push("src/pages/tracker/index.astro must place T083 before T082 operator pipeline");
   }
   if (
     trackerSrc &&
@@ -81,6 +103,17 @@ function main() {
       trackerSrc.indexOf("Coverage dashboard (T080)")
   ) {
     errors.push("src/pages/tracker/index.astro must place T082 section before T080 coverage");
+  }
+
+  const reviewQueueSrc = readText("src/pages/review-queue.astro");
+  if (reviewQueueSrc && !reviewQueueSrc.includes("Signal quality (T083)")) {
+    errors.push("src/pages/review-queue.astro must include Signal quality (T083) section");
+  }
+  if (reviewQueueSrc && !reviewQueueSrc.includes("data-signal-score")) {
+    errors.push("src/pages/review-queue.astro must expose data-signal-score on queue cards");
+  }
+  if (reviewQueueSrc && !reviewQueueSrc.includes("reason_codes")) {
+    errors.push("src/pages/review-queue.astro must expose reason_codes on queue cards");
   }
 
   const mapIndexSrc = readText("src/pages/map/index.astro");
@@ -108,6 +141,16 @@ function main() {
     if (indexHtml && !indexHtml.includes(projectLabel)) {
       errors.push(`dist/index.html missing ${projectLabel}`);
     }
+    if (indexHtml && !indexHtml.includes("T083 Signal Quality and Review Prioritization")) {
+      errors.push("dist/index.html missing T083 Signal Quality banner");
+    }
+    if (
+      indexHtml &&
+      indexHtml.indexOf("T083 Signal Quality") >
+        indexHtml.indexOf("T082 Operator Decision Workflow")
+    ) {
+      errors.push("dist/index.html must lead with T083 before T082");
+    }
     if (indexHtml && !indexHtml.includes("T082 Operator Decision Workflow")) {
       errors.push("dist/index.html missing T082 Operator Decision Workflow banner");
     }
@@ -130,6 +173,16 @@ function main() {
       errors.push(`dist/map/index.html missing ${projectLabel}`);
     }
 
+    if (trackerHtml && !trackerHtml.includes("Signal quality dashboard (T083)")) {
+      errors.push("dist/tracker/index.html missing T083 signal quality dashboard");
+    }
+    if (
+      trackerHtml &&
+      trackerHtml.indexOf("Signal quality dashboard (T083)") >
+        trackerHtml.indexOf("Operator review pipeline (T082)")
+    ) {
+      errors.push("dist/tracker/index.html must place T083 before T082");
+    }
     if (trackerHtml && !/Operator review pipeline \(T082\)/i.test(trackerHtml)) {
       errors.push("dist/tracker/index.html missing T082 operator review pipeline section");
     }
@@ -153,6 +206,45 @@ function main() {
     const reviewQueueHtml = readText("review-queue/index.html", DIST);
     if (reviewQueueHtml && !reviewQueueHtml.includes("Regulation review queue")) {
       errors.push("dist/review-queue/index.html missing T081 regulation review queue heading");
+    }
+    if (reviewQueueHtml && !reviewQueueHtml.includes("Signal quality (T083)")) {
+      errors.push("dist/review-queue/index.html missing Signal quality (T083) section");
+    }
+    if (reviewQueueHtml && !reviewQueueHtml.includes("data-signal-score=")) {
+      errors.push("dist/review-queue/index.html missing data-signal-score on cards");
+    }
+    if (reviewQueueHtml && !reviewQueueHtml.includes("signal_score")) {
+      errors.push("dist/review-queue/index.html missing visible signal_score markers");
+    }
+    if (reviewQueueHtml && !reviewQueueHtml.includes("ai_regulation_relevance")) {
+      errors.push("dist/review-queue/index.html missing ai_regulation_relevance markers");
+    }
+    if (reviewQueueHtml && !reviewQueueHtml.includes("reason_codes")) {
+      errors.push("dist/review-queue/index.html missing reason_codes markers");
+    }
+
+    const runtimeHealthHtml = readText("runtime-health/index.html", DIST);
+    if (runtimeHealthHtml && !runtimeHealthHtml.includes("Signal quality (T083)")) {
+      errors.push("dist/runtime-health/index.html missing Signal quality (T083) section");
+    }
+    if (runtimeHealthHtml && !runtimeHealthHtml.includes("validate:signal-quality")) {
+      errors.push("dist/runtime-health/index.html missing validate:signal-quality status");
+    }
+
+    const signalSummary = readJson("signal-quality-summary.json");
+    if (signalSummary?.product_version === projectVersion) {
+      if (indexHtml && indexHtml.includes("v1.0.33") && !indexHtml.includes(projectLabel)) {
+        errors.push("dist/index.html stale v1.0.33 while signal-quality-summary is current");
+      }
+      if (
+        indexHtml &&
+        indexHtml.includes("T082 Operator Decision Workflow") &&
+        !indexHtml.includes("T083 Signal Quality")
+      ) {
+        errors.push(
+          "dist/index.html leads with T082 only while signal-quality-summary is v1.0.34",
+        );
+      }
     }
 
     if (trackerHtml && expectedJurisdictions > 0) {
@@ -201,7 +293,7 @@ function main() {
     console.log("  (dist/ not present — skipping built HTML checks; run after npm run build)");
   }
 
-  console.log("Public route consistency (T080A)");
+  console.log("Public route consistency (T083A)");
   console.log(`  package version: ${projectVersion} (${projectLabel})`);
   console.log(
     `  exports: jurisdictions=${expectedJurisdictions} regulations=${expectedRegulations} sources=${expectedSources} markers=${expectedMarkers}`,

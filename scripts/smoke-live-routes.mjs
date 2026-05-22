@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /**
- * T082A — Post-deploy live smoke with cache-busted requests.
- * Fails if canonical URLs serve stale pre-v1.0.33 HTML markers.
+ * T083A — Post-deploy live smoke with cache-busted requests.
+ * Fails if canonical URLs serve stale pre-v1.0.34 HTML or T082-only route copy.
  */
 const BASE = process.env.LIVE_BASE_URL || "https://regulation-watch.caesar.no";
-const BUST = process.env.LIVE_CACHE_BUST || `T082A-${Date.now()}`;
+const BUST = process.env.LIVE_CACHE_BUST || `T083A-${Date.now()}`;
 const VERSION = process.env.EXPECTED_PRODUCT_VERSION || "1.0.34";
 const VERSION_LABEL = `v${VERSION}`;
 
@@ -13,7 +13,9 @@ const ROUTES = [
     path: "/",
     mustInclude: [
       VERSION_LABEL,
+      "T083 Signal Quality and Review Prioritization",
       "T082 Operator Decision Workflow",
+      "signal-quality-summary.json",
       "operator decisions",
       "Regulation records",
       "Jurisdiction profile",
@@ -21,6 +23,7 @@ const ROUTES = [
     mustExclude: [
       "v1.0.29",
       "v1.0.31",
+      "v1.0.33",
       "T080 coverage model (v1.0.31)",
       "13 jurisdictions grouped",
       "Global coverage map",
@@ -31,6 +34,8 @@ const ROUTES = [
     mustInclude: [
       VERSION_LABEL,
       "Signal quality dashboard (T083)",
+      "Priority distribution",
+      "Recommended operator actions",
       "Operator review pipeline (T082)",
       "not legal verification",
       "Coverage dashboard (T080)",
@@ -45,12 +50,12 @@ const ROUTES = [
   {
     path: "/countries/",
     mustInclude: [VERSION_LABEL, "jurisdiction profile"],
-    mustExclude: ["v1.0.29", "v1.0.31"],
+    mustExclude: ["v1.0.29", "v1.0.31", "v1.0.33"],
   },
   {
     path: "/compare/",
     mustInclude: [VERSION_LABEL],
-    mustExclude: ["v1.0.29", "v1.0.31"],
+    mustExclude: ["v1.0.29", "v1.0.31", "v1.0.33"],
   },
   {
     path: "/review-queue/",
@@ -59,28 +64,39 @@ const ROUTES = [
       VERSION_LABEL,
       "Signal quality (T083)",
       "Operator decisions (T082)",
+      "signal_score",
+      "ai_regulation_relevance",
+      "signal_category",
+      "recommended_operator_action",
+      "reason_codes",
+      "data-signal-score=",
     ],
     mustExclude: ["v1.0.29", "v1.0.31", "v1.0.33"],
   },
   {
     path: "/runtime-health/",
-    mustInclude: [VERSION_LABEL, "Signal quality (T083)", "Operator workflow health (T082)"],
+    mustInclude: [
+      VERSION_LABEL,
+      "Signal quality (T083)",
+      "validate:signal-quality",
+      "Operator workflow health (T082)",
+    ],
     mustExclude: ["v1.0.29", "v1.0.31", "v1.0.33"],
   },
   {
     path: "/runtime-services/",
     mustInclude: [VERSION_LABEL],
-    mustExclude: ["v1.0.29", "v1.0.31"],
+    mustExclude: ["v1.0.29", "v1.0.31", "v1.0.33"],
   },
   {
     path: "/jurisdictions/eu/",
     mustInclude: ["Country review workflow", VERSION_LABEL],
-    mustExclude: ["v1.0.29", "v1.0.31"],
+    mustExclude: ["v1.0.29", "v1.0.31", "v1.0.33"],
   },
   {
     path: "/jurisdictions/france/",
     mustInclude: ["Country review workflow", VERSION_LABEL],
-    mustExclude: ["v1.0.29", "v1.0.31"],
+    mustExclude: ["v1.0.29", "v1.0.31", "v1.0.33"],
   },
 ];
 
@@ -93,7 +109,7 @@ const DATA_ROUTES = [
   "/data/tracker-summary.json",
 ];
 
-const STALE_FOOTER = /\bv1\.0\.(21|29|30|31|32)\b/;
+const STALE_FOOTER = /\bv1\.0\.(21|29|30|31|32|33)\b/;
 
 async function fetchHtml(path) {
   const url = new URL(path, BASE);
@@ -126,11 +142,11 @@ async function main() {
       errors.push(`${dataPath}: product_version ${json.product_version} != ${VERSION}`);
     }
     console.log(
-      `  ${dataPath} ← ${url} (${json.card_count ?? json.decision_count ?? json.source_count ?? json.packet_count ?? "ok"})`,
+      `  ${dataPath} ← ${url} (${json.card_count ?? json.decision_count ?? json.source_count ?? json.packet_count ?? json.total_candidates ?? "ok"})`,
     );
   }
 
-  console.log("Live route smoke (T082A)");
+  console.log("Live route smoke (T083A)");
   console.log(`  base: ${BASE}`);
   console.log(`  cache bust: ${BUST}`);
   console.log(`  expected version: ${VERSION_LABEL}`);
@@ -151,12 +167,26 @@ async function main() {
     if (STALE_FOOTER.test(html)) {
       errors.push(`${route.path}: stale footer version label`);
     }
-    if (
-      route.path === "/tracker/" &&
-      html.indexOf("Operator review pipeline (T082)") >
+    if (route.path === "/") {
+      if (
+        html.indexOf("T083 Signal Quality") > html.indexOf("T082 Operator Decision Workflow")
+      ) {
+        errors.push(`${route.path}: T083 banner must appear before T082`);
+      }
+    }
+    if (route.path === "/tracker/") {
+      if (
+        html.indexOf("Signal quality dashboard (T083)") >
+        html.indexOf("Operator review pipeline (T082)")
+      ) {
+        errors.push(`${route.path}: T083 section must appear before T082`);
+      }
+      if (
+        html.indexOf("Operator review pipeline (T082)") >
         html.indexOf("Coverage dashboard (T080)")
-    ) {
-      errors.push(`${route.path}: T082 section must appear before T080 coverage`);
+      ) {
+        errors.push(`${route.path}: T082 section must appear before T080 coverage`);
+      }
     }
   }
 
@@ -166,7 +196,7 @@ async function main() {
     process.exit(1);
   }
 
-  console.log(`  PASS: live routes match ${VERSION_LABEL} / T082 expectations\n`);
+  console.log(`  PASS: live routes match ${VERSION_LABEL} / T083 expectations\n`);
 }
 
 main().catch((err) => {

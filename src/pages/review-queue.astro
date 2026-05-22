@@ -264,17 +264,26 @@ const rulesVersion =
               data-source={card.source_key}
               data-topic={card.topic_tags.join(" ")}
               data-has-decision={op ? "yes" : "no"}
+              data-signal-score={card.signal_score ?? ""}
               data-relevance={card.ai_regulation_relevance ?? ""}
               data-signal-category={card.signal_category ?? ""}
               data-recommended-action={card.recommended_operator_action ?? ""}
+              data-reason-codes={(card.reason_codes ?? []).join(",")}
             >
               <div class="card__meta">
-                <span class="badge badge--type">Score {card.signal_score ?? "—"}</span>
-                <span class={`badge badge--relevance-${card.ai_regulation_relevance ?? "unknown"}`}>
+                <span class="badge badge--type" title="signal_score">
+                  signal_score {card.signal_score ?? "—"}
+                </span>
+                <span
+                  class={`badge badge--relevance-${card.ai_regulation_relevance ?? "unknown"}`}
+                  title="ai_regulation_relevance"
+                >
+                  ai_regulation_relevance:{" "}
                   {RELEVANCE_LABELS[card.ai_regulation_relevance ?? ""] ??
                     humanizeId(card.ai_regulation_relevance ?? "unknown")}
                 </span>
-                <span class="badge badge--type">
+                <span class="badge badge--type" title="signal_category">
+                  signal_category:{" "}
                   {SIGNAL_CATEGORY_LABELS[card.signal_category ?? ""] ??
                     humanizeId(card.signal_category ?? "unknown")}
                 </span>
@@ -295,8 +304,9 @@ const rulesVersion =
                   )
                 }
                 {op && <span class="badge badge--type">Operator: {humanizeId(op.decision)}</span>}
-                <span class="badge badge--review">
-                  Signal: {RECOMMENDED_ACTION_LABELS[card.recommended_operator_action ?? ""] ??
+                <span class="badge badge--review" title="recommended_operator_action">
+                  recommended_operator_action:{" "}
+                  {RECOMMENDED_ACTION_LABELS[card.recommended_operator_action ?? ""] ??
                     humanizeId(card.recommended_operator_action ?? "")}
                 </span>
               </div>
@@ -323,7 +333,7 @@ const rulesVersion =
                 (card.reason_codes?.length ?? 0) > 0 && (
                   <p class="card__excerpt">
                     <small>
-                      <strong>Reason codes:</strong> {card.reason_codes?.join(", ")}
+                      <strong>reason_codes:</strong> {card.reason_codes?.join(", ")}
                     </small>
                   </p>
                 )

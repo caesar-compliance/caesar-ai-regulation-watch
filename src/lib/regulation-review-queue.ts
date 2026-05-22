@@ -84,6 +84,10 @@ export interface SignalQualitySummary {
   source_check_count: number;
   keep_for_monitoring_count: number;
   dismiss_recommended_count: number;
+  manual_review_later_count?: number;
+  high_priority_count?: number;
+  medium_priority_count?: number;
+  low_priority_count?: number;
   rules_version: string;
   generated_at: string;
   gates_closed: boolean;

@@ -7,6 +7,7 @@ import { getChanges } from "../lib/data";
 import {
   getReviewQueueSummary as getRegulationReviewQueueSummary,
   getOperatorReviewSummary,
+  getSignalQualitySummary,
 } from "../lib/regulation-review-queue";
 import { getAutomationFirstMetrics } from "../lib/tracker-data";
 import MetricsStrip from "../components/MetricsStrip.astro";
@@ -19,6 +20,7 @@ import { getCountryStatus } from "../lib/tracker-data";
 const routeSummary = getPublicRouteSummary();
 const regulationReviewSummary = getRegulationReviewQueueSummary();
 const operatorSummary = getOperatorReviewSummary();
+const signalSummary = getSignalQualitySummary();
 const profileCards = getJurisdictionProfileCards();
 const recentChanges = getChanges().slice(0, 3);
 const trackerMetrics = getAutomationFirstMetrics();
@@ -27,21 +29,29 @@ const trackerMetrics = getAutomationFirstMetrics();
 <BaseLayout title="Home" currentPath="/">
   <h1>Caesar AI Regulation Watch</h1>
   <p class="lead">
-    {PROJECT_VERSION_LABEL} — Automation-first AI regulation tracker with T082 operator decision
-    workflow on backend monitoring candidates, plus T080 country profiles and source-linked
-    status. Technical pilot — not legal advice and not complete global coverage.
+    {PROJECT_VERSION_LABEL} — T083 signal quality and review prioritization on backend monitoring
+    candidates, with T082 operator decisions and T080 country profiles. Technical pilot — not legal
+    advice and not complete global coverage.
   </p>
 
   <div class="banner banner--review" role="note">
-    <strong>T082 Operator Decision Workflow ({PROJECT_VERSION_LABEL}).</strong>{" "}
-    {regulationReviewSummary.total} regulation review candidates ·{" "}
+    <strong>T083 Signal Quality and Review Prioritization ({PROJECT_VERSION_LABEL}).</strong>{" "}
+    {signalSummary.total_candidates ?? regulationReviewSummary.total} regulation review candidates ·{" "}
+    {signalSummary.high_relevance_count ?? 0} high relevance · {signalSummary.noise_count ?? 0} noise ·{" "}
+    {signalSummary.source_check_count ?? 0} source-check recommended · Rules{" "}
+    <code>{signalSummary.rules_version ?? "—"}</code> · All safety gates closed · cron disabled.{" "}
+    <a href="/review-queue/">Review queue →</a> ·{" "}
+    <a href="/data/signal-quality-summary.json">signal-quality-summary.json</a>
+  </div>
+
+  <div class="banner banner--automation" role="note">
+    <strong>T082 Operator Decision Workflow.</strong>{" "}
     {operatorSummary.decision_count ?? 0} operator decisions in local YAML ·{" "}
     {regulationReviewSummary.review_required} review_required ·{" "}
     {regulationReviewSummary.in_review} in_review ·{" "}
     {regulationReviewSummary.needs_source_check} needs source check ·{" "}
-    {regulationReviewSummary.accepted_for_tracking} accepted for tracking (not legal
-    verification) · {regulationReviewSummary.dismissed} dismissed. All safety gates closed ·
-    cron disabled. <a href="/review-queue/">Review queue →</a>
+    {regulationReviewSummary.accepted_for_tracking} accepted for tracking (not legal verification) ·{" "}
+    {regulationReviewSummary.dismissed} dismissed.
   </div>
 
   <div class="banner banner--automation" role="note">
@@ -126,10 +136,11 @@ const trackerMetrics = getAutomationFirstMetrics();
       <p>{routeSummary.monitoredSourceCount} monitored authority URLs in pilot registry</p>
     </div>
     <div class="nav-card nav-card--accent">
-      <a href="/review-queue/">Regulation review queue (T082)</a>
+      <a href="/review-queue/">Regulation review queue (T083/T082)</a>
       <p>
-        {regulationReviewSummary.total} monitoring candidates ·{" "}
-        {operatorSummary.decision_count ?? 0} operator decisions — metadata only
+        {signalSummary.total_candidates ?? regulationReviewSummary.total} candidates ·{" "}
+        {signalSummary.noise_count ?? 0} noise · {operatorSummary.decision_count ?? 0} operator
+        decisions — metadata only
       </p>
     </div>
     <div class="nav-card">

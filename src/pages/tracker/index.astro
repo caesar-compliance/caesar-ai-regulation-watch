@@ -81,15 +81,10 @@ const latestUpdates = filterRegulatoryUpdates({
     monitoring candidates, plus automation-first tracker (T050/T080) — not legal advice.
   </p>
 
-  <div class="banner banner--review" role="note">
-    <strong>T082 Operator Decision Workflow.</strong> Local YAML decisions applied to public
-    exports. Accepted for tracking is <em>not</em> legal verification. Gates closed · cron
-    disabled.
-  </div>
-
   <div class="banner banner--automation" role="note">
     <strong>Technical tracker pilot.</strong> Manual seeds plus {adapterCount} offline metadata
-    adapter record(s) — no live scraping. Evidence and client-use gates remain closed.
+    adapter record(s) — no live scraping. Evidence and client-use gates remain closed · cron
+    disabled.
   </div>
 
   <MetricsStrip metrics={metrics} />
@@ -126,14 +121,53 @@ const latestUpdates = filterRegulatoryUpdates({
         <span class="metrics-strip__label">Source check</span>
       </div>
     </div>
+    <h3>Priority distribution</h3>
+    <div class="metrics-strip metrics-strip--monitoring">
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{signalSummary.high_priority_count ?? 0}</span>
+        <span class="metrics-strip__label">High priority</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{signalSummary.medium_priority_count ?? 0}</span>
+        <span class="metrics-strip__label">Medium priority</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{signalSummary.low_priority_count ?? 0}</span>
+        <span class="metrics-strip__label">Low priority</span>
+      </div>
+    </div>
+    <h3>Recommended operator actions</h3>
+    <div class="metrics-strip metrics-strip--monitoring">
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{signalSummary.review_now_count ?? 0}</span>
+        <span class="metrics-strip__label">Review now</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{signalSummary.keep_for_monitoring_count ?? 0}</span>
+        <span class="metrics-strip__label">Keep monitoring</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{signalSummary.manual_review_later_count ?? 0}</span>
+        <span class="metrics-strip__label">Manual review later</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{signalSummary.dismiss_recommended_count ?? 0}</span>
+        <span class="metrics-strip__label">Dismiss recommended</span>
+      </div>
+    </div>
     <p>
-      Deterministic rules in <code>data/runtime/signal-quality-rules.yml</code> — not legal
-      verification. <a href="/data/signal-quality-summary.json">signal-quality-summary.json</a>
+      Deterministic rules version <code>{signalSummary.rules_version ?? "—"}</code> in{" "}
+      <code>data/runtime/signal-quality-rules.yml</code> — not legal verification.{" "}
+      <a href="/data/signal-quality-summary.json">signal-quality-summary.json</a>
     </p>
   </section>
 
   <section class="tracker-section">
     <h2>Operator review pipeline (T082)</h2>
+    <p>
+      <strong>T082 Operator Decision Workflow.</strong> Local YAML decisions applied to public
+      exports. Accepted for tracking is <em>not</em> legal verification. Gates closed.
+    </p>
     <div class="metrics-strip metrics-strip--monitoring">
       <div class="metrics-strip__item">
         <span class="metrics-strip__value">{reviewQueueSummary.total ?? 0}</span>
