@@ -21,7 +21,8 @@
 - [x] `npm run verify:dist`
 - [x] `validate:source-registry`, `validate:ingress-filtering`, `validate:automation-runtime`, `validate:public-export-consistency`, `validate:public-route-consistency`
 
-## Post-deploy (pending)
+## Post-deploy
 
-- [ ] `npm run smoke:live-routes` (v1.0.37)
-- [ ] Live JSON: `db_registry_alignment_status: aligned`, `no_registry_fk_error_count: 0`
+- [x] Deploy `DEPLOY-20260522-060` — run [26302698434](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26302698434)
+- [x] `npm run smoke:live-routes` (v1.0.37)
+- [x] Live JSON: `db_registry_alignment_status: aligned`, `no_registry_fk_error_count: 0`, worker 6/0

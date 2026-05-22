@@ -9,7 +9,8 @@
 |---|---|
 | Starting HEAD | `f5d351d` |
 | Branch | `task/T086-dev-db-registry-fk-alignment-six-source-worker-runs` |
-| Final commit | *(see post-push)* |
+| Final commit | `f57c686` |
+| Final main HEAD | `f57c686` |
 | Tag | `regulation-watch-v1.0.37` |
 | Package version | `1.0.37` |
 
@@ -104,8 +105,8 @@
 
 | Item | Status |
 |---|---|
-| Static deploy run ID | *(pending `gh workflow_dispatch` after merge)* |
-| Post-deploy smoke | Pending |
+| Static deploy | `DEPLOY-20260522-060` — [26302698434](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26302698434) |
+| Post-deploy smoke | PASS — `npm run smoke:live-routes` (v1.0.37, runs=13, ok=6, err=0, aligned) |
 
 ## Safety
 
