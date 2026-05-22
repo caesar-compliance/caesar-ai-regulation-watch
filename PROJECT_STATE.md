@@ -4,10 +4,10 @@
 
 | Field | Value |
 |---|---|
-| **Current version** | `v1.0.33` (operator decision loop + review state publishing — T082) |
-| **Live version** | `v1.0.33` — tag `regulation-watch-v1.0.33`, deploy [26297652799](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26297652799) |
+| **Current version** | `v1.0.34` (signal quality + review prioritization — T083) |
+| **Live version** | `v1.0.34` — tag `regulation-watch-v1.0.34` (pending deploy record in DEPLOYMENTS.md) |
 | **Last deployment** | `DEPLOY-20260522-050` — commit `1b50fcd`, run [26295890931](https://github.com/caesar-compliance/caesar-ai-regulation-watch/actions/runs/26295890931) |
-| **Status** | T082: operator decisions (4 sample) applied to 20-card queue; T081 freshness + packets; T080 coverage; dev Worker; scheduled monitoring disabled |
+| **Status** | T083: deterministic signal scoring on 20-card queue (8 noise, 2 medium AI signal); T082 operator decisions (4) preserved; T081 freshness + packets; scheduled monitoring disabled |
 | **URL** | [regulation-watch.caesar.no](https://regulation-watch.caesar.no/) |
 | **Phase** | Public Technical MVP + profiles/drilldowns (T051) |
 

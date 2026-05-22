@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-22T15:46:17.988Z",
-  "product_version": "1.0.33",
+  "generated_at": "2026-05-22T16:07:25.420Z",
+  "product_version": "1.0.34",
   "review_required": true,
   "legal_change_claimed": false,
   "public_note": "Backend-derived metadata only. Review required before any legal or client use. Not legal advice.",
@@ -35,10 +35,16 @@
       "accepted_for_tracking": 1,
       "needs_source_check": 1,
       "needs_legal_review": 0,
-      "high_priority": 17,
-      "medium_priority": 2,
-      "low_priority": 1,
-      "with_operator_decision": 4
+      "high_priority": 1,
+      "medium_priority": 5,
+      "low_priority": 14,
+      "with_operator_decision": 4,
+      "high_relevance": 0,
+      "medium_relevance": 1,
+      "low_relevance": 11,
+      "noise_relevance": 8,
+      "dismiss_recommended": 8,
+      "review_now_recommended": 0
     },
     "decision_counts": {
       "total": 4,
@@ -48,6 +54,35 @@
       "accept_for_tracking": 1,
       "needs_source_check": 1,
       "needs_legal_review": 0
+    }
+  },
+  "signal_quality": {
+    "rules_version": "1.0.0",
+    "total_candidates": 20,
+    "high_relevance_count": 0,
+    "medium_relevance_count": 1,
+    "low_relevance_count": 11,
+    "noise_count": 8,
+    "review_now_count": 0,
+    "source_check_count": 1,
+    "keep_for_monitoring_count": 0,
+    "dismiss_recommended_count": 8,
+    "manual_review_later_count": 11,
+    "high_priority_count": 1,
+    "medium_priority_count": 5,
+    "low_priority_count": 14,
+    "signal_quality_rules_id": "signal-quality-rules-v1",
+    "generated_at": "2026-05-22T16:07:25.414Z",
+    "gates_closed": true,
+    "public_note": "Aggregated signal-quality metadata from deterministic rules. Not legal verification.",
+    "gates": {
+      "verified_on_source": false,
+      "client_use_allowed": false,
+      "client_evidence_allowed": false,
+      "final_evidence_allowed": false,
+      "legal_change_claimed": false,
+      "publication_allowed": false,
+      "public_export_allowed": false
     }
   }
 }

@@ -11,6 +11,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.34] - 22 May 2026
+
+### Added
+
+- **T083 signal quality** — Deterministic scoring (`signal_score`, `ai_regulation_relevance`, `signal_category`, `recommended_operator_action`, `reason_codes`) on all review queue cards; rules in `data/runtime/signal-quality-rules.yml`.
+- **Exports** — `public/data/signal-quality-summary.json`; enriched `regulation-review-queue.json` and `tracker-summary.json` signal_quality block.
+- **Validation** — `npm run validate:signal-quality`.
+- **UI** — Signal filters/badges on `/review-queue/`; signal dashboard on `/tracker/`; rules health on `/runtime-health/`; jurisdiction high/medium relevance with collapsed noise.
+
+### Changed
+
+- Queue priority for candidates without operator decisions now follows signal score (newsletters/events downgraded; AI Act items remain medium/high).
+
+---
+
 ## [1.0.33] - 22 May 2026 (T082A hotfix)
 
 ### Fixed

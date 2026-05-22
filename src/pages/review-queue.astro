@@ -6,13 +6,20 @@ import {
   getReviewQueueSummary,
   getSourceFreshnessSummary,
   getOperatorReviewSummary,
+  getSignalQualitySummary,
+  getRegulationReviewQueue,
   REVIEW_STATUS_LABELS,
+  RELEVANCE_LABELS,
+  SIGNAL_CATEGORY_LABELS,
+  RECOMMENDED_ACTION_LABELS,
 } from "../lib/regulation-review-queue";
 import { getJurisdictions } from "../lib/data";
 import { humanizeId } from "../lib/format";
 
 const cards = getReviewQueueCards();
 const summary = getReviewQueueSummary();
+const signalSummary = getSignalQualitySummary();
+const queueMeta = getRegulationReviewQueue();
 const freshnessSummary = getSourceFreshnessSummary();
 const operatorSummary = getOperatorReviewSummary();
 const jurisdictions = getJurisdictions();
@@ -29,7 +36,14 @@ const statuses = [
 ].filter((s) => cards.some((c) => c.review_status === s));
 const sources = [...new Set(cards.map((c) => c.source_key))].sort();
 const topics = [...new Set(cards.flatMap((c) => c.topic_tags))].sort();
+const relevances = ["high", "medium", "low", "noise"].filter((r) =>
+  cards.some((c) => c.ai_regulation_relevance === r),
+);
+const signalCategories = [...new Set(cards.map((c) => c.signal_category).filter(Boolean))].sort();
+const recommendedActions = [...new Set(cards.map((c) => c.recommended_operator_action).filter(Boolean))].sort();
 const decisionCounts = operatorSummary.decision_counts ?? {};
+const rulesVersion =
+  queueMeta.signal_quality_rules_version ?? signalSummary.rules_version ?? "—";
 ---
 
 <BaseLayout
@@ -40,8 +54,8 @@ const decisionCounts = operatorSummary.decision_counts ?? {};
   <div data-filter-page>
     <h1>Regulation review queue</h1>
     <p class="lead">
-      {PROJECT_VERSION_LABEL} — Backend-derived review candidates with operator decision state (T082).
-      Read-only public view; decisions are recorded locally in YAML and rebuilt into exports.
+      {PROJECT_VERSION_LABEL} — Signal quality scoring and review prioritization (T083) on backend
+      candidates with operator decision state (T082). Read-only public view; not legal verification.
     </p>
 
     <div class="banner banner--review" role="note">
@@ -50,6 +64,40 @@ const decisionCounts = operatorSummary.decision_counts ?? {};
       {summary.accepted_for_tracking} tracking only · {summary.dismissed} dismissed · Cron:{" "}
       <strong>disabled</strong> · Not legal advice.
     </div>
+
+    <section class="tracker-section">
+      <h2>Signal quality (T083)</h2>
+      <div class="metrics-strip metrics-strip--monitoring">
+        <div class="metrics-strip__item">
+          <span class="metrics-strip__value">{signalSummary.high_relevance_count ?? 0}</span>
+          <span class="metrics-strip__label">High relevance</span>
+        </div>
+        <div class="metrics-strip__item">
+          <span class="metrics-strip__value">{signalSummary.medium_relevance_count ?? 0}</span>
+          <span class="metrics-strip__label">Medium</span>
+        </div>
+        <div class="metrics-strip__item">
+          <span class="metrics-strip__value">{signalSummary.low_relevance_count ?? 0}</span>
+          <span class="metrics-strip__label">Low</span>
+        </div>
+        <div class="metrics-strip__item">
+          <span class="metrics-strip__value">{signalSummary.noise_count ?? 0}</span>
+          <span class="metrics-strip__label">Noise</span>
+        </div>
+        <div class="metrics-strip__item">
+          <span class="metrics-strip__value">{signalSummary.review_now_count ?? 0}</span>
+          <span class="metrics-strip__label">Review now</span>
+        </div>
+        <div class="metrics-strip__item">
+          <span class="metrics-strip__value">{signalSummary.dismiss_recommended_count ?? 0}</span>
+          <span class="metrics-strip__label">Dismiss recommended</span>
+        </div>
+      </div>
+      <p>
+        Rules version <code>{rulesVersion}</code> · Deterministic keyword routing — metadata only.{" "}
+        <a href="/data/signal-quality-summary.json">signal-quality-summary.json</a>
+      </p>
+    </section>
 
     <section class="tracker-section">
       <h2>Operator decisions (T082)</h2>
@@ -170,6 +218,33 @@ const decisionCounts = operatorSummary.decision_counts ?? {};
           ))}
         </select>
       </label>
+      <label>
+        AI relevance
+        <select data-filter-key="relevance">
+          <option value="">All</option>
+          {relevances.map((r) => (
+            <option value={r}>{RELEVANCE_LABELS[r] ?? humanizeId(r)}</option>
+          ))}
+        </select>
+      </label>
+      <label>
+        Signal category
+        <select data-filter-key="signalCategory">
+          <option value="">All</option>
+          {signalCategories.map((c) => (
+            <option value={c}>{SIGNAL_CATEGORY_LABELS[c] ?? humanizeId(c)}</option>
+          ))}
+        </select>
+      </label>
+      <label>
+        Recommended action
+        <select data-filter-key="recommendedAction">
+          <option value="">All</option>
+          {recommendedActions.map((a) => (
+            <option value={a}>{RECOMMENDED_ACTION_LABELS[a] ?? humanizeId(a)}</option>
+          ))}
+        </select>
+      </label>
       <p class="filter-bar__count" data-filter-count />
     </div>
 
@@ -189,8 +264,20 @@ const decisionCounts = operatorSummary.decision_counts ?? {};
               data-source={card.source_key}
               data-topic={card.topic_tags.join(" ")}
               data-has-decision={op ? "yes" : "no"}
+              data-relevance={card.ai_regulation_relevance ?? ""}
+              data-signal-category={card.signal_category ?? ""}
+              data-recommended-action={card.recommended_operator_action ?? ""}
             >
               <div class="card__meta">
+                <span class="badge badge--type">Score {card.signal_score ?? "—"}</span>
+                <span class={`badge badge--relevance-${card.ai_regulation_relevance ?? "unknown"}`}>
+                  {RELEVANCE_LABELS[card.ai_regulation_relevance ?? ""] ??
+                    humanizeId(card.ai_regulation_relevance ?? "unknown")}
+                </span>
+                <span class="badge badge--type">
+                  {SIGNAL_CATEGORY_LABELS[card.signal_category ?? ""] ??
+                    humanizeId(card.signal_category ?? "unknown")}
+                </span>
                 <span class={`badge badge--${card.priority === "high" ? "warn" : "type"}`}>
                   {card.priority} priority
                 </span>
@@ -208,7 +295,21 @@ const decisionCounts = operatorSummary.decision_counts ?? {};
                   )
                 }
                 {op && <span class="badge badge--type">Operator: {humanizeId(op.decision)}</span>}
+                <span class="badge badge--review">
+                  Signal: {RECOMMENDED_ACTION_LABELS[card.recommended_operator_action ?? ""] ??
+                    humanizeId(card.recommended_operator_action ?? "")}
+                </span>
               </div>
+              {
+                op && (
+                  <p class="card__excerpt">
+                    <small>
+                      <strong>Operator decision overrides signal recommendation</strong> — automated
+                      priority/action is advisory only.
+                    </small>
+                  </p>
+                )
+              }
               <h2 class="card__title-sm">{card.title}</h2>
               <p class="card__excerpt">
                 <small>
@@ -218,6 +319,22 @@ const decisionCounts = operatorSummary.decision_counts ?? {};
                 </small>
               </p>
               {card.metadata_summary && <p>{card.metadata_summary}</p>}
+              {
+                (card.reason_codes?.length ?? 0) > 0 && (
+                  <p class="card__excerpt">
+                    <small>
+                      <strong>Reason codes:</strong> {card.reason_codes?.join(", ")}
+                    </small>
+                  </p>
+                )
+              }
+              {
+                card.signal_quality_note && (
+                  <p class="card__excerpt">
+                    <small>{card.signal_quality_note}</small>
+                  </p>
+                )
+              }
               {
                 op?.public_note && (
                   <p class="card__excerpt">

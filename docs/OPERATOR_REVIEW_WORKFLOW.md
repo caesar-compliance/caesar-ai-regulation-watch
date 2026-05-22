@@ -1,6 +1,29 @@
-# Operator review workflow (T082)
+# Operator review workflow (T082 / T083)
 
-Static-first operator decisions for Caesar AI Regulation Watch monitoring candidates. This workflow does **not** open legal, evidence, client, or publication gates.
+Static-first operator decisions for Caesar AI Regulation Watch monitoring candidates. **T083** adds deterministic signal-quality scoring and review prioritization before operators open the queue. This workflow does **not** open legal, evidence, client, or publication gates.
+
+## Signal quality (T083)
+
+Rules file: `data/runtime/signal-quality-rules.yml` (version in export: `signal-quality-summary.json` → `rules_version`).
+
+Each review candidate in `regulation-review-queue.json` includes:
+
+| Field | Meaning |
+|-------|---------|
+| `signal_score` | 0–100 metadata relevance score |
+| `ai_regulation_relevance` | `high` \| `medium` \| `low` \| `noise` |
+| `signal_category` | e.g. `regulator_guidance`, `newsletter_or_event`, `generic_privacy_item` |
+| `recommended_operator_action` | Advisory: `review_now`, `source_check`, `keep_for_monitoring`, `dismiss_as_noise`, `manual_review_later` |
+| `reason_codes` | Transparent rule hits (e.g. `contains_ai_act`, `contains_newsletter`) |
+
+**Operator decision overrides** automated priority and recommendation when a YAML decision exists for the candidate. Signal fields remain visible for audit.
+
+Typical triage:
+
+1. Sort by `signal_score` / filter `dismiss_as_noise` recommendations for newsletters and duplicate digests.
+2. Prioritize `source_check` / `review_now` for AI Act and AI governance titles.
+3. Record YAML decisions only when human triage disagrees with or confirms the signal layer.
+4. Never treat signal scores as legal verification.
 
 ## Scope
 
@@ -67,6 +90,7 @@ npm run build:source-freshness-export
 npm run build:review-packets
 npm run validate:review-queue
 npm run validate:source-freshness
+npm run validate:signal-quality
 ```
 
 Full site build (includes validations):

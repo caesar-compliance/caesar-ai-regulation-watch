@@ -41,7 +41,10 @@ import {
   acceptedTrackingCardsForJurisdiction,
   sourceFreshnessForJurisdiction,
   jurisdictionReviewState,
+  pendingRelevanceCardsForJurisdiction,
+  noiseCardsForJurisdiction,
   REVIEW_STATUS_LABELS,
+  RELEVANCE_LABELS,
 } from "../../lib/regulation-review-queue";
 import TrackerMeter from "../../components/TrackerMeter.astro";
 
@@ -93,10 +96,11 @@ const countryTrackingCards = acceptedTrackingCardsForJurisdiction(
 );
 const countrySourceFreshness = sourceFreshnessForJurisdiction(jurisdiction.jurisdiction_id);
 const countryReviewState = jurisdictionReviewState(jurisdiction.jurisdiction_id);
-const activeReviewCards = countryReviewCards.filter(
-  (c) =>
-    c.review_status !== "dismissed" && c.review_status !== "accepted_for_tracking",
+const pendingRelevanceCards = pendingRelevanceCardsForJurisdiction(
+  jurisdiction.jurisdiction_id,
 );
+const noiseCards = noiseCardsForJurisdiction(jurisdiction.jurisdiction_id);
+const activeReviewCards = pendingRelevanceCards;
 ---
 
 <BaseLayout title={jurisdiction.name} currentPath="/jurisdictions/">
@@ -439,10 +443,10 @@ const activeReviewCards = countryReviewCards.filter(
   }
 
   <section class="tracker-section">
-    <h2>Country review workflow (T082)</h2>
+    <h2>Country review workflow (T083 / T082)</h2>
     <div class="banner banner--review" role="note">
-      <strong>Not legal advice.</strong> Monitoring signals with operator decision state — tracking
-      acceptance is not legal verification. All safety gates remain closed.
+      <strong>Not legal advice.</strong> High/medium AI-regulation relevance candidates shown first;
+      noise collapsed by default. Operator decisions override signal recommendations.
     </div>
     <dl class="meta-grid">
       <div><dt>Review state</dt><dd>{countryReviewState?.review_state ?? "unknown"}</dd></div>
@@ -457,11 +461,12 @@ const activeReviewCards = countryReviewCards.filter(
     {
       activeReviewCards.length > 0 ? (
         <>
-          <h3>Active review signals</h3>
+          <h3>High / medium AI-regulation relevance (pending)</h3>
           <ul>
             {activeReviewCards.slice(0, 8).map((c) => (
               <li>
-                <strong>{c.priority}</strong> — {c.title} (
+                <strong>score {c.signal_score ?? "—"}</strong> — {c.title} (
+                {RELEVANCE_LABELS[c.ai_regulation_relevance ?? ""] ?? c.ai_regulation_relevance} ·{" "}
                 {REVIEW_STATUS_LABELS[c.review_status] ?? c.review_status})
                 {c.source_url && (
                   <>
@@ -476,7 +481,33 @@ const activeReviewCards = countryReviewCards.filter(
           </ul>
         </>
       ) : (
-        <p>No active review candidates for this jurisdiction in current export.</p>
+        <p>No high/medium relevance pending candidates for this jurisdiction in current export.</p>
+      )
+    }
+    {
+      noiseCards.length > 0 && (
+        <>
+          <p>
+            <button
+              type="button"
+              class="btn-link"
+              data-noise-toggle
+              data-noise-target={jurisdiction.jurisdiction_id}
+              data-label-show={`Show ${noiseCards.length} noise/low-signal item(s)`}
+              data-label-hide="Hide noise"
+            >
+              Show {noiseCards.length} noise/low-signal item(s)
+            </button>
+          </p>
+          <ul data-noise-panel={jurisdiction.jurisdiction_id} hidden>
+            {noiseCards.map((c) => (
+              <li>
+                <em>{RELEVANCE_LABELS[c.ai_regulation_relevance ?? "noise"] ?? "Noise"}</em> —{" "}
+                {c.title} (score {c.signal_score ?? 0})
+              </li>
+            ))}
+          </ul>
+        </>
       )
     }
     {
@@ -508,6 +539,8 @@ const activeReviewCards = countryReviewCards.filter(
     </ul>
     <p><a href="/review-queue/">Regulation review queue →</a></p>
   </section>
+
+  <script is:inline src="/scripts/regulation-review-queue-filter.js"></script>
 
   <section class="tracker-section">
     <h2>Registry coverage</h2>

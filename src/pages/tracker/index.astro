@@ -25,6 +25,7 @@ import {
   getReviewQueueCards,
   getSourceFreshnessSummary,
   getOperatorReviewSummary,
+  getSignalQualitySummary,
 } from "../../lib/regulation-review-queue";
 
 const metrics = getAutomationFirstMetrics();
@@ -42,6 +43,7 @@ const reviewQueueSummary = getReviewQueueSummary();
 const reviewQueueCards = getReviewQueueCards();
 const freshnessSummary = getSourceFreshnessSummary();
 const operatorSummary = getOperatorReviewSummary();
+const signalSummary = getSignalQualitySummary();
 const automatedRssCount =
   monitoring.automated_rss_source_count ?? monitoring.automated_source_count ?? 0;
 const topics = getTrackerTopics();
@@ -75,8 +77,8 @@ const latestUpdates = filterRegulatoryUpdates({
 >
   <h1>Global AI regulation tracker</h1>
   <p class="lead">
-    {PROJECT_VERSION_LABEL} — Operator review pipeline (T082) on backend monitoring candidates,
-    plus automation-first tracker (T050/T080) with source-linked updates — not legal advice.
+    {PROJECT_VERSION_LABEL} — Signal quality and operator review pipeline (T083/T082) on backend
+    monitoring candidates, plus automation-first tracker (T050/T080) — not legal advice.
   </p>
 
   <div class="banner banner--review" role="note">
@@ -91,6 +93,44 @@ const latestUpdates = filterRegulatoryUpdates({
   </div>
 
   <MetricsStrip metrics={metrics} />
+
+  <section class="tracker-section">
+    <h2>Signal quality dashboard (T083)</h2>
+    <div class="metrics-strip metrics-strip--monitoring">
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{signalSummary.high_relevance_count ?? 0}</span>
+        <span class="metrics-strip__label">High relevance</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{signalSummary.medium_relevance_count ?? 0}</span>
+        <span class="metrics-strip__label">Medium</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{signalSummary.low_relevance_count ?? 0}</span>
+        <span class="metrics-strip__label">Low</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{signalSummary.noise_count ?? 0}</span>
+        <span class="metrics-strip__label">Noise</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{signalSummary.review_now_count ?? 0}</span>
+        <span class="metrics-strip__label">Review now</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{signalSummary.dismiss_recommended_count ?? 0}</span>
+        <span class="metrics-strip__label">Dismiss recommended</span>
+      </div>
+      <div class="metrics-strip__item">
+        <span class="metrics-strip__value">{signalSummary.source_check_count ?? 0}</span>
+        <span class="metrics-strip__label">Source check</span>
+      </div>
+    </div>
+    <p>
+      Deterministic rules in <code>data/runtime/signal-quality-rules.yml</code> — not legal
+      verification. <a href="/data/signal-quality-summary.json">signal-quality-summary.json</a>
+    </p>
+  </section>
 
   <section class="tracker-section">
     <h2>Operator review pipeline (T082)</h2>

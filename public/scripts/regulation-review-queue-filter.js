@@ -7,6 +7,11 @@
     if (filters.source && item.dataset.source !== filters.source) return false;
     if (filters.hasDecision && item.dataset.hasDecision !== filters.hasDecision)
       return false;
+    if (filters.relevance && item.dataset.relevance !== filters.relevance) return false;
+    if (filters.signalCategory && item.dataset.signalCategory !== filters.signalCategory)
+      return false;
+    if (filters.recommendedAction && item.dataset.recommendedAction !== filters.recommendedAction)
+      return false;
     if (filters.topic) {
       const topics = (item.dataset.topic || "").split(/\s+/);
       if (!topics.includes(filters.topic)) return false;
@@ -43,4 +48,20 @@
   }
 
   document.querySelectorAll("[data-filter-page]").forEach(init);
+
+  document.querySelectorAll("[data-noise-toggle]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const target = btn.getAttribute("data-noise-target");
+      const panel = document.querySelector(`[data-noise-panel="${target}"]`);
+      if (!panel) return;
+      const hidden = panel.hasAttribute("hidden");
+      if (hidden) {
+        panel.removeAttribute("hidden");
+        btn.textContent = btn.getAttribute("data-label-hide") || "Hide noise";
+      } else {
+        panel.setAttribute("hidden", "");
+        btn.textContent = btn.getAttribute("data-label-show") || "Show noise";
+      }
+    });
+  });
 })();

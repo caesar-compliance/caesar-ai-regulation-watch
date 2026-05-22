@@ -5,6 +5,7 @@ import fs from "node:fs";
 import path from "node:path";
 import yaml from "js-yaml";
 import { loadMonitoringPilotRegistry } from "./monitoring-pilot-registry.mjs";
+import { enrichCardsWithSignalPriority } from "./signal-quality.mjs";
 
 export const CLOSED_GATES = {
   verified_on_source: false,
@@ -173,6 +174,12 @@ export function summarizeReviewStatuses(cards) {
     medium_priority: 0,
     low_priority: 0,
     with_operator_decision: 0,
+    high_relevance: 0,
+    medium_relevance: 0,
+    low_relevance: 0,
+    noise_relevance: 0,
+    dismiss_recommended: 0,
+    review_now_recommended: 0,
   };
   for (const card of cards) {
     const status = card.review_status;
@@ -181,6 +188,16 @@ export function summarizeReviewStatuses(cards) {
     else if (card.priority === "medium") summary.medium_priority += 1;
     else if (card.priority === "low") summary.low_priority += 1;
     if (card.operator_decision) summary.with_operator_decision += 1;
+    if (card.ai_regulation_relevance === "high") summary.high_relevance += 1;
+    else if (card.ai_regulation_relevance === "medium") summary.medium_relevance += 1;
+    else if (card.ai_regulation_relevance === "low") summary.low_relevance += 1;
+    else if (card.ai_regulation_relevance === "noise") summary.noise_relevance += 1;
+    if (card.recommended_operator_action === "dismiss_as_noise") {
+      summary.dismiss_recommended += 1;
+    }
+    if (card.recommended_operator_action === "review_now") {
+      summary.review_now_recommended += 1;
+    }
   }
   return summary;
 }
@@ -236,9 +253,10 @@ export function buildReviewQueueCards(root) {
     mapCandidateToCard(c, registryByKey, detectedById),
   );
   const { byCandidate } = buildDecisionIndex(loadOperatorDecisions(root));
-  return baseCards.map((card) =>
+  const withDecisions = baseCards.map((card) =>
     applyOperatorDecisionToCard(card, byCandidate.get(card.candidate_id)),
   );
+  return enrichCardsWithSignalPriority(withDecisions, root);
 }
 
 function daysSince(iso) {

@@ -41,6 +41,14 @@ export interface ReviewQueueCard {
   metadata_summary: string | null;
   review_status: string;
   priority: string;
+  signal_score?: number;
+  ai_regulation_relevance?: string;
+  signal_category?: string;
+  recommended_operator_action?: string;
+  reason_codes?: string[];
+  signal_quality_note?: string;
+  signal_priority_source?: string;
+  rules_version?: string;
   safety_notes: string;
   review_required: boolean;
   operator_decision?: OperatorDecisionSummary | null;
@@ -58,6 +66,27 @@ export interface ReviewQueueSummary {
   medium_priority: number;
   low_priority: number;
   with_operator_decision?: number;
+  high_relevance?: number;
+  medium_relevance?: number;
+  low_relevance?: number;
+  noise_relevance?: number;
+  dismiss_recommended?: number;
+  review_now_recommended?: number;
+}
+
+export interface SignalQualitySummary {
+  total_candidates: number;
+  high_relevance_count: number;
+  medium_relevance_count: number;
+  low_relevance_count: number;
+  noise_count: number;
+  review_now_count: number;
+  source_check_count: number;
+  keep_for_monitoring_count: number;
+  dismiss_recommended_count: number;
+  rules_version: string;
+  generated_at: string;
+  gates_closed: boolean;
 }
 
 export interface SourceFreshnessRow {
@@ -91,9 +120,32 @@ export function getRegulationReviewQueue() {
   return readJson<{
     cards?: ReviewQueueCard[];
     summary?: ReviewQueueSummary;
+    signal_quality_summary?: SignalQualitySummary;
+    signal_quality_rules_version?: string;
     jurisdiction_states?: JurisdictionReviewState[];
     decision_counts?: Record<string, number>;
   }>("regulation-review-queue.json", { cards: [], summary: undefined });
+}
+
+export function getSignalQualitySummary(): SignalQualitySummary {
+  const queue = getRegulationReviewQueue();
+  if (queue.signal_quality_summary) {
+    return queue.signal_quality_summary as SignalQualitySummary;
+  }
+  return readJson<SignalQualitySummary>("signal-quality-summary.json", {
+    total_candidates: 0,
+    high_relevance_count: 0,
+    medium_relevance_count: 0,
+    low_relevance_count: 0,
+    noise_count: 0,
+    review_now_count: 0,
+    source_check_count: 0,
+    keep_for_monitoring_count: 0,
+    dismiss_recommended_count: 0,
+    rules_version: "unknown",
+    generated_at: "",
+    gates_closed: true,
+  });
 }
 
 export function getReviewQueueCards(): ReviewQueueCard[] {
@@ -157,6 +209,21 @@ export function reviewCardsForJurisdiction(jurisdictionId: string) {
   return getReviewQueueCards().filter((c) => c.jurisdiction_id === jurisdictionId);
 }
 
+export function pendingRelevanceCardsForJurisdiction(jurisdictionId: string) {
+  return reviewCardsForJurisdiction(jurisdictionId).filter(
+    (c) =>
+      (c.ai_regulation_relevance === "high" || c.ai_regulation_relevance === "medium") &&
+      c.review_status !== "dismissed" &&
+      c.review_status !== "accepted_for_tracking",
+  );
+}
+
+export function noiseCardsForJurisdiction(jurisdictionId: string) {
+  return reviewCardsForJurisdiction(jurisdictionId).filter(
+    (c) => c.ai_regulation_relevance === "noise" || c.recommended_operator_action === "dismiss_as_noise",
+  );
+}
+
 export function acceptedTrackingCardsForJurisdiction(jurisdictionId: string) {
   return reviewCardsForJurisdiction(jurisdictionId).filter(
     (c) => c.review_status === "accepted_for_tracking",
@@ -168,6 +235,34 @@ export function sourceFreshnessForJurisdiction(jurisdictionId: string) {
     s.jurisdiction_ids?.includes(jurisdictionId),
   );
 }
+
+export const RELEVANCE_LABELS: Record<string, string> = {
+  high: "High AI-regulation relevance",
+  medium: "Medium relevance",
+  low: "Low relevance",
+  noise: "Noise / low signal",
+};
+
+export const SIGNAL_CATEGORY_LABELS: Record<string, string> = {
+  binding_law_or_regulation: "Binding law / regulation",
+  regulator_guidance: "Regulator guidance",
+  enforcement_or_supervisory_action: "Enforcement / supervisory",
+  consultation_or_proposal: "Consultation / proposal",
+  standards_or_framework: "Standards / framework",
+  official_news: "Official news",
+  generic_privacy_item: "Generic privacy item",
+  newsletter_or_event: "Newsletter / event",
+  duplicate_or_near_duplicate: "Duplicate / near-duplicate",
+  unknown: "Unknown",
+};
+
+export const RECOMMENDED_ACTION_LABELS: Record<string, string> = {
+  review_now: "Review now",
+  source_check: "Source check",
+  keep_for_monitoring: "Keep for monitoring",
+  dismiss_as_noise: "Dismiss as noise",
+  manual_review_later: "Manual review later",
+};
 
 export const REVIEW_STATUS_LABELS: Record<string, string> = {
   review_required: "Review required",

@@ -16,6 +16,10 @@ import {
   operatorDecisionExportFields,
   CLOSED_GATES,
 } from "./lib/review-queue-lib.mjs";
+import {
+  buildSignalQualitySummaryExport,
+  getRulesVersion,
+} from "./lib/signal-quality.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const PUBLIC_DATA = path.join(ROOT, "public/data");
@@ -64,10 +68,14 @@ function main() {
   const summary = summarizeReviewStatuses(cards);
   const decisionCounts = summarizeDecisions(decisions);
 
+  const signalSummary = buildSignalQualitySummaryExport(ROOT, cards);
+
   writeExport("regulation-review-queue.json", {
     cards,
     card_count: cards.length,
     summary,
+    signal_quality_summary: signalSummary,
+    signal_quality_rules_version: getRulesVersion(ROOT),
     decision_counts: decisionCounts,
     jurisdiction_states: jurisdictionStates,
     gates: { ...CLOSED_GATES },
@@ -79,7 +87,15 @@ function main() {
       applied_to_candidates: byCandidate.size,
       cron_enabled: false,
       scheduled_monitoring_enabled: false,
+      signal_quality_rules_file: "data/runtime/signal-quality-rules.yml",
+      signal_quality_rules_version: getRulesVersion(ROOT),
     },
+  });
+
+  writeExport("signal-quality-summary.json", {
+    ...signalSummary,
+    queue_card_count: cards.length,
+    rules_file: "data/runtime/signal-quality-rules.yml",
   });
 
   const publicDecisions = decisions
@@ -93,6 +109,10 @@ function main() {
       decision_count: decisions.length,
       queue_summary: summary,
       decision_counts: decisionCounts,
+    };
+    tracker.signal_quality = {
+      rules_version: getRulesVersion(ROOT),
+      ...signalSummary,
     };
     tracker.generated_at = new Date().toISOString();
     tracker.product_version = readProjectVersion();

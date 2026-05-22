@@ -21,6 +21,19 @@ function packetMarkdown(card, index) {
     "",
     "> **Not legal advice.** Metadata-only monitoring signal. Human review required before any legal or client use.",
     "",
+    "> **This is a metadata signal, not legal verification.** Signal score and recommendations are deterministic rules only.",
+    "",
+    "## Signal quality (T083)",
+    "",
+    `- **Signal score:** ${card.signal_score ?? "—"} / 100`,
+    `- **AI regulation relevance:** ${card.ai_regulation_relevance ?? "—"}`,
+    `- **Signal category:** ${card.signal_category ?? "—"}`,
+    `- **Recommended operator action:** ${card.recommended_operator_action ?? "—"}`,
+    `- **Reason codes:** ${(card.reason_codes ?? []).join(", ") || "—"}`,
+    card.signal_priority_source === "operator_decision"
+      ? "- **Priority source:** operator decision overrides signal recommendation"
+      : "- **Priority source:** signal score (no operator decision)",
+    "",
     "## Review required",
     "",
     `- **Candidate ID:** \`${card.candidate_id}\``,
@@ -67,15 +80,23 @@ function packetMarkdown(card, index) {
 
 function main() {
   const cards = buildReviewQueueCards(ROOT);
-  const highPriority = cards.filter((c) => c.priority === "high").slice(0, 20);
-  const toWrite = highPriority.length > 0 ? highPriority : cards.slice(0, 10);
+  const sorted = [...cards].sort((a, b) => {
+    const scoreDiff = (b.signal_score ?? 0) - (a.signal_score ?? 0);
+    if (scoreDiff !== 0) return scoreDiff;
+    const pri = { high: 3, medium: 2, low: 1 };
+    return (pri[b.priority] ?? 0) - (pri[a.priority] ?? 0);
+  });
+  const reviewNow = sorted.filter((c) => c.recommended_operator_action === "review_now");
+  const toWrite = (reviewNow.length > 0 ? reviewNow : sorted.filter((c) => c.ai_regulation_relevance === "high"))
+    .slice(0, 20);
+  const finalPackets = toWrite.length > 0 ? toWrite : sorted.slice(0, 10);
 
   for (const dir of [PACKET_DIR, WORK_ITEM_DIR]) {
     fs.mkdirSync(dir, { recursive: true });
   }
 
   const index = [];
-  toWrite.forEach((card, i) => {
+  finalPackets.forEach((card, i) => {
     const slug = `${String(i + 1).padStart(2, "0")}-${card.candidate_id.slice(0, 8)}`;
     const filename = `review-packet-${slug}.md`;
     const body = packetMarkdown(card, i);
@@ -91,6 +112,11 @@ function main() {
       jurisdiction_id: card.jurisdiction_id,
       source_key: card.source_key,
       priority: card.priority,
+      signal_score: card.signal_score ?? null,
+      ai_regulation_relevance: card.ai_regulation_relevance ?? null,
+      signal_category: card.signal_category ?? null,
+      recommended_operator_action: card.recommended_operator_action ?? null,
+      reason_codes: card.reason_codes ?? [],
       review_status: card.review_status,
       operator_decision: card.operator_decision?.decision ?? null,
       operator_decision_id: card.operator_decision?.decision_id ?? null,

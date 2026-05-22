@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-22T15:46:17.986Z",
-  "product_version": "1.0.33",
+  "generated_at": "2026-05-22T16:07:25.418Z",
+  "product_version": "1.0.34",
   "review_required": true,
   "legal_change_claimed": false,
   "public_note": "Backend-derived metadata only. Review required before any legal or client use. Not legal advice.",
@@ -54,7 +54,17 @@
           "public_export_allowed": false
         },
         "tracking_only": null
-      }
+      },
+      "signal_score": 0,
+      "ai_regulation_relevance": "noise",
+      "signal_category": "newsletter_or_event",
+      "recommended_operator_action": "dismiss_as_noise",
+      "reason_codes": [
+        "contains_newsletter"
+      ],
+      "signal_quality_note": "Metadata signal score only — not legal verification. Operator decision overrides automated recommendation.",
+      "rules_version": "1.0.0",
+      "signal_priority_source": "operator_decision"
     },
     {
       "candidate_id": "0acd5186-d69d-4144-a65e-570f98a89095",
@@ -105,7 +115,18 @@
           "public_export_allowed": false
         },
         "tracking_only": null
-      }
+      },
+      "signal_score": 64,
+      "ai_regulation_relevance": "medium",
+      "signal_category": "regulator_guidance",
+      "recommended_operator_action": "source_check",
+      "reason_codes": [
+        "contains_ai_act",
+        "contains_artificial_intelligence"
+      ],
+      "signal_quality_note": "Metadata signal score only — not legal verification. Operator decision overrides automated recommendation.",
+      "rules_version": "1.0.0",
+      "signal_priority_source": "operator_decision"
     },
     {
       "candidate_id": "1d4af0cb-f2c1-47e4-89c3-62bac95145f5",
@@ -156,7 +177,19 @@
           "public_export_allowed": false
         },
         "tracking_only": "Tracking only — not legal verification. Gates remain closed."
-      }
+      },
+      "signal_score": 36,
+      "ai_regulation_relevance": "low",
+      "signal_category": "regulator_guidance",
+      "recommended_operator_action": "manual_review_later",
+      "reason_codes": [
+        "contains_consultation",
+        "contains_opinion",
+        "non_ai_cybersecurity_signal"
+      ],
+      "signal_quality_note": "Metadata signal score only — not legal verification. Operator decision overrides automated recommendation.",
+      "rules_version": "1.0.0",
+      "signal_priority_source": "operator_decision"
     },
     {
       "candidate_id": "5931782b-148c-47ed-bf7a-a202c909d660",
@@ -173,7 +206,7 @@
       "title": "High-Level Debate: “From Omnibus to Opportunity: Driving Data Protection and Innovation”",
       "metadata_summary": "New metadata item detected: High-Level Debate: “From Omnibus to Opportunity: Driving Data Protection and Innovation”",
       "review_status": "review_required",
-      "priority": "high",
+      "priority": "low",
       "safety_notes": "Metadata-only backend signal. Not verified on source. Not legal advice. Gates closed.",
       "gates": {
         "verified_on_source": false,
@@ -186,7 +219,19 @@
       },
       "review_required": true,
       "legal_change_claimed": false,
-      "operator_decision": null
+      "operator_decision": null,
+      "signal_score": 0,
+      "ai_regulation_relevance": "noise",
+      "signal_category": "newsletter_or_event",
+      "recommended_operator_action": "dismiss_as_noise",
+      "reason_codes": [
+        "privacy_only_signal",
+        "contains_event",
+        "weak_ai_signal"
+      ],
+      "signal_quality_note": "Metadata signal score only — not legal verification. Operator decision overrides automated recommendation.",
+      "rules_version": "1.0.0",
+      "signal_priority_source": "signal_score"
     },
     {
       "candidate_id": "6d7b8666-8c0a-4fdf-9c0e-2918b7309540",
@@ -203,7 +248,7 @@
       "title": "New episode is out!",
       "metadata_summary": "New metadata item detected: New episode is out!",
       "review_status": "review_required",
-      "priority": "high",
+      "priority": "low",
       "safety_notes": "Metadata-only backend signal. Not verified on source. Not legal advice. Gates closed.",
       "gates": {
         "verified_on_source": false,
@@ -216,7 +261,17 @@
       },
       "review_required": true,
       "legal_change_claimed": false,
-      "operator_decision": null
+      "operator_decision": null,
+      "signal_score": 0,
+      "ai_regulation_relevance": "noise",
+      "signal_category": "newsletter_or_event",
+      "recommended_operator_action": "dismiss_as_noise",
+      "reason_codes": [
+        "contains_event"
+      ],
+      "signal_quality_note": "Metadata signal score only — not legal verification. Operator decision overrides automated recommendation.",
+      "rules_version": "1.0.0",
+      "signal_priority_source": "signal_score"
     },
     {
       "candidate_id": "45cdb32e-551e-432a-b5b5-262de951d143",
@@ -233,7 +288,7 @@
       "title": "New blog post: Prior consultations, zero surprises",
       "metadata_summary": "New metadata item detected: New blog post: Prior consultations, zero surprises",
       "review_status": "review_required",
-      "priority": "high",
+      "priority": "low",
       "safety_notes": "Metadata-only backend signal. Not verified on source. Not legal advice. Gates closed.",
       "gates": {
         "verified_on_source": false,
@@ -246,7 +301,18 @@
       },
       "review_required": true,
       "legal_change_claimed": false,
-      "operator_decision": null
+      "operator_decision": null,
+      "signal_score": 6,
+      "ai_regulation_relevance": "noise",
+      "signal_category": "consultation_or_proposal",
+      "recommended_operator_action": "dismiss_as_noise",
+      "reason_codes": [
+        "contains_consultation",
+        "weak_ai_signal"
+      ],
+      "signal_quality_note": "Metadata signal score only — not legal verification. Operator decision overrides automated recommendation.",
+      "rules_version": "1.0.0",
+      "signal_priority_source": "signal_score"
     },
     {
       "candidate_id": "fe933773-8c1f-44b5-b323-d1fe37e82beb",
@@ -297,7 +363,18 @@
           "public_export_allowed": false
         },
         "tracking_only": null
-      }
+      },
+      "signal_score": 0,
+      "ai_regulation_relevance": "noise",
+      "signal_category": "duplicate_or_near_duplicate",
+      "recommended_operator_action": "dismiss_as_noise",
+      "reason_codes": [
+        "contains_newsletter",
+        "duplicate_title"
+      ],
+      "signal_quality_note": "Metadata signal score only — not legal verification. Operator decision overrides automated recommendation.",
+      "rules_version": "1.0.0",
+      "signal_priority_source": "operator_decision"
     },
     {
       "candidate_id": "344ad1e5-70bd-48a8-8ad1-242e9a383873",
@@ -314,7 +391,7 @@
       "title": "New episode of the Newsletter Digest is out",
       "metadata_summary": "New metadata item detected: New episode of the Newsletter Digest is out",
       "review_status": "review_required",
-      "priority": "high",
+      "priority": "low",
       "safety_notes": "Metadata-only backend signal. Not verified on source. Not legal advice. Gates closed.",
       "gates": {
         "verified_on_source": false,
@@ -327,7 +404,18 @@
       },
       "review_required": true,
       "legal_change_claimed": false,
-      "operator_decision": null
+      "operator_decision": null,
+      "signal_score": 0,
+      "ai_regulation_relevance": "noise",
+      "signal_category": "newsletter_or_event",
+      "recommended_operator_action": "dismiss_as_noise",
+      "reason_codes": [
+        "contains_newsletter",
+        "contains_event"
+      ],
+      "signal_quality_note": "Metadata signal score only — not legal verification. Operator decision overrides automated recommendation.",
+      "rules_version": "1.0.0",
+      "signal_priority_source": "signal_score"
     },
     {
       "candidate_id": "f3c52e30-d6d0-4922-9913-4761f1756e76",
@@ -344,7 +432,7 @@
       "title": "EDPS Annual Report 2025: protecting people in a changing digital world",
       "metadata_summary": "New metadata item detected: EDPS Annual Report 2025: protecting people in a changing digital world",
       "review_status": "review_required",
-      "priority": "high",
+      "priority": "low",
       "safety_notes": "Metadata-only backend signal. Not verified on source. Not legal advice. Gates closed.",
       "gates": {
         "verified_on_source": false,
@@ -357,7 +445,17 @@
       },
       "review_required": true,
       "legal_change_claimed": false,
-      "operator_decision": null
+      "operator_decision": null,
+      "signal_score": 0,
+      "ai_regulation_relevance": "noise",
+      "signal_category": "unknown",
+      "recommended_operator_action": "dismiss_as_noise",
+      "reason_codes": [
+        "weak_ai_signal"
+      ],
+      "signal_quality_note": "Metadata signal score only — not legal verification. Operator decision overrides automated recommendation.",
+      "rules_version": "1.0.0",
+      "signal_priority_source": "signal_score"
     },
     {
       "candidate_id": "485fee15-4b55-4692-bb8e-d2a18e5dd530",
@@ -374,7 +472,7 @@
       "title": "Safe and Ethical AI: a big European idea for the world",
       "metadata_summary": "New metadata item detected: Safe and Ethical AI: a big European idea for the world",
       "review_status": "review_required",
-      "priority": "high",
+      "priority": "medium",
       "safety_notes": "Metadata-only backend signal. Not verified on source. Not legal advice. Gates closed.",
       "gates": {
         "verified_on_source": false,
@@ -387,7 +485,17 @@
       },
       "review_required": true,
       "legal_change_claimed": false,
-      "operator_decision": null
+      "operator_decision": null,
+      "signal_score": 36,
+      "ai_regulation_relevance": "low",
+      "signal_category": "official_news",
+      "recommended_operator_action": "manual_review_later",
+      "reason_codes": [
+        "contains_artificial_intelligence"
+      ],
+      "signal_quality_note": "Metadata signal score only — not legal verification. Operator decision overrides automated recommendation.",
+      "rules_version": "1.0.0",
+      "signal_priority_source": "signal_score"
     },
     {
       "candidate_id": "1c37ccf0-2742-499e-b848-57c541c765cb",
@@ -404,7 +512,7 @@
       "title": "Guidelines 1/2026 on processing of personal data for scientific research purposes",
       "metadata_summary": "New metadata item detected: Guidelines 1/2026 on processing of personal data for scientific research purposes",
       "review_status": "review_required",
-      "priority": "high",
+      "priority": "medium",
       "safety_notes": "Metadata-only backend signal. Not verified on source. Not legal advice. Gates closed.",
       "gates": {
         "verified_on_source": false,
@@ -417,7 +525,20 @@
       },
       "review_required": true,
       "legal_change_claimed": false,
-      "operator_decision": null
+      "operator_decision": null,
+      "signal_score": 35,
+      "ai_regulation_relevance": "low",
+      "signal_category": "generic_privacy_item",
+      "recommended_operator_action": "manual_review_later",
+      "reason_codes": [
+        "contains_guidance",
+        "contains_consultation",
+        "privacy_only_signal",
+        "weak_ai_signal"
+      ],
+      "signal_quality_note": "Metadata signal score only — not legal verification. Operator decision overrides automated recommendation.",
+      "rules_version": "1.0.0",
+      "signal_priority_source": "signal_score"
     },
     {
       "candidate_id": "d0ad1600-5fe3-45f3-9c37-143355d1ee94",
@@ -434,7 +555,7 @@
       "title": "Opinion 15/2026 on the Europrivacy certification criteria regarding their approval by the Board as European Data Protection Seal to be used as tool for transfers pursuant to Articles 42 and 46 GDPR",
       "metadata_summary": "New metadata item detected: Opinion 15/2026 on the Europrivacy certification criteria regarding their approval by the Board as European Data Protection Seal to be used as tool for transfers pursuant to Articles 42 and 46 GDPR",
       "review_status": "review_required",
-      "priority": "high",
+      "priority": "medium",
       "safety_notes": "Metadata-only backend signal. Not verified on source. Not legal advice. Gates closed.",
       "gates": {
         "verified_on_source": false,
@@ -447,7 +568,20 @@
       },
       "review_required": true,
       "legal_change_claimed": false,
-      "operator_decision": null
+      "operator_decision": null,
+      "signal_score": 35,
+      "ai_regulation_relevance": "low",
+      "signal_category": "generic_privacy_item",
+      "recommended_operator_action": "manual_review_later",
+      "reason_codes": [
+        "contains_standards",
+        "contains_opinion",
+        "privacy_only_signal",
+        "weak_ai_signal"
+      ],
+      "signal_quality_note": "Metadata signal score only — not legal verification. Operator decision overrides automated recommendation.",
+      "rules_version": "1.0.0",
+      "signal_priority_source": "signal_score"
     },
     {
       "candidate_id": "431e05e6-e8a5-4d47-ab47-b41f1ddbeae1",
@@ -464,7 +598,7 @@
       "title": "EDPB Letter to the European Commission regarding INGO registration requirements",
       "metadata_summary": "New metadata item detected: EDPB Letter to the European Commission regarding INGO registration requirements",
       "review_status": "review_required",
-      "priority": "high",
+      "priority": "low",
       "safety_notes": "Metadata-only backend signal. Not verified on source. Not legal advice. Gates closed.",
       "gates": {
         "verified_on_source": false,
@@ -477,7 +611,17 @@
       },
       "review_required": true,
       "legal_change_claimed": false,
-      "operator_decision": null
+      "operator_decision": null,
+      "signal_score": 27,
+      "ai_regulation_relevance": "low",
+      "signal_category": "regulator_guidance",
+      "recommended_operator_action": "manual_review_later",
+      "reason_codes": [
+        "contains_opinion"
+      ],
+      "signal_quality_note": "Metadata signal score only — not legal verification. Operator decision overrides automated recommendation.",
+      "rules_version": "1.0.0",
+      "signal_priority_source": "signal_score"
     },
     {
       "candidate_id": "c669323d-14d9-452f-816e-cedf6799fece",
@@ -494,7 +638,7 @@
       "title": "Report on the use of SPE external experts in 2025",
       "metadata_summary": "New metadata item detected: Report on the use of SPE external experts in 2025",
       "review_status": "review_required",
-      "priority": "high",
+      "priority": "low",
       "safety_notes": "Metadata-only backend signal. Not verified on source. Not legal advice. Gates closed.",
       "gates": {
         "verified_on_source": false,
@@ -507,7 +651,17 @@
       },
       "review_required": true,
       "legal_change_claimed": false,
-      "operator_decision": null
+      "operator_decision": null,
+      "signal_score": 0,
+      "ai_regulation_relevance": "noise",
+      "signal_category": "unknown",
+      "recommended_operator_action": "dismiss_as_noise",
+      "reason_codes": [
+        "weak_ai_signal"
+      ],
+      "signal_quality_note": "Metadata signal score only — not legal verification. Operator decision overrides automated recommendation.",
+      "rules_version": "1.0.0",
+      "signal_priority_source": "signal_score"
     },
     {
       "candidate_id": "46f913ab-b83f-44f3-84f9-0fd26274a9a6",
@@ -524,7 +678,7 @@
       "title": "Opinion 12/2026 on the draft decision of the Spanish Supervisory Authority regarding the Controller Binding Corporate Rules of the Santander Group",
       "metadata_summary": "New metadata item detected: Opinion 12/2026 on the draft decision of the Spanish Supervisory Authority regarding the Controller Binding Corporate Rules of the Santander Group",
       "review_status": "review_required",
-      "priority": "high",
+      "priority": "low",
       "safety_notes": "Metadata-only backend signal. Not verified on source. Not legal advice. Gates closed.",
       "gates": {
         "verified_on_source": false,
@@ -537,7 +691,19 @@
       },
       "review_required": true,
       "legal_change_claimed": false,
-      "operator_decision": null
+      "operator_decision": null,
+      "signal_score": 31,
+      "ai_regulation_relevance": "low",
+      "signal_category": "generic_privacy_item",
+      "recommended_operator_action": "manual_review_later",
+      "reason_codes": [
+        "contains_opinion",
+        "privacy_only_signal",
+        "weak_ai_signal"
+      ],
+      "signal_quality_note": "Metadata signal score only — not legal verification. Operator decision overrides automated recommendation.",
+      "rules_version": "1.0.0",
+      "signal_priority_source": "signal_score"
     },
     {
       "candidate_id": "bf289319-218b-4fba-b497-91164396122c",
@@ -554,7 +720,7 @@
       "title": "Opinion 10/2026 on the draft decision of the Dutch Supervisory Authority regarding the Controller Binding Corporate Rules of the SLB Group",
       "metadata_summary": "New metadata item detected: Opinion 10/2026 on the draft decision of the Dutch Supervisory Authority regarding the Controller Binding Corporate Rules of the SLB Group",
       "review_status": "review_required",
-      "priority": "high",
+      "priority": "low",
       "safety_notes": "Metadata-only backend signal. Not verified on source. Not legal advice. Gates closed.",
       "gates": {
         "verified_on_source": false,
@@ -567,7 +733,19 @@
       },
       "review_required": true,
       "legal_change_claimed": false,
-      "operator_decision": null
+      "operator_decision": null,
+      "signal_score": 31,
+      "ai_regulation_relevance": "low",
+      "signal_category": "generic_privacy_item",
+      "recommended_operator_action": "manual_review_later",
+      "reason_codes": [
+        "contains_opinion",
+        "privacy_only_signal",
+        "weak_ai_signal"
+      ],
+      "signal_quality_note": "Metadata signal score only — not legal verification. Operator decision overrides automated recommendation.",
+      "rules_version": "1.0.0",
+      "signal_priority_source": "signal_score"
     },
     {
       "candidate_id": "73c0844c-95b6-49bb-bbb2-13b517995391",
@@ -584,7 +762,7 @@
       "title": "Opinion 11/2026 on the draft decision of the Belgian Supervisory Authority regarding the Controller Binding Corporate Rules of the Kuwait Petroleum Group",
       "metadata_summary": "New metadata item detected: Opinion 11/2026 on the draft decision of the Belgian Supervisory Authority regarding the Controller Binding Corporate Rules of the Kuwait Petroleum Group",
       "review_status": "review_required",
-      "priority": "high",
+      "priority": "low",
       "safety_notes": "Metadata-only backend signal. Not verified on source. Not legal advice. Gates closed.",
       "gates": {
         "verified_on_source": false,
@@ -597,7 +775,19 @@
       },
       "review_required": true,
       "legal_change_claimed": false,
-      "operator_decision": null
+      "operator_decision": null,
+      "signal_score": 31,
+      "ai_regulation_relevance": "low",
+      "signal_category": "generic_privacy_item",
+      "recommended_operator_action": "manual_review_later",
+      "reason_codes": [
+        "contains_opinion",
+        "privacy_only_signal",
+        "weak_ai_signal"
+      ],
+      "signal_quality_note": "Metadata signal score only — not legal verification. Operator decision overrides automated recommendation.",
+      "rules_version": "1.0.0",
+      "signal_priority_source": "signal_score"
     },
     {
       "candidate_id": "72f12dc0-50a8-44c1-8f34-6b1324238b1d",
@@ -614,7 +804,7 @@
       "title": "Opinion 9/2026 on the draft decision of the Dutch Supervisory Authority regarding the Controller Binding Corporate Rules of the Jacobs Douwe Egberts Group",
       "metadata_summary": "New metadata item detected: Opinion 9/2026 on the draft decision of the Dutch Supervisory Authority regarding the Controller Binding Corporate Rules of the Jacobs Douwe Egberts Group",
       "review_status": "review_required",
-      "priority": "high",
+      "priority": "low",
       "safety_notes": "Metadata-only backend signal. Not verified on source. Not legal advice. Gates closed.",
       "gates": {
         "verified_on_source": false,
@@ -627,7 +817,19 @@
       },
       "review_required": true,
       "legal_change_claimed": false,
-      "operator_decision": null
+      "operator_decision": null,
+      "signal_score": 31,
+      "ai_regulation_relevance": "low",
+      "signal_category": "generic_privacy_item",
+      "recommended_operator_action": "manual_review_later",
+      "reason_codes": [
+        "contains_opinion",
+        "privacy_only_signal",
+        "weak_ai_signal"
+      ],
+      "signal_quality_note": "Metadata signal score only — not legal verification. Operator decision overrides automated recommendation.",
+      "rules_version": "1.0.0",
+      "signal_priority_source": "signal_score"
     },
     {
       "candidate_id": "3fe3b38c-5465-421f-b9a2-43676844d241",
@@ -644,7 +846,7 @@
       "title": "Coordinated supervisory action on minors under 15 years old processed by Europol as suspects or potential criminals",
       "metadata_summary": "New metadata item detected: Coordinated supervisory action on minors under 15 years old processed by Europol as suspects or potential criminals",
       "review_status": "review_required",
-      "priority": "high",
+      "priority": "low",
       "safety_notes": "Metadata-only backend signal. Not verified on source. Not legal advice. Gates closed.",
       "gates": {
         "verified_on_source": false,
@@ -657,7 +859,17 @@
       },
       "review_required": true,
       "legal_change_claimed": false,
-      "operator_decision": null
+      "operator_decision": null,
+      "signal_score": 33,
+      "ai_regulation_relevance": "low",
+      "signal_category": "enforcement_or_supervisory_action",
+      "recommended_operator_action": "manual_review_later",
+      "reason_codes": [
+        "contains_enforcement"
+      ],
+      "signal_quality_note": "Metadata signal score only — not legal verification. Operator decision overrides automated recommendation.",
+      "rules_version": "1.0.0",
+      "signal_priority_source": "signal_score"
     },
     {
       "candidate_id": "063c0d11-c607-43ae-b8bb-8f40f41e7448",
@@ -674,7 +886,7 @@
       "title": "Opinion 13/2026 on the draft decision of the Office of the Data Protection Ombudsman (FI SA) regarding the approval of the requirement for accreditation of a certification body pursuant to Article 43(3) GDPR",
       "metadata_summary": "New metadata item detected: Opinion 13/2026 on the draft decision of the Office of the Data Protection Ombudsman (FI SA) regarding the approval of the requirement for accreditation of a certification body pursuant to Article 43(3) GDPR",
       "review_status": "review_required",
-      "priority": "high",
+      "priority": "low",
       "safety_notes": "Metadata-only backend signal. Not verified on source. Not legal advice. Gates closed.",
       "gates": {
         "verified_on_source": false,
@@ -687,7 +899,19 @@
       },
       "review_required": true,
       "legal_change_claimed": false,
-      "operator_decision": null
+      "operator_decision": null,
+      "signal_score": 31,
+      "ai_regulation_relevance": "low",
+      "signal_category": "generic_privacy_item",
+      "recommended_operator_action": "manual_review_later",
+      "reason_codes": [
+        "contains_opinion",
+        "privacy_only_signal",
+        "weak_ai_signal"
+      ],
+      "signal_quality_note": "Metadata signal score only — not legal verification. Operator decision overrides automated recommendation.",
+      "rules_version": "1.0.0",
+      "signal_priority_source": "signal_score"
     }
   ],
   "card_count": 20,
@@ -699,11 +923,47 @@
     "accepted_for_tracking": 1,
     "needs_source_check": 1,
     "needs_legal_review": 0,
-    "high_priority": 17,
-    "medium_priority": 2,
-    "low_priority": 1,
-    "with_operator_decision": 4
+    "high_priority": 1,
+    "medium_priority": 5,
+    "low_priority": 14,
+    "with_operator_decision": 4,
+    "high_relevance": 0,
+    "medium_relevance": 1,
+    "low_relevance": 11,
+    "noise_relevance": 8,
+    "dismiss_recommended": 8,
+    "review_now_recommended": 0
   },
+  "signal_quality_summary": {
+    "total_candidates": 20,
+    "high_relevance_count": 0,
+    "medium_relevance_count": 1,
+    "low_relevance_count": 11,
+    "noise_count": 8,
+    "review_now_count": 0,
+    "source_check_count": 1,
+    "keep_for_monitoring_count": 0,
+    "dismiss_recommended_count": 8,
+    "manual_review_later_count": 11,
+    "high_priority_count": 1,
+    "medium_priority_count": 5,
+    "low_priority_count": 14,
+    "rules_version": "1.0.0",
+    "signal_quality_rules_id": "signal-quality-rules-v1",
+    "generated_at": "2026-05-22T16:07:25.414Z",
+    "gates_closed": true,
+    "public_note": "Aggregated signal-quality metadata from deterministic rules. Not legal verification.",
+    "gates": {
+      "verified_on_source": false,
+      "client_use_allowed": false,
+      "client_evidence_allowed": false,
+      "final_evidence_allowed": false,
+      "legal_change_claimed": false,
+      "publication_allowed": false,
+      "public_export_allowed": false
+    }
+  },
+  "signal_quality_rules_version": "1.0.0",
   "decision_counts": {
     "total": 4,
     "keep_review_required": 0,
@@ -717,7 +977,7 @@
     {
       "jurisdiction_id": "eu",
       "pending_review_count": 18,
-      "high_priority_count": 17,
+      "high_priority_count": 1,
       "stale_source_count": 0,
       "fresh_automated_count": 2,
       "manual_review_only_count": 5,
@@ -913,6 +1173,8 @@
     "local_decision_count": 4,
     "applied_to_candidates": 4,
     "cron_enabled": false,
-    "scheduled_monitoring_enabled": false
+    "scheduled_monitoring_enabled": false,
+    "signal_quality_rules_file": "data/runtime/signal-quality-rules.yml",
+    "signal_quality_rules_version": "1.0.0"
   }
 }

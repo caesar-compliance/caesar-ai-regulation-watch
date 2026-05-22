@@ -1,11 +1,11 @@
-# Evidence export candidates — v1.0.31 (generated)
+# Evidence export candidates — v1.0.34 (generated)
 # Not final evidence. Do not write to caesar-ai-evidence. Regenerate: npm run generate:evidence-candidates
 
 evidence_export_candidate_batch_id: evidence-export-candidates-2026-05-20
 generated_at: '2026-05-20'
-pipeline_version: 1.0.31
+pipeline_version: 1.0.34
 legal_safe_note: >-
-  v1.0.31 evidence export candidate batch. Candidates are not final evidence exports. Does not write
+  v1.0.34 evidence export candidate batch. Candidates are not final evidence exports. Does not write
   to caesar-ai-evidence. Not legal advice. No compliance guarantee. No complete regulatory coverage
   claim. Human review required before any client use. client_use_allowed remains false for every
   candidate.

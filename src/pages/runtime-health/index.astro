@@ -10,6 +10,7 @@ import {
   getSourceFreshnessSummary,
   getOperatorReviewSummary,
   getRegulationReviewQueue,
+  getSignalQualitySummary,
 } from "../../lib/regulation-review-queue";
 
 const healthPath = path.join(process.cwd(), "public/data/runtime-db-health.json");
@@ -18,6 +19,16 @@ const reviewSummary = getReviewQueueSummary();
 const freshnessSummary = getSourceFreshnessSummary();
 const operatorSummary = getOperatorReviewSummary();
 const reviewQueue = getRegulationReviewQueue();
+const signalSummary = getSignalQualitySummary();
+const signalRulesPath = path.join(process.cwd(), "data/runtime/signal-quality-rules.yml");
+let signalRulesValid = false;
+let signalRulesError: string | null = null;
+try {
+  yaml.load(fs.readFileSync(signalRulesPath, "utf8"));
+  signalRulesValid = true;
+} catch (e) {
+  signalRulesError = e instanceof Error ? e.message : "invalid YAML";
+}
 const decisionsPath = path.join(process.cwd(), "data/runtime/operator-review-decisions.yml");
 const packetsPath = path.join(process.cwd(), "public/data/review-packets-index.json");
 const runtimePath = path.join(process.cwd(), "data/runtime/automation-runtime.yml");
@@ -142,6 +153,33 @@ const presentTables = (health?.expected_tables_present as string[]) ?? [];
     <p>
       Decisions file: <code>data/runtime/operator-review-decisions.yml</code> · Guide:{" "}
       <code>docs/OPERATOR_REVIEW_WORKFLOW.md</code>
+    </p>
+  </section>
+
+  <section>
+    <h2>Signal quality (T083)</h2>
+    <dl class="meta-grid">
+      <div>
+        <dt>signal_rules_file</dt>
+        <dd>
+          {signalRulesValid ? (
+            <strong>valid YAML</strong>
+          ) : (
+            <span class="warn">invalid — {signalRulesError}</span>
+          )}
+        </dd>
+      </div>
+      <div><dt>rules_version</dt><dd><span class="mono">{signalSummary.rules_version ?? "—"}</span></dd></div>
+      <div><dt>validation</dt><dd>validate:signal-quality (build)</dd></div>
+      <div><dt>gates_closed</dt><dd>{signalSummary.gates_closed === true ? "yes" : "no"}</dd></div>
+      <div><dt>high_relevance</dt><dd>{signalSummary.high_relevance_count ?? 0}</dd></div>
+      <div><dt>noise_count</dt><dd>{signalSummary.noise_count ?? 0}</dd></div>
+      <div><dt>dismiss_recommended</dt><dd>{signalSummary.dismiss_recommended_count ?? 0}</dd></div>
+      <div><dt>review_now</dt><dd>{signalSummary.review_now_count ?? 0}</dd></div>
+    </dl>
+    <p>
+      <a href="/data/signal-quality-summary.json">signal-quality-summary.json</a> ·{" "}
+      <code>data/runtime/signal-quality-rules.yml</code>
     </p>
   </section>
 

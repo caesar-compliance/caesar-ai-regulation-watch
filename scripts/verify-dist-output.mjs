@@ -77,6 +77,7 @@ const required = [
   "data/source-freshness.json",
   "data/operator-review-summary.json",
   "data/review-packets-index.json",
+  "data/signal-quality-summary.json",
 ];
 
 const conditionalRequired = [];
@@ -133,9 +134,18 @@ const requiredHtmlChecks = [
     rel: "tracker/index.html",
     mustInclude: [
       PROJECT_VERSION_LABEL,
+      "Signal quality dashboard (T083)",
       "Operator review pipeline (T082)",
       "not legal verification",
       "Coverage dashboard (T080)",
+    ],
+  },
+  {
+    rel: "review-queue/index.html",
+    mustInclude: [
+      PROJECT_VERSION_LABEL,
+      "Signal quality (T083)",
+      "Operator decision overrides signal recommendation",
     ],
   },
   {

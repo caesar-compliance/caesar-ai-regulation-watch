@@ -4,7 +4,7 @@
 
 This roadmap reflects the **full-scale product vision**, delivered in disciplined phases.
 
-**Codebase:** v1.0.33 (T082 operator decision loop). **Live:** v1.0.33 after deploy. **Registry:** 25 official sources (2 automated RSS). **Next:** expand operator decisions beyond pilot sample → optional Supabase `004_review_queue_operator_workflow.sql` → cron only after Control Tower approval.
+**Codebase:** v1.0.34 (T083 signal quality + T082 operator decisions). **Live:** v1.0.34 after deploy. **Registry:** 25 official sources (2 automated RSS). **Next:** expand operator decisions using signal recommendations → optional Supabase `004_review_queue_operator_workflow.sql` → cron only after Control Tower approval.
 
 **Product direction (20 May 2026):** automation-first global AI regulation tracker — see [docs/AUTOMATION_FIRST_MVP_ROADMAP.md](docs/AUTOMATION_FIRST_MVP_ROADMAP.md) and [docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md](docs/AUTOMATION_FIRST_PRODUCT_CHARTER.md). Human review/evidence is optional future assurance, not the first full MVP foundation.
 

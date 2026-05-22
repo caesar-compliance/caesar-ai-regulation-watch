@@ -5,7 +5,7 @@
  */
 const BASE = process.env.LIVE_BASE_URL || "https://regulation-watch.caesar.no";
 const BUST = process.env.LIVE_CACHE_BUST || `T082A-${Date.now()}`;
-const VERSION = process.env.EXPECTED_PRODUCT_VERSION || "1.0.33";
+const VERSION = process.env.EXPECTED_PRODUCT_VERSION || "1.0.34";
 const VERSION_LABEL = `v${VERSION}`;
 
 const ROUTES = [
@@ -30,11 +30,12 @@ const ROUTES = [
     path: "/tracker/",
     mustInclude: [
       VERSION_LABEL,
+      "Signal quality dashboard (T083)",
       "Operator review pipeline (T082)",
       "not legal verification",
       "Coverage dashboard (T080)",
     ],
-    mustExclude: ["v1.0.29", "v1.0.31", "Product tracker dashboard (T080)"],
+    mustExclude: ["v1.0.29", "v1.0.31", "v1.0.33", "Product tracker dashboard (T080)"],
   },
   {
     path: "/map/",
@@ -53,13 +54,18 @@ const ROUTES = [
   },
   {
     path: "/review-queue/",
-    mustInclude: ["Regulation review queue", VERSION_LABEL, "Operator decisions (T082)"],
-    mustExclude: ["v1.0.29", "v1.0.31"],
+    mustInclude: [
+      "Regulation review queue",
+      VERSION_LABEL,
+      "Signal quality (T083)",
+      "Operator decisions (T082)",
+    ],
+    mustExclude: ["v1.0.29", "v1.0.31", "v1.0.33"],
   },
   {
     path: "/runtime-health/",
-    mustInclude: [VERSION_LABEL, "Operator workflow health (T082)"],
-    mustExclude: ["v1.0.29", "v1.0.31"],
+    mustInclude: [VERSION_LABEL, "Signal quality (T083)", "Operator workflow health (T082)"],
+    mustExclude: ["v1.0.29", "v1.0.31", "v1.0.33"],
   },
   {
     path: "/runtime-services/",
@@ -82,7 +88,9 @@ const DATA_ROUTES = [
   "/data/regulation-review-queue.json",
   "/data/source-freshness.json",
   "/data/operator-review-summary.json",
+  "/data/signal-quality-summary.json",
   "/data/review-packets-index.json",
+  "/data/tracker-summary.json",
 ];
 
 const STALE_FOOTER = /\bv1\.0\.(21|29|30|31|32)\b/;

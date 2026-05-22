@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **Status** | v1.0.33 T082 operator decision loop — YAML decisions applied to review queue (4 pilot decisions); T081 freshness + packets; T080 coverage; dev Worker; scheduled monitoring disabled |
+| **Status** | v1.0.34 T083 signal quality — deterministic scoring/prioritization on 20-card queue; T082 operator decisions (4 pilot); T081 freshness + packets; scheduled monitoring disabled |
 | **Automation** | `/automation/` — runtime scaffold; live ingestion disabled ([docs/AUTOMATION_RUNTIME_STRATEGY.md](docs/AUTOMATION_RUNTIME_STRATEGY.md)) |
 | **Hosting** | GitHub Pages — static site (Astro) |
 | **Scope** | AI regulation tracking, country profiles, latest updates, source monitoring, metrics and structured exports |

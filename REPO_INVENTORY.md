@@ -1,6 +1,16 @@
 # Repository Inventory — Caesar AI Regulation Watch
 
-**Last updated:** 22 May 2026 (v1.0.33 T082 operator decision loop + review state publishing)
+**Last updated:** 22 May 2026 (v1.0.34 T083 signal quality + review prioritization)
+
+## T083 — Signal quality and review prioritization
+
+| Path | Role |
+|------|------|
+| **data/runtime/signal-quality-rules.yml** | Deterministic keyword/source scoring rules (`rules_version`) |
+| **scripts/runtime/lib/signal-quality.mjs** | Score cards, dedupe titles, build summary |
+| **scripts/runtime/validate-signal-quality.mjs** | Export/summary consistency validator |
+| **public/data/signal-quality-summary.json** | Aggregated relevance/action counts |
+| **public/scripts/regulation-review-queue-filter.js** | Relevance/category/action filters + noise toggle |
 
 ## T082 — Operator decision loop
 

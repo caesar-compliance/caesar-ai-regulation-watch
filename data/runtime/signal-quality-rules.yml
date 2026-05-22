@@ -1,0 +1,273 @@
+# T083 — Deterministic signal quality rules (metadata only, not legal verification)
+signal_quality_rules_id: signal-quality-rules-v1
+rules_version: "1.0.0"
+updated_at: "2026-05-22"
+
+public_note: >
+  Transparent keyword and source-weight rules for AI-regulation relevance scoring.
+  Not legal advice. Does not verify sources or claim legal change.
+
+priority_thresholds:
+  high_min_score: 65
+  medium_min_score: 35
+  low_max_score: 34
+
+relevance_thresholds:
+  high_min_score: 70
+  medium_min_score: 40
+  low_min_score: 15
+  noise_max_score: 14
+
+dedupe:
+  normalize:
+    - lowercase
+    - strip_html: false
+    - collapse_whitespace: true
+    - remove_punctuation: true
+  duplicate_title_similarity_min: 0.92
+
+keyword_groups:
+  ai_act_high:
+    weight: 28
+    reason_code: contains_ai_act
+    patterns:
+      - "ai act"
+      - "artificial intelligence act"
+      - "regulation (eu) 2024/1689"
+  artificial_intelligence_high:
+    weight: 22
+    reason_code: contains_artificial_intelligence
+    patterns:
+      - "artificial intelligence"
+      - " ai "
+      - "ethical ai"
+      - "trustworthy ai"
+      - "ai governance"
+      - "ai system"
+      - "high-risk ai"
+  foundation_gpa:
+    weight: 20
+    reason_code: contains_foundation_model
+    patterns:
+      - "foundation model"
+      - "general-purpose ai"
+      - "general purpose ai"
+      - "gpa"
+  algorithmic_decision:
+    weight: 18
+    reason_code: contains_algorithmic_decision
+    patterns:
+      - "algorithmic decision"
+      - "automated decision-making"
+      - "automated decision making"
+      - "profiling"
+  regulator_ai_guidance:
+    weight: 16
+    reason_code: contains_guidance
+    patterns:
+      - "guidelines"
+      - "guidance on"
+      - "code of conduct"
+      - "implementing act"
+      - "delegated act"
+  enforcement_supervisory:
+    weight: 14
+    reason_code: contains_enforcement
+    patterns:
+      - "enforcement"
+      - "supervisory action"
+      - "sanction"
+      - "fine"
+      - "investigation"
+  consultation_proposal:
+    weight: 12
+    reason_code: contains_consultation
+    patterns:
+      - "consultation"
+      - "public consultation"
+      - "call for evidence"
+      - "proposal for"
+      - "draft regulation"
+  standards_framework:
+    weight: 10
+    reason_code: contains_standards
+    patterns:
+      - "standard"
+      - "framework"
+      - "certification criteria"
+  opinion_guidance_edpb:
+    weight: 8
+    reason_code: contains_opinion
+    patterns:
+      - "opinion"
+      - "joint opinion"
+      - "letter to"
+  privacy_with_ai:
+    weight: 12
+    reason_code: privacy_mentions_ai
+    patterns:
+      - "privacy"
+      - "gdpr"
+      - "personal data"
+    requires_any:
+      - "artificial intelligence"
+      - " ai "
+      - "automated decision"
+      - "algorithmic"
+  privacy_only:
+    weight: 4
+    reason_code: privacy_only_signal
+    patterns:
+      - "privacy"
+      - "gdpr"
+      - "personal data"
+      - "data protection"
+      - "supervisory authority"
+      - "draft decision"
+  cybersecurity_non_ai:
+    weight: 2
+    reason_code: non_ai_cybersecurity_signal
+    patterns:
+      - "cybersecurity act"
+      - "nis 2"
+      - "nis2"
+      - "network and information"
+
+noise_keyword_groups:
+  newsletter:
+    weight: -35
+    reason_code: contains_newsletter
+    category: newsletter_or_event
+    patterns:
+      - "newsletter"
+      - "newsletter digest"
+      - "latest edps newsletter"
+  event_podcast:
+    weight: -30
+    reason_code: contains_event
+    category: newsletter_or_event
+    patterns:
+      - "podcast"
+      - "episode is out"
+      - "new episode"
+      - "webinar"
+      - "event"
+      - "high-level debate"
+      - "debate:"
+  annual_report_generic:
+    weight: -25
+    reason_code: weak_ai_signal
+    category: official_news
+    patterns:
+      - "annual report"
+      - "report on the use of"
+  blog_generic:
+    weight: -20
+    reason_code: weak_ai_signal
+    patterns:
+      - "blog post"
+      - "prior consultations, zero surprises"
+  duplicate_digest:
+    weight: -40
+    reason_code: duplicate_title
+    category: duplicate_or_near_duplicate
+
+source_weights:
+  edpb-publications-rss:
+    default_relevance_cap: medium
+    weight_adjust: 0
+  edps-news-rss:
+    default_relevance_cap: low
+    weight_adjust: -5
+    noise_bias: true
+  eu-commission-digital-strategy-rss:
+    weight_adjust: 5
+  uk-dsit-ai-rss:
+    weight_adjust: 8
+  france-numerique-ai:
+    weight_adjust: 5
+
+topic_mappings:
+  ai_governance:
+    boost: 8
+    reason_code: topic_ai_governance
+  eu_regulation:
+    boost: 4
+  privacy:
+    boost: 0
+
+category_rules:
+  binding_law_or_regulation:
+    min_score: 75
+    required_reason_codes:
+      - contains_ai_act
+  regulator_guidance:
+    min_score: 55
+    required_reason_codes:
+      - contains_guidance
+      - contains_opinion
+  enforcement_or_supervisory_action:
+    required_reason_codes:
+      - contains_enforcement
+  consultation_or_proposal:
+    required_reason_codes:
+      - contains_consultation
+  standards_or_framework:
+    required_reason_codes:
+      - contains_standards
+  generic_privacy_item:
+    required_reason_codes:
+      - privacy_only_signal
+    max_ai_score: 25
+  newsletter_or_event:
+    required_reason_codes:
+      - contains_newsletter
+      - contains_event
+  duplicate_or_near_duplicate:
+    required_reason_codes:
+      - duplicate_title
+
+recommended_action_rules:
+  review_now:
+    min_score: 65
+    relevance:
+      - high
+      - medium
+    exclude_categories:
+      - newsletter_or_event
+      - duplicate_or_near_duplicate
+      - generic_privacy_item
+  source_check:
+    min_score: 50
+    relevance:
+      - high
+    include_reason_codes:
+      - contains_ai_act
+      - contains_artificial_intelligence
+  keep_for_monitoring:
+    min_score: 35
+    max_score: 64
+    relevance:
+      - medium
+  dismiss_as_noise:
+    max_score: 25
+    relevance:
+      - noise
+    include_categories:
+      - newsletter_or_event
+      - duplicate_or_near_duplicate
+  manual_review_later:
+    default_fallback: true
+    max_score: 39
+    relevance:
+      - low
+
+jurisdiction_mappings:
+  eu:
+    label: European Union
+  uk:
+    label: United Kingdom
+  france:
+    label: France
+  us-federal:
+    label: United States (federal)

@@ -127,6 +127,12 @@ function main() {
 
     for (const card of cards) {
       const ctx = `card ${card.candidate_id}`;
+      if (card.signal_score == null || card.signal_score < 0 || card.signal_score > 100) {
+        errors.push(`${ctx}: signal_score must be 0–100`);
+      }
+      if (!Array.isArray(card.reason_codes) || card.reason_codes.length === 0) {
+        errors.push(`${ctx}: missing reason_codes (run build:review-queue-export)`);
+      }
       if (!card.candidate_id) errors.push(`${ctx}: missing candidate_id`);
       if (!VALID_REVIEW_STATUS.has(card.review_status)) {
         errors.push(`${ctx}: invalid review_status ${card.review_status}`);
