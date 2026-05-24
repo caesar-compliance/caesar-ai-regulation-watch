@@ -1,7 +1,0 @@
-# Latest snapshot pointer for edps
-
-snapshot_id: snap-feed-edps-2026-05-19t215014930
-checked_at: '2026-05-19T21:50:14.930Z'
-watcher_id: watcher-edps-feed
-adapter_id: official_rss_or_feed
-storage_policy: metadata_only_no_body_storage
